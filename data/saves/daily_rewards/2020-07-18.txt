@@ -1,0 +1,13 @@
+StartBig Jugs	144.172.190.51	44d40c39-d89f-4bdb-87e2-a3f6eff90087	04-D4-C4-55-02-B3	EndBig Jugs	
+StartOjamaking	24.117.201.209	f9585047-ed49-48fe-9bcf-96a9718ae09d	3C-95-09-E9-D9-D5	EndOjamaking	
+StartDoombow420	73.104.168.124	10b59728-4f49-430a-a07d-fe1c7c378d94	08-D4-0C-7C-6C-D5	EndDoombow420	
+StartAfkfarley	71.32.81.147	3aaec92e-8696-4332-bbf8-cc94014fef68	7C-5C-F8-89-F6-98	EndAfkfarley	
+StartHippie	109.159.38.186	307b818f-d350-4b6a-a381-6edab225e9b2	E0-2A-82-1F-62-51	EndHippie	
+StartFarley	71.32.81.147	3aaec92e-8696-4332-bbf8-cc94014fef68	7C-5C-F8-89-F6-98	EndFarley	
+StartTherscaper	172.119.168.173	91bc3984-6000-48d6-8d4d-056b1134b8b0	E8-4E-06-6E-D5-F1	EndTherscaper	
+StartIamwrath	68.38.171.95	b78491bb-e0d8-4561-8242-cbd102fd33ec	24-0A-64-C7-BF-93	EndIamwrath	
+StartF	212.106.84.144	7f5dee1b-e579-4dad-9d13-19b234b9eaca	74-DF-BF-1F-BA-68	EndF	
+StartHihixd	213.93.185.56	09ea3c5d-169e-4001-a1c7-86f2c82e4125	D4-5D-64-07-9D-1E	EndHihixd	
+StartHost	213.93.185.56	09ea3c5d-169e-4001-a1c7-86f2c82e4125	D4-5D-64-07-9D-1E	EndHost	
+StartSolo	213.66.48.217	9ed24338-1819-4665-a687-5bf8c9526bd3	90-48-9A-74-3E-ED	EndSolo	
+StartZylphanis	108.240.58.72	5da5828e-2972-4ba2-ae58-539b1eb2fc13	A0-40-A0-72-4C-AF	EndZylphanis	

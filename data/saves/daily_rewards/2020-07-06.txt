@@ -1,0 +1,13 @@
+StartKurt	90.252.179.244	6fede971-769e-4de9-8507-3d74de5f6d67	1C-87-2C-B9-22-9F	EndKurt	
+StartBoot	176.252.73.220	9bb8a34b-f9ee-47de-b3c3-221d6d7706ec	C4-D9-87-DD-97-A3	EndBoot	
+StartBrandarius	173.238.174.98	14cf9154-3702-467c-8141-ba184c7e2cb5	C0-E4-34-1C-6C-BD	EndBrandarius	
+StartEm3	69.248.87.16	8169687f-dc95-4c8f-9e9f-4de12a0b2b96	34-E8-94-D6-CD-AD	EndEm3	
+StartBozzzaa	46.75.80.13	155546b4-3dce-453a-a125-4f68cd574648	30-9C-23-BA-5D-25	EndBozzzaa	
+StartAfk Boot	176.252.73.220	9bb8a34b-f9ee-47de-b3c3-221d6d7706ec	C4-D9-87-DD-97-A3	EndAfk Boot	
+StartZuk	78.150.42.137	1d65e4ba-0723-49b9-9b37-776aacf99711	44-03-2C-42-59-87	EndZuk	
+StartSun	176.252.145.226	2bd85547-3791-420e-88a2-c51d96c849dc	74-40-BB-8E-79-B1	EndSun	
+StartKatrina Law	86.3.49.95	a8a26e70-0d24-48be-93b8-99af5d66c635	1C-BF-CE-D7-CB-91	EndKatrina Law	
+StartSworddog22	98.170.241.151	f30b3dbb-d6bc-4502-afb5-d4f321604d9d	4C-BB-58-8B-A2-61	EndSworddog22	
+StartJackp2	80.192.12.59	8ee9afba-7927-46e1-866f-3aaad3a6c023	00-C2-C6-06-29-67	EndJackp2	
+StartMartijn	31.21.67.71	bbd3e0e7-4dc4-4246-81aa-745a91cfeb9e	40-F0-2F-74-89-9F	EndMartijn	
+StartTony	47.201.24.228	8df8a6d4-388a-44e3-95d5-13768be16731	00-72-63-0E-71-26	EndTony	

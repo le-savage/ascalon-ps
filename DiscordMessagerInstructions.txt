@@ -1,0 +1,3 @@
+Everything send by World.sendMessage(""); the original method in ruse to send global messages will be send to discord.
+to send a global message to the server without sending it to discord you can now use
+World.sendFilteredMessage("") instead.

@@ -1,0 +1,12 @@
+StartMaster	72.186.199.129	2a4f1243-0298-4dac-8394-bdbd2a6580bf	9C-DA-3E-B5-4C-67	EndMaster	
+StartTech	173.216.3.91	6063ac2e-8d8b-4ba4-a264-d99604e61c1e	40-23-43-C7-92-01	EndTech	
+StartArtae	74.76.223.192	e467c993-a15d-4a58-a397-10ccd7d0d6b5	70-85-C2-70-19-AC	EndArtae	
+StartFlub	217.146.82.189	bbeaef90-6cd2-43bb-8d7a-0cd1e84e87a3	00-FF-B0-83-98-5A	EndFlub	
+StartInzayne	213.147.161.197	b80eb699-87b0-4532-b515-03c418d8c51c	70-85-C2-A8-D3-F7	EndInzayne	
+StartMrflipit	82.74.50.32	287c74e2-4322-433f-ba76-4812049a6a9d	44-8A-5B-2E-5B-9D	EndMrflipit	
+StartBozzzaa	89.144.217.6	b80eb699-87b0-4532-b515-03c418d8c51c	70-85-C2-A8-D3-F7	EndBozzzaa	
+StartMachine	80.89.76.23	a8dcc42f-88c1-4218-be39-181192c0c8b9	7C-A7-B0-BE-60-A0	EndMachine	
+StartLewis19	95.147.52.213	45ee1d6b-bb6b-4990-ba00-fe2685fe76da	AC-81-12-7D-1D-4E	EndLewis19	
+StartMartijn	31.21.67.71	bbd3e0e7-4dc4-4246-81aa-745a91cfeb9e	40-F0-2F-74-89-9F	EndMartijn	
+StartBrandarius	173.238.174.98	14cf9154-3702-467c-8141-ba184c7e2cb5	C0-E4-34-1C-6C-BD	EndBrandarius	
+StartBoot	176.252.73.220	9bb8a34b-f9ee-47de-b3c3-221d6d7706ec	C4-D9-87-DD-97-A3	EndBoot	
