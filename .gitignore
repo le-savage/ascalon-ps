@@ -1,2 +1,4 @@
 # Project exclude paths
 /bin/
+/data/saves/characters/
+/data/shops/
