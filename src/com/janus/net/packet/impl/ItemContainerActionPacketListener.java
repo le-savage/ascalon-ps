@@ -128,6 +128,7 @@ public class ItemContainerActionPacketListener implements PacketListener {
                     player.getEquipment().refreshItems();
                     player.getInventory().refreshItems();
                     player.getUpdateFlag().flag(Flag.APPEARANCE);
+                    player.currentWeapon = null;
                 } else {
                     player.getInventory().full();
                 }

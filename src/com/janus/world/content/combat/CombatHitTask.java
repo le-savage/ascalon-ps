@@ -118,6 +118,7 @@ public class CombatHitTask extends Task {
 
 
     public void handleAttack() {
+
         if (attacker.getConstitution() <= 0 || !attacker.isRegistered()) {
             return;
         }
@@ -150,6 +151,9 @@ public class CombatHitTask extends Task {
              */
             if (attacker.isPlayer()) {
                 Player p = (Player) attacker;
+                if(p.currentWeapon != null) {
+                    p.currentWeapon.handleAttack(attacker, victim);
+                }
                 if (damage > 0) {
                     if (p.getLocation() == Location.PEST_CONTROL_GAME) {
                         p.getMinigameAttributes().getPestControlAttributes().incrementDamageDealt(damage);

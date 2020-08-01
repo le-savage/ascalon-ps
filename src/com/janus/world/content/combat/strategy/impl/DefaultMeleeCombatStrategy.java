@@ -62,12 +62,15 @@ public class DefaultMeleeCombatStrategy implements CombatStrategy {
         // Start the performAnimation for this attack.
         startAnimation(entity);
 
-        // Create the combat container for this hook.
+
         if (entity.isPlayer()) {/***CUSTOM MULTIPLE HITS***/
             Player player = (Player) entity;
+            if (player.currentWeapon != null) {
+                player.currentWeapon.handleAttack(entity, victim);
+            }
             if (player.getEquipment().contains(18899)) {//SCYTHE OF VIRTUR
                 player.performGraphic(new Graphic(282, GraphicHeight.HIGH));
-                return new CombatContainer(entity, victim, 3, CombatType.MELEE, true);
+                //return new CombatContainer(entity, victim, 3, CombatType.MELEE, true);
             }
         }
         return new CombatContainer(entity, victim, 1, CombatType.MELEE, true);

@@ -2,8 +2,8 @@ package com.janus.net.packet.impl;
 
 import com.janus.model.Flag;
 import com.janus.model.Item;
-import com.janus.model.Skill;
 import com.janus.model.Locations.Location;
+import com.janus.model.Skill;
 import com.janus.model.container.impl.Equipment;
 import com.janus.model.container.impl.Inventory;
 import com.janus.model.definitions.WeaponAnimations;
@@ -16,6 +16,7 @@ import com.janus.world.content.Sounds;
 import com.janus.world.content.Sounds.Sound;
 import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.weapon.CombatSpecial;
+import com.janus.world.content.combat.weapon.Weapon;
 import com.janus.world.content.minigames.impl.Dueling;
 import com.janus.world.content.minigames.impl.Dueling.DuelRule;
 import com.janus.world.entity.impl.player.Player;
@@ -165,6 +166,8 @@ public class EquipPacketListener implements PacketListener {
 
     public static void resetWeapon(Player player) {
         Item weapon = player.getEquipment().get(Equipment.WEAPON_SLOT);
+
+        player.currentWeapon =  Weapon.getWeaponFromId(weapon.getId());
         WeaponInterfaces.assign(player, weapon);
         WeaponAnimations.assign(player, weapon);
         if (player.getAutocastSpell() != null || player.isAutocast()) {

@@ -40,6 +40,7 @@ import com.janus.world.content.combat.strategy.CombatStrategies;
 import com.janus.world.content.combat.strategy.CombatStrategy;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.FightType;
+import com.janus.world.content.combat.weapon.Weapon;
 import com.janus.world.content.dailyreward.DailyReward;
 import com.janus.world.content.dialogue.Dialogue;
 import com.janus.world.content.grandexchange.GrandExchangeSlot;
@@ -70,7 +71,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Player extends Character {
 
-
+    public Weapon currentWeapon;
     private String mac;
     private String uuid;
 

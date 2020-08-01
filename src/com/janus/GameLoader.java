@@ -17,8 +17,8 @@ import com.janus.world.content.*;
 import com.janus.world.content.clan.ClanChatManager;
 import com.janus.world.content.combat.effect.CombatPoisonEffect.CombatPoisonData;
 import com.janus.world.content.combat.strategy.CombatStrategies;
+import com.janus.world.content.combat.weapon.Weapon;
 import com.janus.world.content.dialogue.DialogueManager;
-import com.janus.world.content.grandexchange.GrandExchangeOffers;
 import com.janus.world.content.pos.PlayerOwnedShopManager;
 import com.janus.world.entity.impl.npc.NPC;
 import mysql.MySQLController;
@@ -134,6 +134,7 @@ public final class GameLoader {
         serviceLoader.execute(() -> ProfileViewing.init());
         serviceLoader.execute(() -> PlayerOwnedShopManager.loadShops());
         serviceLoader.execute(() -> MonsterDrops.initialize());
+        serviceLoader.execute(() -> Weapon.loadWeapons());
         serviceLoader.execute(() -> WildyWyrmEvent.initialize());
 
     }

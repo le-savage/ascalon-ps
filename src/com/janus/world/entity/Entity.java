@@ -157,6 +157,12 @@ public class Entity {
     public boolean isPlayer() {
         return this instanceof Player;
     }
+    public Player getAsPlayer() {
+        return (Player) this;
+    }
+    public NPC getAsMob() {
+        return (NPC) this;
+    }
 
     public boolean isGameObject() {
         return this instanceof GameObject;

@@ -78,7 +78,15 @@ public class CombatContainer {
         this.victim = victim;
         this.combatType = hitType;
         this.checkAccuracy = checkAccuracy;
-        this.hits = prepareHits(hitAmount);
+        if(attacker.isPlayer()) {
+            if(attacker.getAsPlayer().currentWeapon != null) {
+                this.hits = prepareHits(attacker.getAsPlayer().currentWeapon.hitAmount(attacker, victim));
+            } else {
+                this.hits = prepareHits(hitAmount);
+            }
+        } else {
+            this.hits = prepareHits(hitAmount);
+        }
         this.experience = getSkills(hitType);
         this.hitDelay = hitType == CombatType.MELEE ? 0 : hitType == CombatType.RANGED ? 2 : hitType == CombatType.MAGIC || hitType == CombatType.DRAGON_FIRE ? 3 : 1;
     }
