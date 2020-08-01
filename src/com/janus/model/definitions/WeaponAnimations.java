@@ -146,6 +146,19 @@ public final class WeaponAnimations {
                 playerWalkIndex = 1663;
                 playerRunIndex = 1664;
                 break;
+            case 4448:
+                /**
+                 * spec 7512
+                 * attack 7511
+                 * block 7508
+                 * StandIndex = 7508;
+                 * WalkIndex = 7510;
+                 * RunIndex = 7509;
+                 */
+                playerStandIndex = 7508;
+                playerWalkIndex = 7510;
+                playerRunIndex = 7509;
+                break;
             case 10887:
                 playerStandIndex = 5869;
                 playerWalkIndex = 5867;
