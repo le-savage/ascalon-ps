@@ -68,197 +68,158 @@
     "items": [
       {
         "id": 14008,
-        //torva full helm
         "amount": 1000
       },
       {
         "id": 14009,
-        //torva platebody
         "amount": 1000
       },
       {
         "id": 14010,
-        //torva platelegs
         "amount": 1000
       },
       {
         "id": 14014,
-        //virtus mask
         "amount": 1000
       },
       {
         "id": 14015,
-        //virtus top
         "amount": 1000
       },
       {
         "id": 14016,
-        //virtus robe legs
         "amount": 1000
       },
       {
         "id": 14011,
-        //pernix cowl
         "amount": 1000
       },
       {
         "id": 14012,
-        //pernix body
         "amount": 1000
       },
       {
         "id": 14013,
-        //pernix chaps
         "amount": 1000
       },
       {
         "id": 12601,
-        //ring of the gods
         "amount": 1000
       },
       {
         "id": 18782,
-        //dragonkin lamp
         "amount": 1000
       },
       {
         "id": 15272,
-        //rocktail
         "amount": 1000
       },
       {
         "id": 989,
-        //crystal key
         "amount": 1000
       },
       {
         "id": 11718,
-        //armadyl helmet
         "amount": 1000
       },
       {
         "id": 11720,
-        //armadyl platebody
         "amount": 1000
       },
       {
         "id": 11722,
-        //armadyl platelegs
         "amount": 1000
       },
       {
         "id": 11724,
-        //bandos chestplate
         "amount": 1000
       },
       {
         "id": 11726,
-        //bandos tassets
         "amount": 1000
       },
       {
         "id": 13905,
-        //vesta spear
         "amount": 1000
       },
       {
         "id": 13899,
-        //vesta longsword
         "amount": 1000
       },
       {
         "id": 13887,
-        //vesta chainbody
         "amount": 1000
       },
       {
         "id": 13893,
-        //vesta plateskirt
         "amount": 1000
       },
       {
         "id": 13896,
-        //statius full helm
         "amount": 1000
       },
       {
         "id": 13884,
-        //statius platebody
         "amount": 1000
       },
       {
         "id": 13890,
-        //statius plateskirt
         "amount": 1000
       },
       {
         "id": 13932,
-        // zuriel robe top
         "amount": 1000
       },
       {
         "id": 13935,
-        //zuriel robe bottom
         "amount": 1000
       },
       {
         "id": 13938,
-        //zuriel hood
         "amount": 1000
       },
       {
         "id": 20012,
-        //trickster helm
         "amount": 1000
       },
       {
         "id": 20010,
-        //trickster robe
         "amount": 1000
       },
       {
         "id": 20011,
-        //trickster robe legs
         "amount": 1000
       },
       {
         "id": 20020,
-        //trickster gloves
         "amount": 1000
       },
       {
         "id": 20019,
-        //trickster boots
         "amount": 1000
       },
       {
         "id": 13239,
-        //primordial boots
         "amount": 1000
       },
       {
         "id": 12708,
-        //pegasian boots
         "amount": 1000
       },
       {
         "id": 13235,
-        //eternal boots
         "amount": 1000
       },
       {
         "id": 18902,
-        //trident of the swamp
         "amount": 1000
       },
       {
         "id": 20998,
-        //twisted bow
         "amount": 1000
       },
       {
         "id": 18899,
-        //scythe of vitur
         "amount": 1000
       }
     ],
@@ -1672,52 +1633,42 @@
     "items": [
       {
         "id": 1349,
-        //iron axe
         "amount": 1000
       },
       {
         "id": 1353,
-        //steel axe
         "amount": 1000
       },
       {
         "id": 1355,
-        //mithril axe
         "amount": 1000
       },
       {
         "id": 1357,
-        //adamant axe
         "amount": 1000
       },
       {
         "id": 1359,
-        //rune axe
         "amount": 1000
       },
       {
         "id": 6739,
-        //dragon axe
         "amount": 1000
       },
       {
         "id": 590,
-        //tinderbox
         "amount": 1000
       },
       {
         "id": 946,
-        //knife
         "amount": 1000
       },
       {
         "id": 52,
-        //arrow shaft
         "amount": 100000
       },
       {
         "id": 314,
-        //feather
         "amount": 100000
       }
     ],
@@ -3284,7 +3235,7 @@
         "amount": 1000
       },
       {
-        "id": 1050,
+        "id": 1042,
         "amount": 1000
       },
       {
@@ -3296,7 +3247,7 @@
         "amount": 1000
       },
       {
-        "id": 1042,
+        "id": 1050,
         "amount": 1000
       },
 	  {
@@ -3841,172 +3792,138 @@
     "items": [
       {
         "id": 1053,
-        //green h'ween
         "amount": 100
       },
       {
         "id": 1055,
-        //blue h'ween
         "amount": 100
       },
       {
         "id": 1057,
-        //red h'ween
         "amount": 100
       },
       {
         "id": 15426,
-        //candy cane
         "amount": 100
       },
       {
         "id": 1037,
-        //bunny ears
         "amount": 100
       },
       {
         "id": 2639,
-        //tan cavalier
         "amount": 100
       },
       {
         "id": 2641,
-        //dark cavalier
         "amount": 100
       },
       {
         "id": 2643,
-        //black cavalier
         "amount": 100
       },
       {
         "id": 7671,
-        //red boxing gloves
         "amount": 100
       },
       {
         "id": 7673,
-        //blue boxing gloves
         "amount": 100
       },
       {
         "id": 2633,
-        //blue beret
         "amount": 100
       },
       {
         "id": 2635,
-        //black beret
         "amount": 100
       },
       {
         "id": 2637,
-        //white beret
         "amount": 100
       },
       {
         "id": 19706,
-        //investigator's coat
         "amount": 100
       },
       {
         "id": 19707,
-        //investigator's trousers
         "amount": 100
       },
       {
         "id": 19708,
-        //investigator's hat
         "amount": 100
       },
       {
         "id": 2631,
-        //highwayman mask
         "amount": 100
       },
       {
         "id": 9470,
-        //gnome scarf
         "amount": 100
       },
       {
         "id": 10394,
-        //flared trousers
         "amount": 100
       },
       {
         "id": 1837,
-        //desert boots
         "amount": 100
       },
       {
         "id": 19323,
-        //dragon staff
         "amount": 100
       },
       {
         "id": 19327,
-        //bat staff
         "amount": 100
       },
       {
         "id": 19325,
-        //penguin staff
         "amount": 100
       },
       {
         "id": 10836,
-        //silly jester hat
         "amount": 100
       },
       {
         "id": 10837,
-        //silly jester top
         "amount": 100
       },
       {
         "id": 10838,
-        //silly jester tights
         "amount": 100
       },
       {
         "id": 10839,
-        //silly jester boots
         "amount": 100
       },
       {
         "id": 10840,
-        //jester stick
         "amount": 100
       },
       {
         "id": 13357,
-        //pirate hat and eyepatch
         "amount": 100
       },
       {
         "id": 5016,
-        //bone spear
         "amount": 100
       },
       {
         "id": 18744,
-        //guthix halo
         "amount": 100
       },
       {
         "id": 18745,
-        //saradomin halo
         "amount": 100
       },
       {
         "id": 18746,
-        //zamorak halo
         "amount": 100
       },
       {
         "id": 2677,
-        //clue scroll
         "amount": 100
       }
     ],
@@ -4607,182 +4524,146 @@
     "items": [
       {
         "id": 18348,
-        //dungeoneering experience token
         "amount": 1000
       },
       {
         "id": 18337,
-        //bonecrusher
         "amount": 1000
       },
       {
         "id": 18338,
-        //gem bag
         "amount": 1000
       },
       {
         "id": 19675,
-        //herbicide
         "amount": 1000
       },
       {
         "id": 6500,
-        //charming imp
         "amount": 1000
       },
       {
         "id": 19669,
-        //ring of vigour
         "amount": 1000
       },
       {
         "id": 21026,
-        //ring of coins
         "amount": 1000
       },
       {
         "id": 18335,
-        //arcane stream necklace
         "amount": 1000
       },
       {
         "id": 18361,
-        //eagle eye kiteshield
         "amount": 1000
       },
       {
         "id": 18363,
-        //farseer kiteshield
         "amount": 1000
       },
       {
         "id": 18357,
-        //chaotic crossbow
         "amount": 1000
       },
       {
         "id": 18349,
-        //chaotic rapier
         "amount": 1000
       },
       {
         "id": 18353,
-        //chaotic maul
         "amount": 1000
       },
       {
         "id": 18351,
-        //chaotic longsword
         "amount": 1000
       },
       {
         "id": 18355,
-        //chaotic staff
         "amount": 1000
       },
       {
         "id": 18359,
-        //chaotic kiteshield
         "amount": 1000
       },
       {
         "id": 16955,
-        //primal rapier
         "amount": 1000
       },
       {
         "id": 16425,
-        //primal maul
         "amount": 1000
       },
       {
         "id": 16403,
-        //primal longsword
         "amount": 1000
       },
       {
         "id": 17039,
-        //primal warhammer
         "amount": 1000
       },
       {
         "id": 17143,
-        //primal spear
         "amount": 1000
       },
       {
         "id": 16837,
-        //primal dagger
         "amount": 1000
       },
       {
         "id": 16909,
-        //primal 2h
         "amount": 1000
       },
       {
         "id": 16425,
-        //primal maul
         "amount": 1000
       },
       {
         "id": 17259,
-        //primal platebody
         "amount": 1000
       },
       {
         "id": 16689,
-        //primal platelegs
         "amount": 1000
       },
       {
         "id": 16711,
-        //primal full helm
         "amount": 1000
       },
       {
         "id": 17361,
-        //primal kiteshield
         "amount": 1000
       },
       {
         "id": 16359,
-        //primal boots
         "amount": 1000
       },
       {
         "id": 16293,
-        //primal gauntlets
         "amount": 1000
       },
       {
         "id": 17143,
-        //primal spear
         "amount": 1000
       },
       {
         "id": 16403,
-        //primal battleaxe
         "amount": 1000
       },
       {
         "id": 15773,
-        //primal pickaxe
         "amount": 1000
       },
       {
         "id": 16315,
-        //primal pickaxe
         "amount": 1000
       },
       {
         "id": 16837,
-        //primal dagger
         "amount": 1000
       },
       {
         "id": 17039,
-        //primal warhammer
         "amount": 1000
       }
     ],
@@ -5506,91 +5387,95 @@
     "items": [
       {
         "id": 533,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 534,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 437,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 439,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id":441 ,
-        "amount": 1000
+        "amount": 1000000
       },	
 	  {
         "id": 443,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 445,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 448,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 450,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 452,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 1511,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 1521,
-        "amount": 1000
+        "amount": 1000000
       },
       {
         "id": 1519,
-        "amount": 1000
+        "amount": 1000000
       },
       {
         "id": 1517 ,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 1741,
-        "amount": 1000
+        "amount": 1000000
       },
       {
         "id": 1753,
-        "amount": 1000
+        "amount": 1000000
       },
       {
         "id": 1751,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 1747,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 91,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 221,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 95,
-        "amount": 1000
+        "amount": 1000000
       },
 	  {
         "id": 592,
-        "amount": 1000
+        "amount": 1000000
+      },
+      {
+        "id": 7937,
+        "amount": 1000000
       }
     ],
     "currency": 995
