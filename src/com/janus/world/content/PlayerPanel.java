@@ -1,7 +1,6 @@
 package com.janus.world.content;
 
 import com.janus.GameLoader;
-import com.janus.model.definitions.NPCDrops;
 import com.janus.util.Misc;
 import com.janus.world.World;
 import com.janus.world.content.minigames.impl.Nomad;
@@ -28,7 +27,7 @@ public class PlayerPanel {
         player.getPacketSender().sendString(counter++, LINE_START + "@or1@Fountain of Goodwill: @yel@" + (WellOfGoodwill.isActive() ? WellOfGoodwill.getMinutesRemaining() + " mins" : "N/A"));
         player.getPacketSender().sendString(counter++, LINE_START + "@or1@Crashed Star: @yel@" + (ShootingStar.getLocation() != null ? ShootingStar.getLocation().playerPanelFrame : "N/A"));
         player.getPacketSender().sendString(counter++, LINE_START + "@or1@Bonus: @yel@" + GameLoader.getSpecialDay());
-        player.getPacketSender().sendString(counter++, LINE_START + "@or1@Players Online: @yel@" + World.getPlayers().size() + "");
+        player.getPacketSender().sendString(counter++, LINE_START + "@or1@Players Online: @yel@" + (int) (World.getPlayers().size()) + "");
 
         player.getPacketSender().sendString(counter++, "");
 
@@ -52,8 +51,10 @@ public class PlayerPanel {
         player.getPacketSender().sendString(counter++, LINE_START + "@or1@Slayer Points:@yel@ " + player.getPointsHandler().getSlayerPoints());
         player.getPacketSender().sendString(counter++, LINE_START + "@or1@Pk Points:@yel@ " + player.getPointsHandler().getPkPoints());
         player.getPacketSender().sendString(counter++, LINE_START + "@or1@Difficulty:@yel@ " + player.getDifficulty().toString());
+//		player.getPacketSender().sendString(counter++, LINE_START + "@or1@Arena Victories:@yel@ "+player.getDueling());
+//		player.getPacketSender().sendString(counter++, LINE_START + "@or1@Arena Losses:@yel@ "+player.getPointsHandler().getLoyaltyPoints());
 
-        player.getPacketSender().sendString(counter++, LINE_START + "@or1@Drop Rate:@yel@ +" + (NPCDrops.getDroprate(player)) + "%");
+        player.getPacketSender().sendString(counter++, LINE_START + "@or1@Drop Rate:@yel@ +" + ((player.getDifficulty().getDropRateModifier()) + (player.getGameMode().getDropRateModifier())) + "%");
 
         player.getPacketSender().sendString(counter++, "");
 

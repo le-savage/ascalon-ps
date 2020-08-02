@@ -311,7 +311,7 @@ public class NPCDrops {
             if (dropChance == DropChance.ALWAYS) {
                 drop(p, drops.getDropList()[i].getItem(), npc, npcPos, goGlobal);
             } else {
-                if (shouldDrop(dropsReceived, p, dropChance)) {
+                if (shouldDrop(dropsReceived, p, dropChance, ringOfWealth, p.getGameMode(), p.getDifficulty())) {
                     drop(p, drops.getDropList()[i].getItem(), npc, npcPos, goGlobal);
                     dropsReceived[dropChance.ordinal()] = true;
                 }
@@ -321,7 +321,8 @@ public class NPCDrops {
     }
 
 
-    public static boolean shouldDrop(boolean[] b, Player player, DropChance chance) {
+    public static boolean shouldDrop(boolean[] b, Player player, DropChance chance,
+                                     boolean ringOfWealth, GameMode gameMode, Difficulty difficulty) {
         int random = chance.getRandom();
         double drBoost = NPCDrops.getDroprate(player);
         double variable = ((drBoost));
@@ -330,32 +331,47 @@ public class NPCDrops {
         if(Math.toIntExact(Math.round(random)) <= 1)
             return true;
         return Rand.hit(Math.toIntExact(Math.round(random)));
+        /*if (ringOfWealth && random >= 600) {
+            random -= (random / 5);
+        }
+
+            switch (difficulty) {
+                case Easy: // No boost
+                    break;
+                case Medium:
+                    random -= (random / 98); // 2 % boost
+                    break;
+                case Hard:
+                    random -= (random / 95); // 5% boost
+                    break;
+                case Insane:
+                    random -= (random / 90); //10 % boost
+                    break;
+                case Zezima:
+                    random -= (random / 80); // Supposed to be 20% boost
+                    break;
+            }
+            switch (gameMode) {
+                case NORMAL:
+                    break;
+                case IRONMAN:
+                    random -= (random / 95); // 5 % boost
+                    break;
+                case HARDCORE_IRONMAN:
+                    random -= (random / 90); // 10% boost
+                    break;
+            }
+        return !b[chance.ordinal()] && Misc.getRandom(random) == 1; //return true if random between 0 & table value is 1.
+        */
+
     }
-
-
     public static double getDroprate(Player p) {
         double drBoost = 0;
+        drBoost += 5; // this is 5%
         drBoost += p.getGameMode().getDropRateModifier();
         drBoost += p.getDifficulty().getDropRateModifier();
-        if(ringOfCoins(p)) drBoost += 2;
-        if(ringOfWealth(p)) drBoost+= 2;
         return drBoost;
     }
-
-    public static boolean ringOfWealth(Player p) {
-        if (p.getEquipment().getItems()[Equipment.RING_SLOT].getId() == 2572){
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean ringOfCoins(Player p) {
-        if (p.getEquipment().getItems()[Equipment.RING_SLOT].getId() == 21026){
-            return true;
-        }
-        return false;
-    }
-
 
 
     public static void drop(Player player, Item item, NPC npc, Position pos,
