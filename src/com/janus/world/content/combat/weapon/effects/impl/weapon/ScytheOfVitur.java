@@ -49,7 +49,7 @@ public class ScytheOfVitur extends ItemEffect {
         if(hitAmount(attacker, victim) > 1) {
             victim.dealDamage(attacker.getAsPlayer(), new Hit(Misc.random(DesolaceFormulas.calculateMaxMeleeHit(attacker, victim)), Hitmask.RED, CombatIcon.MELEE));
         }
-            targets(attacker, victim).forEach(target -> {
+        targets(attacker, victim).forEach(target -> {
             attacked.getAndIncrement();
             if(attacked.get() >= 3)
                 return;

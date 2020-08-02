@@ -37,7 +37,7 @@ public class Shop extends ItemContainer {
 		super(player);
 		if (stockItems.length > 42)
 			throw new ArrayIndexOutOfBoundsException(
-				"Stock cannot have more than 40 items; check shop[" + id + "]: stockLength: " + stockItems.length);
+					"Stock cannot have more than 40 items; check shop[" + id + "]: stockLength: " + stockItems.length);
 		this.id = id;
 		this.name = name.length() > 0 ? name : "General Store";
 		this.currency = currency;
@@ -107,7 +107,7 @@ public class Shop extends ItemContainer {
 		refreshItems();
 		if (Misc.getMinutesPlayed(getPlayer()) <= 190)
 			getPlayer().getPacketSender()
-				.sendMessage("Note: When selling an item to a store, it loses 15% of its original value.");
+					.sendMessage("Note: When selling an item to a store, it loses 15% of its original value.");
 		return this;
 	}
 
@@ -155,15 +155,15 @@ public class Shop extends ItemContainer {
 		}
 		int finalValue = 0;
 		String finalString = sellingItem ? "" + ItemDefinition.forId(item.getId()).getName() + ": shop will buy for "
-			: "" + ItemDefinition.forId(shopItem.getId()).getName() + " currently costs ";
+				: "" + ItemDefinition.forId(shopItem.getId()).getName() + " currently costs ";
 		if (getCurrency().getId() != -1) {
 			finalValue = ItemDefinition.forId(item.getId()).getValue();
 			String s = currency.getDefinition().getName().toLowerCase().endsWith("s")
-				? currency.getDefinition().getName().toLowerCase()
-				: currency.getDefinition().getName().toLowerCase() + "s";
+					? currency.getDefinition().getName().toLowerCase()
+					: currency.getDefinition().getName().toLowerCase() + "s";
 			/** CUSTOM CURRENCY, CUSTOM SHOP VALUES **/
 			if (id == TOKKUL_EXCHANGE_STORE || id == ENERGY_FRAGMENT_STORE || id == STARDUST_STORE|| id == AGILITY_TICKET_STORE
-				|| id == GRAVEYARD_STORE || id == HOLY_WATER_STORE || id == AFK_STORE) {
+					|| id == GRAVEYARD_STORE || id == HOLY_WATER_STORE || id == AFK_STORE) {
 				Object[] obj = ShopManager.getCustomShopData(id, item.getId());
 				if (obj == null)
 					return;
@@ -239,10 +239,10 @@ public class Shop extends ItemContainer {
 					inventorySpace = true;
 			}
 			if (player.getInventory().getFreeSlots() <= 0
-				&& player.getInventory().getAmount(this.getCurrency().getId()) > 0)
+					&& player.getInventory().getAmount(this.getCurrency().getId()) > 0)
 				inventorySpace = true;
 			if (player.getInventory().getFreeSlots() > 0
-				|| player.getInventory().getAmount(this.getCurrency().getId()) > 0)
+					|| player.getInventory().getAmount(this.getCurrency().getId()) > 0)
 				inventorySpace = true;
 		}
 		int itemValue = 0;
@@ -263,7 +263,7 @@ public class Shop extends ItemContainer {
 		for (int i = amountToSell; i > 0; i--) {
 			itemToSell = new Item(itemId);
 			if (this.full(itemToSell.getId()) || !player.getInventory().contains(itemToSell.getId())
-				|| !player.isShopping())
+					|| !player.isShopping())
 				break;
 			if (!itemToSell.getDefinition().isStackable()) {
 				if (inventorySpace) {
@@ -317,12 +317,12 @@ public class Shop extends ItemContainer {
 		if (this.id == GENERAL_STORE) {
 			if (player.getGameMode() == GameMode.IRONMAN) {
 				player.getPacketSender()
-					.sendMessage("Ironman-players are not allowed to buy items from the general-store.");
+						.sendMessage("Ironman-players are not allowed to buy items from the general-store.");
 				return this;
 			}
 			if (player.getGameMode() == GameMode.HARDCORE_IRONMAN) {
 				player.getPacketSender()
-					.sendMessage("Hardcore-ironman-players are not allowed to buy items from the general-store.");
+						.sendMessage("Hardcore-ironman-players are not allowed to buy items from the general-store.");
 				return this;
 			}
 		}
@@ -332,7 +332,7 @@ public class Shop extends ItemContainer {
 		if (getItems()[slot].getAmount() <= 1 && id != GENERAL_STORE) {
 
 			player.getPacketSender()
-				.sendMessage("The shop can't be 1 items and needs to regenerate some items first..");
+					.sendMessage("The shop can't be 1 items and needs to regenerate some items first..");
 
 		}
 
@@ -356,7 +356,7 @@ public class Shop extends ItemContainer {
 
 		if (amountBuying > 5000) {
 			player.getPacketSender().sendMessage(
-				"You can only buy 5000 " + ItemDefinition.forId(item.getId()).getName() + "s at a time.");
+					"You can only buy 5000 " + ItemDefinition.forId(item.getId()).getName() + "s at a time.");
 			return this;
 		}
 		boolean customShop = getCurrency().getId() == -1;
@@ -371,14 +371,14 @@ public class Shop extends ItemContainer {
 				if (player.getMoneyInPouch() >= value) {
 					playerCurrencyAmount = player.getMoneyInPouchAsInt();
 					if (!(player.getInventory().getFreeSlots() == 0
-						&& player.getInventory().getAmount(currency.getId()) == value)) {
+							&& player.getInventory().getAmount(currency.getId()) == value)) {
 						usePouch = true;
 					}
 				}
 			} else {
 				/** CUSTOM CURRENCY, CUSTOM SHOP VALUES **/
 				if (id == TOKKUL_EXCHANGE_STORE || id == ENERGY_FRAGMENT_STORE || id == STARDUST_STORE || id == AGILITY_TICKET_STORE
-					|| id == GRAVEYARD_STORE || id == HOLY_WATER_STORE || id == AFK_STORE) {
+						|| id == GRAVEYARD_STORE || id == HOLY_WATER_STORE || id == AFK_STORE) {
 					value = (int) ShopManager.getCustomShopData(id, item.getId())[0];
 				}
 			}
@@ -417,9 +417,9 @@ public class Shop extends ItemContainer {
 		}
 		if (playerCurrencyAmount <= 0 || playerCurrencyAmount < value) {
 			player.getPacketSender()
-				.sendMessage("You do not have enough "
-					+ ((currencyName.endsWith("s") ? (currencyName) : (currencyName + "s")))
-					+ " to purchase this item.");
+					.sendMessage("You do not have enough "
+							+ ((currencyName.endsWith("s") ? (currencyName) : (currencyName + "s")))
+							+ " to purchase this item.");
 			return this;
 		}
 		if (id == SKILLCAPE_STORE_1 || id == SKILLCAPE_STORE_2 || id == SKILLCAPE_STORE_3) {
@@ -429,7 +429,7 @@ public class Shop extends ItemContainer {
 					req *= 10;
 				if (req > player.getSkillManager().getMaxLevel(i)) {
 					player.getPacketSender().sendMessage("You need to have at least level 99 in "
-						+ Misc.formatText(Skill.forId(i).toString().toLowerCase()) + " to buy this item.");
+							+ Misc.formatText(Skill.forId(i).toString().toLowerCase()) + " to buy this item.");
 					return this;
 				}
 			}
@@ -454,7 +454,7 @@ public class Shop extends ItemContainer {
 			if (getItems()[slot].getAmount() <= 1 && id != GENERAL_STORE) {
 
 				player.getPacketSender()
-					.sendMessage("The shop can't be below 1 items and needs to regenerate some items first...");
+						.sendMessage("The shop can't be below 1 items and needs to regenerate some items first...");
 				break;
 			}
 			if (!item.getDefinition().isStackable()) {
@@ -575,7 +575,7 @@ public class Shop extends ItemContainer {
 		}
 		if (currency != -1) {
 			if (player.getInventory().getFreeSlots() == 0
-				&& player.getInventory().getAmount(currency) == pricePerItem) {
+					&& player.getInventory().getAmount(currency) == pricePerItem) {
 				return true;
 			}
 		}
@@ -613,7 +613,7 @@ public class Shop extends ItemContainer {
 			player.getPacketSender().sendItemContainer(ShopManager.getShops().get(id), ITEM_CHILD_ID);
 			player.getPacketSender().sendString(NAME_INTERFACE_CHILD_ID, name);
 			if (player.getInputHandling() == null || !(player.getInputHandling() instanceof EnterAmountToSellToShop
-				|| player.getInputHandling() instanceof EnterAmountToBuyFromShop))
+					|| player.getInputHandling() instanceof EnterAmountToBuyFromShop))
 				player.getPacketSender().sendInterfaceSet(INTERFACE_ID, INVENTORY_INTERFACE_ID - 1);
 		}
 		return this;
@@ -675,10 +675,10 @@ public class Shop extends ItemContainer {
 		if (shopId == GENERAL_STORE)
 			return true;
 		if (shopId == DUNGEONEERING_STORE || shopId == BOSS_POINT_STORE || shopId == TRIVIA_STORE
-			|| shopId == DONATOR_STORE_1 || shopId == DONATOR_STORE_2 || shopId == PKING_REWARDS_STORE
-			|| shopId == VOTING_REWARDS_STORE || shopId == RECIPE_FOR_DISASTER_STORE || shopId == HOLY_WATER_STORE
-			|| shopId == ENERGY_FRAGMENT_STORE || shopId == AGILITY_TICKET_STORE || shopId == GRAVEYARD_STORE
-			|| shopId == TOKKUL_EXCHANGE_STORE || shopId == STARDUST_STORE || shopId == SLAYER_STORE || shopId == PRESTIGE_STORE || shopId == AFK_STORE)
+				|| shopId == DONATOR_STORE_1 || shopId == DONATOR_STORE_2 || shopId == PKING_REWARDS_STORE
+				|| shopId == VOTING_REWARDS_STORE || shopId == RECIPE_FOR_DISASTER_STORE || shopId == HOLY_WATER_STORE
+				|| shopId == ENERGY_FRAGMENT_STORE || shopId == AGILITY_TICKET_STORE || shopId == GRAVEYARD_STORE
+				|| shopId == TOKKUL_EXCHANGE_STORE || shopId == STARDUST_STORE || shopId == SLAYER_STORE || shopId == PRESTIGE_STORE || shopId == AFK_STORE)
 			return false;
 		Shop shop = ShopManager.getShops().get(shopId);
 		if (shop != null && shop.getOriginalStock() != null) {
@@ -743,7 +743,7 @@ public class Shop extends ItemContainer {
 					case 15019:
 					case 15020:
 					case 15220:
-					//case 15501:
+						//case 15501:
 					case 11850:
 					case 11856:
 					case 11854:
@@ -994,153 +994,153 @@ public class Shop extends ItemContainer {
 				}
 				return new Object[]{10000, "Holy Waters"};
 			} else if (shop == BOSS_POINT_STORE) {
-					switch (item) {
-						case 21026: //ring of coins
-							return new Object[] { 500, "Boss Points" };
-						case 14008: //torva full helm
-						case 14009: //torva platebody
-						case 14010: //torva platelegs
-						case 14014: //virtus mask
-						case 14015: //virtus robe top
-						case 14016: //virtus robe legs
-						case 14011: //pernix cowl
-						case 14012: //pernix top
-						case 14013:	//pernix chaps
-						case 12601:	//ring of the gods
-							return new Object[] { 3000, "Boss Points" };	
-						case 18782: //dragonkin lamp
-							return new Object[] { 50, "Boss Points" };	
-						case 20998: //twisted bow
-						case 18899:	 //scythe of vigur
-							return new Object[] { 30000, "Boss Points" };
-						case 15272: //rocktail
-						case 989: //crystal key
-							return new Object[] { 10, "Boss Points" };	
-						case 11718: //armadyl helmet
-						case 11720: //armadyl chestplate
-						case 11722: //armadyl chainskirt
-						case 11724: //bandos chestplate
-						case 11726:	//bandos tassets	
-						case 13905: //vesta spear
-						case 13899: //vesta longsword
-						case 13887: //vesta chainbody
-						case 13893: //vesta chainskirt
-						case 13896:	//statius full helm
-						case 13884: //statius platebody
-						case 13890: //statius platelegs
-						case 13932:	 //zuriel robe top
-						case 13935: //zuriel robe bottom
-						case 13938:	//zuriel hood
-						case 20012: //trickster helm
-						case 20010: //trickster robe
-						case 20011: //trickster robe legs
-						case 20020: //trickster gloves
-						case 20019:	//trickster boots
-						case 13239: //primoridial boots
-						case 12708: //pegasian boots
-						case 13235:	//eternal boots
-						case 18902: //trident of the swamp
-							return new Object[] {450, "Boss Points" };				
-						}					
-					return new Object[] { 25000, "Boss Points" };
+				switch (item) {
+					case 21026: //ring of coins
+						return new Object[] { 500, "Boss Points" };
+					case 14008: //torva full helm
+					case 14009: //torva platebody
+					case 14010: //torva platelegs
+					case 14014: //virtus mask
+					case 14015: //virtus robe top
+					case 14016: //virtus robe legs
+					case 14011: //pernix cowl
+					case 14012: //pernix top
+					case 14013:	//pernix chaps
+					case 12601:	//ring of the gods
+						return new Object[] { 3000, "Boss Points" };
+					case 18782: //dragonkin lamp
+						return new Object[] { 50, "Boss Points" };
+					case 20998: //twisted bow
+					case 18899:	 //scythe of vigur
+						return new Object[] { 30000, "Boss Points" };
+					case 15272: //rocktail
+					case 989: //crystal key
+						return new Object[] { 10, "Boss Points" };
+					case 11718: //armadyl helmet
+					case 11720: //armadyl chestplate
+					case 11722: //armadyl chainskirt
+					case 11724: //bandos chestplate
+					case 11726:	//bandos tassets
+					case 13905: //vesta spear
+					case 13899: //vesta longsword
+					case 13887: //vesta chainbody
+					case 13893: //vesta chainskirt
+					case 13896:	//statius full helm
+					case 13884: //statius platebody
+					case 13890: //statius platelegs
+					case 13932:	 //zuriel robe top
+					case 13935: //zuriel robe bottom
+					case 13938:	//zuriel hood
+					case 20012: //trickster helm
+					case 20010: //trickster robe
+					case 20011: //trickster robe legs
+					case 20020: //trickster gloves
+					case 20019:	//trickster boots
+					case 13239: //primoridial boots
+					case 12708: //pegasian boots
+					case 13235:	//eternal boots
+					case 18902: //trident of the swamp
+						return new Object[] {450, "Boss Points" };
+				}
+				return new Object[] { 25000, "Boss Points" };
 			} else if (shop == DONATOR_STORE_1) {
 				switch (item) {
-				case 6830://10$ donation box
-					return new Object[] { 10, "Donation Points" };
-				case 18891://justiciar helm
-				case 18892://justiciar platebody
-				case 18893://justiciar platelegs
-				case 18894://ghrazi rapier
-				case 18898://ring of suffering
-				case 18900://sanguinesti staff
-				case 14008://Torva helm
-				case 14009://Torva Plate
-				case 14010://Torva Legs
-				case 14011://Pernix Helmet
-				case 14012://Pernix Plate
-				case 14013://Pernix Legs
-				case 14014://Virtus Helmet
-				case 14015://Virtus Plate
-				case 14016://Virtus Legs
-					return new Object[] { 50, "Donation Points" };
-				case 16711://primal full helm
-				case 17259://primal platebody
-				case 16689://primal platelegs
-				case 17361://primal kiteshield
-					return new Object [] { 60, "Donation Points"};
-				case 16359://primal boots
-				case 16293://primal gauntlets
-				case 10336://3rd age vambraces	
-					return new Object[] { 20, "Donation Points" };
-				case 10350://3rd age full helm
-				case 10348://3rd age platebody
-				case 10346://3rd age platelegs
-				case 10352://3rd age kiteshield
-				case 10342://3rd age mage hat
-				case 10338://3rd age robe top
-				case 10340://3rd age robe 
-				case 10334://3rd age range coif
-				case 10330://3rd age range top
-				case 10332://3rd age range legs	
-				case 18899://scythe of vigur
-					return new Object[] { 40, "Donation Points" };
-				case 17291://blood necklace
-					return new Object[] { 35, "Donation Points" };
-				case 6832://30$ donation box	
-					return new Object[] { 30, "Donation Points" };
-				case 20998://twisted bow					
-					return new Object[] { 60, "Donation Points" };
-				case 6833://50$ donation box		
-					return new Object[] { 50, "Donation Points" };
-				case 6831://15$ donation box
-					return new Object[] { 15, "Donation Points" };
+					case 6830://10$ donation box
+						return new Object[] { 10, "Donation Points" };
+					case 18891://justiciar helm
+					case 18892://justiciar platebody
+					case 18893://justiciar platelegs
+					case 18894://ghrazi rapier
+					case 18898://ring of suffering
+					case 18900://sanguinesti staff
+					case 14008://Torva helm
+					case 14009://Torva Plate
+					case 14010://Torva Legs
+					case 14011://Pernix Helmet
+					case 14012://Pernix Plate
+					case 14013://Pernix Legs
+					case 14014://Virtus Helmet
+					case 14015://Virtus Plate
+					case 14016://Virtus Legs
+						return new Object[] { 50, "Donation Points" };
+					case 16711://primal full helm
+					case 17259://primal platebody
+					case 16689://primal platelegs
+					case 17361://primal kiteshield
+						return new Object [] { 60, "Donation Points"};
+					case 16359://primal boots
+					case 16293://primal gauntlets
+					case 10336://3rd age vambraces
+						return new Object[] { 20, "Donation Points" };
+					case 10350://3rd age full helm
+					case 10348://3rd age platebody
+					case 10346://3rd age platelegs
+					case 10352://3rd age kiteshield
+					case 10342://3rd age mage hat
+					case 10338://3rd age robe top
+					case 10340://3rd age robe
+					case 10334://3rd age range coif
+					case 10330://3rd age range top
+					case 10332://3rd age range legs
+					case 18899://scythe of vigur
+						return new Object[] { 40, "Donation Points" };
+					case 17291://blood necklace
+						return new Object[] { 35, "Donation Points" };
+					case 6832://30$ donation box
+						return new Object[] { 30, "Donation Points" };
+					case 20998://twisted bow
+						return new Object[] { 60, "Donation Points" };
+					case 6833://50$ donation box
+						return new Object[] { 50, "Donation Points" };
+					case 6831://15$ donation box
+						return new Object[] { 15, "Donation Points" };
 				}
 				return new Object[] { 100, "Donation Points" };
 			} else if (shop == DONATOR_STORE_2) {
 				switch (item) {
-				case 9946://cap and goggles
-				case 9945://bomber cap
-				case 9944://bomber jack
-				case 10732://rubber chicken
-				case 9634://vyrewatch top
-				case 9636://vyrewatch legs
-				case 9638://vyrewatch shoes
-				case 11789://grim reaper hood
-				case 15422://christmas ghost hood	
-				case 15423://christmas ghost top
-				case 15425://christmas ghost bottoms
-				case 981:// disk of returning
-				case 9920://jack lantern mask
-				case 10507://reindeer hat
-				case 19314://3rd age druidic wreath
-				case 9472://gnome goggels
-					return new Object[] { 10, "Donation Points" };
-				case 10374://zamorak coif
-				case 10370://zamorak body
-				case 10368://zamorak vambraces
-				case 10390://saradomin coif
-				case 10386://saradomin body
-				case 10384://saradomin vambraces
-				case 10388://saradomin chaps
-				case 10372://zamorak chaps	
-				case 10362://amulet of glory (t)
-				case 7803://yin yang amulet	
-					return new Object[] { 15, "Donation Points" };
-				case 1038://Red Partyhat
-				case 1040://Yellow Partyhat
-				case 1046://Purple Partyhat
-				case 1042://Blue Partyhat
-				case 1048://White Partyhat
-				case 1044://Green Partyhat
-				case 1050:// santa hat	
-					return new Object[] { 30, "Donation Points" };
-				case 15426://candy cane
-					return new Object[] { 5, "Donation Points" };
+					case 9946://cap and goggles
+					case 9945://bomber cap
+					case 9944://bomber jack
+					case 10732://rubber chicken
+					case 9634://vyrewatch top
+					case 9636://vyrewatch legs
+					case 9638://vyrewatch shoes
+					case 11789://grim reaper hood
+					case 15422://christmas ghost hood
+					case 15423://christmas ghost top
+					case 15425://christmas ghost bottoms
+					case 981:// disk of returning
+					case 9920://jack lantern mask
+					case 10507://reindeer hat
+					case 19314://3rd age druidic wreath
+					case 9472://gnome goggels
+						return new Object[] { 10, "Donation Points" };
+					case 10374://zamorak coif
+					case 10370://zamorak body
+					case 10368://zamorak vambraces
+					case 10390://saradomin coif
+					case 10386://saradomin body
+					case 10384://saradomin vambraces
+					case 10388://saradomin chaps
+					case 10372://zamorak chaps
+					case 10362://amulet of glory (t)
+					case 7803://yin yang amulet
+						return new Object[] { 15, "Donation Points" };
+					case 1038://Red Partyhat
+					case 1040://Yellow Partyhat
+					case 1046://Purple Partyhat
+					case 1042://Blue Partyhat
+					case 1048://White Partyhat
+					case 1044://Green Partyhat
+					case 1050:// santa hat
+						return new Object[] { 30, "Donation Points" };
+					case 15426://candy cane
+						return new Object[] { 5, "Donation Points" };
 
 					//return new Object[] { 45, "Donation Points" };
-				case 14044://Black Partyhat
-				case 14050://Black Santa Hat
-					return new Object[] { 80, "Donation Points" };
+					case 14044://Black Partyhat
+					case 14050://Black Santa Hat
+						return new Object[] { 80, "Donation Points" };
 				}
 				return new Object[]{100, "Donation Points"};
 			} else if (shop == AGILITY_TICKET_STORE) {
@@ -1293,17 +1293,17 @@ public class Shop extends ItemContainer {
 			} else if (shop == DUNGEONEERING_STORE) {
 				switch (item) {
 					//1000,0000 dungeoneering tokens
-				case 17259:
-				case 16689:
-				case 16711:
-				case 17361:
-				case 16034:
-				case 16001:
-				case 16152:
-				case 16359:	
-				case 16293:	
+					case 17259:
+					case 16689:
+					case 16711:
+					case 17361:
+					case 16034:
+					case 16001:
+					case 16152:
+					case 16359:
+					case 16293:
 						return new Object[] { 10000000, "Dungeoneering tokens" };
-						
+
 					//500,000 dungeoneering tokens
 					case 19669: //ring of vigour
 					case 21026: //ring of coins
