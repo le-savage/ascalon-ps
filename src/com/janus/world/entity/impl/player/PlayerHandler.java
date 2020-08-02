@@ -6,6 +6,7 @@ import com.janus.engine.task.impl.*;
 import com.janus.model.*;
 import com.janus.model.container.impl.Bank;
 import com.janus.model.container.impl.Equipment;
+import com.janus.model.definitions.NpcDefinition;
 import com.janus.model.definitions.WeaponAnimations;
 import com.janus.model.definitions.WeaponInterfaces;
 import com.janus.net.PlayerSession;
@@ -206,6 +207,12 @@ public class PlayerHandler {
         }
         PlayerPanel.refreshPanel(player);
         ItemEffect.refreshEffects(player);
+
+        player.getKillsTracker().forEach(entry -> {
+            if(entry.npcId <= 0) {
+                entry.npcId = NpcDefinition.forName(entry.npcName).getId();
+            }
+        });
 
         if (player.getPointsHandler().getAchievementPoints() == 0) {
             Achievements.setPoints(player);

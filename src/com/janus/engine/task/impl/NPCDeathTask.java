@@ -5,7 +5,6 @@ import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
 import com.janus.model.Locations.Location;
 import com.janus.model.PlayerRights;
-import com.janus.model.Position;
 import com.janus.model.definitions.NPCDrops;
 import com.janus.world.World;
 import com.janus.world.content.Achievements;
@@ -90,7 +89,7 @@ public class NPCDeathTask extends Task {
 
                         boolean boss = (npc.getDefaultConstitution() > 2000);
                         if (!Nex.nexMinion(npc.getId()) && npc.getId() != 1158 && !(npc.getId() >= 3493 && npc.getId() <= 3497)) {
-                            KillsTracker.submit(killer, new KillsEntry(npc.getDefinition().getName(), 1, boss));
+                            KillsTracker.submit(killer, new KillsEntry(npc.getDefinition().getId(), 1, boss));
                             if (boss) {
                                 Achievements.doProgress(killer, AchievementData.DEFEAT_500_BOSSES);
                             }

@@ -23,6 +23,24 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class PacketSender {
 
+    public PacketSender sendActiveWidget(int widgetId, boolean active) {
+        PacketBuilder out = new PacketBuilder(210);
+        out.putShort(widgetId);
+        out.putShort(active ? 1: 0);
+        player.getSession().queueMessage(out);
+        return this;
+    }
+    public PacketSender sendNpcOnInterface(int interfaceId, int npcId) {
+        PacketBuilder out = new PacketBuilder(190);
+        out.putShort(interfaceId);
+        out.putShort(npcId);
+        out.putShort(1800);
+        System.out.println("Sent for interface " + interfaceId + " - npc " + npcId);
+        player.getSession().queueMessage(out);
+        return this;
+    }
+
+
     public PacketSender trayMessage(int msgtype, String traymsg) {
         PacketBuilder out = new PacketBuilder(181, PacketType.BYTE);
         out.putShort(msgtype);
