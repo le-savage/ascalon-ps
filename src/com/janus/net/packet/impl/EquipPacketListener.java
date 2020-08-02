@@ -16,7 +16,7 @@ import com.janus.world.content.Sounds;
 import com.janus.world.content.Sounds.Sound;
 import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.weapon.CombatSpecial;
-import com.janus.world.content.combat.weapon.Weapon;
+import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.content.minigames.impl.Dueling;
 import com.janus.world.content.minigames.impl.Dueling.DuelRule;
 import com.janus.world.entity.impl.player.Player;
@@ -154,6 +154,7 @@ public class EquipPacketListener implements PacketListener {
 
                         player.setCastSpell(null);
                         BonusManager.update(player);
+                        ItemEffect.refreshEffects(player);
                         player.getEquipment().refreshItems();
                         player.getInventory().refreshItems();
                         player.getUpdateFlag().flag(Flag.APPEARANCE);
@@ -166,8 +167,6 @@ public class EquipPacketListener implements PacketListener {
 
     public static void resetWeapon(Player player) {
         Item weapon = player.getEquipment().get(Equipment.WEAPON_SLOT);
-
-        player.currentWeapon =  Weapon.getWeaponFromId(weapon.getId());
         WeaponInterfaces.assign(player, weapon);
         WeaponAnimations.assign(player, weapon);
         if (player.getAutocastSpell() != null || player.isAutocast()) {

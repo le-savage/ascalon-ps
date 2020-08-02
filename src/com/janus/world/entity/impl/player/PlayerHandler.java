@@ -10,7 +10,6 @@ import com.janus.model.definitions.WeaponAnimations;
 import com.janus.model.definitions.WeaponInterfaces;
 import com.janus.net.PlayerSession;
 import com.janus.net.SessionState;
-import com.janus.net.packet.impl.EquipPacketListener;
 import com.janus.net.security.ConnectionHandler;
 import com.janus.util.Misc;
 import com.janus.world.World;
@@ -24,6 +23,7 @@ import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.pvp.BountyHunter;
 import com.janus.world.content.combat.range.DwarfMultiCannon;
 import com.janus.world.content.combat.weapon.CombatSpecial;
+import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.content.minigames.impl.Barrows;
 import com.janus.world.content.skill.impl.hunter.Hunter;
 import com.janus.world.content.skill.impl.slayer.Slayer;
@@ -205,7 +205,7 @@ public class PlayerHandler {
             }
         }
         PlayerPanel.refreshPanel(player);
-        EquipPacketListener.resetWeapon(player);
+        ItemEffect.refreshEffects(player);
 
         if (player.getPointsHandler().getAchievementPoints() == 0) {
             Achievements.setPoints(player);

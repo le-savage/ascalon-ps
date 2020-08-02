@@ -5,6 +5,7 @@ import com.janus.model.Hit;
 import com.janus.model.Hitmask;
 import com.janus.util.Misc;
 import com.janus.world.content.combat.weapon.CombatSpecial;
+import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.player.Player;
 
@@ -79,8 +80,8 @@ public class CombatContainer {
         this.combatType = hitType;
         this.checkAccuracy = checkAccuracy;
         if(attacker.isPlayer()) {
-            if(attacker.getAsPlayer().currentWeapon != null) {
-                this.hits = prepareHits(attacker.getAsPlayer().currentWeapon.hitAmount(attacker, victim));
+            if(attacker.getAsPlayer().currentEffects.size() > 0) {
+                this.hits = prepareHits(ItemEffect.highestHitAmount(attacker.getAsPlayer(), attacker, victim));
             } else {
                 this.hits = prepareHits(hitAmount);
             }

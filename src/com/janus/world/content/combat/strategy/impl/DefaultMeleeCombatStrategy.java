@@ -65,9 +65,8 @@ public class DefaultMeleeCombatStrategy implements CombatStrategy {
 
         if (entity.isPlayer()) {/***CUSTOM MULTIPLE HITS***/
             Player player = (Player) entity;
-            if (player.currentWeapon != null) {
-                player.currentWeapon.handleAttack(entity, victim);
-            }
+
+            player.currentEffects.forEach(effect -> effect.handleAttack(entity, victim));
             if (player.getEquipment().contains(18899)) {//SCYTHE OF VIRTUR
                 player.performGraphic(new Graphic(282, GraphicHeight.HIGH));
                 //return new CombatContainer(entity, victim, 3, CombatType.MELEE, true);

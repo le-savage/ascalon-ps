@@ -2,14 +2,7 @@ package com.janus.world.entity.impl;
 
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
-import com.janus.model.Animation;
-import com.janus.model.Direction;
-import com.janus.model.Flag;
-import com.janus.model.Graphic;
-import com.janus.model.Hit;
-import com.janus.model.Position;
-import com.janus.model.RegionInstance;
-import com.janus.model.UpdateFlag;
+import com.janus.model.*;
 import com.janus.model.Locations.Location;
 import com.janus.model.movement.MovementQueue;
 import com.janus.util.Stopwatch;
@@ -18,6 +11,7 @@ import com.janus.world.content.combat.CombatType;
 import com.janus.world.content.combat.magic.CombatSpell;
 import com.janus.world.content.combat.strategy.CombatStrategy;
 import com.janus.world.entity.Entity;
+import com.janus.world.entity.impl.player.Player;
 
 /**
  * A player or NPC
@@ -134,6 +128,22 @@ public abstract class Character extends Entity {
         }
         if (getConstitution() <= 0)
             return;
+        primaryHit = decrementHealth(hit);
+        getUpdateFlag().flag(Flag.SINGLE_HIT);
+    }
+    public void dealDamage(Player attacker, Hit hit) {
+        if (getUpdateFlag().flagged(Flag.SINGLE_HIT)) {
+            dealSecondaryDamage(hit);
+            return;
+        }
+        if (getConstitution() <= 0)
+            return;
+
+        if (getCombatBuilder().getDamageMap().containsKey(attacker)) {
+            getCombatBuilder().getDamageMap().get(attacker).incrementDamage(hit.getDamage());
+        } else {
+            getCombatBuilder().getDamageMap().put(attacker, new CombatBuilder.CombatDamageCache(hit.getDamage()));
+        }
         primaryHit = decrementHealth(hit);
         getUpdateFlag().flag(Flag.SINGLE_HIT);
     }

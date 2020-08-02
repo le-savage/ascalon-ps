@@ -11,7 +11,6 @@ import com.janus.model.container.impl.Bank.BankSearchAttributes;
 import com.janus.model.definitions.WeaponAnimations;
 import com.janus.model.definitions.WeaponInterfaces;
 import com.janus.model.definitions.WeaponInterfaces.WeaponInterface;
-import com.janus.model.Difficulty;
 import com.janus.model.input.Input;
 import com.janus.net.PlayerSession;
 import com.janus.net.SessionState;
@@ -40,7 +39,7 @@ import com.janus.world.content.combat.strategy.CombatStrategies;
 import com.janus.world.content.combat.strategy.CombatStrategy;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.FightType;
-import com.janus.world.content.combat.weapon.Weapon;
+import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.content.dailyreward.DailyReward;
 import com.janus.world.content.dialogue.Dialogue;
 import com.janus.world.content.grandexchange.GrandExchangeSlot;
@@ -64,14 +63,13 @@ import mysql.impl.FoxSystems.Hiscores;
 
 import java.awt.*;
 import java.net.URI;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class Player extends Character {
-
-    public Weapon currentWeapon;
+    public List<ItemEffect> currentEffects = new ArrayList<>();
     private String mac;
     private String uuid;
 

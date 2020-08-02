@@ -1,4 +1,4 @@
-package com.janus.world.content.combat.weapon.impl;
+package com.janus.world.content.combat.weapon.effects.impl.weapon;
 
 import com.janus.model.CombatIcon;
 import com.janus.model.Hit;
@@ -6,10 +6,10 @@ import com.janus.model.Hitmask;
 import com.janus.model.Locations;
 import com.janus.util.Misc;
 import com.janus.world.World;
+import com.janus.world.content.combat.CombatContainer;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.CombatType;
 import com.janus.world.content.combat.DesolaceFormulas;
-import com.janus.world.content.combat.weapon.Weapon;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -19,23 +19,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ScytheOfVitur extends Weapon {
+public class ScytheOfVitur extends ItemEffect {
     @Override
-    public int weaponId() {
+    public int itemId() {
         return 18899;
     }
 
     @Override
     public int hitAmount(Character attacker, Character victim) {
         int hitAmount = 1;
+        int victims = targets(attacker, victim).size() + 1; //add 1 for the victim themself
         if(victim.getSize() >= 2) {
             hitAmount = 3;
         }
-        int victims = targets(attacker, victim).size();
-        for(int i = victims; i <= 0; i--) {
-            if(hitAmount > 1)
-                hitAmount--;
+        if(victims >= 2) {
+            hitAmount += 1;
+            if(hitAmount > 3)
+                hitAmount = 3;
         }
+        System.out.println("Hit Amount: " + hitAmount + " - victims size " + victims);
         return hitAmount;
     }
 
@@ -43,7 +45,10 @@ public class ScytheOfVitur extends Weapon {
     @Override
     public void handleAttack(Character attacker, Character victim) {
         AtomicInteger attacked = new AtomicInteger();
-        targets(attacker, victim).forEach(target -> {
+        if(hitAmount(attacker, victim) > 1) {
+            victim.dealDamage(attacker.getAsPlayer(), new Hit(Misc.random(DesolaceFormulas.calculateMaxMeleeHit(attacker, victim)), Hitmask.RED, CombatIcon.MELEE));
+        }
+            targets(attacker, victim).forEach(target -> {
             attacked.getAndIncrement();
             if(attacked.get() >= 3)
                 return;
@@ -52,12 +57,17 @@ public class ScytheOfVitur extends Weapon {
             target.getCombatBuilder().attack(attacker);
             for(int i = 1; i <= hitAmount(attacker, victim); i++) {
                 if(CombatFactory.rollAccuracy(attacker, target, CombatType.MELEE)) {
-                    target.dealDamage(new Hit(Misc.random(DesolaceFormulas.calculateMaxMeleeHit(attacker, target)), Hitmask.RED, CombatIcon.MELEE));
+                    target.dealDamage(attacker.getAsPlayer(), new Hit(Misc.random(DesolaceFormulas.calculateMaxMeleeHit(attacker, target)), Hitmask.RED, CombatIcon.MELEE));
                 } else {
-                    target.dealDamage(new Hit(0, Hitmask.RED, CombatIcon.BLOCK));
+                    target.dealDamage(attacker.getAsPlayer(), new Hit(0, Hitmask.RED, CombatIcon.BLOCK));
                 }
             }
         });
+    }
+
+    @Override
+    public void afterAttack(CombatContainer container) {
+
     }
 
     @Override

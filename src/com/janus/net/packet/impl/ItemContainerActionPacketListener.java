@@ -32,6 +32,7 @@ import com.janus.world.content.Trading;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.weapon.CombatSpecial;
+import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.content.grandexchange.GrandExchange;
 import com.janus.world.content.grandexchange.GrandExchangeOffer;
 import com.janus.world.content.minigames.impl.Dueling;
@@ -128,7 +129,7 @@ public class ItemContainerActionPacketListener implements PacketListener {
                     player.getEquipment().refreshItems();
                     player.getInventory().refreshItems();
                     player.getUpdateFlag().flag(Flag.APPEARANCE);
-                    player.currentWeapon = null;
+                    ItemEffect.refreshEffects(player);
                 } else {
                     player.getInventory().full();
                 }
