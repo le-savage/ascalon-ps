@@ -37,7 +37,7 @@ public class ScytheOfVitur extends ItemEffect {
             if(hitAmount > 3)
                 hitAmount = 3;
         }
-        System.out.println("Hit Amount: " + hitAmount + " - victims size " + victims);
+        //System.out.println("Hit Amount: " + hitAmount + " - victims size " + victims);
         return hitAmount;
     }
 

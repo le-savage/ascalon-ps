@@ -1062,16 +1062,16 @@ public class Shop extends ItemContainer {
 				case 14014://Virtus Helmet
 				case 14015://Virtus Plate
 				case 14016://Virtus Legs
-					return new Object[] { 30, "Donation Points" };
+					return new Object[] { 50, "Donation Points" };
 				case 16711://primal full helm
 				case 17259://primal platebody
 				case 16689://primal platelegs
 				case 17361://primal kiteshield
-					return new Object [] { 35, "Donation Points"};
+					return new Object [] { 60, "Donation Points"};
 				case 16359://primal boots
 				case 16293://primal gauntlets
 				case 10336://3rd age vambraces	
-					return new Object[] { 15, "Donation Points" };
+					return new Object[] { 20, "Donation Points" };
 				case 10350://3rd age full helm
 				case 10348://3rd age platebody
 				case 10346://3rd age platelegs
@@ -1082,14 +1082,14 @@ public class Shop extends ItemContainer {
 				case 10334://3rd age range coif
 				case 10330://3rd age range top
 				case 10332://3rd age range legs	
-					return new Object[] { 20, "Donation Points" };
+				case 18899://scythe of vigur
+					return new Object[] { 40, "Donation Points" };
 				case 17291://blood necklace
-					return new Object[] { 25, "Donation Points" };
+					return new Object[] { 35, "Donation Points" };
 				case 6832://30$ donation box	
 					return new Object[] { 30, "Donation Points" };
-				case 20998://twisted bow
-				case 18899://scythe of vigur	
-					return new Object[] { 35, "Donation Points" };
+				case 20998://twisted bow					
+					return new Object[] { 60, "Donation Points" };
 				case 6833://50$ donation box		
 					return new Object[] { 50, "Donation Points" };
 				case 6831://15$ donation box
