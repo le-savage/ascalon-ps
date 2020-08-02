@@ -31,6 +31,7 @@ import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.strategy.CombatStrategies;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.grandexchange.GrandExchangeOffers;
+import com.janus.world.content.kill_log.KillLogInterface;
 import com.janus.world.content.minigames.impl.FreeForAll;
 import com.janus.world.content.skill.SkillManager;
 import com.janus.world.content.transportation.TeleportHandler;
@@ -181,6 +182,9 @@ public class CommandPacketListener implements PacketListener {
 
     private static void playerCommands(final Player player, String[] command, String wholeCommand) {
 
+        if(command[0].equalsIgnoreCase("testt")){
+            KillLogInterface.open(player);
+        }
         if(command[0].equalsIgnoreCase("shop1")){
             ShopManager.getShops().get(54).open(player);
         }

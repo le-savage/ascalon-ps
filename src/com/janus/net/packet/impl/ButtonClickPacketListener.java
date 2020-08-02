@@ -32,6 +32,7 @@ import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.dialogue.DialogueOptions;
 import com.janus.world.content.droppreview.*;
 import com.janus.world.content.grandexchange.GrandExchange;
+import com.janus.world.content.kill_log.KillLogInterface;
 import com.janus.world.content.minigames.impl.Dueling;
 import com.janus.world.content.minigames.impl.Nomad;
 import com.janus.world.content.minigames.impl.PestControl;
@@ -1737,6 +1738,8 @@ public class ButtonClickPacketListener implements PacketListener {
     }
 
     private boolean checkHandlers(Player player, int id) {
+        if(KillLogInterface.handleButton(player, id))
+            return true;
         if (Construction.handleButtonClick(id, player)) {
             return true;
         }
