@@ -635,25 +635,6 @@ public class PacketSender {
             player.setResting(false);
             player.performAnimation(new Animation(11788));
         }
-        /*
-         if(player.getMinigameAttributes().getFishingTrawlerAttributes().isViewingInterface()) {
-         sendClientRightClickRemoval().sendItemsOnInterface(Shop.INTERFACE_ID, new Item[]{new Item(-1)});
-         player.getMinigameAttributes().getFishingTrawlerAttributes().setViewingInterface(false).getRewards().clear();
-         }
-         if(player.getAdvancedSkills().getSummoning().isStoring()) {
-         sendClientRightClickRemoval();
-         player.getAdvancedSkills().getSummoning().setStoring(false);
-         }
-         if(player.isPriceChecking()) {
-         sendClientRightClickRemoval();
-         PriceChecker.closePriceChecker(player);
-         }
-         if(player.getBankSearchingAttribtues().isSearchingBank())
-         BankSearchAttributes.stopSearch(player, false);
-         if(player.isBanking()) {
-         sendClientRightClickRemoval();
-         player.setBanking(false);
-         }*/
         player.setDialogueActionId(-1);
         player.setInterfaceId(-1);
         player.getAppearance().setCanChangeAppearance(false);

@@ -2,7 +2,6 @@ package com.janus.net.packet.impl;
 
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
-import com.janus.engine.task.impl.BonusExperienceTask;
 import com.janus.model.*;
 import com.janus.model.Locations.Location;
 import com.janus.net.packet.Packet;
@@ -121,7 +120,7 @@ public class ItemActionPacketListener implements PacketListener {
         }
 
         if (itemId == DungeoneeringLamp.lampID){
-            DungeoneeringLamp.handleLamp(player,itemId);
+            DungeoneeringLamp.handleLamp(player, itemId);
             return;
         }
 
