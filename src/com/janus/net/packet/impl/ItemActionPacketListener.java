@@ -115,6 +115,16 @@ public class ItemActionPacketListener implements PacketListener {
             return;
         }
 
+        if (itemId == BonusExperienceScroll.scrollID){
+            BonusExperienceScroll.handleScroll(player, itemId);
+            return;
+        }
+
+        if (itemId == DungeoneeringLamp.lampID){
+            DungeoneeringLamp.handleLamp(player,itemId);
+            return;
+        }
+
         switch (itemId) {
 
             case 13663:
@@ -529,16 +539,6 @@ public class ItemActionPacketListener implements PacketListener {
                 player.getInventory().delete(19890, 1);
                 break;
 
-            case 18937:
-                if ((player.getRights().isMember() || player.getRights().isStaff())) {
-                    BonusExperienceTask.addBonusXp(player, 120);
-                }
-                if (player.getDifficulty().highDifficulty() || player.getGameMode() == GameMode.IRONMAN || player.getGameMode() == GameMode.HARDCORE_IRONMAN) {
-                    player.getPacketSender().sendMessage("You're not allowed to use bonus XP scrolls with this game mode or difficulty.");
-                } else BonusExperienceTask.addBonusXp(player, 60);
-                player.getInventory().delete(18937, 1);
-                break;
-
 
             //Clue Scroll
             case 2714:
@@ -713,6 +713,7 @@ public class ItemActionPacketListener implements PacketListener {
                 PlayerPanel.refreshPanel(player);
                 player.getPacketSender().sendMessage("1 pts added. You now have " + player.getPointsHandler().getAfkPoints());
                 break;
+
 
             case 20999://tanzanite helm
                 if (player.getInventory().contains(12282)) {//add tanz to helm

@@ -1332,12 +1332,17 @@ public class DialogueOptions {
                     break;
                 case 70:
                 case 71:
+                    if (player.getDifficulty().highDifficulty() || !player.getGameMode().equals(GameMode.NORMAL)){
+                        player.sendMessage("You can't claim bonus xp scrolls on your difficulty or gamemode!");
+                        player.getPacketSender().sendInterfaceRemoval();
+                        return;
+                    }
                     if (player.getInventory().contains(19670) && player.getClickDelay().elapsed(700)) {
                         final int amt = player.getDialogueActionId() == 70 ? 1 : player.getInventory().getAmount(19670);
                         player.getPacketSender().sendInterfaceRemoval();
                         player.getInventory().delete(19670, amt);
                         player.getPacketSender().sendMessage("You claim the " + (amt > 1 ? "scrolls" : "scroll") + " and receive your reward.");
-                        int minutes = player.getGameMode() == GameMode.NORMAL ? 30 : 5;
+                        int minutes = 30;
                         BonusExperienceTask.addBonusXp(player, minutes * amt);
                         player.getClickDelay().reset();
                     }

@@ -1325,7 +1325,7 @@ public class Shop extends ItemContainer {
 
                     // dungeoneering tokens
                     case 18348: //dungeoneering experience token
-                        return new Object[]{1, "Dungeoneering tokens"};
+                        return new Object[]{500, "Dungeoneering tokens"};
                 }
             } else if (shop == TRIVIA_STORE) {
                 switch (item) {
