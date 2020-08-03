@@ -39,7 +39,7 @@ public class ScytheOfVitur extends ItemEffect {
         }
         System.out.println("Hit Amount: " + hitAmount + " - victims size " + victims);
         return hitAmount;*/
-        return Misc.random(1, 3);
+        return Misc.random(1, 2);
     }
 
 
