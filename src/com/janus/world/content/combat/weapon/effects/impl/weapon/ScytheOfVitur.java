@@ -27,7 +27,7 @@ public class ScytheOfVitur extends ItemEffect {
 
     @Override
     public int hitAmount(Character attacker, Character victim) {
-        int hitAmount = 1;
+        /*int hitAmount = 1;
         int victims = targets(attacker, victim).size() + 1; //add 1 for the victim themself
         if(victim.getSize() >= 2) {
             hitAmount = 3;
@@ -38,7 +38,8 @@ public class ScytheOfVitur extends ItemEffect {
                 hitAmount = 3;
         }
         System.out.println("Hit Amount: " + hitAmount + " - victims size " + victims);
-        return hitAmount;
+        return hitAmount;*/
+        return Misc.random(1, 3);
     }
 
 
