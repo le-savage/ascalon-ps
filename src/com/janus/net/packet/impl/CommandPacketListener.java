@@ -189,7 +189,7 @@ public class CommandPacketListener implements PacketListener {
             ShopManager.getShops().get(54).open(player);
         }
         if(command[0].equalsIgnoreCase("shop2")){
-            ShopManager.getShops().get(55).open(player);
+            ShopManager.getShops().get(57).open(player);
         }
 
 

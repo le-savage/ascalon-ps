@@ -369,10 +369,10 @@
 		}
 	},
 
-	//Gambling lottery
+	//Old Donor Stores
 	{
-		"npc-id": 2998,
-		"face": EAST,
+		"npc-id": 741,
+		"face": WEST,
 		"position": {
 			"x": 2706,
 			"y": 5346,
@@ -1768,7 +1768,7 @@
 			"radius": -1
 		}
 	},
-		
+
 		{
 		"npc-id": 8349,
 		"face": SOUTH,
