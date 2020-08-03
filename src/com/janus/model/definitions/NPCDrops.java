@@ -23,9 +23,7 @@ import com.janus.world.entity.impl.GroundItemManager;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -44,7 +42,7 @@ public class NPCDrops {
 
     public static JsonLoader parseDrops() {
 
-        ItemDropAnnouncer.init();
+        //ItemDropAnnouncer.init();
 
         return new JsonLoader() {
 
@@ -194,33 +192,6 @@ public class NPCDrops {
                     return DropChance.ALWAYS; // 100% <-> 1/1
             }
         }
-		
-		/*public WellChance getWellChance() {
-			switch (chance) {
-			case 1:
-				return WellChance.ALMOST_ALWAYS; // 50% <-> 1/2
-			case 2:
-				return WellChance.VERY_COMMON; // 20% <-> 1/5
-			case 3:
-				return WellChance.COMMON; // 5% <-> 1/20
-			case 4:
-				return WellChance.UNCOMMON; // 2% <-> 1/50
-			case 5:
-				return WellChance.RARE; // 0.5% <-> 1/200
-			case 6:
-				return WellChance.LEGENDARY; // 0.2% <-> 1/500
-			case 7:
-				return WellChance.LEGENDARY_2;
-			case 8:
-				return WellChance.LEGENDARY_3;
-			case 9:
-				return WellChance.LEGENDARY_4;
-			case 10:
-				return WellChance.LEGENDARY_5;
-			default:
-				return WellChance.ALWAYS; // 100% <-> 1/1
-			}
-		}*/
 
         /**
          * Gets the item
@@ -253,21 +224,6 @@ public class NPCDrops {
         }
     }
 
-    public enum WellChance {
-        ALWAYS(0), ALMOST_ALWAYS(2), VERY_COMMON(3), COMMON(8), UNCOMMON(20), NOTTHATRARE(
-                50), RARE(76), LEGENDARY(160), LEGENDARY_2(205), LEGENDARY_3(340), LEGENDARY_4(425), LEGENDARY_5(450);
-
-
-        WellChance(int randomModifier) {
-            this.random = randomModifier;
-        }
-
-        private int random;
-
-        public int getRandom() {
-            return this.random;
-        }
-    }
 
     /**
      * Drops items for a player after killing an npc. A player can max receive
@@ -283,8 +239,6 @@ public class NPCDrops {
         if (drops == null)
             return;
         final boolean goGlobal = p.getPosition().getZ() >= 0 && p.getPosition().getZ() < 4;
-        final boolean maxCape1 = p.getEquipment().get(Equipment.CAPE_SLOT).getId() == 14019;
-        final boolean ringOfWealth = p.getEquipment().get(Equipment.RING_SLOT).getId() == 2572 || p.getEquipment().get(Equipment.RING_SLOT).getId() == 21026;
         Position npcPos = npc.getPosition().copy();
         if (npc.getId() == 2044 || npc.getId() == 2043 || npc.getId() == 2042 || npc.getId() == 2005)
             npcPos = p.getPosition().copy();
@@ -311,7 +265,7 @@ public class NPCDrops {
             if (dropChance == DropChance.ALWAYS) {
                 drop(p, drops.getDropList()[i].getItem(), npc, npcPos, goGlobal);
             } else {
-                if (shouldDrop(dropsReceived, p, dropChance, ringOfWealth, p.getGameMode(), p.getDifficulty())) {
+                if (shouldDrop(dropsReceived, p, dropChance)) {
                     drop(p, drops.getDropList()[i].getItem(), npc, npcPos, goGlobal);
                     dropsReceived[dropChance.ordinal()] = true;
                 }
@@ -321,8 +275,7 @@ public class NPCDrops {
     }
 
 
-    public static boolean shouldDrop(boolean[] b, Player player, DropChance chance,
-                                     boolean ringOfWealth, GameMode gameMode, Difficulty difficulty) {
+    public static boolean shouldDrop(boolean[] b, Player player, DropChance chance) {
         int random = chance.getRandom();
         double drBoost = NPCDrops.getDroprate(player);
         double variable = ((drBoost));
@@ -331,46 +284,24 @@ public class NPCDrops {
         if(Math.toIntExact(Math.round(random)) <= 1)
             return true;
         return Rand.hit(Math.toIntExact(Math.round(random)));
-        /*if (ringOfWealth && random >= 600) {
-            random -= (random / 5);
-        }
-
-            switch (difficulty) {
-                case Easy: // No boost
-                    break;
-                case Medium:
-                    random -= (random / 98); // 2 % boost
-                    break;
-                case Hard:
-                    random -= (random / 95); // 5% boost
-                    break;
-                case Insane:
-                    random -= (random / 90); //10 % boost
-                    break;
-                case Zezima:
-                    random -= (random / 80); // Supposed to be 20% boost
-                    break;
-            }
-            switch (gameMode) {
-                case NORMAL:
-                    break;
-                case IRONMAN:
-                    random -= (random / 95); // 5 % boost
-                    break;
-                case HARDCORE_IRONMAN:
-                    random -= (random / 90); // 10% boost
-                    break;
-            }
-        return !b[chance.ordinal()] && Misc.getRandom(random) == 1; //return true if random between 0 & table value is 1.
-        */
-
     }
+
     public static double getDroprate(Player p) {
         double drBoost = 0;
         drBoost += 5; // this is 5%
         drBoost += p.getGameMode().getDropRateModifier();
         drBoost += p.getDifficulty().getDropRateModifier();
+        if(ringOfWealth(p)) drBoost += 2;
+        if(ringOfCoins(p)) drBoost += 2;
         return drBoost;
+    }
+
+    public static boolean ringOfWealth(Player p) {
+        return (p.getEquipment().get(Equipment.RING_SLOT).getId() == 2572);
+    }
+
+    public static boolean ringOfCoins(Player p) {
+        return (p.getEquipment().get(Equipment.RING_SLOT).getId() == 21026);
     }
 
 
@@ -458,15 +389,11 @@ public class NPCDrops {
             }
         }
 
-        if (ItemDropAnnouncer.announce(itemId)) {
+        if (ItemDropAnnouncer.announce(item)) {
             String itemName = item.getDefinition().getName();
             String itemMessage = Misc.anOrA(itemName) + " " + itemName;
             String npcName = Misc.formatText(npc.getDefinition().getName());
 
-            /*if (player.getRights() == PlayerRights.OWNER) {
-                GroundItemManager.spawnGroundItem(toGive, new GroundItem(item, pos,
-                        toGive.getUsername(), false, 150, goGlobal, 200));
-            }*/
             switch (itemId) {
                 case 14484:
                     itemMessage = "a pair of Dragon Claws";
@@ -574,7 +501,7 @@ public class NPCDrops {
         }
     }
 
-    public static class ItemDropAnnouncer {
+    /*public static class ItemDropAnnouncer {
 
         private static List<Integer> ITEM_LIST;
 
@@ -594,7 +521,17 @@ public class NPCDrops {
         }
 
         public static boolean announce(int item) {
+
             return ITEM_LIST.contains(item);
         }
+    }*/
+
+    public static class ItemDropAnnouncer {
+
+        public static boolean announce(Item item) {
+            return ((item.getDefinition().getValue() > 1000000) || item.getDefinition().getName().contains("pet"));
+        }
+
     }
+
 }

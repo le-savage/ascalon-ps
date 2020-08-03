@@ -55,17 +55,27 @@ public enum SlayerTasks {
     /**
      * Hard tasks
      */
-    MONKEY_GUARD(SlayerMaster.KURADEL, 1459, "Monkey Guards can be found in the Training Teleport", 14000, new Position(2795, 2775)),
-    WATERFIEND(SlayerMaster.KURADEL, 5361, "Waterfiends can be found in the Ancient Cavern.", 13400, new Position(1737, 5353)),
-    ICE_STRYKEWYRM(SlayerMaster.KURADEL, 9463, "Strykewyrms can be found in the Strykewyrm Cavern.", 13877, new Position(2731, 5095)),
-    STEEL_DRAGON(SlayerMaster.KURADEL, 1592, "Steel dragons can be found in Brimhaven Dungeon.", 15600, new Position(2710, 9441)),
+    MONKEY_GUARD(SlayerMaster.KURADEL, 1459, "Monkey Guards can be found in the Training Teleport", 16000, new Position(2795, 2775)),
+    WATERFIEND(SlayerMaster.KURADEL, 5361, "Waterfiends can be found in the Ancient Cavern.", 17400, new Position(1737, 5353)),
+    ICE_STRYKEWYRM(SlayerMaster.KURADEL, 9463, "Strykewyrms can be found in the Strykewyrm Cavern.", 15877, new Position(2731, 5095)),
+    STEEL_DRAGON(SlayerMaster.KURADEL, 1592, "Steel dragons can be found in Brimhaven Dungeon.", 18600, new Position(2710, 9441)),
     MITHRIL_DRAGON(SlayerMaster.KURADEL, 5363, "Mithril Dragons can be found in the Ancient Cavern.", 16000, new Position(1761, 5329, 1)),
     GREEN_BRUTAL_DRAGON(SlayerMaster.KURADEL, 5362, "Green Brutal Dragons can be found in the Ancient Cavern.", 15590, new Position(1767, 5340)),
     SKELETON_WARLORD(SlayerMaster.KURADEL, 6105, "Skeleton Warlords can be found in the Ancient Cavern.", 14400, new Position(1763, 5358)),
     SKELETON_BRUTE(SlayerMaster.KURADEL, 6104, "Skeleton Brutes can be found in the Ancient Cavern.", 14400, new Position(1788, 5335)),
     AVIANSIE(SlayerMaster.KURADEL, 6246, "Aviansies can be found in the Godwars Dungeon.", 14600, new Position(2868, 5268, 2)),
     FROST_DRAGON(SlayerMaster.KURADEL, 51, "Frost Dragons can be found in the deepest of Wilderness.", 22570, new Position(2968, 3902)),
-
+	ANGRY_BARBARIAN_SPIRIT(SlayerMaster.KURADEL, 750, "Angry Barbarian Spirits can be found in the Ancient Cavern", 25000, new Position (1754, 5325)),
+	TZHAAR_XIL2(SlayerMaster.KURADEL, 2605, "TzHaar-Xils can be found in Tzhaar City.", 17000, new Position(2445, 5147)),
+	SLASH_BASH(SlayerMaster.KURADEL, 2060, "Slash Bash can be found using the Boss teleport.", 19000, new Position(2547, 9448)),
+	GREEN_DRAGON2(SlayerMaster.KURADEL, 941, "Green Dragons can be found in western Wilderness.", 12000, new Position(2977, 3615)),
+    BLUE_DRAGON2(SlayerMaster.KURADEL, 55, "Blue Dragons can be found in Taverly Dungeon.", 11000, new Position(2892, 9799)),
+    HELLHOUND2(SlayerMaster.KURADEL, 49, "Hellhounds can be found in Taverly Dungeon.", 14000, new Position(2870, 9848)),
+    BLACK_DEMON2(SlayerMaster.KURADEL, 84, "Black Demons can be found in Edgeville Dungeon.", 8270, new Position(3089, 9967)),
+    BLOODVELD2(SlayerMaster.KURADEL, 1618, "Bloodvelds can be found in Slayer Tower.", 15000, new Position(3418, 3570, 1)),
+    INFERNAL_MAGE2(SlayerMaster.KURADEL, 1643, "Infernal Mages can be found in Slayer Tower.", 13000, new Position(3445, 3579, 1)),
+    ABERRANT_SPECTRE2(SlayerMaster.KURADEL, 1604, "Aberrant Spectres can be found in Slayer Tower.", 14000, new Position(3432, 3553, 1)),
+    NECHRYAEL2(SlayerMaster.KURADEL, 1613, "Nechryaels can be found in Slayer Tower.", 12000, new Position(3448, 3564, 2)),
     /**
      * Elite
      */
@@ -77,12 +87,11 @@ public enum SlayerTasks {
     DAGANNOTH_REX(SlayerMaster.SUMONA, 2883, "The Dagannoth Kings can be found using the Boss teleport.", 26000, new Position(1908, 4367)),
     DAGANNOTH_PRIME(SlayerMaster.SUMONA, 2882, "The Dagannoth Kings can be found using the Boss teleport.", 26000, new Position(1908, 4367)),
     CHAOS_ELEMENTAL(SlayerMaster.SUMONA, 3200, "The Chaos Elemental can be found using the Boss teleport.", 58000, new Position(3285, 3921)),
-    SLASH_BASH(SlayerMaster.SUMONA, 2060, "Slash Bash can be found using the Boss teleport.", 28000, new Position(2547, 9448)),
     KALPHITE_QUEEN(SlayerMaster.SUMONA, 1160, "The Kalphite Queen can be found using the Boss teleport.", 31000, new Position(3476, 9502)),
     PHOENIX(SlayerMaster.SUMONA, 8549, "The Phoenix can be found using the Boss teleport.", 21000, new Position(2839, 9557)),
     CORPOREAL_BEAST(SlayerMaster.SUMONA, 8133, "The Corporeal Beast can be found using the Boss teleport.", 80000, new Position(2885, 4375)),
-    BANDOS_AVATAR(SlayerMaster.SUMONA, 4540, "The Bandos Avatar can be found using the Boss teleport.", 34000, new Position(2891, 4767));;
-
+    BANDOS_AVATAR(SlayerMaster.SUMONA, 4540, "The Bandos Avatar can be found using the Boss teleport.", 34000, new Position(2891, 4767)),
+	CRAZY_MAN(SlayerMaster.SUMONA, 3, "The crazy man can be found using the Boss teleport", 40000, new Position (1959, 4759));
     private SlayerTasks(SlayerMaster taskMaster, int npcId, String npcLocation, int XP, Position taskPosition) {
         this.taskMaster = taskMaster;
         this.npcId = npcId;

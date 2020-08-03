@@ -141,7 +141,7 @@ public class DropLog {
         public DropLogEntry(int item, int amount) {
             this.item = item;
             this.amount = amount;
-            this.rareDrop = ItemDefinition.forId(item).getValue() > 200000 || NPCDrops.ItemDropAnnouncer.announce(item);
+            this.rareDrop = ItemDefinition.forId(item).getValue() > 200000;
         }
 
         public int item;
