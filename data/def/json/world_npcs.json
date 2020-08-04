@@ -369,21 +369,6 @@
 		}
 	},
 
-	//Old Donor Stores
-	{
-		"npc-id": 741,
-		"face": WEST,
-		"position": {
-			"x": 2706,
-			"y": 5346,
-			"z": 0
-		},
-		"walking-policy": {
-			"coordinate": false,
-			"radius": -1
-		}
-	},
-
 	//Pure Store
 	{
 		"npc-id": 1685,

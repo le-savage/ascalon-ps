@@ -390,7 +390,7 @@ public class Shop extends ItemContainer {
                 playerCurrencyAmount = player.getPointsHandler().getVotingPoints();
             } else if (id == DUNGEONEERING_STORE) {
                 playerCurrencyAmount = player.getPointsHandler().getDungeoneeringTokens();
-            } else if (id == DONATOR_STORE_1 || id == DONATOR_STORE_2 || id == DONATOR_STORE_3 || id == LEGACY_DONOR_COSMETICS || id == LEGACY_DONOR_STORE) {
+            } else if (id == DONATOR_STORE_1 || id == DONATOR_STORE_2 || id == DONATOR_STORE_3) {
                 playerCurrencyAmount = player.getPointsHandler().getDonationPoints();
             } else if (id == TRIVIA_STORE) {
                 playerCurrencyAmount = player.getPointsHandler().getTriviaPoints();
@@ -467,7 +467,7 @@ public class Shop extends ItemContainer {
                             player.getPointsHandler().setVotingPoints(-value, true);
                         } else if (id == DUNGEONEERING_STORE) {
                             player.getPointsHandler().setDungeoneeringTokens(-value, true);
-                        } else if (id == DONATOR_STORE_1 || id == DONATOR_STORE_2 || id == DONATOR_STORE_3 || id == LEGACY_DONOR_COSMETICS || id == LEGACY_DONOR_STORE) {
+                        } else if (id == DONATOR_STORE_1 || id == DONATOR_STORE_2 || id == DONATOR_STORE_3) {
                             player.getPointsHandler().setDonationPoints(-value, true);
                         } else if (id == BOSS_POINT_STORE) {
                             player.setBossPoints(player.getBossPoints() - value);
@@ -509,7 +509,7 @@ public class Shop extends ItemContainer {
                             player.getPointsHandler().setVotingPoints(-value * canBeBought, true);
                         } else if (id == DUNGEONEERING_STORE) {
                             player.getPointsHandler().setDungeoneeringTokens(-value * canBeBought, true);
-                        } else if (id == DONATOR_STORE_1 || id == DONATOR_STORE_2 || id == DONATOR_STORE_3 || id == LEGACY_DONOR_COSMETICS || id == LEGACY_DONOR_STORE) {
+                        } else if (id == DONATOR_STORE_1 || id == DONATOR_STORE_2 || id == DONATOR_STORE_3) {
                             player.getPointsHandler().setDonationPoints(-value * canBeBought, true);
                         } else if (id == TRIVIA_STORE) {
                             player.getPointsHandler().setTriviaPoints(-value * canBeBought, true);
@@ -664,8 +664,7 @@ public class Shop extends ItemContainer {
         if (shopId == GENERAL_STORE)
             return true;
         if (shopId == DUNGEONEERING_STORE || shopId == BOSS_POINT_STORE || shopId == TRIVIA_STORE
-                || shopId == DONATOR_STORE_1 || shopId == DONATOR_STORE_2 || shopId == DONATOR_STORE_3 || shopId == LEGACY_DONOR_COSMETICS
-                || shopId == LEGACY_DONOR_STORE || shopId == PKING_REWARDS_STORE
+                || shopId == DONATOR_STORE_1 || shopId == DONATOR_STORE_2 || shopId == DONATOR_STORE_3 || shopId == PKING_REWARDS_STORE
                 || shopId == VOTING_REWARDS_STORE || shopId == RECIPE_FOR_DISASTER_STORE || shopId == HOLY_WATER_STORE
                 || shopId == ENERGY_FRAGMENT_STORE || shopId == AGILITY_TICKET_STORE || shopId == GRAVEYARD_STORE
                 || shopId == TOKKUL_EXCHANGE_STORE || shopId == STARDUST_STORE || shopId == SLAYER_STORE || shopId == PRESTIGE_STORE || shopId == AFK_STORE)
@@ -1018,9 +1017,9 @@ public class Shop extends ItemContainer {
                     case 13896:    //statius full helm
                     case 13884: //statius platebody
                     case 13890: //statius platelegs
-                    case 13932:     //zuriel robe top
-                    case 13935: //zuriel robe bottom
-                    case 13938:    //zuriel hood
+                    case 13861://zuriel robe bottom
+                    case 13858://zuriel robe top 
+                    case 13864://zuriel hood 
                     case 20012: //trickster helm
                     case 20010: //trickster robe
                     case 20011: //trickster robe legs
@@ -1033,10 +1032,43 @@ public class Shop extends ItemContainer {
                         return new Object[]{450, "Boss Points"};
                 }
                 return new Object[]{25000, "Boss Points"};
-            } else if (shop == DONATOR_STORE_1 || shop == DONATOR_STORE_2 || shop == DONATOR_STORE_3 || shop == LEGACY_DONOR_COSMETICS || shop == LEGACY_DONOR_STORE) {
+            } else if (shop == DONATOR_STORE_1 || shop == DONATOR_STORE_2 || shop == DONATOR_STORE_3) {
                 switch (item) {
                     case 15426://candy cane
+                    case 13887://vesta chainbody
+                    case 13893://vesta plateskirt
+                    case 13899://vesta longsword
+                    case 13905://vesta spear
+                    case 13896://statius full helm
+                    case 13884://statius platebody  
+                    case 13890://statius platelegs  
+                    case 13902://statius warmhammer 
+                    case 13861://zuriel robe bottom
+                    case 13858://zuriel robe top 
+                    case 13864://zuriel hood 
+                    case 4716://dharoks
+                    case 4718://dharoks
+                    case 4720://dharoks
+                    case 4722://dharoks
+                    case 4724://guthans
+                    case 4726://guthans
+                    case 4728://guthans  
+                    case 4730://guthans 
+                    case 4732://karils
+                    case 4734://karils
+                    case 4736://karils
+                    case 4738://karils  
+                    case 4745://torags
+                    case 4747://torags
+                    case 4749://torags  
+                    case 4751://torags
+                    case 4753://veracs
+                    case 4755://veracs
+                    case 4757://varacs
+                    case 4759://veracs    
                         return new Object[]{5, "Donation Points"};
+                    case 4740://bolt rack
+                        return new Object[]{1, "Donation Points"};
                     case 6830://10$ donation box
                         return new Object[]{10, "Donation Points"};
                     case 16359://primal boots
@@ -1441,10 +1473,8 @@ public class Shop extends ItemContainer {
 
     public static final int DONATOR_STORE_1 = 48;
     public static final int DONATOR_STORE_2 = 49;
-    public static final int DONATOR_STORE_3 = 58;
-    public static final int LEGACY_DONOR_STORE = 59;
-    public static final int LEGACY_DONOR_COSMETICS = 60;
-
+    public static final int DONATOR_STORE_3 = 59;
+    
     public static final int TRIVIA_STORE = 50;
 
     public static final int GENERAL_STORE = 12;

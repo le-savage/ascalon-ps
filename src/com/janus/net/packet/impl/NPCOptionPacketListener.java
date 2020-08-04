@@ -103,12 +103,6 @@ public class NPCOptionPacketListener implements PacketListener {
                         player.getPacketSender().sendRichPresenceSmallPictureText("Trivia Pts: " + player.getPointsHandler().getTriviaPoints());
                         ShopManager.getShops().get(50).open(player);
                         break;
-                    case 741:
-                        player.getPacketSender().sendRichPresenceState("Viewing Donator Store!");
-                        player.getPacketSender().sendSmallImageKey("trade");
-                        player.getPacketSender().sendRichPresenceSmallPictureText("Donor Pts: " + player.getPointsHandler().getDonationPoints());
-                        ShopManager.getShops().get(59).open(player);
-                        break;
                     case 5441:
                         ShopManager.getShops().get(51).open(player);
                         break;
@@ -448,12 +442,6 @@ public class NPCOptionPacketListener implements PacketListener {
             public void execute() {
                 switch (npc.getId()) {
 
-                    case 741:
-                        player.getPacketSender().sendRichPresenceState("Viewing Donator Store!");
-                        player.getPacketSender().sendSmallImageKey("trade");
-                        player.getPacketSender().sendRichPresenceSmallPictureText("Donor Pts: " + player.getPointsHandler().getDonationPoints());
-                        ShopManager.getShops().get(60).open(player);
-                        break;
 
 
                     case 4905://Smithing tutor
@@ -618,7 +606,7 @@ public class NPCOptionPacketListener implements PacketListener {
                         player.getPacketSender().sendRichPresenceState("Viewing Donator Store!");
                         player.getPacketSender().sendSmallImageKey("trade");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Donor Pts: " + player.getPointsHandler().getDonationPoints());
-                        ShopManager.getShops().get(58).open(player);
+                        ShopManager.getShops().get(59).open(player);
                         break;
 
                     case 2579:

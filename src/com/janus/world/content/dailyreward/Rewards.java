@@ -9,7 +9,7 @@ public class Rewards {
             new Item(21026, 1),//2
             new Item(13887, 1),//3
             new Item(13893, 1),//4
-            new Item(6831, 1),//5
+            new Item(6830, 1),//5
             new Item(995, 200000000),//6
             new Item(19335, 1),//7
             new Item(1543, 5),//8
@@ -18,7 +18,7 @@ public class Rewards {
             new Item(4718, 1),//11
             new Item(4720, 1),//14
             new Item(4722, 1),//15
-            new Item(15359, 1),//16
+            new Item(14484, 1),//16
             new Item(995, 500000000),//17
             new Item(20057, 1),//18
             new Item(537, 150),//19
@@ -29,12 +29,12 @@ public class Rewards {
             new Item(4453, 1),//23
             new Item(18782, 1),//24
             new Item(21066, 5),//25
-            new Item(15356, 1),//26
+            new Item(13738, 1),//26
             new Item(13744, 1),//27
             new Item(535, 500),//28
             new Item(13239, 1),//29
             new Item(18831, 300),//30
-            new Item(6832, 1),//31
+            new Item(6183, 1),//31
             new Item(962, 1)//32
 
     };

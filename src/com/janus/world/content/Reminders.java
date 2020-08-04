@@ -25,7 +25,6 @@ public class Reminders {
             {"<img=10> @blu@[TIPS]@bla@ Donors get HP refills and other perks in instances!"},
             {"<img=10> @blu@[TIPS]@bla@ Super Donor? Use ::pickup (value) to auto pickup drops!"},
             {"<img=10> @blu@[TIPS]@bla@ Melt your unwanted armour and weapons! TP To Smithing!"},
-            {"<img=10> @blu@[TIPS]@bla@ Gamble by using coins on the gambler @ home!"},
             {"<img=10> @blu@[TIPS]@bla@ ::benefits for donation rewards!"},
             {"<img=10> @blu@[TIPS]@bla@ ::loot to see mystery box items!"},
             {"<img=10> @blu@[TIPS]@bla@ ::drops for our drop table!"},
