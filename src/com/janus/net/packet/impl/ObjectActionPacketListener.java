@@ -761,7 +761,7 @@ public class ObjectActionPacketListener implements PacketListener {
                             index = 3;
                             movePos = new Position(2925, leaveRoom ? 5332 : 5331, 2);
                         }
-                        if (!leaveRoom && (player.getRights() != PlayerRights.ADMINISTRATOR && player.getRights() != PlayerRights.OWNER && player.getRights() != PlayerRights.UBER_DONATOR && player.getRights() != PlayerRights.LEGENDARY_DONATOR && player.getRights() != PlayerRights.EXTREME_DONATOR && player.getRights() != PlayerRights.SUPER_DONATOR && player.getRights() != PlayerRights.MODERATOR && player.getRights() != PlayerRights.SUPPORT && player.getRights() != PlayerRights.DEVELOPER && player.getMinigameAttributes().getGodwarsDungeonAttributes().getKillcount()[index] < 20)) {
+                        if (!leaveRoom && (player.getRights() != PlayerRights.ADMINISTRATOR && player.getRights() != PlayerRights.OWNER && player.getRights() != PlayerRights.UBER_DONATOR && player.getRights() != PlayerRights.LEGENDARY_DONATOR && player.getRights() != PlayerRights.EXTREME_DONATOR && player.getRights() != PlayerRights.SUPER_DONATOR && player.getRights() != PlayerRights.DONATOR && player.getRights() != PlayerRights.MODERATOR && player.getRights() != PlayerRights.SUPPORT && player.getRights() != PlayerRights.DEVELOPER && player.getMinigameAttributes().getGodwarsDungeonAttributes().getKillcount()[index] < 20)) {
                             player.getPacketSender().sendMessage("You need " + Misc.anOrA(bossRoom) + " " + bossRoom + " killcount of at least 20 to enter this room.");
                             return;
                         }
