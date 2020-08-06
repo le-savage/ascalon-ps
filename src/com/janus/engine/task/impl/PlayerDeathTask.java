@@ -74,18 +74,28 @@ public class PlayerDeathTask extends Task {
                         Player killer = player.getCombatBuilder().getKiller(true);
                         if (player.getRights().equals(PlayerRights.OWNER) || player.getRights().equals(PlayerRights.DEVELOPER))
                             dropItems = false;
-                        if (loc == Location.WILDERNESS) {
-                            if (killer != null && (killer.getRights().equals(PlayerRights.OWNER) || killer.getRights().equals(PlayerRights.DEVELOPER)))
+
+                        if (loc == Location.WILDERNESS && killer != null) { //Wilderness rules
+                            if (killer.getRights().equals(PlayerRights.OWNER) || killer.getRights().equals(PlayerRights.DEVELOPER)) {
                                 dropItems = false;
-                        }
-                        if (loc != Location.WILDERNESS) {
-                            dropItems = false;
-                        }
-                        if (loc == Location.WILDERNESS && killer != null) {
+                            }
+
                             if (player.getHostAddress().equals(killer.getHostAddress())) {
                                 dropItems = false;
                                 World.sendStaffMessage(player.getUsername().toUpperCase() + " just tried to kill their alt: " + killer.getUsername().toUpperCase() + " in the wildy!");
                             }
+
+                            if (killer.getGameMode() != GameMode.NORMAL){
+                                player.getPacketSender().sendMessage("No items dropped due to killer being an " + Misc.formatText(killer.getGameMode().name()));
+                                killer.getPacketSender().sendMessage("No items dropped due to killer being an " + Misc.formatText(killer.getGameMode().name()));
+                                dropItems = false;
+                            }
+
+
+
+                        }
+                        if (loc != Location.WILDERNESS) {
+                            dropItems = false;
                         }
 
                         if (killer != null) {
@@ -108,13 +118,8 @@ public class PlayerDeathTask extends Task {
                                     continue;
                                 }
                                 if (spawnItems) {
-                                    if (item != null && item.getId() > 0 && item.getAmount() > 0) {
-                                        if (killer != null && killer.getGameMode() != GameMode.NORMAL) {
-                                            killer.getPacketSender().sendMessage("@red@You can't get drops from players as an " + killer.getGameMode().name() + "!");
-                                            player.getPacketSender().sendMessage(killer.getUsername() + " is a " + killer.getGameMode().name() + " and cannot loot your items!");
-                                            return;
-                                        }
-                                        GroundItemManager.spawnGroundItem((killer), new GroundItem(item, position, killer != null ? killer.getUsername() : player.getUsername(), player.getHostAddress(), false, 150, true, 150));
+                                    if (item.getId() > 0 && item.getAmount() > 0 && killer != null && killer.getGameMode() == GameMode.NORMAL) {
+                                        GroundItemManager.spawnGroundItem((killer), new GroundItem(item, position, killer.getUsername(), player.getHostAddress(), false, 150, true, 150));
                                     }
                                 }
                             }
