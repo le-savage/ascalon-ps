@@ -12,8 +12,8 @@ public enum GameMode {
     /*NORMAL, HARDCORE_IRONMAN, IRONMAN;*/
 
     NORMAL(0),
-    HARDCORE_IRONMAN(5),
-    IRONMAN(10);
+    HARDCORE_IRONMAN(10),
+    IRONMAN(5);
 
     private int drBoost;
 
