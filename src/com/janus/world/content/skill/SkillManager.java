@@ -105,21 +105,9 @@ public class SkillManager {
 
 
         /** NEW DIFFICULTIES **/
-        if (player.getDifficulty() == Difficulty.Easy) { //300% xp rate
-            experience *= 3;
-        }
-        if (player.getDifficulty() == Difficulty.Medium) { //100% xp rate
-            experience *= 1;
-        }
-        if (player.getDifficulty() == Difficulty.Hard) { //50% xp rate
-            experience *= 0.5;
-        }
-        if (player.getDifficulty() == Difficulty.Insane) { //25% xp rate
-            experience *= 0.25;
-        }
-        if (player.getDifficulty() == Difficulty.Zezima) { //10% xp rate
-            experience *= 0.1;
-        }
+        double xpRate = player.getDifficulty().getXpRate();
+        experience *= xpRate;
+
         if (player.getDifficulty() == Difficulty.Default) {
             player.getPacketSender().sendMessage("@red@SELECT A DIFFICULTY TO START EARNING XP").sendMessage("@red@ENSURE YOU FINISH THE CHAT TO CONFIRM!");
             //TeleportHandler.teleportPlayer(player, GameSettings.DEFAULT_POSITION.copy(), player.getSpellbook().getTeleportType());//0% xp rate
