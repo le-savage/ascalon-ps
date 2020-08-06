@@ -2,6 +2,7 @@ package mysql.impl.FoxSystems;
 
 
 import com.janus.model.Skill;
+import com.janus.util.Misc;
 import com.janus.world.World;
 import com.janus.world.entity.impl.player.Player;
 
@@ -81,8 +82,8 @@ public class Hiscores implements Runnable {
 
             // only update exp if there's a change in overall exp.
             if (stored_xp != overall_xp) {
-                map.put("mode", "regular"); // fetch game mode
-                map.put("exp_rate", "normal"); // fetch exp rate
+                map.put("mode", ""+ player.getGameMode().name().toLowerCase()); // fetch game mode
+                map.put("exp_rate", ""+ player.getDifficulty().name().toLowerCase()); // fetch exp rate
 
                 map.put("total_level", "" + player.getSkillManager().getTotalLevel());
                 map.put("cmb_level", "" + player.getSkillManager().getCombatLevel());
