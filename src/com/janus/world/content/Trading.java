@@ -462,10 +462,10 @@ public class Trading {
 
                     PlayerLogs.logTrade(player.getUsername().toUpperCase(), tradeInfo);
                     PlayerLogs.logMasterChatLog("MasterTradeLog", tradeInfo);
-                } else
-
+                } else if (player.getHostAddress().equals(player2.getHostAddress())) {
                     PlayerLogs.logTrade(player.getUsername().toUpperCase(), tradeSameIP);
-                PlayerLogs.logMasterChatLog("MasterTradeLog", tradeSameIP);
+                    PlayerLogs.logMasterChatLog("MasterTradeLog", tradeSameIP);
+                }
             }
 			/*for (Item item : player2.getTrading().offeredItems) {
 				//String tradeInfo = ("[RECEIVED] : "+item.getDefinition().getName()+ ", ID: "+item.getId()+", Amount: "+item.getAmount()+ " Value: "+item.getDefinition().getValue()+ " [FROM] : ["+player.getUsername()+ " IP: "+player.getHostAddress()+"]");

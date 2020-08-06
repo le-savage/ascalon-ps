@@ -81,6 +81,13 @@ public class PlayerDeathTask extends Task {
                         if (loc != Location.WILDERNESS) {
                             dropItems = false;
                         }
+                        if (loc == Location.WILDERNESS && killer != null) {
+                            if (player.getHostAddress().equals(killer.getHostAddress())) {
+                                dropItems = false;
+                                World.sendStaffMessage(player.getUsername().toUpperCase() + " just tried to kill their alt: " + killer.getUsername().toUpperCase() + " in the wildy!");
+                            }
+                        }
+
                         if (killer != null) {
                             if (killer.getRights().equals(PlayerRights.OWNER) || killer.getRights().equals(PlayerRights.DEVELOPER)) {
                                 dropItems = false;
@@ -102,7 +109,12 @@ public class PlayerDeathTask extends Task {
                                 }
                                 if (spawnItems) {
                                     if (item != null && item.getId() > 0 && item.getAmount() > 0) {
-                                        GroundItemManager.spawnGroundItem((killer != null && killer.getGameMode() == GameMode.NORMAL ? killer : player), new GroundItem(item, position, killer != null ? killer.getUsername() : player.getUsername(), player.getHostAddress(), false, 150, true, 150));
+                                        if (killer != null && killer.getGameMode() != GameMode.NORMAL) {
+                                            killer.getPacketSender().sendMessage("@red@You can't get drops from players as an " + killer.getGameMode().name() + "!");
+                                            player.getPacketSender().sendMessage(killer.getUsername() + " is a " + killer.getGameMode().name() + " and cannot loot your items!");
+                                            return;
+                                        }
+                                        GroundItemManager.spawnGroundItem((killer), new GroundItem(item, position, killer != null ? killer.getUsername() : player.getUsername(), player.getHostAddress(), false, 150, true, 150));
                                     }
                                 }
                             }
