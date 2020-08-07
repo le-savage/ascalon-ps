@@ -6,16 +6,17 @@ import com.google.common.collect.Sets;
 public enum Difficulty {
 
     Default(0, 0),
-    Easy(300, 0),
-    Medium(100, 2),
-    Hard(-50, 5),
-    Insane(-150, 10),
-    Zezima(-300, 20);
+    Easy(3, 0),
+    Medium(0, 2),
+    Hard(0.5, 5),
+    Insane(0.25, 10),
+    Zezima(0.1, 20);
 
-    private int xpBoost, drBoost;
+    private double xpRate;
+    private int drBoost;
 
-    Difficulty(int xpBoost, int drBoost) {
-        this.xpBoost = xpBoost;
+    Difficulty(double xpBoost, int drBoost) {
+        this.xpRate = xpBoost;
         this.drBoost = drBoost;
     }
 
@@ -33,5 +34,8 @@ public enum Difficulty {
     public double getDropRateModifier() {
         return drBoost;
     }
+
+    public double getXpRate() {
+        return xpRate; }
 
 }
