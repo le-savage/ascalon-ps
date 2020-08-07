@@ -1,2 +1,4 @@
 # Project exclude paths
 /bin/
+*.DS_Store
+*.zip
