@@ -30,6 +30,17 @@ public class PacketSender {
         player.getSession().queueMessage(out);
         return this;
     }
+    public PacketSender resetItemsOnInterface(final int childId, final int maxItems) {
+        PacketBuilder out = new PacketBuilder(34, PacketType.SHORT);
+        out.putShort(childId);
+        for(int index = 0; index < maxItems; index++) {
+            out.put(index);
+            out.putShort(0);
+            out.put(0);
+        }
+        player.getSession().queueMessage(out);
+        return this;
+    }
     public PacketSender sendNpcOnInterface(int interfaceId, int npcId) {
         PacketBuilder out = new PacketBuilder(190);
         out.putShort(interfaceId);
@@ -1053,8 +1064,8 @@ public class PacketSender {
     public PacketSender createGroundItem(int itemID, int itemX, int itemY, int itemAmount) {
         sendPosition(new Position(itemX, itemY));
         PacketBuilder out = new PacketBuilder(44);
-        out.putShort(itemID, ValueType.A, ByteOrder.LITTLE);
-        out.putShort(itemAmount).put(0);
+        out.putInt(itemID);
+        out.putInt(itemAmount).put(0);
         player.getSession().queueMessage(out);
         return this;
     }

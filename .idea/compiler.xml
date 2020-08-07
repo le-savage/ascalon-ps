@@ -4,7 +4,9 @@
     <excludeFromCompile>
       <file url="file://$PROJECT_DIR$/src/com/janus/model/container/impl/ShopBackup.java" />
       <file url="file://$PROJECT_DIR$/src/com/janus/model/container/impl/ShopMart.java" />
-      <file url="file://$PROJECT_DIR$/src/com/janus/model/container/impl/ShopBackup.java" />
     </excludeFromCompile>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+    </annotationProcessing>
   </component>
 </project>

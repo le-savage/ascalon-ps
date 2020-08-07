@@ -15,6 +15,7 @@ import com.janus.world.content.CoinCollector;
 import com.janus.world.content.DropLog;
 import com.janus.world.content.PlayerLogs;
 import com.janus.world.content.clan.ClanChatManager;
+import com.janus.world.content.collectionlog.CollectionLogEntry;
 import com.janus.world.content.discord.DiscordMessenger;
 import com.janus.world.content.minigames.impl.WarriorsGuild;
 import com.janus.world.content.skill.impl.prayer.BonesData;
@@ -476,7 +477,7 @@ public class NPCDrops {
                 }
             }
 
-
+        new CollectionLogEntry(npc.getId(), item.getId(), item.getAmount()).submit(player);
         if ((player.getRights() == PlayerRights.PLAYER || player.getRights() == PlayerRights.DONATOR) && (player.getLocation() == Location.INSTANCE_ARENA)) {
             //System.out.println("Player or reg donor in instance arena");
         }

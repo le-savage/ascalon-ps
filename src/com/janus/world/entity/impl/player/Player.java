@@ -26,6 +26,8 @@ import com.janus.world.content.KillsTracker.KillsEntry;
 import com.janus.world.content.LoyaltyProgramme.LoyaltyTitles;
 import com.janus.world.content.StartScreen.GameModes;
 import com.janus.world.content.clan.ClanChat;
+import com.janus.world.content.collectionlog.CollectionLog;
+import com.janus.world.content.collectionlog.CollectionLogEntry;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.CombatType;
 import com.janus.world.content.combat.effect.CombatPoisonEffect.CombatPoisonData;
@@ -59,6 +61,8 @@ import com.janus.world.content.skill.impl.summoning.Pouch;
 import com.janus.world.content.skill.impl.summoning.Summoning;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
+import lombok.Getter;
+import lombok.Setter;
 import mysql.impl.FoxSystems.Hiscores;
 
 import java.awt.*;
@@ -69,6 +73,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class Player extends Character {
+
+
+    @Getter
+    private CollectionLog collectionLog = new CollectionLog(this);
+    @Getter
+    @Setter
+    private List<CollectionLogEntry> collectionLogData = new ArrayList<>();
+
     public List<ItemEffect> currentEffects = new ArrayList<>();
     private String mac;
     private String uuid;

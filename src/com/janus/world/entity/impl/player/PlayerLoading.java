@@ -15,6 +15,7 @@ import com.janus.world.content.DropLog.DropLogEntry;
 import com.janus.world.content.KillsTracker;
 import com.janus.world.content.KillsTracker.KillsEntry;
 import com.janus.world.content.LoyaltyProgramme.LoyaltyTitles;
+import com.janus.world.content.collectionlog.CollectionLogEntry;
 import com.janus.world.content.combat.magic.CombatSpells;
 import com.janus.world.content.combat.weapon.FightType;
 import com.janus.world.content.grandexchange.GrandExchangeSlot;
@@ -27,6 +28,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.ObjectInputStream;
+import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -255,6 +257,10 @@ public class PlayerLoading {
             }
             if (reader.has("last-veng")) {
                 player.getLastVengeance().reset(reader.get("last-veng").getAsLong());
+            }
+            if (reader.has("collection-data")) {
+                Type adventureLogType = new com.google.common.reflect.TypeToken<List<CollectionLogEntry>>() {}.getType();
+                player.setCollectionLogData(new Gson().fromJson(reader.get("collection-data"), adventureLogType));
             }
             if (reader.has("fight-type")) {
                 player.setFightType(FightType.valueOf(reader.get("fight-type").getAsString()));

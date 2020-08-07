@@ -206,6 +206,7 @@ public class PlayerSaving {
             object.addProperty("donorMessages", player.getDonorMessages());
             object.addProperty("notificationPreference", player.getNotificationPreference());
             object.addProperty("player-title", new String(player.getTitle()));
+            object.add("collection-data", builder.toJsonTree(player.getCollectionLogData()));
             writer.write(builder.toJson(object));
             writer.close();
         } catch (Exception e) {
