@@ -153,7 +153,31 @@ public enum SlayerTasks {
                 eliteTasks++;
         }
 
-        if (master == SlayerMaster.VANNAKA) {
+        switch (master) {
+            case SUMONA:
+                slayerTaskId = 1 + easyTasks + mediumTasks + hardTasks + Misc.getRandom(eliteTasks - 1);
+                slayerTaskAmount = 30 + Misc.getRandom(10);
+                break;
+            case KURADEL:
+                slayerTaskId = 1 + easyTasks + mediumTasks + Misc.getRandom(hardTasks - 1);
+                slayerTaskAmount = 37 + Misc.getRandom(20);
+                break;
+            case DURADEL:
+                slayerTaskId = easyTasks - 1 + Misc.getRandom(mediumTasks);
+                slayerTaskAmount = 28 + Misc.getRandom(13);
+                break;
+            case VANNAKA:
+                slayerTaskId = 1 + Misc.getRandom(easyTasks);
+                if (slayerTaskId > easyTasks)
+                    slayerTaskId = easyTasks;
+                slayerTaskAmount = 40 + Misc.getRandom(15); // 40 IS THE MINIMUM + RANDOM BETWEEN 0-15
+                break;
+
+        }
+        return new int[]{slayerTaskId, slayerTaskAmount};
+    }
+
+        /*if (master == SlayerMaster.VANNAKA) {
             slayerTaskId = 1 + Misc.getRandom(easyTasks);
             if (slayerTaskId > easyTasks)
                 slayerTaskId = easyTasks;
@@ -169,7 +193,7 @@ public enum SlayerTasks {
             slayerTaskAmount = 7 + Misc.getRandom(10);
         }
         return new int[]{slayerTaskId, slayerTaskAmount};
-    }
+    }*/
 
     @Override
     public String toString() {
