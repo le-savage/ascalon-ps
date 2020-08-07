@@ -42,9 +42,7 @@ public class Slayer {
         }
         int[] taskData = SlayerTasks.getNewTaskData(slayerMaster);
         int slayerTaskId = taskData[0];
-        System.out.println("Slayer.java SlayerTaskID: "+slayerTaskId);
         int slayerTaskAmount = taskData[1];
-        System.out.println("Slayer.java slayerTaskAmount: "+slayerTaskAmount);
         SlayerTasks taskToSet = SlayerTasks.forId(slayerTaskId);
         if (taskToSet == player.getSlayer().getLastTask() || NpcDefinition.forId(taskToSet.getNpcId()).getSlayerLevel() > player.getSkillManager().getMaxLevel(Skill.SLAYER)) {
             assignTask();

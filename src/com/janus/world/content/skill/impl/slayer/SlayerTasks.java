@@ -91,7 +91,8 @@ public enum SlayerTasks {
     PHOENIX(SlayerMaster.SUMONA, 8549, "The Phoenix can be found using the Boss teleport.", 21000, new Position(2839, 9557), 80, 50),
     CORPOREAL_BEAST(SlayerMaster.SUMONA, 8133, "The Corporeal Beast can be found using the Boss teleport.", 80000, new Position(2885, 4375), 100, 30),
     BANDOS_AVATAR(SlayerMaster.SUMONA, 4540, "The Bandos Avatar can be found using the Boss teleport.", 34000, new Position(2891, 4767), 80, 40),
-    CRAZY_MAN(SlayerMaster.SUMONA, 3, "The crazy man can be found using the Boss teleport", 40000, new Position(1959, 4759), 101, 49);
+    CRAZY_MAN(SlayerMaster.SUMONA, 3, "The crazy man can be found using the Boss teleport", 40000, new Position(1959, 4759), 101, 49),
+    TZTOK_JAD(SlayerMaster.SUMONA, 2745, "Jad can be found in the minigames teleport menu!", 20000, new Position(2439, 5168), 40, 49);
 
     private SlayerTasks(SlayerMaster taskMaster, int npcId, String npcLocation, int XP, Position taskPosition, int minimumToKill, int additionalRandom) {
         this.taskMaster = taskMaster;
@@ -177,10 +178,7 @@ public enum SlayerTasks {
                 slayerTaskId = 1 + Misc.getRandom(easyTasks);
                 break;
         }
-        System.out.println("Minimum to kill: " + minimumToKill);
-        System.out.println("additional to kill: " + additionalRandom);
         int amountToKill = minimumToKill + Misc.random(additionalRandom);
-        System.out.println("ID: " + slayerTaskId + " Task Amount: " + amountToKill);
         return new int[]{slayerTaskId, amountToKill};
     }
     @Override
