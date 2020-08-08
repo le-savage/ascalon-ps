@@ -91,13 +91,13 @@ public class CombatHitTask extends Task {
             Player p = (Player) attacker;
             int maxhealth = (p.getSkillManager().getMaxLevel(Skill.CONSTITUTION)) / 10;
             int currenthp = (p.getSkillManager().getCurrentLevel(Skill.CONSTITUTION)) / 10;
-            if(p.getNotificationPreference()) {
+            /*if(p.getNotificationPreference()) {
                 if (currenthp < maxhealth * 0.5 && currenthp > maxhealth * 0.4) {
                     p.getPacketSender().minimisedTrayMessage(4, p.getUsername() + " - you have " + currenthp + " HP Remaining!");
                 } else if (currenthp < maxhealth * 0.25) {
                     p.getPacketSender().minimisedTrayMessage(2, p.getUsername() + " - you have " + currenthp + " HP Remaining!");
                 }
-            }
+            }*/
 
 
             if (victim.isPlayer()) {//plrs

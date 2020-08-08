@@ -180,9 +180,9 @@ public class SkillManager {
                 String difficulty = ("" + player.getDifficulty().toString().toUpperCase() + "");
 
                 player.getPacketSender().sendMessage("Well done! You've achieved the highest possible level in this skill!");
-                if(player.getNotificationPreference()) {
+                /*if(player.getNotificationPreference()) {
                     player.getPacketSender().trayMessage(3, "Congrats! " + player.getUsername() + "! Level 99 " + skillName + " obtained!");
-                }
+                }*/
                 if (player.getDifficulty() == Difficulty.Easy) {
                     World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 99 in " + skillName + " on [" + easyColor + difficulty + "@bla@] mode!");
                 }

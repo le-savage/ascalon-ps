@@ -30,9 +30,9 @@ public class PlayerSpecialAmountTask extends Task {
         player.setSpecialPercentage(amount);
         CombatSpecial.updateBar(player);
         if (player.getSpecialPercentage() % 50 == 0)
-            if(player.getNotificationPreference()) {
+            /*if(player.getNotificationPreference()) {
                 player.getPacketSender().trayMessage(3, player.getUsername() + " - Your special attack is now at " + player.getSpecialPercentage() + "%!");
-            }
+            }*/
                 player.getPacketSender().sendMessage("Your special attack energy is now " + player.getSpecialPercentage() + "%.");
     }
 }

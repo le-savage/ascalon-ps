@@ -105,9 +105,9 @@ public class Trading {
             openTrade();
             player2.getTrading().openTrade();
         } else if (!inTrade()) {
-            if (player.getNotificationPreference()) {
+            /*if (player.getNotificationPreference()) {
                 player2.getPacketSender().minimisedTrayMessage(5, player.getUsername() + " sent you a trade request!");
-            }
+            }*/
             setTradeRequested(true);
             player.getPacketSender().sendMessage("You've sent a trade request to " + player2.getUsername() + ".");
             player2.getPacketSender().sendMessage(player.getUsername() + ":tradereq:");

@@ -393,9 +393,9 @@ public class PrayerHandler {
             public void execute() {
                 if ((player.getSkillManager().getCurrentLevel(Skill.PRAYER) <= (player.getSkillManager().getMaxLevel(Skill.PRAYER)) * 0.3 ||
                         (player.getSkillManager().getCurrentLevel(Skill.PRAYER) >= (player.getSkillManager().getMaxLevel(Skill.PRAYER)) * 0.25))) {
-                    if (player.getNotificationPreference()) {
+                    /*if (player.getNotificationPreference()) {
                         player.getPacketSender().minimisedTrayMessage(4, player.getUsername() + " - you have " + (player.getSkillManager().getCurrentLevel(Skill.PRAYER)) / 10 + " Prayer Points Remaining");
-                    }
+                    }*/
                 }
 
                 if (player.getSkillManager().getCurrentLevel(Skill.PRAYER) <= 0) {
@@ -406,7 +406,7 @@ public class PrayerHandler {
                     Sounds.sendSound(player, Sound.RUN_OUT_OF_PRAYER_POINTS);
                     String warning = "You have run out of Prayer points!";
                     player.getPacketSender().sendMessage(warning);
-                    player.getPacketSender().trayMessage(4, player.getUsername() + " - " + warning);
+                    /*player.getPacketSender().trayMessage(4, player.getUsername() + " - " + warning);*/
                     this.stop();
                     return;
                 }

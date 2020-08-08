@@ -943,21 +943,21 @@ public class CommandPacketListener implements PacketListener {
             TeleportHandler.teleportPlayer(player, new Position(3363, 9638), player.getSpellbook().getTeleportType());
         }
 
-        if (command[0].equals("tray") && (player.getNotificationPreference())) {
+        /*if (command[0].equals("tray") && (player.getNotificationPreference())) {
             player.getPacketSender().trayMessage(1, "1 test");
             player.getPacketSender().trayMessage(2, "2 test");
             player.getPacketSender().trayMessage(3, "3 test");
             player.getPacketSender().trayMessage(4, "4 test");
             player.getPacketSender().trayMessage(5, "5 test");
-        }
+        }*/
 
-        if (command[0].equals("trayminimised") && (player.getNotificationPreference())) {
+        /*if (command[0].equals("trayminimised") && (player.getNotificationPreference())) {
             player.getPacketSender().minimisedTrayMessage(1, "1 test");
             player.getPacketSender().minimisedTrayMessage(2, "2 test");
             player.getPacketSender().minimisedTrayMessage(3, "3 test");
             player.getPacketSender().minimisedTrayMessage(4, "4 test");
             player.getPacketSender().minimisedTrayMessage(5, "5 test");
-        }
+        }*/
 
         if (wholeCommand.toLowerCase().startsWith("yell")) {
             if (PlayerPunishment.muted(player.getUsername()) || PlayerPunishment.IPMuted(player.getHostAddress())) {

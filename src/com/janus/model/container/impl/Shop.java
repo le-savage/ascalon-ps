@@ -1071,8 +1071,6 @@ public class Shop extends ItemContainer {
                         return new Object[]{1, "Donation Points"};
                     case 6830://10$ donation box
                         return new Object[]{10, "Donation Points"};
-                    case 16359://primal boots
-                    case 16293://primal gauntlets
                     case 10336://3rd age vambraces
                     case 6831://15$ donation box
                     case 10374://zamorak coif
@@ -1099,6 +1097,8 @@ public class Shop extends ItemContainer {
                     case 13666://Giant Hand
                         return new Object[]{30, "Donation Points"};
                     case 17291://blood necklace
+                    case 16359://primal boots
+                    case 16293://primal gauntlets
                         return new Object[]{35, "Donation Points"};
                     case 9946://cap and goggles
                     case 9945://bomber cap
