@@ -1094,6 +1094,9 @@ public class Shop extends ItemContainer {
                     case 1048://White Partyhat
                     case 1044://Green Partyhat
                     case 1050:// santa hat
+                    case 7449://Meat Tenderizer
+                    case 5608://Fox
+                    case 13666://Giant Hand
                         return new Object[]{30, "Donation Points"};
                     case 17291://blood necklace
                         return new Object[]{35, "Donation Points"};
@@ -1119,6 +1122,7 @@ public class Shop extends ItemContainer {
                     case 18894://ghrazi rapier
                     case 18898://ring of suffering
                     case 18900://sanguinesti staff
+                    case 18901://Avernic Defender
                     case 14008://Torva helm
                     case 14009://Torva Plate
                     case 14010://Torva Legs
@@ -1145,7 +1149,7 @@ public class Shop extends ItemContainer {
                     case 16689://primal platelegs
                     case 17361://primal kiteshield
                     case 6833://50$ donation box
-                    case 18899://scythe of vigur
+                    case 18899://scythe of vitur
                         return new Object[]{50, "Donation Points"};
                     case 14044://Black Partyhat
                     case 14050://Black Santa Hat

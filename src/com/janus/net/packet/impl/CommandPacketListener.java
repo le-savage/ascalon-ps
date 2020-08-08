@@ -182,15 +182,9 @@ public class CommandPacketListener implements PacketListener {
 
     private static void playerCommands(final Player player, String[] command, String wholeCommand) {
 
-        if(command[0].equalsIgnoreCase("testt")){
+        if(command[0].startsWith("collect")){
            // KillLogInterface.open(player);
             player.getCollectionLog().open();
-        }
-        if(command[0].equalsIgnoreCase("shop1")){
-            ShopManager.getShops().get(54).open(player);
-        }
-        if(command[0].equalsIgnoreCase("shop2")){
-            ShopManager.getShops().get(57).open(player);
         }
 
 
