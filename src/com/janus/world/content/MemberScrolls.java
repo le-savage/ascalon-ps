@@ -40,10 +40,6 @@ public class MemberScrolls {
             case 15359:
             case 15358:
                 int funds = item == 15356 ? 5 : item == 15355 ? 10 : item == 15359 ? 25 : item == 15358 ? 50 : -1;
-                if (player.getRights() == PlayerRights.COMMUNITYMANAGER || player.getRights() == PlayerRights.MODERATOR){
-                    World.sendStaffMessage("@red@"+player.getUsername()+" tried to claim a $"+funds+" donor scroll - naughty boy");
-                    break;
-                }
                 player.getInventory().delete(item, 1);
                 player.incrementAmountDonated(funds);
                 player.getPointsHandler().incrementDonationPoints(funds);

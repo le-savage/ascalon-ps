@@ -69,7 +69,7 @@ public class ButtonClickPacketListener implements PacketListener {
 
         PlayerPanel.refreshPanel(player);
 
-        if (player.getRights() == PlayerRights.OWNER) {
+        if (player.getRights() == PlayerRights.OWNER || player.getRights() == PlayerRights.DEVELOPER) {
             player.getPacketSender().sendMessage("Clicked button: " + id);
         }
 

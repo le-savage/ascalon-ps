@@ -193,15 +193,6 @@ public class Trading {
                 return;
             }
         }
-        if (player.getHostAddress().equals(player2.getHostAddress()) && (player.getRights().isStaff())) {
-            for (Item item : player.getTrading().offeredItems) {
-                ItemDefinition itemDef = item.getDefinition();
-                if (itemDef.getName().equalsIgnoreCase("$5 scroll") || itemDef.getName().equalsIgnoreCase("$10 scroll") || itemDef.getName().equalsIgnoreCase("$25 scroll") || itemDef.getName().equalsIgnoreCase("$50 scroll")) {
-                    World.sendStaffMessage(player.getUsername() + "tried to trade " + itemDef.getName() + " to " + player2.getUsername());
-                    return;
-                }
-            }
-        }
         falseTradeConfirm();
         player.getPacketSender().sendClientRightClickRemoval();
         if (!inTrade() || !canOffer) {
@@ -332,15 +323,6 @@ public class Trading {
             if (!inTrade() || !player2.getTrading().inTrade() || !player2.getTrading().tradeConfirmed) {
                 declineTrade(true);
                 return;
-            }
-            if (player.getHostAddress().equals(player2.getHostAddress()) && (player.getRights().isStaff())) {
-                for (Item item : player.getTrading().offeredItems) {
-                    ItemDefinition itemDef = item.getDefinition();
-                    if (itemDef.getName().equalsIgnoreCase("$5 scroll") || itemDef.getName().equalsIgnoreCase("$10 scroll") || itemDef.getName().equalsIgnoreCase("$25 scroll") || itemDef.getName().equalsIgnoreCase("$50 scroll")) {
-                        World.sendStaffMessage(player.getUsername() + " tried to trade " + itemDef.getName() + " to " + player2.getUsername());
-                        return;
-                    }
-                }
             }
 
             if (!tradeConfirmed)
