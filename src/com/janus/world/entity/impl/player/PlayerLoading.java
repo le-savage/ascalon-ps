@@ -112,6 +112,12 @@ public class PlayerLoading {
             if (reader.has("given-starter")) {
                 player.setReceivedStarter(reader.get("given-starter").getAsBoolean());
             }
+            if (reader.has("has-used-boss-tier-tp")) {
+                player.setHasUsedBossTierTP(reader.get("has-used-boss-tier-tp").getAsBoolean());
+            }
+            if (reader.has("kbd-tier")) {
+                player.setKbdTier(reader.get("kbd-tier").getAsInt());
+            }
             if (reader.has("money-pouch")) {
                 player.setMoneyInPouch(reader.get("money-pouch").getAsLong());
             }

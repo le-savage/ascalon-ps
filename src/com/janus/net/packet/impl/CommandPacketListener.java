@@ -29,6 +29,8 @@ import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.strategy.CombatStrategies;
+import com.janus.world.content.combat.tieredbosses.BossFunctions;
+import com.janus.world.content.combat.tieredbosses.KBDFight;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.grandexchange.GrandExchangeOffers;
 import com.janus.world.content.minigames.impl.FreeForAll;
@@ -182,11 +184,14 @@ public class CommandPacketListener implements PacketListener {
 
     private static void playerCommands(final Player player, String[] command, String wholeCommand) {
 
-        if(command[0].startsWith("collect")){
-           // KillLogInterface.open(player);
+        if (command[0].startsWith("collect")) {
+            // KillLogInterface.open(player);
             player.getCollectionLog().open();
         }
 
+        if (command[0].startsWith("boss")) {
+            TeleportHandler.teleportPlayer(player, BossFunctions.DOOR, player.getSpellbook().getTeleportType());
+        }
 
 
         if (command[0].equalsIgnoreCase("notifications")) {
@@ -205,7 +210,7 @@ public class CommandPacketListener implements PacketListener {
             player.getPacketSender().sendRichPresenceSmallPictureText("Combat Lvl: " + player.getSkillManager().getCombatLevel());
             TeleportHandler.teleportPlayer(player, GameSettings.INSTANCE_ARENA.copy(), player.getSpellbook().getTeleportType());
         }
-        if (command[0].equalsIgnoreCase("exit") && (player.getLocation() == Location.INSTANCE_ARENA)){
+        if (command[0].equalsIgnoreCase("exit") && (player.getLocation() == Location.INSTANCE_ARENA)) {
             InstanceArena.destructArena(player);
         }
 
@@ -802,14 +807,18 @@ public class CommandPacketListener implements PacketListener {
 
         if (command[0].equalsIgnoreCase("pickup")) {
 
-                int pickupValue = (Integer.parseInt(command[1].trim().toLowerCase().replaceAll("k", "000").replaceAll("m", "000000")
-                        .replaceAll("b", "000000000")));
+            int pickupValue = (Integer.parseInt(command[1].trim().toLowerCase().replaceAll("k", "000").replaceAll("m", "000000")
+                    .replaceAll("b", "000000000")));
 
-                player.setPickupValue(pickupValue);
-                player.getPacketSender().sendMessage("@red@WE WILL PICKUP DROPS WORTH : " + Misc.setupMoney(pickupValue));
+            player.setPickupValue(pickupValue);
+            player.getPacketSender().sendMessage("@red@WE WILL PICKUP DROPS WORTH : " + Misc.setupMoney(pickupValue));
 
 
-            }
+        }
+
+        if (command[0].equalsIgnoreCase("kbdtest")) {
+                KBDFight.StartKBDFight(player);
+        }
 
 
         if (command[0].equalsIgnoreCase("title")) {
@@ -1091,8 +1100,8 @@ public class CommandPacketListener implements PacketListener {
                 PlayerLogs.log(player.getUsername(),
                         "" + player.getUsername() + " just kicked " + playerToKick.getUsername() + "!");
             }
-            if (playerToKick.getLocation() == Location.INSTANCE_ARENA){
-                if(playerToKick.getRegionInstance() != null) {
+            if (playerToKick.getLocation() == Location.INSTANCE_ARENA) {
+                if (playerToKick.getRegionInstance() != null) {
                     InstanceArena.destructArena(playerToKick);
                 } else {
                     player.moveTo(InstanceArena.ENTRANCE);
@@ -1118,8 +1127,8 @@ public class CommandPacketListener implements PacketListener {
                     player.getPacketSender().sendMessage("That player is already jailed!");
                     return;
                 }
-                if(player2.getLocation() == Location.INSTANCE_ARENA){
-                    if(player2.getRegionInstance() != null) {
+                if (player2.getLocation() == Location.INSTANCE_ARENA) {
+                    if (player2.getRegionInstance() != null) {
                         InstanceArena.destructArena(player2);
                     }
                 }
@@ -1659,6 +1668,10 @@ public class CommandPacketListener implements PacketListener {
             player.getInventory().add(2714, 10);
         }
 
+        if (command[0].equalsIgnoreCase("restorestats")) {
+            BossFunctions.restoreOldStats(player);
+        }
+
         if (command[0].equalsIgnoreCase("panel")) { //COMMAND TO SHOW DIFFICULTY
             PlayerPanel.refreshPanel(player);
         }
@@ -1674,7 +1687,6 @@ public class CommandPacketListener implements PacketListener {
         if (command[0].equalsIgnoreCase("spin")) { //COMMAND TO SHOW DIFFICULTY
             player.getPacketSender().sendCameraSpin(20, 5, 60, 3, 40);
         }
-
 
 
         if (command[0].equalsIgnoreCase("difficulty")) {

@@ -677,6 +677,7 @@ public class Player extends Character {
     private int buildFurnitureX;
     private int buildFurnitureY;
     private int combatRingType;
+    public int kbdTier = 0;
 
     /**
      * * BOOLEANS **
@@ -713,6 +714,7 @@ public class Player extends Character {
     private boolean isBuildingMode;
     private boolean voteMessageSent;
     private boolean receivedStarter;
+    private boolean bossTierTP;
 
     /*
      * Getters & Setters
@@ -1088,6 +1090,10 @@ public class Player extends Character {
     public int[] oldSkillLevels = new int[25];
     public int[] oldSkillXP = new int[25];
     public int[] oldSkillMaxLevels = new int[25];
+
+    public int[] bossGameLevels = new int[25];
+    public int[] bossGameSkillXP = new int[25];
+    public int[] bossGameMaxLevels = new int[25];
 
     public void resetInterfaces() {
         walkableInterfaceList.stream().filter((i) -> !(i == 41005 || i == 41000)).forEach((i) -> {
@@ -1864,6 +1870,14 @@ public class Player extends Character {
         this.minutesBonusExp = (add ? this.minutesBonusExp + minutesBonusExp : minutesBonusExp);
     }
 
+    public int getKbdTier() {
+        return kbdTier;
+    }
+
+    public void setKbdTier(int kbdTier) {
+        this.kbdTier = kbdTier;
+    }
+
     public int getPickupValue() {
         return pickupValue;
     }
@@ -2216,6 +2230,10 @@ public class Player extends Character {
         return receivedStarter;
     }
 
+    public boolean hasUsedBossTierTP() {
+        return bossTierTP;
+    }
+
     public void sendMessage(String string) {
         packetSender.sendMessage(string);
     }
@@ -2223,6 +2241,8 @@ public class Player extends Character {
     public void setReceivedStarter(boolean receivedStarter) {
         this.receivedStarter = receivedStarter;
     }
+
+    public void setHasUsedBossTierTP(boolean bossTierTP) { this.bossTierTP = bossTierTP; }
 
     public BlowpipeLoading getBlowpipeLoading() {
         return blowpipeLoading;

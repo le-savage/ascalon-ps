@@ -32,7 +32,8 @@ public class RegionInstance {
         MAN,
         BORINGZULRAHZONE,
         INSTANCE_ARENA,
-        ZULRAHS_SHRINE;
+        ZULRAHS_SHRINE,
+        BOSS_TIER_ARENA;
     }
 
     private Player owner;

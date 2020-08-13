@@ -80,6 +80,7 @@ public class PlayerDeathTask extends Task {
                                 dropItems = false;
                             }
 
+
                             if (player.getHostAddress().equals(killer.getHostAddress())) {
                                 dropItems = false;
                                 World.sendStaffMessage(player.getUsername().toUpperCase() + " just tried to kill their alt: " + killer.getUsername().toUpperCase() + " in the wildy!");
@@ -165,7 +166,7 @@ public class PlayerDeathTask extends Task {
                     player.restart();
                     player.getUpdateFlag().flag(Flag.APPEARANCE);
                     loc.onDeath(player);
-                    if (loc != Location.DUNGEONEERING) {
+                    if (loc != Location.DUNGEONEERING && loc != Location.BOSS_TIER_LOCATION) {
                         if (player.getPosition().equals(oldPosition))
                             player.moveTo(GameSettings.DEFAULT_POSITION.copy());
                         player.getPacketSender().sendRichPresenceState("I Just Died!");

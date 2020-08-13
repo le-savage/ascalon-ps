@@ -86,7 +86,7 @@ public class DailyReward {
 
         PlayerPunishment.addIpToDailyRewardList(player.getUsername(), player.getHostAddress(), player.getUUID(), player.getMac());
 
-        if (todaysItem.getDefinition().isNoted()) {
+        if (todaysItem.getDefinition().isNoted() || todaysItem.getId() == 995) {
             if (player.getInventory().getFreeSlots() >= 1) {
                 player.getInventory().add(todaysItem.getId(), todaysItem.getAmount());
             } else {

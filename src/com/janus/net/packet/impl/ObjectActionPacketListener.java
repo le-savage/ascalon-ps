@@ -24,6 +24,7 @@ import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.range.DwarfMultiCannon;
+import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.FightStyle;
 import com.janus.world.content.dialogue.DialogueManager;
@@ -129,13 +130,18 @@ public class ObjectActionPacketListener implements PacketListener {
                 if (player.getLocation() == Location.WILDERNESS && WildernessObelisks.handleObelisk(gameObject.getId())) {
                     return;
                 }
+                if (id == BossFunctions.ENTRY_DOOR_ID){
+                    BossFunctions.handleDoor(player);
+                }
+                if (id == BossFunctions.EXIT_CAVE_ID){
+                    BossFunctions.handleExit(player);
+                }
                 switch (id) {
 
                     case 24600: //Instance Barrier Exit
                         if(player.getLocation() == Location.INSTANCE_ARENA && player.getRegionInstance() == null){
                             player.moveTo(InstanceArena.ENTRANCE);
                         }
-                        System.out.println("Object click registered");
                         InstanceArena.destructArena(player);
                         break;
 

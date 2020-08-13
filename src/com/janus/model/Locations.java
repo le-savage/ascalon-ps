@@ -7,6 +7,8 @@ import com.janus.world.content.PlayerPunishment.Jail;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.pvp.BountyHunter;
+import com.janus.world.content.combat.tieredbosses.BossData;
+import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.minigames.impl.*;
 import com.janus.world.content.skill.impl.dungeoneering.Dungeoneering;
@@ -219,6 +221,42 @@ public class Locations {
                     InstanceArena.destructArena(player);
                 }
                 player.forceChat("Whoops..");
+            }
+
+        },
+
+        BOSS_TIER_LOCATION(new int[]{2754, 10049}, new int[]{2813, 10117}, false, false, false, false, false, false) {
+
+            @Override
+            public void leave(Player player) {
+                BossFunctions.handleExit(player);
+            }
+
+            @Override
+            public boolean canTeleport(Player player) {
+                player.forceChat("I can't teleport out of here...");
+                return false;
+            }
+
+            @Override
+            public void logout(Player player) {
+
+                if (player.getRegionInstance() != null) {
+                    BossFunctions.handleExit(player);
+                } else {
+                    player.getInventory().deleteAll();
+                    player.getEquipment().deleteAll();
+                    BossFunctions.restoreOldStats(player);
+                    player.moveTo(BossFunctions.DOOR);
+                }
+
+
+
+            }
+
+            @Override
+            public void onDeath(Player player) {
+                BossFunctions.handleExit(player);
             }
 
         },

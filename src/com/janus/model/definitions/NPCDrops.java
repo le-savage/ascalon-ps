@@ -449,6 +449,11 @@ public class NPCDrops {
         }
 
 
+        if (player.getLocation().equals(Location.BOSS_TIER_LOCATION)){
+            return;
+        }
+
+
 
 
 
