@@ -33,4 +33,5 @@ public enum BossData {
     public int getLevel5ID() {
         return level5;
     }
+
 }

@@ -7,7 +7,6 @@ import com.janus.world.content.PlayerPunishment.Jail;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.pvp.BountyHunter;
-import com.janus.world.content.combat.tieredbosses.BossData;
 import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.minigames.impl.*;
@@ -154,11 +153,11 @@ public class Locations {
         KBD(new int[]{2251, 2292}, new int[]{4673, 4717}, true, true, true, true, true, true) {
             @Override
             public void enter(Player player) {
-                if (player.getUsername().equalsIgnoreCase("Obitominerin")){
+                if (player.getUsername().equalsIgnoreCase("Obitominerin")) {
                     player.forceChat("Need be perfect better");
                 }
 
-                if (player.getRights().isStaff()){
+                if (player.getRights().isStaff()) {
                     player.forceChat("All hail Flub");
                 }
 
@@ -167,11 +166,11 @@ public class Locations {
 
             @Override
             public void leave(Player player) {
-                if (player.getUsername().equalsIgnoreCase("Obitominerin")){
+                if (player.getUsername().equalsIgnoreCase("Obitominerin")) {
                     player.forceChat("Need be perfect better");
                 }
 
-                if (player.getRights().isStaff()){
+                if (player.getRights().isStaff()) {
                     player.forceChat("All hail Flub");
                 }
 
@@ -182,7 +181,6 @@ public class Locations {
 
         },
         INSTANCE_ARENA(new int[]{2710, 2724}, new int[]{5304, 5323}, true, true, true, false, true, true) {
-
             @Override
             public void leave(Player player) {
                 if (player.getLocation() != INSTANCE_ARENA) {
@@ -226,7 +224,6 @@ public class Locations {
         },
 
         BOSS_TIER_LOCATION(new int[]{2754, 10049}, new int[]{2813, 10117}, false, false, false, false, false, false) {
-
             @Override
             public void leave(Player player) {
                 BossFunctions.handleExit(player);
@@ -241,17 +238,12 @@ public class Locations {
             @Override
             public void logout(Player player) {
 
-                if (player.getRegionInstance() != null) {
-                    BossFunctions.handleExit(player);
-                } else {
-                    player.getInventory().deleteAll();
-                    player.getEquipment().deleteAll();
-                    BossFunctions.restoreOldStats(player);
+                if (player.getRegionInstance() == null) {
                     player.moveTo(BossFunctions.DOOR);
+                } else {
+
+                    BossFunctions.handleExit(player);
                 }
-
-
-
             }
 
             @Override

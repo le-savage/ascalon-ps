@@ -390,7 +390,7 @@ public class NPCDrops {
             }
         }
 
-        if (ItemDropAnnouncer.announce(item)) {
+        if (ItemDropAnnouncer.announce(item) && player.getLocation() != Location.BOSS_TIER_LOCATION) {
             String itemName = item.getDefinition().getName();
             String itemMessage = Misc.anOrA(itemName) + " " + itemName;
             String npcName = Misc.formatText(npc.getDefinition().getName());

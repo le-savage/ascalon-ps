@@ -5,9 +5,7 @@ public enum LevelSetups {
 
     public enum LevelOneSetup {
 
-        KBD(99, 99, 99, 99, 99, 990, 990),
-        TESTLOL(99, 99, 99, 99, 99, 990, 990),
-        ;
+        KBD(99, 99, 99, 99, 99, 990, 990);
 
         private final int attack;
         private final int defence;
@@ -60,9 +58,7 @@ public enum LevelSetups {
 
     public enum LevelTwoSetup {
 
-        KBD(80, 80, 80, 80, 80, 880, 880),
-        TESTLOL(99, 99, 99, 99, 99, 990, 990),
-        ;
+        KBD(80, 80, 80, 80, 80, 880, 880);
 
         private final int attack;
         private final int defence;
@@ -115,9 +111,7 @@ public enum LevelSetups {
 
     public enum LevelThreeSetup {
 
-        KBD(70, 70, 99, 70, 70, 770, 770),
-        TESTLOL(99, 99, 99, 99, 99, 990, 990),
-        ;
+        KBD(70, 70, 99, 70, 70, 770, 770);
 
         private final int attack;
         private final int defence;
@@ -170,9 +164,7 @@ public enum LevelSetups {
 
     public enum LevelFourSetup {
 
-        KBD(55, 99, 55, 55, 55, 550, 660),
-        TESTLOL(99, 99, 99, 99, 99, 990, 990),
-        ;
+        KBD(55, 99, 55, 55, 55, 550, 660);
 
         private final int attack;
         private final int defence;
@@ -225,8 +217,7 @@ public enum LevelSetups {
 
     public enum LevelFiveSetup {
 
-        KBD(30, 30, 30, 99, 99, 500, 500),
-        TESTLOL(99, 99, 99, 99, 99, 990, 990);
+        KBD(30, 30, 30, 99, 99, 500, 500);
 
         private final int attack;
         private final int defence;

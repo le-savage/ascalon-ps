@@ -136,6 +136,9 @@ public class ObjectActionPacketListener implements PacketListener {
                 if (id == BossFunctions.EXIT_CAVE_ID){
                     BossFunctions.handleExit(player);
                 }
+                if (id == BossFunctions.rewardChestID) {
+                    BossFunctions.reward(player);
+                }
                 switch (id) {
 
                     case 24600: //Instance Barrier Exit

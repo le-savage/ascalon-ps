@@ -115,6 +115,9 @@ public class PlayerLoading {
             if (reader.has("has-used-boss-tier-tp")) {
                 player.setHasUsedBossTierTP(reader.get("has-used-boss-tier-tp").getAsBoolean());
             }
+            if (reader.has("should-give-boss-reward")) {
+                player.setShouldGiveBossReward(reader.get("should-give-boss-reward").getAsBoolean());
+            }
             if (reader.has("kbd-tier")) {
                 player.setKbdTier(reader.get("kbd-tier").getAsInt());
             }

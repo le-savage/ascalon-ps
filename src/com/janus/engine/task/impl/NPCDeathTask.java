@@ -18,7 +18,6 @@ import com.janus.world.content.combat.strategy.impl.KalphiteQueen;
 import com.janus.world.content.combat.strategy.impl.Nex;
 import com.janus.world.content.combat.tieredbosses.BossData;
 import com.janus.world.content.combat.tieredbosses.BossFunctions;
-import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
@@ -207,7 +206,7 @@ public class NPCDeathTask extends Task {
         World.deregister(npc);
 
 
-        if(npc.getLocation() == Location.INSTANCE_ARENA) {
+        if (npc.getLocation() == Location.INSTANCE_ARENA) {
 
 
             if (killer.getRights() != PlayerRights.PLAYER) {
@@ -290,13 +289,20 @@ public class NPCDeathTask extends Task {
             }
         }
 
-        if (npc.getLocation() == Location.BOSS_TIER_LOCATION){
-            if (npc.getId() == BossData.KING_BLACK_DRAGON.getLevel1ID()){
-                if(killer.kbdTier <= 3){
+        if (npc.getLocation() == Location.BOSS_TIER_LOCATION) {
+            if (npc.getId() == BossData.KING_BLACK_DRAGON.getLevel1ID()) {
+                if (killer.kbdTier <= 3) {
                     killer.kbdTier++;
+                    killer.setShouldGiveBossReward(true);
+                    killer.forceChat("I should leave now!");
                 }
-                killer.moveTo(BossFunctions.ARENA_ENTRANCE);
-                killer.forceChat("I should leave now!");
+                TaskManager.submit(new Task(2, killer, false) {
+                    @Override
+                    public void execute() {
+                        killer.moveTo(BossFunctions.ARENA_ENTRANCE);
+                        stop();
+                    }
+                });
             }
         }
 

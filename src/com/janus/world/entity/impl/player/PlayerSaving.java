@@ -57,6 +57,7 @@ public class PlayerSaving {
             object.addProperty("online-status", player.getRelations().getStatus().name());
             object.addProperty("given-starter", new Boolean(player.didReceiveStarter()));
             object.addProperty("has-used-boss-tier-tp", new Boolean(player.hasUsedBossTierTP()));
+            object.addProperty("should-give-boss-reward", new Boolean(player.shouldGiveBossReward()));
             object.addProperty("kbd-tier", new Integer(player.getKbdTier()));
             object.addProperty("money-pouch", new Long(player.getMoneyInPouch()));
             object.addProperty("donated", new Long(player.getAmountDonated()));

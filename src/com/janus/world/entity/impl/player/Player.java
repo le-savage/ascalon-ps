@@ -715,6 +715,7 @@ public class Player extends Character {
     private boolean voteMessageSent;
     private boolean receivedStarter;
     private boolean bossTierTP;
+    private boolean shouldGiveBossReward;
 
     /*
      * Getters & Setters
@@ -2234,6 +2235,10 @@ public class Player extends Character {
         return bossTierTP;
     }
 
+    public boolean shouldGiveBossReward() {
+        return shouldGiveBossReward;
+    }
+
     public void sendMessage(String string) {
         packetSender.sendMessage(string);
     }
@@ -2243,6 +2248,8 @@ public class Player extends Character {
     }
 
     public void setHasUsedBossTierTP(boolean bossTierTP) { this.bossTierTP = bossTierTP; }
+
+    public void setShouldGiveBossReward(boolean shouldGiveBossReward) { this.shouldGiveBossReward = shouldGiveBossReward; }
 
     public BlowpipeLoading getBlowpipeLoading() {
         return blowpipeLoading;

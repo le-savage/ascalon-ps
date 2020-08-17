@@ -4,6 +4,7 @@ import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.*;
 import com.janus.model.container.impl.Equipment;
+import com.janus.model.container.impl.Inventory;
 import com.janus.net.packet.impl.EquipPacketListener;
 import com.janus.world.World;
 import com.janus.world.content.BonusManager;
@@ -32,6 +33,8 @@ public class BossFunctions {
 
     public static final Position ARENA_CENTRE = new Position(2776, 10089);
 
+    public static int rewardChestID = 4126;
+
     public static boolean checkItems(Player player) {
         if (player.getInventory().getFreeSlots() != 28) {
             return false;
@@ -42,7 +45,6 @@ public class BossFunctions {
         }
         return true;
     }
-
 
     public static void handleDoor(Player player) {
 
@@ -82,24 +84,19 @@ public class BossFunctions {
     }
 
     public static void handleExit(Player player) {
-        player.forceChat("Lets get out of here!");
-        TaskManager.submit(new Task(3) {
-            @Override
-            protected void execute() {
-                restoreOldStats(player);
-                player.getInventory().deleteAll();
-                player.getEquipment().deleteAll();
-                player.getEquipment().refreshItems();
-                player.moveTo(DOOR);
-                destructBossTier(player);
-                player.getUpdateFlag().flag(Flag.ANIMATION);
-                stop();
-            }
-        });
+        restoreOldStats(player);
+        player.getInventory().deleteAll();
+        player.getEquipment().deleteAll();
+        player.getEquipment().refreshItems();
+        player.moveTo(DOOR);
+        if (player.getRegionInstance() != null) {
+            destructBossTier(player);
+        }
+        player.getUpdateFlag().flag(Flag.ANIMATION);
     }
 
     public static boolean shouldDespawnNPCs(Player player) {
-        if (player.getRegionInstance() != null && player.getRegionInstance().getNpcsList().isEmpty() && player.getLocation() == Locations.Location.BOSS_TIER_LOCATION) {
+        if (player.getRegionInstance() != null && !player.getRegionInstance().getNpcsList().isEmpty() && player.getLocation() == Locations.Location.BOSS_TIER_LOCATION) {
             return true;
         }
         return false;
@@ -119,6 +116,10 @@ public class BossFunctions {
             player.moveTo(nonInstance);//Moves player to height 0
             System.out.println("Sending " + player.getUsername() + " to height 0");
             player.getRegionInstance().destruct();
+        } else {
+            int z = 0;
+            Position nonInstance = new Position(doorX, doorY, z);
+            player.moveTo(nonInstance);//Moves player to height 0
         }
 
         if (shouldDespawnNPCs(player)) {
@@ -147,7 +148,6 @@ public class BossFunctions {
         System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().maxLevel));
 
     }
-
 
     public static void restoreOldStats(Player player) {
         System.out.println("Attempting to restore stats for " + player.getUsername());
@@ -195,5 +195,32 @@ public class BossFunctions {
         BonusManager.update(player);
     }
 
+    public static void reward(Player player) {
 
+        if (!player.shouldGiveBossReward()) {
+            return;
+        }
+
+        Inventory inventory = player.getInventory();
+
+        BossRewardBoxes.addBossReward(player);
+
+        switch (player.getKbdTier()) {
+            case 0:
+                inventory.addItems(Rewards.FIRST.items, true);
+                break;
+            case 1:
+                inventory.addItems(Rewards.SECOND.items, true);
+                break;
+            case 2:
+                inventory.addItems(Rewards.THIRD.items, true);
+                break;
+            case 3:
+                inventory.addItems(Rewards.FOURTH.items, true);
+                break;
+            case 4:
+                inventory.addItems(Rewards.FIFTH.items, true);
+                break;
+        }
+    }
 }
