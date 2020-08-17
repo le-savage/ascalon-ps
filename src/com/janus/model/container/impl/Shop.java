@@ -1028,7 +1028,7 @@ public class Shop extends ItemContainer {
                     case 13239: //primoridial boots
                     case 12708: //pegasian boots
                     case 13235:    //eternal boots
-                    case 18902: //trident of the swamp
+                    case 13051: //armadyl crossbow
                         return new Object[]{450, "Boss Points"};
                 }
                 return new Object[]{25000, "Boss Points"};
@@ -1095,11 +1095,11 @@ public class Shop extends ItemContainer {
                     case 7449://Meat Tenderizer
                     case 5608://Fox
                     case 13666://Giant Hand
-                        return new Object[]{30, "Donation Points"};
+                        return new Object[]{20, "Donation Points"};
                     case 17291://blood necklace
                     case 16359://primal boots
                     case 16293://primal gauntlets
-                        return new Object[]{35, "Donation Points"};
+                        return new Object[]{10, "Donation Points"};
                     case 9946://cap and goggles
                     case 9945://bomber cap
                     case 9944://bomber jack
@@ -1143,17 +1143,17 @@ public class Shop extends ItemContainer {
                     case 10330://3rd age range top
                     case 10332://3rd age range legs
                     case 20998://twisted bow
-                        return new Object[]{40, "Donation Points"};
+                        return new Object[]{20, "Donation Points"};
                     case 16711://primal full helm
                     case 17259://primal platebody
                     case 16689://primal platelegs
                     case 17361://primal kiteshield
                     case 6833://50$ donation box
                     case 18899://scythe of vitur
-                        return new Object[]{50, "Donation Points"};
+                        return new Object[]{35, "Donation Points"};
                     case 14044://Black Partyhat
                     case 14050://Black Santa Hat
-                        return new Object[]{80, "Donation Points"};
+                        return new Object[]{50, "Donation Points"};
                 }
                 return new Object[]{100, "Donation Points"}; // Default Value if we miss one
             } else if (shop == AGILITY_TICKET_STORE) {

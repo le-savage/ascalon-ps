@@ -151,34 +151,8 @@ public class Locations {
             }
         },
         KBD(new int[]{2251, 2292}, new int[]{4673, 4717}, true, true, true, true, true, true) {
-            @Override
-            public void enter(Player player) {
-                if (player.getUsername().equalsIgnoreCase("Obitominerin")) {
-                    player.forceChat("Need be perfect better");
-                }
-
-                if (player.getRights().isStaff()) {
-                    player.forceChat("All hail Flub");
-                }
-
-
-            }
-
-            @Override
-            public void leave(Player player) {
-                if (player.getUsername().equalsIgnoreCase("Obitominerin")) {
-                    player.forceChat("Need be perfect better");
-                }
-
-                if (player.getRights().isStaff()) {
-                    player.forceChat("All hail Flub");
-                }
-
-
-            }
         },
         MAN(new int[]{1957, 1966}, new int[]{4752, 4760}, false, false, true, false, true, true) {
-
         },
         INSTANCE_ARENA(new int[]{2710, 2724}, new int[]{5304, 5323}, true, true, true, false, true, true) {
             @Override
