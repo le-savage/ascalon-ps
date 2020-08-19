@@ -1,7 +1,6 @@
 package com.janus.world.content;
 
 import com.janus.model.Item;
-import com.janus.model.definitions.ItemDefinition;
 import com.janus.model.definitions.NPCDrops;
 import com.janus.model.definitions.NpcDefinition;
 import com.janus.model.input.impl.EnterSyntaxToSearchDropsFor;

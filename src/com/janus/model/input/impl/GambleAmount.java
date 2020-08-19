@@ -1,5 +1,6 @@
 package com.janus.model.input.impl;
 
+import com.google.common.collect.Range;
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
@@ -9,7 +10,6 @@ import com.janus.model.input.EnterAmount;
 import com.janus.util.Misc;
 import com.janus.world.content.PlayerLogs;
 import com.janus.world.entity.impl.player.Player;
-import com.google.common.collect.Range;
 
 public class GambleAmount extends EnterAmount {
 

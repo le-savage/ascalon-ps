@@ -1,26 +1,16 @@
 package com.janus.world.content;
 
-import com.janus.GameServer;
 import com.janus.GameSettings;
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Locations;
 import com.janus.model.Position;
-import com.janus.model.RegionInstance;
-import com.janus.model.RegionInstance.RegionInstanceType;
-import com.janus.util.Misc;
 import com.janus.world.World;
-import com.janus.world.content.dialogue.DialogueManager;
-import com.janus.world.content.skill.impl.construction.HouseDungeon;
-import com.janus.world.content.skill.impl.construction.HouseFurniture;
-import com.janus.world.content.skill.impl.construction.Palette;
 import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
-import java.util.ArrayList;
-
-public class CrazyMan{
+public class CrazyMan {
 
     public static NPC CrazyMan;
     public static final int CrazyManID = 3;

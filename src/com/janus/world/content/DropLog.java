@@ -1,11 +1,10 @@
 package com.janus.world.content;
 
+import com.janus.model.definitions.ItemDefinition;
+import com.janus.world.entity.impl.player.Player;
+
 import java.util.Collections;
 import java.util.Comparator;
-
-import com.janus.model.definitions.ItemDefinition;
-import com.janus.model.definitions.NPCDrops;
-import com.janus.world.entity.impl.player.Player;
 
 public class DropLog {
 

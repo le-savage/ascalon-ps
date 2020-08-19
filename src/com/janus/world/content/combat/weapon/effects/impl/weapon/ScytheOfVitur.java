@@ -46,18 +46,18 @@ public class ScytheOfVitur extends ItemEffect {
     @Override
     public void handleAttack(Character attacker, Character victim) {
         AtomicInteger attacked = new AtomicInteger();
-        if(hitAmount(attacker, victim) > 1) {
+        if (hitAmount(attacker, victim) > 1) {
             victim.dealDamage(attacker.getAsPlayer(), new Hit(Misc.random(DesolaceFormulas.calculateMaxMeleeHit(attacker, victim)), Hitmask.RED, CombatIcon.MELEE));
         }
         targets(attacker, victim).forEach(target -> {
             attacked.getAndIncrement();
-            if(attacked.get() >= 3)
+            if (attacked.get() >= 3)
                 return;
             target.getLastCombat().reset();
             target.getCombatBuilder().setVictim(attacker);
             target.getCombatBuilder().attack(attacker);
-            for(int i = 1; i <= hitAmount(attacker, victim); i++) {
-                if(CombatFactory.rollAccuracy(attacker, target, CombatType.MELEE)) {
+            for (int i = 1; i <= hitAmount(attacker, victim); i++) {
+                if (CombatFactory.rollAccuracy(attacker, target, CombatType.MELEE)) {
                     target.dealDamage(attacker.getAsPlayer(), new Hit(Misc.random(DesolaceFormulas.calculateMaxMeleeHit(attacker, target)), Hitmask.RED, CombatIcon.MELEE));
                 } else {
                     target.dealDamage(attacker.getAsPlayer(), new Hit(0, Hitmask.RED, CombatIcon.BLOCK));
@@ -89,13 +89,13 @@ public class ScytheOfVitur extends ItemEffect {
             if (next == null) {
                 continue;
             }
-            if(!next.getPosition().isWithinDistance(victim.getPosition(),
+            if (!next.getPosition().isWithinDistance(victim.getPosition(),
                     1))
                 continue;
             if (next.equals(attacker) || next.equals(victim) || next.getConstitution() <= 0) {
                 continue;
             }
-            if(next.isNpc() && !next.getAsMob().getDefinition().isAttackable()) {
+            if (next.isNpc() && !next.getAsMob().getDefinition().isAttackable()) {
                 continue;
             }
 

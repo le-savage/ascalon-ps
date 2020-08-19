@@ -1,10 +1,10 @@
 package com.janus.world.content;
 
-import com.janus.model.RegionInstance;
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.engine.task.impl.CeilingCollapseTask;
 import com.janus.model.Position;
+import com.janus.model.RegionInstance;
 import com.janus.world.World;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;

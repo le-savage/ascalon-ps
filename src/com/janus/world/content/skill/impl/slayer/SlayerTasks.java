@@ -181,6 +181,7 @@ public enum SlayerTasks {
         int amountToKill = minimumToKill + Misc.random(additionalRandom);
         return new int[]{slayerTaskId, amountToKill};
     }
+
     @Override
     public String toString() {
         return Misc.ucFirst(name().toLowerCase().replaceAll("_", " ").replaceAll("2", ""));

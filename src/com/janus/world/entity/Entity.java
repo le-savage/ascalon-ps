@@ -4,8 +4,8 @@ import com.janus.GameSettings;
 import com.janus.model.Animation;
 import com.janus.model.GameObject;
 import com.janus.model.Graphic;
-import com.janus.model.Position;
 import com.janus.model.Locations.Location;
+import com.janus.model.Position;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
@@ -157,9 +157,11 @@ public class Entity {
     public boolean isPlayer() {
         return this instanceof Player;
     }
+
     public Player getAsPlayer() {
         return (Player) this;
     }
+
     public NPC getAsMob() {
         return (NPC) this;
     }

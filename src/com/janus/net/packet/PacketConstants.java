@@ -1,44 +1,6 @@
 package com.janus.net.packet;
 
-import com.janus.net.packet.impl.ButtonClickPacketListener;
-import com.janus.net.packet.impl.ChangeAppearancePacketListener;
-import com.janus.net.packet.impl.ChangeRelationStatusPacketListener;
-import com.janus.net.packet.impl.ChatPacketListener;
-import com.janus.net.packet.impl.ClickTextMenuPacketListener;
-import com.janus.net.packet.impl.CloseInterfacePacketListener;
-import com.janus.net.packet.impl.CommandPacketListener;
-import com.janus.net.packet.impl.DialoguePacketListener;
-import com.janus.net.packet.impl.DropItemPacketListener;
-import com.janus.net.packet.impl.DuelAcceptancePacketListener;
-import com.janus.net.packet.impl.DungeoneeringPartyInvitatationPacketListener;
-import com.janus.net.packet.impl.EnterInputPacketListener;
-import com.janus.net.packet.impl.EquipPacketListener;
-import com.janus.net.packet.impl.ExamineItemPacketListener;
-import com.janus.net.packet.impl.ExamineNpcPacketListener;
-import com.janus.net.packet.impl.FinalizedMapRegionChangePacketListener;
-import com.janus.net.packet.impl.FollowPlayerPacketListener;
-import com.janus.net.packet.impl.GESelectItemPacketListener;
-import com.janus.net.packet.impl.HeightCheckPacketListener;
-import com.janus.net.packet.impl.IdleLogoutPacketListener;
-import com.janus.net.packet.impl.ItemActionPacketListener;
-import com.janus.net.packet.impl.ItemColorCustomization;
-import com.janus.net.packet.impl.ItemContainerActionPacketListener;
-import com.janus.net.packet.impl.MagicOnItemsPacketListener;
-import com.janus.net.packet.impl.MagicOnPlayerPacketListener;
-import com.janus.net.packet.impl.MovementPacketListener;
-import com.janus.net.packet.impl.NPCOptionPacketListener;
-import com.janus.net.packet.impl.ObjectActionPacketListener;
-import com.janus.net.packet.impl.PickupItemPacketListener;
-import com.janus.net.packet.impl.PlayerOptionPacketListener;
-import com.janus.net.packet.impl.PlayerRelationPacketListener;
-import com.janus.net.packet.impl.PrestigeSkillPacketListener;
-import com.janus.net.packet.impl.RegionChangePacketListener;
-import com.janus.net.packet.impl.SendClanChatMessagePacketListener;
-import com.janus.net.packet.impl.SilencedPacketListener;
-import com.janus.net.packet.impl.SwitchItemSlotPacketListener;
-import com.janus.net.packet.impl.TradeInvitationPacketListener;
-import com.janus.net.packet.impl.UseItemPacketListener;
-import com.janus.net.packet.impl.WithdrawMoneyFromPouchPacketListener;
+import com.janus.net.packet.impl.*;
 import com.janus.world.entity.impl.player.Player;
 
 public class PacketConstants {

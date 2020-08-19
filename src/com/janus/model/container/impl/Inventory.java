@@ -1,13 +1,13 @@
 package com.janus.model.container.impl;
 
-import java.util.Optional;
-
 import com.janus.model.Item;
 import com.janus.model.container.ItemContainer;
 import com.janus.model.container.StackType;
 import com.janus.model.container.impl.Bank.BankSearchAttributes;
 import com.janus.model.definitions.ItemDefinition;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.Optional;
 
 /**
  * Represents a player's inventory item container.

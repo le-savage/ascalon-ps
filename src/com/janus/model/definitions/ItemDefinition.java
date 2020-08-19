@@ -1,11 +1,11 @@
 package com.janus.model.definitions;
 
+import com.janus.model.container.impl.Equipment;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
-import com.janus.model.container.impl.Equipment;
 
 /**
  * This file manages every item definition, which includes

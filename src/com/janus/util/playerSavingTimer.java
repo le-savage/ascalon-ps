@@ -2,11 +2,9 @@ package com.janus.util;
 
 import com.janus.GameSettings;
 import com.janus.world.World;
-import com.janus.world.content.PlayerPanel;
 import com.janus.world.content.PlayerPunishment;
 import com.janus.world.content.WellOfGoodwill;
 import com.janus.world.content.clan.ClanChatManager;
-import com.janus.world.entity.impl.player.Player;
 
 public class playerSavingTimer {
 

@@ -1,10 +1,9 @@
 package com.janus.net.packet;
 
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBuffers;
-
 import com.janus.model.ChatMessage.Message;
 import com.janus.net.packet.Packet.PacketType;
+import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.buffer.ChannelBuffers;
 
 /**
  * The {@link Message} implementation that functions as a dynamic buffer wrapper

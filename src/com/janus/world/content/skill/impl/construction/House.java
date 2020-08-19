@@ -1,11 +1,11 @@
 package com.janus.world.content.skill.impl.construction;
 
-import java.util.ArrayList;
-
 import com.janus.model.RegionInstance;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.ArrayList;
 
 /**
  * @author Owner Blade

@@ -268,7 +268,8 @@ public class PlayerLoading {
                 player.getLastVengeance().reset(reader.get("last-veng").getAsLong());
             }
             if (reader.has("collection-data")) {
-                Type adventureLogType = new com.google.common.reflect.TypeToken<List<CollectionLogEntry>>() {}.getType();
+                Type adventureLogType = new com.google.common.reflect.TypeToken<List<CollectionLogEntry>>() {
+                }.getType();
                 player.setCollectionLogData(new Gson().fromJson(reader.get("collection-data"), adventureLogType));
             }
             if (reader.has("fight-type")) {

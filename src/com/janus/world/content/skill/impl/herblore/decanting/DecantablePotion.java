@@ -1,8 +1,8 @@
 package com.janus.world.content.skill.impl.herblore.decanting;
 
-import java.util.Arrays;
-
 import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.Arrays;
 
 /**
  * Represents a decantable potion and it's respective data.

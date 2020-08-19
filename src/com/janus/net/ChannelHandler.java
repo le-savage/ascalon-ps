@@ -1,20 +1,15 @@
 package com.janus.net;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.channel.ChannelStateEvent;
-import org.jboss.netty.channel.ExceptionEvent;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
-import org.jboss.netty.handler.timeout.IdleStateAwareChannelUpstreamHandler;
-import org.jboss.netty.handler.timeout.IdleStateEvent;
-
 import com.janus.net.packet.Packet;
 import com.janus.world.World;
 import com.janus.world.entity.impl.player.Player;
+import org.jboss.netty.channel.*;
+import org.jboss.netty.handler.timeout.IdleStateAwareChannelUpstreamHandler;
+import org.jboss.netty.handler.timeout.IdleStateEvent;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * An implementation of netty's {@link SimpleChannelUpstreamHandler} to handle

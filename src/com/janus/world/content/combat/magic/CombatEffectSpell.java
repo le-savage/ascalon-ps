@@ -1,10 +1,10 @@
 package com.janus.world.content.combat.magic;
 
-import java.util.Optional;
-
 import com.janus.model.Item;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.Optional;
 
 /**
  * A {@link Spell} implementation primarily used for spells that have effects

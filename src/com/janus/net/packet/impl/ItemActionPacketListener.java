@@ -18,11 +18,7 @@ import com.janus.world.content.skill.impl.construction.Construction;
 import com.janus.world.content.skill.impl.dungeoneering.ItemBinding;
 import com.janus.world.content.skill.impl.herblore.Herblore;
 import com.janus.world.content.skill.impl.herblore.IngridientsBook;
-import com.janus.world.content.skill.impl.hunter.BoxTrap;
-import com.janus.world.content.skill.impl.hunter.Hunter;
-import com.janus.world.content.skill.impl.hunter.JarData;
-import com.janus.world.content.skill.impl.hunter.PuroPuro;
-import com.janus.world.content.skill.impl.hunter.SnareTrap;
+import com.janus.world.content.skill.impl.hunter.*;
 import com.janus.world.content.skill.impl.hunter.Trap.TrapState;
 import com.janus.world.content.skill.impl.prayer.Prayer;
 import com.janus.world.content.skill.impl.runecrafting.Runecrafting;
@@ -115,18 +111,18 @@ public class ItemActionPacketListener implements PacketListener {
             return;
         }
 
-        if (itemId == BonusExperienceScroll.scrollID){
+        if (itemId == BonusExperienceScroll.scrollID) {
             BonusExperienceScroll.handleScroll(player, itemId);
             return;
         }
 
-        if (itemId == DungeoneeringLamp.lampID){
+        if (itemId == DungeoneeringLamp.lampID) {
             DungeoneeringLamp.handleLamp(player, itemId);
             return;
         }
 
         if (itemId == BossRewardBoxes.rewardBox) {
-            BossRewardBoxes.openBossReward(player);
+            BossRewardBoxes.buyBossBoxReward(player);
         }
 
         switch (itemId) {

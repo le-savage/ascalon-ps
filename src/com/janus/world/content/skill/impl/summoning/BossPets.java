@@ -1,4 +1,3 @@
-
 package com.janus.world.content.skill.impl.summoning;
 
 import com.janus.world.entity.impl.npc.NPC;

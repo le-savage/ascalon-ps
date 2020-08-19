@@ -27,7 +27,7 @@ public class InstanceArena {
 
     public static void handleInstance(Player player, GameObject object) {
         if (object.getId() == barrierID) {
-            if(player.getLocation() == Locations.Location.INSTANCE_ARENA || player.getRegionInstance() != null){
+            if (player.getLocation() == Locations.Location.INSTANCE_ARENA || player.getRegionInstance() != null) {
                 player.getPacketSender().sendInterfaceRemoval();
             }
 
@@ -82,7 +82,7 @@ public class InstanceArena {
 
 
     public static void spawnMan(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int CrazyManID = 3;
@@ -108,7 +108,7 @@ public class InstanceArena {
     }
 
     public static void spawnKBD(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int KBD = 50;
@@ -134,7 +134,7 @@ public class InstanceArena {
     }
 
     public static void spawnIronDragon(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int IronID = 1591;
@@ -160,7 +160,7 @@ public class InstanceArena {
     }
 
     public static void spawnSteelDragon(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int SteelID = 1592;
@@ -186,7 +186,7 @@ public class InstanceArena {
     }
 
     public static void spawnFrostDragon(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int frostID = 51;
@@ -212,7 +212,7 @@ public class InstanceArena {
     }
 
     public static void spawnSlashBash(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int slashID = 2060;
@@ -238,7 +238,7 @@ public class InstanceArena {
     }
 
     public static void spawnSmokeDevil(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int smokeID = 499;
@@ -264,7 +264,7 @@ public class InstanceArena {
     }
 
     public static void spawnSupreme(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int supremeID = 2881;
@@ -290,7 +290,7 @@ public class InstanceArena {
     }
 
     public static void spawnPrime(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int primeID = 2882;
@@ -316,7 +316,7 @@ public class InstanceArena {
     }
 
     public static void spawnRex(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int rexID = 2883;
@@ -342,7 +342,7 @@ public class InstanceArena {
     }
 
     public static void spawnIceWorm(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int iceID = 9463;
@@ -368,7 +368,7 @@ public class InstanceArena {
     }
 
     public static void spawnDesertWorm(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int desertID = 9465;
@@ -394,7 +394,7 @@ public class InstanceArena {
     }
 
     public static void spawnJungleWorm(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int jungleID = 9467;
@@ -420,7 +420,7 @@ public class InstanceArena {
     }
 
     public static void spawnCerberus(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int cerberusID = 1999;
@@ -446,7 +446,7 @@ public class InstanceArena {
     }
 
     public static void spawnTormentedDemon(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int tormID = 8349;
@@ -498,7 +498,7 @@ public class InstanceArena {
     }
 
     public static void spawnGorilla(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int gorillaID = 1459;
@@ -524,7 +524,7 @@ public class InstanceArena {
     }
 
     public static void spawnBork(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int borkID = 7134;
@@ -550,7 +550,7 @@ public class InstanceArena {
     }
 
     public static void spawnChaosElemental(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int chaosID = 3200;
@@ -602,7 +602,7 @@ public class InstanceArena {
     }
 
     public static void spawnChaosDruid(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int druidID = 181;
@@ -621,10 +621,10 @@ public class InstanceArena {
                 NPC druid2 = new NPC(druidID, new Position(centerX + -2, centerY, player.getPosition().getZ())).setSpawnedFor(player);
                 NPC druid3 = new NPC(druidID, new Position(centerX + 2, centerY, player.getPosition().getZ())).setSpawnedFor(player);
                 NPC druid4 = new NPC(druidID, new Position(centerX + 4, centerY, player.getPosition().getZ())).setSpawnedFor(player);
-                NPC druid5 = new NPC(druidID, new Position(centerX, centerY+1, player.getPosition().getZ())).setSpawnedFor(player);
-                NPC druid6 = new NPC(druidID, new Position(centerX + -2, centerY+1, player.getPosition().getZ())).setSpawnedFor(player);
-                NPC druid7 = new NPC(druidID, new Position(centerX + 2, centerY+1, player.getPosition().getZ())).setSpawnedFor(player);
-                NPC druid8 = new NPC(druidID, new Position(centerX + 4, centerY+1, player.getPosition().getZ())).setSpawnedFor(player);
+                NPC druid5 = new NPC(druidID, new Position(centerX, centerY + 1, player.getPosition().getZ())).setSpawnedFor(player);
+                NPC druid6 = new NPC(druidID, new Position(centerX + -2, centerY + 1, player.getPosition().getZ())).setSpawnedFor(player);
+                NPC druid7 = new NPC(druidID, new Position(centerX + 2, centerY + 1, player.getPosition().getZ())).setSpawnedFor(player);
+                NPC druid8 = new NPC(druidID, new Position(centerX + 4, centerY + 1, player.getPosition().getZ())).setSpawnedFor(player);
                 World.register(druid1);
                 World.register(druid2);
                 World.register(druid3);
@@ -649,7 +649,7 @@ public class InstanceArena {
     }
 
     public static void spawnRockCrabMadness(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int crabID = 1265;
@@ -751,7 +751,7 @@ public class InstanceArena {
     }
 
     public static void spawnTzHaar(final Player player) {
-        
+
         player.setRegionInstance(new RegionInstance(player, RegionInstance.RegionInstanceType.INSTANCE_ARENA));
         player.getPacketSender().sendInterfaceRemoval();
         final int minionid1 = 2605;
@@ -794,7 +794,7 @@ public class InstanceArena {
             return;
         } else {
             player.moveTo(ENTRANCE);
-            System.out.println("Destroying Arena for "+player.getUsername());
+            System.out.println("Destroying Arena for " + player.getUsername());
             player.getRegionInstance().getNpcsList().forEach(npc -> npc.removeInstancedNpcs(Locations.Location.INSTANCE_ARENA, player.getPosition().getZ()));
             player.getRegionInstance().getNpcsList().forEach(npc -> World.deregister(npc));
             player.getRegionInstance().destruct(); //todo Maybe I doubled the destruct?

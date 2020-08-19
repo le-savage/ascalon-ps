@@ -1,15 +1,15 @@
 package com.janus.world.content.combat.effect;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 import com.janus.engine.task.Task;
 import com.janus.model.CombatIcon;
 import com.janus.model.Hit;
 import com.janus.model.Hitmask;
 import com.janus.model.Item;
 import com.janus.world.entity.impl.Character;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * A {@link Task} implementation that handles the poisoning process.

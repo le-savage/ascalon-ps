@@ -1,20 +1,15 @@
 package com.janus.world.content.combat.magic;
 
-import java.util.Optional;
-
 import com.janus.engine.task.TaskManager;
-import com.janus.model.Animation;
-import com.janus.model.Graphic;
-import com.janus.model.GraphicHeight;
-import com.janus.model.Item;
-import com.janus.model.Projectile;
-import com.janus.model.Skill;
+import com.janus.model.*;
 import com.janus.world.content.combat.CombatFactory;
-import com.janus.world.content.combat.effect.CombatTeleblockEffect;
 import com.janus.world.content.combat.effect.CombatPoisonEffect.PoisonType;
+import com.janus.world.content.combat.effect.CombatTeleblockEffect;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.Optional;
 
 /**
  * Holds all of the {@link CombatSpell}s that can be cast by an {@link Character}.

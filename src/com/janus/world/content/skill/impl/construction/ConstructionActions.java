@@ -1,7 +1,5 @@
 package com.janus.world.content.skill.impl.construction;
 
-import java.util.Calendar;
-
 import com.janus.GameSettings;
 import com.janus.model.Animation;
 import com.janus.model.Position;
@@ -17,6 +15,8 @@ import com.janus.world.content.skill.impl.prayer.Prayer;
 import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.content.transportation.TeleportType;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.Calendar;
 
 /**
  * @author Keagan

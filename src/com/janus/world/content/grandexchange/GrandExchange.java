@@ -1,7 +1,5 @@
 package com.janus.world.content.grandexchange;
 
-import java.util.ArrayList;
-
 import com.janus.model.GameMode;
 import com.janus.model.Item;
 import com.janus.model.definitions.ItemDefinition;
@@ -11,6 +9,8 @@ import com.janus.util.Misc;
 import com.janus.world.World;
 import com.janus.world.content.grandexchange.GrandExchangeOffer.OfferType;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.ArrayList;
 
 /**
  * Handles the Grand Exchange system.

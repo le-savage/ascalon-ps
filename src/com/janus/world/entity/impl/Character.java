@@ -131,6 +131,7 @@ public abstract class Character extends Entity {
         primaryHit = decrementHealth(hit);
         getUpdateFlag().flag(Flag.SINGLE_HIT);
     }
+
     public void dealDamage(Player attacker, Hit hit) {
         if (getUpdateFlag().flagged(Flag.SINGLE_HIT)) {
             dealSecondaryDamage(hit);

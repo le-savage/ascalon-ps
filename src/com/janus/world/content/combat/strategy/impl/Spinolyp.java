@@ -1,8 +1,8 @@
 package com.janus.world.content.combat.strategy.impl;
 
 import com.janus.model.Animation;
-import com.janus.model.Projectile;
 import com.janus.model.Locations.Location;
+import com.janus.model.Projectile;
 import com.janus.util.Misc;
 import com.janus.world.content.combat.CombatContainer;
 import com.janus.world.content.combat.CombatType;

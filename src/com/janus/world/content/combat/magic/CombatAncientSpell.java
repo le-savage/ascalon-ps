@@ -1,18 +1,14 @@
 package com.janus.world.content.combat.magic;
 
-import java.util.Iterator;
-import java.util.Optional;
-
-import com.janus.model.CombatIcon;
-import com.janus.model.Hit;
-import com.janus.model.Hitmask;
-import com.janus.model.Item;
-import com.janus.model.Locations;
+import com.janus.model.*;
 import com.janus.util.RandomUtility;
 import com.janus.world.World;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.Iterator;
+import java.util.Optional;
 
 /**
  * A {@link CombatSpell} implementation that is primarily used for spells that

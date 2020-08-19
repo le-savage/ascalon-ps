@@ -2,8 +2,6 @@ package com.janus.world.content;
 
 import com.janus.util.Misc;
 import com.janus.world.World;
-import com.janus.world.content.clan.ClanChatManager;
-import com.janus.world.content.grandexchange.GrandExchangeOffers;
 import com.janus.world.entity.impl.player.Player;
 
 /*

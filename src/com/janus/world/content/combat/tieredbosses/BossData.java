@@ -2,7 +2,7 @@ package com.janus.world.content.combat.tieredbosses;
 
 public enum BossData {
 
-    KING_BLACK_DRAGON(50 ,3, 40, 10, 50);
+    KING_BLACK_DRAGON(50, 50, 50, 50, 50);
 
     private int level1;
     private int level2;
@@ -21,15 +21,19 @@ public enum BossData {
     public int getLevel1ID() {
         return level1;
     }
+
     public int getLevel2ID() {
         return level2;
     }
+
     public int getLevel3ID() {
         return level3;
     }
+
     public int getLevel4ID() {
         return level4;
     }
+
     public int getLevel5ID() {
         return level5;
     }

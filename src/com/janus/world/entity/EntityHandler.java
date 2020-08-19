@@ -7,8 +7,6 @@ import com.janus.net.SessionState;
 import com.janus.world.World;
 import com.janus.world.clip.region.RegionClipping;
 import com.janus.world.content.CustomObjects;
-import com.janus.world.content.clan.ClanChat;
-import com.janus.world.content.clan.ClanChatManager;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 

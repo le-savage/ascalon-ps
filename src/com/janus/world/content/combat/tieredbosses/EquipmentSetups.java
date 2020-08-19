@@ -2,11 +2,11 @@ package com.janus.world.content.combat.tieredbosses;
 
 public enum EquipmentSetups {
 
-    ONE(18899, -1, 18891, 18892, 18893, 17291, 14022, 15946, 13239),//Justicar And Scythe
+    ONE(18899, -1, 18891, 18892, 18893, 17291, 14022, 15946, 13239),//Easiest
     TWO(18899, -1, 18891, 18892, 18893, 17291, 14022, 15946, 13239),
     THREE(18899, -1, 18891, 18892, 18893, 17291, 14022, 15946, 13239),
     FOUR(18899, -1, 18891, 18892, 18893, 17291, 14022, 15946, 13239),
-    FIVE(1321, 1189, 1155, 1117, 1075, 1725, 14642, 775, 1837);//Full Bronze lol
+    FIVE(1321, 1189, 1155, 1117, 1075, 1725, 14642, 775, 1837);//Hardest
 
     private final int weapon;
     private final int shield;

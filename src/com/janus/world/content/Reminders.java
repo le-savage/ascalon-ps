@@ -3,7 +3,6 @@ package com.janus.world.content;
 import com.janus.util.Misc;
 import com.janus.util.Stopwatch;
 import com.janus.world.World;
-import com.janus.world.content.discord.DiscordMessenger;
 
 /*
  * @author Bas

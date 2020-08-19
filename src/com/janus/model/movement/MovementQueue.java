@@ -1,20 +1,20 @@
 package com.janus.model.movement;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Direction;
 import com.janus.model.Locations;
-import com.janus.model.Position;
 import com.janus.model.Locations.Location;
+import com.janus.model.Position;
 import com.janus.world.clip.region.RegionClipping;
 import com.janus.world.content.EnergyHandler;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * A queue of {@link Direction}s which a {@link Character} will follow.

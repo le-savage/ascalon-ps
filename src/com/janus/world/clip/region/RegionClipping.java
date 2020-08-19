@@ -1,17 +1,17 @@
 package com.janus.world.clip.region;
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-
 import com.janus.model.GameObject;
-import com.janus.model.Position;
 import com.janus.model.Locations.Location;
+import com.janus.model.Position;
 import com.janus.model.definitions.GameObjectDefinition;
 import com.janus.util.Misc;
 import com.janus.world.clip.stream.ByteStream;
 import com.janus.world.entity.impl.Character;
+
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
 
 /**
  * A highly modified version of the released clipping.

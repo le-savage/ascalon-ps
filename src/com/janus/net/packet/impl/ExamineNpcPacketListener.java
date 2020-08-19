@@ -1,7 +1,5 @@
 package com.janus.net.packet.impl;
 
-import com.janus.model.PlayerRights;
-import com.janus.model.Position;
 import com.janus.model.definitions.NpcDefinition;
 import com.janus.net.packet.Packet;
 import com.janus.net.packet.PacketListener;
@@ -16,7 +14,7 @@ public class ExamineNpcPacketListener implements PacketListener {
             return;
         }
         NpcDefinition npcDef = NpcDefinition.forId(npc);
-        if ((player.getRights().isStaff()) && (npcDef != null)){
+        if ((player.getRights().isStaff()) && (npcDef != null)) {
             player.getPacketSender().sendMessage("ID: " + npcDef.getId());
         }
         if (npcDef != null) {

@@ -1,14 +1,14 @@
 package com.janus.world.content;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import com.janus.model.Item;
 import com.janus.util.Misc;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Handles items kept on death.

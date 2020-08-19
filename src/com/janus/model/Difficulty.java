@@ -36,6 +36,7 @@ public enum Difficulty {
     }
 
     public double getXpRate() {
-        return xpRate; }
+        return xpRate;
+    }
 
 }

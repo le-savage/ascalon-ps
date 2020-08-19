@@ -1,12 +1,7 @@
 package com.janus.engine.task.impl;
 
 import com.janus.engine.task.Task;
-import com.janus.model.Animation;
-import com.janus.model.CombatIcon;
-import com.janus.model.Hit;
-import com.janus.model.Hitmask;
-import com.janus.model.PlayerRights;
-import com.janus.model.Skill;
+import com.janus.model.*;
 import com.janus.model.Locations.Location;
 import com.janus.world.content.Consumables;
 import com.janus.world.entity.impl.player.Player;

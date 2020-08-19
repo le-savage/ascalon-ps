@@ -1,14 +1,7 @@
 package com.janus.world.content.skill.impl.hunter;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.janus.engine.task.impl.HunterTrapsTask;
-import com.janus.model.Animation;
-import com.janus.model.GameObject;
-import com.janus.model.Locations;
-import com.janus.model.Position;
-import com.janus.model.Skill;
+import com.janus.model.*;
 import com.janus.model.container.impl.Equipment;
 import com.janus.model.movement.MovementQueue;
 import com.janus.util.Misc;
@@ -16,6 +9,9 @@ import com.janus.world.content.CustomObjects;
 import com.janus.world.content.skill.impl.hunter.Trap.TrapState;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Hunter {
 

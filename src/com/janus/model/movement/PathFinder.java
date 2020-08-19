@@ -1,10 +1,10 @@
 package com.janus.model.movement;
 
-import java.util.LinkedList;
-
 import com.janus.model.Position;
 import com.janus.world.clip.region.RegionClipping;
 import com.janus.world.entity.impl.Character;
+
+import java.util.LinkedList;
 
 public class PathFinder {
 

@@ -1,9 +1,9 @@
 package com.janus.world.content.skill.impl.construction;
 
+import com.janus.world.entity.impl.player.Player;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import com.janus.world.entity.impl.player.Player;
 
 public class ConstructionSave implements Serializable {
 

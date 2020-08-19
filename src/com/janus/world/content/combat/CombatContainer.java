@@ -79,8 +79,8 @@ public class CombatContainer {
         this.victim = victim;
         this.combatType = hitType;
         this.checkAccuracy = checkAccuracy;
-        if(attacker.isPlayer()) {
-            if(attacker.getAsPlayer().currentEffects.size() > 0) {
+        if (attacker.isPlayer()) {
+            if (attacker.getAsPlayer().currentEffects.size() > 0) {
                 this.hits = prepareHits(ItemEffect.highestHitAmount(attacker.getAsPlayer(), attacker, victim));
             } else {
                 this.hits = prepareHits(hitAmount);

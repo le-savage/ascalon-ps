@@ -291,7 +291,7 @@ public class NPCDeathTask extends Task {
 
         if (npc.getLocation() == Location.BOSS_TIER_LOCATION) {
             if (npc.getId() == BossData.KING_BLACK_DRAGON.getLevel1ID()) {
-                if (killer.kbdTier <= 3) {
+                if (killer.kbdTier <= 4) {
                     killer.kbdTier++;
                     killer.setShouldGiveBossReward(true);
                     killer.forceChat("I should leave now!");

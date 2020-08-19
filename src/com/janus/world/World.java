@@ -20,7 +20,6 @@ import com.janus.world.entity.updating.NpcUpdateSequence;
 import com.janus.world.entity.updating.PlayerUpdateSequence;
 import com.janus.world.entity.updating.UpdateSequence;
 
-import java.net.Inet4Address;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Queue;

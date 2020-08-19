@@ -1,4 +1,3 @@
-
 package com.janus.world.content.minigames;
 
 import com.janus.world.entity.impl.player.Player;

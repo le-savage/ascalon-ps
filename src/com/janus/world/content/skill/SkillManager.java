@@ -1,6 +1,5 @@
 package com.janus.world.content.skill;
 
-import com.cryo.entities.Game;
 import com.janus.GameLoader;
 import com.janus.GameSettings;
 import com.janus.engine.task.Task;
@@ -17,8 +16,6 @@ import com.janus.world.content.Achievements.AchievementData;
 import com.janus.world.content.Sounds.Sound;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
-import com.janus.world.content.transportation.TeleportHandler;
-import com.janus.world.content.transportation.TeleportType;
 import com.janus.world.entity.impl.player.Player;
 
 /**
@@ -78,6 +75,10 @@ public class SkillManager {
      * @return The Skills instance.
      */
     public SkillManager addExperience(Skill skill, int experience) {
+
+        if (player.getLocation() == Location.BOSS_TIER_LOCATION){
+            return this;
+        }
 
         if (player.experienceLocked())
             return this;
@@ -204,7 +205,7 @@ public class SkillManager {
                 }
 
                 if ((maxed(player)) && (player.getDifficulty() == Difficulty.Easy)) {
-                    if(player.getRights() == PlayerRights.PLAYER){
+                    if (player.getRights() == PlayerRights.PLAYER) {
                         player.setRights(PlayerRights.DONATOR);
                     }
                     Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
@@ -212,7 +213,7 @@ public class SkillManager {
                 }
 
                 if ((maxed(player)) && (player.getDifficulty() == Difficulty.Medium)) {
-                    if(player.getRights() == PlayerRights.PLAYER){
+                    if (player.getRights() == PlayerRights.PLAYER) {
                         player.setRights(PlayerRights.DONATOR);
                     }
                     Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
@@ -220,7 +221,7 @@ public class SkillManager {
                 }
 
                 if ((maxed(player)) && (player.getDifficulty() == Difficulty.Hard)) {
-                    if(player.getRights() == PlayerRights.PLAYER){
+                    if (player.getRights() == PlayerRights.PLAYER) {
                         player.setRights(PlayerRights.DONATOR);
                     }
                     Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
@@ -228,7 +229,7 @@ public class SkillManager {
                 }
 
                 if ((maxed(player)) && (player.getDifficulty() == Difficulty.Insane)) {
-                    if(player.getRights() == PlayerRights.PLAYER){
+                    if (player.getRights() == PlayerRights.PLAYER) {
                         player.setRights(PlayerRights.DONATOR);
                     }
                     Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
@@ -236,7 +237,7 @@ public class SkillManager {
                 }
 
                 if ((maxed(player)) && (player.getDifficulty() == Difficulty.Zezima)) {
-                    if(player.getRights() == PlayerRights.PLAYER){
+                    if (player.getRights() == PlayerRights.PLAYER) {
                         player.setRights(PlayerRights.DONATOR);
                     }
                     Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);

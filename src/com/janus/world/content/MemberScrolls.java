@@ -44,7 +44,7 @@ public class MemberScrolls {
                 player.incrementAmountDonated(funds);
                 player.getPointsHandler().incrementDonationPoints(funds);
                 player.getPacketSender().sendMessage("Your account has gained funds worth $" + funds + ". Your total is now at $" + player.getAmountDonated() + ".");
-                World.sendStaffMessage("@red@"+player.getUsername() + " has just claimed a $"+funds+" scroll.");
+                World.sendStaffMessage("@red@" + player.getUsername() + " has just claimed a $" + funds + " scroll.");
                 checkForRankUpdate(player);
                 PlayerPanel.refreshPanel(player);
                 break;

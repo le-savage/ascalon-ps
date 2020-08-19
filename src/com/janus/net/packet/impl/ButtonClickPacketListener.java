@@ -1738,9 +1738,9 @@ public class ButtonClickPacketListener implements PacketListener {
     }
 
     private boolean checkHandlers(Player player, int id) {
-        if(player.getCollectionLog().handleButton(id))
+        if (player.getCollectionLog().handleButton(id))
             return true;
-        if(KillLogInterface.handleButton(player, id))
+        if (KillLogInterface.handleButton(player, id))
             return true;
         if (Construction.handleButtonClick(id, player)) {
             return true;

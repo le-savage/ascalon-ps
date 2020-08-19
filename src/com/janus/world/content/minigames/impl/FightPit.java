@@ -1,13 +1,13 @@
 package com.janus.world.content.minigames.impl;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.janus.model.Position;
 import com.janus.util.Misc;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FightPit {
 

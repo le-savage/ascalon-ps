@@ -1,9 +1,5 @@
 package com.janus.world.content.combat;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.janus.engine.task.TaskManager;
 import com.janus.util.Misc;
 import com.janus.util.Stopwatch;
@@ -12,6 +8,10 @@ import com.janus.world.content.combat.strategy.CombatStrategy;
 import com.janus.world.entity.Entity;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Holds methods for running the entire combat process.

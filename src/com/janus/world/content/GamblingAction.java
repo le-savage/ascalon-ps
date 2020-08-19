@@ -1,8 +1,8 @@
 package com.janus.world.content;
 
+import com.google.common.collect.Range;
 import com.janus.model.Item;
 import com.janus.world.entity.impl.player.Player;
-import com.google.common.collect.Range;
 
 /**
  * Handles the action of gambling an item through the gambling NPC.

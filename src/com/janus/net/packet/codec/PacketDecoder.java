@@ -1,15 +1,14 @@
 package com.janus.net.packet.codec;
 
+import com.janus.net.packet.Packet;
+import com.janus.net.packet.Packet.PacketType;
+import com.janus.net.packet.PacketConstants;
+import com.janus.net.security.IsaacRandom;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.handler.codec.frame.FrameDecoder;
-
-import com.janus.net.packet.Packet;
-import com.janus.net.packet.PacketConstants;
-import com.janus.net.packet.Packet.PacketType;
-import com.janus.net.security.IsaacRandom;
 
 public class PacketDecoder extends FrameDecoder {
 

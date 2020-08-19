@@ -1,10 +1,12 @@
 package com.janus.world.entity.impl.npc;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.janus.engine.task.TaskManager;
 import com.janus.engine.task.impl.NPCDeathTask;
 import com.janus.model.Direction;
-import com.janus.model.Position;
 import com.janus.model.Locations.Location;
+import com.janus.model.Position;
 import com.janus.model.definitions.NpcDefinition;
 import com.janus.util.JsonLoader;
 import com.janus.world.World;
@@ -22,8 +24,6 @@ import com.janus.world.content.skill.impl.runecrafting.DesoSpan;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPCMovementCoordinator.Coordinator;
 import com.janus.world.entity.impl.player.Player;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 
 /**

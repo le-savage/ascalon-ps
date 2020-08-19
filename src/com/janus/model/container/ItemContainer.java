@@ -1,11 +1,6 @@
 package com.janus.model.container;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
+import com.google.common.collect.Iterables;
 import com.janus.model.Flag;
 import com.janus.model.GroundItem;
 import com.janus.model.Item;
@@ -17,7 +12,12 @@ import com.janus.model.container.impl.Shop;
 import com.janus.model.definitions.ItemDefinition;
 import com.janus.world.entity.impl.GroundItemManager;
 import com.janus.world.entity.impl.player.Player;
-import com.google.common.collect.Iterables;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Represents a container which contains items.

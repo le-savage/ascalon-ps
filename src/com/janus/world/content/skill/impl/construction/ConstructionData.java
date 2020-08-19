@@ -1,14 +1,14 @@
 package com.janus.world.content.skill.impl.construction;
 
-import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import com.janus.model.Position;
 import com.janus.model.Skill;
 import com.janus.model.definitions.GameObjectDefinition;
 import com.janus.util.Misc;
 import com.janus.world.entity.impl.player.Player;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @author Owner Keagan

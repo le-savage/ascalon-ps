@@ -3,7 +3,6 @@ package com.janus.world.content.dailyreward;
 import com.janus.model.Item;
 import com.janus.world.World;
 import com.janus.world.content.PlayerPunishment;
-import com.janus.world.content.discord.DiscordMessenger;
 import com.janus.world.entity.impl.player.Player;
 
 public class DailyReward {

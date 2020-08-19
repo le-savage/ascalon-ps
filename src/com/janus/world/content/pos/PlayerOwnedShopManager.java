@@ -1,15 +1,5 @@
 package com.janus.world.content.pos;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.janus.GameSettings;
 import com.janus.model.GameMode;
 import com.janus.model.definitions.ItemDefinition;
@@ -23,6 +13,16 @@ import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.dialogue.DialogueType;
 import com.janus.world.content.pos.PlayerOwnedShop.Item;
 import com.janus.world.entity.impl.player.Player;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A management class for all player owned shops and information related to a
@@ -699,9 +699,9 @@ public class PlayerOwnedShopManager {
         earnings -= available;
 
         String formatPrice1 = Misc.sendCashToString(available);
-        System.out.println("Available: "+available);
+        System.out.println("Available: " + available);
         String formatPrice2 = Misc.sendCashToString(earnings);
-        System.out.println("Available: "+earnings);
+        System.out.println("Available: " + earnings);
 
         //player.getInventory().add(995, (int) available);
         player.setMoneyInPouch(player.getMoneyInPouch() + available);

@@ -1,8 +1,6 @@
 package com.janus.model;
 
 import com.janus.world.World;
-import com.janus.world.content.CrazyMan;
-import com.janus.world.content.Kbd;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.minigames.impl.Barrows;
 import com.janus.world.entity.impl.Character;
@@ -60,7 +58,7 @@ public class RegionInstance {
                     Barrows.killBarrowsNpc(owner, n, false);
                     World.deregister(n);
                 }
-                if(type == RegionInstanceType.INSTANCE_ARENA){
+                if (type == RegionInstanceType.INSTANCE_ARENA) {
                     InstanceArena.destructArena(owner);
                 }
             }

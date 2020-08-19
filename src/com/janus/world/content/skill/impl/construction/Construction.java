@@ -1,14 +1,11 @@
 package com.janus.world.content.skill.impl.construction;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
 import com.janus.model.Position;
-import com.janus.model.Skill;
 import com.janus.model.RegionInstance.RegionInstanceType;
+import com.janus.model.Skill;
 import com.janus.model.definitions.ItemDefinition;
 import com.janus.util.Misc;
 import com.janus.world.World;
@@ -16,17 +13,14 @@ import com.janus.world.content.dialogue.Dialogue;
 import com.janus.world.content.dialogue.DialogueExpression;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.dialogue.DialogueType;
-import com.janus.world.content.skill.impl.construction.ConstructionData.Butlers;
-import com.janus.world.content.skill.impl.construction.ConstructionData.Furniture;
-import com.janus.world.content.skill.impl.construction.ConstructionData.HotSpots;
-import com.janus.world.content.skill.impl.construction.ConstructionData.HouseLocation;
-import com.janus.world.content.skill.impl.construction.ConstructionData.HouseTheme;
-import com.janus.world.content.skill.impl.construction.ConstructionData.Portals;
-import com.janus.world.content.skill.impl.construction.ConstructionData.RoomData;
+import com.janus.world.content.skill.impl.construction.ConstructionData.*;
 import com.janus.world.content.skill.impl.construction.Palette.PaletteTile;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.npc.NPCMovementCoordinator.Coordinator;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Construction {
 

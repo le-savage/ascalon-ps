@@ -1,15 +1,15 @@
 package com.janus.model.definitions;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.janus.model.Item;
 import com.janus.util.JsonLoader;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.FightType;
 import com.janus.world.entity.impl.player.Player;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A static utility class that displays holds and displays data for weapon

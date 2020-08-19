@@ -1,19 +1,12 @@
 package com.janus.world.entity.impl;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Queue;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import com.janus.net.SessionState;
+import com.janus.world.entity.impl.player.Player;
+
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-
-import com.janus.net.SessionState;
-import com.janus.world.entity.impl.player.Player;
 
 /**
  * A collection that provides functionality for storing and managing characters.

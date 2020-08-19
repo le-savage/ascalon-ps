@@ -5,7 +5,6 @@ import com.janus.util.NameUtils;
 import com.janus.world.World;
 import com.janus.world.content.PlayerLogs;
 import com.janus.world.content.clan.ClanChatManager;
-import com.janus.world.content.discord.DiscordMessenger;
 import com.janus.world.entity.impl.player.Player;
 
 import java.util.ArrayList;

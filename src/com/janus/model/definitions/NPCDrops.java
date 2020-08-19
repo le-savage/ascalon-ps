@@ -282,7 +282,7 @@ public class NPCDrops {
         double variable = ((drBoost));
         double percentage = random / 100;
         random = (int) (chance.getRandom() - (percentage * variable));
-        if(Math.toIntExact(Math.round(random)) <= 1)
+        if (Math.toIntExact(Math.round(random)) <= 1)
             return true;
         return Rand.hit(Math.toIntExact(Math.round(random)));
     }
@@ -292,8 +292,8 @@ public class NPCDrops {
         drBoost += 5; // this is 5%
         drBoost += p.getGameMode().getDropRateModifier();
         drBoost += p.getDifficulty().getDropRateModifier();
-        if(ringOfWealth(p)) drBoost += 2;
-        if(ringOfCoins(p)) drBoost += 2;
+        if (ringOfWealth(p)) drBoost += 2;
+        if (ringOfCoins(p)) drBoost += 2;
         return drBoost;
     }
 
@@ -449,37 +449,34 @@ public class NPCDrops {
         }
 
 
-        if (player.getLocation().equals(Location.BOSS_TIER_LOCATION)){
+        if (player.getLocation().equals(Location.BOSS_TIER_LOCATION)) {
             return;
         }
 
 
-
-
-
-            if (item.getDefinition().isStackable() && (player.getRights() != PlayerRights.PLAYER || player.getRights() != PlayerRights.DONATOR)) {
-                if (item.getDefinition().getValue() >= player.getPickupValue() && (player.getInventory().getFreeSlots() >= 1)) {
-                    player.getInventory().add(itemId, item.getAmount());
-                    //System.out.println("Add stackable item to inventory: "+item.getDefinition().getName()+" for "+toGive.getUsername());
-                    player.getPacketSender().sendMessage("@red@We picked up @blu@" + item.getAmount() + "@red@ x @blu@" + item.getDefinition().getName() + "@red@ worth @blu@" + Misc.setupMoney(item.getDefinition().getValue()));
-                } else {
-                    GroundItemManager.spawnGroundItem(toGive, new GroundItem(item, pos, toGive.getUsername(), false, 150, goGlobal, 200));
-                    DropLog.submit(toGive, new DropLog.DropLogEntry(itemId, item.getAmount()));
-                    //System.out.println("Spawn stackable item : "+item.getDefinition().getName()+" for "+toGive.getUsername());
-                }
+        if (item.getDefinition().isStackable() && (player.getRights() != PlayerRights.PLAYER || player.getRights() != PlayerRights.DONATOR)) {
+            if (item.getDefinition().getValue() >= player.getPickupValue() && (player.getInventory().getFreeSlots() >= 1)) {
+                player.getInventory().add(itemId, item.getAmount());
+                //System.out.println("Add stackable item to inventory: "+item.getDefinition().getName()+" for "+toGive.getUsername());
+                player.getPacketSender().sendMessage("@red@We picked up @blu@" + item.getAmount() + "@red@ x @blu@" + item.getDefinition().getName() + "@red@ worth @blu@" + Misc.setupMoney(item.getDefinition().getValue()));
+            } else {
+                GroundItemManager.spawnGroundItem(toGive, new GroundItem(item, pos, toGive.getUsername(), false, 150, goGlobal, 200));
+                DropLog.submit(toGive, new DropLog.DropLogEntry(itemId, item.getAmount()));
+                //System.out.println("Spawn stackable item : "+item.getDefinition().getName()+" for "+toGive.getUsername());
             }
+        }
 
-            if (!item.getDefinition().isStackable() && (player.getRights() != PlayerRights.PLAYER || player.getRights() != PlayerRights.DONATOR)) {
-                if ((player.getInventory().getFreeSlots() >= item.getAmount()) && (item.getDefinition().getValue() >= player.getPickupValue())) {
-                    player.getInventory().add(itemId, item.getAmount());
-                    //System.out.println("Add non stackable item to inventory : "+item.getDefinition().getName()+" for "+toGive.getUsername());
-                    player.getPacketSender().sendMessage("@red@We picked up @blu@" + item.getAmount() + "@red@ x @blu@" + item.getDefinition().getName() + "@red@ worth @blu@" + Misc.setupMoney(item.getDefinition().getValue()));
-                } else {
-                    GroundItemManager.spawnGroundItem(toGive, new GroundItem(item, pos, toGive.getUsername(), false, 150, goGlobal, 200));
-                    DropLog.submit(toGive, new DropLog.DropLogEntry(itemId, item.getAmount()));
-                    //System.out.println("Spawn non stackable item : "+item.getDefinition().getName()+" for "+toGive.getUsername());
-                }
+        if (!item.getDefinition().isStackable() && (player.getRights() != PlayerRights.PLAYER || player.getRights() != PlayerRights.DONATOR)) {
+            if ((player.getInventory().getFreeSlots() >= item.getAmount()) && (item.getDefinition().getValue() >= player.getPickupValue())) {
+                player.getInventory().add(itemId, item.getAmount());
+                //System.out.println("Add non stackable item to inventory : "+item.getDefinition().getName()+" for "+toGive.getUsername());
+                player.getPacketSender().sendMessage("@red@We picked up @blu@" + item.getAmount() + "@red@ x @blu@" + item.getDefinition().getName() + "@red@ worth @blu@" + Misc.setupMoney(item.getDefinition().getValue()));
+            } else {
+                GroundItemManager.spawnGroundItem(toGive, new GroundItem(item, pos, toGive.getUsername(), false, 150, goGlobal, 200));
+                DropLog.submit(toGive, new DropLog.DropLogEntry(itemId, item.getAmount()));
+                //System.out.println("Spawn non stackable item : "+item.getDefinition().getName()+" for "+toGive.getUsername());
             }
+        }
 
         new CollectionLogEntry(npc.getId(), item.getId(), item.getAmount()).submit(player);
         if ((player.getRights() == PlayerRights.PLAYER || player.getRights() == PlayerRights.DONATOR) && (player.getLocation() == Location.INSTANCE_ARENA)) {

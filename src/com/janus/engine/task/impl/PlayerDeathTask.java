@@ -86,12 +86,11 @@ public class PlayerDeathTask extends Task {
                                 World.sendStaffMessage(player.getUsername().toUpperCase() + " just tried to kill their alt: " + killer.getUsername().toUpperCase() + " in the wildy!");
                             }
 
-                            if (killer.getGameMode() != GameMode.NORMAL){
+                            if (killer.getGameMode() != GameMode.NORMAL) {
                                 player.getPacketSender().sendMessage("No items dropped due to killer being an " + Misc.formatText(killer.getGameMode().name()));
                                 killer.getPacketSender().sendMessage("No items dropped due to killer being an " + Misc.formatText(killer.getGameMode().name()));
                                 dropItems = false;
                             }
-
 
 
                         }

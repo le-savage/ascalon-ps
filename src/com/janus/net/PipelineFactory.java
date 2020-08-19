@@ -1,14 +1,13 @@
 package com.janus.net;
 
+import com.janus.GameSettings;
+import com.janus.net.login.LoginDecoder;
+import com.janus.net.login.LoginEncoder;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.DefaultChannelPipeline;
 import org.jboss.netty.handler.timeout.IdleStateHandler;
 import org.jboss.netty.util.Timer;
-
-import com.janus.GameSettings;
-import com.janus.net.login.LoginDecoder;
-import com.janus.net.login.LoginEncoder;
 
 /**
  * The channel's events

@@ -1,10 +1,9 @@
 package com.janus.net.packet;
 
-import org.jboss.netty.buffer.ChannelBuffer;
-
 import com.janus.net.packet.impl.ButtonClickPacketListener;
 import com.janus.net.packet.impl.EquipPacketListener;
 import com.janus.net.packet.impl.ItemActionPacketListener;
+import org.jboss.netty.buffer.ChannelBuffer;
 
 /**
  * Manages reading packet information from the netty's channel.

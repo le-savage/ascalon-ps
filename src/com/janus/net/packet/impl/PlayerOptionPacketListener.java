@@ -1,4 +1,3 @@
-
 package com.janus.net.packet.impl;
 
 import com.janus.model.Locations.Location;

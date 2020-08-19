@@ -1,12 +1,7 @@
 package com.janus.world.content.minigames.impl;
 
 import com.janus.GameSettings;
-import com.janus.model.Flag;
-import com.janus.model.Item;
-import com.janus.model.MagicSpellbook;
-import com.janus.model.Position;
-import com.janus.model.Prayerbook;
-import com.janus.model.Skill;
+import com.janus.model.*;
 import com.janus.model.container.impl.Equipment;
 import com.janus.net.packet.impl.EquipPacketListener;
 import com.janus.util.Misc;

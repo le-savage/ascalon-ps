@@ -1,15 +1,12 @@
 package com.janus.world.content.combat.prayer;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
 import com.janus.model.Graphic;
+import com.janus.model.Locations.Location;
 import com.janus.model.Prayerbook;
 import com.janus.model.Skill;
-import com.janus.model.Locations.Location;
 import com.janus.util.Misc;
 import com.janus.util.NameUtils;
 import com.janus.world.content.BonusManager;
@@ -21,6 +18,9 @@ import com.janus.world.content.minigames.impl.Dueling;
 import com.janus.world.content.minigames.impl.Dueling.DuelRule;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CurseHandler {
 

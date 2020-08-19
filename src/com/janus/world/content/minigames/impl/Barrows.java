@@ -2,11 +2,7 @@ package com.janus.world.content.minigames.impl;
 
 import com.janus.engine.task.TaskManager;
 import com.janus.engine.task.impl.CeilingCollapseTask;
-import com.janus.model.GameObject;
-import com.janus.model.Item;
-import com.janus.model.PlayerRights;
-import com.janus.model.Position;
-import com.janus.model.RegionInstance;
+import com.janus.model.*;
 import com.janus.model.Locations.Location;
 import com.janus.model.RegionInstance.RegionInstanceType;
 import com.janus.model.definitions.ItemDefinition;

@@ -3,7 +3,6 @@ package com.janus.world.content;
 import com.janus.model.PlayerRights;
 import com.janus.util.Misc;
 import com.janus.world.World;
-import com.janus.world.content.discord.DiscordMessenger;
 import com.janus.world.entity.impl.player.Player;
 
 public class RUBoxes {//Items in mystery boxes

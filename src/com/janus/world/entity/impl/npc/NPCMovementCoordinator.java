@@ -1,7 +1,7 @@
 package com.janus.world.entity.impl.npc;
 
-import com.janus.model.Position;
 import com.janus.model.Locations.Location;
+import com.janus.model.Position;
 import com.janus.model.movement.PathFinder;
 import com.janus.util.Misc;
 import com.janus.world.clip.region.RegionClipping;

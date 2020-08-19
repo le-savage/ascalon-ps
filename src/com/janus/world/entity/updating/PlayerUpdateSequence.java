@@ -1,11 +1,11 @@
 package com.janus.world.entity.updating;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Phaser;
-
 import com.janus.world.World;
 import com.janus.world.entity.impl.npc.NpcAggression;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Phaser;
 
 public class PlayerUpdateSequence implements UpdateSequence<Player> {
 

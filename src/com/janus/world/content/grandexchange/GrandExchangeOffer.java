@@ -1,9 +1,9 @@
 package com.janus.world.content.grandexchange;
 
+import com.janus.model.Item;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
-
-import com.janus.model.Item;
 
 /**
  * A Grand Exchange offer

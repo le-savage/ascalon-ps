@@ -194,8 +194,8 @@ public class PlayerHandler {
 
         player.getPacketSender().updateSpecialAttackOrb().sendIronmanMode(player.getGameMode().ordinal());
 
-        if(player.getRights().isStaff()){
-                World.sendFilteredMessage("<img=" + player.getRights().ordinal() + "><col=6600CC> " + Misc.formatText(player.getRights().toString().toLowerCase()) + " " + player.getUsername() + " has just logged in, feel free to message them for support.");
+        if (player.getRights().isStaff()) {
+            World.sendFilteredMessage("<img=" + player.getRights().ordinal() + "><col=6600CC> " + Misc.formatText(player.getRights().toString().toLowerCase()) + " " + player.getUsername() + " has just logged in, feel free to message them for support.");
             if (!StaffList.staff.contains(getPrefix(player) + " @gre@" + player.getUsername())) {
                 StaffList.login(player);
             }
@@ -205,7 +205,7 @@ public class PlayerHandler {
         ItemEffect.refreshEffects(player);
 
         player.getKillsTracker().forEach(entry -> {
-            if(entry.npcId <= 0) {
+            if (entry.npcId <= 0) {
                 entry.npcId = NpcDefinition.forName(entry.npcName).getId();
             }
         });
@@ -222,8 +222,8 @@ public class PlayerHandler {
 
         if (!player.newPlayer()) {
             if (!PlayerPunishment.hasClaimedDailyRewardIP(player.getHostAddress()) || !PlayerPunishment.hasClaimedDailyRewardUID(player.getUUID()) || !PlayerPunishment.hasClaimedDailyRewardMAC(player.getMac())) {
-                if(System.currentTimeMillis() >= player.getDailyReward().getNextRewardTime())
-                player.getDailyReward().openInterface();//DAILY REWARD
+                if (System.currentTimeMillis() >= player.getDailyReward().getNextRewardTime())
+                    player.getDailyReward().openInterface();//DAILY REWARD
             }
         }
 

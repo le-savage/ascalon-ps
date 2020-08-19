@@ -1,8 +1,8 @@
 package com.janus.model;
 
 import com.janus.model.container.impl.Bank;
-import com.janus.world.content.PlayerPanel;
 import com.janus.world.content.Achievements.AchievementData;
+import com.janus.world.content.PlayerPanel;
 import com.janus.world.content.skill.impl.slayer.SlayerMaster;
 import com.janus.world.content.skill.impl.slayer.SlayerTasks;
 import com.janus.world.entity.impl.player.Player;

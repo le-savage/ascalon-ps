@@ -1,8 +1,8 @@
 package com.janus.world.content;
 
-import java.util.concurrent.TimeUnit;
-
 import com.google.common.base.Stopwatch;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Handles functionality for the npc fight duration timer, utilizing guava's

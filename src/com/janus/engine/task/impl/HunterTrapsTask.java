@@ -1,12 +1,12 @@
 package com.janus.engine.task.impl;
 
-import java.util.Iterator;
-
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.world.content.skill.impl.hunter.Hunter;
 import com.janus.world.content.skill.impl.hunter.Trap;
 import com.janus.world.content.skill.impl.hunter.TrapExecution;
+
+import java.util.Iterator;
 
 public class HunterTrapsTask extends Task {
 

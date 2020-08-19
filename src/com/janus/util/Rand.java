@@ -88,7 +88,6 @@ public class Rand {
     }
 
     /**
-     *
      * @param bound
      * @return random number between 0 inclusive and bound exclusive
      */
@@ -97,7 +96,6 @@ public class Rand {
     }
 
     /**
-     *
      * @param bound
      * @return random number between 0 inclusive and bound inclusive
      */

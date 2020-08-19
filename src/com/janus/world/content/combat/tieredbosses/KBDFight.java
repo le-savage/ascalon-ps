@@ -53,7 +53,6 @@ public class KBDFight {
                 BossFunctions.setEquipment(player, gearOne[0], gearOne[1], gearOne[2], gearOne[3], gearOne[4], gearOne[5], gearOne[6], gearOne[7], gearOne[8]);
                 World.register(level1);
                 player.getRegionInstance().getNpcsList().add(level1);
-                level1.getCombatBuilder().attack(player);
                 break;
 
             case 1:
@@ -61,7 +60,6 @@ public class KBDFight {
                 BossFunctions.setEquipment(player, gearTwo[0], gearTwo[1], gearTwo[2], gearTwo[3], gearTwo[4], gearTwo[5], gearTwo[6], gearTwo[7], gearTwo[8]);
                 World.register(level2);
                 player.getRegionInstance().getNpcsList().add(level2);
-                level2.getCombatBuilder().attack(player);
                 break;
 
             case 2:
@@ -69,7 +67,6 @@ public class KBDFight {
                 BossFunctions.setEquipment(player, gearThree[0], gearThree[1], gearThree[2], gearThree[3], gearThree[4], gearThree[5], gearThree[6], gearThree[7], gearThree[8]);
                 World.register(level3);
                 player.getRegionInstance().getNpcsList().add(level3);
-                level3.getCombatBuilder().attack(player);
                 break;
 
             case 3:
@@ -77,7 +74,6 @@ public class KBDFight {
                 BossFunctions.setEquipment(player, gearFour[0], gearFour[1], gearFour[2], gearFour[3], gearFour[4], gearFour[5], gearFour[6], gearFour[7], gearFour[8]);
                 World.register(level4);
                 player.getRegionInstance().getNpcsList().add(level4);
-                level4.getCombatBuilder().attack(player);
                 break;
 
             case 4:
@@ -85,8 +81,8 @@ public class KBDFight {
                 BossFunctions.setEquipment(player, gearFive[0], gearFive[1], gearFive[2], gearFive[3], gearFive[4], gearFive[5], gearFive[6], gearFive[7], gearFive[8]);
                 World.register(level5);
                 player.getRegionInstance().getNpcsList().add(level5);
-                level5.getCombatBuilder().attack(player);
                 break;
         }
+        GiveInventoryItems.giveItems(player);
     }
 }

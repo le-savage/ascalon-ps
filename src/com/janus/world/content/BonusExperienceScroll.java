@@ -3,7 +3,6 @@ package com.janus.world.content;
 import com.janus.engine.task.impl.BonusExperienceTask;
 import com.janus.model.Difficulty;
 import com.janus.model.GameMode;
-import com.janus.model.Item;
 import com.janus.model.PlayerRights;
 import com.janus.world.entity.impl.player.Player;
 

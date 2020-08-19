@@ -2247,9 +2247,13 @@ public class Player extends Character {
         this.receivedStarter = receivedStarter;
     }
 
-    public void setHasUsedBossTierTP(boolean bossTierTP) { this.bossTierTP = bossTierTP; }
+    public void setHasUsedBossTierTP(boolean bossTierTP) {
+        this.bossTierTP = bossTierTP;
+    }
 
-    public void setShouldGiveBossReward(boolean shouldGiveBossReward) { this.shouldGiveBossReward = shouldGiveBossReward; }
+    public void setShouldGiveBossReward(boolean shouldGiveBossReward) {
+        this.shouldGiveBossReward = shouldGiveBossReward;
+    }
 
     public BlowpipeLoading getBlowpipeLoading() {
         return blowpipeLoading;

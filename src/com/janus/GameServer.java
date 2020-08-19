@@ -21,7 +21,6 @@ public class GameServer {
     public static String serverHost;
 
 
-
     static {
         try {
             serverHost = InetAddress.getLocalHost().getHostName();

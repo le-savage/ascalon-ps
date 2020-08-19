@@ -1,8 +1,8 @@
 package com.janus.model.definitions;
 
-import com.janus.util.JsonLoader;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.janus.util.JsonLoader;
 
 /**
  * A single npc definition.

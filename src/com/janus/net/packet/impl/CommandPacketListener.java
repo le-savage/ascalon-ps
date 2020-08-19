@@ -816,9 +816,9 @@ public class CommandPacketListener implements PacketListener {
 
         }
 
-        if (command[0].equalsIgnoreCase("kbdtest")) {
-                KBDFight.StartKBDFight(player);
-        }
+        /*if (command[0].equalsIgnoreCase("kbdtest")) {
+            KBDFight.StartKBDFight(player);
+        }*/
 
 
         if (command[0].equalsIgnoreCase("title")) {

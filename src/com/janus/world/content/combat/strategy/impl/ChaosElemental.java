@@ -5,16 +5,13 @@ import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
 import com.janus.model.Graphic;
 import com.janus.model.GraphicHeight;
-import com.janus.model.Position;
 import com.janus.model.Projectile;
 import com.janus.util.Misc;
-import com.janus.world.clip.region.RegionClipping;
 import com.janus.world.content.combat.CombatContainer;
 import com.janus.world.content.combat.CombatType;
 import com.janus.world.content.combat.strategy.CombatStrategy;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
-import com.janus.world.entity.impl.player.Player;
 
 public class ChaosElemental implements CombatStrategy {
 

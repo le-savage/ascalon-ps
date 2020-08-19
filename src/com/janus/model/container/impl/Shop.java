@@ -1070,6 +1070,9 @@ public class Shop extends ItemContainer {
                     case 4740://bolt rack
                         return new Object[]{1, "Donation Points"};
                     case 6830://10$ donation box
+                    case 17291://blood necklace
+                    case 16359://primal boots
+                    case 16293://primal gauntlets
                         return new Object[]{10, "Donation Points"};
                     case 10336://3rd age vambraces
                     case 6831://15$ donation box
@@ -1084,7 +1087,6 @@ public class Shop extends ItemContainer {
                     case 10362://amulet of glory (t)
                     case 7803://yin yang amulet
                         return new Object[]{15, "Donation Points"};
-                    case 6832://30$ donation box
                     case 1038://Red Partyhat
                     case 1040://Yellow Partyhat
                     case 1046://Purple Partyhat
@@ -1095,11 +1097,6 @@ public class Shop extends ItemContainer {
                     case 7449://Meat Tenderizer
                     case 5608://Fox
                     case 13666://Giant Hand
-                        return new Object[]{20, "Donation Points"};
-                    case 17291://blood necklace
-                    case 16359://primal boots
-                    case 16293://primal gauntlets
-                        return new Object[]{10, "Donation Points"};
                     case 9946://cap and goggles
                     case 9945://bomber cap
                     case 9944://bomber jack
@@ -1115,7 +1112,8 @@ public class Shop extends ItemContainer {
                     case 9920://jack lantern mask
                     case 10507://reindeer hat
                     case 19314://3rd age druidic wreath
-                    case 9472://gnome goggels
+                    case 9472://gnome goggles
+                        return new Object[]{20, "Donation Points"};
                     case 18891://justiciar helm
                     case 18892://justiciar platebody
                     case 18893://justiciar platelegs
@@ -1132,6 +1130,7 @@ public class Shop extends ItemContainer {
                     case 14014://Virtus Helmet
                     case 14015://Virtus Plate
                     case 14016://Virtus Legs
+                        return new Object[]{25, "Donation Points"};
                     case 10350://3rd age full helm
                     case 10348://3rd age platebody
                     case 10346://3rd age platelegs
@@ -1142,17 +1141,18 @@ public class Shop extends ItemContainer {
                     case 10334://3rd age range coif
                     case 10330://3rd age range top
                     case 10332://3rd age range legs
-                    case 20998://twisted bow
-                        return new Object[]{20, "Donation Points"};
+                    case 20998://Twisted Bow
+                    case 6832://30$ donation box
+                        return new Object[]{30, "Donation Points"};
                     case 16711://primal full helm
                     case 17259://primal platebody
                     case 16689://primal platelegs
                     case 17361://primal kiteshield
-                    case 6833://50$ donation box
                     case 18899://scythe of vitur
                         return new Object[]{35, "Donation Points"};
                     case 14044://Black Partyhat
                     case 14050://Black Santa Hat
+                    case 6833://50$ donation box
                         return new Object[]{50, "Donation Points"};
                 }
                 return new Object[]{100, "Donation Points"}; // Default Value if we miss one
@@ -1478,7 +1478,7 @@ public class Shop extends ItemContainer {
     public static final int DONATOR_STORE_1 = 48;
     public static final int DONATOR_STORE_2 = 49;
     public static final int DONATOR_STORE_3 = 59;
-    
+
     public static final int TRIVIA_STORE = 50;
 
     public static final int GENERAL_STORE = 12;

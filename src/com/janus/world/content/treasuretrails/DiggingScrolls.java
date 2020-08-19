@@ -1,12 +1,12 @@
 package com.janus.world.content.treasuretrails;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 import com.janus.model.Item;
 import com.janus.model.Position;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by IntelliJ IDEA. User: levi Date: 11/14/16 Time: 22:37 To change

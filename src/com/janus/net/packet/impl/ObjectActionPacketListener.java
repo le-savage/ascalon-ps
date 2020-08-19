@@ -130,19 +130,19 @@ public class ObjectActionPacketListener implements PacketListener {
                 if (player.getLocation() == Location.WILDERNESS && WildernessObelisks.handleObelisk(gameObject.getId())) {
                     return;
                 }
-                if (id == BossFunctions.ENTRY_DOOR_ID){
+                if (id == BossFunctions.ENTRY_DOOR_ID) {
                     BossFunctions.handleDoor(player);
                 }
-                if (id == BossFunctions.EXIT_CAVE_ID){
+                if (id == BossFunctions.EXIT_CAVE_ID) {
                     BossFunctions.handleExit(player);
                 }
                 if (id == BossFunctions.rewardChestID) {
-                    BossFunctions.reward(player);
+                    BossFunctions.handleRewardChest(player);
                 }
                 switch (id) {
 
                     case 24600: //Instance Barrier Exit
-                        if(player.getLocation() == Location.INSTANCE_ARENA && player.getRegionInstance() == null){
+                        if (player.getLocation() == Location.INSTANCE_ARENA && player.getRegionInstance() == null) {
                             player.moveTo(InstanceArena.ENTRANCE);
                         }
                         InstanceArena.destructArena(player);

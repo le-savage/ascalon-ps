@@ -1,8 +1,8 @@
 package com.janus.model;
 
-import com.janus.util.Misc;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.janus.util.Misc;
 
 
 /**

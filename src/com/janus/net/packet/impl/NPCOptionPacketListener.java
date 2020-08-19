@@ -443,7 +443,6 @@ public class NPCOptionPacketListener implements PacketListener {
                 switch (npc.getId()) {
 
 
-
                     case 4905://Smithing tutor
                         if (player.getInventory().contains(2347)) {
                             npc.forceChat("You already have a hammer!");

@@ -205,6 +205,10 @@ public class Bank extends ItemContainer {
             if (!p.isBanking() || p.getInterfaceId() != 5292)
                 return;
 
+        if (p.getGameMode() == GameMode.HARDCORE_IRONMAN)
+            return;
+
+
         for (Item it : from.getValidItems()) {
             if (p.getBank(p.getCurrentBankTab()).getFreeSlots() <= 0 && !(p.getBank(p.getCurrentBankTab()).contains(it.getId()) && it.getDefinition().isStackable())) {
                 p.getPacketSender().sendMessage("Bank full.");

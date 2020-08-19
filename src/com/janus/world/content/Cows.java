@@ -1,19 +1,19 @@
 package com.janus.world.content;
 
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Graphic;
 import com.janus.model.Item;
-import com.janus.model.Position;
 import com.janus.model.Locations.Location;
+import com.janus.model.Position;
 import com.janus.util.Misc;
 import com.janus.world.World;
 import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.npc.NPCMovementCoordinator.Coordinator;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class Cows {
