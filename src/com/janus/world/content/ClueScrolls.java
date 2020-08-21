@@ -91,7 +91,7 @@ public class ClueScrolls {
 
             {new Item(4587, 1)},//dragon scimitar
             {new Item(20072, 1)},//dragon defender
-            {new Item(4178, 1)},//abbysal whip
+            {new Item(4151, 1)},//abbysal whip
             {new Item(11335, 1)},//dragon full helm
             {new Item(6586, 1)},//amulet of fury
             {new Item(1514, 500)},//magic logs
@@ -123,7 +123,7 @@ public class ClueScrolls {
             {new Item(537, 200)},//Dragon Bones
             {new Item(18331, 2)},//Frost Dragon Bones
             {new Item(18937, 1)},//1h bonus xp scroll
-            {new Item(7936, 700)},//pure essence
+            {new Item(7937, 700)},//pure essence
             {new Item(20059, 1)},//dryogre rapier
             {new Item(20057, 1)},//drygore longsword
             {new Item(19111, 1)},//Kiln Cape

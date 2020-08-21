@@ -52,6 +52,8 @@ public class BossFunctions {
 
     public static void handleDoor(Player player) {
 
+        saveOldStats(player);
+
         if (!player.getClickDelay().elapsed(7000)) {
             return;
         }
@@ -166,7 +168,6 @@ public class BossFunctions {
     }
 
     public static void saveOldStats(Player player) {
-        if (player.getRegionInstance() == null) {
             System.out.println("SAVING OLD STATS FOR " + player.getUsername());
 
             SkillManager.Skills currentSkills = player.getSkillManager().getSkills();
@@ -177,7 +178,6 @@ public class BossFunctions {
             System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().level));
             System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().experience));
             System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().maxLevel));
-        }
     }
 
     public static void restoreOldStats(Player player) {
@@ -194,7 +194,6 @@ public class BossFunctions {
     }
 
     public static void setNewStats(Player player, int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
-            saveOldStats(player);
             player.getSkillManager().newSkillManager();
             updateSkills(player);
             player.getSkillManager().setMaxLevel(Skill.ATTACK, attack);
@@ -236,6 +235,7 @@ public class BossFunctions {
 
 
         BossRewardBoxes.addBossRewardBox(player);
+        LootCrate.openChest(player);
 
 
         player.setShouldGiveBossReward(false);

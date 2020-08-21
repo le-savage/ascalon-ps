@@ -45,9 +45,25 @@ public class LootCrate {
     public static void giveReward(Player player) {
 
         switch (player.getKbdTier()) {
-            case 1://First reward
+            case 1:
                 int zeroLoot = getRandomItem(ZERO);
                 player.getInventory().add(zeroLoot, 1);
+                break;
+            case 2:
+                int oneLoot = getRandomItem(ONE);
+                player.getInventory().add(oneLoot, 1);
+                break;
+            case 3:
+                int twoLoot = getRandomItem(TWO);
+                player.getInventory().add(twoLoot, 1);
+                break;
+            case 4:
+                int threeLoot = getRandomItem(THREE);
+                player.getInventory().add(threeLoot, 1);
+                break;
+            case 5://Final reward
+                int fourLoot = getRandomItem(FOUR);
+                player.getInventory().add(fourLoot, 1);
                 break;
         }
 

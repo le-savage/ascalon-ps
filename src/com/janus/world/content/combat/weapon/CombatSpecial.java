@@ -105,7 +105,7 @@ public enum CombatSpecial {
                     true);
         }
     },
-    ABYSSAL_WHIP(new int[]{4151, 15441, 15442, 15443, 15444, 20061}, 50, 1, 1, CombatType.MELEE, WeaponInterface.WHIP) {
+    ABYSSAL_WHIP(new int[]{4178, 4151, 15441, 15442, 15443, 15444, 20061}, 50, 1, 1, CombatType.MELEE, WeaponInterface.WHIP) {
         @Override
         public CombatContainer container(Player player, Character target) {
             player.performAnimation(new Animation(1658));
