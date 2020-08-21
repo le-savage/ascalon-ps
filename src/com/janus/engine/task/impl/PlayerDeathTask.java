@@ -9,6 +9,7 @@ import com.janus.util.Misc;
 import com.janus.util.RandomUtility;
 import com.janus.world.World;
 import com.janus.world.content.ItemsKeptOnDeath;
+import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.minigames.impl.FreeForAll;
 import com.janus.world.entity.impl.GroundItemManager;
 import com.janus.world.entity.impl.npc.NPC;

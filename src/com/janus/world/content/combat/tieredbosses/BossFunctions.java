@@ -8,6 +8,7 @@ import com.janus.model.container.impl.Inventory;
 import com.janus.net.packet.impl.EquipPacketListener;
 import com.janus.world.World;
 import com.janus.world.content.BonusManager;
+import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.skill.SkillManager;
 import com.janus.world.entity.impl.player.Player;
 
@@ -51,6 +52,10 @@ public class BossFunctions {
 
     public static void handleDoor(Player player) {
 
+        if (!player.getClickDelay().elapsed(7000)) {
+            return;
+        }
+
         if (player.shouldGiveBossReward()) {
             player.forceChat("I need to claim my reward before starting the next tier!");
             return;
@@ -67,13 +72,14 @@ public class BossFunctions {
             return;
         }
 
+
         player.forceChat("This feels dangerous...");
         player.getPacketSender().sendMessage("The ground begins to shake..");
 
         TaskManager.submit(new Task(4) {
             @Override
             protected void execute() {
-                player.forceChat("Uh oh!");
+                player.forceChat("Uh oh! Tier "+player.getKbdTier()+" just spawned!");
                 player.performAnimation(new Animation(1746));
                 if (player.getLocation() != BOSS_TIER_LOCATION) {
                     player.moveTo(new Position(entranceX, entranceY, player.getIndex() * 4));
@@ -95,26 +101,34 @@ public class BossFunctions {
                 }
             });
         }
+        player.getClickDelay().reset();
 
     }
+
+    public static void despawnNpcs(Player player) {
+        if (player.getLocation() == BOSS_TIER_LOCATION && !player.getRegionInstance().getNpcsList().isEmpty() && player.getRegionInstance() != null) {
+                System.out.println("DESPAWNING NPC'S FOR " + player.getUsername());
+                player.getRegionInstance().getNpcsList().forEach(npc -> npc.removeInstancedNpcs(BOSS_TIER_LOCATION, player.getPosition().getZ()));
+                player.getRegionInstance().getNpcsList().forEach(npc -> World.deregister(npc));
+            }
+        }
 
     public static void handleExit(Player player) {
         if (player.getRegionInstance() != null) {
             restoreOldStats(player);
             destructBossTier(player);
         }
+        player.setRegionInstance(null);
         player.getInventory().deleteAll();
         player.getEquipment().deleteAll();
         player.getEquipment().refreshItems();
         player.moveTo(DOOR);
         player.getUpdateFlag().flag(Flag.ANIMATION);
+        Autocasting.resetAutocast(player, true);
     }
 
     public static boolean shouldDespawnNPCs(Player player) {
-        if (player.getRegionInstance() != null && !player.getRegionInstance().getNpcsList().isEmpty() && player.getLocation() == BOSS_TIER_LOCATION) {
-            return true;
-        }
-        return false;
+        return player.getRegionInstance() != null && !player.getRegionInstance().getNpcsList().isEmpty() && player.getLocation() == BOSS_TIER_LOCATION;
     }
 
     public static boolean shouldDestroy(Player player) {
@@ -130,18 +144,19 @@ public class BossFunctions {
             Position nonInstance = new Position(doorX, doorY, z);
             player.moveTo(nonInstance);//Moves player to height 0
             System.out.println("Sending " + player.getUsername() + " to height 0");
-            player.getRegionInstance().destruct();
         } else {
             int z = 0;
             Position nonInstance = new Position(doorX, doorY, z);
             player.moveTo(nonInstance);//Moves player to height 0
         }
 
+
         if (shouldDespawnNPCs(player)) {
             System.out.println("DESPAWNING NPC'S FOR " + player.getUsername());
             player.getRegionInstance().getNpcsList().forEach(npc -> npc.removeInstancedNpcs(BOSS_TIER_LOCATION, player.getPosition().getZ()));
             player.getRegionInstance().getNpcsList().forEach(npc -> World.deregister(npc));
         }
+        player.setRegionInstance(null);
     }
 
     public static void updateSkills(Player player) {
@@ -151,17 +166,18 @@ public class BossFunctions {
     }
 
     public static void saveOldStats(Player player) {
-        System.out.println("SAVING OLD STATS FOR " + player.getUsername());
+        if (player.getRegionInstance() == null) {
+            System.out.println("SAVING OLD STATS FOR " + player.getUsername());
 
-        SkillManager.Skills currentSkills = player.getSkillManager().getSkills();
-        player.bossGameLevels = currentSkills.level;
-        player.bossGameSkillXP = currentSkills.experience;
-        player.bossGameMaxLevels = currentSkills.maxLevel;
+            SkillManager.Skills currentSkills = player.getSkillManager().getSkills();
+            player.bossGameLevels = currentSkills.level;
+            player.bossGameSkillXP = currentSkills.experience;
+            player.bossGameMaxLevels = currentSkills.maxLevel;
 
-        System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().level));
-        System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().experience));
-        System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().maxLevel));
-
+            System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().level));
+            System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().experience));
+            System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().maxLevel));
+        }
     }
 
     public static void restoreOldStats(Player player) {
@@ -178,20 +194,20 @@ public class BossFunctions {
     }
 
     public static void setNewStats(Player player, int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
-        saveOldStats(player);
-        player.getSkillManager().newSkillManager();
-        updateSkills(player);
-        player.getSkillManager().setMaxLevel(Skill.ATTACK, attack);
-        player.getSkillManager().setMaxLevel(Skill.DEFENCE, defence);
-        player.getSkillManager().setMaxLevel(Skill.STRENGTH, strength);
-        player.getSkillManager().setMaxLevel(Skill.RANGED, ranged);
-        player.getSkillManager().setMaxLevel(Skill.MAGIC, magic);
-        player.getSkillManager().setMaxLevel(Skill.CONSTITUTION, constitution);
-        player.getSkillManager().setMaxLevel(Skill.PRAYER, prayer);
-        for (Skill skill : Skill.values()) {
-            player.getSkillManager().setCurrentLevel(skill, player.getSkillManager().getMaxLevel(skill));
-            player.getSkillManager().setExperience(skill, SkillManager.getExperienceForLevel(player.getSkillManager().getMaxLevel(skill)));
-        }
+            saveOldStats(player);
+            player.getSkillManager().newSkillManager();
+            updateSkills(player);
+            player.getSkillManager().setMaxLevel(Skill.ATTACK, attack);
+            player.getSkillManager().setMaxLevel(Skill.DEFENCE, defence);
+            player.getSkillManager().setMaxLevel(Skill.STRENGTH, strength);
+            player.getSkillManager().setMaxLevel(Skill.RANGED, ranged);
+            player.getSkillManager().setMaxLevel(Skill.MAGIC, magic);
+            player.getSkillManager().setMaxLevel(Skill.CONSTITUTION, constitution);
+            player.getSkillManager().setMaxLevel(Skill.PRAYER, prayer);
+            for (Skill skill : Skill.values()) {
+                player.getSkillManager().setCurrentLevel(skill, player.getSkillManager().getMaxLevel(skill));
+                player.getSkillManager().setExperience(skill, SkillManager.getExperienceForLevel(player.getSkillManager().getMaxLevel(skill)));
+            }
     }
 
     public static void setEquipment(Player player, int weapon, int shield, int helm, int body, int legs, int neck, int cape, int hands, int feet) {
@@ -217,26 +233,11 @@ public class BossFunctions {
             return;
         }
 
-        Inventory inventory = player.getInventory();
+
 
         BossRewardBoxes.addBossRewardBox(player);
 
-        switch (player.getKbdTier()) {
-            case 0:
-                inventory.addItems(Rewards.FIRST.items, true);
-                break;
-            case 1:
-                inventory.addItems(Rewards.SECOND.items, true);
-                break;
-            case 2:
-                inventory.addItems(Rewards.THIRD.items, true);
-                break;
-            case 3:
-                inventory.addItems(Rewards.FOURTH.items, true);
-                break;
-            case 4:
-                inventory.addItems(Rewards.FIFTH.items, true);
-                break;
-        }
+
+        player.setShouldGiveBossReward(false);
     }
 }

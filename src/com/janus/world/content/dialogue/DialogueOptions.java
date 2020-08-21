@@ -1206,7 +1206,7 @@ public class DialogueOptions {
                     }
                     break;
                 case 85:
-                    if (!canOpenBossRewardBox(player) || !player.shouldGiveBossReward() && player.getRights() != PlayerRights.OWNER) {
+                    if (!canOpenBossRewardBox(player)) {
                         player.getPacketSender().sendMessage("You haven't earned this reward!");
                     } else {
                         BossRewardBoxes.openBossRewardBox(player);

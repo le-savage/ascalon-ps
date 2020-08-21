@@ -287,7 +287,7 @@ public class Player extends Character {
         }
         skillManager.setCurrentLevel(Skill.CONSTITUTION, constitution);
         packetSender.sendSkill(Skill.CONSTITUTION);
-        if (getConstitution() <= 0 && !isDying) {
+        if (getConstitution() == 0 && !isDying) {
             appendDeath();
         }
         return this;
@@ -474,7 +474,7 @@ public class Player extends Character {
             getPacketSender().sendMessage("You must wait a few seconds after being out of combat before doing this.");
             return false;
         }
-        if (getConstitution() <= 0 || isDying || settingUpCannon || crossingObstacle) {
+        if (getConstitution() == 0 || isDying || settingUpCannon || crossingObstacle) {
             getPacketSender().sendMessage("You cannot log out at the moment.");
             return false;
         }

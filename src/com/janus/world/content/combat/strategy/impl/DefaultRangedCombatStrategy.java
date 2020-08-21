@@ -270,6 +270,7 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
      * @param player the player to decrement ammo for.
      */
     public static void decrementAmmo(Player player, Position pos) {
+        System.out.print("Decrement Ammo method called for "+player.getUsername());
         if (player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12926) {
             if (!player.getBlowpipeLoading().getContents().isEmpty()) {
                 for (Entry<Integer> dart : player.getBlowpipeLoading().getContents().entrySet()) {
@@ -322,6 +323,7 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
             return;
         }
         player.getEquipment().get(slot).decrementAmount();
+        System.out.print("Slot: "+slot);
         {
             GroundItemManager.spawnGroundItem(player,
                     new GroundItem(new Item(player.getFireAmmo()), pos, player.getUsername(), false, 120, true, 120));

@@ -672,7 +672,7 @@ public class CommandPacketListener implements PacketListener {
         }
 
         if (command[0].equalsIgnoreCase("destructinstance")) {
-            InstanceArena.destructArena(player);
+            BossFunctions.despawnNpcs(player);
             player.getPacketSender().sendMessage("Instances destructed");
 
         }
@@ -918,7 +918,7 @@ public class CommandPacketListener implements PacketListener {
             if (player.getLocation() == Location.DUNGEONEERING || player.getLocation() == Location.FIGHT_PITS
                     || player.getLocation() == Location.FIGHT_CAVES || player.getLocation() == Location.DUEL_ARENA
                     || player.getLocation() == Location.RECIPE_FOR_DISASTER
-                    || player.getLocation() == Location.WILDERNESS) {
+                    || player.getLocation() == Location.WILDERNESS || player.getLocation() == Location.BOSS_TIER_LOCATION) {
                 player.getPacketSender().sendMessage("You can not open your bank here!");
                 return;
             }
@@ -1113,7 +1113,7 @@ public class CommandPacketListener implements PacketListener {
             if (player.getLocation() == Location.DUNGEONEERING || player.getLocation() == Location.FIGHT_PITS
                     || player.getLocation() == Location.FIGHT_CAVES || player.getLocation() == Location.DUEL_ARENA
                     || player.getLocation() == Location.RECIPE_FOR_DISASTER
-                    || player.getLocation() == Location.WILDERNESS) {
+                    || player.getLocation() == Location.WILDERNESS || player.getLocation() == Location.BOSS_TIER_LOCATION) {
                 player.getPacketSender().sendMessage("You can not open your bank here!");
                 return;
             }

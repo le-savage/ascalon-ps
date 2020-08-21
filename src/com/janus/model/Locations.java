@@ -205,7 +205,7 @@ public class Locations {
 
             @Override
             public boolean canTeleport(Player player) {
-                player.forceChat("I can't teleport out of here...");
+                player.forceChat("You can't teleport here! Walk to the cave to exit!");
                 return false;
             }
 
@@ -222,6 +222,7 @@ public class Locations {
 
             @Override
             public void onDeath(Player player) {
+                BossFunctions.despawnNpcs(player);
                 BossFunctions.handleExit(player);
             }
 
