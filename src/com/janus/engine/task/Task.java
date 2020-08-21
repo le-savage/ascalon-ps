@@ -13,17 +13,14 @@ public abstract class Task {
      * The default key for every task.
      */
     public static final Object DEFAULT_KEY = new Object();
-
-    /**
-     * The number of cycles between consecutive executions of this task.
-     */
-    private int delay;
-
     /**
      * A flag which indicates if this task should be executed once immediately.
      */
     private final boolean immediate;
-
+    /**
+     * The number of cycles between consecutive executions of this task.
+     */
+    private int delay;
     /**
      * The current 'count down' value. When this reaches zero the task will be
      * executed.
@@ -34,24 +31,10 @@ public abstract class Task {
      * A flag which indicates if this task is still running.
      */
     private boolean running = true;
-
-    public void setEventRunning(boolean running) {
-        this.running = running;
-    }
-
     /**
      * The task's owner
      */
     private Object key;
-
-    public final Object getKey() {
-        return Objects.requireNonNull(key);
-    }
-
-    public final Task bind(Object key) {
-        this.key = Objects.requireNonNull(key);
-        return this;
-    }
 
     /**
      * Creates a new task with a delay of 1 cycle.
@@ -114,6 +97,19 @@ public abstract class Task {
         this.bind(key);
     }
 
+    public void setEventRunning(boolean running) {
+        this.running = running;
+    }
+
+    public final Object getKey() {
+        return Objects.requireNonNull(key);
+    }
+
+    public final Task bind(Object key) {
+        this.key = Objects.requireNonNull(key);
+        return this;
+    }
+
     /**
      * Checks if this task is an immediate task.
      *
@@ -161,6 +157,10 @@ public abstract class Task {
      */
     protected abstract void execute();
 
+    public int getDelay() {
+        return this.delay;
+    }
+
     /**
      * Changes the delay of this task.
      *
@@ -170,10 +170,6 @@ public abstract class Task {
     public void setDelay(int delay) {
         if (delay > 0)
             this.delay = delay;
-    }
-
-    public int getDelay() {
-        return this.delay;
     }
 
     /**

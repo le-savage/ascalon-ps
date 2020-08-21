@@ -24,6 +24,60 @@ import java.util.Map;
 
 public class CurseHandler {
 
+    public static final CurseData[] OVERHEAD_CURSES = {
+            CurseData.DEFLECT_MAGIC,
+            CurseData.DEFLECT_MISSILES,
+            CurseData.DEFLECT_MELEE,
+            CurseData.WRATH,
+            CurseData.SOUL_SPLIT
+    };
+    public static final int PROTECT_ITEM = CurseData.PROTECT_ITEM.ordinal(), SAP_WARRIOR = CurseData.SAP_WARRIOR.ordinal(), SAP_RANGER = CurseData.SAP_RANGER.ordinal(), SAP_MAGE = CurseData.SAP_MAGE.ordinal(), SAP_SPIRIT = CurseData.SAP_SPIRIT.ordinal(),
+            BERSERKER = CurseData.BERSERKER.ordinal(), DEFLECT_SUMMONING = CurseData.DEFLECT_SUMMONING.ordinal(), DEFLECT_MAGIC = CurseData.DEFLECT_MAGIC.ordinal(), DEFLECT_MISSILES = CurseData.DEFLECT_MISSILES.ordinal(),
+            DEFLECT_MELEE = CurseData.DEFLECT_MELEE.ordinal(), LEECH_ATTACK = CurseData.LEECH_ATTACK.ordinal(), LEECH_RANGED = CurseData.LEECH_RANGED.ordinal(), LEECH_MAGIC = CurseData.LEECH_MAGIC.ordinal(),
+            LEECH_DEFENCE = CurseData.LEECH_DEFENCE.ordinal(), LEECH_STRENGTH = CurseData.LEECH_STRENGTH.ordinal(), LEECH_ENERGY = CurseData.LEECH_ENERGY.ordinal(), LEECH_SPECIAL_ATTACK = CurseData.LEECH_SPECIAL_ATTACK.ordinal(),
+            WRATH = CurseData.WRATH.ordinal(), SOUL_SPLIT = CurseData.SOUL_SPLIT.ordinal(), TURMOIL = CurseData.TURMOIL.ordinal();
+    private static final CurseData[] ACCURACY_CURSES = {
+            CurseData.SAP_WARRIOR,
+            CurseData.LEECH_ATTACK,
+            CurseData.TURMOIL
+    };
+    private static final CurseData[] RANGED_CURSES = {
+            CurseData.SAP_RANGER,
+            CurseData.LEECH_RANGED,
+            CurseData.TURMOIL
+    };
+    private static final CurseData[] MAGIC_CURSES = {
+            CurseData.SAP_MAGE,
+            CurseData.LEECH_MAGIC,
+            CurseData.TURMOIL
+    };
+    private static final CurseData[] SPECIAL_ATTACK_CURSES = {
+            CurseData.SAP_SPIRIT,
+            CurseData.LEECH_SPECIAL_ATTACK
+    };
+    private static final CurseData[] DEFENSE_CURSES = {
+            CurseData.LEECH_DEFENCE,
+            CurseData.TURMOIL
+    };
+    private static final CurseData[] STRENGTH_CURSES = {
+            CurseData.LEECH_STRENGTH,
+            CurseData.TURMOIL
+    };
+    private static final CurseData[] NON_DEFLECT_OVERHEAD_CURSES = {
+            CurseData.WRATH,
+            CurseData.SOUL_SPLIT
+    };
+    private static final CurseData[] COMBAT_CURSES = {
+            CurseData.SAP_WARRIOR,
+            CurseData.LEECH_ATTACK,
+            CurseData.SAP_RANGER,
+            CurseData.LEECH_RANGED,
+            CurseData.SAP_MAGE,
+            CurseData.LEECH_MAGIC,
+            CurseData.LEECH_DEFENCE,
+            CurseData.LEECH_STRENGTH
+    };
+
     public static boolean isButton(Player player, int buttonId) {
         if (CurseData.buttons.containsKey(buttonId)) {
             CurseData curse = CurseData.buttons.get(buttonId);
@@ -328,6 +382,14 @@ public class CurseHandler {
         return toRemove;
     }
 
+    public static CurseData forId(int id) {
+        for (CurseData data : CurseData.values()) {
+            if (data.ordinal() == id)
+                return data;
+        }
+        return null;
+    }
+
     private enum CurseData {
         PROTECT_ITEM(50, .1, 32503, 610, new PrayerAnimation(new Animation(12567), new Graphic(2213))),
         SAP_WARRIOR(50, .3, 32505, 611),
@@ -350,29 +412,7 @@ public class CurseHandler {
         SOUL_SPLIT(92, 1.5, 32539, 628),
         TURMOIL(95, 3, 32541, 629, new PrayerAnimation(new Animation(12565), new Graphic(2226)));
 
-        private CurseData(int requirement, double drainRate, int buttonId, int configId, PrayerAnimation... animations) {
-            this.requirement = requirement;
-            this.drainRate = drainRate;
-            this.buttonId = buttonId;
-            this.configId = configId;
-            this.prayerAnimation = animations.length > 0 ? animations[0] : null;
-            this.name = NameUtils.capitalizeWords(toString().toLowerCase().replaceAll("_", " "));
-        }
-
-        private final int requirement;
-
-        private final double drainRate;
-
-        private final int buttonId;
-
-        private final int configId;
-
-        private final PrayerAnimation prayerAnimation;
-
-        private final String name;
-
         private static Map<Integer, CurseData> buttons = new HashMap<Integer, CurseData>();
-
         private static Map<Integer, CurseData> ids = new HashMap<Integer, CurseData>();
 
         static {
@@ -381,88 +421,32 @@ public class CurseHandler {
                 ids.put(data.ordinal(), data);
             }
         }
-    }
 
-    private static final CurseData[] ACCURACY_CURSES = {
-            CurseData.SAP_WARRIOR,
-            CurseData.LEECH_ATTACK,
-            CurseData.TURMOIL
-    };
+        private final int requirement;
+        private final double drainRate;
+        private final int buttonId;
+        private final int configId;
+        private final PrayerAnimation prayerAnimation;
+        private final String name;
 
-    private static final CurseData[] RANGED_CURSES = {
-            CurseData.SAP_RANGER,
-            CurseData.LEECH_RANGED,
-            CurseData.TURMOIL
-    };
-
-    private static final CurseData[] MAGIC_CURSES = {
-            CurseData.SAP_MAGE,
-            CurseData.LEECH_MAGIC,
-            CurseData.TURMOIL
-    };
-
-    private static final CurseData[] SPECIAL_ATTACK_CURSES = {
-            CurseData.SAP_SPIRIT,
-            CurseData.LEECH_SPECIAL_ATTACK
-    };
-
-    private static final CurseData[] DEFENSE_CURSES = {
-            CurseData.LEECH_DEFENCE,
-            CurseData.TURMOIL
-    };
-
-    private static final CurseData[] STRENGTH_CURSES = {
-            CurseData.LEECH_STRENGTH,
-            CurseData.TURMOIL
-    };
-
-    public static final CurseData[] OVERHEAD_CURSES = {
-            CurseData.DEFLECT_MAGIC,
-            CurseData.DEFLECT_MISSILES,
-            CurseData.DEFLECT_MELEE,
-            CurseData.WRATH,
-            CurseData.SOUL_SPLIT
-    };
-
-    private static final CurseData[] NON_DEFLECT_OVERHEAD_CURSES = {
-            CurseData.WRATH,
-            CurseData.SOUL_SPLIT
-    };
-
-    private static final CurseData[] COMBAT_CURSES = {
-            CurseData.SAP_WARRIOR,
-            CurseData.LEECH_ATTACK,
-            CurseData.SAP_RANGER,
-            CurseData.LEECH_RANGED,
-            CurseData.SAP_MAGE,
-            CurseData.LEECH_MAGIC,
-            CurseData.LEECH_DEFENCE,
-            CurseData.LEECH_STRENGTH
-    };
-
-    public static final int PROTECT_ITEM = CurseData.PROTECT_ITEM.ordinal(), SAP_WARRIOR = CurseData.SAP_WARRIOR.ordinal(), SAP_RANGER = CurseData.SAP_RANGER.ordinal(), SAP_MAGE = CurseData.SAP_MAGE.ordinal(), SAP_SPIRIT = CurseData.SAP_SPIRIT.ordinal(),
-            BERSERKER = CurseData.BERSERKER.ordinal(), DEFLECT_SUMMONING = CurseData.DEFLECT_SUMMONING.ordinal(), DEFLECT_MAGIC = CurseData.DEFLECT_MAGIC.ordinal(), DEFLECT_MISSILES = CurseData.DEFLECT_MISSILES.ordinal(),
-            DEFLECT_MELEE = CurseData.DEFLECT_MELEE.ordinal(), LEECH_ATTACK = CurseData.LEECH_ATTACK.ordinal(), LEECH_RANGED = CurseData.LEECH_RANGED.ordinal(), LEECH_MAGIC = CurseData.LEECH_MAGIC.ordinal(),
-            LEECH_DEFENCE = CurseData.LEECH_DEFENCE.ordinal(), LEECH_STRENGTH = CurseData.LEECH_STRENGTH.ordinal(), LEECH_ENERGY = CurseData.LEECH_ENERGY.ordinal(), LEECH_SPECIAL_ATTACK = CurseData.LEECH_SPECIAL_ATTACK.ordinal(),
-            WRATH = CurseData.WRATH.ordinal(), SOUL_SPLIT = CurseData.SOUL_SPLIT.ordinal(), TURMOIL = CurseData.TURMOIL.ordinal();
-
-    public static CurseData forId(int id) {
-        for (CurseData data : CurseData.values()) {
-            if (data.ordinal() == id)
-                return data;
+        private CurseData(int requirement, double drainRate, int buttonId, int configId, PrayerAnimation... animations) {
+            this.requirement = requirement;
+            this.drainRate = drainRate;
+            this.buttonId = buttonId;
+            this.configId = configId;
+            this.prayerAnimation = animations.length > 0 ? animations[0] : null;
+            this.name = NameUtils.capitalizeWords(toString().toLowerCase().replaceAll("_", " "));
         }
-        return null;
     }
 
     private static class PrayerAnimation {
+
+        private final Animation animation;
+        private final Graphic graphic;
 
         private PrayerAnimation(Animation animation, Graphic graphic) {
             this.animation = animation;
             this.graphic = graphic;
         }
-
-        private final Animation animation;
-
-        private final Graphic graphic;
     }
 }

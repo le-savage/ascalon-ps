@@ -14,6 +14,14 @@ import com.janus.world.entity.impl.player.Player;
 public class ToyHorses {
 
     /**
+     * This array contains the data for the toy horses contains itemID, then the
+     * animation.
+     */
+
+    private static int[][] TOY_ID = {{2520, 918}, {2522, 919},
+            {2524, 920}, {2526, 921},};
+
+    /**
      * String contains the data for the random messages that the player says
      * when the player clicks on a toy horse.
      */
@@ -31,14 +39,6 @@ public class ToyHorses {
                 return "Hi-ho Silver, and away!";
         }
     }
-
-    /**
-     * This array contains the data for the toy horses contains itemID, then the
-     * animation.
-     */
-
-    private static int[][] TOY_ID = {{2520, 918}, {2522, 919},
-            {2524, 920}, {2526, 921},};
 
     /**
      * This boolean contains the data so it will read the array, reads the

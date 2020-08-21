@@ -15,6 +15,90 @@ public class NpcDefinition {
      * An array containing all of the npc definitions.
      */
     private static NpcDefinition[] definitions = new NpcDefinition[14500];
+    /**
+     * The id of the npc.
+     */
+    private int id;
+    /**
+     * The name of the npc.
+     */
+    private String name;
+    /**
+     * The examine of the npc.
+     */
+    private String examine;
+    /**
+     * The combat level of the npc.
+     */
+    private int combat;
+    /**
+     * The npc size.
+     */
+    private int size;
+    /**
+     * If the npc is attackable.
+     */
+    private boolean attackable;
+    /**
+     * If the npc is aggressive.
+     */
+    private boolean aggressive;
+    /**
+     * If the npc retreats.
+     */
+    private boolean retreats;
+    /**
+     * If the npc poisons.
+     */
+    private boolean poisonous;
+    /**
+     * Time it takes for this npc to respawn.
+     */
+    private int respawn;
+    /**
+     * The max hit of this npc.
+     */
+    private int maxHit;
+    /**
+     * The amount of hp this npc has.
+     */
+    private int hitpoints;
+    /**
+     * The attack speed of this npc.
+     */
+    private int attackSpeed;
+    /**
+     * The attack animation of this npc.
+     */
+    private int attackAnim;
+    /**
+     * The defence animation of this npc.
+     */
+    private int defenceAnim;
+    /**
+     * The death animation of this npc.
+     */
+    private int deathAnim;
+    /**
+     * This npc's attack bonus.
+     */
+    private int attackBonus;
+    /**
+     * This npc's melee resistance.
+     */
+    private int defenceMelee;
+    /**
+     * This npc's range resistance.
+     */
+    private int defenceRange;
+    /**
+     * This npc's defence resistance.
+     */
+    private int defenceMage;
+    /**
+     * This npc's slayer level required to attack.
+     */
+    private int slayerLevel;
 
     public static NpcDefinition forId(int id) {
         return id > definitions.length ? null : definitions[id];
@@ -31,111 +115,6 @@ public class NpcDefinition {
         }
         return null;
     }
-
-    /**
-     * The id of the npc.
-     */
-    private int id;
-
-    /**
-     * The name of the npc.
-     */
-    private String name;
-
-    /**
-     * The examine of the npc.
-     */
-    private String examine;
-
-    /**
-     * The combat level of the npc.
-     */
-    private int combat;
-
-    /**
-     * The npc size.
-     */
-    private int size;
-
-    /**
-     * If the npc is attackable.
-     */
-    private boolean attackable;
-
-    /**
-     * If the npc is aggressive.
-     */
-    private boolean aggressive;
-
-    /**
-     * If the npc retreats.
-     */
-    private boolean retreats;
-
-    /**
-     * If the npc poisons.
-     */
-    private boolean poisonous;
-
-    /**
-     * Time it takes for this npc to respawn.
-     */
-    private int respawn;
-
-    /**
-     * The max hit of this npc.
-     */
-    private int maxHit;
-
-    /**
-     * The amount of hp this npc has.
-     */
-    private int hitpoints;
-
-    /**
-     * The attack speed of this npc.
-     */
-    private int attackSpeed;
-
-    /**
-     * The attack animation of this npc.
-     */
-    private int attackAnim;
-
-    /**
-     * The defence animation of this npc.
-     */
-    private int defenceAnim;
-
-    /**
-     * The death animation of this npc.
-     */
-    private int deathAnim;
-
-    /**
-     * This npc's attack bonus.
-     */
-    private int attackBonus;
-
-    /**
-     * This npc's melee resistance.
-     */
-    private int defenceMelee;
-
-    /**
-     * This npc's range resistance.
-     */
-    private int defenceRange;
-
-    /**
-     * This npc's defence resistance.
-     */
-    private int defenceMage;
-
-    /**
-     * This npc's slayer level required to attack.
-     */
-    private int slayerLevel;
 
     /**
      * Prepares the dynamic json loader for loading npc definitions.

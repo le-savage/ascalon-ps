@@ -6,12 +6,10 @@ import com.janus.world.entity.impl.player.Player;
 
 public class GLAC {
 
+    public static final int[] GLAC = {20000, 20001, 20002};
     public static int config;
     public static int item;
     public static int index = 0;
-
-    public static final int[] GLAC = {20000, 20001, 20002};
-
 
     /*
      * Get rare drop(s) for that boss location

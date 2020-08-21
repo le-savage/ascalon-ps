@@ -6,13 +6,13 @@ import com.janus.world.entity.impl.player.Player;
 
 public class PlayerSpecialAmountTask extends Task {
 
+    private final Player player;
+
     public PlayerSpecialAmountTask(Player player) {
         super(20, player, false);
         this.player = player;
         player.setRecoveringSpecialAttack(true);
     }
-
-    private final Player player;
 
     @Override
     public void execute() {

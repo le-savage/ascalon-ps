@@ -35,6 +35,15 @@ public final class LoginDecoder extends FrameDecoder {
     private int state = CONNECTED;
     private long seed;
 
+    public static void sendReturnCode(final Channel channel, final int code) {
+        channel.write(new PacketBuilder().put((byte) code).toPacket()).addListener(new ChannelFutureListener() {
+            @Override
+            public void operationComplete(final ChannelFuture arg0) throws Exception {
+                arg0.getChannel().close();
+            }
+        });
+    }
+
     @Override
     protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) throws Exception {
         if (!channel.isConnected()) {
@@ -169,15 +178,6 @@ public final class LoginDecoder extends FrameDecoder {
             sendReturnCode(channel, response);
             return null;
         }
-    }
-
-    public static void sendReturnCode(final Channel channel, final int code) {
-        channel.write(new PacketBuilder().put((byte) code).toPacket()).addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(final ChannelFuture arg0) throws Exception {
-                arg0.getChannel().close();
-            }
-        });
     }
 
 }

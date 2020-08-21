@@ -12,6 +12,17 @@ public class CycleEventHandler {
      * The instance of this class
      */
     private static CycleEventHandler instance;
+    /**
+     * Holds all of our events currently being ran
+     */
+    private List<CycleEventContainer> events;
+
+    /**
+     * Creates a new instance of this class
+     */
+    public CycleEventHandler() {
+        this.events = new ArrayList<CycleEventContainer>();
+    }
 
     /**
      * Returns the instance of this class
@@ -23,18 +34,6 @@ public class CycleEventHandler {
             instance = new CycleEventHandler();
         }
         return instance;
-    }
-
-    /**
-     * Holds all of our events currently being ran
-     */
-    private List<CycleEventContainer> events;
-
-    /**
-     * Creates a new instance of this class
-     */
-    public CycleEventHandler() {
-        this.events = new ArrayList<CycleEventContainer>();
     }
 
     /**

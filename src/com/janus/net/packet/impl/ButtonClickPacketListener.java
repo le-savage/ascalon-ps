@@ -62,6 +62,8 @@ import com.janus.world.entity.impl.player.Player;
 
 public class ButtonClickPacketListener implements PacketListener {
 
+    public static final int OPCODE = 185;
+
     @Override
     public void handleMessage(Player player, Packet packet) {
 
@@ -847,7 +849,7 @@ public class ButtonClickPacketListener implements PacketListener {
 				 player.getInventory().add(15372, 1);
 				 player.incrementJanusPoints(200);
 				 PlayerPanel.refreshPanel(player);
-			} 
+			}
 			break;*/
 
 		/*case 3208:
@@ -855,21 +857,21 @@ public class ButtonClickPacketListener implements PacketListener {
 				 player.getInventory().add(15370, 1);
 				 player.incrementJanusPoints(100);
 				 PlayerPanel.refreshPanel(player);
-			} 
+			}
 			break;
 		case 3225:
 			if(player.getJanusPoints() >= 50) {
 				 player.getInventory().add(15369, 1);
 				 player.incrementJanusPoints(50);
 				 PlayerPanel.refreshPanel(player);
-			} 
+			}
 			break;
 		case 3240:
 			if(player.getJanusPoints() >= 250) {
 				 player.getInventory().add(15373, 1);
 				 player.incrementJanusPoints(250);
 				 PlayerPanel.refreshPanel(player);
-			} 
+			}
 			break;*/
             case 26226:
             case 26229:
@@ -1830,6 +1832,4 @@ public class ButtonClickPacketListener implements PacketListener {
         }
         return false;
     }
-
-    public static final int OPCODE = 185;
 }

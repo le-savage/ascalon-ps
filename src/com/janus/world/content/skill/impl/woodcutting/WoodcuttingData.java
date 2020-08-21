@@ -9,6 +9,23 @@ import java.util.Map;
 
 public class WoodcuttingData {
 
+    public static int getHatchet(Player p) {
+        for (Hatchet h : Hatchet.values()) {
+            if (p.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == h.getId()) {
+                return h.getId();
+            } else if (p.getInventory().contains(h.getId())) {
+                return h.getId();
+            }
+        }
+        return -1;
+    }
+
+    public static int getChopTimer(Player player, Hatchet h) {
+        int skillReducement = (int) (player.getSkillManager().getMaxLevel(Skill.WOODCUTTING) * 0.05);
+        int axeReducement = (int) h.getSpeed();
+        return skillReducement + axeReducement;
+    }
+
     public static enum Hatchet {
         BRONZE(1351, 1, 879, 1.0),
         IRON(1349, 1, 877, 1.3),
@@ -20,8 +37,17 @@ public class WoodcuttingData {
         DRAGON(6739, 61, 2846, 2.28),
         ADZE(13661, 80, 10227, 2.5);
 
+        public static Map<Integer, Hatchet> hatchets = new HashMap<Integer, Hatchet>();
+
+        static {
+            for (Hatchet hatchet : Hatchet.values()) {
+                hatchets.put(hatchet.getId(), hatchet);
+            }
+        }
+
         private int id, req, anim;
         private double speed;
+
 
         private Hatchet(int id, int level, int animation, double speed) {
             this.id = id;
@@ -30,17 +56,8 @@ public class WoodcuttingData {
             this.speed = speed;
         }
 
-        public static Map<Integer, Hatchet> hatchets = new HashMap<Integer, Hatchet>();
-
-
         public static Hatchet forId(int id) {
             return hatchets.get(id);
-        }
-
-        static {
-            for (Hatchet hatchet : Hatchet.values()) {
-                hatchets.put(hatchet.getId(), hatchet);
-            }
         }
 
         public int getId() {
@@ -73,6 +90,16 @@ public class WoodcuttingData {
         EVIL_TREE(80, 16444, 14666, new int[]{11434}, 9, true);
 
 
+        private static final Map<Integer, Trees> tree = new HashMap<Integer, Trees>();
+
+        static {
+            for (Trees t : Trees.values()) {
+                for (int obj : t.objects) {
+                    tree.put(obj, t);
+                }
+            }
+        }
+
         private int[] objects;
         private int req, xp, log, ticks;
         private boolean multi;
@@ -84,6 +111,10 @@ public class WoodcuttingData {
             this.objects = obj;
             this.ticks = ticks;
             this.multi = multi;
+        }
+
+        public static Trees forId(int id) {
+            return tree.get(id);
         }
 
         public boolean isMulti() {
@@ -105,36 +136,5 @@ public class WoodcuttingData {
         public int getReq() {
             return req;
         }
-
-        private static final Map<Integer, Trees> tree = new HashMap<Integer, Trees>();
-
-        public static Trees forId(int id) {
-            return tree.get(id);
-        }
-
-        static {
-            for (Trees t : Trees.values()) {
-                for (int obj : t.objects) {
-                    tree.put(obj, t);
-                }
-            }
-        }
-    }
-
-    public static int getHatchet(Player p) {
-        for (Hatchet h : Hatchet.values()) {
-            if (p.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == h.getId()) {
-                return h.getId();
-            } else if (p.getInventory().contains(h.getId())) {
-                return h.getId();
-            }
-        }
-        return -1;
-    }
-
-    public static int getChopTimer(Player player, Hatchet h) {
-        int skillReducement = (int) (player.getSkillManager().getMaxLevel(Skill.WOODCUTTING) * 0.05);
-        int axeReducement = (int) h.getSpeed();
-        return skillReducement + axeReducement;
     }
 }

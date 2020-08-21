@@ -13,9 +13,6 @@ public class Reminders {
 
 
     private static final int TIME = 900000; //10 minutes
-    private static Stopwatch timer = new Stopwatch().reset();
-    public static String currentMessage;
-
     /*
      * Random Message Data
      */
@@ -49,6 +46,8 @@ public class Reminders {
 
 
     };
+    public static String currentMessage;
+    private static Stopwatch timer = new Stopwatch().reset();
 
     /*
      * Sequence called in world.java

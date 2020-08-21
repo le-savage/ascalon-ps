@@ -11,8 +11,6 @@ import com.janus.world.entity.impl.player.Player;
 public class InstanceArena {
 
 
-    private static int barrierID = 38144;
-    private static int npcListInterface = 6028;
     public static final Position CENTER = new Position(2717, 5314);
     public static final int centerX = 2717;
     public static final int centerY = 5314;
@@ -20,10 +18,10 @@ public class InstanceArena {
     public static final int fightX = 2717;
     public static final int fightY = 5322;
     public static final Position ENTRANCE = new Position(2717, 5324);
-
     public static final int crabX = 2711;
     public static final int crabY = 5317;
-
+    private static int barrierID = 38144;
+    private static int npcListInterface = 6028;
 
     public static void handleInstance(Player player, GameObject object) {
         if (object.getId() == barrierID) {

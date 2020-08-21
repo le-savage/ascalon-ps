@@ -15,6 +15,9 @@ import java.util.Objects;
 
 @RequiredArgsConstructor
 public class CollectionLog {
+    private final int[] NPC_LIST = new int[]{1265, 1023, 1233, 1234, 13479, 13478, 13474, 13747, 12343, 12886, 10103, 606, 607, 1614,
+            603, 12843, 53, 8018, 13635, 8008, 3308, 3117, 201, 203, 8010, 252, 449, 452, 2341, 3831, 185, 6430, 187, 3779, 3334, 8013, 12239, 3830};
+    private final Player player;
     private List<Integer> currentlyViewing = new ArrayList<>();
 
     public void open() {
@@ -109,10 +112,6 @@ public class CollectionLog {
         }
         return true;
     }
-
-    private final int[] NPC_LIST = new int[]{1265, 1023, 1233, 1234, 13479, 13478, 13474, 13747, 12343, 12886, 10103, 606, 607, 1614,
-            603, 12843, 53, 8018, 13635, 8008, 3308, 3117, 201, 203, 8010, 252, 449, 452, 2341, 3831, 185, 6430, 187, 3779, 3334, 8013, 12239, 3830};
-    private final Player player;
 }
 
 class EnterNpcName extends Input {

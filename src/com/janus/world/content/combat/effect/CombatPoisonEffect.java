@@ -33,6 +33,22 @@ public class CombatPoisonEffect extends Task {
         this.entity = entity;
     }
 
+    @Override
+    public void execute() {
+
+        // Stop the task if the entity is unregistered.
+        if (!entity.isRegistered() || !entity.isPoisoned()) {
+            this.stop();
+            return;
+        }
+
+        // Deal the damage, then try and decrement the damage count.
+        entity.dealDamage(new Hit(entity.getAndDecrementPoisonDamage(), Hitmask.DARK_GREEN, CombatIcon.NONE));
+       /* if(entity.isPlayer()) {
+        	((Player)entity).getPacketSender().sendInterfaceRemoval();
+        }*/
+    }
+
     /**
      * Holds all of the different strengths of poisons.
      *
@@ -69,22 +85,6 @@ public class CombatPoisonEffect extends Task {
         }
     }
 
-    @Override
-    public void execute() {
-
-        // Stop the task if the entity is unregistered.
-        if (!entity.isRegistered() || !entity.isPoisoned()) {
-            this.stop();
-            return;
-        }
-
-        // Deal the damage, then try and decrement the damage count.
-        entity.dealDamage(new Hit(entity.getAndDecrementPoisonDamage(), Hitmask.DARK_GREEN, CombatIcon.NONE));
-       /* if(entity.isPlayer()) {
-        	((Player)entity).getPacketSender().sendInterfaceRemoval();
-        }*/
-    }
-
     /**
      * The small utility class that manages all of the combat poison data.
      *
@@ -98,6 +98,12 @@ public class CombatPoisonEffect extends Task {
          */
         // Increase the capacity of the map as more elements are added.
         private static final Map<Integer, PoisonType> types = new HashMap<>(97);
+
+        /**
+         * Default private constructor.
+         */
+        private CombatPoisonData() {
+        }
 
         /**
          * Load all of the poison data.
@@ -217,12 +223,6 @@ public class CombatPoisonEffect extends Task {
             if (item == null || item.getId() < 1 || item.getAmount() < 1)
                 return Optional.empty();
             return Optional.ofNullable(types.get(item.getId()));
-        }
-
-        /**
-         * Default private constructor.
-         */
-        private CombatPoisonData() {
         }
     }
 }

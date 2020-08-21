@@ -15,6 +15,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Hunter {
 
+    private static final int[] exps = {3254, 3744, 6041, 8811, 10271, 12555, 13221, 17800};
+    /**
+     * The list which contains all Traps
+     */
+    public static List<Trap> traps = new CopyOnWriteArrayList<Trap>();
+    /**
+     * The Hash map which contains all Hunting NPCS
+     */
+    public static List<NPC> HUNTER_NPC_LIST = new CopyOnWriteArrayList<NPC>();
+
     /**
      * Registers a new Trap
      *
@@ -38,19 +48,6 @@ public class Hunter {
         if (trap.getOwner() != null)
             trap.getOwner().setTrapsLaid(trap.getOwner().getTrapsLaid() - 1);
     }
-
-    /**
-     * The list which contains all Traps
-     */
-    public static List<Trap> traps = new CopyOnWriteArrayList<Trap>();
-
-    /**
-     * The Hash map which contains all Hunting NPCS
-     */
-    public static List<NPC> HUNTER_NPC_LIST = new CopyOnWriteArrayList<NPC>();
-
-    private static final int[] exps = {3254, 3744, 6041, 8811, 10271, 12555, 13221, 17800};
-
 
     /**
      * Can this client lay a trap here?

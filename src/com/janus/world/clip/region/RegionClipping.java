@@ -22,58 +22,29 @@ import java.util.ArrayList;
  */
 public final class RegionClipping {
 
-    private static RegionClipping[] regionArray;
+    public static final int PROJECTILE_NORTH_WEST_BLOCKED = 0x200;
+    public static final int PROJECTILE_NORTH_BLOCKED = 0x400;
+    public static final int PROJECTILE_NORTH_EAST_BLOCKED = 0x800;
+    public static final int PROJECTILE_EAST_BLOCKED = 0x1000;
+    public static final int PROJECTILE_SOUTH_EAST_BLOCKED = 0x2000;
+    public static final int PROJECTILE_SOUTH_BLOCKED = 0x4000;
+    public static final int PROJECTILE_SOUTH_WEST_BLOCKED = 0x8000;
+    public static final int PROJECTILE_WEST_BLOCKED = 0x10000;
+    public static final int PROJECTILE_TILE_BLOCKED = 0x20000;
+    public static final int UNKNOWN = 0x80000;
+    public static final int BLOCKED_TILE = 0x200000;
+    public static final int UNLOADED_TILE = 0x1000000;
+    public static final int OCEAN_TILE = 2097152;
     private static final ArrayList<Integer> loadedRegions = new ArrayList<Integer>();
-
-    private final class RegionData {
-
-        private int mapGround;
-        private int mapObject;
-
-        public RegionData(int mapGround, int mapObject) {
-            this.mapGround = mapGround;
-            this.mapObject = mapObject;
-        }
-    }
-
+    private static RegionClipping[] regionArray;
+    public GameObject[][][] gameObjects = new GameObject[4][][];
     private int id;
     private int[][][] clips = new int[4][][];
-
-    public GameObject[][][] gameObjects = new GameObject[4][][];
-
     private RegionData regionData;
 
     public RegionClipping(int id, int map, int mapObj) {
         this.id = id;
         regionData = new RegionData(map, mapObj);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void removeClip(int x, int y, int height, int shift) {
-        int regionAbsX = (id >> 8) * 64;
-        int regionAbsY = (id & 0xff) * 64;
-        if (height < 0 || height >= 4)
-            height = 0;
-        loadRegion(x, y);
-        if (clips[height] == null) {
-            clips[height] = new int[64][64];
-        }
-        clips[height][x - regionAbsX][y - regionAbsY] = /* 16777215 - shift */0;
-    }
-
-    public void addClip(int x, int y, int height, int shift) {
-        int regionAbsX = (id >> 8) * 64;
-        int regionAbsY = (id & 0xff) * 64;
-        if (height < 0 || height >= 4)
-            height = 0;
-        loadRegion(x, y);
-        if (clips[height] == null) {
-            clips[height] = new int[64][64];
-        }
-        clips[height][x - regionAbsX][y - regionAbsY] |= shift;
     }
 
     public static void init() {
@@ -552,17 +523,6 @@ public final class RegionClipping {
         return 0;
     }
 
-    private int getClip(int x, int y, int height) {
-        // height %= 4;
-        int regionAbsX = (id >> 8) * 64;
-        int regionAbsY = (id & 0xff) * 64;
-        loadRegion(x, y);
-        if (clips[height] == null) {
-            clips[height] = new int[64][64];
-        }
-        return clips[height][x - regionAbsX][y - regionAbsY];
-    }
-
     public static boolean canMove(int startX, int startY, int endX, int endY,
                                   int height, int xLength, int yLength) {
         int diffX = endX - startX;
@@ -857,17 +817,53 @@ public final class RegionClipping {
                 .getY();
     }
 
-    public static final int PROJECTILE_NORTH_WEST_BLOCKED = 0x200;
-    public static final int PROJECTILE_NORTH_BLOCKED = 0x400;
-    public static final int PROJECTILE_NORTH_EAST_BLOCKED = 0x800;
-    public static final int PROJECTILE_EAST_BLOCKED = 0x1000;
-    public static final int PROJECTILE_SOUTH_EAST_BLOCKED = 0x2000;
-    public static final int PROJECTILE_SOUTH_BLOCKED = 0x4000;
-    public static final int PROJECTILE_SOUTH_WEST_BLOCKED = 0x8000;
-    public static final int PROJECTILE_WEST_BLOCKED = 0x10000;
-    public static final int PROJECTILE_TILE_BLOCKED = 0x20000;
-    public static final int UNKNOWN = 0x80000;
-    public static final int BLOCKED_TILE = 0x200000;
-    public static final int UNLOADED_TILE = 0x1000000;
-    public static final int OCEAN_TILE = 2097152;
+    public int getId() {
+        return id;
+    }
+
+    public void removeClip(int x, int y, int height, int shift) {
+        int regionAbsX = (id >> 8) * 64;
+        int regionAbsY = (id & 0xff) * 64;
+        if (height < 0 || height >= 4)
+            height = 0;
+        loadRegion(x, y);
+        if (clips[height] == null) {
+            clips[height] = new int[64][64];
+        }
+        clips[height][x - regionAbsX][y - regionAbsY] = /* 16777215 - shift */0;
+    }
+
+    public void addClip(int x, int y, int height, int shift) {
+        int regionAbsX = (id >> 8) * 64;
+        int regionAbsY = (id & 0xff) * 64;
+        if (height < 0 || height >= 4)
+            height = 0;
+        loadRegion(x, y);
+        if (clips[height] == null) {
+            clips[height] = new int[64][64];
+        }
+        clips[height][x - regionAbsX][y - regionAbsY] |= shift;
+    }
+
+    private int getClip(int x, int y, int height) {
+        // height %= 4;
+        int regionAbsX = (id >> 8) * 64;
+        int regionAbsY = (id & 0xff) * 64;
+        loadRegion(x, y);
+        if (clips[height] == null) {
+            clips[height] = new int[64][64];
+        }
+        return clips[height][x - regionAbsX][y - regionAbsY];
+    }
+
+    private final class RegionData {
+
+        private int mapGround;
+        private int mapObject;
+
+        public RegionData(int mapGround, int mapObject) {
+            this.mapGround = mapGround;
+            this.mapObject = mapObject;
+        }
+    }
 }

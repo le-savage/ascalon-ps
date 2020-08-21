@@ -67,18 +67,26 @@ public class ExperienceLamps {
         return false;
     }
 
+    public static int getExperienceReward(Player player, LampData lamp, Skill skill) {
+        int base = lamp == LampData.DRAGONKIN_LAMP ? 150000 : 2000;
+        int maxLvl = player.getSkillManager().getMaxLevel(skill);
+        if (SkillManager.isNewSkill(skill))
+            maxLvl = maxLvl / 10;
+        return (int) (base + 10 * (Math.pow(maxLvl, 2.5)));
+    }
+
+    public static boolean selectingExperienceReward(Player player) {
+        return player.getInterfaceId() == 38000;
+    }
+
     enum LampData {
         NORMAL_XP_LAMP(11137),
         DRAGONKIN_LAMP(18782);
 
-        LampData(int itemId) {
-            this.itemId = itemId;
-        }
-
         private int itemId;
 
-        public int getItemId() {
-            return this.itemId;
+        LampData(int itemId) {
+            this.itemId = itemId;
         }
 
         public static LampData forId(int id) {
@@ -87,6 +95,10 @@ public class ExperienceLamps {
                     return lampData;
             }
             return null;
+        }
+
+        public int getItemId() {
+            return this.itemId;
         }
     }
 
@@ -118,11 +130,11 @@ public class ExperienceLamps {
         COOKING(-27460),
         RUNECRAFTING(-27457);
 
+        private int button;
+
         Interface_Buttons(int button) {
             this.button = button;
         }
-
-        private int button;
 
         public static Interface_Buttons forButton(int button) {
             for (Interface_Buttons skill : Interface_Buttons.values()) {
@@ -132,17 +144,5 @@ public class ExperienceLamps {
             }
             return null;
         }
-    }
-
-    public static int getExperienceReward(Player player, LampData lamp, Skill skill) {
-        int base = lamp == LampData.DRAGONKIN_LAMP ? 150000 : 2000;
-        int maxLvl = player.getSkillManager().getMaxLevel(skill);
-        if (SkillManager.isNewSkill(skill))
-            maxLvl = maxLvl / 10;
-        return (int) (base + 10 * (Math.pow(maxLvl, 2.5)));
-    }
-
-    public static boolean selectingExperienceReward(Player player) {
-        return player.getInterfaceId() == 38000;
     }
 }

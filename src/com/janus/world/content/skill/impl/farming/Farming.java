@@ -9,6 +9,11 @@ import com.janus.world.entity.impl.player.Player;
 import java.io.*;
 
 public class Farming {
+    /*
+     * Saving
+     * Don't wanna fill up player class lol
+     */
+    private static final String DIR = "./data/saves/farming/";
     private final Player player;
     private Plant[] plants = new Plant[4];
     private GrassyPatch[] patches = new GrassyPatch[4];
@@ -245,12 +250,6 @@ public class Farming {
     public void setPatches(GrassyPatch[] patches) {
         this.patches = patches;
     }
-
-    /*
-     * Saving
-     * Don't wanna fill up player class lol
-     */
-    private static final String DIR = "./data/saves/farming/";
 
     public void save() {
         if (!player.shouldProcessFarming())

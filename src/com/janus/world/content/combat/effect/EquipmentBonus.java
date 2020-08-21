@@ -6,6 +6,24 @@ import com.janus.world.entity.impl.player.Player;
 
 public class EquipmentBonus {
 
+    public static final int[][] VOID_ARMOUR = {
+            {Equipment.BODY_SLOT, 8839},
+            {Equipment.LEG_SLOT, 8840},
+            {Equipment.HANDS_SLOT, 8842}
+    };
+    public static final int[] ELITE_VOID_ARMOUR = {
+            19785,
+            19786,
+            8842
+    };
+    private static final int MAGE_VOID_HELM = 11663;
+
+    private static final int RANGED_VOID_HELM = 11664;
+
+    private static final int MELEE_VOID_HELM = 11665;
+
+    private static final int VOID_KNIGHT_DEFLECTOR = 19712;
+
     public static boolean wearingVoid(Player player, CombatType attackType) {
         int correctEquipment = 0;
         int helmet = attackType == CombatType.MAGIC ? MAGE_VOID_HELM :
@@ -36,24 +54,4 @@ public class EquipmentBonus {
         }
         return correctEquipment >= 3 && player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == helmet;
     }
-
-    private static final int MAGE_VOID_HELM = 11663;
-
-    private static final int RANGED_VOID_HELM = 11664;
-
-    private static final int MELEE_VOID_HELM = 11665;
-
-    private static final int VOID_KNIGHT_DEFLECTOR = 19712;
-
-    public static final int[][] VOID_ARMOUR = {
-            {Equipment.BODY_SLOT, 8839},
-            {Equipment.LEG_SLOT, 8840},
-            {Equipment.HANDS_SLOT, 8842}
-    };
-
-    public static final int[] ELITE_VOID_ARMOUR = {
-            19785,
-            19786,
-            8842
-    };
 }

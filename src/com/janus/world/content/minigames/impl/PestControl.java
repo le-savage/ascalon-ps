@@ -26,18 +26,43 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class PestControl {
 
+    /**
+     * @note States of minigames
+     */
+    public static final String PLAYING = "PLAYING";
+    public static final String WAITING = "WAITING";
+    public static final int WAIT_TIMER = 40;
     public static int TOTAL_PLAYERS = 0;
+    public static String[] KNIGHT_CHAT = {
+            "We must not fail!",
+            "Take down the portals",
+            "The Void Knights will not fall!",
+            "Hail the Void Knights!",
+            "We are beating these scum!"
+    };
+    public static PestControl[] runningGames = new PestControl[1];
+    public static int waitTimer = WAIT_TIMER;
+    public static NPC knight;
     private static int PLAYERS_IN_BOAT = 0;
-
     /**
      * @note Stores player and State
      */
     private static Map<Player, String> playerMap = new HashMap<Player, String>();
-
     /*
      * Stores npcs
      */
     private static CopyOnWriteArrayList<NPC> npcList = new CopyOnWriteArrayList<NPC>();
+    /**
+     * Is a game running?
+     */
+    private static boolean gameRunning;
+    private static NPC[] portals = new NPC[4];
+    private int id;
+
+
+    public PestControl(int id) {
+        this.id = id;
+    }
 
     /**
      * @return HashMap Value
@@ -45,17 +70,6 @@ public class PestControl {
     public static String getState(Player player) {
         return playerMap.get(player);
     }
-
-    /**
-     * @note States of minigames
-     */
-    public static final String PLAYING = "PLAYING";
-    public static final String WAITING = "WAITING";
-
-    /**
-     * Is a game running?
-     */
-    private static boolean gameRunning;
 
     /**
      * Moves a player in to the boat (waiting area)
@@ -87,6 +101,9 @@ public class PestControl {
         p.getPacketSender().sendString(21008, "(Need 3 to 25 players)");
         p.getMovementQueue().setLockMovement(false).reset();
     }
+
+    /*==========================================================================================================*/
+    /*NPC STUFF*/
 
     /**
      * Moves the player out of the boat (waiting area)
@@ -150,14 +167,6 @@ public class PestControl {
         }
     }
 
-    public static String[] KNIGHT_CHAT = {
-            "We must not fail!",
-            "Take down the portals",
-            "The Void Knights will not fall!",
-            "Hail the Void Knights!",
-            "We are beating these scum!"
-    };
-
     /**
      * Updates the boat (waiting area) interface for every player in it.
      */
@@ -194,7 +203,6 @@ public class PestControl {
             }
         }
     }
-
 
     /**
      * Starts a game and moves players in to the game.
@@ -320,9 +328,6 @@ public class PestControl {
         knight = null;
         gameRunning = false;
     }
-
-    /*==========================================================================================================*/
-    /*NPC STUFF*/
 
     /**
      * Spawns the game's key/main NPC's on to the map
@@ -552,50 +557,6 @@ public class PestControl {
         }
     }
 
-    public static PestControl[] runningGames = new PestControl[1];
-    private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public PestControl(int id) {
-        this.id = id;
-    }
-
-    public enum PestControlNPC {
-        SPINNER(3747, 3751),
-        //SPLATTER(3727, 3731),
-        SHIFTER(3732, 3741),
-        TORCHER(3752, 3761),
-        DEFILER(3762, 3771);
-        //BRAWLER(3772, 3776);
-
-        private final int lowestNPCID, highestNPCID;
-
-        PestControlNPC(int lowestNPCID, int highestNPCID) {
-            this.lowestNPCID = lowestNPCID;
-            this.highestNPCID = highestNPCID;
-        }
-
-        public int getLowestNPCID() {
-            return lowestNPCID;
-        }
-
-        public int getHighestNPCID() {
-            return highestNPCID;
-        }
-
-        public int tries;
-
-    }
-
-    public static final int WAIT_TIMER = 40;
-
-    public static int waitTimer = WAIT_TIMER;
-    private static NPC[] portals = new NPC[4];
-    public static NPC knight;
-
     /**
      * Handles the shop
      *
@@ -707,6 +668,36 @@ public class PestControl {
         np.setDefaultConstitution(constitution);
         World.register(np);
         return np;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public enum PestControlNPC {
+        SPINNER(3747, 3751),
+        //SPLATTER(3727, 3731),
+        SHIFTER(3732, 3741),
+        TORCHER(3752, 3761),
+        DEFILER(3762, 3771);
+        //BRAWLER(3772, 3776);
+
+        private final int lowestNPCID, highestNPCID;
+        public int tries;
+
+        PestControlNPC(int lowestNPCID, int highestNPCID) {
+            this.lowestNPCID = lowestNPCID;
+            this.highestNPCID = highestNPCID;
+        }
+
+        public int getLowestNPCID() {
+            return lowestNPCID;
+        }
+
+        public int getHighestNPCID() {
+            return highestNPCID;
+        }
+
     }
 
 }

@@ -18,12 +18,14 @@ import com.janus.world.entity.impl.player.Player;
 
 public class Locations {
 
+    public static int PLAYERS_IN_WILD;
+    public static int PLAYERS_IN_DUEL_ARENA;
+
     public static void login(Player player) {
         player.setLocation(Location.getLocation(player));
         player.getLocation().login(player);
         player.getLocation().enter(player);
     }
-
 
     public static void logout(Player player) {
         if (player.inFFA)
@@ -36,8 +38,91 @@ public class Locations {
         }
     }
 
-    public static int PLAYERS_IN_WILD;
-    public static int PLAYERS_IN_DUEL_ARENA;
+    public static void process(Character gc) {
+        Location newLocation = Location.getLocation(gc);
+        if (gc.getLocation() == newLocation) {
+            if (gc.isPlayer()) {
+                Player player = (Player) gc;
+                gc.getLocation().process(player);
+                if (Location.inMulti(player)) {
+                    if (player.getMultiIcon() != 1)
+                        player.getPacketSender().sendMultiIcon(1);
+                } else if (player.getMultiIcon() == 1)
+                    player.getPacketSender().sendMultiIcon(0);
+            }
+        } else {
+            Location prev = gc.getLocation();
+            if (gc.isPlayer()) {
+                Player player = (Player) gc;
+                if (player.getMultiIcon() > 0)
+                    player.getPacketSender().sendMultiIcon(0);
+                if (player.walkableInterfaceList.size() > 0)
+                    //player.getPacketSender().sendWalkableInterface(-1);
+                    player.resetInterfaces();
+                if (player.getPlayerInteractingOption() != PlayerInteractingOption.NONE)
+                    player.getPacketSender().sendInteractionOption("null", 2, true);
+            }
+            gc.setLocation(newLocation);
+            if (gc.isPlayer()) {
+                prev.leave(((Player) gc));
+                gc.getLocation().enter(((Player) gc));
+            }
+        }
+    }
+
+    public static boolean goodDistance(int objectX, int objectY, int playerX,
+                                       int playerY, int distance) {
+        if (playerX == objectX && playerY == objectY)
+            return true;
+        for (int i = 0; i <= distance; i++) {
+            for (int j = 0; j <= distance; j++) {
+                if ((objectX + i) == playerX
+                        && ((objectY + j) == playerY
+                        || (objectY - j) == playerY || objectY == playerY)) {
+                    return true;
+                } else if ((objectX - i) == playerX
+                        && ((objectY + j) == playerY
+                        || (objectY - j) == playerY || objectY == playerY)) {
+                    return true;
+                } else if (objectX == playerX
+                        && ((objectY + j) == playerY
+                        || (objectY - j) == playerY || objectY == playerY)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean goodDistance(Position pos1, Position pos2, int distanceReq) {
+        if (pos1.getZ() != pos2.getZ())
+            return false;
+        return goodDistance(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY(), distanceReq);
+    }
+
+    public static int distanceTo(Position position, Position destination,
+                                 int size) {
+        final int x = position.getX();
+        final int y = position.getY();
+        final int otherX = destination.getX();
+        final int otherY = destination.getY();
+        int distX, distY;
+        if (x < otherX)
+            distX = otherX - x;
+        else if (x > otherX + size)
+            distX = x - (otherX + size);
+        else
+            distX = 0;
+        if (y < otherY)
+            distY = otherY - y;
+        else if (y > otherY + size)
+            distY = y - (otherY + size);
+        else
+            distY = 0;
+        if (distX == distY)
+            return distX + 1;
+        return distX > distY ? distX : distY;
+    }
 
     public enum Location {
         DUNGEONEERING(new int[]{3433, 3459, 2421, 2499}, new int[]{3694, 3729, 4915, 4990}, true, false, true, false, true, false) {
@@ -126,16 +211,16 @@ public class Locations {
         UNHOLY_CURSEBEARER(new int[]{3047, 3070}, new int[]{4390, 4370}, true, true, true, true, true, true) {
         },
         BORK(new int[]{3080, 3120}, new int[]{5520, 5550}, true, true, true, true, true, true) {
-		
+
 			/*@Override
 			public void enter(Player player) {
-				
+
 				BORKS.startPreview(player);
-			}		
+			}
 			@Override
 			public void leave(Player player) {
 				BORKS.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				BORKS.closeInterface(player);
@@ -231,13 +316,13 @@ public class Locations {
         LIZARDMAN(new int[]{2700, 2730}, new int[]{9800, 9829}, true, true, true, true, true, true) {
 			/*@Override
 			public void enter(Player player) {
-				
+
 				LIZARD.startPreview(player);
-			}			
+			}
 			@Override
 			public void leave(Player player) {
 				LIZARD.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				LIZARD.closeInterface(player);
@@ -246,13 +331,13 @@ public class Locations {
         BARRELCHESTS(new int[]{2960, 2990}, new int[]{9510, 9520}, true, true, true, true, true, true) {
 			/*@Override
 			public void enter(Player player) {
-				
+
 				BARRELS.startPreview(player);
-			}			
+			}
 			@Override
 			public void leave(Player player) {
 				BARRELS.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				BARRELS.closeInterface(player);
@@ -262,13 +347,13 @@ public class Locations {
 
 			/*@Override
 			public void enter(Player player) {
-				
+
 				SLASHBASH.startPreview(player);
-			}			
+			}
 			@Override
 			public void leave(Player player) {
 				SLASHBASH.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				SLASHBASH.closeInterface(player);
@@ -277,31 +362,31 @@ public class Locations {
         BANDOS_AVATAR(new int[]{2877, 2928}, new int[]{4734, 4787}, true, true, true, true, true, true) {
 			/*@Override
 			public void enter(Player player) {
-				
+
 				AVATAR.startPreview(player);
-			
-			}			
+
+			}
 			@Override
 			public void leave(Player player) {
 				AVATAR.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				AVATAR.closeInterface(player);
 			}*/
         },
         TORM_DEMONS(new int[]{2520, 2560}, new int[]{5730, 5799}, true, true, true, true, true, true) {
-		
+
 			/*@Override
 			public void enter(Player player) {
-				
+
 			TDS.startPreview(player);
-			
-			}			
+
+			}
 			@Override
 			public void leave(Player player) {
 				TDS.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				TDS.closeInterface(player);
@@ -311,14 +396,14 @@ public class Locations {
         KALPHITE_QUEEN(new int[]{3464, 3500}, new int[]{9478, 9523}, true, true, true, true, true, true) {
 			/*@Override
 			public void enter(Player player) {
-				
+
 			KALPH.startPreview(player);
-			
-			}			
+
+			}
 			@Override
 			public void leave(Player player) {
 				KALPH.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				KALPH.closeInterface(player);
@@ -328,14 +413,14 @@ public class Locations {
         PHOENIX(new int[]{2824, 2862}, new int[]{9545, 9594}, true, true, true, true, true, true) {
 			/*@Override
 			public void enter(Player player) {
-				
+
 			PHEON.startPreview(player);
-			
-			}			
+
+			}
 			@Override
 			public void leave(Player player) {
 				PHEON.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				PHEON.closeInterface(player);
@@ -345,14 +430,14 @@ public class Locations {
         GLACORS(new int[]{3000, 3100}, new int[]{9500, 9600}, true, true, true, true, true, true) {
 			/*@Override
 			public void enter(Player player) {
-				
+
 			GLAC.startPreview(player);
-			
-			}			
+
+			}
 			@Override
 			public void leave(Player player) {
 				GLAC.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				GLAC.closeInterface(player);
@@ -362,14 +447,14 @@ public class Locations {
         SKOTIZO(new int[]{3350, 3390}, new int[]{9800, 9825}, true, true, true, true, true, true) {
 			/*@Override
 			public void enter(Player player) {
-				
+
 			SKOT.startPreview(player);
-			
-			}			
+
+			}
 			@Override
 			public void leave(Player player) {
 				SKOT.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				SKOT.closeInterface(player);
@@ -379,14 +464,14 @@ public class Locations {
         CERBERUS(new int[]{1215, 1265}, new int[]{1220, 1265}, true, true, true, true, true, true) {
 			/*@Override
 			public void enter(Player player) {
-				
+
 			CERB.startPreview(player);
-			
-			}			
+
+			}
 			@Override
 			public void leave(Player player) {
 				CERB.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				CERB.closeInterface(player);
@@ -396,14 +481,14 @@ public class Locations {
         NEX(new int[]{2900, 2945}, new int[]{5180, 5220}, true, true, true, true, true, true) {
 			/*@Override
 			public void enter(Player player) {
-				
+
 			NEXX.startPreview(player);
-			
-			}			
+
+			}
 			@Override
 			public void leave(Player player) {
 				NEXX.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				NEXX.closeInterface(player);
@@ -419,14 +504,14 @@ public class Locations {
         CORPOREAL_BEAST(new int[]{2879, 2964}, new int[]{4368, 4409}, true, true, true, false, true, true) {
 			/*@Override
 			public void enter(Player player) {
-				
+
 			CORP.startPreview(player);
-			
-			}			
+
+			}
 			@Override
 			public void leave(Player player) {
 				CORP.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				CORP.closeInterface(player);
@@ -436,14 +521,14 @@ public class Locations {
         DAGANNOTH_DUNGEON(new int[]{2886, 2938}, new int[]{4431, 4477}, true, true, true, false, true, true) {
 			/*@Override
 			public void enter(Player player) {
-				
+
 				DAGS.startPreview(player);
-			
-			}			
+
+			}
 			@Override
 			public void leave(Player player) {
 				DAGS.closeInterface(player);
-			}			
+			}
 			@Override
 			public void onDeath(Player player) {
 				DAGS.closeInterface(player);
@@ -1292,6 +1377,13 @@ public class Locations {
 
         };
 
+        private int[] x, y;
+        private boolean multi;
+        private boolean summonAllowed;
+        private boolean followingAllowed;
+        private boolean cannonAllowed;
+        private boolean firemakingAllowed;
+        private boolean aidingAllowed;
         Location(int[] x, int[] y, boolean multi, boolean summonAllowed, boolean followingAllowed, boolean cannonAllowed, boolean firemakingAllowed, boolean aidingAllowed) {
             this.x = x;
             this.y = y;
@@ -1301,22 +1393,6 @@ public class Locations {
             this.cannonAllowed = cannonAllowed;
             this.firemakingAllowed = firemakingAllowed;
             this.aidingAllowed = aidingAllowed;
-        }
-
-        private int[] x, y;
-        private boolean multi;
-        private boolean summonAllowed;
-        private boolean followingAllowed;
-        private boolean cannonAllowed;
-        private boolean firemakingAllowed;
-        private boolean aidingAllowed;
-
-        public int[] getX() {
-            return x;
-        }
-
-        public int[] getY() {
-            return y;
         }
 
         public static boolean inMulti(Character gc) {
@@ -1343,26 +1419,6 @@ public class Locations {
             }
 
             return gc.getLocation().multi;
-        }
-
-        public boolean isSummoningAllowed() {
-            return summonAllowed;
-        }
-
-        public boolean isFollowingAllowed() {
-            return followingAllowed;
-        }
-
-        public boolean isCannonAllowed() {
-            return cannonAllowed;
-        }
-
-        public boolean isFiremakingAllowed() {
-            return firemakingAllowed;
-        }
-
-        public boolean isAidingAllowed() {
-            return aidingAllowed;
         }
 
         public static Location getLocation(Entity gc) {
@@ -1411,6 +1467,42 @@ public class Locations {
             return false;
         }
 
+        /**
+         * SHOULD AN ENTITY FOLLOW ANOTHER ENTITY NO MATTER THE DISTANCE BETWEEN THEM?
+         **/
+        public static boolean ignoreFollowDistance(Character character) {
+            Location location = character.getLocation();
+            return location == Location.FIGHT_CAVES || location == Location.RECIPE_FOR_DISASTER || location == Location.NOMAD;
+        }
+
+        public int[] getX() {
+            return x;
+        }
+
+        public int[] getY() {
+            return y;
+        }
+
+        public boolean isSummoningAllowed() {
+            return summonAllowed;
+        }
+
+        public boolean isFollowingAllowed() {
+            return followingAllowed;
+        }
+
+        public boolean isCannonAllowed() {
+            return cannonAllowed;
+        }
+
+        public boolean isFiremakingAllowed() {
+            return firemakingAllowed;
+        }
+
+        public boolean isAidingAllowed() {
+            return aidingAllowed;
+        }
+
         public void process(Player player) {
 
         }
@@ -1446,99 +1538,5 @@ public class Locations {
         public boolean canAttack(Player player, Player target) {
             return false;
         }
-
-        /**
-         * SHOULD AN ENTITY FOLLOW ANOTHER ENTITY NO MATTER THE DISTANCE BETWEEN THEM?
-         **/
-        public static boolean ignoreFollowDistance(Character character) {
-            Location location = character.getLocation();
-            return location == Location.FIGHT_CAVES || location == Location.RECIPE_FOR_DISASTER || location == Location.NOMAD;
-        }
-    }
-
-    public static void process(Character gc) {
-        Location newLocation = Location.getLocation(gc);
-        if (gc.getLocation() == newLocation) {
-            if (gc.isPlayer()) {
-                Player player = (Player) gc;
-                gc.getLocation().process(player);
-                if (Location.inMulti(player)) {
-                    if (player.getMultiIcon() != 1)
-                        player.getPacketSender().sendMultiIcon(1);
-                } else if (player.getMultiIcon() == 1)
-                    player.getPacketSender().sendMultiIcon(0);
-            }
-        } else {
-            Location prev = gc.getLocation();
-            if (gc.isPlayer()) {
-                Player player = (Player) gc;
-                if (player.getMultiIcon() > 0)
-                    player.getPacketSender().sendMultiIcon(0);
-                if (player.walkableInterfaceList.size() > 0)
-                    //player.getPacketSender().sendWalkableInterface(-1);
-                    player.resetInterfaces();
-                if (player.getPlayerInteractingOption() != PlayerInteractingOption.NONE)
-                    player.getPacketSender().sendInteractionOption("null", 2, true);
-            }
-            gc.setLocation(newLocation);
-            if (gc.isPlayer()) {
-                prev.leave(((Player) gc));
-                gc.getLocation().enter(((Player) gc));
-            }
-        }
-    }
-
-    public static boolean goodDistance(int objectX, int objectY, int playerX,
-                                       int playerY, int distance) {
-        if (playerX == objectX && playerY == objectY)
-            return true;
-        for (int i = 0; i <= distance; i++) {
-            for (int j = 0; j <= distance; j++) {
-                if ((objectX + i) == playerX
-                        && ((objectY + j) == playerY
-                        || (objectY - j) == playerY || objectY == playerY)) {
-                    return true;
-                } else if ((objectX - i) == playerX
-                        && ((objectY + j) == playerY
-                        || (objectY - j) == playerY || objectY == playerY)) {
-                    return true;
-                } else if (objectX == playerX
-                        && ((objectY + j) == playerY
-                        || (objectY - j) == playerY || objectY == playerY)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public static boolean goodDistance(Position pos1, Position pos2, int distanceReq) {
-        if (pos1.getZ() != pos2.getZ())
-            return false;
-        return goodDistance(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY(), distanceReq);
-    }
-
-    public static int distanceTo(Position position, Position destination,
-                                 int size) {
-        final int x = position.getX();
-        final int y = position.getY();
-        final int otherX = destination.getX();
-        final int otherY = destination.getY();
-        int distX, distY;
-        if (x < otherX)
-            distX = otherX - x;
-        else if (x > otherX + size)
-            distX = x - (otherX + size);
-        else
-            distX = 0;
-        if (y < otherY)
-            distY = otherY - y;
-        else if (y > otherY + size)
-            distY = y - (otherY + size);
-        else
-            distY = 0;
-        if (distX == distY)
-            return distX + 1;
-        return distX > distY ? distX : distY;
     }
 }

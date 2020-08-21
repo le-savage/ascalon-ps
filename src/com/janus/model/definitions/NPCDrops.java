@@ -36,10 +36,20 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class NPCDrops {
 
+    private static final int[] CLUESBOY = new int[]{2677, 2678, 2679, 2680, 2681, 2682, 2683, 2684, 2685};
     /**
      * The map containing all the npc drops.
      */
     private static Map<Integer, NPCDrops> dropControllers = new HashMap<Integer, NPCDrops>();
+    /**
+     * The id's of the NPC's that "owns" this class.
+     */
+    private int[] npcIds;
+
+    /**
+     * All the drops that belongs to this class.
+     */
+    private NpcDropItem[] drops;
 
     public static JsonLoader parseDrops() {
 
@@ -71,16 +81,6 @@ public class NPCDrops {
     }
 
     /**
-     * The id's of the NPC's that "owns" this class.
-     */
-    private int[] npcIds;
-
-    /**
-     * All the drops that belongs to this class.
-     */
-    private NpcDropItem[] drops;
-
-    /**
      * Gets the NPC drop controller by an id.
      *
      * @return The NPC drops associated with this id.
@@ -92,139 +92,6 @@ public class NPCDrops {
     public static Map<Integer, NPCDrops> getDrops() {
         return dropControllers;
     }
-
-    /**
-     * Gets the drop list
-     *
-     * @return the list
-     */
-    public NpcDropItem[] getDropList() {
-        return drops;
-    }
-
-    /**
-     * Gets the npcIds
-     *
-     * @return the npcIds
-     */
-    public int[] getNpcIds() {
-        return npcIds;
-    }
-
-    /**
-     * Represents a npc drop item
-     */
-    public static class NpcDropItem {
-
-        /**
-         * The id.
-         */
-        private final int id;
-
-        /**
-         * Array holding all the amounts of this item.
-         */
-        private final int[] count;
-
-        /**
-         * The chance of getting this item.
-         */
-        private final int chance;
-
-        /**
-         * New npc drop item
-         *
-         * @param id     the item
-         * @param count  the count
-         * @param chance the chance
-         */
-        public NpcDropItem(int id, int[] count, int chance) {
-            this.id = id;
-            this.count = count;
-            this.chance = chance;
-        }
-
-        /**
-         * Gets the item id.
-         *
-         * @return The item id.
-         */
-        public int getId() {
-            return id;
-        }
-
-        /**
-         * Gets the chance.
-         *
-         * @return The chance.
-         */
-        public int[] getCount() {
-            return count;
-        }
-
-        /**
-         * Gets the chance.
-         *
-         * @return The chance.
-         */
-        public DropChance getChance() {
-            switch (chance) {
-                case 1:
-                    return DropChance.ALMOST_ALWAYS; // 50% <-> 1/2
-                case 2:
-                    return DropChance.VERY_COMMON; // 20% <-> 1/5
-                case 3:
-                    return DropChance.COMMON; // 5% <-> 1/20
-                case 4:
-                    return DropChance.UNCOMMON; // 2% <-> 1/50
-                case 5:
-                    return DropChance.RARE; // 0.5% <-> 1/200
-                case 6:
-                    return DropChance.LEGENDARY; // 0.2% <-> 1/500
-                case 7:
-                    return DropChance.LEGENDARY_2;
-                case 8:
-                    return DropChance.LEGENDARY_3;
-                case 9:
-                    return DropChance.LEGENDARY_4;
-                case 10:
-                    return DropChance.LEGENDARY_5;
-                default:
-                    return DropChance.ALWAYS; // 100% <-> 1/1
-            }
-        }
-
-        /**
-         * Gets the item
-         *
-         * @return the item
-         */
-        public Item getItem() {
-            int amount = 0;
-            for (int i = 0; i < count.length; i++)
-                amount += count[i];
-            if (amount > count[0])
-                amount = count[0] + RandomUtility.getRandom(count[1]);
-            return new Item(id, amount);
-        }
-    }
-
-    public enum DropChance {
-        ALWAYS(0), ALMOST_ALWAYS(2), VERY_COMMON(5), COMMON(15), UNCOMMON(40), NOTTHATRARE(
-                100), RARE(260), LEGENDARY(400), LEGENDARY_2(550), LEGENDARY_3(700), LEGENDARY_4(830), LEGENDARY_5(950);
-
-
-        DropChance(int randomModifier) {
-            this.random = randomModifier;
-        }
-
-        private int random;
-
-        public int getRandom() {
-            return this.random;
-        }
-    }
-
 
     /**
      * Drops items for a player after killing an npc. A player can max receive
@@ -275,7 +142,6 @@ public class NPCDrops {
 
     }
 
-
     public static boolean shouldDrop(boolean[] b, Player player, DropChance chance) {
         int random = chance.getRandom();
         double drBoost = NPCDrops.getDroprate(player);
@@ -304,7 +170,6 @@ public class NPCDrops {
     public static boolean ringOfCoins(Player p) {
         return (p.getEquipment().get(Equipment.RING_SLOT).getId() == 21026);
     }
-
 
     public static void drop(Player player, Item item, NPC npc, Position pos,
                             boolean goGlobal) {
@@ -491,15 +356,144 @@ public class NPCDrops {
         }
     }
 
-    private static final int[] CLUESBOY = new int[]{2677, 2678, 2679, 2680, 2681, 2682, 2683, 2684, 2685};
-
-
     public static void clueDrop(Player player, int combat, Position pos) {
         int chance = (6 + (combat / 4));
         if (RandomUtility.getRandom(combat <= 80 ? 1300 : 1000) < chance) {
             int clueId = CLUESBOY[Misc.getRandom(CLUESBOY.length - 1)];
             GroundItemManager.spawnGroundItem(player, new GroundItem(new Item(clueId), pos, player.getUsername(), false, 150, true, 200));
             player.getPacketSender().sendMessage("@or2@You have received a clue scroll!");
+        }
+    }
+
+    /**
+     * Gets the drop list
+     *
+     * @return the list
+     */
+    public NpcDropItem[] getDropList() {
+        return drops;
+    }
+
+    /**
+     * Gets the npcIds
+     *
+     * @return the npcIds
+     */
+    public int[] getNpcIds() {
+        return npcIds;
+    }
+
+    public enum DropChance {
+        ALWAYS(0), ALMOST_ALWAYS(2), VERY_COMMON(5), COMMON(15), UNCOMMON(40), NOTTHATRARE(
+                100), RARE(260), LEGENDARY(400), LEGENDARY_2(550), LEGENDARY_3(700), LEGENDARY_4(830), LEGENDARY_5(950);
+
+
+        private int random;
+
+        DropChance(int randomModifier) {
+            this.random = randomModifier;
+        }
+
+        public int getRandom() {
+            return this.random;
+        }
+    }
+
+    /**
+     * Represents a npc drop item
+     */
+    public static class NpcDropItem {
+
+        /**
+         * The id.
+         */
+        private final int id;
+
+        /**
+         * Array holding all the amounts of this item.
+         */
+        private final int[] count;
+
+        /**
+         * The chance of getting this item.
+         */
+        private final int chance;
+
+        /**
+         * New npc drop item
+         *
+         * @param id     the item
+         * @param count  the count
+         * @param chance the chance
+         */
+        public NpcDropItem(int id, int[] count, int chance) {
+            this.id = id;
+            this.count = count;
+            this.chance = chance;
+        }
+
+        /**
+         * Gets the item id.
+         *
+         * @return The item id.
+         */
+        public int getId() {
+            return id;
+        }
+
+        /**
+         * Gets the chance.
+         *
+         * @return The chance.
+         */
+        public int[] getCount() {
+            return count;
+        }
+
+        /**
+         * Gets the chance.
+         *
+         * @return The chance.
+         */
+        public DropChance getChance() {
+            switch (chance) {
+                case 1:
+                    return DropChance.ALMOST_ALWAYS; // 50% <-> 1/2
+                case 2:
+                    return DropChance.VERY_COMMON; // 20% <-> 1/5
+                case 3:
+                    return DropChance.COMMON; // 5% <-> 1/20
+                case 4:
+                    return DropChance.UNCOMMON; // 2% <-> 1/50
+                case 5:
+                    return DropChance.RARE; // 0.5% <-> 1/200
+                case 6:
+                    return DropChance.LEGENDARY; // 0.2% <-> 1/500
+                case 7:
+                    return DropChance.LEGENDARY_2;
+                case 8:
+                    return DropChance.LEGENDARY_3;
+                case 9:
+                    return DropChance.LEGENDARY_4;
+                case 10:
+                    return DropChance.LEGENDARY_5;
+                default:
+                    return DropChance.ALWAYS; // 100% <-> 1/1
+            }
+        }
+
+        /**
+         * Gets the item
+         *
+         * @return the item
+         */
+        public Item getItem() {
+            int amount = 0;
+            for (int i = 0; i < count.length; i++)
+                amount += count[i];
+            if (amount > count[0])
+                amount = count[0] + RandomUtility.getRandom(count[1]);
+            return new Item(id, amount);
         }
     }
 

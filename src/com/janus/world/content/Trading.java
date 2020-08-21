@@ -21,10 +21,48 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Trading {
 
+    /**
+     * The trade interface id.
+     */
+    public static final int INTERFACE_ID = 3322;
+    /**
+     * The trade interface id for removing items.
+     */
+    public static final int INTERFACE_REMOVAL_ID = 3415;
+    public CopyOnWriteArrayList<Item> offeredItems = new CopyOnWriteArrayList<Item>();
+    public long lastTradeSent, lastAction;
+    public boolean tradeConfirmed = false;
+    public boolean tradeConfirmed2 = false;
+    public boolean acceptedTrade = false;
+    public boolean goodTrade = false;
+    public int inTradeWith = -1;
     private Player player;
-
+    private boolean inTrade = false;
+    private boolean tradeRequested = false;
+    private int tradeWith = -1;
+    private int tradeStatus;
+    private boolean canOffer = true;
     public Trading(Player p) {
         this.player = p;
+    }
+
+    /**
+     * Checks if two players are the only ones in a trade.
+     *
+     * @param p1 Player1 to check if he's 1/2 player in trade.
+     * @param p2 Player2 to check if he's 2/2 player in trade.
+     * @return true if only two people are in the trade.
+     */
+    public static boolean twoTraders(Player p1, Player p2) {
+        int count = 0;
+        for (Player player : World.getPlayers()) {
+            if (player == null)
+                continue;
+            if (player.getTrading().inTradeWith == p1.getIndex() || player.getTrading().inTradeWith == p2.getIndex()) {
+                count++;
+            }
+        }
+        return count == 2;
     }
 
     public void requestTrade(Player player2) {
@@ -47,7 +85,7 @@ public class Trading {
             player.getPacketSender().sendMessage("That player is an Ironman player and can therefore not stake.");
             return;
         }
-		
+
 		/*if(Misc.getMinutesPlayed(player) < 15) {
 			player.getPacketSender().sendMessage("You must have played for at least 15 minutes in order to trade someone.");
 			return;
@@ -182,7 +220,7 @@ public class Trading {
         Player player2 = World.getPlayers().get(getTradeWith());
         if (player2 == null || player == null)
             return;
-		
+
 	/*	if(player.getNewPlayerDelay() > 0 && player.getRights().ordinal() == 0) {
 			player.getPacketSender().sendMessage("You must wait another "+player.getNewPlayerDelay() / 60+" minutes before being able to trade items.");
 			return;
@@ -468,7 +506,6 @@ public class Trading {
         }
     }
 
-
     public void resetTrade() {
         player.getPacketSender().sendRichPresenceState("Exploring Janus..");
         player.getPacketSender().sendRichPresenceSmallPictureText("CB LVL: " + player.getSkillManager().getCombatLevel());
@@ -491,23 +528,10 @@ public class Trading {
         player.getPacketSender().sendInterfaceRemoval();
     }
 
-
     private boolean falseTradeConfirm() {
         Player player2 = World.getPlayers().get(getTradeWith());
         return tradeConfirmed = player2.getTrading().tradeConfirmed = false;
     }
-
-    public CopyOnWriteArrayList<Item> offeredItems = new CopyOnWriteArrayList<Item>();
-    private boolean inTrade = false;
-    private boolean tradeRequested = false;
-    private int tradeWith = -1;
-    private int tradeStatus;
-    public long lastTradeSent, lastAction;
-    private boolean canOffer = true;
-    public boolean tradeConfirmed = false;
-    public boolean tradeConfirmed2 = false;
-    public boolean acceptedTrade = false;
-    public boolean goodTrade = false;
 
     public void setTrading(boolean trading) {
         this.inTrade = trading;
@@ -525,59 +549,28 @@ public class Trading {
         return this.tradeRequested;
     }
 
-    public void setTradeWith(int tradeWith) {
-        this.tradeWith = tradeWith;
-    }
-
     public int getTradeWith() {
         return this.tradeWith;
     }
 
-    public void setTradeStatus(int status) {
-        this.tradeStatus = status;
+    public void setTradeWith(int tradeWith) {
+        this.tradeWith = tradeWith;
     }
 
     public int getTradeStatus() {
         return this.tradeStatus;
     }
 
-    public void setCanOffer(boolean canOffer) {
-        this.canOffer = canOffer;
+    public void setTradeStatus(int status) {
+        this.tradeStatus = status;
     }
 
     public boolean getCanOffer() {
         return canOffer && player.getInterfaceId() == 3323 && !player.isBanking() && !player.getPriceChecker().isOpen();
     }
 
-    public int inTradeWith = -1;
-
-    /**
-     * Checks if two players are the only ones in a trade.
-     *
-     * @param p1 Player1 to check if he's 1/2 player in trade.
-     * @param p2 Player2 to check if he's 2/2 player in trade.
-     * @return true if only two people are in the trade.
-     */
-    public static boolean twoTraders(Player p1, Player p2) {
-        int count = 0;
-        for (Player player : World.getPlayers()) {
-            if (player == null)
-                continue;
-            if (player.getTrading().inTradeWith == p1.getIndex() || player.getTrading().inTradeWith == p2.getIndex()) {
-                count++;
-            }
-        }
-        return count == 2;
+    public void setCanOffer(boolean canOffer) {
+        this.canOffer = canOffer;
     }
-
-    /**
-     * The trade interface id.
-     */
-    public static final int INTERFACE_ID = 3322;
-
-    /**
-     * The trade interface id for removing items.
-     */
-    public static final int INTERFACE_REMOVAL_ID = 3415;
 
 }

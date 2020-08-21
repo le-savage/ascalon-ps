@@ -8,11 +8,21 @@ import com.janus.world.entity.impl.player.Player;
 
 public class BeastOfBurden extends ItemContainer {
 
+    public static final int INTERFACE_ID = 2700;
     private int capacity;
 
     public BeastOfBurden(Player player, int capacity) {
         super(player, capacity);
         this.capacity = capacity;
+    }
+
+    public static int beastOfBurdenSlot(int interfaceId) {
+        if (interfaceId == 2702)
+            return 0;
+        else {
+            int index = interfaceId - 2704;
+            return index >= 1 && index <= 29 ? index : -1;
+        }
     }
 
     public BeastOfBurden open() {
@@ -76,15 +86,4 @@ public class BeastOfBurden extends ItemContainer {
         getPlayer().getPacketSender().sendMessage("Not enough space in your familiar's inventory.");
         return this;
     }
-
-    public static int beastOfBurdenSlot(int interfaceId) {
-        if (interfaceId == 2702)
-            return 0;
-        else {
-            int index = interfaceId - 2704;
-            return index >= 1 && index <= 29 ? index : -1;
-        }
-    }
-
-    public static final int INTERFACE_ID = 2700;
 }

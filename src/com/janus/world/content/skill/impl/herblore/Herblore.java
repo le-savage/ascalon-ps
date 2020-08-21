@@ -101,57 +101,6 @@ public class Herblore {
         return false;
     }
 
-    enum SpecialPotion {
-        EXTREME_ATTACK(new Item[]{new Item(145), new Item(261)}, new Item(15309), 88, 4430),
-        EXTREME_STRENGTH(new Item[]{new Item(157), new Item(267)}, new Item(15313), 88, 4753),
-        EXTREME_DEFENCE(new Item[]{new Item(163), new Item(2481)}, new Item(15317), 90, 5002),
-        EXTREME_MAGIC(new Item[]{new Item(3042), new Item(9594)}, new Item(15321), 91, 5408),
-        EXTREME_RANGED(new Item[]{new Item(169), new Item(12539, 5)}, new Item(15325), 92, 5924),
-        OVERLOAD(new Item[]{new Item(15309), new Item(15313), new Item(15317), new Item(15321), new Item(15325)}, new Item(15333), 96, 13103);
-
-        SpecialPotion(Item[] ingridients, Item product, int lvlReq, int exp) {
-            this.ingridients = ingridients;
-            this.product = product;
-            this.lvlReq = lvlReq;
-            this.exp = exp;
-        }
-
-        private Item[] ingridients;
-
-        public Item[] getIngridients() {
-            return ingridients;
-        }
-
-        private Item product;
-
-        public Item getProduct() {
-            return product;
-        }
-
-        private int lvlReq, exp;
-
-        public int getLevelReq() {
-            return lvlReq;
-        }
-
-        public int getExperience() {
-            return exp;
-        }
-
-        public static SpecialPotion forItems(int item1, int item2) {
-            for (SpecialPotion potData : SpecialPotion.values()) {
-                int found = 0;
-                for (Item it : potData.getIngridients()) {
-                    if (it.getId() == item1 || it.getId() == item2)
-                        found++;
-                }
-                if (found >= 2)
-                    return potData;
-            }
-            return null;
-        }
-    }
-
     public static void handleSpecialPotion(Player p, int item1, int item2) {
         if (item1 == item2)
             return;
@@ -184,6 +133,55 @@ public class Herblore {
         if (specialPotData == SpecialPotion.OVERLOAD) {
             Achievements.finishAchievement(p, AchievementData.MIX_AN_OVERLOAD_POTION);
             Achievements.doProgress(p, AchievementData.MIX_100_OVERLOAD_POTIONS);
+        }
+    }
+
+    enum SpecialPotion {
+        EXTREME_ATTACK(new Item[]{new Item(145), new Item(261)}, new Item(15309), 88, 4430),
+        EXTREME_STRENGTH(new Item[]{new Item(157), new Item(267)}, new Item(15313), 88, 4753),
+        EXTREME_DEFENCE(new Item[]{new Item(163), new Item(2481)}, new Item(15317), 90, 5002),
+        EXTREME_MAGIC(new Item[]{new Item(3042), new Item(9594)}, new Item(15321), 91, 5408),
+        EXTREME_RANGED(new Item[]{new Item(169), new Item(12539, 5)}, new Item(15325), 92, 5924),
+        OVERLOAD(new Item[]{new Item(15309), new Item(15313), new Item(15317), new Item(15321), new Item(15325)}, new Item(15333), 96, 13103);
+
+        private Item[] ingridients;
+        private Item product;
+        private int lvlReq, exp;
+
+        SpecialPotion(Item[] ingridients, Item product, int lvlReq, int exp) {
+            this.ingridients = ingridients;
+            this.product = product;
+            this.lvlReq = lvlReq;
+            this.exp = exp;
+        }
+
+        public static SpecialPotion forItems(int item1, int item2) {
+            for (SpecialPotion potData : SpecialPotion.values()) {
+                int found = 0;
+                for (Item it : potData.getIngridients()) {
+                    if (it.getId() == item1 || it.getId() == item2)
+                        found++;
+                }
+                if (found >= 2)
+                    return potData;
+            }
+            return null;
+        }
+
+        public Item[] getIngridients() {
+            return ingridients;
+        }
+
+        public Item getProduct() {
+            return product;
+        }
+
+        public int getLevelReq() {
+            return lvlReq;
+        }
+
+        public int getExperience() {
+            return exp;
         }
     }
 }

@@ -13,12 +13,12 @@ import com.janus.world.entity.impl.player.Player;
 
 public class DungPartyInvitation extends Dialogue {
 
+    private Player inviter, p;
+
     public DungPartyInvitation(Player inviter, Player p) {
         this.inviter = inviter;
         this.p = p;
     }
-
-    private Player inviter, p;
 
     @Override
     public DialogueType type() {

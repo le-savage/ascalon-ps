@@ -10,28 +10,6 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class IngridientsBook {
 
-    public static void readBook(Player player, int pageIndex, boolean interfaceAllowed) {
-        if (player.getInterfaceId() != -1 && !interfaceAllowed) {
-            player.getPacketSender().sendMessage("Please close the interface you have open before opening a new one.");
-            return;
-        }
-        if (pageIndex < 0)
-            pageIndex = 0;
-        if (pageIndex > 10)
-            pageIndex = 12;
-        player.getMovementQueue().reset();
-        player.performAnimation(new Animation(1350));
-        player.getPacketSender().sendString(903, "Ingridients");
-        for (int i = 0; i < pages[0].length; i++)
-            player.getPacketSender().sendString(843 + i, pages[pageIndex][i]);
-        for (int i = 0; i < pages[1].length; i++)
-            player.getPacketSender().sendString(843 + 11 + i, pages[pageIndex + 1][i]);
-        player.getPacketSender().sendString(14165, "- " + pageIndex + " - ");
-        player.getPacketSender().sendString(14166, "- " + (pageIndex + 1) + " - ");
-        player.getPacketSender().sendInterface(837);
-        player.setCurrentBookPage(pageIndex);
-    }
-
     private static final String[][] pages = {
             {"Lvl 1: Attack Potion",
                     "Eye of newt",
@@ -203,4 +181,26 @@ public class IngridientsBook {
             " ",
             " ", "", ""}
     };
+
+    public static void readBook(Player player, int pageIndex, boolean interfaceAllowed) {
+        if (player.getInterfaceId() != -1 && !interfaceAllowed) {
+            player.getPacketSender().sendMessage("Please close the interface you have open before opening a new one.");
+            return;
+        }
+        if (pageIndex < 0)
+            pageIndex = 0;
+        if (pageIndex > 10)
+            pageIndex = 12;
+        player.getMovementQueue().reset();
+        player.performAnimation(new Animation(1350));
+        player.getPacketSender().sendString(903, "Ingridients");
+        for (int i = 0; i < pages[0].length; i++)
+            player.getPacketSender().sendString(843 + i, pages[pageIndex][i]);
+        for (int i = 0; i < pages[1].length; i++)
+            player.getPacketSender().sendString(843 + 11 + i, pages[pageIndex + 1][i]);
+        player.getPacketSender().sendString(14165, "- " + pageIndex + " - ");
+        player.getPacketSender().sendString(14166, "- " + (pageIndex + 1) + " - ");
+        player.getPacketSender().sendInterface(837);
+        player.setCurrentBookPage(pageIndex);
+    }
 }

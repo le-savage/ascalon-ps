@@ -24,115 +24,36 @@ import java.util.HashMap;
  */
 public class PrayerHandler {
 
+    public static final int THICK_SKIN = 0, BURST_OF_STRENGTH = 1, CLARITY_OF_THOUGHT = 2, SHARP_EYE = 3, MYSTIC_WILL = 4,
+            ROCK_SKIN = 5, SUPERHUMAN_STRENGTH = 6, IMPROVED_REFLEXES = 7, RAPID_RESTORE = 8, RAPID_HEAL = 9,
+            PROTECT_ITEM = 10, HAWK_EYE = 11, MYSTIC_LORE = 12, STEEL_SKIN = 13, ULTIMATE_STRENGTH = 14,
+            INCREDIBLE_REFLEXES = 15, PROTECT_FROM_MAGIC = 16, PROTECT_FROM_MISSILES = 17,
+            PROTECT_FROM_MELEE = 18, EAGLE_EYE = 19, MYSTIC_MIGHT = 20, RETRIBUTION = 21, REDEMPTION = 22, SMITE = 23, CHIVALRY = 24,
+            PIETY = 25, RIGOUR = 26, AUGURY = 27;
     /**
-     * Represents a prayer's configurations, such as their
-     * level requirement, buttonId, configId and drain rate.
-     *
-     * @author relex lawl
+     * Contains every prayer that counts as an overhead prayer, excluding protect from summoning.
      */
-    private enum PrayerData {
-        THICK_SKIN(1, 1, 25000, 83),
-        BURST_OF_STRENGTH(4, 1, 25002, 84),
-        CLARITY_OF_THOUGHT(7, 1, 25004, 85),
-        SHARP_EYE(8, 1, 25006, 601),
-        MYSTIC_WILL(9, 1, 25008, 602),
-        ROCK_SKIN(10, 2, 25010, 86),
-        SUPERHUMAN_STRENGTH(13, 2, 25012, 87),
-        IMPROVED_REFLEXES(16, 2, 25014, 88),
-        RAPID_RESTORE(19, .4, 25016, 89),
-        RAPID_HEAL(22, .6, 25018, 90),
-        PROTECT_ITEM(25, .6, 25020, 91),
-        HAWK_EYE(26, 1.5, 25022, 603),
-        MYSTIC_LORE(27, 2, 25024, 604),
-        STEEL_SKIN(28, 4, 25026, 92),
-        ULTIMATE_STRENGTH(31, 4, 25028, 93),
-        INCREDIBLE_REFLEXES(34, 4, 25030, 94),
-        PROTECT_FROM_MAGIC(37, 4, 25032, 95, 2),
-        PROTECT_FROM_MISSILES(40, 4, 25034, 96, 1),
-        PROTECT_FROM_MELEE(43, 4, 25036, 97, 0),
-        EAGLE_EYE(44, 4, 25038, 605),
-        MYSTIC_MIGHT(45, 4, 25040, 606),
-        RETRIBUTION(46, 1, 25042, 98, 4),
-        REDEMPTION(49, 2, 25044, 99, 5),
-        SMITE(52, 6, 25046, 100, 685, 6),
-        CHIVALRY(60, 8, 25048, 607),
-        PIETY(70, 10, 25050, 608),
-        RIGOUR(80, 11, 18021, 708),
-        AUGURY(80, 11, 18027, 709);
-
-        private PrayerData(int requirement, double drainRate, int buttonId, int configId, int... hint) {
-            this.requirement = requirement;
-            this.drainRate = drainRate;
-            this.buttonId = buttonId;
-            this.configId = configId;
-            if (hint.length > 0)
-                this.hint = hint[0];
-        }
-
-        /**
-         * The prayer's level requirement for player to be able
-         * to activate it.
-         */
-        private int requirement;
-
-        /**
-         * The prayer's action button id in prayer tab.
-         */
-        private int buttonId;
-
-        /**
-         * The prayer's config id to switch their glow on/off by
-         * sending the sendConfig packet.
-         */
-        private int configId;
-
-        /**
-         * The prayer's drain rate as which it will drain
-         * the associated player's prayer points.
-         */
-        private double drainRate;
-
-        /**
-         * The prayer's head icon hint index.
-         */
-        private int hint = -1;
-
-        /**
-         * The prayer's formatted name.
-         */
-        private String name;
-
-        /**
-         * Gets the prayer's formatted name.
-         *
-         * @return The prayer's name
-         */
-        private final String getPrayerName() {
-            if (name == null)
-                return NameUtils.capitalizeWords(toString().toLowerCase().replaceAll("_", " "));
-            return name;
-        }
-
-        /**
-         * Contains the PrayerData with their corresponding prayerId.
-         */
-        private static HashMap<Integer, PrayerData> prayerData = new HashMap<Integer, PrayerData>();
-
-        /**
-         * Contains the PrayerData with their corresponding buttonId.
-         */
-        private static HashMap<Integer, PrayerData> actionButton = new HashMap<Integer, PrayerData>();
-
-        /**
-         * Populates the prayerId and buttonId maps.
-         */
-        static {
-            for (PrayerData pd : PrayerData.values()) {
-                prayerData.put(pd.ordinal(), pd);
-                actionButton.put(pd.buttonId, pd);
-            }
-        }
-    }
+    public static final int[] OVERHEAD_PRAYERS = {PROTECT_FROM_MAGIC, PROTECT_FROM_MISSILES, PROTECT_FROM_MELEE, RETRIBUTION, REDEMPTION, SMITE};
+    /**
+     * Contains every prayer that counts as a defense prayer.
+     */
+    private static final int[] DEFENCE_PRAYERS = {THICK_SKIN, ROCK_SKIN, STEEL_SKIN, CHIVALRY, PIETY, RIGOUR, AUGURY};
+    /**
+     * Contains every prayer that counts as a strength prayer.
+     */
+    private static final int[] STRENGTH_PRAYERS = {BURST_OF_STRENGTH, SUPERHUMAN_STRENGTH, ULTIMATE_STRENGTH, CHIVALRY, PIETY};
+    /**
+     * Contains every prayer that counts as an attack prayer.
+     */
+    private static final int[] ATTACK_PRAYERS = {CLARITY_OF_THOUGHT, IMPROVED_REFLEXES, INCREDIBLE_REFLEXES, CHIVALRY, PIETY};
+    /**
+     * Contains every prayer that counts as a ranged prayer.
+     */
+    private static final int[] RANGED_PRAYERS = {SHARP_EYE, HAWK_EYE, EAGLE_EYE, RIGOUR};
+    /**
+     * Contains every prayer that counts as a magic prayer.
+     */
+    private static final int[] MAGIC_PRAYERS = {MYSTIC_WILL, MYSTIC_LORE, MYSTIC_MIGHT, AUGURY};
 
     /**
      * Gets the protecting prayer based on the argued combat type.
@@ -487,41 +408,108 @@ public class PrayerHandler {
         return PrayerData.actionButton.containsKey(actionButtonID);
     }
 
-    public static final int THICK_SKIN = 0, BURST_OF_STRENGTH = 1, CLARITY_OF_THOUGHT = 2, SHARP_EYE = 3, MYSTIC_WILL = 4,
-            ROCK_SKIN = 5, SUPERHUMAN_STRENGTH = 6, IMPROVED_REFLEXES = 7, RAPID_RESTORE = 8, RAPID_HEAL = 9,
-            PROTECT_ITEM = 10, HAWK_EYE = 11, MYSTIC_LORE = 12, STEEL_SKIN = 13, ULTIMATE_STRENGTH = 14,
-            INCREDIBLE_REFLEXES = 15, PROTECT_FROM_MAGIC = 16, PROTECT_FROM_MISSILES = 17,
-            PROTECT_FROM_MELEE = 18, EAGLE_EYE = 19, MYSTIC_MIGHT = 20, RETRIBUTION = 21, REDEMPTION = 22, SMITE = 23, CHIVALRY = 24,
-            PIETY = 25, RIGOUR = 26, AUGURY = 27;
-
     /**
-     * Contains every prayer that counts as a defense prayer.
+     * Represents a prayer's configurations, such as their
+     * level requirement, buttonId, configId and drain rate.
+     *
+     * @author relex lawl
      */
-    private static final int[] DEFENCE_PRAYERS = {THICK_SKIN, ROCK_SKIN, STEEL_SKIN, CHIVALRY, PIETY, RIGOUR, AUGURY};
+    private enum PrayerData {
+        THICK_SKIN(1, 1, 25000, 83),
+        BURST_OF_STRENGTH(4, 1, 25002, 84),
+        CLARITY_OF_THOUGHT(7, 1, 25004, 85),
+        SHARP_EYE(8, 1, 25006, 601),
+        MYSTIC_WILL(9, 1, 25008, 602),
+        ROCK_SKIN(10, 2, 25010, 86),
+        SUPERHUMAN_STRENGTH(13, 2, 25012, 87),
+        IMPROVED_REFLEXES(16, 2, 25014, 88),
+        RAPID_RESTORE(19, .4, 25016, 89),
+        RAPID_HEAL(22, .6, 25018, 90),
+        PROTECT_ITEM(25, .6, 25020, 91),
+        HAWK_EYE(26, 1.5, 25022, 603),
+        MYSTIC_LORE(27, 2, 25024, 604),
+        STEEL_SKIN(28, 4, 25026, 92),
+        ULTIMATE_STRENGTH(31, 4, 25028, 93),
+        INCREDIBLE_REFLEXES(34, 4, 25030, 94),
+        PROTECT_FROM_MAGIC(37, 4, 25032, 95, 2),
+        PROTECT_FROM_MISSILES(40, 4, 25034, 96, 1),
+        PROTECT_FROM_MELEE(43, 4, 25036, 97, 0),
+        EAGLE_EYE(44, 4, 25038, 605),
+        MYSTIC_MIGHT(45, 4, 25040, 606),
+        RETRIBUTION(46, 1, 25042, 98, 4),
+        REDEMPTION(49, 2, 25044, 99, 5),
+        SMITE(52, 6, 25046, 100, 685, 6),
+        CHIVALRY(60, 8, 25048, 607),
+        PIETY(70, 10, 25050, 608),
+        RIGOUR(80, 11, 18021, 708),
+        AUGURY(80, 11, 18027, 709);
 
-    /**
-     * Contains every prayer that counts as a strength prayer.
-     */
-    private static final int[] STRENGTH_PRAYERS = {BURST_OF_STRENGTH, SUPERHUMAN_STRENGTH, ULTIMATE_STRENGTH, CHIVALRY, PIETY};
+        /**
+         * Contains the PrayerData with their corresponding prayerId.
+         */
+        private static HashMap<Integer, PrayerData> prayerData = new HashMap<Integer, PrayerData>();
+        /**
+         * Contains the PrayerData with their corresponding buttonId.
+         */
+        private static HashMap<Integer, PrayerData> actionButton = new HashMap<Integer, PrayerData>();
 
-    /**
-     * Contains every prayer that counts as an attack prayer.
-     */
-    private static final int[] ATTACK_PRAYERS = {CLARITY_OF_THOUGHT, IMPROVED_REFLEXES, INCREDIBLE_REFLEXES, CHIVALRY, PIETY};
+        /**
+         * Populates the prayerId and buttonId maps.
+         */
+        static {
+            for (PrayerData pd : PrayerData.values()) {
+                prayerData.put(pd.ordinal(), pd);
+                actionButton.put(pd.buttonId, pd);
+            }
+        }
 
-    /**
-     * Contains every prayer that counts as a ranged prayer.
-     */
-    private static final int[] RANGED_PRAYERS = {SHARP_EYE, HAWK_EYE, EAGLE_EYE, RIGOUR};
+        /**
+         * The prayer's level requirement for player to be able
+         * to activate it.
+         */
+        private int requirement;
+        /**
+         * The prayer's action button id in prayer tab.
+         */
+        private int buttonId;
+        /**
+         * The prayer's config id to switch their glow on/off by
+         * sending the sendConfig packet.
+         */
+        private int configId;
+        /**
+         * The prayer's drain rate as which it will drain
+         * the associated player's prayer points.
+         */
+        private double drainRate;
+        /**
+         * The prayer's head icon hint index.
+         */
+        private int hint = -1;
+        /**
+         * The prayer's formatted name.
+         */
+        private String name;
 
-    /**
-     * Contains every prayer that counts as a magic prayer.
-     */
-    private static final int[] MAGIC_PRAYERS = {MYSTIC_WILL, MYSTIC_LORE, MYSTIC_MIGHT, AUGURY};
+        private PrayerData(int requirement, double drainRate, int buttonId, int configId, int... hint) {
+            this.requirement = requirement;
+            this.drainRate = drainRate;
+            this.buttonId = buttonId;
+            this.configId = configId;
+            if (hint.length > 0)
+                this.hint = hint[0];
+        }
 
-    /**
-     * Contains every prayer that counts as an overhead prayer, excluding protect from summoning.
-     */
-    public static final int[] OVERHEAD_PRAYERS = {PROTECT_FROM_MAGIC, PROTECT_FROM_MISSILES, PROTECT_FROM_MELEE, RETRIBUTION, REDEMPTION, SMITE};
+        /**
+         * Gets the prayer's formatted name.
+         *
+         * @return The prayer's name
+         */
+        private final String getPrayerName() {
+            if (name == null)
+                return NameUtils.capitalizeWords(toString().toLowerCase().replaceAll("_", " "));
+            return name;
+        }
+    }
 
 }

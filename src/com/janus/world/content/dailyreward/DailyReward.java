@@ -124,13 +124,13 @@ public class DailyReward {
         this.nextRewardTime = nextRewardTime;
     }
 
-    public void setDay(int day) {
-        this.day = day;
-    }
-
     public int getDay() {
         checkToResetDay();
         return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public boolean hasClaimedTodaysReward() {

@@ -3,9 +3,9 @@ package com.janus.world.clip.stream;
 
 public class MemoryArchive {
 
+    private static final int INDEX_DATA_CHUNK_SIZE = 12;
     private ByteStream cache;
     private ByteStream index;
-    private static final int INDEX_DATA_CHUNK_SIZE = 12;
 
     public MemoryArchive(ByteStream cache, ByteStream index) {
         this.cache = cache;

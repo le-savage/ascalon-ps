@@ -40,6 +40,19 @@ public class PlayerRelations {
      * The player's current private message index.
      */
     private int privateMessageId = 1;
+    /**
+     * The associated player.
+     */
+    private Player player;
+
+    /**
+     * The PlayerRelations constructor.
+     *
+     * @param player The associated-player.
+     */
+    public PlayerRelations(Player player) {
+        this.player = player;
+    }
 
     /**
      * Gets the current private message index.
@@ -286,14 +299,10 @@ public class PlayerRelations {
         FRIENDS_ONLY(991),
         OFF(992);
 
-        PrivateChatStatus(int actionId) {
-            this.actionId = actionId;
-        }
-
         private int actionId;
 
-        public int getActionId() {
-            return this.actionId;
+        PrivateChatStatus(int actionId) {
+            this.actionId = actionId;
         }
 
         public static PrivateChatStatus forIndex(int i) {
@@ -311,19 +320,9 @@ public class PlayerRelations {
             }
             return ON;
         }
-    }
 
-    /**
-     * The PlayerRelations constructor.
-     *
-     * @param player The associated-player.
-     */
-    public PlayerRelations(Player player) {
-        this.player = player;
+        public int getActionId() {
+            return this.actionId;
+        }
     }
-
-    /**
-     * The associated player.
-     */
-    private Player player;
 }

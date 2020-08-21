@@ -75,22 +75,281 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class Player extends Character {
 
 
+    private final PlayerOwnedShopManager playerOwnedShopManager = new PlayerOwnedShopManager(this);
+    //Timers (Stopwatches)
+    private final Stopwatch sqlTimer = new Stopwatch();
+    private final Stopwatch foodTimer = new Stopwatch();
+    private final Stopwatch potionTimer = new Stopwatch();
+    private final Stopwatch lastRunRecovery = new Stopwatch();
+    private final Stopwatch clickDelay = new Stopwatch();
+    private final Stopwatch lastItemPickup = new Stopwatch();
+    private final Stopwatch lastYell = new Stopwatch();
+    private final Stopwatch lastZulrah = new Stopwatch();
+    private final Stopwatch lastSql = new Stopwatch();
+    private final Stopwatch lastVengeance = new Stopwatch();
+    private final Stopwatch emoteDelay = new Stopwatch();
+    private final Stopwatch specialRestoreTimer = new Stopwatch();
+    private final Stopwatch lastSummon = new Stopwatch();
+    private final Stopwatch recordedLogin = new Stopwatch();
+    private final Stopwatch creationDate = new Stopwatch();
+    private final Stopwatch tolerance = new Stopwatch();
+    private final Stopwatch lougoutTimer = new Stopwatch();
+    /**
+     * * INSTANCES **
+     */
+    private final CopyOnWriteArrayList<KillsEntry> killsTracker = new CopyOnWriteArrayList<KillsEntry>();
+    private final CopyOnWriteArrayList<DropLogEntry> dropLog = new CopyOnWriteArrayList<DropLogEntry>();
+    private final List<Player> localPlayers = new LinkedList<Player>();
+    private final List<NPC> localNpcs = new LinkedList<NPC>();
+    private final PlayerProcess process = new PlayerProcess(this);
+    private final PlayerKillingAttributes playerKillingAttributes = new PlayerKillingAttributes(this);
+    private final MinigameAttributes minigameAttributes = new MinigameAttributes();
+    private final BankPinAttributes bankPinAttributes = new BankPinAttributes();
+    private final BankSearchAttributes bankSearchAttributes = new BankSearchAttributes();
+    private final AchievementAttributes achievementAttributes = new AchievementAttributes();
+    private final BonusManager bonusManager = new BonusManager();
+    private final PointsHandler pointsHandler = new PointsHandler(this);
+    private final PacketSender packetSender = new PacketSender(this);
+    private final Appearance appearance = new Appearance(this);
+    private final FrameUpdater frameUpdater = new FrameUpdater();
+    public List<ItemEffect> currentEffects = new ArrayList<>();
+    public boolean donorMessages = true;
+    public boolean notifications = true;
+    /*
+     * Variables for DropTable & Player Profiling
+     *@author Levi Patton
+     *@www.rune-server.org/members/auguryps
+     */
+    public Player dropLogPlayer;
+    public boolean dropLogOrder;
+    public int clue1Amount;
+    public int clue2Amount;
+    public int clue3Amount;
+    public int clueLevel;
+    public Item[] puzzleStoredItems;
+    public int sextantGlobalPiece;
+    public double sextantBarDegree;
+    public int rotationFactor;
+    public int sextantLandScapeCoords;
+    public int sextantSunCoords;
+    /**
+     * * INTS **
+     */
+    public int destination = 0;
+    public int lastClickedTab = 0;
+    public int kbdTier = 0;
+    public int timeOnline;
+    public ArrayList<Integer> walkableInterfaceList = new ArrayList<>();
+    public long lastHelpRequest;
+    public long lastAuthClaimed;
+    public GameModes selectedGameMode;
+    public boolean inFFA;
+    public boolean inFFALobby;
+    public int[] oldSkillLevels = new int[25];
+    public int[] oldSkillXP = new int[25];
+    public int[] oldSkillMaxLevels = new int[25];
+    public int[] bossGameLevels = new int[25];
+    public int[] bossGameSkillXP = new int[25];
+    public int[] bossGameMaxLevels = new int[25];
     @Getter
     private CollectionLog collectionLog = new CollectionLog(this);
     @Getter
     @Setter
     private List<CollectionLogEntry> collectionLogData = new ArrayList<>();
-
-    public List<ItemEffect> currentEffects = new ArrayList<>();
     private String mac;
     private String uuid;
+    private DailyReward dailyReward = new DailyReward(this);
+    private boolean claimedTodays = false;
+    private int[] maxCapeColors = {65214, 65200, 65186, 62995};
+    private String title = "";
+    private boolean active;
+    private List<Integer> lootList;
+
+    // private Channel channel;
+
+    //  public Player write(Packet packet) {
+    //    if (channel.isConnected()) {
+    //        channel.write(packet);
+    //    }
+    //    return this;
+    //  }
+
+    /// public Channel getChannel() {
+    //     return channel;
+    // }
+    private boolean shopUpdated;
+    private Map<String, Object> attributes = new HashMap<>();
+    private Minigame minigame = null;
+    private int hardwareNumber;
+    private int JanusPoints;
+    private int bossPoints;
+    private PlayerDropLog playerDropLog = new PlayerDropLog();
+    private ProfileViewing profile = new ProfileViewing();
+    private Bank bank = new Bank(this);
+    /**
+     * * STRINGS **
+     */
+    private String username;
+    private String password;
+    private String serial_number;
+    private String emailAddress;
+
+    /*
+     * Fields
+     */
+    private String hostAddress;
+    private String clanChatName;
+    private HouseLocation houseLocation;
+    private HouseTheme houseTheme;
+    /**
+     * * LONGS *
+     */
+    private Long longUsername;
+    private long moneyInPouch;
+    private long totalPlayTime;
+    private ArrayList<HouseFurniture> houseFurniture = new ArrayList<HouseFurniture>();
+    private ArrayList<Portal> housePortals = new ArrayList<>();
+    private PlayerSession session;
+    private CharacterAnimations characterAnimations = new CharacterAnimations();
+    private PlayerRights rights = PlayerRights.PLAYER;
+    private SkillManager skillManager = new SkillManager(this);
+    private PlayerRelations relations = new PlayerRelations(this);
+    private ChatMessage chatMessages = new ChatMessage();
+    private Inventory inventory = new Inventory(this);
+    private Equipment equipment = new Equipment(this);
+    private PriceChecker priceChecker = new PriceChecker(this);
+    private Trading trading = new Trading(this);
+    private Dueling dueling = new Dueling(this);
+    private Slayer slayer = new Slayer(this);
+    private Farming farming = new Farming(this);
+    private Summoning summoning = new Summoning(this);
+    private Bank[] bankTabs = new Bank[9];
+    private Room[][][] houseRooms = new Room[5][13][13];
+    private PlayerInteractingOption playerInteractingOption = PlayerInteractingOption.NONE;
+    private GameMode gameMode = GameMode.NORMAL;
+    private Difficulty difficulty = Difficulty.Default;
+    private CombatType lastCombatType = CombatType.MELEE;
+    private FightType fightType = FightType.UNARMED_PUNCH;
+    private Prayerbook prayerbook = Prayerbook.NORMAL;
+    private MagicSpellbook spellbook = MagicSpellbook.NORMAL;
+    private LoyaltyTitles loyaltyTitle = LoyaltyTitles.NONE;
+    private ClanChat currentClanChat;
+    private Input inputHandling;
+    private WalkToTask walkToTask;
+    private Shop shop;
+    private GameObject interactingObject;
+    private Item interactingItem;
+    private Dialogue dialogue;
+    private DwarfCannon cannon;
+    private CombatSpell autocastSpell, castSpell, previousCastSpell;
+    private RangedWeaponData rangedWeaponData;
+    private CombatSpecial combatSpecial;
+    private WeaponInterface weapon;
+    private Item untradeableDropItem;
+    private Object[] usableObject;
+    private GrandExchangeSlot[] grandExchangeSlots = new GrandExchangeSlot[6];
+    private Task currentTask;
+    private Position resetPosition;
+    private Pouch selectedPouch;
+    private BlowpipeLoading blowpipeLoading = new BlowpipeLoading(this);
+    private int[] brawlerCharges = new int[9];
+    private int[] forceMovement = new int[7];
+    private int[] leechedBonuses = new int[7];
+    private int[] ores = new int[2];
+    private int[] constructionCoords;
+    private int recoilCharges;
+    private int runEnergy = 100;
+    private int currentBankTab;
+    private int interfaceId, walkableInterfaceId, multiIcon;
+    private int dialogueActionId;
+    private int overloadPotionTimer, prayerRenewalPotionTimer;
+    private int fireImmunity, fireDamageModifier;
+    private int amountDonated;
+    private int wildernessLevel;
+    private int fireAmmo;
+    private int specialPercentage = 100;
+    private int skullIcon = -1, skullTimer;
+    private int teleblockTimer;
+    private int dragonFireImmunity;
+    private int poisonImmunity;
+    private int shadowState;
+    private int effigy;
+    private int dfsCharges;
+    private int playerViewingIndex;
+    private int staffOfLightEffect;
+    private int minutesBonusExp = -1;
+    private int pickupValue = 100000;
+    private int selectedGeSlot = -1;
+    private int selectedGeItem = -1;
+    private int geQuantity;
+    private int gePricePerItem;
+    private int selectedSkillingItem;
+    private int currentBookPage;
+    private int storedRuneEssence, storedPureEssence;
+    private int trapsLaid;
+    private int skillAnimation;
+    private int houseServant;
+    private int houseServantCharges;
+    private int servantItemFetch;
+    private int portalSelected;
+    private int constructionInterface;
+    private int buildFurnitureId;
+    private int buildFurnitureX;
+    private int buildFurnitureY;
+    private int combatRingType;
+    /**
+     * * BOOLEANS **
+     */
+    private boolean unlockedLoyaltyTitles[] = new boolean[12];
+    private boolean[] crossedObstacles = new boolean[7];
+    private boolean processFarming;
+    private boolean crossingObstacle;
+    private boolean targeted;
+    private boolean isBanking, noteWithdrawal, swapMode;
+    private boolean regionChange, allowRegionChangePacket;
+    private boolean isDying;
+    private boolean isRunning = true, isResting;
+    private boolean experienceLocked;
+    private boolean clientExitTaskActive;
+    private boolean drainingPrayer;
+    private boolean shopping;
+    private boolean settingUpCannon;
+    private boolean hasVengeance;
+    private boolean killsTrackerOpen;
+    private boolean acceptingAid;
+    private boolean autoRetaliate;
+    private boolean autocast;
+    private boolean specialActivated;
+    private boolean isCoughing;
+    private boolean playerLocked;
+    private boolean recoveringSpecialAttack;
+    private boolean soundsActive, musicActive;
+    private boolean newPlayer;
+    private boolean openBank;
+    private boolean inActive;
+    private boolean inConstructionDungeon;
+    private boolean isBuildingMode;
+    private boolean voteMessageSent;
+    private boolean receivedStarter;
+    private boolean bossTierTP;
+    private boolean shouldGiveBossReward;
+    private boolean areCloudsSpawned;
+    public Player(PlayerSession playerIO) {
+        super(GameSettings.DEFAULT_POSITION.copy());
+        this.session = playerIO;
+    }
+
+    public static void openURL(String url) {
+        Desktop d = Desktop.getDesktop();
+        try {
+            d.browse(new URI(url));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public String getMac() {
         return mac;
-    }
-
-    public String getUUID() {
-        return uuid;
     }
 
     public Player setMac(String mac) {
@@ -98,19 +357,18 @@ public class Player extends Character {
         return this;
     }
 
+    public String getUUID() {
+        return uuid;
+    }
+
     public Player setUUID(String uuid) {
         this.uuid = uuid;
         return this;
     }
 
-
-    private DailyReward dailyReward = new DailyReward(this);
-
     public DailyReward getDailyReward() {
         return dailyReward;
     }
-
-    private boolean claimedTodays = false;
 
     public boolean getClaimedTodays() {
         return claimedTodays;
@@ -120,13 +378,13 @@ public class Player extends Character {
         this.claimedTodays = claimedTodays;
     }
 
-    private int[] maxCapeColors = {65214, 65200, 65186, 62995};
-
     public int[] getMaxCapeColors() {
         return maxCapeColors;
     }
 
-    public boolean donorMessages = true;
+    public void setMaxCapeColors(int[] maxCapeColors) {
+        this.maxCapeColors = maxCapeColors;
+    }
 
     public boolean getDonorMessages() {
         return donorMessages;
@@ -136,8 +394,6 @@ public class Player extends Character {
         this.donorMessages = donorMessages;
     }
 
-    public boolean notifications = true;
-
     public boolean getNotificationPreference() {
         return notifications;
     }
@@ -146,39 +402,14 @@ public class Player extends Character {
         this.notifications = notifications;
     }
 
-
-    public void setMaxCapeColors(int[] maxCapeColors) {
-        this.maxCapeColors = maxCapeColors;
-    }
-
-    private String title = "";
-
-    private final PlayerOwnedShopManager playerOwnedShopManager = new PlayerOwnedShopManager(this);
-
-    private boolean active;
-
-    private List<Integer> lootList;
-
-    private boolean shopUpdated;
-
     public PlayerOwnedShopManager getPlayerOwnedShopManager() {
         return playerOwnedShopManager;
     }
-
-    public Player(PlayerSession playerIO) {
-        super(GameSettings.DEFAULT_POSITION.copy());
-        this.session = playerIO;
-    }
-
-
-    private Map<String, Object> attributes = new HashMap<>();
 
     @SuppressWarnings("unchecked")
     public <T> T getAttribute(String key) {
         return (T) attributes.get(key);
     }
-
-    private Minigame minigame = null;
 
     @SuppressWarnings("unchecked")
     public <T> T getAttribute(String key, T fail) {
@@ -193,8 +424,6 @@ public class Player extends Character {
     public void removeAttribute(String key) {
         attributes.remove(key);
     }
-
-    private int hardwareNumber;
 
     public int getHardwareNumber() {
         return hardwareNumber;
@@ -217,8 +446,6 @@ public class Player extends Character {
         }
     }
 
-    private int JanusPoints;
-
     public int getJanusPoints() {
         return JanusPoints;
     }
@@ -231,8 +458,6 @@ public class Player extends Character {
         this.JanusPoints -= amount;
     }
 
-    private int bossPoints;
-
     public int getBossPoints() {
         return bossPoints;
     }
@@ -240,16 +465,6 @@ public class Player extends Character {
     public void setBossPoints(int bossPoints) {
         this.bossPoints = bossPoints;
     }
-
-    /*
-     * Variables for DropTable & Player Profiling
-     *@author Levi Patton
-     *@www.rune-server.org/members/auguryps
-     */
-    public Player dropLogPlayer;
-    public boolean dropLogOrder;
-    private PlayerDropLog playerDropLog = new PlayerDropLog();
-    private ProfileViewing profile = new ProfileViewing();
 
     /*
      * Variables for the DropLog
@@ -263,16 +478,16 @@ public class Player extends Character {
         return playerDropLog;
     }
 
+    public void setPlayerDropLog(PlayerDropLog playerDropLog) {
+        this.playerDropLog = playerDropLog;
+    }
+
     public ProfileViewing getProfile() {
         return profile;
     }
 
     public void setProfile(ProfileViewing profile) {
         this.profile = profile;
-    }
-
-    public void setPlayerDropLog(PlayerDropLog playerDropLog) {
-        this.playerDropLog = playerDropLog;
     }
 
     @Override
@@ -313,15 +528,6 @@ public class Player extends Character {
         return skillManager.getCurrentLevel(Skill.ATTACK);
     }
 
-    public static void openURL(String url) {
-        Desktop d = Desktop.getDesktop();
-        try {
-            d.browse(new URI(url));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public int getBaseDefence(CombatType type) {
         if (type == CombatType.MAGIC) {
@@ -357,32 +563,6 @@ public class Player extends Character {
         return speed;
         //	return DesolaceFormulas.getAttackDelay(this);
     }
-
-    public int clue1Amount;
-    public int clue2Amount;
-    public int clue3Amount;
-    public int clueLevel;
-    public Item[] puzzleStoredItems;
-    public int sextantGlobalPiece;
-    public double sextantBarDegree;
-    public int rotationFactor;
-    public int sextantLandScapeCoords;
-    public int sextantSunCoords;
-
-    // private Channel channel;
-
-    //  public Player write(Packet packet) {
-    //    if (channel.isConnected()) {
-    //        channel.write(packet);
-    //    }
-    //    return this;
-    //  }
-
-    /// public Channel getChannel() {
-    //     return channel;
-    // }
-
-    private Bank bank = new Bank(this);
 
     public Bank getBank() {
         return bank;
@@ -515,209 +695,6 @@ public class Player extends Character {
     }
 
     /*
-     * Fields
-     */
-    /**
-     * * STRINGS **
-     */
-    private String username;
-    private String password;
-    private String serial_number;
-    private String emailAddress;
-    private String hostAddress;
-    private String clanChatName;
-
-    private HouseLocation houseLocation;
-
-    private HouseTheme houseTheme;
-
-    /**
-     * * LONGS *
-     */
-    private Long longUsername;
-    private long moneyInPouch;
-    private long totalPlayTime;
-    //Timers (Stopwatches)
-    private final Stopwatch sqlTimer = new Stopwatch();
-    private final Stopwatch foodTimer = new Stopwatch();
-    private final Stopwatch potionTimer = new Stopwatch();
-    private final Stopwatch lastRunRecovery = new Stopwatch();
-    private final Stopwatch clickDelay = new Stopwatch();
-    private final Stopwatch lastItemPickup = new Stopwatch();
-    private final Stopwatch lastYell = new Stopwatch();
-    private final Stopwatch lastZulrah = new Stopwatch();
-    private final Stopwatch lastSql = new Stopwatch();
-
-    private final Stopwatch lastVengeance = new Stopwatch();
-    private final Stopwatch emoteDelay = new Stopwatch();
-    private final Stopwatch specialRestoreTimer = new Stopwatch();
-    private final Stopwatch lastSummon = new Stopwatch();
-    private final Stopwatch recordedLogin = new Stopwatch();
-    private final Stopwatch creationDate = new Stopwatch();
-    private final Stopwatch tolerance = new Stopwatch();
-    private final Stopwatch lougoutTimer = new Stopwatch();
-
-    /**
-     * * INSTANCES **
-     */
-    private final CopyOnWriteArrayList<KillsEntry> killsTracker = new CopyOnWriteArrayList<KillsEntry>();
-    private final CopyOnWriteArrayList<DropLogEntry> dropLog = new CopyOnWriteArrayList<DropLogEntry>();
-    private ArrayList<HouseFurniture> houseFurniture = new ArrayList<HouseFurniture>();
-    private ArrayList<Portal> housePortals = new ArrayList<>();
-    private final List<Player> localPlayers = new LinkedList<Player>();
-    private final List<NPC> localNpcs = new LinkedList<NPC>();
-
-    private PlayerSession session;
-    private final PlayerProcess process = new PlayerProcess(this);
-    private final PlayerKillingAttributes playerKillingAttributes = new PlayerKillingAttributes(this);
-    private final MinigameAttributes minigameAttributes = new MinigameAttributes();
-    private final BankPinAttributes bankPinAttributes = new BankPinAttributes();
-    private final BankSearchAttributes bankSearchAttributes = new BankSearchAttributes();
-    private final AchievementAttributes achievementAttributes = new AchievementAttributes();
-    private CharacterAnimations characterAnimations = new CharacterAnimations();
-    private final BonusManager bonusManager = new BonusManager();
-    private final PointsHandler pointsHandler = new PointsHandler(this);
-
-
-    private final PacketSender packetSender = new PacketSender(this);
-    private final Appearance appearance = new Appearance(this);
-    private final FrameUpdater frameUpdater = new FrameUpdater();
-    private PlayerRights rights = PlayerRights.PLAYER;
-    private SkillManager skillManager = new SkillManager(this);
-    private PlayerRelations relations = new PlayerRelations(this);
-    private ChatMessage chatMessages = new ChatMessage();
-    private Inventory inventory = new Inventory(this);
-    private Equipment equipment = new Equipment(this);
-    private PriceChecker priceChecker = new PriceChecker(this);
-    private Trading trading = new Trading(this);
-    private Dueling dueling = new Dueling(this);
-    private Slayer slayer = new Slayer(this);
-
-    private Farming farming = new Farming(this);
-    private Summoning summoning = new Summoning(this);
-    private Bank[] bankTabs = new Bank[9];
-    private Room[][][] houseRooms = new Room[5][13][13];
-    private PlayerInteractingOption playerInteractingOption = PlayerInteractingOption.NONE;
-    private GameMode gameMode = GameMode.NORMAL;
-    private Difficulty difficulty = Difficulty.Default;
-    private CombatType lastCombatType = CombatType.MELEE;
-    private FightType fightType = FightType.UNARMED_PUNCH;
-    private Prayerbook prayerbook = Prayerbook.NORMAL;
-    private MagicSpellbook spellbook = MagicSpellbook.NORMAL;
-    private LoyaltyTitles loyaltyTitle = LoyaltyTitles.NONE;
-
-    private ClanChat currentClanChat;
-    private Input inputHandling;
-    private WalkToTask walkToTask;
-    private Shop shop;
-    private GameObject interactingObject;
-    private Item interactingItem;
-    private Dialogue dialogue;
-    private DwarfCannon cannon;
-    private CombatSpell autocastSpell, castSpell, previousCastSpell;
-    private RangedWeaponData rangedWeaponData;
-    private CombatSpecial combatSpecial;
-    private WeaponInterface weapon;
-    private Item untradeableDropItem;
-    private Object[] usableObject;
-    private GrandExchangeSlot[] grandExchangeSlots = new GrandExchangeSlot[6];
-    private Task currentTask;
-    private Position resetPosition;
-    private Pouch selectedPouch;
-    private BlowpipeLoading blowpipeLoading = new BlowpipeLoading(this);
-
-    /**
-     * * INTS **
-     */
-    public int destination = 0;
-    public int lastClickedTab = 0;
-
-    private int[] brawlerCharges = new int[9];
-    private int[] forceMovement = new int[7];
-    private int[] leechedBonuses = new int[7];
-    private int[] ores = new int[2];
-    private int[] constructionCoords;
-    private int recoilCharges;
-    private int runEnergy = 100;
-    private int currentBankTab;
-    private int interfaceId, walkableInterfaceId, multiIcon;
-    private int dialogueActionId;
-    private int overloadPotionTimer, prayerRenewalPotionTimer;
-    private int fireImmunity, fireDamageModifier;
-    private int amountDonated;
-    private int wildernessLevel;
-    private int fireAmmo;
-    private int specialPercentage = 100;
-    private int skullIcon = -1, skullTimer;
-    private int teleblockTimer;
-    private int dragonFireImmunity;
-    private int poisonImmunity;
-    private int shadowState;
-    private int effigy;
-    private int dfsCharges;
-    private int playerViewingIndex;
-    private int staffOfLightEffect;
-    private int minutesBonusExp = -1;
-    private int pickupValue = 100000;
-    private int selectedGeSlot = -1;
-    private int selectedGeItem = -1;
-    private int geQuantity;
-    private int gePricePerItem;
-    private int selectedSkillingItem;
-    private int currentBookPage;
-    private int storedRuneEssence, storedPureEssence;
-    private int trapsLaid;
-    private int skillAnimation;
-    private int houseServant;
-    private int houseServantCharges;
-    private int servantItemFetch;
-    private int portalSelected;
-    private int constructionInterface;
-    private int buildFurnitureId;
-    private int buildFurnitureX;
-    private int buildFurnitureY;
-    private int combatRingType;
-    public int kbdTier = 0;
-
-    /**
-     * * BOOLEANS **
-     */
-    private boolean unlockedLoyaltyTitles[] = new boolean[12];
-    private boolean[] crossedObstacles = new boolean[7];
-    private boolean processFarming;
-    private boolean crossingObstacle;
-    private boolean targeted;
-    private boolean isBanking, noteWithdrawal, swapMode;
-    private boolean regionChange, allowRegionChangePacket;
-    private boolean isDying;
-    private boolean isRunning = true, isResting;
-    private boolean experienceLocked;
-    private boolean clientExitTaskActive;
-    private boolean drainingPrayer;
-    private boolean shopping;
-    private boolean settingUpCannon;
-    private boolean hasVengeance;
-    private boolean killsTrackerOpen;
-    private boolean acceptingAid;
-    private boolean autoRetaliate;
-    private boolean autocast;
-    private boolean specialActivated;
-    private boolean isCoughing;
-    private boolean playerLocked;
-    private boolean recoveringSpecialAttack;
-    private boolean soundsActive, musicActive;
-    private boolean newPlayer;
-    private boolean openBank;
-    private boolean inActive;
-    public int timeOnline;
-    private boolean inConstructionDungeon;
-    private boolean isBuildingMode;
-    private boolean voteMessageSent;
-    private boolean receivedStarter;
-    private boolean bossTierTP;
-    private boolean shouldGiveBossReward;
-
-    /*
      * Getters & Setters
      */
     public PlayerSession getSession() {
@@ -761,17 +738,17 @@ public class Player extends Character {
         return password;
     }
 
+    public Player setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
     public String getEmailAddress() {
         return this.emailAddress;
     }
 
     public void setEmailAddress(String address) {
         this.emailAddress = address;
-    }
-
-    public Player setPassword(String password) {
-        this.password = password;
-        return this;
     }
 
     public String getHostAddress() {
@@ -833,7 +810,6 @@ public class Player extends Character {
         return pointsHandler;
     }
 
-
     public boolean isImmuneToDragonFire() {
         return dragonFireImmunity > 0;
     }
@@ -853,7 +829,6 @@ public class Player extends Character {
     public void decrementDragonFireImmunity(int amount) {
         dragonFireImmunity -= amount;
     }
-
 
     public int getPoisonImmunity() {
         return poisonImmunity;
@@ -1080,21 +1055,12 @@ public class Player extends Character {
         return weapon;
     }
 
-    public ArrayList<Integer> walkableInterfaceList = new ArrayList<>();
-    public long lastHelpRequest;
-    public long lastAuthClaimed;
-    public GameModes selectedGameMode;
-    private boolean areCloudsSpawned;
-
-    public boolean inFFA;
-    public boolean inFFALobby;
-    public int[] oldSkillLevels = new int[25];
-    public int[] oldSkillXP = new int[25];
-    public int[] oldSkillMaxLevels = new int[25];
-
-    public int[] bossGameLevels = new int[25];
-    public int[] bossGameSkillXP = new int[25];
-    public int[] bossGameMaxLevels = new int[25];
+    /**
+     * @param weapon the weapon to set.
+     */
+    public void setWeapon(WeaponInterface weapon) {
+        this.weapon = weapon;
+    }
 
     public void resetInterfaces() {
         walkableInterfaceList.stream().filter((i) -> !(i == 41005 || i == 41000)).forEach((i) -> {
@@ -1122,13 +1088,6 @@ public class Player extends Character {
 
             getPacketSender().sendWalkableInterface(interfaceId, visible);
         }
-    }
-
-    /**
-     * @param weapon the weapon to set.
-     */
-    public void setWeapon(WeaponInterface weapon) {
-        this.weapon = weapon;
     }
 
     /**
@@ -1182,12 +1141,16 @@ public class Player extends Character {
         return dropLog;
     }
 
+    public WalkToTask getWalkToTask() {
+        return walkToTask;
+    }
+
     public void setWalkToTask(WalkToTask walkToTask) {
         this.walkToTask = walkToTask;
     }
 
-    public WalkToTask getWalkToTask() {
-        return walkToTask;
+    public MagicSpellbook getSpellbook() {
+        return spellbook;
     }
 
     public Player setSpellbook(MagicSpellbook spellbook) {
@@ -1195,17 +1158,13 @@ public class Player extends Character {
         return this;
     }
 
-    public MagicSpellbook getSpellbook() {
-        return spellbook;
+    public Prayerbook getPrayerbook() {
+        return prayerbook;
     }
 
     public Player setPrayerbook(Prayerbook prayerbook) {
         this.prayerbook = prayerbook;
         return this;
-    }
-
-    public Prayerbook getPrayerbook() {
-        return prayerbook;
     }
 
     /**
@@ -1222,13 +1181,13 @@ public class Player extends Character {
         return localNpcs;
     }
 
+    public int getInterfaceId() {
+        return this.interfaceId;
+    }
+
     public Player setInterfaceId(int interfaceId) {
         this.interfaceId = interfaceId;
         return this;
-    }
-
-    public int getInterfaceId() {
-        return this.interfaceId;
     }
 
     public boolean isDying() {
@@ -1270,10 +1229,6 @@ public class Player extends Character {
         this.loyaltyTitle = loyaltyTitle;
     }
 
-    public void setWalkableInterfaceId(int interfaceId2) {
-        this.walkableInterfaceId = interfaceId2;
-    }
-
     public PlayerInteractingOption getPlayerInteractingOption() {
         return playerInteractingOption;
     }
@@ -1294,6 +1249,10 @@ public class Player extends Character {
 
     public int getWalkableInterfaceId() {
         return walkableInterfaceId;
+    }
+
+    public void setWalkableInterfaceId(int interfaceId2) {
+        this.walkableInterfaceId = interfaceId2;
     }
 
     public boolean soundsActive() {
@@ -1329,17 +1288,12 @@ public class Player extends Character {
         return lastRunRecovery;
     }
 
-    public Player setRunning(boolean isRunning) {
-        this.isRunning = isRunning;
-        return this;
-    }
-
     public boolean isRunning() {
         return isRunning;
     }
 
-    public Player setResting(boolean isResting) {
-        this.isResting = isResting;
+    public Player setRunning(boolean isRunning) {
+        this.isRunning = isRunning;
         return this;
     }
 
@@ -1347,12 +1301,17 @@ public class Player extends Character {
         return isResting;
     }
 
-    public void setMoneyInPouch(long moneyInPouch) {
-        this.moneyInPouch = moneyInPouch;
+    public Player setResting(boolean isResting) {
+        this.isResting = isResting;
+        return this;
     }
 
     public long getMoneyInPouch() {
         return moneyInPouch;
+    }
+
+    public void setMoneyInPouch(long moneyInPouch) {
+        this.moneyInPouch = moneyInPouch;
     }
 
     public int getMoneyInPouchAsInt() {
@@ -1367,21 +1326,21 @@ public class Player extends Character {
         this.experienceLocked = experienceLocked;
     }
 
+    public boolean isClientExitTaskActive() {
+        return clientExitTaskActive;
+    }
+
     public void setClientExitTaskActive(boolean clientExitTaskActive) {
         this.clientExitTaskActive = clientExitTaskActive;
     }
 
-    public boolean isClientExitTaskActive() {
-        return clientExitTaskActive;
+    public ClanChat getCurrentClanChat() {
+        return currentClanChat;
     }
 
     public Player setCurrentClanChat(ClanChat clanChat) {
         this.currentClanChat = clanChat;
         return this;
-    }
-
-    public ClanChat getCurrentClanChat() {
-        return currentClanChat;
     }
 
     public String getClanChatName() {
@@ -1393,12 +1352,12 @@ public class Player extends Character {
         return this;
     }
 
-    public void setInputHandling(Input inputHandling) {
-        this.inputHandling = inputHandling;
-    }
-
     public Input getInputHandling() {
         return inputHandling;
+    }
+
+    public void setInputHandling(Input inputHandling) {
+        this.inputHandling = inputHandling;
     }
 
     public boolean isDrainingPrayer() {
@@ -1521,21 +1480,21 @@ public class Player extends Character {
         this.dialogueActionId = dialogueActionId;
     }
 
+    public boolean isSettingUpCannon() {
+        return settingUpCannon;
+    }
+
     public void setSettingUpCannon(boolean settingUpCannon) {
         this.settingUpCannon = settingUpCannon;
     }
 
-    public boolean isSettingUpCannon() {
-        return settingUpCannon;
+    public DwarfCannon getCannon() {
+        return cannon;
     }
 
     public Player setCannon(DwarfCannon cannon) {
         this.cannon = cannon;
         return this;
-    }
-
-    public DwarfCannon getCannon() {
-        return cannon;
     }
 
     public int getOverloadPotionTimer() {
@@ -1616,16 +1575,6 @@ public class Player extends Character {
         return lastVengeance;
     }
 
-
-    public void setHouseRooms(Room[][][] houseRooms) {
-        this.houseRooms = houseRooms;
-    }
-
-
-    public void setHousePortals(ArrayList<Portal> housePortals) {
-        this.housePortals = housePortals;
-    }
-
     /*
      * Construction instancing Arlania
      */
@@ -1636,11 +1585,9 @@ public class Player extends Character {
         return true;
     }
 
-
     public void setHouseFurtinture(ArrayList<HouseFurniture> houseFurniture) {
         this.houseFurniture = houseFurniture;
     }
-
 
     public Stopwatch getTolerance() {
         return tolerance;
@@ -1674,7 +1621,6 @@ public class Player extends Character {
         this.amountDonated += amountDonated;
     }
 
-
     public long getTotalPlayTime() {
         return totalPlayTime;
     }
@@ -1696,12 +1642,12 @@ public class Player extends Character {
         return this.regionChange;
     }
 
-    public void setAllowRegionChangePacket(boolean allowRegionChangePacket) {
-        this.allowRegionChangePacket = allowRegionChangePacket;
-    }
-
     public boolean isAllowRegionChangePacket() {
         return allowRegionChangePacket;
+    }
+
+    public void setAllowRegionChangePacket(boolean allowRegionChangePacket) {
+        this.allowRegionChangePacket = allowRegionChangePacket;
     }
 
     public boolean isKillsTrackerOpen() {
@@ -1732,16 +1678,16 @@ public class Player extends Character {
         return gameMode;
     }
 
+    public void setGameMode(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
+
     public Difficulty getDifficulty() {
         return difficulty;
     }
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
-    }
-
-    public void setGameMode(GameMode gameMode) {
-        this.gameMode = gameMode;
     }
 
     public boolean isPlayerLocked() {
@@ -1817,11 +1763,6 @@ public class Player extends Character {
         return lougoutTimer;
     }
 
-    public Player setUsableObject(Object[] usableObject) {
-        this.usableObject = usableObject;
-        return this;
-    }
-
     public Player setUsableObject(int index, Object usableObject) {
         this.usableObject[index] = usableObject;
         return this;
@@ -1829,6 +1770,11 @@ public class Player extends Character {
 
     public Object[] getUsableObject() {
         return usableObject;
+    }
+
+    public Player setUsableObject(Object[] usableObject) {
+        this.usableObject = usableObject;
+        return this;
     }
 
     public int getPlayerViewingIndex() {
@@ -1931,12 +1877,12 @@ public class Player extends Character {
         this.grandExchangeSlots[index] = state;
     }
 
-    public void setSelectedGeSlot(int slot) {
-        this.selectedGeSlot = slot;
-    }
-
     public int getSelectedGeSlot() {
         return selectedGeSlot;
+    }
+
+    public void setSelectedGeSlot(int slot) {
+        this.selectedGeSlot = slot;
     }
 
     public Task getCurrentTask() {
@@ -2016,6 +1962,10 @@ public class Player extends Character {
         return crossedObstacles;
     }
 
+    public void setCrossedObstacles(boolean[] crossedObstacles) {
+        this.crossedObstacles = crossedObstacles;
+    }
+
     public boolean getCrossedObstacle(int i) {
         return crossedObstacles[i];
     }
@@ -2023,10 +1973,6 @@ public class Player extends Character {
     public Player setCrossedObstacle(int i, boolean completed) {
         crossedObstacles[i] = completed;
         return this;
-    }
-
-    public void setCrossedObstacles(boolean[] crossedObstacles) {
-        this.crossedObstacles = crossedObstacles;
     }
 
     public int getSkillAnimation() {
@@ -2046,12 +1992,12 @@ public class Player extends Character {
         this.ores = ores;
     }
 
-    public void setResetPosition(Position resetPosition) {
-        this.resetPosition = resetPosition;
-    }
-
     public Position getResetPosition() {
         return resetPosition;
+    }
+
+    public void setResetPosition(Position resetPosition) {
+        this.resetPosition = resetPosition;
     }
 
     public Slayer getSlayer() {
@@ -2078,8 +2024,16 @@ public class Player extends Character {
         return houseServant;
     }
 
+    public void setHouseServant(int houseServant) {
+        this.houseServant = houseServant;
+    }
+
     public HouseLocation getHouseLocation() {
         return houseLocation;
+    }
+
+    public void setHouseLocation(HouseLocation houseLocation) {
+        this.houseLocation = houseLocation;
     }
 
     public HouseTheme getHouseTheme() {
@@ -2088,14 +2042,6 @@ public class Player extends Character {
 
     public void setHouseTheme(HouseTheme houseTheme) {
         this.houseTheme = houseTheme;
-    }
-
-    public void setHouseLocation(HouseLocation houseLocation) {
-        this.houseLocation = houseLocation;
-    }
-
-    public void setHouseServant(int houseServant) {
-        this.houseServant = houseServant;
     }
 
     public int getHouseServantCharges() {
@@ -2178,8 +2124,16 @@ public class Player extends Character {
         return houseRooms;
     }
 
+    public void setHouseRooms(Room[][][] houseRooms) {
+        this.houseRooms = houseRooms;
+    }
+
     public ArrayList<Portal> getHousePortals() {
         return housePortals;
+    }
+
+    public void setHousePortals(ArrayList<Portal> housePortals) {
+        this.housePortals = housePortals;
     }
 
     public ArrayList<HouseFurniture> getHouseFurniture() {

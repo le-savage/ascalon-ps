@@ -10,8 +10,17 @@ import java.util.Iterator;
 
 public class HunterTrapsTask extends Task {
 
+    private static boolean running;
+
     public HunterTrapsTask() {
         super(1);
+    }
+
+    public static void fireTask() {
+        if (running)
+            return;
+        running = true;
+        TaskManager.submit(new HunterTrapsTask());
     }
 
     @Override
@@ -35,13 +44,4 @@ public class HunterTrapsTask extends Task {
         setEventRunning(false);
         running = false;
     }
-
-    public static void fireTask() {
-        if (running)
-            return;
-        running = true;
-        TaskManager.submit(new HunterTrapsTask());
-    }
-
-    private static boolean running;
 }

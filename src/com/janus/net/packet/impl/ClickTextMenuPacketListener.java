@@ -8,6 +8,8 @@ import com.janus.world.entity.impl.player.Player;
 
 public class ClickTextMenuPacketListener implements PacketListener {
 
+    public static final int OPCODE = 222;
+
     @Override
     public void handleMessage(Player player, Packet packet) {
 
@@ -24,6 +26,4 @@ public class ClickTextMenuPacketListener implements PacketListener {
         }
 
     }
-
-    public static final int OPCODE = 222;
 }

@@ -20,6 +20,8 @@ import java.util.List;
 public class PlayerKillingAttributes {
 
     private final Player player;
+    private final int WAIT_LIMIT = 2;
+    Location loc;
     private Player target;
     private int playerKills;
     private int playerKillStreak;
@@ -27,14 +29,40 @@ public class PlayerKillingAttributes {
     private int targetPercentage;
     private long lastPercentageIncrease;
     private int safeTimer;
-
-    Location loc;
-
-    private final int WAIT_LIMIT = 2;
     private List<String> killedPlayers = new ArrayList<String>();
 
     public PlayerKillingAttributes(Player player) {
         this.player = player;
+    }
+
+    /**
+     * Gets a random message after killing a player
+     *
+     * @param killedPlayer The player that was killed
+     */
+    public static String getRandomKillMessage(String killedPlayer) {
+        int deathMsgs = Misc.getRandom(8);
+        switch (deathMsgs) {
+            case 0:
+                return "With a crushing blow, you defeat " + killedPlayer + ".";
+            case 1:
+                return "It's humiliating defeat for " + killedPlayer + ".";
+            case 2:
+                return "" + killedPlayer + " didn't stand a chance against you.";
+            case 3:
+                return "You've defeated " + killedPlayer + ".";
+            case 4:
+                return "" + killedPlayer + " regrets the day they met you in combat.";
+            case 5:
+                return "It's all over for " + killedPlayer + ".";
+            case 6:
+                return "" + killedPlayer + " falls before you might.";
+            case 7:
+                return "Can anyone defeat you? Certainly not " + killedPlayer + ".";
+            case 8:
+                return "You were clearly a better fighter than " + killedPlayer + ".";
+        }
+        return null;
     }
 
     public void add(Player other) {
@@ -77,22 +105,22 @@ public class PlayerKillingAttributes {
 			if(!killedPlayers.contains(o.getUsername()))
 		killedPlayers.add(o.getUsername());
 			player.getPacketSender().sendMessage(getRandomKillMessage(o.getUsername()));
-		
-		
-		
+
+
+
 			this.playerKillStreak +=1;
 		//	this.playerKills += 1;
-			
-			
-		
+
+
+
 
 				if(targetKilled = true) {
 					player.getPointsHandler().setPkPoints(1, true);
 					player.sendMessage("you've recieved 1 PK Point");
 				} else {
 					return;
-				} 
-				
+				}
+
 
 				if (GameLoader.getDay() == GameLoader.FRIDAY) {
 					player.getPointsHandler().setPkPoints(2, true);
@@ -101,12 +129,12 @@ public class PlayerKillingAttributes {
 
 				}
 
-				
-				
-				
-			
-			
-			
+
+
+
+
+
+
 			Artifacts.handleDrops(player, o, targetKilled);
 			if(player.getAppearance().getBountyHunterSkull() < 4)
 				player.getAppearance().setBountyHunterSkull(player.getAppearance().getBountyHunterSkull()+1);
@@ -217,36 +245,6 @@ public class PlayerKillingAttributes {
 
     public void setKilledPlayers(List<String> list) {
         killedPlayers = list;
-    }
-
-    /**
-     * Gets a random message after killing a player
-     *
-     * @param killedPlayer The player that was killed
-     */
-    public static String getRandomKillMessage(String killedPlayer) {
-        int deathMsgs = Misc.getRandom(8);
-        switch (deathMsgs) {
-            case 0:
-                return "With a crushing blow, you defeat " + killedPlayer + ".";
-            case 1:
-                return "It's humiliating defeat for " + killedPlayer + ".";
-            case 2:
-                return "" + killedPlayer + " didn't stand a chance against you.";
-            case 3:
-                return "You've defeated " + killedPlayer + ".";
-            case 4:
-                return "" + killedPlayer + " regrets the day they met you in combat.";
-            case 5:
-                return "It's all over for " + killedPlayer + ".";
-            case 6:
-                return "" + killedPlayer + " falls before you might.";
-            case 7:
-                return "Can anyone defeat you? Certainly not " + killedPlayer + ".";
-            case 8:
-                return "You were clearly a better fighter than " + killedPlayer + ".";
-        }
-        return null;
     }
 
     public int getPlayerKills() {

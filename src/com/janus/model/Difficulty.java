@@ -12,16 +12,14 @@ public enum Difficulty {
     Insane(0.25, 10),
     Zezima(0.1, 20);
 
+    private static final ImmutableSet<Difficulty> LOW = Sets.immutableEnumSet(Default, Easy, Medium);
+    private static final ImmutableSet<Difficulty> HIGH = Sets.immutableEnumSet(Hard, Insane, Zezima);
     private double xpRate;
     private int drBoost;
-
     Difficulty(double xpRate, int drBoost) {
         this.xpRate = xpRate;
         this.drBoost = drBoost;
     }
-
-    private static final ImmutableSet<Difficulty> LOW = Sets.immutableEnumSet(Default, Easy, Medium);
-    private static final ImmutableSet<Difficulty> HIGH = Sets.immutableEnumSet(Hard, Insane, Zezima);
 
     public boolean lowDifficulty() {
         return LOW.contains(this);

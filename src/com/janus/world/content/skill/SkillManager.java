@@ -29,6 +29,47 @@ import com.janus.world.entity.impl.player.Player;
 public class SkillManager {
 
     /**
+     * The maximum amount of skills in the game.
+     */
+    public static final int MAX_SKILLS = 25;
+    /**
+     * The maximum amount of experience you can
+     * achieve in a skill.
+     */
+    private static final int MAX_EXPERIENCE = 1000000000;
+	
+	
+	/*if (skills.maxLevel[skill.ordinal()] == getMaxAchievingLevel(skill)) {
+			for(int i = 0; i < Skill.values().length; i++) {
+				if(i == 21)
+					continue;
+				if(player.getSkillManager().getMaxLevel(i) < (i == 3 || i == 5 ? 990 : 99)) {
+					return true;
+				}
+			World.sendMessage("Testing");
+				}
+			}
+	return false;
+	}*/
+    private static final int EXPERIENCE_FOR_99 = 13034431;
+    private static final int EXP_ARRAY[] = {
+            0, 83, 174, 276, 388, 512, 650, 801, 969, 1154, 1358, 1584, 1833, 2107, 2411, 2746, 3115, 3523,
+            3973, 4470, 5018, 5624, 6291, 7028, 7842, 8740, 9730, 10824, 12031, 13363, 14833, 16456, 18247,
+            20224, 22406, 24815, 27473, 30408, 33648, 37224, 41171, 45529, 50339, 55649, 61512, 67983, 75127,
+            83014, 91721, 101333, 111945, 123660, 136594, 150872, 166636, 184040, 203254, 224466, 247886,
+            273742, 302288, 333804, 368599, 407015, 449428, 496254, 547953, 605032, 668051, 737627, 814445,
+            899257, 992895, 1096278, 1210421, 1336443, 1475581, 1629200, 1798808, 1986068, 2192818, 2421087,
+            2673114, 2951373, 3258594, 3597792, 3972294, 4385776, 4842295, 5346332, 5902831, 6517253, 7195629,
+            7944614, 8771558, 9684577, 10692629, 11805606, 13034431
+    };
+    /**
+     * The player associated with this Skills instance.
+     */
+    private Player player;
+    private Skills skills;
+    private long totalGainedExp;
+
+    /**
      * The skillmanager's constructor
      *
      * @param player The player's who skill set is being represented.
@@ -36,6 +77,103 @@ public class SkillManager {
     public SkillManager(Player player) {
         this.player = player;
         newSkillManager();
+    }
+
+    public static boolean maxed(Player p) {
+        for (int i = 0; i < Skill.values().length; i++) {
+            if (i == 21)
+                continue;
+            if (p.getSkillManager().getMaxLevel(i) < (i == 3 || i == 5 ? 990 : 99)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int getPrestigePoints(Player player, Skill skill) {
+        float MAX_EXP = (float) MAX_EXPERIENCE;
+        float experience = player.getSkillManager().getExperience(skill);
+        int basePoints = skill.getPrestigePoints();
+        double bonusPointsModifier = player.getGameMode() == GameMode.IRONMAN ? 1.3 : player.getGameMode() == GameMode.HARDCORE_IRONMAN ? 1.6 : 1;
+        bonusPointsModifier += (experience / MAX_EXP) * 5;
+        int totalPoints = (int) (basePoints * bonusPointsModifier);
+        return totalPoints;
+    }
+
+    /**
+     * Gets the minimum experience in said level.
+     *
+     * @param level The level to get minimum experience for.
+     * @return The least amount of experience needed to achieve said level.
+     */
+    public static int getExperienceForLevel(int level) {
+        if (level <= 99) {
+            return EXP_ARRAY[--level > 98 ? 98 : level];
+        } else {
+            int points = 0;
+            int output = 0;
+            for (int lvl = 1; lvl <= level; lvl++) {
+                points += Math.floor(lvl + 300.0 * Math.pow(2.0, lvl / 7.0));
+                if (lvl >= level) {
+                    return output;
+                }
+                output = (int) Math.floor(points / 4);
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Gets the level from said experience.
+     *
+     * @param experience The experience to get level for.
+     * @return The level you obtain when you have specified experience.
+     */
+    public static int getLevelForExperience(int experience) {
+        if (experience <= EXPERIENCE_FOR_99) {
+            for (int j = 98; j >= 0; j--) {
+                if (EXP_ARRAY[j] <= experience) {
+                    return j + 1;
+                }
+            }
+        } else {
+            int points = 0, output = 0;
+            for (int lvl = 1; lvl <= 99; lvl++) {
+                points += Math.floor(lvl + 300.0 * Math.pow(2.0, lvl / 7.0));
+                output = (int) Math.floor(points / 4);
+                if (output >= experience) {
+                    return lvl;
+                }
+            }
+        }
+        return 99;
+    }
+
+    /**
+     * Checks if the skill is a x10 skill.
+     *
+     * @param skill The skill to check.
+     * @return The skill is a x10 skill.
+     */
+    public static boolean isNewSkill(Skill skill) {
+        return skill == Skill.CONSTITUTION || skill == Skill.PRAYER;
+    }
+
+    /**
+     * Gets the max level for <code>skill</code>
+     *
+     * @param skill The skill to get max level for.
+     * @return The max level that can be achieved in said skill.
+     */
+    public static int getMaxAchievingLevel(Skill skill) {
+        int level = 99;
+        if (isNewSkill(skill)) {
+            level = 990;
+        }
+		/*if (skill == Skill.DUNGEONEERING) {
+			level = 120;
+		}*/
+        return level;
     }
 
     /**
@@ -52,20 +190,6 @@ public class SkillManager {
         skills.experience[Skill.CONSTITUTION.ordinal()] = 1184;
         skills.level[Skill.PRAYER.ordinal()] = skills.maxLevel[Skill.PRAYER.ordinal()] = 10;
     }
-	
-	
-	/*if (skills.maxLevel[skill.ordinal()] == getMaxAchievingLevel(skill)) {
-			for(int i = 0; i < Skill.values().length; i++) {
-				if(i == 21)
-					continue;
-				if(player.getSkillManager().getMaxLevel(i) < (i == 3 || i == 5 ? 990 : 99)) {
-					return true;
-				}
-			World.sendMessage("Testing");
-				}
-			}
-	return false;
-	}*/
 
     /**
      * Adds experience to {@code skill} by the {@code experience} amount.
@@ -76,7 +200,7 @@ public class SkillManager {
      */
     public SkillManager addExperience(Skill skill, int experience) {
 
-        if (player.getLocation() == Location.BOSS_TIER_LOCATION){
+        if (player.getLocation() == Location.BOSS_TIER_LOCATION) {
             return this;
         }
 
@@ -277,17 +401,6 @@ public class SkillManager {
         return this;
     }
 
-    public static boolean maxed(Player p) {
-        for (int i = 0; i < Skill.values().length; i++) {
-            if (i == 21)
-                continue;
-            if (p.getSkillManager().getMaxLevel(i) < (i == 3 || i == 5 ? 990 : 99)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public SkillManager stopSkilling() {
         if (player.getCurrentTask() != null) {
             player.getPacketSender().sendRichPresenceState("Exploring Janus..");
@@ -351,65 +464,6 @@ public class SkillManager {
         WeaponAnimations.assign(player, player.getEquipment().get(Equipment.WEAPON_SLOT));
         player.getPacketSender().sendMessage("You have reset your " + skill.getFormatName() + " level.");
         return this;
-    }
-
-    public static int getPrestigePoints(Player player, Skill skill) {
-        float MAX_EXP = (float) MAX_EXPERIENCE;
-        float experience = player.getSkillManager().getExperience(skill);
-        int basePoints = skill.getPrestigePoints();
-        double bonusPointsModifier = player.getGameMode() == GameMode.IRONMAN ? 1.3 : player.getGameMode() == GameMode.HARDCORE_IRONMAN ? 1.6 : 1;
-        bonusPointsModifier += (experience / MAX_EXP) * 5;
-        int totalPoints = (int) (basePoints * bonusPointsModifier);
-        return totalPoints;
-    }
-
-    /**
-     * Gets the minimum experience in said level.
-     *
-     * @param level The level to get minimum experience for.
-     * @return The least amount of experience needed to achieve said level.
-     */
-    public static int getExperienceForLevel(int level) {
-        if (level <= 99) {
-            return EXP_ARRAY[--level > 98 ? 98 : level];
-        } else {
-            int points = 0;
-            int output = 0;
-            for (int lvl = 1; lvl <= level; lvl++) {
-                points += Math.floor(lvl + 300.0 * Math.pow(2.0, lvl / 7.0));
-                if (lvl >= level) {
-                    return output;
-                }
-                output = (int) Math.floor(points / 4);
-            }
-        }
-        return 0;
-    }
-
-    /**
-     * Gets the level from said experience.
-     *
-     * @param experience The experience to get level for.
-     * @return The level you obtain when you have specified experience.
-     */
-    public static int getLevelForExperience(int experience) {
-        if (experience <= EXPERIENCE_FOR_99) {
-            for (int j = 98; j >= 0; j--) {
-                if (EXP_ARRAY[j] <= experience) {
-                    return j + 1;
-                }
-            }
-        } else {
-            int points = 0, output = 0;
-            for (int lvl = 1; lvl <= 99; lvl++) {
-                points += Math.floor(lvl + 300.0 * Math.pow(2.0, lvl / 7.0));
-                output = (int) Math.floor(points / 4);
-                if (output >= experience) {
-                    return lvl;
-                }
-            }
-        }
-        return 99;
     }
 
     /**
@@ -487,33 +541,6 @@ public class SkillManager {
         for (Skill skill : Skill.values())
             xp += player.getSkillManager().getExperience(skill);
         return xp;
-    }
-
-    /**
-     * Checks if the skill is a x10 skill.
-     *
-     * @param skill The skill to check.
-     * @return The skill is a x10 skill.
-     */
-    public static boolean isNewSkill(Skill skill) {
-        return skill == Skill.CONSTITUTION || skill == Skill.PRAYER;
-    }
-
-    /**
-     * Gets the max level for <code>skill</code>
-     *
-     * @param skill The skill to get max level for.
-     * @return The max level that can be achieved in said skill.
-     */
-    public static int getMaxAchievingLevel(Skill skill) {
-        int level = 99;
-        if (isNewSkill(skill)) {
-            level = 990;
-        }
-		/*if (skill == Skill.DUNGEONEERING) {
-			level = 120;
-		}*/
-        return level;
     }
 
     /**
@@ -637,27 +664,6 @@ public class SkillManager {
         return this;
     }
 
-    /**
-     * The player associated with this Skills instance.
-     */
-    private Player player;
-    private Skills skills;
-    private long totalGainedExp;
-
-    public class Skills {
-
-        public Skills() {
-            level = new int[MAX_SKILLS];
-            maxLevel = new int[MAX_SKILLS];
-            experience = new int[MAX_SKILLS];
-        }
-
-        public int[] level;
-        public int[] maxLevel;
-        public int[] experience;
-
-    }
-
     public Skills getSkills() {
         return skills;
     }
@@ -674,28 +680,17 @@ public class SkillManager {
         this.totalGainedExp = totalGainedExp;
     }
 
-    /**
-     * The maximum amount of skills in the game.
-     */
-    public static final int MAX_SKILLS = 25;
+    public class Skills {
 
-    /**
-     * The maximum amount of experience you can
-     * achieve in a skill.
-     */
-    private static final int MAX_EXPERIENCE = 1000000000;
+        public int[] level;
+        public int[] maxLevel;
+        public int[] experience;
+        public Skills() {
+            level = new int[MAX_SKILLS];
+            maxLevel = new int[MAX_SKILLS];
+            experience = new int[MAX_SKILLS];
+        }
 
-    private static final int EXPERIENCE_FOR_99 = 13034431;
-
-    private static final int EXP_ARRAY[] = {
-            0, 83, 174, 276, 388, 512, 650, 801, 969, 1154, 1358, 1584, 1833, 2107, 2411, 2746, 3115, 3523,
-            3973, 4470, 5018, 5624, 6291, 7028, 7842, 8740, 9730, 10824, 12031, 13363, 14833, 16456, 18247,
-            20224, 22406, 24815, 27473, 30408, 33648, 37224, 41171, 45529, 50339, 55649, 61512, 67983, 75127,
-            83014, 91721, 101333, 111945, 123660, 136594, 150872, 166636, 184040, 203254, 224466, 247886,
-            273742, 302288, 333804, 368599, 407015, 449428, 496254, 547953, 605032, 668051, 737627, 814445,
-            899257, 992895, 1096278, 1210421, 1336443, 1475581, 1629200, 1798808, 1986068, 2192818, 2421087,
-            2673114, 2951373, 3258594, 3597792, 3972294, 4385776, 4842295, 5346332, 5902831, 6517253, 7195629,
-            7944614, 8771558, 9684577, 10692629, 11805606, 13034431
-    };
+    }
 
 }

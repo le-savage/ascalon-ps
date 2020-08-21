@@ -19,6 +19,41 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class Barrows {
 
+    public static final Object[][] data = {
+            {"Verac The Defiled", 37203},
+            {"Torag The Corrupted", 37205},
+            {"Karil The Tainted", 37207},
+            {"Guthan The Infested", 37206},
+            {"Dharok The Wretched", 37202},
+            {"Ahrim The Blighted", 37204}
+    };
+    public static final int[][] brokenBarrows = {{4708, 4860}, {4710, 4866},
+            {4712, 4872}, {4714, 4878}, {4716, 4884}, {4720, 4896},
+            {4718, 4890}, {4720, 4896}, {4722, 4902}, {4732, 4932},
+            {4734, 4938}, {4736, 4944}, {4738, 4950}, {4724, 4908},
+            {4726, 4914}, {4728, 4920}, {4730, 4926}, {4745, 4956},
+            {4747, 4926}, {4749, 4968}, {4751, 4994}, {4753, 4980},
+            {4755, 4986}, {4757, 4992}, {4759, 4998}};
+    public static final int[][] COFFIN_AND_BROTHERS = {{6823, 2030},
+            {6772, 2029}, {6822, 2028}, {6773, 2027}, {6771, 2026},
+            {6821, 2025}
+    };
+    public static final Position[] UNDERGROUND_SPAWNS = {
+            new Position(3569, 9677),
+            new Position(3535, 9677),
+            new Position(3534, 9711),
+            new Position(3569, 9712)
+    };
+    public static int[][] riddles = {
+            {2349, 2351, 2353, 2355, 2359, 2363, 2361, 0}
+    };
+    public static int runes[] = {4740, 558, 560, 565};
+    public static int barrows[] = {4708, 4710, 4712, 4714, 4708, 4710, 4712, 4714, 4716, 4718, 4720,
+            4722, 4724, 4718, 4720,
+            4722, 4724, 4718, 4720,
+            4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747,
+            4749, 4751, 4753, 4755, 4757, 4759};
+
     public static void handleLogin(Player player) {
         updateInterface(player);
     }
@@ -277,10 +312,6 @@ public class Barrows {
         player.getMinigameAttributes().getBarrowsMinigameAttributes().setRiddleAnswer(-1);
     }
 
-    public static int[][] riddles = {
-            {2349, 2351, 2353, 2355, 2359, 2363, 2361, 0}
-    };
-
     /**
      * Handles coffin searching
      *
@@ -328,15 +359,6 @@ public class Barrows {
         updateInterface(player);
         player.getMinigameAttributes().getBarrowsMinigameAttributes().setRandomCoffin(getRandomCoffin());
     }
-
-    public static final Object[][] data = {
-            {"Verac The Defiled", 37203},
-            {"Torag The Corrupted", 37205},
-            {"Karil The Tainted", 37207},
-            {"Guthan The Infested", 37206},
-            {"Dharok The Wretched", 37202},
-            {"Ahrim The Blighted", 37204}
-    };
 
     /**
      * Deregisters an NPC located in the Barrows minigame
@@ -429,27 +451,6 @@ public class Barrows {
             player.getInventory().delete(995, totalCost);
     }
 
-    public static int runes[] = {4740, 558, 560, 565};
-
-    public static int barrows[] = {4708, 4710, 4712, 4714, 4708, 4710, 4712, 4714, 4716, 4718, 4720,
-            4722, 4724, 4718, 4720,
-            4722, 4724, 4718, 4720,
-            4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747,
-            4749, 4751, 4753, 4755, 4757, 4759};
-
-    public static final int[][] brokenBarrows = {{4708, 4860}, {4710, 4866},
-            {4712, 4872}, {4714, 4878}, {4716, 4884}, {4720, 4896},
-            {4718, 4890}, {4720, 4896}, {4722, 4902}, {4732, 4932},
-            {4734, 4938}, {4736, 4944}, {4738, 4950}, {4724, 4908},
-            {4726, 4914}, {4728, 4920}, {4730, 4926}, {4745, 4956},
-            {4747, 4926}, {4749, 4968}, {4751, 4994}, {4753, 4980},
-            {4755, 4986}, {4757, 4992}, {4759, 4998}};
-
-    public static final int[][] COFFIN_AND_BROTHERS = {{6823, 2030},
-            {6772, 2029}, {6822, 2028}, {6773, 2027}, {6771, 2026},
-            {6821, 2025}
-    };
-
     public static boolean isBarrowsNPC(int id) {
         for (int i = 0; i < COFFIN_AND_BROTHERS.length; i++) {
             if (COFFIN_AND_BROTHERS[i][1] == id)
@@ -457,13 +458,6 @@ public class Barrows {
         }
         return false;
     }
-
-    public static final Position[] UNDERGROUND_SPAWNS = {
-            new Position(3569, 9677),
-            new Position(3535, 9677),
-            new Position(3534, 9711),
-            new Position(3569, 9712)
-    };
 
     public static int getRandomCoffin() {
         return Misc.getRandom(COFFIN_AND_BROTHERS.length - 1);

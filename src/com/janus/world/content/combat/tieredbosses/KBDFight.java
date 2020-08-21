@@ -55,7 +55,7 @@ public class KBDFight {
                 BossFunctions.setEquipment(player, gearOne[0], gearOne[1], gearOne[2], gearOne[3], gearOne[4], gearOne[5], gearOne[6], gearOne[7], gearOne[8]);
                 World.register(level1);
                 player.getRegionInstance().getNpcsList().addIfAbsent(level1);
-               // player.getRegionInstance().getNpcsList().add(level1);
+                // player.getRegionInstance().getNpcsList().add(level1);
                 break;
 
             case 1:

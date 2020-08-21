@@ -23,8 +23,20 @@ public class Cows {
     public static NPC cowkiller;
     public static NPC cowkiller2;
     public static NPC cowkiller3;
+    public static String[] KILLER_CHAT = {
+            "We must not fail, slay them all!",
+            "There shall be no cows left! Diminish them!",
+            "We must work as an army. Together, we must defeat all of the cows!",
+            "I'm sick of seeing these cows. Kill them all!",
+            "Put some muscle to it. One hit these fat animals!",
+            "Slay them for loot. Let us retrieve the rares!",
+            "I've been slaying these cows since 2006!",
+            "Cook their meat. Bury their bones. Loot their rares!",
+            "Come on then!. My sister can hit harder than you noobs!",
+            "Kill them faster! Clear them out of here once and for all!"
 
 
+    };
     private static CopyOnWriteArrayList<NPC> npcList = new CopyOnWriteArrayList<NPC>();
 
     public static void checkCoins(final Player player) {
@@ -65,21 +77,6 @@ public class Cows {
 
         }
     }
-
-    public static String[] KILLER_CHAT = {
-            "We must not fail, slay them all!",
-            "There shall be no cows left! Diminish them!",
-            "We must work as an army. Together, we must defeat all of the cows!",
-            "I'm sick of seeing these cows. Kill them all!",
-            "Put some muscle to it. One hit these fat animals!",
-            "Slay them for loot. Let us retrieve the rares!",
-            "I've been slaying these cows since 2006!",
-            "Cook their meat. Bury their bones. Loot their rares!",
-            "Come on then!. My sister can hit harder than you noobs!",
-            "Kill them faster! Clear them out of here once and for all!"
-
-
-    };
 
     public static void spawnMainNPCs() {
 

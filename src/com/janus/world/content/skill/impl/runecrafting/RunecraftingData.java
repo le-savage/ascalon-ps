@@ -7,119 +7,6 @@ import com.janus.world.entity.impl.player.Player;
 
 public class RunecraftingData {
 
-    public enum TalismanData {
-
-        AIR_TALISMAN(1438, 1, new Position(2841, 4828)),
-        MIND_TALISMAN(1448, 2, new Position(2793, 4827)),
-        WATER_TALISMAN(1444, 5, new Position(3482, 4834)),
-        EARTH_TALISMAN(1440, 9, new Position(2655, 4829)),
-        FIRE_TALISMAN(1442, 14, new Position(2576, 4846)),
-        BODY_TALISMAN(1446, 20, new Position(2522, 4833)),
-        COSMIC_TALISMAN(1454, 27, new Position(2163, 4833)),
-        CHAOS_TALISMAN(1452, 35, new Position(2282, 4837)),
-        ASTRAL_TALISMAN(-1, 40, null),
-        NATURE_TALISMAN(1462, 44, new Position(2400, 4834)),
-        LAW_TALISMAN(1458, 54, new Position(2464, 4817)),
-        DEATH_TALISMAN(1456, 65, new Position(2208, 4829)),
-        BLOOD_TALISMAN(1450, 77, new Position(2468, 4888, 1)),
-        ARMADYL_TALISMAN(1460, 77, new Position(2465, 4771));
-
-        TalismanData(int talismanId, int levelReq, Position location) {
-            this.talismanId = talismanId;
-            this.levelReq = levelReq;
-            this.location = location;
-        }
-
-        private int talismanId;
-        private int levelReq;
-        private Position location;
-
-        public int getTalismanID() {
-            return this.talismanId;
-        }
-
-        public int getLevelRequirement() {
-            return this.levelReq;
-        }
-
-        public Position getLocation() {
-            return this.location.copy();
-        }
-
-        public static TalismanData forId(int talismanId) {
-            for (TalismanData data : TalismanData.values()) {
-                if (data.getTalismanID() == talismanId) {
-                    return data;
-                }
-            }
-            return null;
-        }
-    }
-
-    public enum RuneData {
-        AIR_RUNE(556, 1, 120, 2478, false),
-        MIND_RUNE(558, 2, 140, 2479, false),
-        WATER_RUNE(555, 5, 150, 2480, false),
-        EARTH_RUNE(557, 9, 170, 2481, false),
-        FIRE_RUNE(554, 14, 210, 2482, false),
-        BODY_RUNE(559, 20, 245, 2483, false),
-        COSMIC_RUNE(564, 27, 350, 2484, true),
-        CHAOS_RUNE(562, 35, 450, 2487, true),
-        ASTRAL_RUNE(9075, 40, 480, 17010, true),
-        NATURE_RUNE(561, 44, 510, 2486, true),
-        LAW_RUNE(563, 54, 712, 2485, true),
-        DEATH_RUNE(560, 65, 957, 2488, true),
-        BLOOD_RUNE(565, 75, 1390, 30624, true),
-        ARMADYL_RUNE(21083, 77, 1410, 47120, true);
-
-        RuneData(int rune, int levelReq, int xpReward, int altarObjectID, boolean pureRequired) {
-            this.runeID = rune;
-            this.levelReq = levelReq;
-            this.xpReward = xpReward;
-            this.altarObjectID = altarObjectID;
-            this.pureRequired = pureRequired;
-        }
-
-        private int runeID;
-        private int levelReq;
-        private int xpReward;
-        private int altarObjectID;
-        private boolean pureRequired;
-
-        public int getRuneID() {
-            return this.runeID;
-        }
-
-        public int getLevelRequirement() {
-            return this.levelReq;
-        }
-
-        public int getXP() {
-            return this.xpReward;
-        }
-
-        public int getAltarID() {
-            return this.altarObjectID;
-        }
-
-        public boolean pureRequired() {
-            return this.pureRequired;
-        }
-
-        public String getName() {
-            return ItemDefinition.forId(runeID).getName();
-        }
-
-        public static RunecraftingData.RuneData forId(int objectId) {
-            for (RunecraftingData.RuneData runes : RunecraftingData.RuneData.values()) {
-                if (runes.getAltarID() == objectId) {
-                    return runes;
-                }
-            }
-            return null;
-        }
-    }
-
     public static int getMakeAmount(RuneData rune, Player player) {
         int amount = 1;
         switch (rune) {
@@ -217,5 +104,116 @@ public class RunecraftingData {
                 break;
         }
         return amount;
+    }
+
+    public enum TalismanData {
+
+        AIR_TALISMAN(1438, 1, new Position(2841, 4828)),
+        MIND_TALISMAN(1448, 2, new Position(2793, 4827)),
+        WATER_TALISMAN(1444, 5, new Position(3482, 4834)),
+        EARTH_TALISMAN(1440, 9, new Position(2655, 4829)),
+        FIRE_TALISMAN(1442, 14, new Position(2576, 4846)),
+        BODY_TALISMAN(1446, 20, new Position(2522, 4833)),
+        COSMIC_TALISMAN(1454, 27, new Position(2163, 4833)),
+        CHAOS_TALISMAN(1452, 35, new Position(2282, 4837)),
+        ASTRAL_TALISMAN(-1, 40, null),
+        NATURE_TALISMAN(1462, 44, new Position(2400, 4834)),
+        LAW_TALISMAN(1458, 54, new Position(2464, 4817)),
+        DEATH_TALISMAN(1456, 65, new Position(2208, 4829)),
+        BLOOD_TALISMAN(1450, 77, new Position(2468, 4888, 1)),
+        ARMADYL_TALISMAN(1460, 77, new Position(2465, 4771));
+
+        private int talismanId;
+        private int levelReq;
+        private Position location;
+        TalismanData(int talismanId, int levelReq, Position location) {
+            this.talismanId = talismanId;
+            this.levelReq = levelReq;
+            this.location = location;
+        }
+
+        public static TalismanData forId(int talismanId) {
+            for (TalismanData data : TalismanData.values()) {
+                if (data.getTalismanID() == talismanId) {
+                    return data;
+                }
+            }
+            return null;
+        }
+
+        public int getTalismanID() {
+            return this.talismanId;
+        }
+
+        public int getLevelRequirement() {
+            return this.levelReq;
+        }
+
+        public Position getLocation() {
+            return this.location.copy();
+        }
+    }
+
+    public enum RuneData {
+        AIR_RUNE(556, 1, 120, 2478, false),
+        MIND_RUNE(558, 2, 140, 2479, false),
+        WATER_RUNE(555, 5, 150, 2480, false),
+        EARTH_RUNE(557, 9, 170, 2481, false),
+        FIRE_RUNE(554, 14, 210, 2482, false),
+        BODY_RUNE(559, 20, 245, 2483, false),
+        COSMIC_RUNE(564, 27, 350, 2484, true),
+        CHAOS_RUNE(562, 35, 450, 2487, true),
+        ASTRAL_RUNE(9075, 40, 480, 17010, true),
+        NATURE_RUNE(561, 44, 510, 2486, true),
+        LAW_RUNE(563, 54, 712, 2485, true),
+        DEATH_RUNE(560, 65, 957, 2488, true),
+        BLOOD_RUNE(565, 75, 1390, 30624, true),
+        ARMADYL_RUNE(21083, 77, 1410, 47120, true);
+
+        private int runeID;
+        private int levelReq;
+        private int xpReward;
+        private int altarObjectID;
+        private boolean pureRequired;
+        RuneData(int rune, int levelReq, int xpReward, int altarObjectID, boolean pureRequired) {
+            this.runeID = rune;
+            this.levelReq = levelReq;
+            this.xpReward = xpReward;
+            this.altarObjectID = altarObjectID;
+            this.pureRequired = pureRequired;
+        }
+
+        public static RunecraftingData.RuneData forId(int objectId) {
+            for (RunecraftingData.RuneData runes : RunecraftingData.RuneData.values()) {
+                if (runes.getAltarID() == objectId) {
+                    return runes;
+                }
+            }
+            return null;
+        }
+
+        public int getRuneID() {
+            return this.runeID;
+        }
+
+        public int getLevelRequirement() {
+            return this.levelReq;
+        }
+
+        public int getXP() {
+            return this.xpReward;
+        }
+
+        public int getAltarID() {
+            return this.altarObjectID;
+        }
+
+        public boolean pureRequired() {
+            return this.pureRequired;
+        }
+
+        public String getName() {
+            return ItemDefinition.forId(runeID).getName();
+        }
     }
 }

@@ -98,6 +98,221 @@ public class Nex implements CombatStrategy {
         }
     }
 
+    /**
+     * MISC
+     **/
+
+    public static void dealtDamage(final Player p, final int damage) {
+        if (phase == 4) {
+            if (prayerType == 0 && damage != 0) {
+                new Projectile(NEX, p, 2263, 44, 3, 43, 43, 0).sendProjectile();
+                TaskManager.submit(new Task(2, NEX, false) {
+                    @Override
+                    public void execute() {
+                        NEX.setConstitution(NEX.getConstitution() + (damage / 5));
+                        p.getSkillManager().setCurrentLevel(Skill.PRAYER, p.getSkillManager().getCurrentLevel(Skill.PRAYER) - (damage / 85));
+                        if (p.getSkillManager().getCurrentLevel(Skill.PRAYER) < 0)
+                            p.getSkillManager().setCurrentLevel(Skill.PRAYER, 0);
+                        p.performGraphic(new Graphic(2264));
+                        new Projectile(NEX, p, 2263, 44, 3, 43, 43, 0).sendProjectile();
+                        this.stop();
+                    }
+                });
+            }
+        }
+    }
+
+    public static void takeDamage(Player from, int damage) {
+        if (phase == 4 && damage > 0) {
+            if (prayerType == 0) {
+                NEX.setConstitution(NEX.getConstitution() + (damage / 2));
+            }
+        }
+        if (phase == 3) {
+            if (NEX.getConstitution() <= 4000) {
+                if (magesKilled[3]) {
+                    phase = 4;
+                    NEX.forceChat("NOW, THE POWER OF ZAROS!");
+                    zarosStage = true;
+                }
+                if (!magesAttackable[3]) {
+                    NEX.forceChat("Don't fail me, Glacies!");
+                    sendGlobalMsg(from, "@red@Glacies is now attackable! You need to defeat him to weaken Nex!");
+                    NEX.setConstitution(4000);
+                    magesAttackable[3] = true;
+                }
+                if (magesAttackable[3] && !magesKilled[3]) {
+                    NEX.setConstitution(4000);
+                    from.getPacketSender().sendMessage("You need to kill Glacies before being able to damage Nex further!");
+                    from.getCombatBuilder().reset(true);
+                }
+            }
+        }
+        if (phase == 2) {
+            if (NEX.getConstitution() <= 8000) {
+                if (magesKilled[2])
+                    phase = 3;
+                if (!magesAttackable[2]) {
+                    NEX.forceChat("Don't fail me, Cruor!");
+                    sendGlobalMsg(from, "@red@Cruor is now attackable! You need to defeat him to weaken Nex!");
+                    NEX.setConstitution(8000);
+                    magesAttackable[2] = true;
+                }
+                if (magesAttackable[2] && !magesKilled[2]) {
+                    NEX.setConstitution(8000);
+                    from.getPacketSender().sendMessage("You need to kill Cruor before being able to damage Nex further!");
+                    from.getCombatBuilder().reset(true);
+                }
+            }
+        }
+        if (phase == 1) {
+            if (NEX.getConstitution() <= 12000) {
+                if (magesKilled[1])
+                    phase = 2;
+                if (!magesAttackable[1]) {
+                    NEX.forceChat("Don't fail me, Umbra!");
+                    sendGlobalMsg(from, "@red@Umbra is now attackable! You need to defeat him to weaken Nex!");
+                    magesAttackable[1] = true;
+                }
+                if (magesAttackable[1] && !magesKilled[1]) {
+                    NEX.setConstitution(12000);
+                    from.getPacketSender().sendMessage("You need to kill Umbra before being able to damage Nex further!");
+                    from.getCombatBuilder().reset(true);
+                }
+            }
+        }
+        if (phase == 0) {
+            if (NEX.getConstitution() <= 16000) {
+                if (magesKilled[0])
+                    phase = 1;
+                if (!magesAttackable[0]) {
+                    NEX.forceChat("Don't fail me, Fumus!");
+                    sendGlobalMsg(from, "@red@Fumus is now attackable! You need to defeat her to weaken Nex!");
+                    magesAttackable[0] = true;
+                }
+                if (magesAttackable[0] && !magesKilled[0]) {
+                    NEX.setConstitution(16000);
+                    from.getPacketSender().sendMessage("You need to kill Fumus before being able to damage Nex further!");
+                    from.getCombatBuilder().reset(true);
+                }
+            }
+        }
+    }
+
+    public static void handleDeath() {
+        phase = 0;
+        despawn(false);
+        NEX.forceChat("Taste my wrath!");
+        final int x = NEX.getPosition().getX(), y = NEX.getPosition().getY();
+        TaskManager.submit(new Task(4) {
+            @Override
+            public void execute() {
+                for (Player p : World.getPlayers()) {
+                    if (p == null)
+                        continue;
+                    if (p.getPosition().distanceToPoint(x, y) <= 3) {
+                        p.dealDamage(new Hit(150, Hitmask.RED, CombatIcon.NONE));
+                    }
+                    if (p.getPosition().distanceToPoint(x, y) <= 20) {
+
+                        for (int x_ = x - 2; x_ < x + 2; x_++) {
+                            for (int y_ = y - 2; y_ < y + 2; y_++) {
+                                p.getPacketSender().sendGraphic(new Graphic(2259), new Position(x_, y));
+                            }
+                        }
+                    }
+                }
+                this.stop();
+            }
+        });
+    }
+
+    public static void sendGlobalMsg(Player original, String message) {
+        for (Player p : Misc.getCombinedPlayerList(original)) {
+            if (p != null) {
+                p.getPacketSender().sendMessage(message);
+            }
+        }
+    }
+
+    public static boolean zarosStage() {
+        return zarosStage;
+    }
+
+    public static boolean nexMob(int id) {
+        return id == 13447 || nexMinion(id);
+    }
+
+    public static boolean nexMinion(int id) {
+        return id >= 13451 && id <= 13454;
+    }
+
+    public static boolean checkAttack(Player p, int npc) {
+        if (npc == 13447) {
+            for (int i = 0; i < magesAttackable.length; i++) {
+                if (magesAttackable[i] && !magesKilled[i]) {
+                    int index = 13451 + i;
+                    p.getPacketSender().sendMessage("You need to kill " + NpcDefinition.forId(index).getName() + " before being able to damage Nex further!");
+                    return false;
+                }
+            }
+            return true;
+        }
+        int index = npc - 13451;
+        if (!magesAttackable[index] && !magesKilled[index]) {
+            p.getPacketSender().sendMessage("" + NpcDefinition.forId(npc).getName() + " is currently being protected by Nex!");
+            return false;
+        }
+        return true;
+    }
+
+    public static void cough(final Player p) {
+        if (p.isCoughing())
+            return;
+        p.getPacketSender().sendMessage("You've been infected with a virus!");
+        p.setCoughing(true);
+        TaskManager.submit(new Task(1, p, false) {
+            int ticks = 0;
+
+            @Override
+            public void execute() {
+                if (ticks >= 5 || p.getConstitution() <= 0 || p.getLocation() != Location.GODWARS_DUNGEON) {
+                    this.stop();
+                    return;
+                }
+                p.forceChat("Cough..");
+                for (Skill skill : Skill.values()) {
+                    if (skill != Skill.CONSTITUTION && skill != Skill.PRAYER) {
+                        p.getSkillManager().setCurrentLevel(skill, p.getSkillManager().getCurrentLevel(skill) - 1);
+                        if (p.getSkillManager().getCurrentLevel(skill) < 1)
+                            p.getSkillManager().setCurrentLevel(skill, 1);
+                    }
+                }
+                for (Player p2 : Misc.getCombinedPlayerList(p)) {
+                    if (p2 == null || p2 == p)
+                        continue;
+                    if (p2.getPosition().distanceToPoint(p.getPosition().getX(), p.getPosition().getY()) == 1 && p2.getConstitution() > 0 && p2.getLocation() == Location.GODWARS_DUNGEON) {
+                        cough(p2);
+                    }
+                }
+                ticks++;
+            }
+
+            @Override
+            public void stop() {
+                setEventRunning(false);
+                p.setCoughing(false);
+            }
+        });
+    }
+
+    public static void setShadow(Player p, int shadow) {
+        if (p.getShadowState() == shadow)
+            return;
+        p.setShadowState(shadow);
+        p.getPacketSender().sendShadow().sendMessage("@whi@Nex calls upon shadows to endarken your vision!");
+    }
+
     @Override
     public boolean canAttack(Character entity, Character victim) {
         return victim.isPlayer() && ((Player) victim).getMinigameAttributes().getGodwarsDungeonAttributes().hasEnteredRoom();
@@ -395,222 +610,6 @@ public class Nex implements CombatStrategy {
     @Override
     public int attackDistance(Character entity) {
         return phase == 2 ? 2 : 8;
-    }
-
-
-    /**
-     * MISC
-     **/
-
-    public static void dealtDamage(final Player p, final int damage) {
-        if (phase == 4) {
-            if (prayerType == 0 && damage != 0) {
-                new Projectile(NEX, p, 2263, 44, 3, 43, 43, 0).sendProjectile();
-                TaskManager.submit(new Task(2, NEX, false) {
-                    @Override
-                    public void execute() {
-                        NEX.setConstitution(NEX.getConstitution() + (damage / 5));
-                        p.getSkillManager().setCurrentLevel(Skill.PRAYER, p.getSkillManager().getCurrentLevel(Skill.PRAYER) - (damage / 85));
-                        if (p.getSkillManager().getCurrentLevel(Skill.PRAYER) < 0)
-                            p.getSkillManager().setCurrentLevel(Skill.PRAYER, 0);
-                        p.performGraphic(new Graphic(2264));
-                        new Projectile(NEX, p, 2263, 44, 3, 43, 43, 0).sendProjectile();
-                        this.stop();
-                    }
-                });
-            }
-        }
-    }
-
-    public static void takeDamage(Player from, int damage) {
-        if (phase == 4 && damage > 0) {
-            if (prayerType == 0) {
-                NEX.setConstitution(NEX.getConstitution() + (damage / 2));
-            }
-        }
-        if (phase == 3) {
-            if (NEX.getConstitution() <= 4000) {
-                if (magesKilled[3]) {
-                    phase = 4;
-                    NEX.forceChat("NOW, THE POWER OF ZAROS!");
-                    zarosStage = true;
-                }
-                if (!magesAttackable[3]) {
-                    NEX.forceChat("Don't fail me, Glacies!");
-                    sendGlobalMsg(from, "@red@Glacies is now attackable! You need to defeat him to weaken Nex!");
-                    NEX.setConstitution(4000);
-                    magesAttackable[3] = true;
-                }
-                if (magesAttackable[3] && !magesKilled[3]) {
-                    NEX.setConstitution(4000);
-                    from.getPacketSender().sendMessage("You need to kill Glacies before being able to damage Nex further!");
-                    from.getCombatBuilder().reset(true);
-                }
-            }
-        }
-        if (phase == 2) {
-            if (NEX.getConstitution() <= 8000) {
-                if (magesKilled[2])
-                    phase = 3;
-                if (!magesAttackable[2]) {
-                    NEX.forceChat("Don't fail me, Cruor!");
-                    sendGlobalMsg(from, "@red@Cruor is now attackable! You need to defeat him to weaken Nex!");
-                    NEX.setConstitution(8000);
-                    magesAttackable[2] = true;
-                }
-                if (magesAttackable[2] && !magesKilled[2]) {
-                    NEX.setConstitution(8000);
-                    from.getPacketSender().sendMessage("You need to kill Cruor before being able to damage Nex further!");
-                    from.getCombatBuilder().reset(true);
-                }
-            }
-        }
-        if (phase == 1) {
-            if (NEX.getConstitution() <= 12000) {
-                if (magesKilled[1])
-                    phase = 2;
-                if (!magesAttackable[1]) {
-                    NEX.forceChat("Don't fail me, Umbra!");
-                    sendGlobalMsg(from, "@red@Umbra is now attackable! You need to defeat him to weaken Nex!");
-                    magesAttackable[1] = true;
-                }
-                if (magesAttackable[1] && !magesKilled[1]) {
-                    NEX.setConstitution(12000);
-                    from.getPacketSender().sendMessage("You need to kill Umbra before being able to damage Nex further!");
-                    from.getCombatBuilder().reset(true);
-                }
-            }
-        }
-        if (phase == 0) {
-            if (NEX.getConstitution() <= 16000) {
-                if (magesKilled[0])
-                    phase = 1;
-                if (!magesAttackable[0]) {
-                    NEX.forceChat("Don't fail me, Fumus!");
-                    sendGlobalMsg(from, "@red@Fumus is now attackable! You need to defeat her to weaken Nex!");
-                    magesAttackable[0] = true;
-                }
-                if (magesAttackable[0] && !magesKilled[0]) {
-                    NEX.setConstitution(16000);
-                    from.getPacketSender().sendMessage("You need to kill Fumus before being able to damage Nex further!");
-                    from.getCombatBuilder().reset(true);
-                }
-            }
-        }
-    }
-
-    public static void handleDeath() {
-        phase = 0;
-        despawn(false);
-        NEX.forceChat("Taste my wrath!");
-        final int x = NEX.getPosition().getX(), y = NEX.getPosition().getY();
-        TaskManager.submit(new Task(4) {
-            @Override
-            public void execute() {
-                for (Player p : World.getPlayers()) {
-                    if (p == null)
-                        continue;
-                    if (p.getPosition().distanceToPoint(x, y) <= 3) {
-                        p.dealDamage(new Hit(150, Hitmask.RED, CombatIcon.NONE));
-                    }
-                    if (p.getPosition().distanceToPoint(x, y) <= 20) {
-
-                        for (int x_ = x - 2; x_ < x + 2; x_++) {
-                            for (int y_ = y - 2; y_ < y + 2; y_++) {
-                                p.getPacketSender().sendGraphic(new Graphic(2259), new Position(x_, y));
-                            }
-                        }
-                    }
-                }
-                this.stop();
-            }
-        });
-    }
-
-    public static void sendGlobalMsg(Player original, String message) {
-        for (Player p : Misc.getCombinedPlayerList(original)) {
-            if (p != null) {
-                p.getPacketSender().sendMessage(message);
-            }
-        }
-    }
-
-    public static boolean zarosStage() {
-        return zarosStage;
-    }
-
-    public static boolean nexMob(int id) {
-        return id == 13447 || nexMinion(id);
-    }
-
-    public static boolean nexMinion(int id) {
-        return id >= 13451 && id <= 13454;
-    }
-
-    public static boolean checkAttack(Player p, int npc) {
-        if (npc == 13447) {
-            for (int i = 0; i < magesAttackable.length; i++) {
-                if (magesAttackable[i] && !magesKilled[i]) {
-                    int index = 13451 + i;
-                    p.getPacketSender().sendMessage("You need to kill " + NpcDefinition.forId(index).getName() + " before being able to damage Nex further!");
-                    return false;
-                }
-            }
-            return true;
-        }
-        int index = npc - 13451;
-        if (!magesAttackable[index] && !magesKilled[index]) {
-            p.getPacketSender().sendMessage("" + NpcDefinition.forId(npc).getName() + " is currently being protected by Nex!");
-            return false;
-        }
-        return true;
-    }
-
-    public static void cough(final Player p) {
-        if (p.isCoughing())
-            return;
-        p.getPacketSender().sendMessage("You've been infected with a virus!");
-        p.setCoughing(true);
-        TaskManager.submit(new Task(1, p, false) {
-            int ticks = 0;
-
-            @Override
-            public void execute() {
-                if (ticks >= 5 || p.getConstitution() <= 0 || p.getLocation() != Location.GODWARS_DUNGEON) {
-                    this.stop();
-                    return;
-                }
-                p.forceChat("Cough..");
-                for (Skill skill : Skill.values()) {
-                    if (skill != Skill.CONSTITUTION && skill != Skill.PRAYER) {
-                        p.getSkillManager().setCurrentLevel(skill, p.getSkillManager().getCurrentLevel(skill) - 1);
-                        if (p.getSkillManager().getCurrentLevel(skill) < 1)
-                            p.getSkillManager().setCurrentLevel(skill, 1);
-                    }
-                }
-                for (Player p2 : Misc.getCombinedPlayerList(p)) {
-                    if (p2 == null || p2 == p)
-                        continue;
-                    if (p2.getPosition().distanceToPoint(p.getPosition().getX(), p.getPosition().getY()) == 1 && p2.getConstitution() > 0 && p2.getLocation() == Location.GODWARS_DUNGEON) {
-                        cough(p2);
-                    }
-                }
-                ticks++;
-            }
-
-            @Override
-            public void stop() {
-                setEventRunning(false);
-                p.setCoughing(false);
-            }
-        });
-    }
-
-    public static void setShadow(Player p, int shadow) {
-        if (p.getShadowState() == shadow)
-            return;
-        p.setShadowState(shadow);
-        p.getPacketSender().sendShadow().sendMessage("@whi@Nex calls upon shadows to endarken your vision!");
     }
 
     @Override

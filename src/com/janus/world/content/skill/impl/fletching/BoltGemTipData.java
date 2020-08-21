@@ -36,6 +36,23 @@ DRAGON_ONYX(21029, 9194, 21041, 10, 84, 10 );*/
         this.amount = amount;
     }
 
+    public static BoltGemTipData forBolts(int id) {
+        for (BoltGemTipData bolt : BoltGemTipData.values()) {
+            if (bolt.getBolt() == id) {
+                return bolt;
+            }
+        }
+        return null;
+    }
+
+    public static BoltGemTipData forTip(int id) {
+        for (BoltGemTipData bolt : BoltGemTipData.values()) {
+            if (bolt.getTip() == id) {
+                return bolt;
+            }
+        }
+        return null;
+    }
 
     public int getBolt() {
         return bolt;
@@ -59,24 +76,6 @@ DRAGON_ONYX(21029, 9194, 21041, 10, 84, 10 );*/
 
     public int getXp() {
         return xp;
-    }
-
-    public static BoltGemTipData forBolts(int id) {
-        for (BoltGemTipData bolt : BoltGemTipData.values()) {
-            if (bolt.getBolt() == id) {
-                return bolt;
-            }
-        }
-        return null;
-    }
-
-    public static BoltGemTipData forTip(int id) {
-        for (BoltGemTipData bolt : BoltGemTipData.values()) {
-            if (bolt.getTip() == id) {
-                return bolt;
-            }
-        }
-        return null;
     }
 }
 

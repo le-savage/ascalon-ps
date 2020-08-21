@@ -12,8 +12,8 @@ import com.janus.world.entity.impl.player.Player;
 
 public class CrazyMan {
 
-    public static NPC CrazyMan;
     public static final int CrazyManID = 3;
+    public static NPC CrazyMan;
 
     public static void destructMan(final Player player) {
 

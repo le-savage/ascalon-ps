@@ -9,7 +9,6 @@ import com.janus.util.Misc;
 import com.janus.util.RandomUtility;
 import com.janus.world.World;
 import com.janus.world.content.ItemsKeptOnDeath;
-import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.minigames.impl.FreeForAll;
 import com.janus.world.entity.impl.GroundItemManager;
 import com.janus.world.entity.impl.npc.NPC;
@@ -27,6 +26,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PlayerDeathTask extends Task {
 
+    Position oldPosition;
+    Location loc;
+    ArrayList<Item> itemsToKeep = null;
+    NPC death;
+    private Player player;
+    private int ticks = 5;
+    private boolean dropItems = true;
     /**
      * The PlayerDeathTask constructor.
      *
@@ -37,13 +43,46 @@ public class PlayerDeathTask extends Task {
         this.player = player;
     }
 
-    private Player player;
-    private int ticks = 5;
-    private boolean dropItems = true;
-    Position oldPosition;
-    Location loc;
-    ArrayList<Item> itemsToKeep = null;
-    NPC death;
+    public static NPC getDeathNpc(Player player) {
+        NPC death = new NPC(2862, new Position(player.getPosition().getX() + 1, player.getPosition().getY() + 1));
+        World.register(death);
+        death.setEntityInteraction(player);
+        death.performAnimation(new Animation(401));
+        death.forceChat(randomDeath(player.getUsername()));
+        return death;
+    }
+
+    public static String randomDeath(String name) {
+        switch (RandomUtility.getRandom(8)) {
+            case 0:
+                return "Flub has told me to spare you " + Misc.formatText(name)
+                        + "...";
+            case 1:
+                return "You owe me....";
+            case 2:
+                return "You belong to me!";
+            case 3:
+                return "Beware mortals, " + Misc.formatText(name)
+                        + " travels with me!";
+            case 4:
+                return "Your time here is over, " + Misc.formatText(name)
+                        + "!";
+            case 5:
+                return "Now is the time you die, " + Misc.formatText(name)
+                        + "!";
+            case 6:
+                return "I claim " + Misc.formatText(name) + " as my own!";
+            case 7:
+                return "" + Misc.formatText(name) + " is mine!";
+            case 8:
+                return "Let me escort you back to Edgeville, "
+                        + Misc.formatText(name) + "!";
+            case 9:
+                return "I have come for you, " + Misc.formatText(name)
+                        + "!";
+        }
+        return "";
+    }
 
     @Override
     public void execute() {
@@ -185,48 +224,6 @@ public class PlayerDeathTask extends Task {
                 player.setConstitution(player.getSkillManager().getMaxLevel(Skill.CONSTITUTION));
             }
         }
-    }
-
-    public static NPC getDeathNpc(Player player) {
-        NPC death = new NPC(2862, new Position(player.getPosition().getX() + 1, player.getPosition().getY() + 1));
-        World.register(death);
-        death.setEntityInteraction(player);
-        death.performAnimation(new Animation(401));
-        death.forceChat(randomDeath(player.getUsername()));
-        return death;
-    }
-
-
-    public static String randomDeath(String name) {
-        switch (RandomUtility.getRandom(8)) {
-            case 0:
-                return "Flub has told me to spare you " + Misc.formatText(name)
-                        + "...";
-            case 1:
-                return "You owe me....";
-            case 2:
-                return "You belong to me!";
-            case 3:
-                return "Beware mortals, " + Misc.formatText(name)
-                        + " travels with me!";
-            case 4:
-                return "Your time here is over, " + Misc.formatText(name)
-                        + "!";
-            case 5:
-                return "Now is the time you die, " + Misc.formatText(name)
-                        + "!";
-            case 6:
-                return "I claim " + Misc.formatText(name) + " as my own!";
-            case 7:
-                return "" + Misc.formatText(name) + " is mine!";
-            case 8:
-                return "Let me escort you back to Edgeville, "
-                        + Misc.formatText(name) + "!";
-            case 9:
-                return "I have come for you, " + Misc.formatText(name)
-                        + "!";
-        }
-        return "";
     }
 
 }

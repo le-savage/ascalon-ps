@@ -30,7 +30,6 @@ import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.strategy.CombatStrategies;
 import com.janus.world.content.combat.tieredbosses.BossFunctions;
-import com.janus.world.content.combat.tieredbosses.KBDFight;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.grandexchange.GrandExchangeOffers;
 import com.janus.world.content.minigames.impl.FreeForAll;
@@ -54,133 +53,9 @@ import mysql.impl.FoxSystems.FoxVoting;
 
 public class CommandPacketListener implements PacketListener {
 
+    private static final String[] admin = {"admin", "administrator", "a d m i n"};
+    private static final String[] mod = {"mod", "moderator", "m o d"};
     public static int config;
-
-    @Override
-    public void handleMessage(Player player, Packet packet) {
-        String command = Misc.readString(packet.getBuffer());
-        String[] parts = command.toLowerCase().split(" ");
-        if ((command.contains("item") || command.contains("spawn") || command.contains("noclip") || command.contains("tele") || command.contains("bank")
-                && player.getRights() != PlayerRights.MODERATOR && player.getRights() != PlayerRights.OWNER)) {
-            //DiscordMessenger.sendCommandLog("[ALERT] ["+player.getUsername().toUpperCase()+"] ["+player.getRights().toString().toUpperCase()+"] TRIED TO USE: "+command);
-        } else {
-            //DiscordMessenger.sendCommandLog("[" + player.getUsername().toUpperCase() + "] [" + player.getRights().toString().toUpperCase() + "] : " + command);
-        }
-        if (command.contains("\r") || command.contains("\n")) {
-            return;
-        }
-        try {
-            switch (player.getRights()) {
-                case PLAYER:
-                    playerCommands(player, parts, command);
-                    break;
-                case COMMUNITYMANAGER:
-                case MODERATOR:
-                    playerCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    uberDonator(player, parts, command);
-                    memberCommands(player, parts, command);
-                    helperCommands(player, parts, command);
-                    moderatorCommands(player, parts, command);
-                    break;
-                case ADMINISTRATOR:
-                    playerCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    uberDonator(player, parts, command);
-                    memberCommands(player, parts, command);
-                    helperCommands(player, parts, command);
-                    moderatorCommands(player, parts, command);
-                    administratorCommands(player, parts, command);
-                    break;
-                case OWNER:
-                    playerCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    uberDonator(player, parts, command);
-                    memberCommands(player, parts, command);
-                    helperCommands(player, parts, command);
-                    moderatorCommands(player, parts, command);
-                    administratorCommands(player, parts, command);
-                    ownerCommands(player, parts, command);
-                    developerCommands(player, parts, command);
-                    break;
-                case DEVELOPER:
-                    playerCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    uberDonator(player, parts, command);
-                    memberCommands(player, parts, command);
-                    helperCommands(player, parts, command);
-                    moderatorCommands(player, parts, command);
-                    administratorCommands(player, parts, command);
-                    ownerCommands(player, parts, command);
-                    developerCommands(player, parts, command);
-                    break;
-                case SUPPORT:
-                    playerCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    uberDonator(player, parts, command);
-                    memberCommands(player, parts, command);
-                    helperCommands(player, parts, command);
-                    break;
-			/*case YOUTUBER:
-				playerCommands(player, parts, command);
-				memberCommands(player, parts, command);
-				break;*/
-                case DONATOR:
-                    playerCommands(player, parts, command);
-                    memberCommands(player, parts, command);
-                    break;
-                case SUPER_DONATOR:
-                    playerCommands(player, parts, command);
-                    memberCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    break;
-                case EXTREME_DONATOR:
-                    playerCommands(player, parts, command);
-                    memberCommands(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    superDonator(player, parts, command);
-                    break;
-                case LEGENDARY_DONATOR:
-                    playerCommands(player, parts, command);
-                    memberCommands(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    superDonator(player, parts, command);
-                    break;
-                case UBER_DONATOR:
-                    playerCommands(player, parts, command);
-                    memberCommands(player, parts, command);
-                    uberDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    superDonator(player, parts, command);
-                    break;
-                default:
-                    break;
-            }
-        } catch (Exception exception) {
-            // exception.printStackTrace();
-
-            if (player.getRights() == PlayerRights.DEVELOPER || player.getRights() == PlayerRights.OWNER) {
-                player.getPacketSender().sendConsoleMessage("Error executing that command.");
-                exception.printStackTrace();
-            } else {
-                player.getPacketSender().sendMessage("Error executing that command.");
-            }
-
-        }
-    }
-
 
     private static void playerCommands(final Player player, String[] command, String wholeCommand) {
 
@@ -894,14 +769,12 @@ public class CommandPacketListener implements PacketListener {
         }
     }
 
-
     private static void uberDonator(final Player player, String[] command, String wholeCommand) {
         if (command[0].equals("uzone")) {
             if (player.getRights().isStaff() || player.getRights() == PlayerRights.UBER_DONATOR)
                 TeleportHandler.teleportPlayer(player, new Position(2408, 4724), player.getSpellbook().getTeleportType());
         }
     }
-
 
     private static void legendaryDonator(final Player player, String[] command, String wholeCommand) {
         if (command[0].equals("lzone")) {
@@ -931,9 +804,6 @@ public class CommandPacketListener implements PacketListener {
                         player.getSpellbook().getTeleportType());
         }
     }
-
-    private static final String[] admin = {"admin", "administrator", "a d m i n"};
-    private static final String[] mod = {"mod", "moderator", "m o d"};
 
     private static void memberCommands(final Player player, String[] command, String wholeCommand) {
 
@@ -1660,7 +1530,6 @@ public class CommandPacketListener implements PacketListener {
 
 
     }
-
 
     private static void ownerCommands(final Player player, String[] command, String wholeCommand) {
 
@@ -2677,6 +2546,131 @@ public class CommandPacketListener implements PacketListener {
             WeaponAnimations.assign(player, player.getEquipment().get(Equipment.WEAPON_SLOT));
             BonusManager.update(player);
             player.getUpdateFlag().flag(Flag.APPEARANCE);
+        }
+    }
+
+    @Override
+    public void handleMessage(Player player, Packet packet) {
+        String command = Misc.readString(packet.getBuffer());
+        String[] parts = command.toLowerCase().split(" ");
+        if ((command.contains("item") || command.contains("spawn") || command.contains("noclip") || command.contains("tele") || command.contains("bank")
+                && player.getRights() != PlayerRights.MODERATOR && player.getRights() != PlayerRights.OWNER)) {
+            //DiscordMessenger.sendCommandLog("[ALERT] ["+player.getUsername().toUpperCase()+"] ["+player.getRights().toString().toUpperCase()+"] TRIED TO USE: "+command);
+        } else {
+            //DiscordMessenger.sendCommandLog("[" + player.getUsername().toUpperCase() + "] [" + player.getRights().toString().toUpperCase() + "] : " + command);
+        }
+        if (command.contains("\r") || command.contains("\n")) {
+            return;
+        }
+        try {
+            switch (player.getRights()) {
+                case PLAYER:
+                    playerCommands(player, parts, command);
+                    break;
+                case COMMUNITYMANAGER:
+                case MODERATOR:
+                    playerCommands(player, parts, command);
+                    superDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    uberDonator(player, parts, command);
+                    memberCommands(player, parts, command);
+                    helperCommands(player, parts, command);
+                    moderatorCommands(player, parts, command);
+                    break;
+                case ADMINISTRATOR:
+                    playerCommands(player, parts, command);
+                    superDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    uberDonator(player, parts, command);
+                    memberCommands(player, parts, command);
+                    helperCommands(player, parts, command);
+                    moderatorCommands(player, parts, command);
+                    administratorCommands(player, parts, command);
+                    break;
+                case OWNER:
+                    playerCommands(player, parts, command);
+                    superDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    uberDonator(player, parts, command);
+                    memberCommands(player, parts, command);
+                    helperCommands(player, parts, command);
+                    moderatorCommands(player, parts, command);
+                    administratorCommands(player, parts, command);
+                    ownerCommands(player, parts, command);
+                    developerCommands(player, parts, command);
+                    break;
+                case DEVELOPER:
+                    playerCommands(player, parts, command);
+                    superDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    uberDonator(player, parts, command);
+                    memberCommands(player, parts, command);
+                    helperCommands(player, parts, command);
+                    moderatorCommands(player, parts, command);
+                    administratorCommands(player, parts, command);
+                    ownerCommands(player, parts, command);
+                    developerCommands(player, parts, command);
+                    break;
+                case SUPPORT:
+                    playerCommands(player, parts, command);
+                    superDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    uberDonator(player, parts, command);
+                    memberCommands(player, parts, command);
+                    helperCommands(player, parts, command);
+                    break;
+			/*case YOUTUBER:
+				playerCommands(player, parts, command);
+				memberCommands(player, parts, command);
+				break;*/
+                case DONATOR:
+                    playerCommands(player, parts, command);
+                    memberCommands(player, parts, command);
+                    break;
+                case SUPER_DONATOR:
+                    playerCommands(player, parts, command);
+                    memberCommands(player, parts, command);
+                    superDonator(player, parts, command);
+                    break;
+                case EXTREME_DONATOR:
+                    playerCommands(player, parts, command);
+                    memberCommands(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    superDonator(player, parts, command);
+                    break;
+                case LEGENDARY_DONATOR:
+                    playerCommands(player, parts, command);
+                    memberCommands(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    superDonator(player, parts, command);
+                    break;
+                case UBER_DONATOR:
+                    playerCommands(player, parts, command);
+                    memberCommands(player, parts, command);
+                    uberDonator(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    superDonator(player, parts, command);
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception exception) {
+            // exception.printStackTrace();
+
+            if (player.getRights() == PlayerRights.DEVELOPER || player.getRights() == PlayerRights.OWNER) {
+                player.getPacketSender().sendConsoleMessage("Error executing that command.");
+                exception.printStackTrace();
+            } else {
+                player.getPacketSender().sendMessage("Error executing that command.");
+            }
+
         }
     }
 }

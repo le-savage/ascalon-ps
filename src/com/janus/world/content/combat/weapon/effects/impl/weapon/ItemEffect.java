@@ -12,16 +12,6 @@ import java.util.List;
 
 public abstract class ItemEffect {
 
-    public abstract int itemId();
-
-    public abstract int hitAmount(Character attacker, Character victim);
-
-    public abstract void handleAttack(Character attacker, Character victim);
-
-    public abstract void afterAttack(CombatContainer container);
-
-    public abstract List<Character> targets(Character attacker, Character victim);
-
     static List<ItemEffect> itemEffects = new ArrayList<>();
 
     public static void loadEffects() {
@@ -51,4 +41,14 @@ public abstract class ItemEffect {
             }
         }
     }
+
+    public abstract int itemId();
+
+    public abstract int hitAmount(Character attacker, Character victim);
+
+    public abstract void handleAttack(Character attacker, Character victim);
+
+    public abstract void afterAttack(CombatContainer container);
+
+    public abstract List<Character> targets(Character attacker, Character victim);
 }

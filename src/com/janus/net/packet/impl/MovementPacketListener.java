@@ -18,6 +18,10 @@ import com.janus.world.entity.impl.player.Player;
 
 public class MovementPacketListener implements PacketListener {
 
+    public static final int COMMAND_MOVEMENT_OPCODE = 98;
+    public static final int GAME_MOVEMENT_OPCODE = 164;
+    public static final int MINIMAP_MOVEMENT_OPCODE = 248;
+
     @Override
     public void handleMessage(Player player, Packet packet) {
         int size = packet.getSize();
@@ -112,9 +116,5 @@ public class MovementPacketListener implements PacketListener {
         }
         return !player.getMovementQueue().isLockMovement();
     }
-
-    public static final int COMMAND_MOVEMENT_OPCODE = 98;
-    public static final int GAME_MOVEMENT_OPCODE = 164;
-    public static final int MINIMAP_MOVEMENT_OPCODE = 248;
 
 }

@@ -9,6 +9,19 @@ package com.janus.model;
 public class Graphic {
 
     /**
+     * The graphic's id.
+     */
+    private final int id;
+    /**
+     * The delay which the graphic must wait before being performed.
+     */
+    private final int delay;
+    /**
+     * The graphic's height level to display in.
+     */
+    private final GraphicHeight height;
+
+    /**
      * The graphic constructor for a character to perform.
      *
      * @param id The graphic's id.
@@ -53,21 +66,6 @@ public class Graphic {
         this.delay = delay;
         this.height = height;
     }
-
-    /**
-     * The graphic's id.
-     */
-    private final int id;
-
-    /**
-     * The delay which the graphic must wait before being performed.
-     */
-    private final int delay;
-
-    /**
-     * The graphic's height level to display in.
-     */
-    private final GraphicHeight height;
 
     /**
      * Gets the graphic's id.

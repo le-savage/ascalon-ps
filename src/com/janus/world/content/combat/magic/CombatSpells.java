@@ -2914,15 +2914,6 @@ public enum CombatSpells {
     }
 
     /**
-     * Gets the combat spell that can be casted.
-     *
-     * @return the combat spell that can be casted.
-     */
-    public CombatSpell getSpell() {
-        return spell;
-    }
-
-    /**
      * Gets the spell constant by its spell id.
      *
      * @param spellId the spell to retrieve.
@@ -2939,5 +2930,14 @@ public enum CombatSpells {
             }
         }
         return null;
+    }
+
+    /**
+     * Gets the combat spell that can be casted.
+     *
+     * @return the combat spell that can be casted.
+     */
+    public CombatSpell getSpell() {
+        return spell;
     }
 }

@@ -18,10 +18,112 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Dueling {
 
+    public static final int INTERFACE_REMOVAL_ID = 6669;
+    public int duelingStatus = 0;
+    public int duelingWith = -1;
+    public boolean inDuelScreen = false;
+    public boolean duelRequested = false;
+    public boolean[] selectedDuelRules = new boolean[DuelRule.values().length];
+    public CopyOnWriteArrayList<Item> stakedItems = new CopyOnWriteArrayList<Item>();
+    public int arenaStats[] = {0, 0};
+    public int spaceReq = 0;
+    public int duelConfig;
+    public int timer = 3;
+    public int inDuelWith = -1;
+    public Object[] duelingData = new Object[2];
+    protected Position duelTelePos = null;
     Player player;
+    private boolean canOffer;
 
     public Dueling(Player player) {
         this.player = player;
+    }
+
+    /**
+     * Checks if two players are the only ones in a duel.
+     *
+     * @param p1 Player1 to check if he's 1/2 player in trade.
+     * @param p2 Player2 to check if he's 2/2 player in trade.
+     * @return true if only two people are in the duel.
+     */
+    public static boolean twoDuelers(Player p1, Player p2) {
+        int count = 0;
+        for (Player player : World.getPlayers()) {
+            if (player == null)
+                continue;
+            if (player.getDueling().inDuelWith == p1.getIndex() || player.getDueling().inDuelWith == p2.getIndex()) {
+                count++;
+            }
+        }
+        return count == 2;
+    }
+
+    public static boolean handleDuelingButtons(final Player player, int button) {
+        if (DuelRule.forButtonId(button) != null) {
+            player.getDueling().selectRule(DuelRule.forButtonId(button));
+            return true;
+        } else {
+            if (player.getDueling().duelingWith < 0)
+                return false;
+            final Player playerToDuel = World.getPlayers().get(player.getDueling().duelingWith);
+            switch (button) {
+                case 6674:
+                    if (!player.getDueling().inDuelScreen)
+                        return true;
+                    if (playerToDuel == null)
+                        return true;
+                    if (!checkDuel(player, 1) && !checkDuel(player, 2))
+                        return true;
+                    if (player.getDueling().selectedDuelRules[DuelRule.NO_MELEE.ordinal()] && player.getDueling().selectedDuelRules[DuelRule.NO_RANGED.ordinal()] && player.getDueling().selectedDuelRules[DuelRule.NO_MAGIC.ordinal()]) {
+                        player.getPacketSender().sendMessage("You won't be able to attack the other player with the current rules.");
+                        return true;
+                    }
+                    player.getDueling().duelingStatus = 2;
+                    if (player.getDueling().duelingStatus == 2) {
+                        player.getPacketSender().sendString(6684, "Waiting for other player...");
+                        playerToDuel.getPacketSender().sendString(6684, "Other player has accepted.");
+                    }
+                    if (playerToDuel.getDueling().duelingStatus == 2) {
+                        playerToDuel.getPacketSender().sendString(6684, "Waiting for other player...");
+                        player.getPacketSender().sendString(6684, "Other player has accepted.");
+                    }
+                    if (player.getDueling().duelingStatus == 2 && playerToDuel.getDueling().duelingStatus == 2) {
+                        player.getDueling().duelingStatus = 3;
+                        playerToDuel.getDueling().duelingStatus = 3;
+                        playerToDuel.getDueling().confirmDuel();
+                        player.getDueling().confirmDuel();
+                    }
+                    return true;
+                case 6520:
+                    if (!player.getDueling().inDuelScreen || (!checkDuel(player, 3) && !checkDuel(player, 4)) || playerToDuel == null)
+                        return true;
+                    player.getDueling().duelingStatus = 4;
+                    if (playerToDuel.getDueling().duelingStatus == 4 && player.getDueling().duelingStatus == 4) {
+                        player.getDueling().startDuel();
+                        playerToDuel.getDueling().startDuel();
+                    } else {
+                        player.getPacketSender().sendString(6571, "Waiting for other player...");
+                        playerToDuel.getPacketSender().sendString(6571, "Other player has accepted");
+                    }
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean checkDuel(Player playerToDuel, int statusReq) {
+        boolean goodInterfaceId = playerToDuel.getInterfaceId() == -1 || playerToDuel.getInterfaceId() == 6575 || playerToDuel.getInterfaceId() == 6412;
+        if (playerToDuel.getDueling().duelingStatus != statusReq || playerToDuel.isBanking() || playerToDuel.isShopping() || playerToDuel.getConstitution() <= 0 || playerToDuel.isResting() || !goodInterfaceId)
+            return false;
+        return true;
+    }
+
+    public static boolean checkRule(Player player, DuelRule rule) {
+        if (player.getLocation() == Location.DUEL_ARENA && player.getDueling().duelingStatus == 5) {
+            if (player.getDueling().selectedDuelRules[rule.ordinal()])
+                return true;
+        }
+        return false;
     }
 
     public void challengePlayer(Player playerToDuel) {
@@ -229,7 +331,6 @@ public class Dueling {
         player.getPacketSender().sendItemContainer(player.getInventory(), 3322);
     }
 
-
     public void removeStakedItem(int itemId, int amount) {
         if (!inDuelScreen || !getCanOffer())
             return;
@@ -369,25 +470,6 @@ public class Dueling {
         }
     }
 
-    /**
-     * Checks if two players are the only ones in a duel.
-     *
-     * @param p1 Player1 to check if he's 1/2 player in trade.
-     * @param p2 Player2 to check if he's 2/2 player in trade.
-     * @return true if only two people are in the duel.
-     */
-    public static boolean twoDuelers(Player p1, Player p2) {
-        int count = 0;
-        for (Player player : World.getPlayers()) {
-            if (player == null)
-                continue;
-            if (player.getDueling().inDuelWith == p1.getIndex() || player.getDueling().inDuelWith == p2.getIndex()) {
-                count++;
-            }
-        }
-        return count == 2;
-    }
-
     public void confirmDuel() {
         final Player playerToDuel = World.getPlayers().get(duelingWith);
         if (playerToDuel == null)
@@ -440,59 +522,6 @@ public class Dueling {
         player.getPacketSender().sendString(6571, "");
         player.getPacketSender().sendInterfaceSet(6412, Inventory.INTERFACE_ID);
         player.getPacketSender().sendItemContainer(player.getInventory(), 3322);
-    }
-
-    public static boolean handleDuelingButtons(final Player player, int button) {
-        if (DuelRule.forButtonId(button) != null) {
-            player.getDueling().selectRule(DuelRule.forButtonId(button));
-            return true;
-        } else {
-            if (player.getDueling().duelingWith < 0)
-                return false;
-            final Player playerToDuel = World.getPlayers().get(player.getDueling().duelingWith);
-            switch (button) {
-                case 6674:
-                    if (!player.getDueling().inDuelScreen)
-                        return true;
-                    if (playerToDuel == null)
-                        return true;
-                    if (!checkDuel(player, 1) && !checkDuel(player, 2))
-                        return true;
-                    if (player.getDueling().selectedDuelRules[DuelRule.NO_MELEE.ordinal()] && player.getDueling().selectedDuelRules[DuelRule.NO_RANGED.ordinal()] && player.getDueling().selectedDuelRules[DuelRule.NO_MAGIC.ordinal()]) {
-                        player.getPacketSender().sendMessage("You won't be able to attack the other player with the current rules.");
-                        return true;
-                    }
-                    player.getDueling().duelingStatus = 2;
-                    if (player.getDueling().duelingStatus == 2) {
-                        player.getPacketSender().sendString(6684, "Waiting for other player...");
-                        playerToDuel.getPacketSender().sendString(6684, "Other player has accepted.");
-                    }
-                    if (playerToDuel.getDueling().duelingStatus == 2) {
-                        playerToDuel.getPacketSender().sendString(6684, "Waiting for other player...");
-                        player.getPacketSender().sendString(6684, "Other player has accepted.");
-                    }
-                    if (player.getDueling().duelingStatus == 2 && playerToDuel.getDueling().duelingStatus == 2) {
-                        player.getDueling().duelingStatus = 3;
-                        playerToDuel.getDueling().duelingStatus = 3;
-                        playerToDuel.getDueling().confirmDuel();
-                        player.getDueling().confirmDuel();
-                    }
-                    return true;
-                case 6520:
-                    if (!player.getDueling().inDuelScreen || (!checkDuel(player, 3) && !checkDuel(player, 4)) || playerToDuel == null)
-                        return true;
-                    player.getDueling().duelingStatus = 4;
-                    if (playerToDuel.getDueling().duelingStatus == 4 && player.getDueling().duelingStatus == 4) {
-                        player.getDueling().startDuel();
-                        playerToDuel.getDueling().startDuel();
-                    } else {
-                        player.getPacketSender().sendString(6571, "Waiting for other player...");
-                        playerToDuel.getPacketSender().sendString(6571, "Other player has accepted");
-                    }
-                    return true;
-            }
-        }
-        return false;
     }
 
     public void startDuel() {
@@ -620,21 +649,6 @@ public class Dueling {
         player.getPointsHandler().refreshPanel();
     }
 
-    public static boolean checkDuel(Player playerToDuel, int statusReq) {
-        boolean goodInterfaceId = playerToDuel.getInterfaceId() == -1 || playerToDuel.getInterfaceId() == 6575 || playerToDuel.getInterfaceId() == 6412;
-        if (playerToDuel.getDueling().duelingStatus != statusReq || playerToDuel.isBanking() || playerToDuel.isShopping() || playerToDuel.getConstitution() <= 0 || playerToDuel.isResting() || !goodInterfaceId)
-            return false;
-        return true;
-    }
-
-    public static boolean checkRule(Player player, DuelRule rule) {
-        if (player.getLocation() == Location.DUEL_ARENA && player.getDueling().duelingStatus == 5) {
-            if (player.getDueling().selectedDuelRules[rule.ordinal()])
-                return true;
-        }
-        return false;
-    }
-
     public void reset() {
         player.getPacketSender().sendRichPresenceState("Duel Arena");
         player.getPacketSender().sendRichPresenceSmallPictureText("CB LVL: " + player.getSkillManager().getCombatLevel());
@@ -671,22 +685,6 @@ public class Dueling {
         return canOffer && player.getInterfaceId() == 6575 && !player.isBanking() && !player.getPriceChecker().isOpen();
     }
 
-    public int duelingStatus = 0;
-    public int duelingWith = -1;
-    public boolean inDuelScreen = false;
-    public boolean duelRequested = false;
-    public boolean[] selectedDuelRules = new boolean[DuelRule.values().length];
-    public CopyOnWriteArrayList<Item> stakedItems = new CopyOnWriteArrayList<Item>();
-    public int arenaStats[] = {0, 0};
-    public int spaceReq = 0;
-    public int duelConfig;
-    public int timer = 3;
-    public int inDuelWith = -1;
-    private boolean canOffer;
-
-    public Object[] duelingData = new Object[2];
-    protected Position duelTelePos = null;
-
     public static enum DuelRule {
         NO_RANGED(16, 6725, -1, -1),
         NO_MELEE(32, 6726, -1, -1),
@@ -712,32 +710,15 @@ public class Dueling {
         NO_BOOTS(16777216, 13822, 1, Equipment.FEET_SLOT),
         NO_GLOVES(8388608, 13823, 1, Equipment.HANDS_SLOT);
 
+        private int configId;
+        private int buttonId;
+        private int inventorySpaceReq;
+        private int equipmentSlot;
         DuelRule(int configId, int buttonId, int inventorySpaceReq, int equipmentSlot) {
             this.configId = configId;
             this.buttonId = buttonId;
             this.inventorySpaceReq = inventorySpaceReq;
             this.equipmentSlot = equipmentSlot;
-        }
-
-        private int configId;
-        private int buttonId;
-        private int inventorySpaceReq;
-        private int equipmentSlot;
-
-        public int getConfigId() {
-            return configId;
-        }
-
-        public int getButtonId() {
-            return this.buttonId;
-        }
-
-        public int getInventorySpaceReq() {
-            return this.inventorySpaceReq;
-        }
-
-        public int getEquipmentSlot() {
-            return this.equipmentSlot;
         }
 
         public static DuelRule forId(int i) {
@@ -756,11 +737,25 @@ public class Dueling {
             return null;
         }
 
+        public int getConfigId() {
+            return configId;
+        }
+
+        public int getButtonId() {
+            return this.buttonId;
+        }
+
+        public int getInventorySpaceReq() {
+            return this.inventorySpaceReq;
+        }
+
+        public int getEquipmentSlot() {
+            return this.equipmentSlot;
+        }
+
         @Override
         public String toString() {
             return Misc.formatText(this.name().toLowerCase());
         }
     }
-
-    public static final int INTERFACE_REMOVAL_ID = 6669;
 }

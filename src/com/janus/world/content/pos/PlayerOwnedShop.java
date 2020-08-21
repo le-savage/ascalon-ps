@@ -53,6 +53,23 @@ public class PlayerOwnedShop {
      */
     private String username;
 
+    public static void resetItems(Player player) {
+
+        for (int i = 0; i < SHOP_CAPACITY; i++) {
+
+            PacketBuilder out = new PacketBuilder(34, PacketType.SHORT);
+
+            out.putShort(32621);
+            out.put(i);
+            out.putShort(0);
+            out.put(0);
+
+            player.getSession().queueMessage(out);
+
+        }
+
+    }
+
     public void open(Player player) {
         player.getPacketSender().sendString(32610, "Player Owned Shop - " + ownerName());
         player.getPacketSender().sendString(32611, "Search");
@@ -222,23 +239,6 @@ public class PlayerOwnedShop {
                 refresh(player, player.getPlayerOwnedShopManager().getMyShop() == this);
             }
         }
-    }
-
-    public static void resetItems(Player player) {
-
-        for (int i = 0; i < SHOP_CAPACITY; i++) {
-
-            PacketBuilder out = new PacketBuilder(34, PacketType.SHORT);
-
-            out.putShort(32621);
-            out.put(i);
-            out.putShort(0);
-            out.put(0);
-
-            player.getSession().queueMessage(out);
-
-        }
-
     }
 
     /**

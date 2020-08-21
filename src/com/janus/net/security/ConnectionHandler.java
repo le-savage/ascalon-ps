@@ -17,6 +17,28 @@ import java.util.*;
 
 public class ConnectionHandler {
 
+    /**
+     * BLACKLISTED CONNECTIONS SUCH AS PROXIES
+     **/
+    private static final String BLACKLIST_DIR = "./data/saves/blockedhosts.txt";
+    private static final String BLACKLISTED_MACS_DIR = "./data/saves/BannedMacs.txt";
+    private static final String BLACKLISTED_UUIDS_DIR = "./data/saves/BannedUUIDs.txt";
+    /**
+     * The concurrent map of registered connections.
+     */
+    private static final Map<String, Integer> CONNECTIONS = Collections.synchronizedMap(new HashMap<String, Integer>());
+    /**
+     * SAVED STARTERS
+     **/
+    private static final String STARTER_FILE = "./data/saves/starters.txt";
+    /**
+     * The concurrent map of registered connections.
+     */
+    private static final Map<String, Integer> STARTERS = Collections.synchronizedMap(new HashMap<String, Integer>());
+    private static List<String> BLACKLISTED_HOSTNAMES = new ArrayList<String>();
+    private static List<String> BLACKLISTED_MACS = new ArrayList<String>();
+    private static List<String> BLACKLISTED_UUIDS = new ArrayList<String>();
+
     public static void init() {
         loadHostBlacklist();
         loadUUIDBans();
@@ -58,35 +80,6 @@ public class ConnectionHandler {
         }
         return LoginResponses.LOGIN_SUCCESSFUL;
     }
-
-    /**
-     * BLACKLISTED CONNECTIONS SUCH AS PROXIES
-     **/
-    private static final String BLACKLIST_DIR = "./data/saves/blockedhosts.txt";
-    private static List<String> BLACKLISTED_HOSTNAMES = new ArrayList<String>();
-
-
-    private static final String BLACKLISTED_MACS_DIR = "./data/saves/BannedMacs.txt";
-    private static List<String> BLACKLISTED_MACS = new ArrayList<String>();
-
-    private static final String BLACKLISTED_UUIDS_DIR = "./data/saves/BannedUUIDs.txt";
-    private static List<String> BLACKLISTED_UUIDS = new ArrayList<String>();
-
-
-    /**
-     * The concurrent map of registered connections.
-     */
-    private static final Map<String, Integer> CONNECTIONS = Collections.synchronizedMap(new HashMap<String, Integer>());
-
-    /**
-     * SAVED STARTERS
-     **/
-    private static final String STARTER_FILE = "./data/saves/starters.txt";
-
-    /**
-     * The concurrent map of registered connections.
-     */
-    private static final Map<String, Integer> STARTERS = Collections.synchronizedMap(new HashMap<String, Integer>());
 
     private static void loadHostBlacklist() {
         String word = null;

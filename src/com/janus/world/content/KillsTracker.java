@@ -173,51 +173,6 @@ public class KillsTracker {
         return -1;
     }
 
-
-    public static class KillsEntry {
-
-        public KillsEntry(int npcId, int amount, boolean boss) {
-            this.npcName = NpcDefinition.forId(npcId).getName();
-            this.amount = amount;
-            this.runningTotal = amount;
-            this.boss = boss;
-            this.npcId = npcId;
-        }
-
-        public int getId() {
-            return npcId;
-        }
-
-        public int getAmount() {
-            return amount;
-        }
-
-        public int getRunningTotal() {
-            return this.runningTotal;
-        }
-
-        public void setAmount(int amount) {
-            this.amount = amount;
-        }
-
-        public void setRunningTotal(int amount) {
-            this.runningTotal = amount;
-        }
-
-        public int runningTotal;
-        public int npcId;
-        public String npcName;
-        public int amount;
-        public boolean boss;
-
-        @Override
-        public String toString() {
-            return "id: " + npcId + " - name " + npcName + " - boss: " + boss + "\n" +
-                    " amount: " + amount + " - runningTotal: " + runningTotal;
-        }
-    }
-
-
     public static int getTotalKills(Player player) {
         int totalKills = 0;
         for (KillsEntry entry : player.getKillsTracker()) {
@@ -235,6 +190,49 @@ public class KillsTracker {
             total += entry.getAmount();
         }
         return total;
+    }
+
+    public static class KillsEntry {
+
+        public int runningTotal;
+        public int npcId;
+        public String npcName;
+        public int amount;
+        public boolean boss;
+
+        public KillsEntry(int npcId, int amount, boolean boss) {
+            this.npcName = NpcDefinition.forId(npcId).getName();
+            this.amount = amount;
+            this.runningTotal = amount;
+            this.boss = boss;
+            this.npcId = npcId;
+        }
+
+        public int getId() {
+            return npcId;
+        }
+
+        public int getAmount() {
+            return amount;
+        }
+
+        public void setAmount(int amount) {
+            this.amount = amount;
+        }
+
+        public int getRunningTotal() {
+            return this.runningTotal;
+        }
+
+        public void setRunningTotal(int amount) {
+            this.runningTotal = amount;
+        }
+
+        @Override
+        public String toString() {
+            return "id: " + npcId + " - name " + npcName + " - boss: " + boss + "\n" +
+                    " amount: " + amount + " - runningTotal: " + runningTotal;
+        }
     }
 
 }

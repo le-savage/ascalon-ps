@@ -5,6 +5,92 @@ import com.janus.world.entity.impl.player.Player;
 
 public class Achievements {
 
+    public static boolean handleButton(Player player, int button) {
+        if (!(button >= -20531 && button <= -20425)) {
+            return false;
+        }
+        int index = -1;
+        if (button >= -20531 && button <= -20503) {
+            index = 20531 + button;
+        } else if (button >= -20499 && button <= -20469) {
+            index = 30 + 20499 + button;
+        } else if (button >= -20466 && button <= -20435) {
+            index = 61 + 20466 + button;
+        } else if (button >= -20432 && button <= -20425) {
+            index = 93 + 20432 + button;
+        }
+        if (index >= 0 && index < AchievementData.values().length) {
+            AchievementData achievement = AchievementData.values()[index];
+            if (player.getAchievementAttributes().getCompletion()[achievement.ordinal()]) {
+                player.getPacketSender().sendMessage("<img=10> <col=339900>You have completed the achievement: " + achievement.interfaceLine + ".");
+            } else if (achievement.progressData == null) {
+                player.getPacketSender().sendMessage("<img=10> <col=660000>You have not started the achievement: " + achievement.interfaceLine + ".");
+            } else {
+                int progress = player.getAchievementAttributes().getProgress()[achievement.progressData[0]];
+                int requiredProgress = achievement.progressData[1];
+                if (progress == 0) {
+                    player.getPacketSender().sendMessage("<img=10> <col=660000>You have not started the achievement: " + achievement.interfaceLine + ".");
+                } else if (progress != requiredProgress) {
+                    player.getPacketSender().sendMessage("<img=10> <col=FFFF00>Your progress for this achievement is currently at: " + Misc.insertCommasToNumber("" + progress) + "/" + Misc.insertCommasToNumber("" + requiredProgress) + ".");
+                }
+            }
+        }
+        return true;
+    }
+
+    public static void updateInterface(Player player) {
+        for (AchievementData achievement : AchievementData.values()) {
+            boolean completed = player.getAchievementAttributes().getCompletion()[achievement.ordinal()];
+            boolean progress = achievement.progressData != null && player.getAchievementAttributes().getProgress()[achievement.progressData[0]] > 0;
+            player.getPacketSender().sendString(achievement.interfaceFrame, (completed ? "@gre@" : progress ? "@yel@" : "@red@") + achievement.interfaceLine);
+        }
+        player.getPacketSender().sendString(45001, "Achievements: " + player.getPointsHandler().getAchievementPoints() + "/" + AchievementData.values().length);
+    }
+
+    public static void setPoints(Player player) {
+        int points = 0;
+        for (AchievementData achievement : AchievementData.values()) {
+            if (player.getAchievementAttributes().getCompletion()[achievement.ordinal()]) {
+                points++;
+            }
+        }
+        player.getPointsHandler().setAchievementPoints(points, false);
+    }
+
+    public static void doProgress(Player player, AchievementData achievement) {
+        doProgress(player, achievement, 1);
+    }
+
+    public static void doProgress(Player player, AchievementData achievement, int amt) {
+        if (player.getAchievementAttributes().getCompletion()[achievement.ordinal()])
+            return;
+        if (achievement.progressData != null) {
+            int progressIndex = achievement.progressData[0];
+            int amountNeeded = achievement.progressData[1];
+            int previousDone = player.getAchievementAttributes().getProgress()[progressIndex];
+            if ((previousDone + amt) < amountNeeded) {
+                player.getAchievementAttributes().getProgress()[progressIndex] = previousDone + amt;
+                if (previousDone == 0)
+                    player.getPacketSender().sendString(achievement.interfaceFrame, "@yel@" + achievement.interfaceLine);
+            } else {
+                finishAchievement(player, achievement);
+            }
+        }
+    }
+
+    public static void finishAchievement(Player player, AchievementData achievement) {
+        if (player.getAchievementAttributes().getCompletion()[achievement.ordinal()])
+            return;
+        player.getAchievementAttributes().getCompletion()[achievement.ordinal()] = true;
+        player.getPacketSender().sendString(achievement.interfaceFrame, ("@gre@") + achievement.interfaceLine).sendMessage("<img=10> <col=339900>You have completed the achievement " + Misc.formatText(achievement.toString().toLowerCase() + ".")).sendString(45001, "Achievements: " + player.getPointsHandler().getAchievementPoints() + "/" + AchievementData.values().length);
+
+        if (achievement.getDifficulty() == Difficulty.HARD) {
+            doProgress(player, AchievementData.COMPLETE_ALL_HARD_TASKS);
+        }
+
+        player.getPointsHandler().setAchievementPoints(1, true);
+    }
+
     public enum AchievementData {
 
         ENTER_THE_LOTTERY(Difficulty.EASY, "Enter The Lottery", 45005, null),
@@ -114,17 +200,16 @@ public class Achievements {
         UNLOCK_ALL_LOYALTY_TITLES(Difficulty.ELITE, "Unlock All Loyalty Titles", 45111, new int[]{52, 11}),
         ;
 
+        private Difficulty difficulty;
+        private String interfaceLine;
+        private int interfaceFrame;
+        private int[] progressData;
         AchievementData(Difficulty difficulty, String interfaceLine, int interfaceFrame, int[] progressData) {
             this.difficulty = difficulty;
             this.interfaceLine = interfaceLine;
             this.interfaceFrame = interfaceFrame;
             this.progressData = progressData;
         }
-
-        private Difficulty difficulty;
-        private String interfaceLine;
-        private int interfaceFrame;
-        private int[] progressData;
 
         public Difficulty getDifficulty() {
             return difficulty;
@@ -135,133 +220,46 @@ public class Achievements {
         BEGINNER, EASY, MEDIUM, HARD, ELITE;
     }
 
-    public static boolean handleButton(Player player, int button) {
-        if (!(button >= -20531 && button <= -20425)) {
-            return false;
-        }
-        int index = -1;
-        if (button >= -20531 && button <= -20503) {
-            index = 20531 + button;
-        } else if (button >= -20499 && button <= -20469) {
-            index = 30 + 20499 + button;
-        } else if (button >= -20466 && button <= -20435) {
-            index = 61 + 20466 + button;
-        } else if (button >= -20432 && button <= -20425) {
-            index = 93 + 20432 + button;
-        }
-        if (index >= 0 && index < AchievementData.values().length) {
-            AchievementData achievement = AchievementData.values()[index];
-            if (player.getAchievementAttributes().getCompletion()[achievement.ordinal()]) {
-                player.getPacketSender().sendMessage("<img=10> <col=339900>You have completed the achievement: " + achievement.interfaceLine + ".");
-            } else if (achievement.progressData == null) {
-                player.getPacketSender().sendMessage("<img=10> <col=660000>You have not started the achievement: " + achievement.interfaceLine + ".");
-            } else {
-                int progress = player.getAchievementAttributes().getProgress()[achievement.progressData[0]];
-                int requiredProgress = achievement.progressData[1];
-                if (progress == 0) {
-                    player.getPacketSender().sendMessage("<img=10> <col=660000>You have not started the achievement: " + achievement.interfaceLine + ".");
-                } else if (progress != requiredProgress) {
-                    player.getPacketSender().sendMessage("<img=10> <col=FFFF00>Your progress for this achievement is currently at: " + Misc.insertCommasToNumber("" + progress) + "/" + Misc.insertCommasToNumber("" + requiredProgress) + ".");
-                }
-            }
-        }
-        return true;
-    }
-
-    public static void updateInterface(Player player) {
-        for (AchievementData achievement : AchievementData.values()) {
-            boolean completed = player.getAchievementAttributes().getCompletion()[achievement.ordinal()];
-            boolean progress = achievement.progressData != null && player.getAchievementAttributes().getProgress()[achievement.progressData[0]] > 0;
-            player.getPacketSender().sendString(achievement.interfaceFrame, (completed ? "@gre@" : progress ? "@yel@" : "@red@") + achievement.interfaceLine);
-        }
-        player.getPacketSender().sendString(45001, "Achievements: " + player.getPointsHandler().getAchievementPoints() + "/" + AchievementData.values().length);
-    }
-
-    public static void setPoints(Player player) {
-        int points = 0;
-        for (AchievementData achievement : AchievementData.values()) {
-            if (player.getAchievementAttributes().getCompletion()[achievement.ordinal()]) {
-                points++;
-            }
-        }
-        player.getPointsHandler().setAchievementPoints(points, false);
-    }
-
-    public static void doProgress(Player player, AchievementData achievement) {
-        doProgress(player, achievement, 1);
-    }
-
-    public static void doProgress(Player player, AchievementData achievement, int amt) {
-        if (player.getAchievementAttributes().getCompletion()[achievement.ordinal()])
-            return;
-        if (achievement.progressData != null) {
-            int progressIndex = achievement.progressData[0];
-            int amountNeeded = achievement.progressData[1];
-            int previousDone = player.getAchievementAttributes().getProgress()[progressIndex];
-            if ((previousDone + amt) < amountNeeded) {
-                player.getAchievementAttributes().getProgress()[progressIndex] = previousDone + amt;
-                if (previousDone == 0)
-                    player.getPacketSender().sendString(achievement.interfaceFrame, "@yel@" + achievement.interfaceLine);
-            } else {
-                finishAchievement(player, achievement);
-            }
-        }
-    }
-
-    public static void finishAchievement(Player player, AchievementData achievement) {
-        if (player.getAchievementAttributes().getCompletion()[achievement.ordinal()])
-            return;
-        player.getAchievementAttributes().getCompletion()[achievement.ordinal()] = true;
-        player.getPacketSender().sendString(achievement.interfaceFrame, ("@gre@") + achievement.interfaceLine).sendMessage("<img=10> <col=339900>You have completed the achievement " + Misc.formatText(achievement.toString().toLowerCase() + ".")).sendString(45001, "Achievements: " + player.getPointsHandler().getAchievementPoints() + "/" + AchievementData.values().length);
-
-        if (achievement.getDifficulty() == Difficulty.HARD) {
-            doProgress(player, AchievementData.COMPLETE_ALL_HARD_TASKS);
-        }
-
-        player.getPointsHandler().setAchievementPoints(1, true);
-    }
-
     public static class AchievementAttributes {
-
-        public AchievementAttributes() {
-        }
 
         /**
          * ACHIEVEMENTS
          **/
         private boolean[] completed = new boolean[AchievementData.values().length];
         private int[] progress = new int[53];
-
-        public boolean[] getCompletion() {
-            return completed;
-        }
-
-        public void setCompletion(int index, boolean value) {
-            this.completed[index] = value;
-        }
-
-        public void setCompletion(boolean[] completed) {
-            this.completed = completed;
-        }
-
-        public int[] getProgress() {
-            return progress;
-        }
-
-        public void setProgress(int index, int value) {
-            this.progress[index] = value;
-        }
-
-        public void setProgress(int[] progress) {
-            this.progress = progress;
-        }
-
         /**
          * MISC
          **/
         private int coinsGambled;
         private double totalLoyaltyPointsEarned;
         private boolean[] godsKilled = new boolean[5];
+
+        public AchievementAttributes() {
+        }
+
+        public boolean[] getCompletion() {
+            return completed;
+        }
+
+        public void setCompletion(boolean[] completed) {
+            this.completed = completed;
+        }
+
+        public void setCompletion(int index, boolean value) {
+            this.completed[index] = value;
+        }
+
+        public int[] getProgress() {
+            return progress;
+        }
+
+        public void setProgress(int[] progress) {
+            this.progress = progress;
+        }
+
+        public void setProgress(int index, int value) {
+            this.progress[index] = value;
+        }
 
         public int getCoinsGambled() {
             return coinsGambled;
@@ -283,12 +281,12 @@ public class Achievements {
             return godsKilled;
         }
 
-        public void setGodKilled(int index, boolean godKilled) {
-            this.godsKilled[index] = godKilled;
-        }
-
         public void setGodsKilled(boolean[] b) {
             this.godsKilled = b;
+        }
+
+        public void setGodKilled(int index, boolean godKilled) {
+            this.godsKilled[index] = godKilled;
         }
     }
 }

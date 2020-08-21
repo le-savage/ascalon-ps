@@ -13,26 +13,13 @@ public enum SlayerMaster {
     KURADEL(80, 9085, new Position(1748, 5326)),
     SUMONA(92, 7780, new Position(3068, 3518));
 
+    private int slayerReq;
+    private int npcId;
+    private Position position;
     private SlayerMaster(int slayerReq, int npcId, Position telePosition) {
         this.slayerReq = slayerReq;
         this.npcId = npcId;
         this.position = telePosition;
-    }
-
-    private int slayerReq;
-    private int npcId;
-    private Position position;
-
-    public int getSlayerReq() {
-        return this.slayerReq;
-    }
-
-    public int getNpcId() {
-        return this.npcId;
-    }
-
-    public Position getPosition() {
-        return this.position;
     }
 
     public static SlayerMaster forId(int id) {
@@ -61,6 +48,18 @@ public enum SlayerMaster {
         player.getSlayer().setSlayerMaster(master);
         PlayerPanel.refreshPanel(player);
         player.getPacketSender().sendMessage("You've sucessfully changed Slayer master.");
+    }
+
+    public int getSlayerReq() {
+        return this.slayerReq;
+    }
+
+    public int getNpcId() {
+        return this.npcId;
+    }
+
+    public Position getPosition() {
+        return this.position;
     }
 
     @Override

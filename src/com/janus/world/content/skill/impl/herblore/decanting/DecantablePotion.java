@@ -30,6 +30,11 @@ public enum DecantablePotion {
                 .findAny().get();
     }
 
+    public static void main(String[] args) {
+        System.out.println(forId(113));
+        FISHING.getIds();
+    }
+
     public int doseForId(int itemId) {
         if (itemId == this.getIds()[0]) {
             return 4;
@@ -44,11 +49,6 @@ public enum DecantablePotion {
             return 1;
         }
         return -1;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(forId(113));
-        FISHING.getIds();
     }
 
     public int[] getIds() {

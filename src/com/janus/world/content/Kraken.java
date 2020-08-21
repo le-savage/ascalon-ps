@@ -11,32 +11,6 @@ import com.janus.world.entity.impl.player.Player;
 
 public class Kraken {
 
-    private static enum WhirpoolData {
-
-        SMALL_POOL_1(2895, new Position(3679, 9884)),
-        SMALL_POOL_2(2900, new Position(3676, 9884)),
-        SMALL_POOL_3(2902, new Position(3676, 9891)),
-        SMALL_POOL_4(2903, new Position(3679, 9891)),
-        BIG_POOL(2891, new Position(3677, 9887));
-
-        WhirpoolData(int npc, Position spawn) {
-            this.npc = npc;
-            this.spawn = spawn;
-        }
-
-        int npc;
-        Position spawn;
-
-        static WhirpoolData getPool(int npc) {
-            for (WhirpoolData d : WhirpoolData.values()) {
-                if (d.npc == npc) {
-                    return d;
-                }
-            }
-            return null;
-        }
-    }
-
     public static void enter(Player player) {
         KrakenInstance kInstance = new KrakenInstance(player);
 
@@ -85,14 +59,39 @@ public class Kraken {
         }
     }
 
+    private static enum WhirpoolData {
+
+        SMALL_POOL_1(2895, new Position(3679, 9884)),
+        SMALL_POOL_2(2900, new Position(3676, 9884)),
+        SMALL_POOL_3(2902, new Position(3676, 9891)),
+        SMALL_POOL_4(2903, new Position(3679, 9891)),
+        BIG_POOL(2891, new Position(3677, 9887));
+
+        int npc;
+        Position spawn;
+        WhirpoolData(int npc, Position spawn) {
+            this.npc = npc;
+            this.spawn = spawn;
+        }
+
+        static WhirpoolData getPool(int npc) {
+            for (WhirpoolData d : WhirpoolData.values()) {
+                if (d.npc == npc) {
+                    return d;
+                }
+            }
+            return null;
+        }
+    }
+
     public static class KrakenInstance extends RegionInstance {
+
+        private boolean[] disturbedPool = new boolean[5];
 
         public KrakenInstance(Player p) {
             super(p, RegionInstance.RegionInstanceType.KRAKEN);
 
         }
-
-        private boolean[] disturbedPool = new boolean[5];
 
         public boolean disturbedPool(int index) {
             return disturbedPool[index];

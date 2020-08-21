@@ -16,8 +16,8 @@ import com.janus.world.content.WildyWyrmEvent;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.strategy.impl.KalphiteQueen;
 import com.janus.world.content.combat.strategy.impl.Nex;
-import com.janus.world.content.combat.tieredbosses.BossNPCData;
 import com.janus.world.content.combat.tieredbosses.BossFunctions;
+import com.janus.world.content.combat.tieredbosses.BossNPCData;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
@@ -34,6 +34,10 @@ import java.util.Set;
  */
 
 public class NPCDeathTask extends Task {
+    /**
+     * The npc setting off the death task.
+     */
+    private final NPC npc;
     /*
      * The array which handles what bosses will give a player points
      * after death
@@ -41,6 +45,14 @@ public class NPCDeathTask extends Task {
     private Set<Integer> BOSSES = new HashSet<>(Arrays.asList(
             1999, 2882, 2881, 2883, 7134, 6766, 5666, 7286, 4540, 6222, 6260, 6247, 6203, 8349, 50, 2001, 11558, 1158, 8133, 3200, 13447, 8549, 3851, 1382, 8133, 13447, 2000, 2009, 2006, 499, 2042, 3
     )); //use this array of npcs to change the npcs you want to give boss points
+    /**
+     * The amount of ticks on the task.
+     */
+    private int ticks = 2;
+    /**
+     * The player who killed the NPC
+     */
+    private Player killer = null;
 
     /**
      * The NPCDeathTask constructor.
@@ -52,21 +64,6 @@ public class NPCDeathTask extends Task {
         this.npc = npc;
         this.ticks = 2;
     }
-
-    /**
-     * The npc setting off the death task.
-     */
-    private final NPC npc;
-
-    /**
-     * The amount of ticks on the task.
-     */
-    private int ticks = 2;
-
-    /**
-     * The player who killed the NPC
-     */
-    private Player killer = null;
 
     @SuppressWarnings("incomplete-switch")
     @Override
@@ -298,10 +295,10 @@ public class NPCDeathTask extends Task {
                     BossFunctions.despawnNpcs(killer);
                 }
                 if (killer.kbdTier >= 3) {
-                    World.sendFilteredMessage("@bla@[@blu@"+killer.getUsername() +"@bla@]@red@ has just completed tier "+ (killer.getKbdTier()-1)+ " at ::boss!");
+                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just completed tier " + (killer.getKbdTier() - 1) + " at ::boss!");
                 }
                 if (killer.kbdTier == 4) {
-                    World.sendFilteredMessage("@bla@[@blu@"+killer.getUsername() +"@bla@]@red@ has just killed the final tier "+ (killer.getKbdTier()-1)+ " at ::boss!");
+                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just killed the final tier " + (killer.getKbdTier() - 1) + " at ::boss!");
                 }
                 TaskManager.submit(new Task(2, killer, false) {
                     @Override

@@ -22,125 +22,25 @@ import com.janus.world.entity.impl.player.Player;
 
 public class Bank extends ItemContainer {
 
+    /**
+     * The bank interface id.
+     */
+    public static final int INTERFACE_ID = 5382;
+    /**
+     * The bank inventory interface id.
+     */
+    public static final int INVENTORY_INTERFACE_ID = 5064;
+    /**
+     * The bank tab interfaces
+     */
+    public static final int[][] BANK_TAB_INTERFACES = {{5, 0}, {13, 1}, {26, 2}, {39, 3}, {52, 4}, {65, 5}, {78, 6}, {91, 7}, {104, 8}};
+    /**
+     * The items in this container.
+     */
+    private Item[] items;
+
     public Bank(Player player) {
         super(player);
-    }
-
-    public Bank open() {
-        getPlayer().getPacketSender().sendClientRightClickRemoval();
-        if (Dungeoneering.doingDungeoneering(getPlayer())) {
-            return this;
-        }
-        if (getPlayer().getBankPinAttributes().hasBankPin() && !getPlayer().getBankPinAttributes().hasEnteredBankPin()) {
-            BankPin.init(getPlayer(), true);
-            return this;
-        }
-        if (getPlayer().getGameMode() == GameMode.HARDCORE_IRONMAN) {
-            getPlayer().getPacketSender().sendInterfaceRemoval().sendMessage("Hardcore-ironman-players cannot use banks.");
-            return this;
-        }
-        getPlayer().getPacketSender().sendRichPresenceState("Banking..");
-        getPlayer().getPacketSender().sendSmallImageKey("bank");
-        getPlayer().getPacketSender().sendRichPresenceSmallPictureText("PIN: 1234");
-        sortItems().refreshItems();
-        getPlayer().setBanking(true).setInputHandling(null);
-        getPlayer().getPacketSender().sendConfig(115, getPlayer().withdrawAsNote() ? 1 : 0).sendConfig(304, getPlayer().swapMode() ? 1 : 0).sendConfig(117, (getPlayer().getBankSearchingAttribtues().isSearchingBank() && getPlayer().getBankSearchingAttribtues().getSearchedBank() != null) ? 1 : 0).sendInterfaceSet(5292, 5063);
-        return this;
-    }
-
-    @Override
-    public Bank switchItem(ItemContainer to, Item item, int slot, boolean sort, boolean refresh) {
-        if (!getPlayer().isBanking() || getPlayer().getInterfaceId() != 5292 || to instanceof Inventory && !(getPlayer().getBank(getPlayer().getCurrentBankTab()).contains(item.getId()) || getPlayer().getBankSearchingAttribtues().getSearchedBank() != null && getPlayer().getBankSearchingAttribtues().getSearchedBank().contains(item.getId()))) {
-            getPlayer().getPacketSender().sendClientRightClickRemoval();
-            return this;
-        }
-        ItemDefinition def = ItemDefinition.forId(item.getId() + 1);
-        if (to.getFreeSlots() <= 0 && (!(to.contains(item.getId()) && item.getDefinition().isStackable())) && !(getPlayer().withdrawAsNote() && def != null && def.isNoted() && to.contains(def.getId()))) {
-            to.full();
-            return this;
-        }
-        if (item.getAmount() > to.getFreeSlots() && !item.getDefinition().isStackable()) {
-            if (to instanceof Inventory) {
-                if (getPlayer().withdrawAsNote()) {
-                    if (def == null || !def.isNoted())
-                        item.setAmount(to.getFreeSlots());
-                } else
-                    item.setAmount(to.getFreeSlots());
-            }
-        }
-        if (getPlayer().getBankSearchingAttribtues().isSearchingBank() && getPlayer().getBankSearchingAttribtues().getSearchedBank() != null) {
-            int tab = Bank.getTabForItem(getPlayer(), item.getId());
-            if (!getPlayer().getBank(tab).contains(item.getId()) || !getPlayer().getBankSearchingAttribtues().getSearchedBank().contains(item.getId()))
-                return this;
-            if (item.getAmount() > getPlayer().getBank(tab).getAmount(item.getId()))
-                item.setAmount(getPlayer().getBank(tab).getAmount(item.getId()));
-            if (item.getAmount() <= 0)
-                return this;
-            getPlayer().getBank(tab).delete(item);
-            getPlayer().getBankSearchingAttribtues().getSearchedBank().delete(item);
-            getPlayer().getBankSearchingAttribtues().getSearchedBank().open();
-        } else {
-            if (getItems()[slot].getId() != item.getId() || !contains(item.getId()))
-                return this;
-            if (item.getAmount() > getAmount(item.getId()))
-                item.setAmount(getAmount(item.getId()));
-
-            if (to instanceof Inventory) {
-                boolean withdrawAsNote = getPlayer().withdrawAsNote() && def != null && def.isNoted() && item.getDefinition() != null && def.getName().equalsIgnoreCase(item.getDefinition().getName()) && !def.getName().contains("Torva") && !def.getName().contains("Virtus") && !def.getName().contains("Pernix") && !def.getName().contains("Torva");
-                int checkId = withdrawAsNote ? item.getId() + 1 : item.getId();
-                if (to.getAmount(checkId) + item.getAmount() > Integer.MAX_VALUE || to.getAmount(checkId) + item.getAmount() <= 0) {
-                    getPlayer().getPacketSender().sendMessage("You cannot withdraw that entire amount into your inventory.");
-                    return this;
-                }
-            }
-
-            if (item.getAmount() <= 0)
-                return this;
-            delete(item, slot, refresh, to);
-        }
-        if (getPlayer().withdrawAsNote()) {
-            if (def != null && def.isNoted() && item.getDefinition() != null && def.getName().equalsIgnoreCase(item.getDefinition().getName()) && !def.getName().contains("Torva") && !def.getName().contains("Virtus") && !def.getName().contains("Pernix") && !def.getName().contains("Torva"))
-                item.setId(item.getId() + 1);
-            else
-                getPlayer().getPacketSender().sendMessage("This item cannot be withdrawn as a note.");
-        }
-        to.add(item, refresh);
-        if (sort && getAmount(item.getId()) <= 0)
-            sortItems();
-        if (refresh) {
-            refreshItems();
-            to.refreshItems();
-        }
-        return this;
-    }
-
-    @Override
-    public int capacity() {
-        return 352;
-    }
-
-    @Override
-    public StackType stackType() {
-        return StackType.STACKS;
-    }
-
-    @Override
-    public Bank refreshItems() {
-        Bank bank = getPlayer().getBankSearchingAttribtues().isSearchingBank() && getPlayer().getBankSearchingAttribtues().getSearchedBank() != null ? getPlayer().getBankSearchingAttribtues().getSearchedBank() : this;
-        getPlayer().getPacketSender().sendString(22033, "" + bank.getValidItems().size());
-        getPlayer().getPacketSender().sendString(22034, "" + bank.capacity());
-        getPlayer().getPacketSender().sendItemContainer(bank, INTERFACE_ID);
-        getPlayer().getPacketSender().sendItemContainer(getPlayer().getInventory(), INVENTORY_INTERFACE_ID);
-        sendTabs(getPlayer());
-        if (!getPlayer().isBanking() || getPlayer().getInterfaceId() != 5292)
-            getPlayer().getPacketSender().sendClientRightClickRemoval();
-        return this;
-    }
-
-    @Override
-    public Bank full() {
-        getPlayer().getPacketSender().sendMessage("Not enough space in bank.");
-        return this;
     }
 
     public static void sendTabs(Player player) {
@@ -297,20 +197,126 @@ public class Bank extends ItemContainer {
         return model;
     }
 
-    /**
-     * The bank interface id.
-     */
-    public static final int INTERFACE_ID = 5382;
+    public Bank open() {
+        getPlayer().getPacketSender().sendClientRightClickRemoval();
+        if (Dungeoneering.doingDungeoneering(getPlayer())) {
+            return this;
+        }
+        if (getPlayer().getBankPinAttributes().hasBankPin() && !getPlayer().getBankPinAttributes().hasEnteredBankPin()) {
+            BankPin.init(getPlayer(), true);
+            return this;
+        }
+        if (getPlayer().getGameMode() == GameMode.HARDCORE_IRONMAN) {
+            getPlayer().getPacketSender().sendInterfaceRemoval().sendMessage("Hardcore-ironman-players cannot use banks.");
+            return this;
+        }
+        getPlayer().getPacketSender().sendRichPresenceState("Banking..");
+        getPlayer().getPacketSender().sendSmallImageKey("bank");
+        getPlayer().getPacketSender().sendRichPresenceSmallPictureText("PIN: 1234");
+        sortItems().refreshItems();
+        getPlayer().setBanking(true).setInputHandling(null);
+        getPlayer().getPacketSender().sendConfig(115, getPlayer().withdrawAsNote() ? 1 : 0).sendConfig(304, getPlayer().swapMode() ? 1 : 0).sendConfig(117, (getPlayer().getBankSearchingAttribtues().isSearchingBank() && getPlayer().getBankSearchingAttribtues().getSearchedBank() != null) ? 1 : 0).sendInterfaceSet(5292, 5063);
+        return this;
+    }
 
-    /**
-     * The bank inventory interface id.
-     */
-    public static final int INVENTORY_INTERFACE_ID = 5064;
+    @Override
+    public Bank switchItem(ItemContainer to, Item item, int slot, boolean sort, boolean refresh) {
+        if (!getPlayer().isBanking() || getPlayer().getInterfaceId() != 5292 || to instanceof Inventory && !(getPlayer().getBank(getPlayer().getCurrentBankTab()).contains(item.getId()) || getPlayer().getBankSearchingAttribtues().getSearchedBank() != null && getPlayer().getBankSearchingAttribtues().getSearchedBank().contains(item.getId()))) {
+            getPlayer().getPacketSender().sendClientRightClickRemoval();
+            return this;
+        }
+        ItemDefinition def = ItemDefinition.forId(item.getId() + 1);
+        if (to.getFreeSlots() <= 0 && (!(to.contains(item.getId()) && item.getDefinition().isStackable())) && !(getPlayer().withdrawAsNote() && def != null && def.isNoted() && to.contains(def.getId()))) {
+            to.full();
+            return this;
+        }
+        if (item.getAmount() > to.getFreeSlots() && !item.getDefinition().isStackable()) {
+            if (to instanceof Inventory) {
+                if (getPlayer().withdrawAsNote()) {
+                    if (def == null || !def.isNoted())
+                        item.setAmount(to.getFreeSlots());
+                } else
+                    item.setAmount(to.getFreeSlots());
+            }
+        }
+        if (getPlayer().getBankSearchingAttribtues().isSearchingBank() && getPlayer().getBankSearchingAttribtues().getSearchedBank() != null) {
+            int tab = Bank.getTabForItem(getPlayer(), item.getId());
+            if (!getPlayer().getBank(tab).contains(item.getId()) || !getPlayer().getBankSearchingAttribtues().getSearchedBank().contains(item.getId()))
+                return this;
+            if (item.getAmount() > getPlayer().getBank(tab).getAmount(item.getId()))
+                item.setAmount(getPlayer().getBank(tab).getAmount(item.getId()));
+            if (item.getAmount() <= 0)
+                return this;
+            getPlayer().getBank(tab).delete(item);
+            getPlayer().getBankSearchingAttribtues().getSearchedBank().delete(item);
+            getPlayer().getBankSearchingAttribtues().getSearchedBank().open();
+        } else {
+            if (getItems()[slot].getId() != item.getId() || !contains(item.getId()))
+                return this;
+            if (item.getAmount() > getAmount(item.getId()))
+                item.setAmount(getAmount(item.getId()));
 
-    /**
-     * The bank tab interfaces
-     */
-    public static final int[][] BANK_TAB_INTERFACES = {{5, 0}, {13, 1}, {26, 2}, {39, 3}, {52, 4}, {65, 5}, {78, 6}, {91, 7}, {104, 8}};
+            if (to instanceof Inventory) {
+                boolean withdrawAsNote = getPlayer().withdrawAsNote() && def != null && def.isNoted() && item.getDefinition() != null && def.getName().equalsIgnoreCase(item.getDefinition().getName()) && !def.getName().contains("Torva") && !def.getName().contains("Virtus") && !def.getName().contains("Pernix") && !def.getName().contains("Torva");
+                int checkId = withdrawAsNote ? item.getId() + 1 : item.getId();
+                if (to.getAmount(checkId) + item.getAmount() > Integer.MAX_VALUE || to.getAmount(checkId) + item.getAmount() <= 0) {
+                    getPlayer().getPacketSender().sendMessage("You cannot withdraw that entire amount into your inventory.");
+                    return this;
+                }
+            }
+
+            if (item.getAmount() <= 0)
+                return this;
+            delete(item, slot, refresh, to);
+        }
+        if (getPlayer().withdrawAsNote()) {
+            if (def != null && def.isNoted() && item.getDefinition() != null && def.getName().equalsIgnoreCase(item.getDefinition().getName()) && !def.getName().contains("Torva") && !def.getName().contains("Virtus") && !def.getName().contains("Pernix") && !def.getName().contains("Torva"))
+                item.setId(item.getId() + 1);
+            else
+                getPlayer().getPacketSender().sendMessage("This item cannot be withdrawn as a note.");
+        }
+        to.add(item, refresh);
+        if (sort && getAmount(item.getId()) <= 0)
+            sortItems();
+        if (refresh) {
+            refreshItems();
+            to.refreshItems();
+        }
+        return this;
+    }
+
+    @Override
+    public int capacity() {
+        return 352;
+    }
+
+    @Override
+    public StackType stackType() {
+        return StackType.STACKS;
+    }
+
+    @Override
+    public Bank refreshItems() {
+        Bank bank = getPlayer().getBankSearchingAttribtues().isSearchingBank() && getPlayer().getBankSearchingAttribtues().getSearchedBank() != null ? getPlayer().getBankSearchingAttribtues().getSearchedBank() : this;
+        getPlayer().getPacketSender().sendString(22033, "" + bank.getValidItems().size());
+        getPlayer().getPacketSender().sendString(22034, "" + bank.capacity());
+        getPlayer().getPacketSender().sendItemContainer(bank, INTERFACE_ID);
+        getPlayer().getPacketSender().sendItemContainer(getPlayer().getInventory(), INVENTORY_INTERFACE_ID);
+        sendTabs(getPlayer());
+        if (!getPlayer().isBanking() || getPlayer().getInterfaceId() != 5292)
+            getPlayer().getPacketSender().sendClientRightClickRemoval();
+        return this;
+    }
+
+    @Override
+    public Bank full() {
+        getPlayer().getPacketSender().sendMessage("Not enough space in bank.");
+        return this;
+    }
+
+    public Item[] array() {
+        return items.clone();
+    }
 
     /**
      * The item id of the selected item in the 'bank X' option
@@ -321,33 +327,6 @@ public class Bank extends ItemContainer {
         private boolean searchingBank;
         private String searchSyntax;
         private Bank searchedBank;
-
-        public boolean isSearchingBank() {
-            return searchingBank;
-        }
-
-        public BankSearchAttributes setSearchingBank(boolean searchingBank) {
-            this.searchingBank = searchingBank;
-            return this;
-        }
-
-        public String getSearchSyntax() {
-            return searchSyntax;
-        }
-
-        public BankSearchAttributes setSearchSyntax(String searchSyntax) {
-            this.searchSyntax = searchSyntax;
-            return this;
-        }
-
-        public Bank getSearchedBank() {
-            return searchedBank;
-        }
-
-        public BankSearchAttributes setSearchedBank(Bank searchedBank) {
-            this.searchedBank = searchedBank;
-            return this;
-        }
 
         public static void beginSearch(Player player, String searchSyntax) {
             player.getPacketSender().sendClientRightClickRemoval();
@@ -393,14 +372,32 @@ public class Bank extends ItemContainer {
                     return;
             }
         }
-    }
 
-    /**
-     * The items in this container.
-     */
-    private Item[] items;
+        public boolean isSearchingBank() {
+            return searchingBank;
+        }
 
-    public Item[] array() {
-        return items.clone();
+        public BankSearchAttributes setSearchingBank(boolean searchingBank) {
+            this.searchingBank = searchingBank;
+            return this;
+        }
+
+        public String getSearchSyntax() {
+            return searchSyntax;
+        }
+
+        public BankSearchAttributes setSearchSyntax(String searchSyntax) {
+            this.searchSyntax = searchSyntax;
+            return this;
+        }
+
+        public Bank getSearchedBank() {
+            return searchedBank;
+        }
+
+        public BankSearchAttributes setSearchedBank(Bank searchedBank) {
+            this.searchedBank = searchedBank;
+            return this;
+        }
     }
 }

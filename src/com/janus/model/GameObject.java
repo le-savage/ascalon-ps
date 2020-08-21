@@ -14,6 +14,27 @@ import com.janus.world.entity.impl.player.Player;
 public class GameObject extends Entity {
 
     /**
+     * The object's id.
+     */
+    private int id;
+    /**
+     * The object's type (default=10).
+     */
+    private int type = 10;
+    /**
+     * The object's current direction to face.
+     */
+    private int face;
+    /**
+     * Value that handles the object's 'Picks'
+     */
+    private int picked;
+    /**
+     * Value that handles the object's 'Cuts'
+     */
+    private int cut;
+
+    /**
      * GameObject constructor to call upon a new game object.
      *
      * @param id       The new object's id.
@@ -53,11 +74,6 @@ public class GameObject extends Entity {
     }
 
     /**
-     * The object's id.
-     */
-    private int id;
-
-    /**
      * Gets the object's id.
      *
      * @return id.
@@ -65,11 +81,6 @@ public class GameObject extends Entity {
     public int getId() {
         return id;
     }
-
-    /**
-     * The object's type (default=10).
-     */
-    private int type = 10;
 
     /**
      * Gets the object's type.
@@ -90,11 +101,6 @@ public class GameObject extends Entity {
     }
 
     /**
-     * The object's current direction to face.
-     */
-    private int face;
-
-    /**
      * Gets the object's current face direction.
      *
      * @return face.
@@ -111,16 +117,6 @@ public class GameObject extends Entity {
     public void setFace(int face) {
         this.face = face;
     }
-
-    /**
-     * Value that handles the object's 'Picks'
-     */
-    private int picked;
-
-    /**
-     * Value that handles the object's 'Cuts'
-     */
-    private int cut;
 
     /**
      * Gets the object's definition.

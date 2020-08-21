@@ -11,32 +11,6 @@ import com.janus.world.entity.impl.player.Player;
 public class MinigameManager {
 
     /**
-     * Represents the allowed type of belongings
-     */
-    public enum AllowedType {
-        /**
-         * No inventory items allowed but rest are
-         */
-        NO_INVENTORY,
-        /**
-         * No equipment items allowed but rest are
-         */
-        NO_EQUIPMENT,
-        /**
-         * No equipment or inventory items but familiars allowed
-         */
-        NO_ITEMS,
-        /**
-         * Items allowed but no familiar
-         */
-        NO_FAMILIAR,
-        /**
-         * Nothing is allowed
-         */
-        NOTHING,
-    }
-
-    /**
      * Checks the entry
      *
      * @param player the player
@@ -81,5 +55,31 @@ public class MinigameManager {
             }
         }
         return true;
+    }
+
+    /**
+     * Represents the allowed type of belongings
+     */
+    public enum AllowedType {
+        /**
+         * No inventory items allowed but rest are
+         */
+        NO_INVENTORY,
+        /**
+         * No equipment items allowed but rest are
+         */
+        NO_EQUIPMENT,
+        /**
+         * No equipment or inventory items but familiars allowed
+         */
+        NO_ITEMS,
+        /**
+         * Items allowed but no familiar
+         */
+        NO_FAMILIAR,
+        /**
+         * Nothing is allowed
+         */
+        NOTHING,
     }
 }

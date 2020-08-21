@@ -9,13 +9,6 @@ import com.janus.world.entity.impl.player.Player;
 public class EnterAmountOfLogsToAdd extends EnterAmount {
 
 
-    @Override
-    public void handleAmount(Player player, int amount) {
-        Firemaking.lightFire(player, -1, true, amount);
-        if (player.getInteractingObject() != null)
-            player.setPositionToFace(player.getInteractingObject().getPosition());
-    }
-
     public static void openInterface(Player player) {
         player.getPacketSender().sendInterfaceRemoval();
         player.getSkillManager().stopSkilling();
@@ -26,6 +19,13 @@ public class EnterAmountOfLogsToAdd extends EnterAmount {
         }
         player.setInputHandling(new EnterAmountOfLogsToAdd());
         player.getPacketSender().sendEnterAmountPrompt("How many logs would you like to add to the fire?");
+    }
+
+    @Override
+    public void handleAmount(Player player, int amount) {
+        Firemaking.lightFire(player, -1, true, amount);
+        if (player.getInteractingObject() != null)
+            player.setPositionToFace(player.getInteractingObject().getPosition());
     }
 
 }

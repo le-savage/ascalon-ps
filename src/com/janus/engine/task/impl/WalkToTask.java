@@ -12,9 +12,19 @@ import com.janus.world.entity.impl.player.Player;
 
 public class WalkToTask {
 
-    public interface FinalizedMovementTask {
-        public void execute();
-    }
+    /**
+     * The associated game character.
+     */
+    private final Player player;
+    /**
+     * The task a player must execute upon reaching said destination.
+     */
+    private final FinalizedMovementTask finalizedTask;
+    private int distance = -1;
+    /**
+     * The destination the game character will move to.
+     */
+    private Position destination;
 
     /**
      * The WalkToTask constructor.
@@ -29,23 +39,6 @@ public class WalkToTask {
         this.finalizedTask = finalizedTask;
         this.distance = distance;
     }
-
-    private int distance = -1;
-
-    /**
-     * The associated game character.
-     */
-    private final Player player;
-
-    /**
-     * The destination the game character will move to.
-     */
-    private Position destination;
-
-    /**
-     * The task a player must execute upon reaching said destination.
-     */
-    private final FinalizedMovementTask finalizedTask;
 
     /**
      * Executes the action if distance is correct
@@ -68,5 +61,9 @@ public class WalkToTask {
                 player.setWalkToTask(null);
             }
         }
+    }
+
+    public interface FinalizedMovementTask {
+        public void execute();
     }
 }

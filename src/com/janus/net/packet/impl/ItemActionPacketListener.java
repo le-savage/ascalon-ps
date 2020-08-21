@@ -38,6 +38,10 @@ import com.janus.world.entity.impl.player.Player;
 public class ItemActionPacketListener implements PacketListener {
 
 
+    public static final int SECOND_ITEM_ACTION_OPCODE = 75;
+    public static final int FIRST_ITEM_ACTION_OPCODE = 122;
+    public static final int THIRD_ITEM_ACTION_OPCODE = 16;
+
     public static void cancelCurrentActions(Player player) {
         player.getPacketSender().sendInterfaceRemoval();
         player.setTeleporting(false);
@@ -1226,11 +1230,5 @@ public class ItemActionPacketListener implements PacketListener {
                 break;
         }
     }
-
-    public static final int SECOND_ITEM_ACTION_OPCODE = 75;
-
-    public static final int FIRST_ITEM_ACTION_OPCODE = 122;
-
-    public static final int THIRD_ITEM_ACTION_OPCODE = 16;
 
 }

@@ -5,7 +5,6 @@ import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
 import com.janus.util.Misc;
-import com.janus.world.World;
 import com.janus.world.entity.impl.player.Player;
 
 
@@ -19,7 +18,7 @@ public class LootCrate {
 
     public static int[] THREE = {123, 123, 123};
 
-    public static int[] FOUR =  {123, 123, 123};
+    public static int[] FOUR = {123, 123, 123};
 
 
     public static int getRandomItem(int[] array) {

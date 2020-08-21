@@ -65,6 +65,8 @@ import com.janus.world.entity.impl.player.Player;
 
 public class ObjectActionPacketListener implements PacketListener {
 
+    public static final int FIRST_CLICK = 132, SECOND_CLICK = 252, THIRD_CLICK = 70, FOURTH_CLICK = 234, FIFTH_CLICK = 228;
+
     /**
      * The PacketListener logger to debug information and print out errors.
      */
@@ -1575,7 +1577,6 @@ public class ObjectActionPacketListener implements PacketListener {
             player.getPacketSender().sendMessage("Third click object id; [id, position] : [" + id + ", " + position.toString() + "]");
     }
 
-
     private static void fourthClick(Player player, Packet packet) {
         final int id = packet.readUnsignedShortA();
         final int y = packet.readUnsignedShortA();
@@ -1642,6 +1643,4 @@ public class ObjectActionPacketListener implements PacketListener {
                 break;
         }
     }
-
-    public static final int FIRST_CLICK = 132, SECOND_CLICK = 252, THIRD_CLICK = 70, FOURTH_CLICK = 234, FIFTH_CLICK = 228;
 }

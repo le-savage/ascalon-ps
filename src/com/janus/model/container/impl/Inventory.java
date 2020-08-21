@@ -17,6 +17,8 @@ import java.util.Optional;
 
 public class Inventory extends ItemContainer {
 
+    public static final int INTERFACE_ID = 3214;
+
     /**
      * The Inventory constructor.
      *
@@ -124,6 +126,4 @@ public class Inventory extends ItemContainer {
             }
         }
     }
-
-    public static final int INTERFACE_ID = 3214;
 }

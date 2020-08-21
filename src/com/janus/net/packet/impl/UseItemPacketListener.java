@@ -46,6 +46,13 @@ import com.janus.world.entity.impl.player.Player;
 
 public class UseItemPacketListener implements PacketListener {
 
+    public final static int USE_ITEM = 122;
+    public final static int ITEM_ON_NPC = 57;
+    public final static int ITEM_ON_ITEM = 53;
+    public final static int ITEM_ON_OBJECT = 192;
+    public final static int ITEM_ON_GROUND_ITEM = 25;
+    public static final int ITEM_ON_PLAYER = 14;
+
     /**
      * The PacketListener logger to debug information and print out errors.
      */
@@ -429,16 +436,4 @@ public class UseItemPacketListener implements PacketListener {
                 break;
         }
     }
-
-    public final static int USE_ITEM = 122;
-
-    public final static int ITEM_ON_NPC = 57;
-
-    public final static int ITEM_ON_ITEM = 53;
-
-    public final static int ITEM_ON_OBJECT = 192;
-
-    public final static int ITEM_ON_GROUND_ITEM = 25;
-
-    public static final int ITEM_ON_PLAYER = 14;
 }

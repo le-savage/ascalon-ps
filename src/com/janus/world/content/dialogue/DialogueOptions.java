@@ -41,6 +41,21 @@ public class DialogueOptions {
 
     //Last id used = 78
 
+    public static int FIRST_OPTION_OF_FIVE = 2494;
+    public static int SECOND_OPTION_OF_FIVE = 2495;
+    public static int THIRD_OPTION_OF_FIVE = 2496;
+    public static int FOURTH_OPTION_OF_FIVE = 2497;
+    public static int FIFTH_OPTION_OF_FIVE = 2498;
+    public static int FIRST_OPTION_OF_FOUR = 2482;
+    public static int SECOND_OPTION_OF_FOUR = 2483;
+    public static int THIRD_OPTION_OF_FOUR = 2484;
+    public static int FOURTH_OPTION_OF_FOUR = 2485;
+    public static int FIRST_OPTION_OF_THREE = 2471;
+    public static int SECOND_OPTION_OF_THREE = 2472;
+    public static int THIRD_OPTION_OF_THREE = 2473;
+    public static int FIRST_OPTION_OF_TWO = 2461;
+    public static int SECOND_OPTION_OF_TWO = 2462;
+
     public static void handle(Player player, int id) {
         if (player.getRights() == PlayerRights.OWNER) {
             player.getPacketSender().sendMessage("Dialogue button id: " + id + ", action id: " + player.getDialogueActionId()).sendConsoleMessage("Dialogue button id: " + id + ", action id: " + player.getDialogueActionId());
@@ -1513,24 +1528,5 @@ public class DialogueOptions {
         }
 
     }
-
-    public static int FIRST_OPTION_OF_FIVE = 2494;
-    public static int SECOND_OPTION_OF_FIVE = 2495;
-    public static int THIRD_OPTION_OF_FIVE = 2496;
-    public static int FOURTH_OPTION_OF_FIVE = 2497;
-    public static int FIFTH_OPTION_OF_FIVE = 2498;
-
-    public static int FIRST_OPTION_OF_FOUR = 2482;
-    public static int SECOND_OPTION_OF_FOUR = 2483;
-    public static int THIRD_OPTION_OF_FOUR = 2484;
-    public static int FOURTH_OPTION_OF_FOUR = 2485;
-
-
-    public static int FIRST_OPTION_OF_THREE = 2471;
-    public static int SECOND_OPTION_OF_THREE = 2472;
-    public static int THIRD_OPTION_OF_THREE = 2473;
-
-    public static int FIRST_OPTION_OF_TWO = 2461;
-    public static int SECOND_OPTION_OF_TWO = 2462;
 
 }

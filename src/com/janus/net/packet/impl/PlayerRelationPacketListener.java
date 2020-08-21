@@ -16,6 +16,12 @@ import com.janus.world.entity.impl.player.Player;
 
 public class PlayerRelationPacketListener implements PacketListener {
 
+    public static final int ADD_FRIEND_OPCODE = 188;
+    public static final int REMOVE_FRIEND_OPCODE = 215;
+    public static final int ADD_IGNORE_OPCODE = 133;
+    public static final int REMOVE_IGNORE_OPCODE = 74;
+    public static final int SEND_PM_OPCODE = 126;
+
     @Override
     public void handleMessage(Player player, Packet packet) {
         try {
@@ -44,14 +50,4 @@ public class PlayerRelationPacketListener implements PacketListener {
 
         }
     }
-
-    public static final int ADD_FRIEND_OPCODE = 188;
-
-    public static final int REMOVE_FRIEND_OPCODE = 215;
-
-    public static final int ADD_IGNORE_OPCODE = 133;
-
-    public static final int REMOVE_IGNORE_OPCODE = 74;
-
-    public static final int SEND_PM_OPCODE = 126;
 }

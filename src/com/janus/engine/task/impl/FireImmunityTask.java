@@ -6,12 +6,20 @@ import com.janus.world.entity.impl.player.Player;
 
 public class FireImmunityTask extends Task {
 
+    final Player p;
+
     public FireImmunityTask(final Player p) {
         super(2, p, false);
         this.p = p;
     }
 
-    final Player p;
+    public static void makeImmune(final Player p, int seconds, int fireDamageModifier) {
+        boolean startEvent = p.getFireImmunity() == 0;
+        p.setFireImmunity(seconds).setFireDamageModifier(fireDamageModifier);
+        if (startEvent) {
+            TaskManager.submit(new FireImmunityTask(p));
+        }
+    }
 
     @Override
     public void execute() {
@@ -27,14 +35,6 @@ public class FireImmunityTask extends Task {
             p.setFireImmunity(0).setFireDamageModifier(0);
             p.getPacketSender().sendMessage("Your resistance to dragonfire has run out.");
             stop();
-        }
-    }
-
-    public static void makeImmune(final Player p, int seconds, int fireDamageModifier) {
-        boolean startEvent = p.getFireImmunity() == 0;
-        p.setFireImmunity(seconds).setFireDamageModifier(fireDamageModifier);
-        if (startEvent) {
-            TaskManager.submit(new FireImmunityTask(p));
         }
     }
 }

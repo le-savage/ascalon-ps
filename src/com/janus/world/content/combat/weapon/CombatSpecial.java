@@ -625,28 +625,6 @@ public enum CombatSpecial {
     }
 
     /**
-     * Fired when the argued {@link Player} activates the special attack bar.
-     *
-     * @param player the player activating the special attack bar.
-     * @param target the target when activating the special attack bar, will be
-     *               <code>null</code> if the player is not in combat while activating the
-     *               special bar.
-     */
-    public void onActivation(Player player, Character target) {
-
-    }
-
-    /**
-     * Fired when the argued {@link Player} is about to attack the argued
-     * target.
-     *
-     * @param player the player about to attack the target.
-     * @param target the entity being attacked by the player.
-     * @return the combat container for this combat hook.
-     */
-    public abstract CombatContainer container(Player player, Character target);
-
-    /**
      * Drains the special bar for the argued {@link Player}.
      *
      * @param player the player who's special bar will be drained.
@@ -781,6 +759,28 @@ public enum CombatSpecial {
             }
         }
     }
+
+    /**
+     * Fired when the argued {@link Player} activates the special attack bar.
+     *
+     * @param player the player activating the special attack bar.
+     * @param target the target when activating the special attack bar, will be
+     *               <code>null</code> if the player is not in combat while activating the
+     *               special bar.
+     */
+    public void onActivation(Player player, Character target) {
+
+    }
+
+    /**
+     * Fired when the argued {@link Player} is about to attack the argued
+     * target.
+     *
+     * @param player the player about to attack the target.
+     * @param target the entity being attacked by the player.
+     * @return the combat container for this combat hook.
+     */
+    public abstract CombatContainer container(Player player, Character target);
 
     /**
      * Gets the weapon ID's that perform this special when activated.

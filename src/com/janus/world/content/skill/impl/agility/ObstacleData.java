@@ -892,24 +892,11 @@ public enum ObstacleData {
     },
     ;
 
+    private int object;
+    private boolean mustWalk;
     ObstacleData(int object, boolean mustWalk) {
         this.object = object;
         this.mustWalk = mustWalk;
-    }
-
-    private int object;
-    private boolean mustWalk;
-
-    public int getObject() {
-        return object;
-    }
-
-    public boolean mustWalk() {
-        return mustWalk;
-    }
-
-    public void cross(final Player player) {
-
     }
 
     public static ObstacleData forId(int object) {
@@ -924,5 +911,17 @@ public enum ObstacleData {
                 return obstacleData;
         }
         return null;
+    }
+
+    public int getObject() {
+        return object;
+    }
+
+    public boolean mustWalk() {
+        return mustWalk;
+    }
+
+    public void cross(final Player player) {
+
     }
 }

@@ -7,6 +7,8 @@ import com.janus.world.entity.impl.player.Player;
 
 public class DuelAcceptancePacketListener implements PacketListener {
 
+    public static final int OPCODE = 128;
+
     @Override
     public void handleMessage(Player player, Packet packet) {
         if (player.getConstitution() <= 0)
@@ -21,6 +23,4 @@ public class DuelAcceptancePacketListener implements PacketListener {
         if (target.getIndex() != player.getIndex())
             player.getDueling().challengePlayer(target);
     }
-
-    public static final int OPCODE = 128;
 }

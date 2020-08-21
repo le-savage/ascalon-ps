@@ -12,6 +12,23 @@ import com.janus.world.entity.impl.player.Player;
 public class Entity {
 
     /**
+     * The entity's unique index.
+     */
+    private int index;
+    /**
+     * The entity's tile size.
+     */
+    private int size = 1;
+    /**
+     * The default position the entity is in.
+     */
+    private Position position = GameSettings.DEFAULT_POSITION.copy();
+    /**
+     * The entity's first position in current map region.
+     */
+    private Position lastKnownRegion;
+
+    /**
      * The Entity constructor.
      *
      * @param position The position the entity is currently in.
@@ -32,26 +49,6 @@ public class Entity {
         }
         return false;
     }
-
-    /**
-     * The entity's unique index.
-     */
-    private int index;
-
-    /**
-     * The entity's tile size.
-     */
-    private int size = 1;
-
-    /**
-     * The default position the entity is in.
-     */
-    private Position position = GameSettings.DEFAULT_POSITION.copy();
-
-    /**
-     * The entity's first position in current map region.
-     */
-    private Position lastKnownRegion;
 
     /**
      * Gets the entity's unique index.
@@ -95,6 +92,15 @@ public class Entity {
     }
 
     /**
+     * Gets the entity position.
+     *
+     * @return the entity's world position
+     */
+    public Position getPosition() {
+        return position;
+    }
+
+    /**
      * Sets the entity position
      *
      * @param position the world position
@@ -102,15 +108,6 @@ public class Entity {
     public Entity setPosition(Position position) {
         this.position = position;
         return this;
-    }
-
-    /**
-     * Gets the entity position.
-     *
-     * @return the entity's world position
-     */
-    public Position getPosition() {
-        return position;
     }
 
     /**

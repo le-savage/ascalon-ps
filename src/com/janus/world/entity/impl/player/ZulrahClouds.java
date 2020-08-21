@@ -9,12 +9,6 @@ import com.janus.world.entity.impl.npc.NPC;
 
 public class ZulrahClouds extends Task {
 
-    public ZulrahClouds(Player player) {
-        this.player = player;
-    }
-
-    final Player player;
-
     public static NPC ZULRAH;
     public static NPC CLOUD1;
     public static NPC CLOUD2;
@@ -24,11 +18,9 @@ public class ZulrahClouds extends Task {
     public static NPC CLOUD6;
     public static NPC CLOUD7;
     public static NPC CLOUD8;
-
-
+    final Player player;
     private int[][] toxicFumeLocations = {{2263, 3076}, {2263, 3073}, {2263, 3070}, {2266, 3069},
             {2269, 3069}, {2272, 3070}, {2273, 3073}, {2273, 3076}};
-
     private NPC[] CloudTiles = {CLOUD1, CLOUD2, CLOUD3, CLOUD4, CLOUD5, CLOUD6, CLOUD7, CLOUD8};
     private Location[] CloudLocations = {Locations.Location.ZULRAH_CLOUD_ONE,
             Locations.Location.ZULRAH_CLOUD_TWO,
@@ -38,6 +30,9 @@ public class ZulrahClouds extends Task {
             Locations.Location.ZULRAH_CLOUD_SIX,
             Locations.Location.ZULRAH_CLOUD_SEVEN,
             Locations.Location.ZULRAH_CLOUD_EIGHT};
+    public ZulrahClouds(Player player) {
+        this.player = player;
+    }
 
     public void tiles() {
         for (int i = 0; i < 8; i++) {

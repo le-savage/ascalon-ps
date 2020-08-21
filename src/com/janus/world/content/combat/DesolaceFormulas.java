@@ -22,6 +22,14 @@ public class DesolaceFormulas {
     /*===================================MELEE=====================================*/
 
 
+    /**
+     * Obsidian items
+     */
+
+    public static final int[] obsidianWeapons = {
+            746, 747, 6523, 6525, 6526, 6527, 6528
+    };
+
     public static int calculateMaxMeleeHit(Character entity, Character victim) {
         double maxHit = 0;
         if (entity.isNpc()) {
@@ -193,15 +201,6 @@ public class DesolaceFormulas {
         }
         return p.getBonusManager().getAttackBonus()[2] <= p.getBonusManager().getAttackBonus()[1] || p.getBonusManager().getAttackBonus()[2] <= p.getBonusManager().getAttackBonus()[0] ? 0 : 2;
     }
-
-
-    /**
-     * Obsidian items
-     */
-
-    public static final int[] obsidianWeapons = {
-            746, 747, 6523, 6525, 6526, 6527, 6528
-    };
 
     public static boolean hasObsidianEffect(Player plr) {
         if (plr.getEquipment().getItems()[2].getId() != 11128)

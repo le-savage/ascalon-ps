@@ -36,6 +36,8 @@ import com.janus.world.entity.impl.player.Player;
 public class NPCOptionPacketListener implements PacketListener {
 
 
+    public static final int ATTACK_NPC = 72, FIRST_CLICK_OPCODE = 155, MAGE_NPC = 131, SECOND_CLICK_OPCODE = 17, THIRD_CLICK_OPCODE = 21, FOURTH_CLICK_OPCODE = 18;
+
     private static void firstClick(Player player, Packet packet) {
         int index = packet.readLEShort();
         if (index < 0 || index > World.getNpcs().capacity())
@@ -780,6 +782,4 @@ public class NPCOptionPacketListener implements PacketListener {
                 break;
         }
     }
-
-    public static final int ATTACK_NPC = 72, FIRST_CLICK_OPCODE = 155, MAGE_NPC = 131, SECOND_CLICK_OPCODE = 17, THIRD_CLICK_OPCODE = 21, FOURTH_CLICK_OPCODE = 18;
 }
