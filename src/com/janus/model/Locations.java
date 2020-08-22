@@ -282,8 +282,9 @@ public class Locations {
 
         },
 
-        BOSS_TIER_LOCATION(new int[]{2754, 10049}, new int[]{2813, 10117}, false, false, false, false, false, false) {
-            @Override
+        BOSS_TIER_LOCATION(new int[]{2767, 2805}, new int[]{10067, 10110}, false, false, false, false, false, false) {
+
+           @Override
             public void leave(Player player) {
                 BossFunctions.handleExit(player);
             }
@@ -300,7 +301,6 @@ public class Locations {
                 if (player.getRegionInstance() == null) {
                     player.moveTo(BossFunctions.DOOR);
                 } else {
-
                     BossFunctions.handleExit(player);
                 }
             }
@@ -309,6 +309,7 @@ public class Locations {
             public void onDeath(Player player) {
                 BossFunctions.despawnNpcs(player);
                 BossFunctions.handleExit(player);
+                BossFunctions.resetProgress(player);
             }
 
         },
@@ -837,27 +838,40 @@ public class Locations {
             }
         },
 
-        BARROWS(new int[]{3520, 3598, 3543, 3584, 3543, 3560}, new int[]{9653, 9750, 3265, 3314, 9685, 9702}, false, true, true, true, true, true) {
+        BARROWS(new int[]{3546, 3584}, new int[]{3274, 3309}, true, true, true, false, true, true) {
+
             @Override
-            public void process(Player player) {
-                if (player.getWalkableInterfaceId() != 37200)
-                    player.sendParallellInterfaceVisibility(37200, true);
+            public void enter(Player player) {
+                if (!player.getInventory().contains(952)) {
+                    player.getInventory().add(952, 1);
+                    player.forceChat("I forgot my damn spade! Luckily Flub loves me..");
+                }
+            }
+
+            @Override
+            public void leave(Player player) {
+                if (player.getLocation() != BARROWS) {
+                    NewBarrows.resetBarrows(player);
+                }
             }
 
             @Override
             public boolean canTeleport(Player player) {
+                NewBarrows.resetBarrows(player);
                 return true;
             }
 
             @Override
             public void logout(Player player) {
-
+                player.moveTo(NewBarrows.entrance);
+                NewBarrows.resetBarrows(player);
             }
 
             @Override
-            public boolean handleKilledNPC(Player killer, NPC npc) {
-                Barrows.killBarrowsNpc(killer, npc, true);
-                return true;
+            public void onDeath(Player player) {
+                player.moveTo(NewBarrows.entrance);
+                NewBarrows.resetBarrows(player);
+                player.forceChat("Whoops..");
             }
         },
         PEST_CONTROL_GAME(new int[]{2624, 2690}, new int[]{2550, 2619}, true, true, true, false, true, true) {
@@ -1384,6 +1398,7 @@ public class Locations {
         private boolean cannonAllowed;
         private boolean firemakingAllowed;
         private boolean aidingAllowed;
+
         Location(int[] x, int[] y, boolean multi, boolean summonAllowed, boolean followingAllowed, boolean cannonAllowed, boolean firemakingAllowed, boolean aidingAllowed) {
             this.x = x;
             this.y = y;

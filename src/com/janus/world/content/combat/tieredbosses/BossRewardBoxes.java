@@ -3,6 +3,7 @@ package com.janus.world.content.combat.tieredbosses;
 import com.janus.model.Locations;
 import com.janus.model.PlayerRights;
 import com.janus.model.container.impl.Bank;
+import com.janus.model.container.impl.Inventory;
 import com.janus.util.Misc;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.entity.impl.player.Player;
@@ -45,12 +46,10 @@ public class BossRewardBoxes {
     }
 
     public static void removeBossRewardBox(Player player) {
-        if (player.getRights() != PlayerRights.OWNER) {
-            System.out.println("removeReward method called");
-            if (player.getInventory().contains(rewardBox)) {
-                player.getInventory().delete(rewardBox, 1, true);
-                System.out.println("Reward removed for " + player.getUsername().toUpperCase());
-            }
+        System.out.println("removeReward method called");
+        if (player.getInventory().contains(rewardBox)) {
+            player.getInventory().delete(rewardBox, 1, true);
+            System.out.println("Reward removed for " + player.getUsername().toUpperCase());
         }
     }
 
@@ -72,7 +71,6 @@ public class BossRewardBoxes {
                 break;
             case 5:
                 cost = fourCost;
-
                 break;
         }
         long pouch = player.getMoneyInPouch();
@@ -88,37 +86,78 @@ public class BossRewardBoxes {
 
     }
 
+    public static void coinReward(Player player) {
+        int tierOne = Misc.random(1000000, 5000000);//1 - 5m
+        int tierTwo = Misc.random(5000000, 10000000);//5 - 10m
+        int tierThree = Misc.random(10000000, 15000000);//10 - 15m
+        int tierFour = Misc.random(20000000, 30000000);//20 - 30m
+        int tierFive = Misc.random(35000000, 100000000);//35 - 100m
+        Inventory invent = player.getInventory();
+        switch (player.getKbdTier()) {
+
+            case 1:
+                invent.add(995, tierOne);
+                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierOne) + "!");
+                break;
+            case 2:
+                invent.add(995, tierTwo);
+                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierOne) + "!");
+                break;
+            case 3:
+                invent.add(995, tierThree);
+                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierOne) + "!");
+                break;
+            case 4:
+                invent.add(995, tierFour);
+                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierOne) + "!");
+                break;
+            case 5:
+                invent.add(995, tierFive);
+                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierOne) + "!");
+                break;
+
+        }
+    }
+
     public static void openBossRewardBox(Player player) {
         long pouch = player.getMoneyInPouch();
-        switch (player.getKbdTier()) {
-            case 1:
-                player.setMoneyInPouch(pouch - zeroCost);
-                player.getInventory().add(ZERO[Misc.getRandom(ZERO.length - 1)], 1);
-                break;
+        int random = Misc.random(0, 100);
+        player.forceChat("I need 60+ for a prize.. I rolled " + random + "!");
 
-            case 2:
-                player.setMoneyInPouch(pouch - oneCost);
-                player.getInventory().add(ONE[Misc.getRandom(ONE.length - 1)], 1);
-                break;
-
-            case 3:
-                player.setMoneyInPouch(pouch - twoCost);
-                player.getInventory().add(TWO[Misc.getRandom(TWO.length - 1)], 1);
-                break;
-
-            case 4:
-                player.setMoneyInPouch(pouch - threeCost);
-                player.getInventory().add(THREE[Misc.getRandom(THREE.length - 1)], 1);
-                break;
-
-            case 5:
-                player.setMoneyInPouch(pouch - fourCost);
-                player.getInventory().add(FOUR[Misc.getRandom(FOUR.length - 1)], 1);
-                player.setKbdTier(0);
-                player.getPacketSender().sendMessage("Congratulations! We've reset your progress so you can restart!");
-                break;
+        if (random <= 59) {
+            coinReward(player);
         }
-        removeBossRewardBox(player);
-        player.getPacketSender().sendInterfaceRemoval();
+
+        if (random >= 60) {
+            switch (player.getKbdTier()) {
+                case 1:
+                    player.setMoneyInPouch(pouch - zeroCost);
+                    player.getInventory().add(ZERO[Misc.getRandom(ZERO.length - 1)], 1);
+                    break;
+
+                case 2:
+                    player.setMoneyInPouch(pouch - oneCost);
+                    player.getInventory().add(ONE[Misc.getRandom(ONE.length - 1)], 1);
+                    break;
+
+                case 3:
+                    player.setMoneyInPouch(pouch - twoCost);
+                    player.getInventory().add(TWO[Misc.getRandom(TWO.length - 1)], 1);
+                    break;
+
+                case 4:
+                    player.setMoneyInPouch(pouch - threeCost);
+                    player.getInventory().add(THREE[Misc.getRandom(THREE.length - 1)], 1);
+                    break;
+                case 5:
+                    player.setMoneyInPouch(pouch - fourCost);
+                    player.getInventory().add(FOUR[Misc.getRandom(FOUR.length - 1)], 1);
+                    player.setKbdTier(0);
+                    player.getPacketSender().sendMessage("Congratulations! We've reset your progress so you can restart!");
+                    break;
+            }
+            removeBossRewardBox(player);
+            player.getPacketSender().sendInterfaceRemoval();
+        }
     }
 }

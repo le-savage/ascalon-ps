@@ -108,10 +108,14 @@ public class BossFunctions {
     }
 
     public static void handleExit(Player player) {
+        /*if (!player.getClickDelay().elapsed(40000)) {
+            player.getPacketSender().sendMessage("It's too early to exit! Go and get killed if you'd like to leave");
+            return;
+        }*/
         if (player.getRegionInstance() != null) {
-            restoreOldStats(player);
             destructBossTier(player);
         }
+        restoreOldStats(player);
         player.setRegionInstance(null);
         player.getInventory().deleteAll();
         player.getEquipment().deleteAll();
@@ -220,6 +224,7 @@ public class BossFunctions {
     public static void handleRewardChest(Player player) {
 
         if (!player.shouldGiveBossReward()) {
+            player.getPacketSender().sendMessage("Complete the minigame by entering the doors.. If you dare...");
             player.getPacketSender().sendInterfaceRemoval();
             return;
         }
@@ -229,6 +234,12 @@ public class BossFunctions {
         LootCrate.openChest(player);
 
 
+        player.setShouldGiveBossReward(false);
+    }
+
+    public static void resetProgress(Player player) {
+        player.getPacketSender().sendMessage("Progress has been reset!");
+        player.setKbdTier(0);
         player.setShouldGiveBossReward(false);
     }
 }

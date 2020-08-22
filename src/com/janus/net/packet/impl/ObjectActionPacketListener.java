@@ -136,8 +136,7 @@ public class ObjectActionPacketListener implements PacketListener {
                     BossFunctions.handleDoor(player);
                 }
                 if (id == BossFunctions.EXIT_CAVE_ID) {
-                    //BossFunctions.handleExit(player);
-                    player.moveTo(BossFunctions.DOOR);
+                    BossFunctions.handleExit(player);
                 }
                 if (id == BossFunctions.rewardChestID) {
                     BossFunctions.handleRewardChest(player);

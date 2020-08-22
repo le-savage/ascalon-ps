@@ -138,6 +138,7 @@ public class Player extends Character {
     public int destination = 0;
     public int lastClickedTab = 0;
     public int kbdTier = 0;
+    public int barrowsKC = 0;
     public int timeOnline;
     public ArrayList<Integer> walkableInterfaceList = new ArrayList<>();
     public long lastHelpRequest;
@@ -332,6 +333,7 @@ public class Player extends Character {
     private boolean voteMessageSent;
     private boolean receivedStarter;
     private boolean bossTierTP;
+    private boolean playedNewBarrows;
     private boolean shouldGiveBossReward;
     private boolean areCloudsSpawned;
     public Player(PlayerSession playerIO) {
@@ -1825,6 +1827,14 @@ public class Player extends Character {
         this.kbdTier = kbdTier;
     }
 
+    public int getBarrowsKC() {
+        return barrowsKC;
+    }
+
+    public void setBarrowsKC(int barrowsKC) {
+        this.barrowsKC = barrowsKC;
+    }
+
     public int getPickupValue() {
         return pickupValue;
     }
@@ -2185,6 +2195,10 @@ public class Player extends Character {
         return receivedStarter;
     }
 
+    public boolean hasPlayedNewBarrows() {
+        return playedNewBarrows;
+    }
+
     public boolean hasUsedBossTierTP() {
         return bossTierTP;
     }
@@ -2199,6 +2213,10 @@ public class Player extends Character {
 
     public void setReceivedStarter(boolean receivedStarter) {
         this.receivedStarter = receivedStarter;
+    }
+
+    public void setHasPlayedNewBarrows(boolean playedNewBarrows) {
+        this.playedNewBarrows = playedNewBarrows;
     }
 
     public void setHasUsedBossTierTP(boolean bossTierTP) {

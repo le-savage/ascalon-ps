@@ -69,6 +69,16 @@ public class CommandPacketListener implements PacketListener {
         }
 
 
+        if (command[0].startsWith("resettier")) {
+            BossFunctions.resetProgress(player);
+        }
+
+
+        if (command[0].equalsIgnoreCase("index")) {
+            player.forceChat("My index number is: " + player.getIndex());
+        }
+
+
         if (command[0].equalsIgnoreCase("notifications")) {
             if (player.getNotificationPreference()) {
                 player.getPacketSender().sendMessage("@red@Notifications OFF");

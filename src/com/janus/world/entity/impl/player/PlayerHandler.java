@@ -192,6 +192,14 @@ public class PlayerHandler {
             player.setPlayerLocked(true);
         }
 
+        if (!player.hasUsedBossTierTP()){
+            player.getPacketSender().sendMessage("@red@Try out our brand new minigame at ::boss - Insane loot up for grabs!");
+        }
+
+        if (!player.hasPlayedNewBarrows()) {
+            player.getPacketSender().sendMessage("@red@Check out the new version of barrows! It's 100x more enjoyable <3");
+        }
+
         player.getPacketSender().updateSpecialAttackOrb().sendIronmanMode(player.getGameMode().ordinal());
 
         if (player.getRights().isStaff()) {

@@ -18,6 +18,7 @@ import com.janus.world.content.combat.strategy.impl.KalphiteQueen;
 import com.janus.world.content.combat.strategy.impl.Nex;
 import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.combat.tieredbosses.BossNPCData;
+import com.janus.world.content.minigames.impl.NewBarrows;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
@@ -196,11 +197,21 @@ public class NPCDeathTask extends Task {
         npc.setDying(false);
 
         //respawn
-        if (npc.getDefinition().getRespawnTime() > 0 && npc.getLocation() != Location.GRAVEYARD && npc.getLocation() != Location.DUNGEONEERING && npc.getLocation() != Location.INSTANCE_ARENA && npc.getLocation() != Location.BOSS_TIER_LOCATION) {
+        if (npc.getDefinition().getRespawnTime() > 0 && npc.getLocation() != Location.GRAVEYARD && npc.getLocation() != Location.DUNGEONEERING && npc.getLocation() != Location.INSTANCE_ARENA && npc.getLocation() != Location.BOSS_TIER_LOCATION && npc.getLocation() != Location.BARROWS) {
             TaskManager.submit(new NPCRespawnTask(npc, npc.getDefinition().getRespawnTime()));
         }
 
         World.deregister(npc);
+
+        if (npc.getLocation() == Location.BARROWS) {
+            System.out.println("PLAYER: " +killer.getUsername()+ "BARROWS KC BEFORE KILL : "+ killer.barrowsKC);
+            killer.barrowsKC++;
+            System.out.println("PLAYER: " +killer.getUsername()+ "KILLED A BARROWS NPC! NEW KC = "+killer.barrowsKC);
+            if (killer.barrowsKC >= 6) {
+                NewBarrows.rewardPlayer(killer);
+                NewBarrows.resetBarrows(killer);
+            }
+        }
 
 
         if (npc.getLocation() == Location.INSTANCE_ARENA) {

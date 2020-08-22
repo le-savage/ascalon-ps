@@ -88,6 +88,16 @@ public class KBDFight {
                 Autocasting.resetAutocast(player, true);
                 Autocasting.handleAutocast(player, 1189);
                 break;
+
+            case 5:
+            case 6:
+            case 7:
+                player.setKbdTier(0);
+                BossFunctions.setNewStats(player, stats1[0], stats1[1], stats1[2], stats1[3], stats1[4], stats1[5], stats1[6]);
+                BossFunctions.setEquipment(player, gearOne[0], gearOne[1], gearOne[2], gearOne[3], gearOne[4], gearOne[5], gearOne[6], gearOne[7], gearOne[8]);
+                World.register(level1);
+                player.getRegionInstance().getNpcsList().addIfAbsent(level1);
+                break;
         }
         InventorySetups.giveItems(player);
     }
