@@ -10,15 +10,15 @@ import com.janus.world.entity.impl.player.Player;
 
 public class LootCrate {
 
-    public static int[] ZERO = {123, 123, 123};
+    public static int[] ZERO = {-1};
 
-    public static int[] ONE = {123, 123, 123};
+    public static int[] ONE = {-1};
 
-    public static int[] TWO = {123, 123, 123};
+    public static int[] TWO = {-1};
 
-    public static int[] THREE = {123, 123, 123};
+    public static int[] THREE = {-1};
 
-    public static int[] FOUR = {123, 123, 123};
+    public static int[] FOUR = {-1};
 
 
     public static int getRandomItem(int[] array) {

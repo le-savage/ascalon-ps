@@ -569,6 +569,11 @@ public class CommandPacketListener implements PacketListener {
 
         }
 
+
+        if (command[0].equalsIgnoreCase("restorestats")) {
+            BossFunctions.restoreOldStats(player);
+        }
+
         if (command[0].equalsIgnoreCase("location")) {
             System.out.println("Location: " + player.getLocation().name());
         }

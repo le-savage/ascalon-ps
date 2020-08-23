@@ -1,5 +1,6 @@
 package com.janus.world.content.combat.tieredbosses;
 
+import com.janus.GameSettings;
 import com.janus.model.MagicSpellbook;
 import com.janus.model.Position;
 import com.janus.world.World;
@@ -52,6 +53,10 @@ public class KBDFight {
         switch (player.getKbdTier()) {
             case 0:
                 BossFunctions.setNewStats(player, stats1[0], stats1[1], stats1[2], stats1[3], stats1[4], stats1[5], stats1[6]);
+                player.getInventory().deleteAll();
+                if (player.getSummoning().getFamiliar() != null) {
+                    player.getSummoning().unsummon(true, true);
+                }
                 BossFunctions.setEquipment(player, gearOne[0], gearOne[1], gearOne[2], gearOne[3], gearOne[4], gearOne[5], gearOne[6], gearOne[7], gearOne[8]);
                 World.register(level1);
                 player.getRegionInstance().getNpcsList().addIfAbsent(level1);
@@ -60,6 +65,10 @@ public class KBDFight {
 
             case 1:
                 BossFunctions.setNewStats(player, stats2[0], stats2[1], stats2[2], stats2[3], stats2[4], stats2[5], stats2[6]);
+                player.getInventory().deleteAll();
+                if (player.getSummoning().getFamiliar() != null) {
+                    player.getSummoning().unsummon(true, true);
+                }
                 BossFunctions.setEquipment(player, gearTwo[0], gearTwo[1], gearTwo[2], gearTwo[3], gearTwo[4], gearTwo[5], gearTwo[6], gearTwo[7], gearTwo[8]);
                 World.register(level2);
                 player.getRegionInstance().getNpcsList().addIfAbsent(level2);
@@ -67,6 +76,10 @@ public class KBDFight {
 
             case 2:
                 BossFunctions.setNewStats(player, stats3[0], stats3[1], stats3[2], stats3[3], stats3[4], stats3[5], stats3[6]);
+                player.getInventory().deleteAll();
+                if (player.getSummoning().getFamiliar() != null) {
+                    player.getSummoning().unsummon(true, true);
+                }
                 BossFunctions.setEquipment(player, gearThree[0], gearThree[1], gearThree[2], gearThree[3], gearThree[4], gearThree[5], gearThree[6], gearThree[7], gearThree[8]);
                 World.register(level3);
                 player.getRegionInstance().getNpcsList().addIfAbsent(level3);
@@ -74,6 +87,10 @@ public class KBDFight {
 
             case 3:
                 BossFunctions.setNewStats(player, stats4[0], stats4[1], stats4[2], stats4[3], stats4[4], stats4[5], stats4[6]);
+                player.getInventory().deleteAll();
+                if (player.getSummoning().getFamiliar() != null) {
+                    player.getSummoning().unsummon(true, true);
+                }
                 BossFunctions.setEquipment(player, gearFour[0], gearFour[1], gearFour[2], gearFour[3], gearFour[4], gearFour[5], gearFour[6], gearFour[7], gearFour[8]);
                 World.register(level4);
                 player.getRegionInstance().getNpcsList().addIfAbsent(level4);
@@ -81,12 +98,17 @@ public class KBDFight {
 
             case 4:
                 BossFunctions.setNewStats(player, stats5[0], stats5[1], stats5[2], stats5[3], stats5[4], stats5[5], stats5[6]);
+                player.getInventory().deleteAll();
+                if (player.getSummoning().getFamiliar() != null) {
+                    player.getSummoning().unsummon(true, true);
+                }
                 BossFunctions.setEquipment(player, gearFive[0], gearFive[1], gearFive[2], gearFive[3], gearFive[4], gearFive[5], gearFive[6], gearFive[7], gearFive[8]);
                 World.register(level5);
                 player.getRegionInstance().getNpcsList().addIfAbsent(level5);
                 player.setSpellbook(MagicSpellbook.NORMAL);
                 Autocasting.resetAutocast(player, true);
-                Autocasting.handleAutocast(player, 1189);
+                player.getPacketSender().sendTabInterface(GameSettings.MAGIC_TAB, player.getSpellbook().getInterfaceId()).sendMessage("Your magic spellbook is changed..");
+                Autocasting.handleAutocast(player, 1181);
                 break;
 
             case 5:
@@ -94,6 +116,10 @@ public class KBDFight {
             case 7:
                 player.setKbdTier(0);
                 BossFunctions.setNewStats(player, stats1[0], stats1[1], stats1[2], stats1[3], stats1[4], stats1[5], stats1[6]);
+                player.getInventory().deleteAll();
+                if (player.getSummoning().getFamiliar() != null) {
+                    player.getSummoning().unsummon(true, true);
+                }
                 BossFunctions.setEquipment(player, gearOne[0], gearOne[1], gearOne[2], gearOne[3], gearOne[4], gearOne[5], gearOne[6], gearOne[7], gearOne[8]);
                 World.register(level1);
                 player.getRegionInstance().getNpcsList().addIfAbsent(level1);

@@ -3,6 +3,7 @@ package com.janus.model.container.impl;
 import com.janus.model.Flag;
 import com.janus.model.GameMode;
 import com.janus.model.Item;
+import com.janus.model.Locations;
 import com.janus.model.container.ItemContainer;
 import com.janus.model.container.StackType;
 import com.janus.model.definitions.ItemDefinition;
@@ -202,6 +203,9 @@ public class Bank extends ItemContainer {
         if (Dungeoneering.doingDungeoneering(getPlayer())) {
             return this;
         }
+        if (getPlayer().getLocation() == Locations.Location.BOSS_TIER_LOCATION) {
+            return this;
+        }
         if (getPlayer().getBankPinAttributes().hasBankPin() && !getPlayer().getBankPinAttributes().hasEnteredBankPin()) {
             BankPin.init(getPlayer(), true);
             return this;
@@ -221,7 +225,7 @@ public class Bank extends ItemContainer {
 
     @Override
     public Bank switchItem(ItemContainer to, Item item, int slot, boolean sort, boolean refresh) {
-        if (!getPlayer().isBanking() || getPlayer().getInterfaceId() != 5292 || to instanceof Inventory && !(getPlayer().getBank(getPlayer().getCurrentBankTab()).contains(item.getId()) || getPlayer().getBankSearchingAttribtues().getSearchedBank() != null && getPlayer().getBankSearchingAttribtues().getSearchedBank().contains(item.getId()))) {
+        if (getPlayer().getLocation() == Locations.Location.BOSS_TIER_LOCATION || !getPlayer().isBanking() || getPlayer().getInterfaceId() != 5292 || to instanceof Inventory && !(getPlayer().getBank(getPlayer().getCurrentBankTab()).contains(item.getId()) || getPlayer().getBankSearchingAttribtues().getSearchedBank() != null && getPlayer().getBankSearchingAttribtues().getSearchedBank().contains(item.getId()))) {
             getPlayer().getPacketSender().sendClientRightClickRemoval();
             return this;
         }

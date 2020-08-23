@@ -164,7 +164,7 @@ public enum StatSetups {
 
     public enum threeSetup {
 
-        KBD(1, 99, 1, 60, 1, 550, 660);
+        KBD(1, 60, 1, 60, 1, 550, 660);
 
         private final int attack;
         private final int defence;
@@ -217,7 +217,7 @@ public enum StatSetups {
 
     public enum fourSetup {
 
-        KBD(30, 30, 30, 99, 99, 500, 500);
+        KBD(1, 30, 1, 1, 59, 500, 500);
 
         private final int attack;
         private final int defence;

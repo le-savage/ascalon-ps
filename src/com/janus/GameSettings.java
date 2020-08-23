@@ -95,8 +95,7 @@ public class GameSettings {
             EQUIPMENT_TAB = 4,
             PRAYER_TAB = 5,
             MAGIC_TAB = 6,
-
-    SUMMONING_TAB = 13,
+            SUMMONING_TAB = 13,
             FRIEND_TAB = 8,
             IGNORE_TAB = 9,
             CLAN_CHAT_TAB = 7,

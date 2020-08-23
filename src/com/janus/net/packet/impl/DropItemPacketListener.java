@@ -54,6 +54,10 @@ public class DropItemPacketListener implements PacketListener {
         if (item != null && item.getId() != -1 && item.getAmount() >= 1) {
             if (item.tradeable() && !ItemBinding.isBoundItem(item.getId())) {
                 player.getInventory().setItem(itemSlot, new Item(-1, 0)).refreshItems();
+                if (player.getLocation() == Locations.Location.BOSS_TIER_LOCATION || player.getLocation() == Locations.Location.BOSS_TIER_ENTRANCE) {
+                    player.forceChat("I can't drop items in here!");
+                    return;
+                }
                 if (item.getId() == 4045) {
                     if (Jail.isJailed(player)) {
                         return;

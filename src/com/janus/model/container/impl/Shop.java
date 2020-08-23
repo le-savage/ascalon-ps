@@ -1175,9 +1175,6 @@ public class Shop extends ItemContainer {
                     case 10348://3rd age platebody
                     case 10346://3rd age platelegs
                     case 10352://3rd age kiteshield
-                    case 10342://3rd age mage hat
-                    case 10338://3rd age robe top
-                    case 10340://3rd age robe
                     case 10334://3rd age range coif
                     case 10330://3rd age range top
                     case 10332://3rd age range legs

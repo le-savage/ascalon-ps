@@ -31,11 +31,11 @@ public class InventorySetups {
                 break;
             case 3://ranged
                 invent.addItems(THREE, true);
-                invent.add(379, 6);// Lobster
+                invent.add(379, 9);// Lobster
                 break;
             case 4: // Magic
                 invent.addItems(FOUR, true);
-                invent.add(315, 10);// Shrimp
+                invent.add(315, 12);// Shrimp
                 break;
         }
     }

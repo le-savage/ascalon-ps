@@ -44,9 +44,16 @@ public class BossFunctions {
 
     public static void handleDoor(Player player) {
 
+        if (player.getSummoning().getFamiliar() != null){
+            player.getPacketSender().sendMessage("DISMISS YOUR FAMILIAR BEFORE ENTERING");
+            return;
+        }
+
         saveOldStats(player);
+        player.getPacketSender().sendInterfaceRemoval();
 
         if (!player.getClickDelay().elapsed(7000)) {
+            player.forceChat("I SHOULD STOP SPAM CLICKING THE ENTRANCE!");
             return;
         }
 
@@ -73,13 +80,18 @@ public class BossFunctions {
         TaskManager.submit(new Task(4) {
             @Override
             protected void execute() {
+                player.getPacketSender().sendInterfaceRemoval();
                 player.forceChat("Uh oh! Tier " + player.getKbdTier() + " just spawned!");
                 player.performAnimation(new Animation(1746));
                 if (player.getLocation() != BOSS_TIER_LOCATION) {
                     player.moveTo(new Position(entranceX, entranceY, player.getIndex() * 4));
                     player.setRegionInstance(new RegionInstance(player, BOSS_TIER_ARENA));
                     KBDFight.StartKBDFight(player);
+                    if (player.getSummoning().getFamiliar() != null) {
+                        player.getSummoning().unsummon(true, true);
+                    }
                 }
+                removePotionEffects(player);
                 stop();
             }
         });
@@ -99,6 +111,34 @@ public class BossFunctions {
 
     }
 
+
+    public static void removePotionEffects(Player player) {
+
+        if (player.getFireImmunity()>1 || player.getFireDamageModifier() > 1 || player.getDragonFireImmunity() > 1) {
+            player.getPacketSender().sendMessage("You were immune to fire.. Not anymore!");
+            player.setDragonFireImmunity(-1);
+            player.setFireDamageModifier(0);
+            player.setFireImmunity(-1);
+        }
+
+        if (player.getOverloadPotionTimer() >= 1) {
+            player.getPacketSender().sendMessage("You had an overload potion active.. Not anymore!");
+            player.setOverloadPotionTimer(-1);
+        }
+
+        if (player.getPoisonImmunity() > 1) {
+            player.getPacketSender().sendMessage("You were immune to poison.. Not anymore!");
+            player.setPoisonImmunity(-1);
+        }
+
+        if (player.getPrayerRenewalPotionTimer() > 0) {
+            player.getPacketSender().sendMessage("You had a prayer renewal potion active.. Not anymore!");
+            player.setPrayerRenewalPotionTimer(-1);
+        }
+
+
+    }
+
     public static void despawnNpcs(Player player) {
         if (player.getLocation() == BOSS_TIER_LOCATION && !player.getRegionInstance().getNpcsList().isEmpty() && player.getRegionInstance() != null) {
             System.out.println("DESPAWNING NPC'S FOR " + player.getUsername());
@@ -108,10 +148,6 @@ public class BossFunctions {
     }
 
     public static void handleExit(Player player) {
-        /*if (!player.getClickDelay().elapsed(40000)) {
-            player.getPacketSender().sendMessage("It's too early to exit! Go and get killed if you'd like to leave");
-            return;
-        }*/
         if (player.getRegionInstance() != null) {
             destructBossTier(player);
         }
@@ -177,13 +213,15 @@ public class BossFunctions {
     }
 
     public static void restoreOldStats(Player player) {
+        if (player.bossGameLevels != null) {
+            System.out.println(player.getUsername() + " had null stats. Not restored!");
+            player.getSkillManager().getSkills().level = player.bossGameLevels;
+            player.getSkillManager().getSkills().experience = player.bossGameSkillXP;
+            player.getSkillManager().getSkills().maxLevel = player.bossGameMaxLevels;
+        }
         System.out.println("Attempting to restore stats for " + player.getUsername());
         player.getInventory().deleteAll();
         player.getEquipment().deleteAll();
-        player.getSkillManager().getSkills().level = player.bossGameLevels;
-        player.getSkillManager().getSkills().experience = player.bossGameSkillXP;
-        player.getSkillManager().getSkills().maxLevel = player.bossGameMaxLevels;
-
         player.getUpdateFlag().flag(Flag.ANIMATION);
         player.getEquipment().refreshItems();
         updateSkills(player);
@@ -229,12 +267,15 @@ public class BossFunctions {
             return;
         }
 
-
-        BossRewardBoxes.addBossRewardBox(player);
-        LootCrate.openChest(player);
+        if (!BossRewardBoxes.hasBossRewardBox(player)) {
 
 
-        player.setShouldGiveBossReward(false);
+            BossRewardBoxes.addBossRewardBox(player);
+            LootCrate.openChest(player);
+
+
+            player.setShouldGiveBossReward(false);
+        }
     }
 
     public static void resetProgress(Player player) {

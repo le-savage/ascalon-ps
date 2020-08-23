@@ -18,6 +18,7 @@ import com.janus.world.content.combat.strategy.impl.KalphiteQueen;
 import com.janus.world.content.combat.strategy.impl.Nex;
 import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.combat.tieredbosses.BossNPCData;
+import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.content.minigames.impl.NewBarrows;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -299,16 +300,16 @@ public class NPCDeathTask extends Task {
 
         if (npc.getLocation() == Location.BOSS_TIER_LOCATION) {
             if (npc.getId() == BossNPCData.KING_BLACK_DRAGON.getLevel1ID()) {
-                if (killer.kbdTier <= 4 && !killer.shouldGiveBossReward()) {
+                if (killer.kbdTier <= 4 && !killer.shouldGiveBossReward() && !BossRewardBoxes.hasBossRewardBox(killer)) {
                     killer.kbdTier++;
                     killer.setShouldGiveBossReward(true);
                     killer.forceChat("I should leave now!");
                     BossFunctions.despawnNpcs(killer);
                 }
-                if (killer.kbdTier >= 3) {
+                if (killer.kbdTier <= 4) {
                     World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just completed tier " + (killer.getKbdTier() - 1) + " at ::boss!");
                 }
-                if (killer.kbdTier == 4) {
+                if (killer.kbdTier == 5) {
                     World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just killed the final tier " + (killer.getKbdTier() - 1) + " at ::boss!");
                 }
                 TaskManager.submit(new Task(2, killer, false) {

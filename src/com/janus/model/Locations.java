@@ -282,7 +282,22 @@ public class Locations {
 
         },
 
-        BOSS_TIER_LOCATION(new int[]{2767, 2805}, new int[]{10067, 10110}, false, false, false, false, false, false) {
+        BOSS_TIER_ENTRANCE(new int[]{2747, 2748}, new int[]{5373, 5374}, true, false, false, false, false, false) {
+
+            @Override
+            public void logout(Player player) {
+
+                if (player.getRegionInstance() == null) {
+                    BossFunctions.restoreOldStats(player);
+                } else {
+                    BossFunctions.handleExit(player);
+                }
+            }
+
+
+        },
+
+        BOSS_TIER_LOCATION(new int[]{2753, 2821}, new int[]{10045, 10113}, false, false, false, false, false, false) {
 
            @Override
             public void leave(Player player) {
@@ -300,6 +315,7 @@ public class Locations {
 
                 if (player.getRegionInstance() == null) {
                     player.moveTo(BossFunctions.DOOR);
+                    BossFunctions.restoreOldStats(player);
                 } else {
                     BossFunctions.handleExit(player);
                 }
@@ -307,7 +323,6 @@ public class Locations {
 
             @Override
             public void onDeath(Player player) {
-                BossFunctions.despawnNpcs(player);
                 BossFunctions.handleExit(player);
                 BossFunctions.resetProgress(player);
             }
