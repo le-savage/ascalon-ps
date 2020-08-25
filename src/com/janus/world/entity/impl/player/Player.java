@@ -179,6 +179,7 @@ public class Player extends Character {
     //     return channel;
     // }
     private boolean shopUpdated;
+    private boolean allowSnap = true;
     private Map<String, Object> attributes = new HashMap<>();
     private Minigame minigame = null;
     private int hardwareNumber;
@@ -2254,6 +2255,18 @@ public class Player extends Character {
     public void setShopUpdated(boolean shopUpdated) {
         this.shopUpdated = shopUpdated;
     }
+
+
+    public boolean allowSnap() {
+        return allowSnap;
+    }
+
+    public void setAllowSnap(boolean allowSnap) {
+        this.allowSnap = allowSnap;
+    }
+
+
+
 
     public String getTitle() {
         return title;

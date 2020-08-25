@@ -15,6 +15,7 @@ import com.janus.world.clip.region.RegionClipping;
 import com.janus.world.content.GamblingAction;
 import com.janus.world.content.ItemForging;
 import com.janus.world.content.dialogue.DialogueManager;
+import com.janus.world.content.gambling.Snap;
 import com.janus.world.content.minigames.impl.WarriorsGuild;
 import com.janus.world.content.skill.impl.cooking.Cooking;
 import com.janus.world.content.skill.impl.cooking.CookingData;
@@ -350,6 +351,11 @@ public class UseItemPacketListener implements PacketListener {
         if (target == null)
             return;
         switch (itemId) {
+
+            case 455:
+                Snap.initiateSnap(player,target);
+                break;
+
             case 962:
                 if (!player.getInventory().contains(962) || player.getRights() == PlayerRights.ADMINISTRATOR)
                     return;

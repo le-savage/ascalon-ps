@@ -1,5 +1,5 @@
 {
-  "total-play-time-ms": 68424898,
+  "total-play-time-ms": 95889041,
   "username": "Flub",
   "password": "BLOWJOBS",
   "email": "null",
@@ -10,8 +10,8 @@
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2747,
-    "y": 5372,
+    "x": 2442,
+    "y": 3086,
     "z": 0
   },
   "online-status": "ON",
@@ -23,9 +23,10 @@
   "barrows-kc": 0,
   "money-pouch": 300000000,
   "donated": 0,
-  "next-reward": 1598144831159,
-  "reward-day": 1,
+  "next-reward": 1598452476239,
+  "reward-day": 2,
   "claimed-todays-reward": true,
+  "allow-snap": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 100000,
   "total-gained-exp": 373624332,
@@ -33,8 +34,8 @@
   "achievement-points": 8,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 4670427,
-  "total-loyalty-points": 4670427.0,
+  "loyalty-points": 7267427,
+  "total-loyalty-points": 7267427.0,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -59,7 +60,7 @@
   "auto-retaliate": true,
   "xp-locked": false,
   "veng-cast": true,
-  "last-veng": 107623216,
+  "last-veng": 123205300,
   "fight-type": "UNARMED_PUNCH",
   "sol-effect": 0,
   "skull-timer": 0,
@@ -284,11 +285,11 @@
   ],
   "skills": {
     "level": [
-      117,
-      117,
-      117,
-      498,
-      114,
+      99,
+      99,
+      99,
+      717,
+      99,
       990,
       99,
       99,
@@ -377,38 +378,38 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 13887,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 445,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 19656,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 455,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 14822,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 15648,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 10600,
+      "amount": 1,
       "slot": 0
     },
     {

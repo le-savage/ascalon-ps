@@ -31,6 +31,7 @@ import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.strategy.CombatStrategies;
 import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.combat.weapon.CombatSpecial;
+import com.janus.world.content.gambling.Snap;
 import com.janus.world.content.grandexchange.GrandExchangeOffers;
 import com.janus.world.content.minigames.impl.FreeForAll;
 import com.janus.world.content.skill.SkillManager;
@@ -547,6 +548,19 @@ public class CommandPacketListener implements PacketListener {
             player.setPassword(syntax);
             player.getPacketSender().sendMessage("Your new password is: [" + syntax + "] Write it down!");
 
+        }
+
+        if (command[0].equalsIgnoreCase("allowsnap")) {
+            player.setAllowSnap(true);
+            player.getPacketSender().sendMessage("@blu@Snap requests are now @gre@ALLOWED");
+        }
+        if (command[0].equalsIgnoreCase("blocksnap")) {
+            player.setAllowSnap(false);
+            player.getPacketSender().sendMessage("@blu@Snap requests are now @red@BLOCKED");
+        }
+
+        if (command[0].equalsIgnoreCase("snap") && Snap.gameActive) {
+            Snap.stopAndCheck(player);
         }
 
         if (command[0].equalsIgnoreCase("home")) {

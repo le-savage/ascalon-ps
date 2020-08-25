@@ -77,6 +77,10 @@ public class ItemActionPacketListener implements PacketListener {
 
         Location targetLocation = player.getLocation();
 
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("FIRST CLICK Item ID: " + itemId + " Slot: " + slot + " Interface: "+interfaceId);
+        }
+
         if (interfaceId == 38274) {
             Construction.handleItemClick(itemId, player);
             return;
@@ -130,6 +134,19 @@ public class ItemActionPacketListener implements PacketListener {
         }
 
         switch (itemId) {
+
+            case 455:
+                if (player.allowSnap()) {
+                    player.setAllowSnap(false);
+                    player.getPacketSender().sendMessage("@blu@Snap requests are now @red@BLOCKED");
+                    return;
+                }
+                if (!player.allowSnap()) {
+                    player.setAllowSnap(true);
+                    player.getPacketSender().sendMessage("@blu@Snap requests are now @gre@ALLOWED");
+                    return;
+                }
+                break;
 
             case 13663:
                 if (player.getInterfaceId() > 0) {
@@ -995,7 +1012,11 @@ public class ItemActionPacketListener implements PacketListener {
             return;
         if (SummoningData.isPouch(player, itemId, 2))
             return;
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("SECOND CLICK Item ID: " + itemId + " Slot: " + slot);
+        }
         switch (itemId) {
+
             case 6500:
                 if (player.getCombatBuilder().isAttacking() || player.getCombatBuilder().isBeingAttacked()) {
                     player.getPacketSender().sendMessage("You cannot configure this right now.");
@@ -1133,6 +1154,9 @@ public class ItemActionPacketListener implements PacketListener {
         int itemId = packet.readShortA();
         int slot = packet.readLEShortA();
         int interfaceId = packet.readLEShortA();
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("THIRD CLICK Item ID: " + itemId + " Slot: " + slot);
+        }
         if (slot < 0 || slot > player.getInventory().capacity())
             return;
         if (player.getInventory().getItems()[slot].getId() != itemId)

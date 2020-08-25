@@ -12,7 +12,7 @@ public class TriviaBot {
             {"<col=AD096E>[Trivia] </col>@bla@ What slayer level is needed to kill Abyssal demons", "85"},
             {"<col=AD096E>[Trivia] </col>@bla@ What woodcutting level is needed to cut magic trees", "75"},//
             {"<col=AD096E>[Trivia] </col>@bla@ What mining level is needed to mine Amethyst?", "92"},//
-            {"<col=AD096E>[Trivia] </col>@bla@ What quest do you need to complete to wield a Dragon battleaxe?", "::heroes quest"},//
+            {"<col=AD096E>[Trivia] </col>@bla@ What quest do you need to complete to wield a Dragon battleaxe?", "heroes quest"},//
             {"<col=AD096E>[Trivia] </col>@bla@ What attack level is needed to wield a whip", "70"},//
             {"<col=AD096E>[Trivia] </col>@bla@ What quest do you need to complete for Barrows gloves", "Recipe for disaster"},//
             {"<col=AD096E>[Trivia] </col>@bla@ During what age did the Barrows brothers rise to power?", "4th age"},//
