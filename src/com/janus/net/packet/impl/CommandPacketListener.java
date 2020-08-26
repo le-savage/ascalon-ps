@@ -31,6 +31,7 @@ import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.strategy.CombatStrategies;
 import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.combat.weapon.CombatSpecial;
+import com.janus.world.content.gambling.RockPaperScissors;
 import com.janus.world.content.gambling.Snap;
 import com.janus.world.content.grandexchange.GrandExchangeOffers;
 import com.janus.world.content.minigames.impl.FreeForAll;
@@ -548,6 +549,17 @@ public class CommandPacketListener implements PacketListener {
             player.setPassword(syntax);
             player.getPacketSender().sendMessage("Your new password is: [" + syntax + "] Write it down!");
 
+        }
+        if (command[0].equalsIgnoreCase("rps") || command[0].equalsIgnoreCase("rockpaperscissors")) {
+            String challenger = wholeCommand.substring(command[0].length() + 1).toLowerCase().replaceAll("_", " ");
+            Player opponent = World.getPlayerByName(challenger);
+
+            RockPaperScissors.play(player, opponent);
+
+            if (opponent == null) {
+                player.getPacketSender().sendMessage("Cannot find that player online..");
+                return;
+            }
         }
 
         if (command[0].equalsIgnoreCase("allowsnap")) {
