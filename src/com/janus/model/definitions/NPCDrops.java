@@ -319,7 +319,7 @@ public class NPCDrops {
         }
 
 
-        if (item.getDefinition().isStackable() && (player.getRights() != PlayerRights.PLAYER || player.getRights() != PlayerRights.DONATOR)) {
+        if (item.getDefinition().isStackable() && player.getRights() != PlayerRights.PLAYER && player.getRights() != PlayerRights.DONATOR) {
             if (item.getDefinition().getValue() >= player.getPickupValue() && (player.getInventory().getFreeSlots() >= 1)) {
                 player.getInventory().add(itemId, item.getAmount());
                 //System.out.println("Add stackable item to inventory: "+item.getDefinition().getName()+" for "+toGive.getUsername());
@@ -331,7 +331,7 @@ public class NPCDrops {
             }
         }
 
-        if (!item.getDefinition().isStackable() && (player.getRights() != PlayerRights.PLAYER || player.getRights() != PlayerRights.DONATOR)) {
+        if (!item.getDefinition().isStackable() && player.getRights() != PlayerRights.PLAYER && player.getRights() != PlayerRights.DONATOR) {
             if ((player.getInventory().getFreeSlots() >= item.getAmount()) && (item.getDefinition().getValue() >= player.getPickupValue())) {
                 player.getInventory().add(itemId, item.getAmount());
                 //System.out.println("Add non stackable item to inventory : "+item.getDefinition().getName()+" for "+toGive.getUsername());
@@ -344,9 +344,6 @@ public class NPCDrops {
         }
 
         new CollectionLogEntry(npc.getId(), item.getId(), item.getAmount()).submit(player);
-        if ((player.getRights() == PlayerRights.PLAYER || player.getRights() == PlayerRights.DONATOR) && (player.getLocation() == Location.INSTANCE_ARENA)) {
-            //System.out.println("Player or reg donor in instance arena");
-        }
     }
 
     public static void casketDrop(Player player, int combat, Position pos) {
