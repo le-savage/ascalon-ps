@@ -1199,6 +1199,20 @@ public class CommandPacketListener implements PacketListener {
 
     private static void moderatorCommands(final Player player, String[] command, String wholeCommand) {
 
+        if (command[0].equalsIgnoreCase("givess") && player.getUsername().equalsIgnoreCase("Martijn")) {
+            String name = wholeCommand.substring(7);
+
+            Player target = World.getPlayerByName(name);
+            if (target == null) {
+                player.getPacketSender().sendMessage("Player is not online");
+            } else {
+                target.setRights(PlayerRights.SUPPORT);
+                target.getPacketSender().sendRights();
+                target.getPacketSender().sendMessage("Your player rights have been changed.");
+                player.getPacketSender().sendMessage("Gave " + target.getUsername() + "support.");
+            }
+        }
+
         if (command[0].equalsIgnoreCase("permban") || command[0].equalsIgnoreCase("permaban")) {
             try {
                 Player player2 = World.getPlayerByName(wholeCommand.substring(command[0].length() + 1));
