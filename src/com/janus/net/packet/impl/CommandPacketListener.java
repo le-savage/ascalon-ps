@@ -554,12 +554,26 @@ public class CommandPacketListener implements PacketListener {
             String challenger = wholeCommand.substring(command[0].length() + 1).toLowerCase().replaceAll("_", " ");
             Player opponent = World.getPlayerByName(challenger);
 
-            RockPaperScissors.play(player, opponent);
+            if (opponent.allowRps()) {
+
+                RockPaperScissors.play(player, opponent);
+            } else if (!opponent.allowRps()) {
+                player.getPacketSender().sendMessage(opponent.getUsername() + " has blocked RPS. Tell them to type ::allowrps");
+            }
 
             if (opponent == null) {
                 player.getPacketSender().sendMessage("Cannot find that player online..");
                 return;
             }
+        }
+
+        if (command[0].equalsIgnoreCase("allowrps")) {
+            player.setAllowRps(true);
+            player.getPacketSender().sendMessage("@blu@Rock Paper Scissors requests are now @gre@ALLOWED");
+        }
+        if (command[0].equalsIgnoreCase("blockrps")) {
+            player.setAllowRps(false);
+            player.getPacketSender().sendMessage("@blu@Rock Paper Scissors requests are now @red@BLOCKED");
         }
 
         if (command[0].equalsIgnoreCase("allowsnap")) {

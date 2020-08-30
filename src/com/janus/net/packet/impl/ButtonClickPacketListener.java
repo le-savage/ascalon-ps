@@ -1251,6 +1251,7 @@ public class ButtonClickPacketListener implements PacketListener {
                 break;
             case 2735:
             case 1511:
+                if (player.getLocation() != Location.BOSS_TIER_LOCATION || player.getLocation() != Location.BOSS_TIER_ENTRANCE)
                 if (player.getSummoning().getBeastOfBurden() != null) {
                     player.getSummoning().toInventory();
                     player.getPacketSender().sendInterfaceRemoval();
@@ -1334,6 +1335,9 @@ public class ButtonClickPacketListener implements PacketListener {
                     return;
                 if (player.getSummoning().getBeastOfBurden() == null) {
                     player.getPacketSender().sendMessage("You do not have a familiar which can hold items.");
+                    return;
+                }
+                if (player.getLocation() == Location.BOSS_TIER_LOCATION || player.getLocation() == Location.BOSS_TIER_ENTRANCE){
                     return;
                 }
                 Bank.depositItems(player, player.getSummoning().getBeastOfBurden(), false);

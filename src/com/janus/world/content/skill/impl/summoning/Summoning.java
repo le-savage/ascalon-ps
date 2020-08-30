@@ -233,6 +233,10 @@ public class Summoning {
     }
 
     public void store() {
+        if (player.getLocation() == Location.BOSS_TIER_LOCATION || player.getLocation() == Location.BOSS_TIER_ENTRANCE){
+            player.getPacketSender().sendMessage("You can't do that here!");
+            World.sendStaffMessage(player.getUsername() + " tried to use a familiar near ::boss....");
+        }
         if (player.busy()) {
             player.getPacketSender().sendMessage("Please finish what you're doing first.");
             return;

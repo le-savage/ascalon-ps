@@ -12,9 +12,9 @@ public class BossRewardBoxes {
 
     public static final int[] ZERO = {15426, 13887, 13893, 13899, 13905, 13896, 13884, 13890, 13902, 13861, 13858, 13864, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747, 4749, 4751, 4753, 4755, 4757, 4759};
     public static final int[] ONE = {15426, 13887, 13893, 13899, 13905, 13896, 13884, 13890, 13902, 13861, 13858, 13864, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747, 4749, 4751, 4753, 4755, 4757, 4759, 13864, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 6830, 17291, 16359, 16293, 10336, 6831, 10374, 10370, 10368, 10390, 10386, 10384, 10388, 10372, 10362, 7803};
-    public static final int[] TWO = {15426, 13887, 13893, 13899, 13905, 13896, 13884, 13890, 13902, 13861, 13858, 13864, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747, 4749, 4751, 4753, 4755, 4757, 4759, 13864, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 6830, 17291, 16359, 16293, 10336, 6831, 10374, 10370, 10368, 10390, 10386, 10384, 10388, 10372, 10362, 7803, 1038, 1040, 1046, 1042, 1048, 1044, 1050, 7449, 5608, 13666, 9946, 9945, 9944, 10732, 9634, 9636, 9638, 11789, 15422, 15423, 15425, 981, 9920, 10507, 19314, 9472};
-    public static final int[] THREE = {15426, 13887, 13893, 13899, 13905, 13896, 13884, 13890, 13902, 13861, 13858, 13864, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747, 4749, 4751, 4753, 4755, 4757, 4759, 13864, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 6830, 17291, 16359, 16293, 10336, 6831, 10374, 10370, 10368, 10390, 10386, 10384, 10388, 10372, 10362, 7803, 1038, 1040, 1046, 1042, 1048, 1044, 1050, 7449, 5608, 13666, 9946, 9945, 9944, 10732, 9634, 9636, 9638, 11789, 15422, 15423, 15425, 981, 9920, 10507, 19314, 9472, 18891, 18892, 18893, 18894, 18898, 18900, 18901, 14008, 14009, 14010, 14011, 14012, 14013, 14014, 14015};
-    public static final int[] FOUR = {21051, 4453, 4454, 21054, 21055, 21056, 21057, 15426, 13887, 13893, 13899, 13905, 13896, 13884, 13890, 13902, 13861, 13858, 13864, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 4736, 4738, 4745, 4747, 4749, 4751, 4753, 4755, 4757, 4759, 13864, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 6830, 17291, 16359, 16293, 10336, 6831, 10374, 10370, 10368, 10390, 10386, 10384, 10388, 10372, 10362, 7803, 1038, 1040, 1046, 1042, 1048, 1044, 1050, 7449, 5608, 13666, 9946, 9945, 9944, 10732, 9634, 9636, 9638, 11789, 15422, 15423, 15425, 981, 9920, 10507, 19314, 9472, 18891, 18892, 18893, 18894, 18898, 18900, 18901, 14008, 14009, 14010, 14011, 14012, 14013, 14014, 14015, 14016, 10350, 10348, 10346, 10352, 10342, 10338, 10340, 10334, 10330, 10332, 20998, 16711, 17259, 16689, 17361, 6833, 18899};
+    public static final int[] TWO = {13864, 4716, 4718, 4720, 4722, 4724, 4726, 4728, 4730, 4732, 4734, 6830, 17291, 16359, 16293, 10336, 6831, 10374, 10370, 10368, 10390, 10386, 10384, 10388, 10372, 10362, 7803, 1038, 1040, 1046, 1042, 1048, 1044, 1050, 7449, 5608, 13666, 9946, 9945, 9944, 10732, 9634, 9636, 9638, 11789, 15422, 15423, 15425, 981, 9920, 10507, 19314, 9472};
+    public static final int[] THREE = {10336, 6831, 10374, 10370, 10368, 10390, 10386, 10384, 10388, 10372, 10362, 7803, 1038, 1040, 1046, 1042, 1048, 1044, 1050, 7449, 5608, 13666, 9946, 9945, 9944, 10732, 9634, 9636, 9638, 11789, 15422, 15423, 15425, 981, 9920, 10507, 19314, 9472, 18891, 18892, 18893, 18894, 18898, 18900, 18901, 14008, 14009, 14010, 14011, 14012, 14013, 14014, 14015};
+    public static final int[] FOUR = {17291, 16359, 16293, 10336, 6831, 10374, 10370, 10368, 10390, 10386, 10384, 10388, 10372, 10362, 7803, 1038, 1040, 1046, 1042, 1048, 1044, 1050, 7449, 5608, 13666, 9946, 9945, 9944, 10732, 9634, 9636, 9638, 11789, 15422, 15423, 15425, 981, 9920, 10507, 19314, 9472, 18891, 18892, 18893, 18894, 18898, 18900, 18901, 14008, 14009, 14010, 14011, 14012, 14013, 14014, 14015, 14016, 10350, 10348, 10346, 10352, 10342, 10338, 10340, 10334, 10330, 10332, 20998, 16711, 17259, 16689, 17361, 6833, 18899};
 
     public static final int rewardBox = 6759;
 
@@ -87,11 +87,11 @@ public class BossRewardBoxes {
     }
 
     public static void coinReward(Player player) {
-        int tierOne = Misc.random(1000000, 5000000);//1 - 5m
-        int tierTwo = Misc.random(5000000, 10000000);//5 - 10m
-        int tierThree = Misc.random(10000000, 15000000);//10 - 15m
-        int tierFour = Misc.random(20000000, 30000000);//20 - 30m
-        int tierFive = Misc.random(35000000, 100000000);//35 - 100m
+        int tierOne = Misc.random(10000000, 500000000);//10 - 500m
+        int tierTwo = Misc.random(200000000, 850000000);//200 - 850m
+        int tierThree = Misc.random(300000000, 1000000000);//300 - 1b
+        int tierFour = Misc.random(400000000, 1200000000);//400 - 1.2b
+        int tierFive = Misc.random(600000000, 2000000000);//600 - 2b
         Inventory invent = player.getInventory();
         switch (player.getKbdTier()) {
 
@@ -208,38 +208,6 @@ public class BossRewardBoxes {
             chargePlayer(player);
             switch (player.getRights()) {
                 case PLAYER:
-                    player.forceChat("I need 80+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
-                    if (random <= 79) {
-                        coinReward(player);
-                    } else {
-                        giveReward(player);
-                    }
-                    break;
-                case DONATOR:
-                    player.forceChat("I need 75+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
-                    if (random <= 74) {
-                        coinReward(player);
-                    } else {
-                        giveReward(player);
-                    }
-                    break;
-                case SUPER_DONATOR:
-                    player.forceChat("I need 70+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
-                    if (random <= 69) {
-                        coinReward(player);
-                    } else {
-                        giveReward(player);
-                    }
-                    break;
-                case EXTREME_DONATOR:
-                    player.forceChat("I need 65+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
-                    if (random <= 64) {
-                        coinReward(player);
-                    } else {
-                        giveReward(player);
-                    }
-                    break;
-                case LEGENDARY_DONATOR:
                     player.forceChat("I need 60+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
                     if (random <= 59) {
                         coinReward(player);
@@ -247,17 +215,49 @@ public class BossRewardBoxes {
                         giveReward(player);
                     }
                     break;
-                case UBER_DONATOR:
-                    player.forceChat("I need 50+ for a prize as an " + player.getRights().toString() + ".. I rolled " + random + "!");
+                case DONATOR:
+                    player.forceChat("I need 50+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
                     if (random <= 49) {
                         coinReward(player);
                     } else {
                         giveReward(player);
                     }
                     break;
+                case SUPER_DONATOR:
+                    player.forceChat("I need 40+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
+                    if (random <= 39) {
+                        coinReward(player);
+                    } else {
+                        giveReward(player);
+                    }
+                    break;
+                case EXTREME_DONATOR:
+                    player.forceChat("I need 30+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
+                    if (random <= 29) {
+                        coinReward(player);
+                    } else {
+                        giveReward(player);
+                    }
+                    break;
+                case LEGENDARY_DONATOR:
+                    player.forceChat("I need 20+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
+                    if (random <= 19) {
+                        coinReward(player);
+                    } else {
+                        giveReward(player);
+                    }
+                    break;
+                case UBER_DONATOR:
+                    player.forceChat("I need 10+ for a prize as an " + player.getRights().toString() + ".. I rolled " + random + "!");
+                    if (random <= 9) {
+                        coinReward(player);
+                    } else {
+                        giveReward(player);
+                    }
+                    break;
                 default:
-                    player.forceChat("I need 70+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
-                    if (random <= 69) {
+                    player.forceChat("I need 50+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
+                    if (random <= 49) {
                         coinReward(player);
                     } else {
                         giveReward(player);

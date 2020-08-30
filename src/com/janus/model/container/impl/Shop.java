@@ -251,7 +251,9 @@ public class Shop extends ItemContainer {
             }
             if (sellingItem) {
                 if (finalValue != 1) {
-                    finalValue = (int) (finalValue * 0.85);
+                    if (player.getRights().equals(PlayerRights.PLAYER)) {
+                        finalValue = (int) (finalValue * 0.85);
+                    }
                 }
             }
             finalString += "" + (int) finalValue + " " + s + "" + shopPriceEx((int) finalValue) + ".";
@@ -262,7 +264,9 @@ public class Shop extends ItemContainer {
             finalValue = (int) obj[0];
             if (sellingItem) {
                 if (finalValue != 1) {
-                    finalValue = (int) (finalValue * 0.85);
+                    if (player.getRights().equals(PlayerRights.PLAYER)) {
+                        finalValue = (int) (finalValue * 0.85);
+                    }
                 }
             }
             finalString += "" + finalValue + " " + (String) obj[1] + ".";
@@ -335,7 +339,9 @@ public class Shop extends ItemContainer {
         }
         if (itemValue <= 0)
             return;
-        itemValue = (int) (itemValue * 0.85);
+        if (player.getRights().equals(PlayerRights.PLAYER)) {
+            itemValue = (int) (itemValue * 0.85);
+        }
         if (itemValue <= 0) {
             itemValue = 1;
         }

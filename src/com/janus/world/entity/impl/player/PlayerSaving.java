@@ -69,6 +69,7 @@ public class PlayerSaving {
             object.addProperty("claimed-todays-reward", player.getClaimedTodays());
 
             object.addProperty("allow-snap", new Boolean(player.allowSnap()));
+            object.addProperty("allow-rps", new Boolean(player.allowRps()));
 
             object.addProperty("minutes-bonus-exp", new Integer(player.getMinutesBonusExp()));
             object.addProperty("pickupValue", new Integer(player.getPickupValue()));

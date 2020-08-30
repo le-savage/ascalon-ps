@@ -283,18 +283,6 @@ public class Locations {
         },
 
         BOSS_TIER_ENTRANCE(new int[]{2747, 2748}, new int[]{5373, 5374}, true, false, false, false, false, false) {
-
-            @Override
-            public void logout(Player player) {
-
-                if (player.getRegionInstance() == null) {
-                    BossFunctions.restoreOldStats(player);
-                } else {
-                    BossFunctions.handleExit(player);
-                }
-            }
-
-
         },
 
         BOSS_TIER_LOCATION(new int[]{2753, 2821}, new int[]{10045, 10113}, false, false, false, false, false, false) {

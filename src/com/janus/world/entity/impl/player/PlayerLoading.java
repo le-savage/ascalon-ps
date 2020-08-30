@@ -152,6 +152,10 @@ public class PlayerLoading {
                 player.setAllowSnap(reader.get("allow-snap").getAsBoolean());
             }
 
+            if (reader.has("allow-rps")) {
+                player.setAllowRps(reader.get("allow-rps").getAsBoolean());
+            }
+
             if (reader.has("minutes-bonus-exp")) {
                 player.setMinutesBonusExp(reader.get("minutes-bonus-exp").getAsInt(), false);
             }

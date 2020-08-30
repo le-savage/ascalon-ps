@@ -180,6 +180,7 @@ public class Player extends Character {
     // }
     private boolean shopUpdated;
     private boolean allowSnap = true;
+    private boolean allowRps = true;
     private Map<String, Object> attributes = new HashMap<>();
     private Minigame minigame = null;
     private int hardwareNumber;
@@ -2263,6 +2264,14 @@ public class Player extends Character {
 
     public void setAllowSnap(boolean allowSnap) {
         this.allowSnap = allowSnap;
+    }
+
+    public boolean allowRps() {
+        return allowRps;
+    }
+
+    public void setAllowRps(boolean allowRps) {
+        this.allowRps = allowRps;
     }
 
 

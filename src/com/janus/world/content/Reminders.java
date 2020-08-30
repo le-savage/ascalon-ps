@@ -4,18 +4,11 @@ import com.janus.util.Misc;
 import com.janus.util.Stopwatch;
 import com.janus.world.World;
 
-/*
- * @author Bas
- * www.Arlania.com
- */
-
 public class Reminders {
 
 
     private static final int TIME = 900000; //10 minutes
-    /*
-     * Random Message Data
-     */
+
     private static final String[][] MESSAGE_DATA = {
             {"<img=10> @blu@[TIPS]@bla@ Donators get free access to instances!"},
             {"<img=10> @blu@[TIPS]@bla@ Donors get HP refills and other perks in instances!"},
@@ -35,7 +28,6 @@ public class Reminders {
             {"<img=10> @blu@[TIPS]@bla@ Check what items sell for using ::trades or click the link!"},
             {"<img=10> @blu@[TIPS]@bla@ Donate to ::fountain for bonus XP and drop rates!"},
             {"<img=10> @blu@[TIPS]@bla@ ::pray to teleport to alters!"},
-            {"<img=10> @blu@[TIPS]@bla@ ::portals or ::teleports to travel to the City Portals!"},
             {"<img=10> @blu@[TIPS]@bla@ Join ::discord for giveaways!"},
             {"<img=10> @blu@[TIPS]@bla@ Boss Pet boxes now available!"},
             {"<img=10> @blu@[TIPS]@bla@ Use ::updates to view our latest additions!"},
@@ -43,7 +35,9 @@ public class Reminders {
             {"<img=10> @blu@[TIPS]@bla@ Use ::bug to report a bug and receive a reward!"},
             {"<img=10> @blu@[TIPS]@bla@ Talk to Max to prestige your skills!"},
             {"<img=10> @blu@[TIPS]@bla@ ::afk to skill whilst you're away!"},
-
+            {"<img=10> @blu@[TIPS]@bla@ ::rps PlayerNameHere to challenge someone to Rock Paper Scissors!"},
+            {"<img=10> @blu@[TIPS]@bla@ Donator+ can sell items for 100% value in the gen store!"},
+            {"<img=10> @blu@[TIPS]@bla@ Prize rates and runner up prizes for ::boss improved massively!"},
 
     };
     public static String currentMessage;
@@ -58,21 +52,10 @@ public class Reminders {
         if (timer.elapsed(TIME)) {
             timer.reset();
             {
-
                 currentMessage = MESSAGE_DATA[Misc.getRandom(MESSAGE_DATA.length - 1)][0];
                 World.sendFilteredMessage(currentMessage);
-                //DiscordMessenger.sendErrorLog("REMINDER SENT");
-			/*//World.savePlayers();
-				PlayerPunishment.reloadDailyRewards();
-				WellOfGoodwill.save();
-				WellOfWealth.save();
-				//GrandExchangeOffers.save();
-				ClanChatManager.save();*/
 
             }
-
-            //World.savePlayers();
-            //PlayerPunishment.reloadDailyRewards();
         }
 
 

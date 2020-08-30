@@ -10,6 +10,7 @@ import com.janus.model.definitions.ItemDefinition;
 import com.janus.model.definitions.WeaponAnimations;
 import com.janus.model.definitions.WeaponInterfaces;
 import com.janus.model.input.impl.ItemSearch;
+import com.janus.world.World;
 import com.janus.world.content.BankPin;
 import com.janus.world.content.BonusManager;
 import com.janus.world.content.skill.impl.dungeoneering.Dungeoneering;
@@ -105,6 +106,12 @@ public class Bank extends ItemContainer {
         if (!ignoreReqs)
             if (!p.isBanking() || p.getInterfaceId() != 5292)
                 return;
+
+        if (p.getLocation() == Locations.Location.BOSS_TIER_LOCATION || p.getLocation() == Locations.Location.BOSS_TIER_ENTRANCE) {
+            p.getPacketSender().sendMessage("Nice try. Staff alerted!");
+            World.sendStaffMessage(p.getUsername() + " TRIED TO DEPOSIT ITEMS INTO HIS BANK FROM ::BOSS!");
+            return;
+        }
 
         if (p.getGameMode() == GameMode.HARDCORE_IRONMAN)
             return;
@@ -203,7 +210,9 @@ public class Bank extends ItemContainer {
         if (Dungeoneering.doingDungeoneering(getPlayer())) {
             return this;
         }
-        if (getPlayer().getLocation() == Locations.Location.BOSS_TIER_LOCATION) {
+        if (getPlayer().getLocation() == Locations.Location.BOSS_TIER_LOCATION || getPlayer().getLocation() == Locations.Location.BOSS_TIER_ENTRANCE) {
+            getPlayer().getPacketSender().sendMessage("You can't use your bank here!");
+            World.sendStaffMessage(getPlayer().getUsername() + " TRIED TO OPEN HIS BANK IN ::BOSS!");
             return this;
         }
         if (getPlayer().getBankPinAttributes().hasBankPin() && !getPlayer().getBankPinAttributes().hasEnteredBankPin()) {
@@ -225,7 +234,7 @@ public class Bank extends ItemContainer {
 
     @Override
     public Bank switchItem(ItemContainer to, Item item, int slot, boolean sort, boolean refresh) {
-        if (getPlayer().getLocation() == Locations.Location.BOSS_TIER_LOCATION || !getPlayer().isBanking() || getPlayer().getInterfaceId() != 5292 || to instanceof Inventory && !(getPlayer().getBank(getPlayer().getCurrentBankTab()).contains(item.getId()) || getPlayer().getBankSearchingAttribtues().getSearchedBank() != null && getPlayer().getBankSearchingAttribtues().getSearchedBank().contains(item.getId()))) {
+        if (getPlayer().getLocation() == Locations.Location.BOSS_TIER_ENTRANCE || getPlayer().getLocation() == Locations.Location.BOSS_TIER_LOCATION || !getPlayer().isBanking() || getPlayer().getInterfaceId() != 5292 || to instanceof Inventory && !(getPlayer().getBank(getPlayer().getCurrentBankTab()).contains(item.getId()) || getPlayer().getBankSearchingAttribtues().getSearchedBank() != null && getPlayer().getBankSearchingAttribtues().getSearchedBank().contains(item.getId()))) {
             getPlayer().getPacketSender().sendClientRightClickRemoval();
             return this;
         }

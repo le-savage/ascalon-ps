@@ -596,8 +596,8 @@ public class ItemActionPacketListener implements PacketListener {
                 DialogueManager.start(player, 0);
                 break;
             case 299:
-                player.getPacketSender().sendMessage("Disabled because you noobs can't handle losing");
-                //Gambling.plantSeed(player);
+                //player.getPacketSender().sendMessage("Disabled because you noobs can't handle losing");
+                Gambling.plantSeed(player);
                 break;
             case 4155:
                 if (player.getSlayer().getSlayerTask() == SlayerTasks.NO_TASK) {
