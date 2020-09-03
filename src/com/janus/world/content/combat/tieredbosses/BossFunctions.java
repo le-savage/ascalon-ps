@@ -11,8 +11,6 @@ import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.skill.SkillManager;
 import com.janus.world.entity.impl.player.Player;
 
-import java.util.Arrays;
-
 import static com.janus.model.Locations.Location.BOSS_TIER_LOCATION;
 import static com.janus.model.RegionInstance.RegionInstanceType.BOSS_TIER_ARENA;
 
@@ -67,7 +65,7 @@ public class BossFunctions {
             return;
         }
 
-        if (BossRewardBoxes.hasBossRewardBox(player)) {
+        if (BossRewardBoxes.hasExistingBox(player)) {
             player.forceChat("I need to use my current reward box!");
             player.getPacketSender().sendMessage("You already have a reward box. Use it before continuing!");
             return;
@@ -194,32 +192,30 @@ public class BossFunctions {
     }
 
     public static void updateSkills(Player player) {
-        System.out.println("Updating Skills for " + player.getUsername());
+        //System.out.println("Updating Skills for " + player.getUsername());
         for (Skill skill : Skill.values())
             player.getSkillManager().updateSkill(skill);
     }
 
     public static void saveOldStats(Player player) {
-        System.out.println("SAVING OLD STATS FOR " + player.getUsername());
+        //System.out.println("SAVING OLD STATS FOR " + player.getUsername());
 
         SkillManager.Skills currentSkills = player.getSkillManager().getSkills();
         player.bossGameLevels = currentSkills.level;
         player.bossGameSkillXP = currentSkills.experience;
         player.bossGameMaxLevels = currentSkills.maxLevel;
 
-        System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().level));
+        /*System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().level));
         System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().experience));
-        System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().maxLevel));
+        System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().maxLevel));*/
     }
 
     public static void restoreOldStats(Player player) {
         if (player.bossGameLevels != null) {
-            System.out.println(player.getUsername() + " had null stats. Not restored!");
             player.getSkillManager().getSkills().level = player.bossGameLevels;
             player.getSkillManager().getSkills().experience = player.bossGameSkillXP;
             player.getSkillManager().getSkills().maxLevel = player.bossGameMaxLevels;
         }
-        System.out.println("Attempting to restore stats for " + player.getUsername());
         player.getInventory().deleteAll();
         player.getEquipment().deleteAll();
         player.getUpdateFlag().flag(Flag.ANIMATION);
@@ -261,21 +257,21 @@ public class BossFunctions {
 
     public static void handleRewardChest(Player player) {
 
-        if (!player.shouldGiveBossReward()) {
-            player.getPacketSender().sendMessage("Complete the minigame by entering the doors.. If you dare...");
-            player.getPacketSender().sendInterfaceRemoval();
-            return;
-        }
-
-        if (!BossRewardBoxes.hasBossRewardBox(player)) {
-
-
+        if (BossRewardBoxes.hasExistingBox(player)) {
+            String message = (player.getInventory().contains(BossRewardBoxes.rewardBox)) ? "inventory" : "bank";
+            player.getPacketSender().sendMessage("You need to use up a reward chest in your "+message+" before looting again!");
+        } else if (!BossRewardBoxes.hasExistingBox(player) && player.shouldGiveBossReward()) {
             BossRewardBoxes.addBossRewardBox(player);
             LootCrate.openChest(player);
-
-
             player.setShouldGiveBossReward(false);
         }
+
+        if (!player.shouldGiveBossReward() && !BossRewardBoxes.hasExistingBox(player)) {
+            player.getPacketSender().sendMessage("Complete the minigame by entering the doors.. If you dare...");
+            player.getPacketSender().sendInterfaceRemoval();
+        }
+
+
     }
 
     public static void resetProgress(Player player) {

@@ -130,7 +130,7 @@ public class ItemActionPacketListener implements PacketListener {
         }
 
         if (itemId == BossRewardBoxes.rewardBox) {
-            BossRewardBoxes.buyBossBoxReward(player);
+            BossRewardBoxes.setCostToOpen(player);
         }
 
         switch (itemId) {

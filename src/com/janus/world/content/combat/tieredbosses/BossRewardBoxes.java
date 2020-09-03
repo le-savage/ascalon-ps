@@ -1,7 +1,6 @@
 package com.janus.world.content.combat.tieredbosses;
 
 import com.janus.model.Locations;
-import com.janus.model.PlayerRights;
 import com.janus.model.container.impl.Bank;
 import com.janus.model.container.impl.Inventory;
 import com.janus.util.Misc;
@@ -18,18 +17,21 @@ public class BossRewardBoxes {
 
     public static final int rewardBox = 6759;
 
-    public static long zeroCost = 500000000;//500m
-    public static long oneCost = 800000000;//800m
-    public static long twoCost = 1350000000;//1.35b
-    public static long threeCost = 1600000000;//1.6b
-    public static long fourCost = 2000000000;//2b
+    public static int zeroCost = 500000000;//500m
+    public static int oneCost = 800000000;//800m
+    public static int twoCost = 1350000000;//1.35b
+    public static int threeCost = 1600000000;//1.6b
+    public static int fourCost = 2000000000;//2b
 
+    /** Checks if the player has actually completed a tier and earned a reward **/
 
-    public static boolean canOpenBossRewardBox(Player player) {
-        return player.getLocation() != Locations.Location.BOSS_TIER_LOCATION && player.getRegionInstance() == null;
+    public static boolean hasEarnedReward(Player player) {
+        return player.getLocation() != Locations.Location.BOSS_TIER_LOCATION && player.getRegionInstance() == null && player.shouldGiveBossReward();
     }
 
-    public static boolean hasBossRewardBox(Player player) {
+    /** Checks the bank and inventory for existing reward boxes **/
+
+    public static boolean hasExistingBox(Player player) {
         for (Bank bank : player.getBanks()) {
             if (bank == null) {
                 continue;
@@ -39,22 +41,30 @@ public class BossRewardBoxes {
         return false;
     }
 
+    /** Adds the boss reward to the players inventory **/
+
     public static void addBossRewardBox(Player player) {
-        if (!hasBossRewardBox(player)) {
+        if (!hasExistingBox(player) && player.shouldGiveBossReward()) {
             player.getInventory().add(rewardBox, 1);
+            player.setShouldGiveBossReward(false);
+        } else {
+            player.getPacketSender().sendMessage("You have not earned a reward yet.");
         }
     }
+
+    /** Deletes the boss reward from the players inventory **/
 
     public static void removeBossRewardBox(Player player) {
         System.out.println("removeReward method called");
         if (player.getInventory().contains(rewardBox)) {
-            player.getInventory().delete(rewardBox, 1, true);
+            player.getInventory().delete(rewardBox, 1);
             System.out.println("Reward removed for " + player.getUsername().toUpperCase());
         }
     }
 
+    /** Sets the price and tells the player depending on the current tier **/
 
-    public static void buyBossBoxReward(Player player) {
+    public static void setCostToOpen(Player player) {
         long cost = 0;
         switch (player.getKbdTier()) {
             case 1:
@@ -73,20 +83,182 @@ public class BossRewardBoxes {
                 cost = fourCost;
                 break;
         }
-        long pouch = player.getMoneyInPouch();
-        if (pouch < cost && player.getRights() != PlayerRights.OWNER) {
-            player.getPacketSender().sendInterfaceRemoval();
-            player.getPacketSender().sendMessage("You need " + Misc.setupMoney(cost) + " in your pouch to open this box!");
-            return;
-        }
         DialogueManager.start(player, 179);
         player.getPacketSender().sendString(2461, "Pay " + Misc.insertCommasToNumber(Long.toString(cost)) + " GP to unlock the reward");
-        player.getPacketSender().sendString(2462, "No thanks - that's way to expensive!");
+        player.getPacketSender().sendString(2462, "No thanks - Skip to the next tier!");
         player.setDialogueActionId(85);
 
     }
 
-    public static void coinReward(Player player) {
+    /**
+     * Checks to see if the player can afford to open the chest
+     **/
+
+    public static boolean canAffordToOpen(Player player) {
+        int cash = player.getInventory().getAmount(995);
+        switch (player.getKbdTier()) {
+            case 1:
+                if (cash >= zeroCost)
+                    return true;
+                break;
+            case 2:
+                if (cash >= oneCost)
+                    return true;
+                break;
+            case 3:
+                if (cash >= twoCost)
+                    return true;
+                break;
+            case 4:
+                if (cash >= threeCost)
+                    return true;
+                break;
+            case 5:
+                if (cash >= fourCost)
+                    return true;
+                break;
+        }
+        return false;
+    }
+
+    /**
+     * Covers the method triggered when opening the box. This makes the palyer
+     * call a random number. IF the player wins, calls the giveReward method.
+     * If the player loses, calls the coinReward method.
+     *
+     * @param player - The user who is opening the box.
+     */
+
+    public static void openBossRewardBox(Player player) {
+        if (!canAffordToOpen(player)) {
+            player.getPacketSender().sendMessage("You can't afford to open this! Ensure the cash is in your inventory!");
+            player.getPacketSender().sendInterfaceRemoval();
+            return;
+        }
+        int random = Misc.random(0, 100); // Gets the random number between 0-100
+        chargePlayer(player);
+        String playerRights = player.getRights().toString();
+        switch (player.getRights()) { // The roll needed to win is reduced depending on rank.
+            case PLAYER:
+                player.forceChat("I need 60+ for a prize as a " + playerRights + ".. I rolled " + random + "!");
+                if (random <= 59) {
+                    playerLosesRoll(player);
+                } else {
+                    playerWinsRoll(player);
+                }
+                break;
+            case SUPER_DONATOR:
+                player.forceChat("I need 40+ for a prize as a " + playerRights + ".. I rolled " + random + "!");
+                if (random <= 39) {
+                    playerLosesRoll(player);
+                } else {
+                    playerWinsRoll(player);
+                }
+                break;
+            case EXTREME_DONATOR:
+                player.forceChat("I need 30+ for a prize as a " + playerRights + ".. I rolled " + random + "!");
+                if (random <= 29) {
+                    playerLosesRoll(player);
+                } else {
+                    playerWinsRoll(player);
+                }
+                break;
+            case LEGENDARY_DONATOR:
+                player.forceChat("I need 20+ for a prize as a " + playerRights + ".. I rolled " + random + "!");
+                if (random <= 19) {
+                    playerLosesRoll(player);
+                } else {
+                    playerWinsRoll(player);
+                }
+                break;
+            case UBER_DONATOR:
+                player.forceChat("I need 10+ for a prize as an " + playerRights + ".. I rolled " + random + "!");
+                if (random <= 9) {
+                    playerLosesRoll(player);
+                } else {
+                    playerWinsRoll(player);
+                }
+                break;
+            case DONATOR:
+            default:
+                player.forceChat("I need 50+ for a prize as a " + playerRights + ".. I rolled " + random + "!");
+                if (random <= 49) {
+                    playerLosesRoll(player);
+                } else {
+                    playerWinsRoll(player);
+                }
+                break;
+        }
+    }
+
+    /**
+     * Charges the player by deducting cash from the inventory
+     **/
+
+    public static void chargePlayer(Player player) {
+        if (!canAffordToOpen(player)) {
+            player.getPacketSender().sendMessage("You can't afford to open this! Ensure the cash is in your inventory!");
+            player.getPacketSender().sendInterfaceRemoval();
+            return;
+        }
+        Inventory inventory = player.getInventory();
+        switch (player.getKbdTier()) {
+            case 1:
+                inventory.delete(995, zeroCost);
+                break;
+            case 2:
+                inventory.delete(995, oneCost);
+                break;
+            case 3:
+                inventory.delete(995, twoCost);
+                break;
+            case 4:
+                inventory.delete(995, threeCost);
+                break;
+            case 5:
+                inventory.delete(995, fourCost);
+                break;
+        }
+        removeBossRewardBox(player);
+        player.getPacketSender().sendInterfaceRemoval();
+    }
+
+    /**
+     * Gives the player a reward after paying to open the chest in the inventory
+     **/
+
+    public static void playerWinsRoll(Player player) {
+        switch (player.getKbdTier()) {
+            case 1:
+                player.getInventory().add(ZERO[Misc.getRandom(ZERO.length - 1)], 1);
+                break;
+
+            case 2:
+                player.getInventory().add(ONE[Misc.getRandom(ONE.length - 1)], 1);
+                break;
+
+            case 3:
+                player.getInventory().add(TWO[Misc.getRandom(TWO.length - 1)], 1);
+                break;
+
+            case 4:
+                player.getInventory().add(THREE[Misc.getRandom(THREE.length - 1)], 1);
+                break;
+            case 5:
+                player.getInventory().add(FOUR[Misc.getRandom(FOUR.length - 1)], 1);
+                player.setKbdTier(0);
+                player.getPacketSender().sendMessage("Congratulations! We've reset your progress so you can do it all again ;)");
+                break;
+        }
+        removeBossRewardBox(player);
+        player.getPacketSender().sendInterfaceRemoval();
+    }
+
+    /**
+     * Method responsible for awarding players who lose their roll
+     **/
+
+    public static void playerLosesRoll(Player player) {
         int tierOne = Misc.random(10000000, 500000000);//10 - 500m
         int tierTwo = Misc.random(200000000, 850000000);//200 - 850m
         int tierThree = Misc.random(300000000, 1000000000);//300 - 1b
@@ -94,177 +266,26 @@ public class BossRewardBoxes {
         int tierFive = Misc.random(600000000, 2000000000);//600 - 2b
         Inventory invent = player.getInventory();
         switch (player.getKbdTier()) {
-
             case 1:
                 invent.add(995, tierOne);
                 player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierOne) + "!");
                 break;
             case 2:
                 invent.add(995, tierTwo);
-                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierOne) + "!");
+                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierTwo) + "!");
                 break;
             case 3:
                 invent.add(995, tierThree);
-                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierOne) + "!");
+                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierThree) + "!");
                 break;
             case 4:
                 invent.add(995, tierFour);
-                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierOne) + "!");
+                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierFour) + "!");
                 break;
             case 5:
                 invent.add(995, tierFive);
-                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierOne) + "!");
-                break;
-
-        }
-    }
-
-    public static void giveReward(Player player) {
-        switch (player.getKbdTier()) {
-            case 1:
-                player.setMoneyInPouch(player.getMoneyInPouch() - zeroCost);
-                player.getInventory().add(ZERO[Misc.getRandom(ZERO.length - 1)], 1);
-                break;
-
-            case 2:
-                player.setMoneyInPouch(player.getMoneyInPouch() - oneCost);
-                player.getInventory().add(ONE[Misc.getRandom(ONE.length - 1)], 1);
-                break;
-
-            case 3:
-                player.setMoneyInPouch(player.getMoneyInPouch() - twoCost);
-                player.getInventory().add(TWO[Misc.getRandom(TWO.length - 1)], 1);
-                break;
-
-            case 4:
-                player.setMoneyInPouch(player.getMoneyInPouch() - threeCost);
-                player.getInventory().add(THREE[Misc.getRandom(THREE.length - 1)], 1);
-                break;
-            case 5:
-                player.getInventory().add(FOUR[Misc.getRandom(FOUR.length - 1)], 1);
-                player.setKbdTier(0);
-                player.getPacketSender().sendMessage("Congratulations! We've reset your progress so you can restart!");
+                player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierFive) + "!");
                 break;
         }
-        removeBossRewardBox(player);
-        player.getPacketSender().sendInterfaceRemoval();
-    }
-
-    public static boolean canAfford(Player player) {
-        switch (player.getKbdTier()) {
-            case 1:
-                if (player.getMoneyInPouch() >= zeroCost)
-                    return true;
-                break;
-            case 2:
-                if (player.getMoneyInPouch() >= oneCost)
-                    return true;
-                break;
-            case 3:
-                if (player.getMoneyInPouch() >= twoCost)
-                    return true;
-                break;
-            case 4:
-                if (player.getMoneyInPouch() >= threeCost)
-                    return true;
-                break;
-            case 5:
-                if (player.getMoneyInPouch() >= fourCost)
-                    return true;
-                break;
-        }
-        return false;
-    }
-
-    public static void chargePlayer(Player player) {
-        switch (player.getKbdTier()) {
-            case 1:
-                player.setMoneyInPouch(player.getMoneyInPouch() - zeroCost);
-                break;
-            case 2:
-                player.setMoneyInPouch(player.getMoneyInPouch() - oneCost);
-                break;
-            case 3:
-                player.setMoneyInPouch(player.getMoneyInPouch() - twoCost);
-                break;
-            case 4:
-                player.setMoneyInPouch(player.getMoneyInPouch() - threeCost);
-                break;
-            case 5:
-                player.setMoneyInPouch(player.getMoneyInPouch() - fourCost);
-                break;
-        }
-        removeBossRewardBox(player);
-        player.getPacketSender().sendInterfaceRemoval();
-        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
-    }
-
-    public static void openBossRewardBox(Player player) {
-        if (!canAfford(player)) {
-            player.getPacketSender().sendMessage("You can't afford to open this!");
-            return;
-        }
-            int random = Misc.random(0, 100);
-            chargePlayer(player);
-            switch (player.getRights()) {
-                case PLAYER:
-                    player.forceChat("I need 60+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
-                    if (random <= 59) {
-                        coinReward(player);
-                    } else {
-                        giveReward(player);
-                    }
-                    break;
-                case DONATOR:
-                    player.forceChat("I need 50+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
-                    if (random <= 49) {
-                        coinReward(player);
-                    } else {
-                        giveReward(player);
-                    }
-                    break;
-                case SUPER_DONATOR:
-                    player.forceChat("I need 40+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
-                    if (random <= 39) {
-                        coinReward(player);
-                    } else {
-                        giveReward(player);
-                    }
-                    break;
-                case EXTREME_DONATOR:
-                    player.forceChat("I need 30+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
-                    if (random <= 29) {
-                        coinReward(player);
-                    } else {
-                        giveReward(player);
-                    }
-                    break;
-                case LEGENDARY_DONATOR:
-                    player.forceChat("I need 20+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
-                    if (random <= 19) {
-                        coinReward(player);
-                    } else {
-                        giveReward(player);
-                    }
-                    break;
-                case UBER_DONATOR:
-                    player.forceChat("I need 10+ for a prize as an " + player.getRights().toString() + ".. I rolled " + random + "!");
-                    if (random <= 9) {
-                        coinReward(player);
-                    } else {
-                        giveReward(player);
-                    }
-                    break;
-                default:
-                    player.forceChat("I need 50+ for a prize as a " + player.getRights().toString() + ".. I rolled " + random + "!");
-                    if (random <= 49) {
-                        coinReward(player);
-                    } else {
-                        giveReward(player);
-                    }
-                    break;
-        }
-
-
     }
 }

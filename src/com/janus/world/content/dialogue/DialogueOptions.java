@@ -35,7 +35,7 @@ import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.npc.NpcAggression;
 import com.janus.world.entity.impl.player.Player;
 
-import static com.janus.world.content.combat.tieredbosses.BossRewardBoxes.canOpenBossRewardBox;
+import static com.janus.world.content.combat.tieredbosses.BossRewardBoxes.hasEarnedReward;
 
 public class DialogueOptions {
 
@@ -1221,7 +1221,7 @@ public class DialogueOptions {
                     }
                     break;
                 case 85:
-                    if (!canOpenBossRewardBox(player)) {
+                    if (!hasEarnedReward(player) && !BossRewardBoxes.hasExistingBox(player)) {
                         player.getPacketSender().sendMessage("You haven't earned this reward!");
                     } else {
                         BossRewardBoxes.openBossRewardBox(player);
@@ -1276,6 +1276,12 @@ public class DialogueOptions {
                         player.getMinigameAttributes().getDungeoneeringAttributes().getPartyInvitation().getOwner().getPacketSender().sendMessage("" + player.getUsername() + " has declined your invitation.");
                     player.getMinigameAttributes().getDungeoneeringAttributes().setPartyInvitation(null);
                     break;
+
+                case 85:
+                    player.getPacketSender().sendMessage("We've skipped opening this reward box <3");
+                    player.getPacketSender().sendInterfaceRemoval();
+                    player.setShouldGiveBossReward(false);
+                    BossRewardBoxes.removeBossRewardBox(player);
             }
         } else if (id == FIRST_OPTION_OF_THREE) {
             switch (player.getDialogueActionId()) {

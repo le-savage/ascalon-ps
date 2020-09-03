@@ -20,13 +20,13 @@ public class RockPaperScissors {
             TaskManager.submit(new Task(1) {
                 @Override
                 protected void execute() {
-                    player.forceChat("Rock.. Paper.. Scissors..");
-                    player2.forceChat("Rock.. Paper.. Scissors..");
+                    player.forceChat("Okay "+ player2.getUsername()+ " - Rock.. Paper.. Scissors..");
+                    player2.forceChat("Okay "+ player.getUsername()+ " - Rock.. Paper.. Scissors..");
                     stop();
                 }
             });
 
-            TaskManager.submit(new Task(2) {
+            TaskManager.submit(new Task(4) {
                 @Override
                 protected void execute() {
                     int player1Random = Misc.random(0, 2);
