@@ -287,13 +287,6 @@ public class NPCDeathTask extends Task {
             }
 
             if (killer.getRights() == PlayerRights.PLAYER) {
-                /*TaskManager.submit(new Task(15, killer, false) {
-                    @Override
-                    public void execute() {
-                        InstanceArena.destructArena(killer);
-                        this.stop();
-                    }
-                });*/
                 killer.getPacketSender().sendMessage("Nice job! Use the button or ::exit to leave!");
             }
         }

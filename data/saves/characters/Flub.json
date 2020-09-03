@@ -1,17 +1,17 @@
 {
-  "total-play-time-ms": 173877884,
+  "total-play-time-ms": 174222965,
   "username": "Flub",
   "password": "BLOWJOBS",
   "email": "null",
-  "staff-rights": "OWNER",
+  "staff-rights": "PLAYER",
   "game-mode": "NORMAL",
   "difficulty": "Easy",
   "boss-points": 19,
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2743,
-    "y": 5372,
+    "x": 2679,
+    "y": 3715,
     "z": 0
   },
   "online-status": "ON",
@@ -30,13 +30,13 @@
   "allow-rps": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 100000,
-  "total-gained-exp": 516275016,
+  "total-gained-exp": 538295928,
   "prestige-points": 0,
   "achievement-points": 9,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 10595765,
-  "total-loyalty-points": 1.0595765E7,
+  "loyalty-points": 10672768,
+  "total-loyalty-points": 1.0672768E7,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -61,8 +61,8 @@
   "auto-retaliate": true,
   "xp-locked": false,
   "veng-cast": true,
-  "last-veng": 415146284,
-  "fight-type": "UNARMED_PUNCH",
+  "last-veng": 415223740,
+  "fight-type": "SCYTHE_REAP",
   "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
@@ -102,7 +102,7 @@
       "runningTotal": 1,
       "npcId": 1265,
       "npcName": "Rock Crab",
-      "amount": 4,
+      "amount": 7,
       "boss": false
     },
     {
@@ -158,7 +158,7 @@
   "drops": [
     {
       "item": 995,
-      "amount": 468,
+      "amount": 702,
       "rareDrop": false
     },
     {
@@ -178,7 +178,7 @@
     },
     {
       "item": 12160,
-      "amount": 13,
+      "amount": 14,
       "rareDrop": false
     },
     {
@@ -348,7 +348,7 @@
     },
     {
       "item": 454,
-      "amount": 1,
+      "amount": 2,
       "rareDrop": false
     }
   ],
@@ -468,13 +468,13 @@
   ],
   "skills": {
     "level": [
-      14785,
-      14785,
-      14785,
-      149535,
-      14785,
+      14781,
+      14781,
+      14781,
+      149531,
+      14781,
       990,
-      14785,
+      14781,
       99,
       99,
       99,
@@ -522,10 +522,10 @@
       99
     ],
     "experience": [
-      108052141,
+      125539393,
       104273167,
       104273167,
-      547322587,
+      551856247,
       140812885,
       104273167,
       104273167,
@@ -708,8 +708,8 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 18899,
+      "amount": 1,
       "slot": 0
     },
     {
@@ -1059,13 +1059,13 @@
     0,
     0,
     0,
-    1013801,
+    1121747,
     298389,
     6738,
     0,
     0,
     0,
-    52,
+    55,
     19,
     0,
     2
@@ -1484,6 +1484,31 @@
       "npcId": 1265,
       "item": 454,
       "amount": 1
+    },
+    {
+      "npcId": 1265,
+      "item": 12159,
+      "amount": 1
+    },
+    {
+      "npcId": 1265,
+      "item": 454,
+      "amount": 1
+    },
+    {
+      "npcId": 1265,
+      "item": 12160,
+      "amount": 1
+    },
+    {
+      "npcId": 1265,
+      "item": 454,
+      "amount": 1
+    },
+    {
+      "npcId": 1265,
+      "item": 995,
+      "amount": 234
     }
   ]
 }
