@@ -307,11 +307,23 @@ public class NPCDrops {
         }
 
 
+        /** Disable drops from ::boss minigame **/
         if (player.getLocation().equals(Location.BOSS_TIER_LOCATION)) {
             return;
         }
 
 
+
+        /** Begin methods to implement the ::pickup value **/
+
+        /** Pickup method applies to any player donator+
+         * We then check for the player.getPickupValue()
+         * The first method covers stackable items
+         *
+         * The second method covers the non-stackable
+         * items. They are separated to ensure mulitple
+         * drops are not obtained.
+         */
         if (item.getDefinition().isStackable() && player.getRights() != PlayerRights.PLAYER && player.getRights() != PlayerRights.DONATOR) {
             if (item.getDefinition().getValue() >= player.getPickupValue() && (player.getInventory().getFreeSlots() >= 1)) {
                 player.getInventory().add(itemId, item.getAmount());
