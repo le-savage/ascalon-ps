@@ -27,6 +27,7 @@ import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.FightType;
+import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.content.dailyreward.DailyRewardConstants;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.dialogue.DialogueOptions;
@@ -1329,6 +1330,8 @@ public class ButtonClickPacketListener implements PacketListener {
                 if (!player.isBanking() || player.getInterfaceId() != 5292)
                     return;
                 Bank.depositItems(player, id == 27005 ? player.getEquipment() : player.getInventory(), false);
+                player.getEquipment().refreshItems();
+                ItemEffect.refreshEffects(player); //This is to stop the scythe bank bug
                 break;
             case 27023:
                 if (!player.isBanking() || player.getInterfaceId() != 5292)

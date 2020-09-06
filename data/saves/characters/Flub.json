@@ -1,17 +1,17 @@
 {
-  "total-play-time-ms": 174222965,
+  "total-play-time-ms": 175586422,
   "username": "Flub",
   "password": "BLOWJOBS",
   "email": "null",
-  "staff-rights": "PLAYER",
+  "staff-rights": "OWNER",
   "game-mode": "NORMAL",
   "difficulty": "Easy",
-  "boss-points": 19,
+  "boss-points": 21,
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2679,
-    "y": 3715,
+    "x": 2747,
+    "y": 5374,
     "z": 0
   },
   "online-status": "ON",
@@ -19,12 +19,12 @@
   "has-played-new-barrows": false,
   "has-used-boss-tier-tp": true,
   "should-give-boss-reward": false,
-  "kbd-tier": 4,
+  "kbd-tier": 0,
   "barrows-kc": 0,
-  "money-pouch": 1557267909,
+  "money-pouch": 557267909,
   "donated": 0,
-  "next-reward": 1599175494187,
-  "reward-day": 5,
+  "next-reward": 1599516271508,
+  "reward-day": 6,
   "claimed-todays-reward": true,
   "allow-snap": false,
   "allow-rps": true,
@@ -35,8 +35,8 @@
   "achievement-points": 9,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 10672768,
-  "total-loyalty-points": 1.0672768E7,
+  "loyalty-points": 10850034,
+  "total-loyalty-points": 1.0850034E7,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -60,9 +60,9 @@
   "sounds": false,
   "auto-retaliate": true,
   "xp-locked": false,
-  "veng-cast": true,
-  "last-veng": 415223740,
-  "fight-type": "SCYTHE_REAP",
+  "veng-cast": false,
+  "last-veng": 1599015467885,
+  "fight-type": "LONGSWORD_CHOP",
   "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
@@ -73,7 +73,7 @@
   "fire-damage-mod": 0,
   "prayer-renewal-timer": 0,
   "teleblock-timer": 0,
-  "special-amount": 15000,
+  "special-amount": 100,
   "entered-gwd-room": false,
   "gwd-altar-delay": 0,
   "gwd-killcount": [
@@ -95,7 +95,7 @@
       "runningTotal": 1,
       "npcId": 50,
       "npcName": "King Black Dragon",
-      "amount": 13,
+      "amount": 15,
       "boss": true
     },
     {
@@ -468,13 +468,13 @@
   ],
   "skills": {
     "level": [
-      14781,
-      14781,
-      14781,
-      149531,
-      14781,
+      14771,
+      14771,
+      14771,
+      149521,
+      14771,
       990,
-      14781,
+      14771,
       99,
       99,
       99,
@@ -551,13 +551,13 @@
   },
   "inventory": [
     {
-      "id": 995,
-      "amount": 400000000,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 14008,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
@@ -708,11 +708,6 @@
       "slot": 0
     },
     {
-      "id": 18899,
-      "amount": 1,
-      "slot": 0
-    },
-    {
       "id": -1,
       "amount": 0,
       "slot": 0
@@ -738,8 +733,13 @@
       "slot": 0
     },
     {
-      "id": 10336,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
@@ -871,6 +871,41 @@
     },
     {
       "id": 5018,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 995,
+      "amount": 400000000,
+      "slot": 0
+    },
+    {
+      "id": 14008,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 19335,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 10336,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 4718,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 13896,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 18899,
       "amount": 1,
       "slot": 0
     }
@@ -1059,14 +1094,14 @@
     0,
     0,
     0,
-    1121747,
+    1135146,
     298389,
     6738,
     0,
     0,
     0,
-    55,
-    19,
+    57,
+    21,
     0,
     2
   ],
