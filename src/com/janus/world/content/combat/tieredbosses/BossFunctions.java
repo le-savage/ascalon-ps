@@ -27,6 +27,12 @@ public class BossFunctions {
     public static int doorY = 5374;
     public static int entranceX = 2807;
     public static int entranceY = 10105;
+
+    /** Coords for the frozen game modes **/
+    public static int frozenX = 2778;
+    public static int frozenY = 10088;
+
+
     public static int rewardChestID = 4126;
 
     public static boolean checkItems(Player player) {
@@ -82,7 +88,13 @@ public class BossFunctions {
                 player.forceChat("Uh oh! Tier " + player.getKbdTier() + " just spawned!");
                 player.performAnimation(new Animation(1746));
                 if (player.getLocation() != BOSS_TIER_LOCATION) {
-                    player.moveTo(new Position(entranceX, entranceY, player.getIndex() * 4));
+                    if (player.getKbdTier() == 3 || player.getKbdTier() == 4) {
+                        player.moveTo(new Position(frozenX, frozenY, player.getIndex() * 4));
+                        player.setFreezeDelay(Integer.MAX_VALUE);
+                        player.setResetMovementQueue(true);
+                    } else {
+                        player.moveTo(new Position(entranceX, entranceY, player.getIndex() * 4));
+                    }
                     player.setRegionInstance(new RegionInstance(player, BOSS_TIER_ARENA));
                     KBDFight.StartKBDFight(player);
                     if (player.getSummoning().getFamiliar() != null) {
@@ -157,6 +169,8 @@ public class BossFunctions {
         player.moveTo(DOOR);
         player.getUpdateFlag().flag(Flag.ANIMATION);
         Autocasting.resetAutocast(player, true);
+        player.setFreezeDelay(-1);
+        player.setResetMovementQueue(true);
     }
 
     public static boolean shouldDespawnNPCs(Player player) {

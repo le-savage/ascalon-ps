@@ -1171,6 +1171,38 @@ public class CommandPacketListener implements PacketListener {
                         .sendConsoleMessage("Sucessfully moved " + playerToMove.getUsername() + " to home.");
             }
         }
+
+        /** Test command to prove the freeze theory **/
+        if (command[0].equalsIgnoreCase("freeze")) {
+            String playerToFreeze = wholeCommand.substring(command[0].length() + 1).toLowerCase().replaceAll("_", " ");
+            Player player2 = World.getPlayerByName(playerToFreeze);
+
+            if (player2 == null) {
+                player.getPacketSender().sendConsoleMessage("Cannot find that player online..");
+                return;
+            }
+
+            player2.setFreezeDelay(Integer.MAX_VALUE);
+            player2.getPacketSender().sendMessage(player.getUsername() + " has frozen me!");
+            player2.setResetMovementQueue(true);
+        }
+
+        if (command[0].equalsIgnoreCase("unfreeze")) {
+            String playerToUnfreeze = wholeCommand.substring(command[0].length() + 1).toLowerCase().replaceAll("_", " ");
+            Player player2 = World.getPlayerByName(playerToUnfreeze);
+
+            if (player2 == null) {
+                player.getPacketSender().sendConsoleMessage("Cannot find that player online..");
+                return;
+            }
+
+            player2.setFreezeDelay(-1);
+            player2.getPacketSender().sendMessage(player.getUsername() + " has unfrozen me!");
+            player2.setResetMovementQueue(true);
+        }
+
+
+
         if (command[0].equalsIgnoreCase("mute")) {
             try {
                 String target = wholeCommand.substring(command[0].length() + 1).toLowerCase().replaceAll("_", " ");

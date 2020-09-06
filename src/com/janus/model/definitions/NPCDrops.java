@@ -392,7 +392,7 @@ public class NPCDrops {
 
     public enum DropChance {
         ALWAYS(0), ALMOST_ALWAYS(2), VERY_COMMON(5), COMMON(15), UNCOMMON(40), NOTTHATRARE(
-                100), RARE(260), LEGENDARY(400), LEGENDARY_2(550), LEGENDARY_3(700), LEGENDARY_4(830), LEGENDARY_5(950);
+                150), RARE(400), LEGENDARY(500), LEGENDARY_2(650), LEGENDARY_3(800), LEGENDARY_4(890), LEGENDARY_5(1000);
 
 
         private int random;

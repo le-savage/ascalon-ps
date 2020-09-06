@@ -108,7 +108,7 @@ public class Bank extends ItemContainer {
                 return;
 
         if (p.getLocation() == Locations.Location.BOSS_TIER_LOCATION || p.getLocation() == Locations.Location.BOSS_TIER_ENTRANCE) {
-            p.getPacketSender().sendMessage("Nice try. Staff alerted!");
+            p.getPacketSender().sendMessage("Nice try you cheeky boi. Staff alerted!");
             World.sendStaffMessage(p.getUsername() + " TRIED TO DEPOSIT ITEMS INTO HIS BANK FROM ::BOSS!");
             return;
         }
@@ -118,6 +118,7 @@ public class Bank extends ItemContainer {
 
 
         for (Item it : from.getValidItems()) {
+
             if (p.getBank(p.getCurrentBankTab()).getFreeSlots() <= 0 && !(p.getBank(p.getCurrentBankTab()).contains(it.getId()) && it.getDefinition().isStackable())) {
                 p.getPacketSender().sendMessage("Bank full.");
                 return;

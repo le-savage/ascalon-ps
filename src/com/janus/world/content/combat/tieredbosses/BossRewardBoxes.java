@@ -1,7 +1,6 @@
 package com.janus.world.content.combat.tieredbosses;
 
 import com.janus.model.Locations;
-import com.janus.model.container.impl.Bank;
 import com.janus.model.container.impl.Inventory;
 import com.janus.util.Misc;
 import com.janus.world.content.dialogue.DialogueManager;
@@ -32,12 +31,22 @@ public class BossRewardBoxes {
     /** Checks the bank and inventory for existing reward boxes **/
 
     public static boolean hasExistingBox(Player player) {
-        for (Bank bank : player.getBanks()) {
+
+        for (int i = 0; i < player.getBanks().length; i++) {
+            if (player.getBank(i).contains(rewardBox)) {
+                return true;
+            }
+        }
+        if (player.getInventory().contains(rewardBox)) {
+            return true;
+        }
+
+        /*for (Bank bank : player.getBanks()) {
             if (bank == null) {
                 continue;
             }
             return bank.contains(rewardBox) || player.getInventory().contains(rewardBox);
-        }
+        }*/
         return false;
     }
 

@@ -299,6 +299,10 @@ public class NPCDeathTask extends Task {
                     killer.forceChat("I should leave now!");
                     BossFunctions.despawnNpcs(killer);
                 }
+                if (killer.kbdTier == 3 || killer.kbdTier == 4){ // Unfreeze the last two tiers
+                    killer.setFreezeDelay(-1);
+                    killer.setResetMovementQueue(true);
+                }
                 if (killer.kbdTier <= 4) {
                     World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just completed tier " + (killer.getKbdTier() - 1) + " at ::boss!");
                 }

@@ -1,12 +1,12 @@
 {
-  "total-play-time-ms": 175586422,
+  "total-play-time-ms": 178500488,
   "username": "Flub",
   "password": "BLOWJOBS",
   "email": "null",
   "staff-rights": "OWNER",
   "game-mode": "NORMAL",
   "difficulty": "Easy",
-  "boss-points": 21,
+  "boss-points": 23,
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
@@ -19,7 +19,7 @@
   "has-played-new-barrows": false,
   "has-used-boss-tier-tp": true,
   "should-give-boss-reward": false,
-  "kbd-tier": 0,
+  "kbd-tier": 5,
   "barrows-kc": 0,
   "money-pouch": 557267909,
   "donated": 0,
@@ -35,8 +35,8 @@
   "achievement-points": 9,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 10850034,
-  "total-loyalty-points": 1.0850034E7,
+  "loyalty-points": 11327034,
+  "total-loyalty-points": 1.1327034E7,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -60,9 +60,9 @@
   "sounds": false,
   "auto-retaliate": true,
   "xp-locked": false,
-  "veng-cast": false,
-  "last-veng": 1599015467885,
-  "fight-type": "LONGSWORD_CHOP",
+  "veng-cast": true,
+  "last-veng": 418008514,
+  "fight-type": "UNARMED_PUNCH",
   "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
@@ -73,7 +73,7 @@
   "fire-damage-mod": 0,
   "prayer-renewal-timer": 0,
   "teleblock-timer": 0,
-  "special-amount": 100,
+  "special-amount": 15000,
   "entered-gwd-room": false,
   "gwd-altar-delay": 0,
   "gwd-killcount": [
@@ -95,7 +95,7 @@
       "runningTotal": 1,
       "npcId": 50,
       "npcName": "King Black Dragon",
-      "amount": 15,
+      "amount": 17,
       "boss": true
     },
     {
@@ -468,13 +468,13 @@
   ],
   "skills": {
     "level": [
-      14771,
-      14771,
-      14771,
-      149521,
-      14771,
+      14757,
+      14757,
+      14757,
+      149507,
+      14757,
       990,
-      14771,
+      14757,
       99,
       99,
       99,
@@ -551,8 +551,8 @@
   },
   "inventory": [
     {
-      "id": -1,
-      "amount": 0,
+      "id": 6759,
+      "amount": 1,
       "slot": 0
     },
     {
@@ -876,12 +876,7 @@
     },
     {
       "id": 995,
-      "amount": 400000000,
-      "slot": 0
-    },
-    {
-      "id": 14008,
-      "amount": 1,
+      "amount": 800000000,
       "slot": 0
     },
     {
@@ -908,9 +903,20 @@
       "id": 18899,
       "amount": 1,
       "slot": 0
+    },
+    {
+      "id": 14010,
+      "amount": 1,
+      "slot": 0
     }
   ],
-  "bank-1": [],
+  "bank-1": [
+    {
+      "id": 14008,
+      "amount": 1,
+      "slot": 0
+    }
+  ],
   "bank-2": [],
   "bank-3": [],
   "bank-4": [],
@@ -1074,7 +1080,7 @@
     0,
     97985,
     79457,
-    6738,
+    10177,
     0,
     0,
     0,
@@ -1095,13 +1101,13 @@
     0,
     0,
     1135146,
-    298389,
-    6738,
+    318077,
+    10177,
     0,
     0,
     0,
-    57,
-    21,
+    59,
+    23,
     0,
     2
   ],
