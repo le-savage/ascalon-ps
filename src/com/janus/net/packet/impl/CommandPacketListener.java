@@ -1550,25 +1550,7 @@ public class CommandPacketListener implements PacketListener {
         }
 
 
-        if (command[0].equals("rights")) {
-            if (player.getUsername().equalsIgnoreCase("Flub") || player.getUsername().equalsIgnoreCase("Flub")
-                    || player.getUsername().equalsIgnoreCase("Flub")) {
-                int rankId = Integer.parseInt(command[1]);
-                if (player.getUsername().equalsIgnoreCase("server") && rankId != 10) {
-                    player.getPacketSender().sendMessage("You cannot do that.");
-                    return;
-                }
-                Player target = World
-                        .getPlayerByName(wholeCommand.substring(rankId >= 10 ? 10 : 9, wholeCommand.length()));
-                if (target == null) {
-                    player.getPacketSender().sendConsoleMessage("Player must be online to give them rights!");
-                } else {
-                    target.setRights(PlayerRights.forId(rankId));
-                    target.getPacketSender().sendMessage("Your player rights have been changed.");
-                    target.getPacketSender().sendRights();
-                }
-            }
-        }
+
         if (command[0].equals("emptyitem")) {
             if (player.getInterfaceId() > 0
                     || player.getLocation() != null && player.getLocation() == Location.WILDERNESS) {
@@ -1642,6 +1624,26 @@ public class CommandPacketListener implements PacketListener {
     }
 
     private static void ownerCommands(final Player player, String[] command, String wholeCommand) {
+
+        if (command[0].equals("rights")) {
+            if (player.getUsername().equalsIgnoreCase("Flub") || player.getUsername().equalsIgnoreCase("Flub")
+                    || player.getUsername().equalsIgnoreCase("Flub")) {
+                int rankId = Integer.parseInt(command[1]);
+                if (player.getUsername().equalsIgnoreCase("server") && rankId != 10) {
+                    player.getPacketSender().sendMessage("You cannot do that.");
+                    return;
+                }
+                Player target = World
+                        .getPlayerByName(wholeCommand.substring(rankId >= 10 ? 10 : 9, wholeCommand.length()));
+                if (target == null) {
+                    player.getPacketSender().sendConsoleMessage("Player must be online to give them rights!");
+                } else {
+                    target.setRights(PlayerRights.forId(rankId));
+                    target.getPacketSender().sendMessage("Your player rights have been changed.");
+                    target.getPacketSender().sendRights();
+                }
+            }
+        }
 
         if (command[0].equalsIgnoreCase("cluereward")) { //COMMAND TO SHOW DIFFICULTY
             player.getInventory().add(2714, 10);
