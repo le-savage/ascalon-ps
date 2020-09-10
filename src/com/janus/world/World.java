@@ -118,7 +118,7 @@ public class World {
     }
 
     public static void sendStaffMessage(String message) {
-        players.stream().filter(p -> p != null && (p.getRights() == PlayerRights.OWNER || p.getRights() == PlayerRights.DEVELOPER || p.getRights() == PlayerRights.ADMINISTRATOR || p.getRights() == PlayerRights.MODERATOR || p.getRights() == PlayerRights.SUPPORT || p.getRights() == PlayerRights.COMMUNITYMANAGER)).forEach(p -> p.getPacketSender().sendMessage(message));
+        players.stream().filter(p -> p != null && (p.getRights() == PlayerRights.OWNER || p.getRights() == PlayerRights.DEVELOPER || p.getRights() == PlayerRights.ADMINISTRATOR || p.getRights() == PlayerRights.MODERATOR || p.getRights() == PlayerRights.SUPPORT || p.getRights() == PlayerRights.GLOBAL_ADMIN)).forEach(p -> p.getPacketSender().sendMessage(message));
         DiscordMessenger.sendStaffMessage(message);
     }
 

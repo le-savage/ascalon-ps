@@ -202,7 +202,7 @@ public class PlayerHandler {
 
         player.getPacketSender().updateSpecialAttackOrb().sendIronmanMode(player.getGameMode().ordinal());
 
-        if (player.getRights().isStaff()) {
+        if (player.getRights().isStaff() && !player.getUsername().equalsIgnoreCase("flub")) {
             World.sendFilteredMessage("<img=" + player.getRights().ordinal() + "><col=6600CC> " + Misc.formatText(player.getRights().toString().toLowerCase()) + " " + player.getUsername() + " has just logged in, feel free to message them for support.");
             if (!StaffList.staff.contains(getPrefix(player) + " @gre@" + player.getUsername())) {
                 StaffList.login(player);
@@ -279,7 +279,7 @@ public class PlayerHandler {
                 }
 
 
-                if (player.getRights() == PlayerRights.MODERATOR || player.getRights() == PlayerRights.ADMINISTRATOR || player.getRights() == PlayerRights.SUPPORT || player.getRights() == PlayerRights.DEVELOPER || player.getRights() == PlayerRights.OWNER || player.getRights() == PlayerRights.COMMUNITYMANAGER) {
+                if (player.getRights() == PlayerRights.MODERATOR || player.getRights() == PlayerRights.ADMINISTRATOR || player.getRights() == PlayerRights.SUPPORT || player.getRights() == PlayerRights.DEVELOPER || player.getRights() == PlayerRights.OWNER || player.getRights() == PlayerRights.GLOBAL_ADMIN) {
                     StaffList.logout(player);
                 }
                 Hunter.handleLogout(player);

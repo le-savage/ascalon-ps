@@ -1,5 +1,6 @@
 package com.janus.engine.task.impl;
 
+import com.janus.GameSettings;
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
@@ -22,6 +23,7 @@ import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.content.minigames.impl.NewBarrows;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
+import mysql.BossKillTracker;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -153,6 +155,10 @@ public class NPCDeathTask extends Task {
                         if (npc.getLocation().handleKilledNPC(killer, npc)) {
                             stop();
                             return;
+                        }
+
+                        if (npc.getId() == GameSettings.CURRENT_BOSS) {
+                            new Thread(new BossKillTracker.CountKills(killer)).start();
                         }
                         /*
                          * Halloween event dropping

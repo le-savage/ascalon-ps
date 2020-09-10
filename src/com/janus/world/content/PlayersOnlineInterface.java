@@ -173,7 +173,7 @@ public class PlayersOnlineInterface {
             case SUPPORT:
                 value = 9;
                 break;
-            case COMMUNITYMANAGER:
+            case GLOBAL_ADMIN:
                 value = 8;
                 break;
         }

@@ -103,6 +103,10 @@ public class GameSettings {
             OPTIONS_TAB = 11,
             EMOTES_TAB = 12;
     /**
+     * Current Boss Challenge NPC
+     */
+    public static int CURRENT_BOSS = 50;
+    /**
      * Dzone activation
      */
     public static boolean DZONEON = false;

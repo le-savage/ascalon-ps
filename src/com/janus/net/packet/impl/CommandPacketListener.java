@@ -43,7 +43,9 @@ import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 import com.janus.world.entity.impl.player.PlayerHandler;
 import com.janus.world.entity.impl.player.PlayerSaving;
+import mysql.BossKillTracker;
 import mysql.MySQLController;
+import mysql.ResetBossKills;
 import mysql.impl.FoxSystems.FoxDonating;
 import mysql.impl.FoxSystems.FoxVoting;
 
@@ -333,6 +335,8 @@ public class CommandPacketListener implements PacketListener {
             new Thread(new FoxDonating(player)).start();
 
         }
+
+
 
 
         if (command[0].equalsIgnoreCase("ffa")) {
@@ -960,12 +964,12 @@ public class CommandPacketListener implements PacketListener {
 
             if (player.getRights() == PlayerRights.MODERATOR) {
                 World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
-                        + ">@red@ [Moderator] @bla@" + player.getUsername() + ":" + yellMessage);
+                        + ">@red@ [Mod] @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.ADMINISTRATOR) {
                 World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
-                        + ">@red@ [Administrator] @bla@" + player.getUsername() + ":" + yellMessage);
+                        + ">@red@ [Admin] @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.UBER_DONATOR) {
@@ -997,9 +1001,9 @@ public class CommandPacketListener implements PacketListener {
                         + yellMessage);
                 return;
             }
-            if (player.getRights() == PlayerRights.COMMUNITYMANAGER) {
+            if (player.getRights() == PlayerRights.GLOBAL_ADMIN) {
                 World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
-                        + "><col=9E138C><shad=1> [Community Manager]</shad></col> @bla@" + player.getUsername() + ":"
+                        + "><col=9E138C><shad=1> [Global Admin]</shad></col> @bla@" + player.getUsername() + ":"
                         + yellMessage);
                 return;
             }
@@ -1254,6 +1258,23 @@ public class CommandPacketListener implements PacketListener {
 
     private static void moderatorCommands(final Player player, String[] command, String wholeCommand) {
 
+        if (command[0].startsWith("resetkills")) {
+
+            new Thread(new ResetBossKills.ResetKills(player)).start();
+
+        }
+
+        if (command[0].equals("setboss")) {
+            int bossID = Integer.parseInt(command[1]);
+            if (bossID <= 1) {
+                player.getPacketSender().sendMessage("You can't choose an ID less than 1");
+                return;
+            }
+            GameSettings.CURRENT_BOSS = bossID;
+            player.getPacketSender().sendMessage("Current Boss assigned: " + GameSettings.CURRENT_BOSS);
+            World.sendMessage("@red@This weeks boss task has been changed to @blu@"+NpcDefinition.forId(GameSettings.CURRENT_BOSS).getName()+"@red@!");
+        }
+
         if (command[0].equalsIgnoreCase("givess") && player.getUsername().equalsIgnoreCase("Martijn")) {
             String name = wholeCommand.substring(7);
 
@@ -1446,7 +1467,7 @@ public class CommandPacketListener implements PacketListener {
         }
         if (command[0].equals("sql")) {
             MySQLController.toggle();
-            if (player.getRights() == PlayerRights.DEVELOPER) {
+            if (player.getRights() == PlayerRights.OWNER) {
                 player.getPacketSender().sendMessage("Sql toggled to status: " + GameSettings.MYSQL_ENABLED);
             } else {
                 player.getPacketSender().sendMessage("Sql toggled to status: " + GameSettings.MYSQL_ENABLED + ".");
@@ -1643,6 +1664,12 @@ public class CommandPacketListener implements PacketListener {
                     target.getPacketSender().sendRights();
                 }
             }
+        }
+
+        if (command[0].startsWith("testsql")) {
+
+            new Thread(new BossKillTracker.CountKills(player)).start();
+
         }
 
         if (command[0].equalsIgnoreCase("cluereward")) { //COMMAND TO SHOW DIFFICULTY
@@ -2679,7 +2706,7 @@ public class CommandPacketListener implements PacketListener {
                 case PLAYER:
                     playerCommands(player, parts, command);
                     break;
-                case COMMUNITYMANAGER:
+                case GLOBAL_ADMIN:
                 case MODERATOR:
                     playerCommands(player, parts, command);
                     superDonator(player, parts, command);

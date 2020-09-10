@@ -58,9 +58,9 @@ public enum PlayerRights {
      */
     //YOUTUBER(30, "<col=CD661D>", 1, 1),
 
-    COMMUNITYMANAGER(-1, "<col=780a80>", 1, 1.5); // Just for Martijn LOL
+    GLOBAL_ADMIN(-1, "<col=780a80>", 1, 1.5); // Just for Martijn LOL
 
-    private static final ImmutableSet<PlayerRights> STAFF = Sets.immutableEnumSet(SUPPORT, MODERATOR, COMMUNITYMANAGER, ADMINISTRATOR, OWNER, DEVELOPER);
+    private static final ImmutableSet<PlayerRights> STAFF = Sets.immutableEnumSet(SUPPORT, MODERATOR, GLOBAL_ADMIN, ADMINISTRATOR, OWNER, DEVELOPER);
     private static final ImmutableSet<PlayerRights> MEMBERS = Sets.immutableEnumSet(DONATOR, SUPER_DONATOR, EXTREME_DONATOR, LEGENDARY_DONATOR, UBER_DONATOR);
     /*
      * The yell delay for the rank

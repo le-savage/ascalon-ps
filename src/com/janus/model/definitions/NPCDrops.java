@@ -339,12 +339,12 @@ public class NPCDrops {
         if (!item.getDefinition().isStackable() && player.getRights() != PlayerRights.PLAYER && player.getRights() != PlayerRights.DONATOR) {
             if ((player.getInventory().getFreeSlots() >= item.getAmount()) && (item.getDefinition().getValue() >= player.getPickupValue())) {
                 player.getInventory().add(itemId, item.getAmount());
-                System.out.println("Add non stackable item to inventory : "+item.getDefinition().getName()+" for "+toGive.getUsername());
+                //System.out.println("Add non stackable item to inventory : "+item.getDefinition().getName()+" for "+toGive.getUsername());
                 player.getPacketSender().sendMessage("@red@We picked up @blu@" + item.getAmount() + "@red@ x @blu@" + item.getDefinition().getName() + "@red@ worth @blu@" + Misc.setupMoney(item.getDefinition().getValue()));
             } else {
                 GroundItemManager.spawnGroundItem(toGive, new GroundItem(item, pos, toGive.getUsername(), false, 150, goGlobal, 200));
                 DropLog.submit(toGive, new DropLog.DropLogEntry(itemId, item.getAmount()));
-                System.out.println("Spawn non stackable item : "+item.getDefinition().getName()+" for "+toGive.getUsername());
+                //System.out.println("Spawn non stackable item : "+item.getDefinition().getName()+" for "+toGive.getUsername());
             }
         }
 
