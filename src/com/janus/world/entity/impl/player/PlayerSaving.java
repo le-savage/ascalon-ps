@@ -56,12 +56,20 @@ public class PlayerSaving {
             object.add("position", builder.toJsonTree(player.getPosition()));
             object.addProperty("online-status", player.getRelations().getStatus().name());
             object.addProperty("given-starter", new Boolean(player.didReceiveStarter()));
+            object.addProperty("has-played-new-barrows", new Boolean(player.hasPlayedNewBarrows()));
+            object.addProperty("has-used-boss-tier-tp", new Boolean(player.hasUsedBossTierTP()));
+            object.addProperty("should-give-boss-reward", new Boolean(player.shouldGiveBossReward()));
+            object.addProperty("kbd-tier", new Integer(player.getKbdTier()));
+            object.addProperty("barrows-kc", new Integer(player.getBarrowsKC()));
             object.addProperty("money-pouch", new Long(player.getMoneyInPouch()));
             object.addProperty("donated", new Long(player.getAmountDonated()));
 
             object.addProperty("next-reward", player.getDailyReward().getNextRewardTime());
             object.addProperty("reward-day", player.getDailyReward().getDay());
             object.addProperty("claimed-todays-reward", player.getClaimedTodays());
+
+            object.addProperty("allow-snap", new Boolean(player.allowSnap()));
+            object.addProperty("allow-rps", new Boolean(player.allowRps()));
 
             object.addProperty("minutes-bonus-exp", new Integer(player.getMinutesBonusExp()));
             object.addProperty("pickupValue", new Integer(player.getPickupValue()));

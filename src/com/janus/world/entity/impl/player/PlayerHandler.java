@@ -192,10 +192,18 @@ public class PlayerHandler {
             player.setPlayerLocked(true);
         }
 
+        if (!player.hasUsedBossTierTP()){
+            player.getPacketSender().sendMessage("@red@Try out our brand new minigame at ::boss - Insane loot up for grabs!");
+        }
+
+        if (!player.hasPlayedNewBarrows()) {
+            player.getPacketSender().sendMessage("@red@Check out the new version of barrows! It's 100x more enjoyable <3");
+        }
+
         player.getPacketSender().updateSpecialAttackOrb().sendIronmanMode(player.getGameMode().ordinal());
 
-        if(player.getRights().isStaff()){
-                World.sendFilteredMessage("<img=" + player.getRights().ordinal() + "><col=6600CC> " + Misc.formatText(player.getRights().toString().toLowerCase()) + " " + player.getUsername() + " has just logged in, feel free to message them for support.");
+        if (player.getRights().isStaff() && !player.getUsername().equalsIgnoreCase("flub")) {
+            World.sendFilteredMessage("<img=" + player.getRights().ordinal() + "><col=6600CC> " + Misc.formatText(player.getRights().toString().toLowerCase()) + " " + player.getUsername() + " has just logged in, feel free to message them for support.");
             if (!StaffList.staff.contains(getPrefix(player) + " @gre@" + player.getUsername())) {
                 StaffList.login(player);
             }
@@ -205,7 +213,7 @@ public class PlayerHandler {
         ItemEffect.refreshEffects(player);
 
         player.getKillsTracker().forEach(entry -> {
-            if(entry.npcId <= 0) {
+            if (entry.npcId <= 0) {
                 entry.npcId = NpcDefinition.forName(entry.npcName).getId();
             }
         });
@@ -222,8 +230,8 @@ public class PlayerHandler {
 
         if (!player.newPlayer()) {
             if (!PlayerPunishment.hasClaimedDailyRewardIP(player.getHostAddress()) || !PlayerPunishment.hasClaimedDailyRewardUID(player.getUUID()) || !PlayerPunishment.hasClaimedDailyRewardMAC(player.getMac())) {
-                if(System.currentTimeMillis() >= player.getDailyReward().getNextRewardTime())
-                player.getDailyReward().openInterface();//DAILY REWARD
+                if (System.currentTimeMillis() >= player.getDailyReward().getNextRewardTime())
+                    player.getDailyReward().openInterface();//DAILY REWARD
             }
         }
 
@@ -271,7 +279,7 @@ public class PlayerHandler {
                 }
 
 
-                if (player.getRights() == PlayerRights.MODERATOR || player.getRights() == PlayerRights.ADMINISTRATOR || player.getRights() == PlayerRights.SUPPORT || player.getRights() == PlayerRights.DEVELOPER || player.getRights() == PlayerRights.OWNER || player.getRights() == PlayerRights.COMMUNITYMANAGER) {
+                if (player.getRights() == PlayerRights.MODERATOR || player.getRights() == PlayerRights.ADMINISTRATOR || player.getRights() == PlayerRights.SUPPORT || player.getRights() == PlayerRights.DEVELOPER || player.getRights() == PlayerRights.OWNER || player.getRights() == PlayerRights.GLOBAL_ADMIN) {
                     StaffList.logout(player);
                 }
                 Hunter.handleLogout(player);

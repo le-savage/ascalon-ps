@@ -1,13 +1,13 @@
 package com.janus.world.content.treasuretrails;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 import com.janus.model.Animation;
 import com.janus.model.Item;
 import com.janus.model.Position;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by IntelliJ IDEA. User: levi Date: 11/14/16 Time: 13:23 To change
@@ -16,6 +16,78 @@ import com.janus.world.entity.impl.player.Player;
 public class SearchScrolls {
 
     /* the whole search clue data */
+
+    public static boolean loadClueInterface(Player player, int itemId) {
+        SearchData searchData = SearchData.forIdClue(itemId);
+        if (searchData == null) {
+            return false;
+        }
+        ClueScroll.cleanClueInterface(player);
+        player.getPacketSender()
+                .sendInterface(ClueScroll.CLUE_SCROLL_INTERFACE);
+        for (int i = 0; i < searchData.getHints().length; i++) {
+            player.getPacketSender().sendString(getChilds(searchData.getHints())[i],
+                    searchData.getHints()[i]);
+        }
+        return true;
+    }
+
+    /* loading clue scroll interface */
+
+    public static int[] getChilds(String[] sentences) {
+        switch (sentences.length) {
+            case 1:
+                return new int[]{6971};
+            case 2:
+                return new int[]{6971, 6972};
+            case 3:
+                return new int[]{6970, 6971, 6972};
+            case 4:
+                return new int[]{6970, 6971, 6972, 6973};
+            case 5:
+                return new int[]{6969, 6970, 6971, 6972, 6973};
+            case 6:
+                return new int[]{6969, 6970, 6971, 6972, 6973, 6974};
+            case 7:
+                return new int[]{6968, 6969, 6970, 6971, 6972, 6973, 6974};
+            case 8:
+                return new int[]{6968, 6969, 6970, 6971, 6972, 6973, 6974, 6975};
+        }
+        return null;
+    }
+
+    /* put the right childs ids on the interface */
+
+    public static int getRandomScroll(int level) {
+        int pick = new Random().nextInt(SearchData.values().length);
+        while (SearchData.values()[pick].getLevel() != level) {
+            pick = new Random().nextInt(SearchData.values().length);
+        }
+
+        return SearchData.values()[pick].getClueId();
+    }
+
+    /* get random scroll */
+
+    /* handles the object clicking */
+    public static boolean handleObject(final Player player, Position p) {
+        SearchData searchData = SearchData.forIdObject(new Position(p.getX(), p
+                .getY(), player.getPosition().getZ()));
+        if (searchData == null) {
+            return false;
+        }
+        if (!player.getInventory().contains(searchData.getClueId())
+                || player.getPosition().getZ() != searchData
+                .getObjectPosition().getZ()) {
+            return false;
+        }
+        player.getInventory().delete(
+                new Item(searchData.getClueId(), 1));
+        player.performAnimation(new Animation(searchData.getEmote()));
+        ClueScroll.clueReward(player, searchData.getLevel(),
+                "You've found another clue!", false, "You've found a casket!");
+        return true;
+    }
 
     public static enum SearchData {
 
@@ -264,6 +336,16 @@ public class SearchScrolls {
                 "town's chapel."}, 7304, new Position(3256, 3487, 0), 378,
                 832, 3),
         ;
+        private static Map<Position, SearchData> objects = new HashMap<Position, SearchData>();
+        private static Map<Integer, SearchData> clues = new HashMap<Integer, SearchData>();
+
+        static {
+            for (SearchData data : SearchData.values()) {
+                objects.put(data.objectPosition, data);
+                clues.put(data.clueId, data);
+            }
+        }
+
         private String[] hints;
         private int clueId;
         private Position objectPosition;
@@ -271,8 +353,15 @@ public class SearchScrolls {
         private int emote;
         private int level;
 
-        private static Map<Position, SearchData> objects = new HashMap<Position, SearchData>();
-        private static Map<Integer, SearchData> clues = new HashMap<Integer, SearchData>();
+        SearchData(String[] hints, int clueId, Position objectPosition,
+                   int newObject, int emote, int level) {
+            this.hints = hints;
+            this.clueId = clueId;
+            this.objectPosition = objectPosition;
+            this.newObject = newObject;
+            this.emote = emote;
+            this.level = level;
+        }
 
         public static SearchData forIdObject(Position position) {
             for (int i = 0; i < SearchData.values().length; i++) {
@@ -285,23 +374,6 @@ public class SearchScrolls {
 
         public static SearchData forIdClue(int clueId) {
             return clues.get(clueId);
-        }
-
-        static {
-            for (SearchData data : SearchData.values()) {
-                objects.put(data.objectPosition, data);
-                clues.put(data.clueId, data);
-            }
-        }
-
-        SearchData(String[] hints, int clueId, Position objectPosition,
-                   int newObject, int emote, int level) {
-            this.hints = hints;
-            this.clueId = clueId;
-            this.objectPosition = objectPosition;
-            this.newObject = newObject;
-            this.emote = emote;
-            this.level = level;
         }
 
         public String[] getHints() {
@@ -327,78 +399,6 @@ public class SearchScrolls {
         public int getLevel() {
             return level;
         }
-    }
-
-    /* loading clue scroll interface */
-
-    public static boolean loadClueInterface(Player player, int itemId) {
-        SearchData searchData = SearchData.forIdClue(itemId);
-        if (searchData == null) {
-            return false;
-        }
-        ClueScroll.cleanClueInterface(player);
-        player.getPacketSender()
-                .sendInterface(ClueScroll.CLUE_SCROLL_INTERFACE);
-        for (int i = 0; i < searchData.getHints().length; i++) {
-            player.getPacketSender().sendString(getChilds(searchData.getHints())[i],
-                    searchData.getHints()[i]);
-        }
-        return true;
-    }
-
-    /* put the right childs ids on the interface */
-
-    public static int[] getChilds(String[] sentences) {
-        switch (sentences.length) {
-            case 1:
-                return new int[]{6971};
-            case 2:
-                return new int[]{6971, 6972};
-            case 3:
-                return new int[]{6970, 6971, 6972};
-            case 4:
-                return new int[]{6970, 6971, 6972, 6973};
-            case 5:
-                return new int[]{6969, 6970, 6971, 6972, 6973};
-            case 6:
-                return new int[]{6969, 6970, 6971, 6972, 6973, 6974};
-            case 7:
-                return new int[]{6968, 6969, 6970, 6971, 6972, 6973, 6974};
-            case 8:
-                return new int[]{6968, 6969, 6970, 6971, 6972, 6973, 6974, 6975};
-        }
-        return null;
-    }
-
-    /* get random scroll */
-
-    public static int getRandomScroll(int level) {
-        int pick = new Random().nextInt(SearchData.values().length);
-        while (SearchData.values()[pick].getLevel() != level) {
-            pick = new Random().nextInt(SearchData.values().length);
-        }
-
-        return SearchData.values()[pick].getClueId();
-    }
-
-    /* handles the object clicking */
-    public static boolean handleObject(final Player player, Position p) {
-        SearchData searchData = SearchData.forIdObject(new Position(p.getX(), p
-                .getY(), player.getPosition().getZ()));
-        if (searchData == null) {
-            return false;
-        }
-        if (!player.getInventory().contains(searchData.getClueId())
-                || player.getPosition().getZ() != searchData
-                .getObjectPosition().getZ()) {
-            return false;
-        }
-        player.getInventory().delete(
-                new Item(searchData.getClueId(), 1));
-        player.performAnimation(new Animation(searchData.getEmote()));
-        ClueScroll.clueReward(player, searchData.getLevel(),
-                "You've found another clue!", false, "You've found a casket!");
-        return true;
     }
 
 }

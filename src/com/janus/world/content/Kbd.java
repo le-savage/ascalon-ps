@@ -5,8 +5,6 @@ import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Locations;
 import com.janus.model.Position;
-import com.janus.model.RegionInstance;
-import com.janus.model.RegionInstance.RegionInstanceType;
 import com.janus.world.World;
 import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.entity.impl.npc.NPC;

@@ -1,10 +1,9 @@
 package com.janus.net.packet;
 
-import org.jboss.netty.buffer.ChannelBuffer;
-
 import com.janus.net.packet.impl.ButtonClickPacketListener;
 import com.janus.net.packet.impl.EquipPacketListener;
 import com.janus.net.packet.impl.ItemActionPacketListener;
+import org.jboss.netty.buffer.ChannelBuffer;
 
 /**
  * Manages reading packet information from the netty's channel.
@@ -14,11 +13,18 @@ import com.janus.net.packet.impl.ItemActionPacketListener;
 
 public class Packet {
 
-    public enum PacketType {
-        FIXED,
-        BYTE,
-        SHORT;
-    }
+    /**
+     * The packet id being received.
+     */
+    private final int opcode;
+    /**
+     * The packetType of packet being read.
+     */
+    private PacketType packetType;
+    /**
+     * The buffer being used to read the packet information.
+     */
+    private ChannelBuffer buffer;
 
     /**
      * The Packet constructor.
@@ -34,11 +40,6 @@ public class Packet {
     }
 
     /**
-     * The packet id being received.
-     */
-    private final int opcode;
-
-    /**
      * Gets the packet id.
      *
      * @return The packet id being sent.
@@ -48,11 +49,6 @@ public class Packet {
     }
 
     /**
-     * The packetType of packet being read.
-     */
-    private PacketType packetType;
-
-    /**
      * Gets the packet packetType.
      *
      * @return The packetType of packet being read.
@@ -60,11 +56,6 @@ public class Packet {
     public PacketType getType() {
         return packetType;
     }
-
-    /**
-     * The buffer being used to read the packet information.
-     */
-    private ChannelBuffer buffer;
 
     /**
      * Gets the buffer used to receive the packet information.
@@ -370,5 +361,11 @@ public class Packet {
 
     public boolean prioritize() {
         return opcode == EquipPacketListener.OPCODE || opcode == ItemActionPacketListener.FIRST_ITEM_ACTION_OPCODE || opcode == ButtonClickPacketListener.OPCODE;
+    }
+
+    public enum PacketType {
+        FIXED,
+        BYTE,
+        SHORT;
     }
 }

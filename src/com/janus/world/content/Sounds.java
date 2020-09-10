@@ -11,42 +11,6 @@ import com.janus.world.entity.impl.player.Player;
 
 public class Sounds {
 
-    public enum Sound {
-        ROTATING_CANNON(new int[]{941}),
-        FIRING_CANNON(new int[]{341}),
-        LEVELUP(new int[]{51}),
-        DRINK_POTION(new int[]{334}),
-        EAT_FOOD(new int[]{317}),
-        EQUIP_ITEM(new int[]{319, 320}),
-        DROP_ITEM(new int[]{376}),
-        PICKUP_ITEM(new int[]{358, 359}),
-        SMITH_ITEM(new int[]{464, 468}),
-        SMELT_ITEM(new int[]{352}),
-        MINE_ITEM(new int[]{429, 431, 432}),
-        FLETCH_ITEM(new int[]{375}),
-        WOODCUT(new int[]{471, 472, 473}),
-        LIGHT_FIRE(new int[]{811}),
-        TELEPORT(new int[]{202, 201}),
-        ACTIVATE_PRAYER_OR_CURSE(new int[]{433}),
-        DEACTIVATE_PRAYER_OR_CURSE(new int[]{435}),
-        RUN_OUT_OF_PRAYER_POINTS(new int[]{438}),
-        BURY_BONE(new int[]{380});
-
-        Sound(int[] sounds) {
-            this.sounds = sounds;
-        }
-
-        private int[] sounds;
-
-        public int[] getSounds() {
-            return sounds;
-        }
-
-        public int getSound() {
-            return sounds[Misc.getRandom(getSounds().length - 1)];
-        }
-    }
-
     public static boolean handleButton(Player player, int id) {
         if (id >= 930 && id <= 934) {
             player.setMusicActive(id != 930);
@@ -143,7 +107,6 @@ public class Sounds {
         return Misc.getRandom(6) > 3 ? 398 : 394;
     }
 
-
     public static int getNpcBlockSound(int NPCID) {
         String npc = NpcDefinition.forId(NPCID) == null ? "" : NpcDefinition.forId(NPCID).getName().toLowerCase();
         if (npc.contains("bat")) {
@@ -230,7 +193,6 @@ public class Sounds {
         return 70;
 
     }
-
 
     public static int getPlayerBlockSounds(int wepId) {
 
@@ -426,16 +388,15 @@ public class Sounds {
         if (c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 2745 || c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 2746 || c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 2747 || c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 2748) { // Godswords
             return 390;
         }
-        if (c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 4151) {
+        if (c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 4151 || c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 4178) {
             return 1080;
         } else {
             return 398; //Daggers(this is enything that isn't added)
         }
     }
 
-
     public static int specialSounds(int id) {
-        if (id == 4151) //whip
+        if (id == 4151 || id == 4178) //whip
         {
             return 1081;
         }
@@ -801,5 +762,41 @@ public class Sounds {
         if (location.getX() >= 2880 && location.getX() <= 3325 && location.getY() >= 2935 && location.getY() <= 3394)
             return 71;
         return 0;
+    }
+
+    public enum Sound {
+        ROTATING_CANNON(new int[]{941}),
+        FIRING_CANNON(new int[]{341}),
+        LEVELUP(new int[]{51}),
+        DRINK_POTION(new int[]{334}),
+        EAT_FOOD(new int[]{317}),
+        EQUIP_ITEM(new int[]{319, 320}),
+        DROP_ITEM(new int[]{376}),
+        PICKUP_ITEM(new int[]{358, 359}),
+        SMITH_ITEM(new int[]{464, 468}),
+        SMELT_ITEM(new int[]{352}),
+        MINE_ITEM(new int[]{429, 431, 432}),
+        FLETCH_ITEM(new int[]{375}),
+        WOODCUT(new int[]{471, 472, 473}),
+        LIGHT_FIRE(new int[]{811}),
+        TELEPORT(new int[]{202, 201}),
+        ACTIVATE_PRAYER_OR_CURSE(new int[]{433}),
+        DEACTIVATE_PRAYER_OR_CURSE(new int[]{435}),
+        RUN_OUT_OF_PRAYER_POINTS(new int[]{438}),
+        BURY_BONE(new int[]{380});
+
+        private int[] sounds;
+
+        Sound(int[] sounds) {
+            this.sounds = sounds;
+        }
+
+        public int[] getSounds() {
+            return sounds;
+        }
+
+        public int getSound() {
+            return sounds[Misc.getRandom(getSounds().length - 1)];
+        }
     }
 }

@@ -4,8 +4,8 @@ import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.GameObject;
 import com.janus.model.Locations;
-import com.janus.model.Position;
 import com.janus.model.Locations.Location;
+import com.janus.model.Position;
 import com.janus.util.Misc;
 import com.janus.world.World;
 import com.janus.world.entity.impl.player.Player;
@@ -16,6 +16,31 @@ import com.janus.world.entity.impl.player.Player;
  * @author Gabriel Hannason
  */
 public class WildernessObelisks {
+
+    /*
+     * The obelisks
+     */
+    public static final GameObject[] obelisks = new GameObject[4];
+    /*
+     * Obelisk ids
+     */
+    private static final int[] OBELISK_IDS = {
+            14829, 14830,
+            14827, 14828,
+            14826, 14831
+    };
+    /*
+     * Are the obelisks activated?
+     */
+    private static final boolean[] OBELISK_ACTIVATED = new boolean[OBELISK_IDS.length];
+    /*
+     * Obelisk coords
+     */
+    private static final int[][] OBELISK_COORDS = {
+            {3154, 3618}, {3225, 3665},
+            {3033, 3730}, {3104, 3792},
+            {2978, 3864}, {3305, 3914}
+    };
 
     /**
      * Activates the Wilderness obelisks.
@@ -79,33 +104,5 @@ public class WildernessObelisks {
         }
         return -1;
     }
-
-    /*
-     * Obelisk ids
-     */
-    private static final int[] OBELISK_IDS = {
-            14829, 14830,
-            14827, 14828,
-            14826, 14831
-    };
-
-    /*
-     * The obelisks
-     */
-    public static final GameObject[] obelisks = new GameObject[4];
-
-    /*
-     * Are the obelisks activated?
-     */
-    private static final boolean[] OBELISK_ACTIVATED = new boolean[OBELISK_IDS.length];
-
-    /*
-     * Obelisk coords
-     */
-    private static final int[][] OBELISK_COORDS = {
-            {3154, 3618}, {3225, 3665},
-            {3033, 3730}, {3104, 3792},
-            {2978, 3864}, {3305, 3914}
-    };
 
 }

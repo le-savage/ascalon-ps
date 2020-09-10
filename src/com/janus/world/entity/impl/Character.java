@@ -21,15 +21,11 @@ import com.janus.world.entity.impl.player.Player;
 
 public abstract class Character extends Entity {
 
-    public Character(Position position) {
-        super(position);
-        location = Location.getLocation(this);
-    }
+    public Position singlePlayerPositionFacing;
 
     /*
      * Fields
      */
-
     /*** STRINGS ***/
     private String forcedChat;
 
@@ -46,26 +42,26 @@ public abstract class Character extends Entity {
     private Animation animation;
     private Graphic graphic;
     private Entity interactingEntity;
-    public Position singlePlayerPositionFacing;
     private CombatSpell currentlyCasting;
     private Hit primaryHit;
     private Hit secondaryHit;
     private RegionInstance regionInstance;
-
     /*** INTS ***/
     private int npcTransformationId;
     private int poisonDamage;
     private int freezeDelay;
-
     /*** BOOLEANS ***/
     private boolean[] prayerActive = new boolean[30], curseActive = new boolean[20];
     private boolean registered;
     private boolean teleporting;
     private boolean resetMovementQueue;
     private boolean needsPlacement;
+    private boolean moving;
 
-    /*** ABSTRACT METHODS ***/
-    public abstract Character setConstitution(int constitution);
+    public Character(Position position) {
+        super(position);
+        location = Location.getLocation(this);
+    }
 
     public abstract CombatStrategy determineStrategy();
 
@@ -77,16 +73,19 @@ public abstract class Character extends Entity {
 
     public abstract int getConstitution();
 
+    /*** ABSTRACT METHODS ***/
+    public abstract Character setConstitution(int constitution);
+
     public abstract int getBaseAttack(CombatType type);
 
     public abstract int getBaseDefence(CombatType type);
-
-    public abstract int getAttackSpeed();
 
     /*
      * Getters and setters
      * Also contains methods.
      */
+
+    public abstract int getAttackSpeed();
 
     public Location getLocation() {
         return location;
@@ -131,6 +130,7 @@ public abstract class Character extends Entity {
         primaryHit = decrementHealth(hit);
         getUpdateFlag().flag(Flag.SINGLE_HIT);
     }
+
     public void dealDamage(Player attacker, Hit hit) {
         if (getUpdateFlag().flagged(Flag.SINGLE_HIT)) {
             dealSecondaryDamage(hit);
@@ -314,7 +314,6 @@ public abstract class Character extends Entity {
         return poisonDamage != 0;
     }
 
-
     public Position getPositionToFace() {
         return positionToFace;
     }
@@ -336,8 +335,6 @@ public abstract class Character extends Entity {
         }
         return this;
     }
-
-    private boolean moving;
 
     public void delayedMoveTo(final Position teleportTarget, final int delay) {
         if (moving)
@@ -362,13 +359,13 @@ public abstract class Character extends Entity {
         return updateFlag;
     }
 
+    public MovementQueue getMovementQueue() {
+        return movementQueue;
+    }
+
     public Character setMovementQueue(MovementQueue movementQueue) {
         this.movementQueue = movementQueue;
         return this;
-    }
-
-    public MovementQueue getMovementQueue() {
-        return movementQueue;
     }
 
     public Character forceChat(String message) {
@@ -412,15 +409,6 @@ public abstract class Character extends Entity {
     }
 
     /**
-     * Sets the value for {@link CharacterNode#secondaryDirection}.
-     *
-     * @param secondaryDirection the new value to set.
-     */
-    public final void setSecondaryDirection(Direction secondaryDirection) {
-        this.secondaryDirection = secondaryDirection;
-    }
-
-    /**
      * Gets the last direction this character was facing.
      *
      * @return the last direction.
@@ -460,22 +448,22 @@ public abstract class Character extends Entity {
         return prayerActive;
     }
 
-    public boolean[] getCurseActive() {
-        return curseActive;
-    }
-
     public Character setPrayerActive(boolean[] prayerActive) {
         this.prayerActive = prayerActive;
         return this;
     }
 
-    public Character setPrayerActive(int id, boolean prayerActive) {
-        this.prayerActive[id] = prayerActive;
-        return this;
+    public boolean[] getCurseActive() {
+        return curseActive;
     }
 
     public Character setCurseActive(boolean[] curseActive) {
         this.curseActive = curseActive;
+        return this;
+    }
+
+    public Character setPrayerActive(int id, boolean prayerActive) {
+        this.prayerActive[id] = prayerActive;
         return this;
     }
 
@@ -493,6 +481,10 @@ public abstract class Character extends Entity {
         return this;
     }
 
+    public Direction getPrimaryDirection() {
+        return primaryDirection;
+    }
+
     /*
      * Movement queue
      */
@@ -501,12 +493,17 @@ public abstract class Character extends Entity {
         this.primaryDirection = primaryDirection;
     }
 
-    public Direction getPrimaryDirection() {
-        return primaryDirection;
-    }
-
     public Direction getSecondaryDirection() {
         return secondaryDirection;
+    }
+
+    /**
+     * Sets the value for {@link CharacterNode#secondaryDirection}.
+     *
+     * @param secondaryDirection the new value to set.
+     */
+    public final void setSecondaryDirection(Direction secondaryDirection) {
+        this.secondaryDirection = secondaryDirection;
     }
 
     public CombatSpell getCurrentlyCasting() {
@@ -552,12 +549,12 @@ public abstract class Character extends Entity {
         this.resetMovementQueue = resetMovementQueue;
     }
 
-    public void setNeedsPlacement(boolean needsPlacement) {
-        this.needsPlacement = needsPlacement;
-    }
-
     public boolean isNeedsPlacement() {
         return needsPlacement;
+    }
+
+    public void setNeedsPlacement(boolean needsPlacement) {
+        this.needsPlacement = needsPlacement;
     }
 
     public RegionInstance getRegionInstance() {

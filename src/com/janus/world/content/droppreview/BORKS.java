@@ -6,12 +6,10 @@ import com.janus.world.entity.impl.player.Player;
 
 public class BORKS {
 
+    public static final int[] BORKs = {17291, 17291};
     public static int config;
     public static int item;
     public static int index = 0;
-
-    public static final int[] BORKs = {17291, 17291};
-
 
     /*
      * Get rare drop(s) for that boss location

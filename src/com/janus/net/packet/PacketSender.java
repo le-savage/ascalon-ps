@@ -23,17 +23,24 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class PacketSender {
 
+    private Player player;
+
+    public PacketSender(Player player) {
+        this.player = player;
+    }
+
     public PacketSender sendActiveWidget(int widgetId, boolean active) {
         PacketBuilder out = new PacketBuilder(210);
         out.putShort(widgetId);
-        out.putShort(active ? 1: 0);
+        out.putShort(active ? 1 : 0);
         player.getSession().queueMessage(out);
         return this;
     }
+
     public PacketSender resetItemsOnInterface(final int childId, final int maxItems) {
         PacketBuilder out = new PacketBuilder(34, PacketType.SHORT);
         out.putShort(childId);
-        for(int index = 0; index < maxItems; index++) {
+        for (int index = 0; index < maxItems; index++) {
             out.put(index);
             out.putShort(0);
             out.put(0);
@@ -41,6 +48,7 @@ public class PacketSender {
         player.getSession().queueMessage(out);
         return this;
     }
+
     public PacketSender sendNpcOnInterface(int interfaceId, int npcId) {
         PacketBuilder out = new PacketBuilder(190);
         out.putShort(interfaceId);
@@ -50,7 +58,6 @@ public class PacketSender {
         player.getSession().queueMessage(out);
         return this;
     }
-
 
     public PacketSender trayMessage(int msgtype, String traymsg) {
         PacketBuilder out = new PacketBuilder(181, PacketType.BYTE);
@@ -67,7 +74,6 @@ public class PacketSender {
         player.getSession().queueMessage(out);
         return this;
     }
-
 
     /*** DISCORD PRESENCE ***/
 
@@ -743,6 +749,18 @@ public class PacketSender {
         return this;
     }
 
+    /*public PacketSender sendConstructionInterfaceItems(ArrayList<Furniture> items) {
+     PacketBuilder builder = new PacketBuilder(53, PacketType.SHORT);
+     builder.writeShort(38274);
+     builder.writeShort(items.size());
+     for (int i = 0; i < items.size(); i++) {
+     builder.writeByte(1);
+     builder.writeLEShortA(items.get(i).getItemId() + 1);
+     }
+     player.write(builder.toPacket());
+     return this;
+     }*/
+
     public PacketSender sendItemOnInterface(int interfaceId, int item, int amount) {
         if (item <= 0) {
             item = -1;
@@ -794,19 +812,6 @@ public class PacketSender {
         player.getSession().queueMessage(out);
         return this;
     }
-
-    /*public PacketSender sendConstructionInterfaceItems(ArrayList<Furniture> items) {
-     PacketBuilder builder = new PacketBuilder(53, PacketType.SHORT);
-     builder.writeShort(38274);
-     builder.writeShort(items.size());
-     for (int i = 0; i < items.size(); i++) {
-     builder.writeByte(1);
-     builder.writeLEShortA(items.get(i).getItemId() + 1);
-     }
-     player.write(builder.toPacket());
-     return this;
-     }*/
-
 
     public PacketSender sendInterfaceItems(int interfaceId, Item[] items) {
         PacketBuilder builder = new PacketBuilder(53, PacketType.SHORT);
@@ -1106,12 +1111,6 @@ public class PacketSender {
         int offset = ((x & 0x7)) << 4 + (y & 0x7);
         return offset;
     }
-
-    public PacketSender(Player player) {
-        this.player = player;
-    }
-
-    private Player player;
 
     public PacketSender sendProjectile(Position position, Position offset,
                                        int angle, int speed, int gfxMoving, int startHeight, int endHeight,

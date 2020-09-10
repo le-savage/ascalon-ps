@@ -1,170 +1,171 @@
 package com.janus.world.content.clan;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.util.Stopwatch;
 import com.janus.world.World;
 import com.janus.world.entity.impl.player.Player;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 /**
  * An instance of a clanchat channel, holding all fields.
+ *
  * @author Gabriel Hannason
  */
 public class ClanChat {
 
-	public ClanChat(Player owner, String name, int index) {
-		this.owner = owner;
-		this.name = name;
-		this.index = index;
-		this.ownerName = owner.getUsername();
-	}
+    public static final int RANK_REQUIRED_TO_ENTER = 0, RANK_REQUIRED_TO_KICK = 1, RANK_REQUIRED_TO_TALK = 2;
+    private final int index;
+    private String name;
+    private Player owner;
+    private String ownerName;
+    private boolean lootShare;
+    private Stopwatch lastAction = new Stopwatch();
+    private ClanChatRank[] rankRequirement = new ClanChatRank[3];
+    private CopyOnWriteArrayList<Player> members = new CopyOnWriteArrayList<Player>();
+    private CopyOnWriteArrayList<String> bannedNames = new CopyOnWriteArrayList<String>();
+    private Map<String, ClanChatRank> rankedNames = new HashMap<String, ClanChatRank>();
+    private int wins;
+    public ClanChat(Player owner, String name, int index) {
+        this.owner = owner;
+        this.name = name;
+        this.index = index;
+        this.ownerName = owner.getUsername();
+    }
 
-	public ClanChat(String ownerName, String name, int index) {
-		this.owner = World.getPlayerByName(ownerName);
-		this.ownerName = ownerName;
-		this.name = name;
-		this.index = index;
-	}
+    public ClanChat(String ownerName, String name, int index) {
+        this.owner = World.getPlayerByName(ownerName);
+        this.ownerName = ownerName;
+        this.name = name;
+        this.index = index;
+    }
 
-	private String name;
-	private Player owner;
-	private String ownerName;
-	private final int index;
-	private boolean lootShare;
-	private Stopwatch lastAction = new Stopwatch();
+    public Player getOwner() {
+        return owner;
+    }
 
-	private ClanChatRank[] rankRequirement = new ClanChatRank[3];
-	private CopyOnWriteArrayList<Player> members = new CopyOnWriteArrayList<Player>();
-	private CopyOnWriteArrayList<String> bannedNames = new CopyOnWriteArrayList<String>();
-	private Map<String, ClanChatRank> rankedNames = new HashMap<String, ClanChatRank>();
-	private int wins;
+    public ClanChat setOwner(Player owner) {
+        this.owner = owner;
+        return this;
+    }
 
-	public Player getOwner() {
-		return owner;
-	}
+    public String getOwnerName() {
+        return ownerName;
+    }
 
-	public ClanChat setOwner(Player owner) {
-		this.owner = owner;
-		return this;
-	}
+    public int getIndex() {
+        return index;
+    }
 
-	public String getOwnerName() {
-		return ownerName;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public int getIndex() {
-		return index;
-	}
+    public ClanChat setName(String name) {
+        this.name = name;
+        return this;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public boolean getLootShare() {
+        return lootShare;
+    }
 
-	public ClanChat setName(String name) {
-		this.name = name;
-		return this;
-	}
+    public void setLootShare(boolean lootShare) {
+        this.lootShare = lootShare;
+    }
 
-	public boolean getLootShare() {
-		return lootShare;
-	}
+    public Stopwatch getLastAction() {
+        return lastAction;
+    }
 
-	public void setLootShare(boolean lootShare) {
-		this.lootShare = lootShare;
-	}
+    public ClanChat addMember(Player member) {
+        members.add(member);
+        return this;
+    }
 
-	public Stopwatch getLastAction() {
-		return lastAction;
-	}
+    public ClanChat removeMember(String name) {
+        for (int i = 0; i < members.size(); i++) {
+            Player member = members.get(i);
+            if (member == null)
+                continue;
+            if (member.getUsername().equals(name)) {
+                members.remove(i);
+                break;
+            }
+        }
+        return this;
+    }
 
-	public ClanChat addMember(Player member) {
-		members.add(member);
-		return this;
-	}
+    public ClanChatRank getRank(Player player) {
+        return rankedNames.get(player.getUsername());
+    }
 
-	public ClanChat removeMember(String name) {
-		for(int i = 0; i < members.size(); i++) {
-			Player member = members.get(i);
-			if(member == null)
-				continue;
-			if(member.getUsername().equals(name)) {
-				members.remove(i);
-				break;
-			}
-		}
-		return this;
-	}
+    public int getWins() {
+        return wins;
+    }
 
-	public ClanChatRank getRank(Player player) {
-		return rankedNames.get(player.getUsername());
-	}
-	public int getWins() {
-		return wins;
-	}
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
 
-	public void setWins(int wins) {
-		this.wins = wins;
-	}
-	
-	public void addWin() {
-		wins++;
-	}
-	public ClanChat giveRank(Player player, ClanChatRank rank) {
-		rankedNames.put(player.getUsername(), rank);
-		return this;
-	}
+    public void addWin() {
+        wins++;
+    }
 
-	public CopyOnWriteArrayList<Player> getMembers() {
-		return members;
-	}
+    public ClanChat giveRank(Player player, ClanChatRank rank) {
+        rankedNames.put(player.getUsername(), rank);
+        return this;
+    }
 
-	public Map<String, ClanChatRank> getRankedNames() {
-		return rankedNames;
-	}
+    public CopyOnWriteArrayList<Player> getMembers() {
+        return members;
+    }
 
-	public CopyOnWriteArrayList<String> getBannedNames() {
-		return bannedNames;
-	}
+    public Map<String, ClanChatRank> getRankedNames() {
+        return rankedNames;
+    }
 
-	public void addBannedName(String name) {
-		if(!bannedNames.contains(name)) {
-			bannedNames.add(name);
-			TaskManager.submit(new Task(1) {
-				int tick = 0;
-				@Override
-				public void execute() {
-					if(tick == 2000) { // 20 minutes
-						stop();
-						return;
-					}
-					tick++;
-				}
+    public CopyOnWriteArrayList<String> getBannedNames() {
+        return bannedNames;
+    }
 
-				@Override
-				public void stop() {
-					setEventRunning(false);
-					bannedNames.remove(name);
-				}
-			});
-		}
-	}
+    public void addBannedName(String name) {
+        if (!bannedNames.contains(name)) {
+            bannedNames.add(name);
+            TaskManager.submit(new Task(1) {
+                int tick = 0;
 
-	public boolean isBanned(String name) {
-		return bannedNames.contains(name);
-	}
+                @Override
+                public void execute() {
+                    if (tick == 2000) { // 20 minutes
+                        stop();
+                        return;
+                    }
+                    tick++;
+                }
 
-	public ClanChatRank[] getRankRequirement() {
-		return rankRequirement;
-	}
+                @Override
+                public void stop() {
+                    setEventRunning(false);
+                    bannedNames.remove(name);
+                }
+            });
+        }
+    }
 
-	public ClanChat setRankRequirements(int index, ClanChatRank rankRequirement) {
-		this.rankRequirement[index] = rankRequirement;
-		return this;
-	}
+    public boolean isBanned(String name) {
+        return bannedNames.contains(name);
+    }
 
-	public static final int RANK_REQUIRED_TO_ENTER = 0, RANK_REQUIRED_TO_KICK = 1, RANK_REQUIRED_TO_TALK = 2;
+    public ClanChatRank[] getRankRequirement() {
+        return rankRequirement;
+    }
+
+    public ClanChat setRankRequirements(int index, ClanChatRank rankRequirement) {
+        this.rankRequirement[index] = rankRequirement;
+        return this;
+    }
 }

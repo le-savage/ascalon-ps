@@ -4,8 +4,8 @@ import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
 import com.janus.model.Locations;
-import com.janus.model.Projectile;
 import com.janus.model.Locations.Location;
+import com.janus.model.Projectile;
 import com.janus.util.Misc;
 import com.janus.world.content.combat.CombatContainer;
 import com.janus.world.content.combat.CombatType;
@@ -14,33 +14,6 @@ import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 
 public class Revenant implements CombatStrategy {
-
-    enum REVENANT_DATA {
-
-        REVENANT_IMP(6715, new Animation(7500), new Animation(7501)),
-        REVENANT_GOBLIN(6716, new Animation(7499), new Animation(7513)),
-        REVENANT_WEREWOLF(6701, new Animation(7496), new Animation(7521)),
-        REVENANT_ORK(6725, new Animation(7505), new Animation(7518)),
-        REVENANT_DARK_BEAST(6691, new Animation(7502), new Animation(7514));
-
-        REVENANT_DATA(int npc, Animation magicAttack, Animation rangedAttack) {
-            this.npc = npc;
-            this.magicAttack = magicAttack;
-            this.rangedAttack = rangedAttack;
-        }
-
-        private int npc;
-        public Animation magicAttack, rangedAttack;
-
-        public static REVENANT_DATA getData(int npc) {
-            for (REVENANT_DATA data : REVENANT_DATA.values()) {
-                if (data != null && data.npc == npc) {
-                    return data;
-                }
-            }
-            return null;
-        }
-    }
 
     @Override
     public boolean canAttack(Character entity, Character victim) {
@@ -93,7 +66,6 @@ public class Revenant implements CombatStrategy {
         return true;
     }
 
-
     @Override
     public int attackDelay(Character entity) {
         return entity.getAttackSpeed();
@@ -107,5 +79,31 @@ public class Revenant implements CombatStrategy {
     @Override
     public CombatType getCombatType() {
         return CombatType.MIXED;
+    }
+
+    enum REVENANT_DATA {
+
+        REVENANT_IMP(6715, new Animation(7500), new Animation(7501)),
+        REVENANT_GOBLIN(6716, new Animation(7499), new Animation(7513)),
+        REVENANT_WEREWOLF(6701, new Animation(7496), new Animation(7521)),
+        REVENANT_ORK(6725, new Animation(7505), new Animation(7518)),
+        REVENANT_DARK_BEAST(6691, new Animation(7502), new Animation(7514));
+
+        public Animation magicAttack, rangedAttack;
+        private int npc;
+        REVENANT_DATA(int npc, Animation magicAttack, Animation rangedAttack) {
+            this.npc = npc;
+            this.magicAttack = magicAttack;
+            this.rangedAttack = rangedAttack;
+        }
+
+        public static REVENANT_DATA getData(int npc) {
+            for (REVENANT_DATA data : REVENANT_DATA.values()) {
+                if (data != null && data.npc == npc) {
+                    return data;
+                }
+            }
+            return null;
+        }
     }
 }

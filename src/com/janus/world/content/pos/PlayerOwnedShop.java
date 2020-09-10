@@ -1,5 +1,15 @@
 package com.janus.world.content.pos;
 
+import com.janus.model.definitions.ItemDefinition;
+import com.janus.net.packet.Packet.PacketType;
+import com.janus.net.packet.PacketBuilder;
+import com.janus.util.Misc;
+import com.janus.util.NameUtils;
+import com.janus.world.World;
+import com.janus.world.entity.impl.player.Player;
+import com.janus.world.entity.impl.player.PlayerLoading;
+import com.janus.world.entity.impl.player.PlayerSaving;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -9,16 +19,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.janus.model.definitions.ItemDefinition;
-import com.janus.net.packet.PacketBuilder;
-import com.janus.net.packet.Packet.PacketType;
-import com.janus.util.Misc;
-import com.janus.util.NameUtils;
-import com.janus.world.World;
-import com.janus.world.entity.impl.player.Player;
-import com.janus.world.entity.impl.player.PlayerLoading;
-import com.janus.world.entity.impl.player.PlayerSaving;
 
 /**
  * A class representing a single player owned shop. In this
@@ -52,6 +52,23 @@ public class PlayerOwnedShop {
      * The name of the player owning this player owned shop.
      */
     private String username;
+
+    public static void resetItems(Player player) {
+
+        for (int i = 0; i < SHOP_CAPACITY; i++) {
+
+            PacketBuilder out = new PacketBuilder(34, PacketType.SHORT);
+
+            out.putShort(32621);
+            out.put(i);
+            out.putShort(0);
+            out.put(0);
+
+            player.getSession().queueMessage(out);
+
+        }
+
+    }
 
     public void open(Player player) {
         player.getPacketSender().sendString(32610, "Player Owned Shop - " + ownerName());
@@ -222,23 +239,6 @@ public class PlayerOwnedShop {
                 refresh(player, player.getPlayerOwnedShopManager().getMyShop() == this);
             }
         }
-    }
-
-    public static void resetItems(Player player) {
-
-        for (int i = 0; i < SHOP_CAPACITY; i++) {
-
-            PacketBuilder out = new PacketBuilder(34, PacketType.SHORT);
-
-            out.putShort(32621);
-            out.put(i);
-            out.putShort(0);
-            out.put(0);
-
-            player.getSession().queueMessage(out);
-
-        }
-
     }
 
     /**

@@ -1,7 +1,5 @@
 package com.janus.world.content.skill.impl.herblore;
 
-import java.util.HashMap;
-
 import com.janus.model.container.impl.Equipment;
 import com.janus.util.Misc;
 import com.janus.world.content.combat.CombatFactory;
@@ -9,7 +7,55 @@ import com.janus.world.content.combat.effect.CombatPoisonEffect.PoisonType;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.player.Player;
 
+import java.util.HashMap;
+
 public class WeaponPoison {
+
+    /**
+     * Starts the weapon poison event for each individual weapon item from the
+     * enumeration <code>Weapon</code>.
+     *
+     * @param player  The Player player.
+     * @param itemUse The first item use.
+     * @param useWith The second item use.
+     */
+    public static void execute(final Player player, int itemUse, int useWith) {
+        final Weapon weapon = Weapon.weapon.get(useWith);
+        if (weapon != null) {
+            for (int element[] : weapon.getNewItemId())
+                if (itemUse == element[0] && player.getInventory().contains(itemUse)) {
+                    player.getPacketSender().sendMessage("You poison your weapon..");
+                    player.getInventory().delete(element[0], 1);
+                    player.getInventory().delete(weapon.getItemId(), 1);
+                    //player.getInventory().add(229, 1);
+                    player.getInventory().add(element[1], 1);
+                }
+        }
+    }
+
+    /**
+     * Checks if poison should be applied for a target.
+     *
+     * @param p      The player who is going to apply poison onto the target.
+     * @param target The target who is going to be poisoned.
+     */
+    public static void handleWeaponPoison(Player p, Character target) {
+        int plrWeapon = p.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId();
+        for (Weapon w : Weapon.weapon.values()) {
+            if (w != null) {
+                int random = 0;
+                if (w.getNewItemId()[0][1] == plrWeapon) //Player has p++
+                    random = 5;
+                else if (w.getNewItemId()[1][1] == plrWeapon) //Player has p+
+                    random = 10;
+                if (random > 0) {
+                    if (Misc.getRandom(random) == 1)
+                        CombatFactory.poisonEntity(target, random == 5 ? PoisonType.EXTRA : PoisonType.MILD);
+                    break;
+                }
+            }
+        }
+    }
 
     /**
      * Represents a weapon that can be poisoned. Stores the initial weapon item
@@ -58,23 +104,18 @@ public class WeaponPoison {
         BRONZE_DAGGER(1205, new int[][]{{5940, 5688}, {5937, 5670}});
 
         /**
-         * Creates the weapon.
-         *
-         * @param itemId    The weapon item id.
-         * @param newItemId The poisoned weapon item id.
+         * Represents a map for the weapon item ids.
          */
-        private Weapon(int itemId, int[][] newItemId) {
-            this.itemId = itemId;
-            this.newItemId = newItemId;
-        }
+        public static HashMap<Integer, Weapon> weapon = new HashMap<Integer, Weapon>();
 
         /**
-         * Gets the item id.
-         *
-         * @return the itemId
+         * Populates a map for the weapons.
          */
-        public int getItemId() {
-            return itemId;
+        static {
+            for (Weapon w : Weapon.values())
+
+                weapon.put(w.getItemId(), w);
+
         }
 
         /**
@@ -88,9 +129,15 @@ public class WeaponPoison {
         private int[][] newItemId;
 
         /**
-         * Represents a map for the weapon item ids.
+         * Creates the weapon.
+         *
+         * @param itemId    The weapon item id.
+         * @param newItemId The poisoned weapon item id.
          */
-        public static HashMap<Integer, Weapon> weapon = new HashMap<Integer, Weapon>();
+        private Weapon(int itemId, int[][] newItemId) {
+            this.itemId = itemId;
+            this.newItemId = newItemId;
+        }
 
         /**
          * Gets the weapon id by the item.
@@ -104,66 +151,19 @@ public class WeaponPoison {
         }
 
         /**
+         * Gets the item id.
+         *
+         * @return the itemId
+         */
+        public int getItemId() {
+            return itemId;
+        }
+
+        /**
          * @return the newItemId
          */
         public int[][] getNewItemId() {
             return newItemId;
-        }
-
-        /**
-         * Populates a map for the weapons.
-         */
-        static {
-            for (Weapon w : Weapon.values())
-
-                weapon.put(w.getItemId(), w);
-
-        }
-    }
-
-    /**
-     * Starts the weapon poison event for each individual weapon item from the
-     * enumeration <code>Weapon</code>.
-     *
-     * @param player  The Player player.
-     * @param itemUse The first item use.
-     * @param useWith The second item use.
-     */
-    public static void execute(final Player player, int itemUse, int useWith) {
-        final Weapon weapon = Weapon.weapon.get(useWith);
-        if (weapon != null) {
-            for (int element[] : weapon.getNewItemId())
-                if (itemUse == element[0] && player.getInventory().contains(itemUse)) {
-                    player.getPacketSender().sendMessage("You poison your weapon..");
-                    player.getInventory().delete(element[0], 1);
-                    player.getInventory().delete(weapon.getItemId(), 1);
-                    //player.getInventory().add(229, 1);
-                    player.getInventory().add(element[1], 1);
-                }
-        }
-    }
-
-    /**
-     * Checks if poison should be applied for a target.
-     *
-     * @param p      The player who is going to apply poison onto the target.
-     * @param target The target who is going to be poisoned.
-     */
-    public static void handleWeaponPoison(Player p, Character target) {
-        int plrWeapon = p.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId();
-        for (Weapon w : Weapon.weapon.values()) {
-            if (w != null) {
-                int random = 0;
-                if (w.getNewItemId()[0][1] == plrWeapon) //Player has p++
-                    random = 5;
-                else if (w.getNewItemId()[1][1] == plrWeapon) //Player has p+
-                    random = 10;
-                if (random > 0) {
-                    if (Misc.getRandom(random) == 1)
-                        CombatFactory.poisonEntity(target, random == 5 ? PoisonType.EXTRA : PoisonType.MILD);
-                    break;
-                }
-            }
         }
     }
 }

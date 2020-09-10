@@ -11,12 +11,12 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class StaffOfLightSpecialAttackTask extends Task {
 
+    private Player player;
+
     public StaffOfLightSpecialAttackTask(Player player) {
         super(2, player, false);
         this.player = player;
     }
-
-    private Player player;
 
     @Override
     public void execute() {

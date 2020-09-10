@@ -1,11 +1,11 @@
 package com.janus.world.content.skill.impl.construction;
 
-import java.util.ArrayList;
-
 import com.janus.model.RegionInstance;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.ArrayList;
 
 /**
  * @author Owner Blade
@@ -206,20 +206,20 @@ public class House extends RegionInstance {
         this.dungeon = dungeon;
     }
 
-    public void setPalette(Palette palette) {
-        this.palette = palette;
-    }
-
     public Palette getPalette() {
         return this.palette;
     }
 
-    public void setSecondaryPalette(Palette secondaryPalette) {
-        this.secondaryPalette = secondaryPalette;
+    public void setPalette(Palette palette) {
+        this.palette = palette;
     }
 
     public Palette getSecondaryPalette() {
         return this.secondaryPalette;
+    }
+
+    public void setSecondaryPalette(Palette secondaryPalette) {
+        this.secondaryPalette = secondaryPalette;
     }
 
     @Override

@@ -37,68 +37,35 @@ public enum Skill {
     SUMMONING(9267, 5, 23),
     DUNGEONEERING(10267, 5, 24);
 
-    private Skill(int chatboxInterface, int prestigePoints, int prestigeId) {
-        this.chatboxInterface = chatboxInterface;
-        this.prestigePoints = prestigePoints;
-        this.prestigeId = prestigeId;
-    }
-
+    public static final int ATTACK_MODIFIER = 60; //230 before from all of these
+    public static final int DEFENCE_MODIFIER = 60;//230 before from all of these
+    public static final int STRENGTH_MODIFIER = 60;//230 before from all of these
+    public static final int CONSTITUTION_MODIFIER = 20;//190 before
+    public static final int RANGED_MODIFIER = 60;//260 before
+    public static final int PRAYER_MODIFIER = 50;//150 before
+    public static final int MAGIC_MODIFIER = 60;//230 before
     /**
      * The skill's chatbox interface
      * The interface which will be sent
      * on levelup.
      */
     private int chatboxInterface;
-
     /**
      * The amount of points
      * the player will receive
      * for prestiging the skill.
      */
     private int prestigePoints;
-
     /**
      * The button id for prestiging
      * this skill.
      */
     private int prestigeId;
 
-    /**
-     * Gets the Skill's chatbox interface.
-     *
-     * @return The interface which will be sent on levelup.
-     */
-    public int getChatboxInterface() {
-        return chatboxInterface;
-    }
-
-    /**
-     * Get's the amount of points the player
-     * will receive for prestiging the skill.
-     *
-     * @return The prestige points reward.
-     */
-    public int getPrestigePoints() {
-        return prestigePoints;
-    }
-
-
-    /**
-     * Gets the Skill's name.
-     *
-     * @return The skill's name in a lower case format.
-     */
-    public String getName() {
-        return toString().toLowerCase();
-    }
-
-    /**
-     * Gets the Skill's name.
-     *
-     * @return The skill's name in a formatted way.
-     */
-    public String getFormatName() {
-        return Misc.formatText(getName());
+    private Skill(int chatboxInterface, int prestigePoints, int prestigeId) {
+        this.chatboxInterface = chatboxInterface;
+        this.prestigePoints = prestigePoints;
+        this.prestigeId = prestigeId;
     }
 
     /**
@@ -147,6 +114,43 @@ public enum Skill {
     }
 
     /**
+     * Gets the Skill's chatbox interface.
+     *
+     * @return The interface which will be sent on levelup.
+     */
+    public int getChatboxInterface() {
+        return chatboxInterface;
+    }
+
+    /**
+     * Get's the amount of points the player
+     * will receive for prestiging the skill.
+     *
+     * @return The prestige points reward.
+     */
+    public int getPrestigePoints() {
+        return prestigePoints;
+    }
+
+    /**
+     * Gets the Skill's name.
+     *
+     * @return The skill's name in a lower case format.
+     */
+    public String getName() {
+        return toString().toLowerCase();
+    }
+
+    /**
+     * Gets the Skill's name.
+     *
+     * @return The skill's name in a formatted way.
+     */
+    public String getFormatName() {
+        return Misc.formatText(getName());
+    }
+
+    /**
      * Custom skill multipliers
      *
      * @return multiplier.
@@ -171,12 +175,4 @@ public enum Skill {
                 return 1;
         }
     }
-
-    public static final int ATTACK_MODIFIER = 60; //230 before from all of these
-    public static final int DEFENCE_MODIFIER = 60;//230 before from all of these
-    public static final int STRENGTH_MODIFIER = 60;//230 before from all of these
-    public static final int CONSTITUTION_MODIFIER = 20;//190 before
-    public static final int RANGED_MODIFIER = 60;//260 before
-    public static final int PRAYER_MODIFIER = 50;//150 before
-    public static final int MAGIC_MODIFIER = 60;//230 before
 }

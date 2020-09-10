@@ -79,8 +79,8 @@ public class CombatContainer {
         this.victim = victim;
         this.combatType = hitType;
         this.checkAccuracy = checkAccuracy;
-        if(attacker.isPlayer()) {
-            if(attacker.getAsPlayer().currentEffects.size() > 0) {
+        if (attacker.isPlayer()) {
+            if (attacker.getAsPlayer().currentEffects.size() > 0) {
                 this.hits = prepareHits(ItemEffect.highestHitAmount(attacker.getAsPlayer(), attacker, victim));
             } else {
                 this.hits = prepareHits(hitAmount);
@@ -175,11 +175,6 @@ public class CombatContainer {
         return array;
     }
 
-    public void setHits(CombatHit[] hits) {
-        this.hits = hits;
-        prepareHits(hits.length);
-    }
-
     /**
      * Performs an action on every single hit in this container.
      *
@@ -229,12 +224,12 @@ public class CombatContainer {
         return ((Player) attacker).getFightType().getStyle().skill(type);
     }
 
-    public void setModifiedDamage(int modifiedDamage) {
-        this.modifiedDamage = modifiedDamage;
-    }
-
     public int getModifiedDamage() {
         return modifiedDamage;
+    }
+
+    public void setModifiedDamage(int modifiedDamage) {
+        this.modifiedDamage = modifiedDamage;
     }
 
     /**
@@ -257,6 +252,11 @@ public class CombatContainer {
      */
     public final CombatHit[] getHits() {
         return hits;
+    }
+
+    public void setHits(CombatHit[] hits) {
+        this.hits = hits;
+        prepareHits(hits.length);
     }
 
     /**

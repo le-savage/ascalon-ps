@@ -524,14 +524,10 @@ public enum MagicSpells {
         }
     });
 
-    MagicSpells(Spell spell) {
-        this.spell = spell;
-    }
-
     private Spell spell;
 
-    public Spell getSpell() {
-        return spell;
+    MagicSpells(Spell spell) {
+        this.spell = spell;
     }
 
     public static MagicSpells forSpellId(int spellId) {
@@ -624,5 +620,9 @@ public enum MagicSpells {
                 break;
         }
         return true;
+    }
+
+    public Spell getSpell() {
+        return spell;
     }
 }

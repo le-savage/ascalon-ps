@@ -11,17 +11,14 @@ import com.janus.util.RandomUtility;
 import com.janus.world.World;
 import com.janus.world.content.*;
 import com.janus.world.content.combat.range.DwarfMultiCannon;
+import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.skill.SkillManager;
 import com.janus.world.content.skill.impl.construction.Construction;
 import com.janus.world.content.skill.impl.dungeoneering.ItemBinding;
 import com.janus.world.content.skill.impl.herblore.Herblore;
 import com.janus.world.content.skill.impl.herblore.IngridientsBook;
-import com.janus.world.content.skill.impl.hunter.BoxTrap;
-import com.janus.world.content.skill.impl.hunter.Hunter;
-import com.janus.world.content.skill.impl.hunter.JarData;
-import com.janus.world.content.skill.impl.hunter.PuroPuro;
-import com.janus.world.content.skill.impl.hunter.SnareTrap;
+import com.janus.world.content.skill.impl.hunter.*;
 import com.janus.world.content.skill.impl.hunter.Trap.TrapState;
 import com.janus.world.content.skill.impl.prayer.Prayer;
 import com.janus.world.content.skill.impl.runecrafting.Runecrafting;
@@ -40,6 +37,10 @@ import com.janus.world.entity.impl.player.Player;
 
 public class ItemActionPacketListener implements PacketListener {
 
+
+    public static final int SECOND_ITEM_ACTION_OPCODE = 75;
+    public static final int FIRST_ITEM_ACTION_OPCODE = 122;
+    public static final int THIRD_ITEM_ACTION_OPCODE = 16;
 
     public static void cancelCurrentActions(Player player) {
         player.getPacketSender().sendInterfaceRemoval();
@@ -75,6 +76,10 @@ public class ItemActionPacketListener implements PacketListener {
         int itemId = packet.readShort();
 
         Location targetLocation = player.getLocation();
+
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("FIRST CLICK Item ID: " + itemId + " Slot: " + slot + " Interface: "+interfaceId);
+        }
 
         if (interfaceId == 38274) {
             Construction.handleItemClick(itemId, player);
@@ -114,17 +119,34 @@ public class ItemActionPacketListener implements PacketListener {
             return;
         }
 
-        if (itemId == BonusExperienceScroll.scrollID){
+        if (itemId == BonusExperienceScroll.scrollID) {
             BonusExperienceScroll.handleScroll(player, itemId);
             return;
         }
 
-        if (itemId == DungeoneeringLamp.lampID){
+        if (itemId == DungeoneeringLamp.lampID) {
             DungeoneeringLamp.handleLamp(player, itemId);
             return;
         }
 
+        if (itemId == BossRewardBoxes.rewardBox) {
+            BossRewardBoxes.setCostToOpen(player);
+        }
+
         switch (itemId) {
+
+            case 455:
+                if (player.allowSnap()) {
+                    player.setAllowSnap(false);
+                    player.getPacketSender().sendMessage("@blu@Snap requests are now @red@BLOCKED");
+                    return;
+                }
+                if (!player.allowSnap()) {
+                    player.setAllowSnap(true);
+                    player.getPacketSender().sendMessage("@blu@Snap requests are now @gre@ALLOWED");
+                    return;
+                }
+                break;
 
             case 13663:
                 if (player.getInterfaceId() > 0) {
@@ -574,8 +596,8 @@ public class ItemActionPacketListener implements PacketListener {
                 DialogueManager.start(player, 0);
                 break;
             case 299:
-                player.getPacketSender().sendMessage("Disabled because you noobs can't handle losing");
-                //Gambling.plantSeed(player);
+                //player.getPacketSender().sendMessage("Disabled because you noobs can't handle losing");
+                Gambling.plantSeed(player);
                 break;
             case 4155:
                 if (player.getSlayer().getSlayerTask() == SlayerTasks.NO_TASK) {
@@ -990,7 +1012,11 @@ public class ItemActionPacketListener implements PacketListener {
             return;
         if (SummoningData.isPouch(player, itemId, 2))
             return;
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("SECOND CLICK Item ID: " + itemId + " Slot: " + slot);
+        }
         switch (itemId) {
+
             case 6500:
                 if (player.getCombatBuilder().isAttacking() || player.getCombatBuilder().isBeingAttacked()) {
                     player.getPacketSender().sendMessage("You cannot configure this right now.");
@@ -1128,6 +1154,9 @@ public class ItemActionPacketListener implements PacketListener {
         int itemId = packet.readShortA();
         int slot = packet.readLEShortA();
         int interfaceId = packet.readLEShortA();
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("THIRD CLICK Item ID: " + itemId + " Slot: " + slot);
+        }
         if (slot < 0 || slot > player.getInventory().capacity())
             return;
         if (player.getInventory().getItems()[slot].getId() != itemId)
@@ -1225,11 +1254,5 @@ public class ItemActionPacketListener implements PacketListener {
                 break;
         }
     }
-
-    public static final int SECOND_ITEM_ACTION_OPCODE = 75;
-
-    public static final int FIRST_ITEM_ACTION_OPCODE = 122;
-
-    public static final int THIRD_ITEM_ACTION_OPCODE = 16;
 
 }

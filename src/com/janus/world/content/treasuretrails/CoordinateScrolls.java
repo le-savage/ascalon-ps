@@ -1,12 +1,12 @@
 package com.janus.world.content.treasuretrails;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 import com.janus.model.Item;
 import com.janus.model.Position;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by IntelliJ IDEA. User: levi Date: 11/14/16 Time: 11:03 To change
@@ -32,6 +32,144 @@ public class CoordinateScrolls {
     public static final int CHART = 2576;
 
     /* contains all the coordinate clues */
+
+    public static boolean loadClueInterface(Player player, int itemId) {
+        CoordinateData coordinateData = CoordinateData.forIdClue(itemId);
+        if (coordinateData == null) {
+            return false;
+        }
+        ClueScroll.cleanClueInterface(player);
+        player.getPacketSender()
+                .sendInterface(ClueScroll.CLUE_SCROLL_INTERFACE);
+        player.getPacketSender().sendString(
+                6971, putZeroToNumber(coordinateData.getDegree1()) + " degrees "
+                        + putZeroToNumber(coordinateData.getMinutes1())
+                        + " minutes " + coordinateData.getHint1());
+        player.getPacketSender().sendString(
+                6972, putZeroToNumber(coordinateData.getDegree2()) + " degrees "
+                        + putZeroToNumber(coordinateData.getMinutes2())
+                        + " minutes " + coordinateData.getHint2());
+        return true;
+    }
+
+    /* loading the clue scroll interfaces */
+
+    public static boolean digClue(Player player) {
+        CoordinateData coordinateData = CoordinateData
+                .forIdPosition(new Position(player.getPosition().getX(), player
+                        .getPosition().getY()));
+        if (coordinateData == null) {
+            return false;
+        }
+        if (!player.getInventory().contains(
+                coordinateData.getClueId())) {
+            return false;
+        }
+
+        player.getInventory().delete(
+                new Item(coordinateData.getClueId(), 1));
+        switch (coordinateData.getLevel()) {
+            case 1:
+                player.getInventory().add(new Item(ClueScroll.CASKET_LV1, 1));
+                break;
+            case 2:
+                player.getInventory().add(new Item(ClueScroll.CASKET_LV2, 1));
+                break;
+            case 3:
+                player.getInventory().add(new Item(ClueScroll.CASKET_LV3, 1));
+                break;
+        }
+        player.getPacketSender().sendMessage("You've found a casket!");
+        return true;
+    }
+
+    /* handling digging */
+
+    private static String putZeroToNumber(int number) {
+        return number < 10 ? "0" + number : "" + number;
+    }
+
+    /* put a 0 next to the number if its under 10 */
+
+    public static Position calculateDiggingPosition(int degree1, int minutes1,
+                                                    int degree2, int minutes2, String firstHint, String secondHint) {
+        int obsX = OBSERVATORY_Position.getX();
+        int obsY = OBSERVATORY_Position.getY();
+
+        /* first hint handling */
+
+        if (firstHint == "north") {
+            obsY += (int) Math
+                    .ceil(((degree1 * ONE_DEGREE_TO_MINUTE + minutes1) / ONE_MINUTE_TO_SQUARE));
+        }
+        if (firstHint == "south") {
+            obsY -= (int) Math
+                    .ceil(((degree1 * ONE_DEGREE_TO_MINUTE + minutes1) / ONE_MINUTE_TO_SQUARE));
+        }
+        if (firstHint == "east") {
+            obsX += (int) Math
+                    .ceil(((degree1 * ONE_DEGREE_TO_MINUTE + minutes1) / ONE_MINUTE_TO_SQUARE));
+        }
+        if (firstHint == "west") {
+            obsX -= (int) Math
+                    .ceil(((degree1 * ONE_DEGREE_TO_MINUTE + minutes1) / ONE_MINUTE_TO_SQUARE));
+        }
+
+        /* second hint handling */
+
+        if (secondHint == "north") {
+            obsY += (int) Math
+                    .ceil(((degree2 * ONE_DEGREE_TO_MINUTE + minutes2) / ONE_MINUTE_TO_SQUARE));
+        }
+        if (secondHint == "south") {
+            obsY -= (int) Math
+                    .ceil(((degree2 * ONE_DEGREE_TO_MINUTE + minutes2) / ONE_MINUTE_TO_SQUARE));
+        }
+        if (secondHint == "east") {
+            obsX += (int) Math
+                    .ceil(((degree2 * ONE_DEGREE_TO_MINUTE + minutes2) / ONE_MINUTE_TO_SQUARE));
+        }
+        if (secondHint == "west") {
+            obsX -= (int) ((degree2 * ONE_DEGREE_TO_MINUTE + minutes2) / ONE_MINUTE_TO_SQUARE);
+        }
+        return new Position(obsX, obsY);
+
+    }
+
+    /* calculating the position of digging place with hint provided */
+
+    /* gets the hint with coordinate provided */
+    public static String[] calculateActualPosition(int x, int y) {
+        int obsX = OBSERVATORY_Position.getX();
+        int obsY = OBSERVATORY_Position.getY();
+        int differenceX = x - obsX;
+        int differenceY = y - obsY;
+        double minutesX = Math.abs(differenceX) * ONE_MINUTE_TO_SQUARE;
+        double minutesY = Math.abs(differenceY) * ONE_MINUTE_TO_SQUARE;
+        int finalMinutesX = (int) Math.ceil(minutesX) % ONE_DEGREE_TO_MINUTE;
+        int finalMinutesY = (int) Math.ceil(minutesY) % ONE_DEGREE_TO_MINUTE;
+        int degreeX = (int) (minutesX / ONE_DEGREE_TO_MINUTE);
+        int degreeY = (int) (minutesY / ONE_DEGREE_TO_MINUTE);
+        /* setting the first strings */
+        String XAxis = (differenceX < 0 ? "west" : "east");
+        String YAxis = (differenceY < 0 ? "south" : "north");
+
+        /* returning the final strings */
+        return new String[]{
+                degreeY + " degrees, " + finalMinutesY + " minutes " + YAxis,
+                degreeX + " degrees, " + finalMinutesX + " minutes " + XAxis};
+    }
+
+    public static int getRandomScroll(int level) {
+        int pick = new Random().nextInt(CoordinateData.values().length);
+        while (CoordinateData.values()[pick].getLevel() != level) {
+            pick = new Random().nextInt(CoordinateData.values().length);
+        }
+
+        return CoordinateData.values()[pick].getClueId();
+    }
+
+    /* getting a random coordinate clue */
 
     public static enum CoordinateData {
         COORDINATE_1(2723, 25, 3, 23, 24, "north", "east", 3), COORDINATE_2(
@@ -97,6 +235,20 @@ public class CoordinateScrolls {
                 "east", 2),
         // COORDINATE_64(2803, 0, 0, 7, 13, "north", "west", 3),
         ;
+        private static Map<Integer, CoordinateData> clues = new HashMap<Integer, CoordinateData>();
+        private static Map<Position, CoordinateData> positions = new HashMap<Position, CoordinateData>();
+
+        static {
+            for (CoordinateData data : CoordinateData.values()) {
+                data.diggingPosition = calculateDiggingPosition(data.degree1,
+                        data.minutes1, data.degree2, data.minutes2, data.hint1,
+                        data.hint2);
+                clues.put(data.clueId, data);
+                positions.put(data.diggingPosition, data);
+
+            }
+        }
+
         private int clueId;
         private int degree1;
         private int minutes1;
@@ -105,11 +257,19 @@ public class CoordinateScrolls {
         private String hint1;
         private String hint2;
         private int level;
-
         private Position diggingPosition;
 
-        private static Map<Integer, CoordinateData> clues = new HashMap<Integer, CoordinateData>();
-        private static Map<Position, CoordinateData> positions = new HashMap<Position, CoordinateData>();
+        CoordinateData(int clueId, int degree1, int minutes1, int degree2,
+                       int minutes2, String hint1, String hint2, int level) {
+            this.clueId = clueId;
+            this.degree1 = degree1;
+            this.minutes1 = minutes1;
+            this.degree2 = degree2;
+            this.minutes2 = minutes2;
+            this.hint1 = hint1;
+            this.hint2 = hint2;
+            this.level = level;
+        }
 
         public static CoordinateData forIdPosition(Position position) {
             for (int i = 0; i < CoordinateData.values().length; i++) {
@@ -123,29 +283,6 @@ public class CoordinateScrolls {
 
         public static CoordinateData forIdClue(int clueId) {
             return clues.get(clueId);
-        }
-
-        static {
-            for (CoordinateData data : CoordinateData.values()) {
-                data.diggingPosition = calculateDiggingPosition(data.degree1,
-                        data.minutes1, data.degree2, data.minutes2, data.hint1,
-                        data.hint2);
-                clues.put(data.clueId, data);
-                positions.put(data.diggingPosition, data);
-
-            }
-        }
-
-        CoordinateData(int clueId, int degree1, int minutes1, int degree2,
-                       int minutes2, String hint1, String hint2, int level) {
-            this.clueId = clueId;
-            this.degree1 = degree1;
-            this.minutes1 = minutes1;
-            this.degree2 = degree2;
-            this.minutes2 = minutes2;
-            this.hint1 = hint1;
-            this.hint2 = hint2;
-            this.level = level;
         }
 
         public int getClueId() {
@@ -183,144 +320,6 @@ public class CoordinateScrolls {
         public Position getDiggingPosition() {
             return diggingPosition;
         }
-    }
-
-    /* loading the clue scroll interfaces */
-
-    public static boolean loadClueInterface(Player player, int itemId) {
-        CoordinateData coordinateData = CoordinateData.forIdClue(itemId);
-        if (coordinateData == null) {
-            return false;
-        }
-        ClueScroll.cleanClueInterface(player);
-        player.getPacketSender()
-                .sendInterface(ClueScroll.CLUE_SCROLL_INTERFACE);
-        player.getPacketSender().sendString(
-                6971, putZeroToNumber(coordinateData.getDegree1()) + " degrees "
-                        + putZeroToNumber(coordinateData.getMinutes1())
-                        + " minutes " + coordinateData.getHint1());
-        player.getPacketSender().sendString(
-                6972, putZeroToNumber(coordinateData.getDegree2()) + " degrees "
-                        + putZeroToNumber(coordinateData.getMinutes2())
-                        + " minutes " + coordinateData.getHint2());
-        return true;
-    }
-
-    /* handling digging */
-
-    public static boolean digClue(Player player) {
-        CoordinateData coordinateData = CoordinateData
-                .forIdPosition(new Position(player.getPosition().getX(), player
-                        .getPosition().getY()));
-        if (coordinateData == null) {
-            return false;
-        }
-        if (!player.getInventory().contains(
-                coordinateData.getClueId())) {
-            return false;
-        }
-
-        player.getInventory().delete(
-                new Item(coordinateData.getClueId(), 1));
-        switch (coordinateData.getLevel()) {
-            case 1:
-                player.getInventory().add(new Item(ClueScroll.CASKET_LV1, 1));
-                break;
-            case 2:
-                player.getInventory().add(new Item(ClueScroll.CASKET_LV2, 1));
-                break;
-            case 3:
-                player.getInventory().add(new Item(ClueScroll.CASKET_LV3, 1));
-                break;
-        }
-        player.getPacketSender().sendMessage("You've found a casket!");
-        return true;
-    }
-
-    /* put a 0 next to the number if its under 10 */
-
-    private static String putZeroToNumber(int number) {
-        return number < 10 ? "0" + number : "" + number;
-    }
-
-    /* calculating the position of digging place with hint provided */
-
-    public static Position calculateDiggingPosition(int degree1, int minutes1,
-                                                    int degree2, int minutes2, String firstHint, String secondHint) {
-        int obsX = OBSERVATORY_Position.getX();
-        int obsY = OBSERVATORY_Position.getY();
-
-        /* first hint handling */
-
-        if (firstHint == "north") {
-            obsY += (int) Math
-                    .ceil(((degree1 * ONE_DEGREE_TO_MINUTE + minutes1) / ONE_MINUTE_TO_SQUARE));
-        }
-        if (firstHint == "south") {
-            obsY -= (int) Math
-                    .ceil(((degree1 * ONE_DEGREE_TO_MINUTE + minutes1) / ONE_MINUTE_TO_SQUARE));
-        }
-        if (firstHint == "east") {
-            obsX += (int) Math
-                    .ceil(((degree1 * ONE_DEGREE_TO_MINUTE + minutes1) / ONE_MINUTE_TO_SQUARE));
-        }
-        if (firstHint == "west") {
-            obsX -= (int) Math
-                    .ceil(((degree1 * ONE_DEGREE_TO_MINUTE + minutes1) / ONE_MINUTE_TO_SQUARE));
-        }
-
-        /* second hint handling */
-
-        if (secondHint == "north") {
-            obsY += (int) Math
-                    .ceil(((degree2 * ONE_DEGREE_TO_MINUTE + minutes2) / ONE_MINUTE_TO_SQUARE));
-        }
-        if (secondHint == "south") {
-            obsY -= (int) Math
-                    .ceil(((degree2 * ONE_DEGREE_TO_MINUTE + minutes2) / ONE_MINUTE_TO_SQUARE));
-        }
-        if (secondHint == "east") {
-            obsX += (int) Math
-                    .ceil(((degree2 * ONE_DEGREE_TO_MINUTE + minutes2) / ONE_MINUTE_TO_SQUARE));
-        }
-        if (secondHint == "west") {
-            obsX -= (int) ((degree2 * ONE_DEGREE_TO_MINUTE + minutes2) / ONE_MINUTE_TO_SQUARE);
-        }
-        return new Position(obsX, obsY);
-
-    }
-
-    /* gets the hint with coordinate provided */
-    public static String[] calculateActualPosition(int x, int y) {
-        int obsX = OBSERVATORY_Position.getX();
-        int obsY = OBSERVATORY_Position.getY();
-        int differenceX = x - obsX;
-        int differenceY = y - obsY;
-        double minutesX = Math.abs(differenceX) * ONE_MINUTE_TO_SQUARE;
-        double minutesY = Math.abs(differenceY) * ONE_MINUTE_TO_SQUARE;
-        int finalMinutesX = (int) Math.ceil(minutesX) % ONE_DEGREE_TO_MINUTE;
-        int finalMinutesY = (int) Math.ceil(minutesY) % ONE_DEGREE_TO_MINUTE;
-        int degreeX = (int) (minutesX / ONE_DEGREE_TO_MINUTE);
-        int degreeY = (int) (minutesY / ONE_DEGREE_TO_MINUTE);
-        /* setting the first strings */
-        String XAxis = (differenceX < 0 ? "west" : "east");
-        String YAxis = (differenceY < 0 ? "south" : "north");
-
-        /* returning the final strings */
-        return new String[]{
-                degreeY + " degrees, " + finalMinutesY + " minutes " + YAxis,
-                degreeX + " degrees, " + finalMinutesX + " minutes " + XAxis};
-    }
-
-    /* getting a random coordinate clue */
-
-    public static int getRandomScroll(int level) {
-        int pick = new Random().nextInt(CoordinateData.values().length);
-        while (CoordinateData.values()[pick].getLevel() != level) {
-            pick = new Random().nextInt(CoordinateData.values().length);
-        }
-
-        return CoordinateData.values()[pick].getClueId();
     }
 
 }

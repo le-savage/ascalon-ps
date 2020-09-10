@@ -28,6 +28,15 @@ public enum BoltData {
         this.levelReq = levelReq;
     }
 
+    public static BoltData forBolt(int id) {
+        for (BoltData ar : BoltData.values()) {
+            if (ar.getFinishedBolt() == id) {
+                return ar;
+            }
+        }
+        return null;
+    }
+
     public int getUnfinishedBolt() {
         return unfinishedBolt;
     }
@@ -42,15 +51,6 @@ public enum BoltData {
 
     public int getLevelReq() {
         return levelReq;
-    }
-
-    public static BoltData forBolt(int id) {
-        for (BoltData ar : BoltData.values()) {
-            if (ar.getFinishedBolt() == id) {
-                return ar;
-            }
-        }
-        return null;
     }
 
 }

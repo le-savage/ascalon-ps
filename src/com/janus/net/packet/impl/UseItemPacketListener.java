@@ -15,6 +15,7 @@ import com.janus.world.clip.region.RegionClipping;
 import com.janus.world.content.GamblingAction;
 import com.janus.world.content.ItemForging;
 import com.janus.world.content.dialogue.DialogueManager;
+import com.janus.world.content.gambling.Snap;
 import com.janus.world.content.minigames.impl.WarriorsGuild;
 import com.janus.world.content.skill.impl.cooking.Cooking;
 import com.janus.world.content.skill.impl.cooking.CookingData;
@@ -45,6 +46,13 @@ import com.janus.world.entity.impl.player.Player;
  */
 
 public class UseItemPacketListener implements PacketListener {
+
+    public final static int USE_ITEM = 122;
+    public final static int ITEM_ON_NPC = 57;
+    public final static int ITEM_ON_ITEM = 53;
+    public final static int ITEM_ON_OBJECT = 192;
+    public final static int ITEM_ON_GROUND_ITEM = 25;
+    public static final int ITEM_ON_PLAYER = 14;
 
     /**
      * The PacketListener logger to debug information and print out errors.
@@ -343,6 +351,11 @@ public class UseItemPacketListener implements PacketListener {
         if (target == null)
             return;
         switch (itemId) {
+
+            case 455:
+                Snap.initiateSnap(player,target);
+                break;
+
             case 962:
                 if (!player.getInventory().contains(962) || player.getRights() == PlayerRights.ADMINISTRATOR)
                     return;
@@ -429,16 +442,4 @@ public class UseItemPacketListener implements PacketListener {
                 break;
         }
     }
-
-    public final static int USE_ITEM = 122;
-
-    public final static int ITEM_ON_NPC = 57;
-
-    public final static int ITEM_ON_ITEM = 53;
-
-    public final static int ITEM_ON_OBJECT = 192;
-
-    public final static int ITEM_ON_GROUND_ITEM = 25;
-
-    public static final int ITEM_ON_PLAYER = 14;
 }

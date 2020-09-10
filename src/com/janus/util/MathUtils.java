@@ -47,7 +47,7 @@ public class MathUtils {
      * Checks if a number is odd (cannot be divided by 2).
      *
      * @param number The number to check.
-     * @return            !even({@code number}).
+     * @return !even({@code number}).
      */
     public static boolean odd(int number) {
         return !even(number);

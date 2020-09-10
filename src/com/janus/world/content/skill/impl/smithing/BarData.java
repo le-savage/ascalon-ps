@@ -17,12 +17,12 @@ public class BarData {
         Third_Age(5000, 21065),
         Torva(5000, 21066);
 
+        private int exp, itemId;
+
         Bars(int exp, int itemId) {
             this.exp = exp;
             this.itemId = itemId;
         }
-
-        private int exp, itemId;
 
         public int getExp() {
             return exp;

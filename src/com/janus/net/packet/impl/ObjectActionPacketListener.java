@@ -24,6 +24,7 @@ import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.range.DwarfMultiCannon;
+import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.FightStyle;
 import com.janus.world.content.dialogue.DialogueManager;
@@ -63,6 +64,8 @@ import com.janus.world.entity.impl.player.Player;
  */
 
 public class ObjectActionPacketListener implements PacketListener {
+
+    public static final int FIRST_CLICK = 132, SECOND_CLICK = 252, THIRD_CLICK = 70, FOURTH_CLICK = 234, FIFTH_CLICK = 228;
 
     /**
      * The PacketListener logger to debug information and print out errors.
@@ -129,13 +132,21 @@ public class ObjectActionPacketListener implements PacketListener {
                 if (player.getLocation() == Location.WILDERNESS && WildernessObelisks.handleObelisk(gameObject.getId())) {
                     return;
                 }
+                if (id == BossFunctions.ENTRY_DOOR_ID) {
+                    BossFunctions.handleDoor(player);
+                }
+                if (id == BossFunctions.EXIT_CAVE_ID) {
+                    BossFunctions.handleExit(player);
+                }
+                if (id == BossFunctions.rewardChestID) {
+                    BossFunctions.handleRewardChest(player);
+                }
                 switch (id) {
 
                     case 24600: //Instance Barrier Exit
-                        if(player.getLocation() == Location.INSTANCE_ARENA && player.getRegionInstance() == null){
+                        if (player.getLocation() == Location.INSTANCE_ARENA && player.getRegionInstance() == null) {
                             player.moveTo(InstanceArena.ENTRANCE);
                         }
-                        System.out.println("Object click registered");
                         InstanceArena.destructArena(player);
                         break;
 
@@ -1565,7 +1576,6 @@ public class ObjectActionPacketListener implements PacketListener {
             player.getPacketSender().sendMessage("Third click object id; [id, position] : [" + id + ", " + position.toString() + "]");
     }
 
-
     private static void fourthClick(Player player, Packet packet) {
         final int id = packet.readUnsignedShortA();
         final int y = packet.readUnsignedShortA();
@@ -1632,6 +1642,4 @@ public class ObjectActionPacketListener implements PacketListener {
                 break;
         }
     }
-
-    public static final int FIRST_CLICK = 132, SECOND_CLICK = 252, THIRD_CLICK = 70, FOURTH_CLICK = 234, FIFTH_CLICK = 228;
 }

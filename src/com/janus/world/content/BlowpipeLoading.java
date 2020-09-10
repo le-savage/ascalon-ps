@@ -1,12 +1,12 @@
 package com.janus.world.content;
 
-import com.janus.model.Item;
-import com.janus.model.definitions.ItemDefinition;
-import com.janus.world.entity.impl.player.Player;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Multiset.Entry;
+import com.janus.model.Item;
+import com.janus.model.definitions.ItemDefinition;
+import com.janus.world.entity.impl.player.Player;
 
 /**
  * Handles the action of loading darts into the Toxic Blowpipe item from OSRS.
@@ -16,9 +16,20 @@ import com.google.common.collect.Multiset.Entry;
 public class BlowpipeLoading {
 
     /**
+     * An {@link ImmutableSet} which specifies which {@link Item#getId}'s are
+     * considered loadable darts.
+     */
+    public static final ImmutableSet<Integer> LOADABLE_DARTS = ImmutableSet.of(806, 807, 808, 809, 810, 811,
+            11230, 11231, 11232, 11233, 11234);
+    /**
      * The player participating in this action.
      */
     private final Player player;
+    /**
+     * An {@link Multiset} of {@link Item}'s which handles the contents of the
+     * Toxic Blowpipe.
+     */
+    private final Multiset<Integer> blowpipeContents = HashMultiset.create();
 
     /**
      * Constructs a new instance of this class which assigns {@link #player} to
@@ -29,19 +40,6 @@ public class BlowpipeLoading {
     public BlowpipeLoading(Player player) {
         this.player = player;
     }
-
-    /**
-     * An {@link ImmutableSet} which specifies which {@link Item#getId}'s are
-     * considered loadable darts.
-     */
-    public static final ImmutableSet<Integer> LOADABLE_DARTS = ImmutableSet.of(806, 807, 808, 809, 810, 811,
-            11230, 11231, 11232, 11233, 11234);
-
-    /**
-     * An {@link Multiset} of {@link Item}'s which handles the contents of the
-     * Toxic Blowpipe.
-     */
-    private final Multiset<Integer> blowpipeContents = HashMultiset.create();
 
     /**
      * Returns {@link #blowpipeContents} for public(global) use.

@@ -1,10 +1,9 @@
 package com.janus.net.login;
 
+import com.janus.net.packet.Packet;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.handler.codec.oneone.OneToOneEncoder;
-
-import com.janus.net.packet.Packet;
 
 /**
  * Handles login encoding requests

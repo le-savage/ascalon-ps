@@ -7,6 +7,8 @@ import com.janus.world.entity.impl.player.Player;
 
 public class EnterAmountOfBarsToSmelt extends EnterAmount {
 
+    private int bar;
+
     public EnterAmountOfBarsToSmelt(int bar) {
         this.bar = bar;
     }
@@ -20,8 +22,6 @@ public class EnterAmountOfBarsToSmelt extends EnterAmount {
             }
         }
     }
-
-    private int bar;
 
     public int getBar() {
         return bar;

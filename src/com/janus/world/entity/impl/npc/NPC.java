@@ -1,10 +1,12 @@
 package com.janus.world.entity.impl.npc;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.janus.engine.task.TaskManager;
 import com.janus.engine.task.impl.NPCDeathTask;
 import com.janus.model.Direction;
-import com.janus.model.Position;
 import com.janus.model.Locations.Location;
+import com.janus.model.Position;
 import com.janus.model.definitions.NpcDefinition;
 import com.janus.util.JsonLoader;
 import com.janus.world.World;
@@ -22,8 +24,6 @@ import com.janus.world.content.skill.impl.runecrafting.DesoSpan;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPCMovementCoordinator.Coordinator;
 import com.janus.world.entity.impl.player.Player;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 
 /**
@@ -33,6 +33,30 @@ import com.google.gson.JsonObject;
  */
 
 public class NPC extends Character {
+
+    /**
+     * INSTANCES
+     **/
+    private final Position defaultPosition;
+    /**
+     * INTS
+     **/
+    private final int id;
+    private NPCMovementCoordinator movementCoordinator = new NPCMovementCoordinator(this);
+    private Player spawnedFor;
+    private NpcDefinition definition;
+    private int constitution = 100;
+    private int defaultConstitution;
+    private int transformationId = -1;
+    /**
+     * BOOLEANS
+     **/
+    private boolean[] attackWeakened = new boolean[3], strengthWeakened = new boolean[3];
+    private boolean summoningNpc, summoningCombat;
+    private boolean isDying;
+    private boolean visible = true;
+    private boolean healed, chargingAttack;
+    private boolean findNewTarget;
 
     public NPC(int id, Position position) {
         super(position);
@@ -45,100 +69,6 @@ public class NPC extends Character {
         this.defaultConstitution = definition.getHitpoints() < 100 ? 100 : definition.getHitpoints();
         this.constitution = defaultConstitution;
         setLocation(Location.getLocation(this));
-    }
-
-    public void sequence() {
-        /**
-         * HP restoration
-         */
-        if (constitution < defaultConstitution) {
-            if (!isDying) {
-                if (getLastCombat().elapsed((id == 13447 || id == 3200 ? 50000 : 5000)) && !getCombatBuilder().isAttacking() && getLocation() != Location.PEST_CONTROL_GAME && getLocation() != Location.DUNGEONEERING) {
-                    setConstitution(constitution + (int) (defaultConstitution * 0.1));
-                    if (constitution > defaultConstitution)
-                        setConstitution(defaultConstitution);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void appendDeath() {
-        if (!isDying && !summoningNpc) {
-            TaskManager.submit(new NPCDeathTask(this));
-            isDying = true;
-        }
-    }
-
-    @Override
-    public int getConstitution() {
-        return constitution;
-    }
-
-    @Override
-    public NPC setConstitution(int constitution) {
-        this.constitution = constitution;
-        if (this.constitution <= 0)
-            appendDeath();
-        return this;
-    }
-
-    @Override
-    public void heal(int heal) {
-        if ((this.constitution + heal) > getDefaultConstitution()) {
-            setConstitution(getDefaultConstitution());
-            return;
-        }
-        setConstitution(this.constitution + heal);
-    }
-
-
-    @Override
-    public int getBaseAttack(CombatType type) {
-        return getDefinition().getAttackBonus();
-    }
-
-    @Override
-    public int getAttackSpeed() {
-        return this.getDefinition().getAttackSpeed();
-    }
-
-
-    @Override
-    public int getBaseDefence(CombatType type) {
-
-        if (type == CombatType.MAGIC)
-            return getDefinition().getDefenceMage();
-        else if (type == CombatType.RANGED)
-            return getDefinition().getDefenceRange();
-
-        return getDefinition().getDefenceMelee();
-    }
-
-    @Override
-    public boolean isNpc() {
-        return true;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other instanceof NPC && ((NPC) other).getIndex() == getIndex();
-    }
-
-    @Override
-    public int getSize() {
-        return getDefinition().getSize();
-    }
-
-    @Override
-    public void poisonVictim(Character victim, CombatType type) {
-        if (getDefinition().isPoisonous()) {
-            CombatFactory.poisonEntity(
-                    victim,
-                    type == CombatType.RANGED || type == CombatType.MAGIC ? PoisonType.MILD
-                            : PoisonType.EXTRA);
-        }
-
     }
 
     /**
@@ -182,6 +112,102 @@ public class NPC extends Character {
         KalphiteQueen.spawn(1158, new Position(3485, 9509));
     }
 
+    public void sequence() {
+        /**
+         * HP restoration
+         */
+        if (constitution < defaultConstitution) {
+            if (!isDying) {
+                if (getLastCombat().elapsed((id == 13447 || id == 3200 ? 50000 : 5000)) && !getCombatBuilder().isAttacking() && getLocation() != Location.PEST_CONTROL_GAME && getLocation() != Location.DUNGEONEERING) {
+                    setConstitution(constitution + (int) (defaultConstitution * 0.1));
+                    if (constitution > defaultConstitution)
+                        setConstitution(defaultConstitution);
+                }
+            }
+        }
+    }
+
+    /*
+     * Fields
+     */
+
+    @Override
+    public void appendDeath() {
+        if (!isDying && !summoningNpc) {
+            TaskManager.submit(new NPCDeathTask(this));
+            isDying = true;
+        }
+    }
+
+    @Override
+    public int getConstitution() {
+        return constitution;
+    }
+
+    @Override
+    public NPC setConstitution(int constitution) {
+        this.constitution = constitution;
+        if (this.constitution <= 0)
+            appendDeath();
+        return this;
+    }
+
+    @Override
+    public void heal(int heal) {
+        if ((this.constitution + heal) > getDefaultConstitution()) {
+            setConstitution(getDefaultConstitution());
+            return;
+        }
+        setConstitution(this.constitution + heal);
+    }
+
+    @Override
+    public int getBaseAttack(CombatType type) {
+        return getDefinition().getAttackBonus();
+    }
+
+    @Override
+    public int getAttackSpeed() {
+        return this.getDefinition().getAttackSpeed();
+    }
+
+    @Override
+    public int getBaseDefence(CombatType type) {
+
+        if (type == CombatType.MAGIC)
+            return getDefinition().getDefenceMage();
+        else if (type == CombatType.RANGED)
+            return getDefinition().getDefenceRange();
+
+        return getDefinition().getDefenceMelee();
+    }
+
+    @Override
+    public boolean isNpc() {
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof NPC && ((NPC) other).getIndex() == getIndex();
+    }
+
+    @Override
+    public int getSize() {
+        return getDefinition().getSize();
+    }
+
+    @Override
+    public void poisonVictim(Character victim, CombatType type) {
+        if (getDefinition().isPoisonous()) {
+            CombatFactory.poisonEntity(
+                    victim,
+                    type == CombatType.RANGED || type == CombatType.MAGIC ? PoisonType.MILD
+                            : PoisonType.EXTRA);
+        }
+
+    }
+
     @Override
     public CombatStrategy determineStrategy() {
         return CombatStrategies.getStrategy(id);
@@ -196,7 +222,7 @@ public class NPC extends Character {
 
     public int getAggressionDistance() {
         int distance = 7;
-		
+
 		/*switch(id) {
 		}*/
         if (Nex.nexMob(id)) {
@@ -206,35 +232,6 @@ public class NPC extends Character {
         }
         return distance;
     }
-
-    /*
-     * Fields
-     */
-    /**
-     * INSTANCES
-     **/
-    private final Position defaultPosition;
-    private NPCMovementCoordinator movementCoordinator = new NPCMovementCoordinator(this);
-    private Player spawnedFor;
-    private NpcDefinition definition;
-
-    /**
-     * INTS
-     **/
-    private final int id;
-    private int constitution = 100;
-    private int defaultConstitution;
-    private int transformationId = -1;
-
-    /**
-     * BOOLEANS
-     **/
-    private boolean[] attackWeakened = new boolean[3], strengthWeakened = new boolean[3];
-    private boolean summoningNpc, summoningCombat;
-    private boolean isDying;
-    private boolean visible = true;
-    private boolean healed, chargingAttack;
-    private boolean findNewTarget;
 
     /*
      * Getters and setters
@@ -250,6 +247,10 @@ public class NPC extends Character {
 
     public int getDefaultConstitution() {
         return defaultConstitution;
+    }
+
+    public void setDefaultConstitution(int defaultConstitution) {
+        this.defaultConstitution = defaultConstitution;
     }
 
     public int getTransformationId() {
@@ -268,14 +269,6 @@ public class NPC extends Character {
         this.visible = visible;
     }
 
-    public void setDying(boolean isDying) {
-        this.isDying = isDying;
-    }
-
-    public void setDefaultConstitution(int defaultConstitution) {
-        this.defaultConstitution = defaultConstitution;
-    }
-
     /**
      * @return the statsWeakened
      */
@@ -283,16 +276,20 @@ public class NPC extends Character {
         return attackWeakened;
     }
 
-    public void setSummoningNpc(boolean summoningNpc) {
-        this.summoningNpc = summoningNpc;
-    }
-
     public boolean isSummoningNpc() {
         return summoningNpc;
     }
 
+    public void setSummoningNpc(boolean summoningNpc) {
+        this.summoningNpc = summoningNpc;
+    }
+
     public boolean isDying() {
         return isDying;
+    }
+
+    public void setDying(boolean isDying) {
+        this.isDying = isDying;
     }
 
     /**

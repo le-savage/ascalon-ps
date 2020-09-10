@@ -5,6 +5,15 @@ import com.janus.world.entity.Entity;
 
 public class GroundItem extends Entity {
 
+    private Item item;
+    private String owner, fromIP;
+    private boolean isGlobal;
+    private int showDelay;
+    private boolean goGlobal;
+    private int globalTimer;
+    private boolean hasBeenPickedUp;
+    private boolean refreshNeeded;
+    private boolean shouldProcess = true;
     public GroundItem(Item item, Position pos, String owner, boolean isGlobal, int showDelay, boolean goGlobal, int globalTimer) {
         super(pos);
         this.setItem(item);
@@ -15,7 +24,6 @@ public class GroundItem extends Entity {
         this.goGlobal = goGlobal;
         this.globalTimer = globalTimer;
     }
-
     public GroundItem(Item item, Position pos, String owner, String fromIP, boolean isGlobal, int showDelay, boolean goGlobal, int globalTimer) {
         super(pos);
         this.setItem(item);
@@ -27,16 +35,6 @@ public class GroundItem extends Entity {
         this.globalTimer = globalTimer;
     }
 
-    private Item item;
-    private String owner, fromIP;
-    private boolean isGlobal;
-    private int showDelay;
-    private boolean goGlobal;
-    private int globalTimer;
-    private boolean hasBeenPickedUp;
-    private boolean refreshNeeded;
-    private boolean shouldProcess = true;
-
     public Item getItem() {
         return item;
     }
@@ -45,20 +43,20 @@ public class GroundItem extends Entity {
         this.item = item;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
     public String getOwner() {
         return this.owner;
     }
 
-    public void setFromIP(String IP) {
-        this.fromIP = IP;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public String getFromIP() {
         return this.fromIP;
+    }
+
+    public void setFromIP(String IP) {
+        this.fromIP = IP;
     }
 
     public void setGlobalStatus(boolean l) {
@@ -69,12 +67,12 @@ public class GroundItem extends Entity {
         return this.isGlobal;
     }
 
-    public void setShowDelay(int l) {
-        this.showDelay = l;
-    }
-
     public int getShowDelay() {
         return this.showDelay;
+    }
+
+    public void setShowDelay(int l) {
+        this.showDelay = l;
     }
 
     public void setGoGlobal(boolean l) {
@@ -85,12 +83,12 @@ public class GroundItem extends Entity {
         return this.goGlobal;
     }
 
-    public void setGlobalTimer(int l) {
-        this.globalTimer = l;
-    }
-
     public int getGlobalTimer() {
         return this.globalTimer;
+    }
+
+    public void setGlobalTimer(int l) {
+        this.globalTimer = l;
     }
 
     public void setPickedUp(boolean s) {
@@ -101,12 +99,12 @@ public class GroundItem extends Entity {
         return this.hasBeenPickedUp;
     }
 
-    public void setRefreshNeeded(boolean s) {
-        this.refreshNeeded = s;
-    }
-
     public boolean isRefreshNeeded() {
         return this.refreshNeeded;
+    }
+
+    public void setRefreshNeeded(boolean s) {
+        this.refreshNeeded = s;
     }
 
     public boolean shouldProcess() {

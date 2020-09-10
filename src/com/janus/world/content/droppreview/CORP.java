@@ -6,12 +6,10 @@ import com.janus.world.entity.impl.player.Player;
 
 public class CORP {
 
+    public static final int[] CORP = {13748, 13746, 13750, 13752, 12001, 13754};
     public static int config;
     public static int item;
     public static int index = 0;
-
-    public static final int[] CORP = {13748, 13746, 13750, 13752, 12001, 13754};
-
 
     /*
      * Get rare drop(s) for that boss location

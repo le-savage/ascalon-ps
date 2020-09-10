@@ -2,13 +2,16 @@ package com.janus.world.clip.stream;
 
 public final class ByteStreamExt {
 
-    public void skip(int length) {
-        currentOffset += length;
-    }
+    public byte buffer[];
+    public int currentOffset;
 
     public ByteStreamExt(byte abyte0[]) {
         buffer = abyte0;
         currentOffset = 0;
+    }
+
+    public void skip(int length) {
+        currentOffset += length;
     }
 
     public int readUnsignedByte() {
@@ -77,9 +80,6 @@ public final class ByteStreamExt {
         for (int l = j; l < j + i; l++)
             abyte0[l] = buffer[currentOffset++];
     }
-
-    public byte buffer[];
-    public int currentOffset;
 
     //removed useless static initializer
 }

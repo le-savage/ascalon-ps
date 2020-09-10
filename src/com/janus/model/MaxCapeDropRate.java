@@ -1,8 +1,5 @@
 package com.janus.model;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
-
 public enum MaxCapeDropRate {
 
     Default(0),

@@ -65,6 +65,19 @@ public enum Direction {
     // // south west
     // // south
     // // south east
+    /**
+     * The direction as an integer.
+     */
+    private final int intValue;
+
+    /**
+     * Creates the direction.
+     *
+     * @param intValue The direction as an integer.
+     */
+    private Direction(int intValue) {
+        this.intValue = intValue;
+    }
 
     /**
      * Creates a direction from the differences between X and Y.
@@ -106,20 +119,6 @@ public enum Direction {
     public static boolean isConnectable(int deltaX, int deltaY) {
         return Math.abs(deltaX) == Math.abs(deltaY) || deltaX == 0
                 || deltaY == 0;
-    }
-
-    /**
-     * The direction as an integer.
-     */
-    private final int intValue;
-
-    /**
-     * Creates the direction.
-     *
-     * @param intValue The direction as an integer.
-     */
-    private Direction(int intValue) {
-        this.intValue = intValue;
     }
 
     public int[] getDirectionDelta() {

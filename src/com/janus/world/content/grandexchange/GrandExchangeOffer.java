@@ -1,9 +1,9 @@
 package com.janus.world.content.grandexchange;
 
+import com.janus.model.Item;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
-
-import com.janus.model.Item;
 
 /**
  * A Grand Exchange offer
@@ -85,12 +85,12 @@ public class GrandExchangeOffer extends Item {
         return amountFinished;
     }
 
-    public void incrementAmountFinished(int amountFinished) {
-        this.amountFinished += amountFinished;
-    }
-
     public void setAmountFinished(int amountFinished) {
         this.amountFinished = amountFinished;
+    }
+
+    public void incrementAmountFinished(int amountFinished) {
+        this.amountFinished += amountFinished;
     }
 
     public int getCoinsCollect() {
@@ -121,29 +121,24 @@ public class GrandExchangeOffer extends Item {
         return failedAttempts;
     }
 
-    public void incrementFailAttempts() {
-        this.failedAttempts++;
-    }
-
     public void setFailAttempts(int failAttempts) {
         this.failedAttempts = failAttempts;
     }
 
-    public void setUpdateState(GrandExchangeSlotState updateState) {
-        this.updateState = updateState;
+    public void incrementFailAttempts() {
+        this.failedAttempts++;
     }
 
     public GrandExchangeSlotState getUpdateState() {
         return this.updateState;
     }
 
-    public int getUpdateStateOrdinal() {
-        return updateState == null ? -1 : updateState.ordinal();
+    public void setUpdateState(GrandExchangeSlotState updateState) {
+        this.updateState = updateState;
     }
 
-    public enum OfferType {
-        SELLING,
-        BUYING;
+    public int getUpdateStateOrdinal() {
+        return updateState == null ? -1 : updateState.ordinal();
     }
 
     public void save(DataOutputStream out) throws IOException {
@@ -159,5 +154,10 @@ public class GrandExchangeOffer extends Item {
         out.writeInt(getFailAttempts());
         out.writeInt(getUpdateStateOrdinal());
         out.writeUTF(getType().name());
+    }
+
+    public enum OfferType {
+        SELLING,
+        BUYING;
     }
 }

@@ -1,11 +1,10 @@
 package com.janus.world.content;
 
+import com.janus.model.definitions.ItemDefinition;
+import com.janus.world.entity.impl.player.Player;
+
 import java.util.Collections;
 import java.util.Comparator;
-
-import com.janus.model.definitions.ItemDefinition;
-import com.janus.model.definitions.NPCDrops;
-import com.janus.world.entity.impl.player.Player;
 
 public class DropLog {
 
@@ -138,15 +137,14 @@ public class DropLog {
 
     public static class DropLogEntry {
 
+        public int item;
+        public int amount;
+        public boolean rareDrop;
         public DropLogEntry(int item, int amount) {
             this.item = item;
             this.amount = amount;
             this.rareDrop = ItemDefinition.forId(item).getValue() > 200000;
         }
-
-        public int item;
-        public int amount;
-        public boolean rareDrop;
     }
 
 }

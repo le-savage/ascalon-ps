@@ -12,11 +12,6 @@ public class FoxVoting {
 
     public static class FoxVote implements Runnable {
 
-									/*	public static final String HOST = "199.192.31.129";
-										public static final String USER = "janugswd_votingd";
-										public static final String PASS = "tVPIoSrc8jVxkj4W0";
-										public static final String DATABASE = "janugswd_votingd";*/
-
         public static final String HOST = "199.192.31.129";
         public static final String USER = "janugswd_votingd";
         public static final String PASS = "tVPIoSrc8jVxkj4W0";

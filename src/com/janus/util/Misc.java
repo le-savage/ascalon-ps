@@ -23,9 +23,21 @@ public class Misc {
      * Random instance, used to generate pseudo-random primitive types.
      */
     public static final Random RANDOM = new Random(System.currentTimeMillis());
-
-    private static ZonedDateTime zonedDateTime;
     public static final int HALF_A_DAY_IN_MILLIS = 43200000;
+    private static final String[] BLOCKED_WORDS = new String[]{
+            "<img=", "@cr", ":tradereq:", ":duelreq:",
+            "<col=", "<shad=",};
+    public static byte directionDeltaX[] = new byte[]{0, 1, 1, 1, 0, -1, -1, -1};
+    public static byte directionDeltaY[] = new byte[]{1, 1, 0, -1, -1, -1, 0, 1};
+    public static byte xlateDirectionToClient[] = new byte[]{1, 2, 4, 7, 6, 5, 3, 0};
+    public static char xlateTable[] = {' ', 'e', 't', 'a', 'o', 'i', 'h', 'n',
+            's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b',
+            'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5', '6',
+            '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-',
+            '&', '*', '\\', '\'', '@', '#', '+', '=', '\243', '$', '%', '"',
+            '[', ']'};
+    private static ZonedDateTime zonedDateTime;
+    private static char decodeBuf[] = new char[4096];
 
     public static final String sendCashToString(long j) {
         if (j >= 0 && j < 10000)
@@ -48,18 +60,6 @@ public class Misc {
     }
 
     public static String stripIngameFormat(String string) {
-		/*string = string.toLowerCase();
-		for (int i = 0; i < 31; i++) {
-			if (i == 10) {
-				System.out.println("Hey, we're  i = 10. Continuing.");
-				continue;
-			}
-			System.out.println("i = "+i);
-			
-			if (string.contains("<img="+i+">")) {
-				string = string.replaceAll("<img="+i+">", "");
-			}
-		}*/
 
         string = string.replaceAll("@red@", "");
         string = string.replaceAll("@gre@", "");
@@ -116,14 +116,6 @@ public class Misc {
         string = string.replace(":)", ":smiley:");
         string = string.replace(":(", ":frowning2:");
         string = string.replace(":|", ":neutral_face:");
-        //string = string.replaceAll(":D", ":smile:");
-        //string = string.replace(":d", ":smile:");
-        //string = string.replace(":c", ":frowning:");
-        //string = string.replace(":l", ":neutral_face:");
-        //string = string.replace(":S", ":blush:");
-        //string = string.replace(":s", ":blush:");
-        //string = string.replace(":O", ":open_mouth:");
-        //string = string.replace(":o", ":open_mouth:");
         string = string.replace(":0", ":open_mouth:");
         string = string.replace(":$", ":blush:");
         string = string.replace(";)", ":wink:");
@@ -132,15 +124,11 @@ public class Misc {
         string = string.replace("(Y)", ":thumbsup:");
         string = string.replace("(n)", ":thumbsdown:");
         string = string.replace("(N)", ":thumbsdown:");
-        //string = string.replace(":p", ":stuck_out_tongue:");
-        //string = string.replace(":P", ":stuck_out_tongue:");
         string = string.replace("<3", ":heart:");
         string = string.replace("(L)", ":heart_eyes:");
         string = string.replace(":'(", ":cry:");
         string = string.replace("(a)", ":angel:");
         string = string.replace("(A)", ":angel:");
-        //string = string.replace("a q p", ":poop:");
-        /* bye emojis */
 
 
         while (string.contains("<") && string.contains(">")) {
@@ -226,10 +214,6 @@ public class Misc {
         return null;
     }
 
-    public static byte directionDeltaX[] = new byte[]{0, 1, 1, 1, 0, -1, -1, -1};
-    public static byte directionDeltaY[] = new byte[]{1, 1, 0, -1, -1, -1, 0, 1};
-    public static byte xlateDirectionToClient[] = new byte[]{1, 2, 4, 7, 6, 5, 3, 0};
-
     public static int getRandom(int range) {
         return (int) (java.lang.Math.random() * (range + 1));
     }
@@ -307,8 +291,6 @@ public class Misc {
                 + number.substring(number.length() - 3, number.length());
     }
 
-    private static char decodeBuf[] = new char[4096];
-
     public static String textUnpack(byte packedData[], int size) {
         int idx = 0, highNibble = -1;
         for (int i = 0; i < size * 2; i++) {
@@ -326,13 +308,6 @@ public class Misc {
 
         return new String(decodeBuf, 0, idx);
     }
-
-    public static char xlateTable[] = {' ', 'e', 't', 'a', 'o', 'i', 'h', 'n',
-            's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b',
-            'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5', '6',
-            '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-',
-            '&', '*', '\\', '\'', '@', '#', '+', '=', '\243', '$', '%', '"',
-            '[', ']'};
 
     public static String anOrA(String s) {
         s = s.toLowerCase();
@@ -692,7 +667,7 @@ public class Misc {
     /**
      * Reads string from a data input stream.
      *
-     * @param inputStream The input stream to read string from.
+     *
      * @return The String value.
      */
     public static String readString(ChannelBuffer buffer) {
@@ -708,11 +683,6 @@ public class Misc {
         }
         return builder.toString();
     }
-
-    private static final String[] BLOCKED_WORDS = new String[]{
-            "<img=", "@cr", ":tradereq:", ":duelreq:",
-            "<col=", "<shad=",};
-
 
     public static boolean blockedWord(String string) {
         for (String s : BLOCKED_WORDS) {

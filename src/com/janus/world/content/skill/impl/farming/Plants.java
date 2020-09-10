@@ -45,16 +45,6 @@ public enum Plants {
     public final double harvestExperience;
     public final SeedType type;
 
-    public static boolean isSeed(int id) {
-        for (Plants i : values()) {
-            if (i.seed == id) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     private Plants(int seed, int harvest, int config, int diseased, int dead, int level, int minutes, SeedType type,
                    double plantExperience, double harvestExperience, int stages) {
         this.seed = seed;
@@ -68,5 +58,15 @@ public enum Plants {
         this.plantExperience = plantExperience;
         this.harvestExperience = harvestExperience;
         this.stages = ((byte) stages);
+    }
+
+    public static boolean isSeed(int id) {
+        for (Plants i : values()) {
+            if (i.seed == id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

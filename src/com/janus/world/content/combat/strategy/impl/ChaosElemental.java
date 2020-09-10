@@ -5,54 +5,17 @@ import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
 import com.janus.model.Graphic;
 import com.janus.model.GraphicHeight;
-import com.janus.model.Position;
 import com.janus.model.Projectile;
 import com.janus.util.Misc;
-import com.janus.world.clip.region.RegionClipping;
 import com.janus.world.content.combat.CombatContainer;
 import com.janus.world.content.combat.CombatType;
 import com.janus.world.content.combat.strategy.CombatStrategy;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
-import com.janus.world.entity.impl.player.Player;
 
 public class ChaosElemental implements CombatStrategy {
 
-    private static enum ElementalData {
-        MELEE(new Graphic(553, GraphicHeight.HIGH), new Graphic(554, GraphicHeight.MIDDLE), null),
-        RANGED(new Graphic(665, GraphicHeight.HIGH), null, new Graphic(552, GraphicHeight.HIGH)),
-        MAGIC(new Graphic(550, GraphicHeight.HIGH), new Graphic(551, GraphicHeight.MIDDLE), new Graphic(555, GraphicHeight.HIGH));
-
-        ElementalData(Graphic startGfx, Graphic projectile, Graphic endGraphic) {
-            startGraphic = startGfx;
-            projectileGraphic = projectile;
-            this.endGraphic = endGraphic;
-        }
-
-        public Graphic startGraphic;
-        public Graphic projectileGraphic;
-        public Graphic endGraphic;
-
-        public CombatType getCombatType() {
-            switch (this) {
-                case MAGIC:
-                    return CombatType.MAGIC;
-                case MELEE:
-                    return CombatType.MELEE;
-                case RANGED:
-                    return CombatType.RANGED;
-            }
-            return CombatType.MELEE;
-        }
-
-        static ElementalData forId(int id) {
-            for (ElementalData data : ElementalData.values()) {
-                if (data.ordinal() == id)
-                    return data;
-            }
-            return null;
-        }
-    }
+    private static final Graphic teleGraphic = new Graphic(661);
 
     @Override
     public boolean canAttack(Character entity, Character victim) {
@@ -111,5 +74,38 @@ public class ChaosElemental implements CombatStrategy {
         return CombatType.MIXED;
     }
 
-    private static final Graphic teleGraphic = new Graphic(661);
+    private static enum ElementalData {
+        MELEE(new Graphic(553, GraphicHeight.HIGH), new Graphic(554, GraphicHeight.MIDDLE), null),
+        RANGED(new Graphic(665, GraphicHeight.HIGH), null, new Graphic(552, GraphicHeight.HIGH)),
+        MAGIC(new Graphic(550, GraphicHeight.HIGH), new Graphic(551, GraphicHeight.MIDDLE), new Graphic(555, GraphicHeight.HIGH));
+
+        public Graphic startGraphic;
+        public Graphic projectileGraphic;
+        public Graphic endGraphic;
+        ElementalData(Graphic startGfx, Graphic projectile, Graphic endGraphic) {
+            startGraphic = startGfx;
+            projectileGraphic = projectile;
+            this.endGraphic = endGraphic;
+        }
+
+        static ElementalData forId(int id) {
+            for (ElementalData data : ElementalData.values()) {
+                if (data.ordinal() == id)
+                    return data;
+            }
+            return null;
+        }
+
+        public CombatType getCombatType() {
+            switch (this) {
+                case MAGIC:
+                    return CombatType.MAGIC;
+                case MELEE:
+                    return CombatType.MELEE;
+                case RANGED:
+                    return CombatType.RANGED;
+            }
+            return CombatType.MELEE;
+        }
+    }
 }

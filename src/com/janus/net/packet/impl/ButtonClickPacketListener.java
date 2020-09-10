@@ -27,6 +27,7 @@ import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.FightType;
+import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.content.dailyreward.DailyRewardConstants;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.dialogue.DialogueOptions;
@@ -62,6 +63,8 @@ import com.janus.world.entity.impl.player.Player;
 
 public class ButtonClickPacketListener implements PacketListener {
 
+    public static final int OPCODE = 185;
+
     @Override
     public void handleMessage(Player player, Packet packet) {
 
@@ -69,7 +72,7 @@ public class ButtonClickPacketListener implements PacketListener {
 
         PlayerPanel.refreshPanel(player);
 
-        if (player.getRights() == PlayerRights.OWNER) {
+        if (player.getRights() == PlayerRights.OWNER || player.getRights() == PlayerRights.DEVELOPER) {
             player.getPacketSender().sendMessage("Clicked button: " + id);
         }
 
@@ -847,7 +850,7 @@ public class ButtonClickPacketListener implements PacketListener {
 				 player.getInventory().add(15372, 1);
 				 player.incrementJanusPoints(200);
 				 PlayerPanel.refreshPanel(player);
-			} 
+			}
 			break;*/
 
 		/*case 3208:
@@ -855,21 +858,21 @@ public class ButtonClickPacketListener implements PacketListener {
 				 player.getInventory().add(15370, 1);
 				 player.incrementJanusPoints(100);
 				 PlayerPanel.refreshPanel(player);
-			} 
+			}
 			break;
 		case 3225:
 			if(player.getJanusPoints() >= 50) {
 				 player.getInventory().add(15369, 1);
 				 player.incrementJanusPoints(50);
 				 PlayerPanel.refreshPanel(player);
-			} 
+			}
 			break;
 		case 3240:
 			if(player.getJanusPoints() >= 250) {
 				 player.getInventory().add(15373, 1);
 				 player.incrementJanusPoints(250);
 				 PlayerPanel.refreshPanel(player);
-			} 
+			}
 			break;*/
             case 26226:
             case 26229:
@@ -1249,6 +1252,7 @@ public class ButtonClickPacketListener implements PacketListener {
                 break;
             case 2735:
             case 1511:
+                if (player.getLocation() != Location.BOSS_TIER_LOCATION || player.getLocation() != Location.BOSS_TIER_ENTRANCE)
                 if (player.getSummoning().getBeastOfBurden() != null) {
                     player.getSummoning().toInventory();
                     player.getPacketSender().sendInterfaceRemoval();
@@ -1326,12 +1330,17 @@ public class ButtonClickPacketListener implements PacketListener {
                 if (!player.isBanking() || player.getInterfaceId() != 5292)
                     return;
                 Bank.depositItems(player, id == 27005 ? player.getEquipment() : player.getInventory(), false);
+                player.getEquipment().refreshItems();
+                ItemEffect.refreshEffects(player); //This is to stop the scythe bank bug
                 break;
             case 27023:
                 if (!player.isBanking() || player.getInterfaceId() != 5292)
                     return;
                 if (player.getSummoning().getBeastOfBurden() == null) {
                     player.getPacketSender().sendMessage("You do not have a familiar which can hold items.");
+                    return;
+                }
+                if (player.getLocation() == Location.BOSS_TIER_LOCATION || player.getLocation() == Location.BOSS_TIER_ENTRANCE){
                     return;
                 }
                 Bank.depositItems(player, player.getSummoning().getBeastOfBurden(), false);
@@ -1740,9 +1749,9 @@ public class ButtonClickPacketListener implements PacketListener {
     private boolean checkHandlers(Player player, int id) {
         if(player.getQuestTab().handleButton(id))
             return true;
-        if(player.getCollectionLog().handleButton(id))
+        if (player.getCollectionLog().handleButton(id))
             return true;
-        if(KillLogInterface.handleButton(player, id))
+        if (KillLogInterface.handleButton(player, id))
             return true;
         if (Construction.handleButtonClick(id, player)) {
             return true;
@@ -1832,6 +1841,4 @@ public class ButtonClickPacketListener implements PacketListener {
         }
         return false;
     }
-
-    public static final int OPCODE = 185;
 }

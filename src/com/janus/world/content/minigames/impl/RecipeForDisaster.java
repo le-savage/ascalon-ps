@@ -3,9 +3,9 @@ package com.janus.world.content.minigames.impl;
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Item;
+import com.janus.model.Locations.Location;
 import com.janus.model.Position;
 import com.janus.model.RegionInstance;
-import com.janus.model.Locations.Location;
 import com.janus.model.RegionInstance.RegionInstanceType;
 import com.janus.model.container.impl.Shop;
 import com.janus.model.input.impl.EnterAmountToBuyFromShop;
@@ -24,6 +24,25 @@ import com.janus.world.entity.impl.player.Player;
  * Handles the RFD quest
  */
 public class RecipeForDisaster {
+
+    private static final Position spawnPos = new Position(1900, 5354);
+    private static final String questTitle = "Recipe for Disaster";
+    private static final String[] questIntro = {
+            "The Culinaromancer has returned and only you",
+            "             can stop him!                  ",
+            "",
+    };
+    private static final String[] questGuide = {
+            "Talk to the Gypsy in Edgeville and agree to help her.",
+            "Enter the portal.",
+            "Defeat the following servants:",
+            "* Agrith-Na-Na",
+            "* Flambeed",
+            "* Karamel",
+            "* Dessourt",
+            "* Gelatinnoth mother",
+            "And finally.. Defeat the Culinaromancer!"
+    };
 
     public static void enter(Player player) {
         if (player.getMinigameAttributes().getRecipeForDisasterAttributes().getWavesCompleted() == 6)
@@ -181,24 +200,4 @@ public class RecipeForDisaster {
             player.getPacketSender().sendInterfaceSet(Shop.INTERFACE_ID, Shop.INVENTORY_INTERFACE_ID - 1);
         player.setShop(shop).setInterfaceId(Shop.INTERFACE_ID).setShopping(true);
     }
-
-
-    private static final Position spawnPos = new Position(1900, 5354);
-    private static final String questTitle = "Recipe for Disaster";
-    private static final String[] questIntro = {
-            "The Culinaromancer has returned and only you",
-            "             can stop him!                  ",
-            "",
-    };
-    private static final String[] questGuide = {
-            "Talk to the Gypsy in Edgeville and agree to help her.",
-            "Enter the portal.",
-            "Defeat the following servants:",
-            "* Agrith-Na-Na",
-            "* Flambeed",
-            "* Karamel",
-            "* Dessourt",
-            "* Gelatinnoth mother",
-            "And finally.. Defeat the Culinaromancer!"
-    };
 }

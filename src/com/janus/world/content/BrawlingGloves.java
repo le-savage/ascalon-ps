@@ -1,7 +1,6 @@
 package com.janus.world.content;
 
 import com.janus.model.container.impl.Equipment;
-import com.janus.world.content.ItemDegrading.DegradingItem;
 import com.janus.world.entity.impl.player.Player;
 
 public class BrawlingGloves {

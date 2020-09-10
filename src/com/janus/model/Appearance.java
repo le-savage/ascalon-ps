@@ -11,24 +11,45 @@ import com.janus.world.entity.impl.player.Player;
 public class Appearance {
 
     /**
+     * The index of said body part color in the look array.
+     */
+    public static final int HAIR_COLOUR = 8, TORSO_COLOUR = 9, LEG_COLOUR = 10, FEET_COLOUR = 11, SKIN_COLOUR = 12,
+            HEAD = 1, CHEST = 2, ARMS = 3, HANDS = 4, LEGS = 5, FEET = 6, BEARD = 7, GENDER = 0;
+    /**
      * Player's current gender.
      */
     private Gender gender = Gender.MALE;
-
     /**
      * Can the player change appearance right now?
      */
     private boolean canChangeAppearance = false;
-
     /**
      * The player's head icon hint.
      */
     private int headHint = -1;
-
     /**
      * The player's bounty hunter skull.
      */
     private int bountyHunterSkull = -1;
+    /**
+     * The player's current character clothing.
+     */
+    private int[] look = new int[13];
+    /**
+     * The associated player.
+     */
+    private Player player;
+
+    /**
+     * The Appearance constructor, also sets
+     * the player's default clothing.
+     *
+     * @param player The associated player.
+     */
+    public Appearance(Player player) {
+        this.player = player;
+        set();
+    }
 
     /**
      * Gets the player's gender.
@@ -146,22 +167,6 @@ public class Appearance {
     }
 
     /**
-     * The player's current character clothing.
-     */
-    private int[] look = new int[13];
-
-    /**
-     * The Appearance constructor, also sets
-     * the player's default clothing.
-     *
-     * @param player The associated player.
-     */
-    public Appearance(Player player) {
-        this.player = player;
-        set();
-    }
-
-    /**
      * Sets the player's default clothing.
      */
     public void set() {
@@ -189,15 +194,4 @@ public class Appearance {
         look[SKIN_COLOUR] = 0;
         player.getUpdateFlag().flag(Flag.APPEARANCE);
     }
-
-    /**
-     * The associated player.
-     */
-    private Player player;
-
-    /**
-     * The index of said body part color in the look array.
-     */
-    public static final int HAIR_COLOUR = 8, TORSO_COLOUR = 9, LEG_COLOUR = 10, FEET_COLOUR = 11, SKIN_COLOUR = 12,
-            HEAD = 1, CHEST = 2, ARMS = 3, HANDS = 4, LEGS = 5, FEET = 6, BEARD = 7, GENDER = 0;
 }

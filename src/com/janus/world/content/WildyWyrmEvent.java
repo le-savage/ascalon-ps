@@ -1,13 +1,5 @@
 package com.janus.world.content;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.GroundItem;
@@ -21,6 +13,9 @@ import com.janus.world.entity.impl.GroundItemManager;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
+import java.util.*;
+import java.util.Map.Entry;
+
 @SuppressWarnings("all")
 /**
  *
@@ -30,16 +25,10 @@ import com.janus.world.entity.impl.player.Player;
 public class WildyWyrmEvent extends NPC {
 
 
-    public static int[] COMMONLOOT = {15273, 13883, 1726, 248, 1620, 9244, 868, 12154, 1516, 1272, 2358, 1457, 1459, 1514, 2358, 537, 13883, 13879, 220, 1290, 2504, 4132, 1334, 1705, 4100, 4094, 4114, 15271, 6686};
-    public static int[] MEDIUMLOOT = {15273, 13883, 242, 248, 1620, 1451, 1457, 2362, 2360, 1459, 1276, 1726, 9244, 868, 1514, 2358, 537, 13883, 13879, 220, 1290, 2504, 4132, 1334, 1705, 4100, 4094, 4114, 15271, 6686};
-    public static int[] RARELOOT = {15273, 13883, 242, 248, 1620, 1451, 1457, 2362, 2360, 1459, 1276, 18831, 1726, 9244, 868, 1514, 2358, 537, 13883, 13879, 220, 1290, 2504, 4132, 1334, 1705, 4100, 4094, 4114, 6686, 1080, 1202, 11127, 1164, 6529, 15271};
-    public static int[] SUPERRARELOOT = {21026, 18782, 20000, 20001, 20002, 6500, 10551, 10548, 10550, 15220, 15018, 15020, 15019, 6585, 4151, 2571, 2577, 11283, 4706, 20072, 15486, 11235, 20061, 11970, 11970, 11970, 13899, 13876, 13870, 13873, 13864, 13858, 13861, 13867, 6199, 13896, 13884, 13890, 13902, 13887, 13893, 12601, 1419, 19335, 11848, 11846, 11850, 11852, 11854, 11856, 11728, 6829};
-
     /**
      *
      */
     public static final int NPC_ID = 3334;
-
     /**
      *
      */
@@ -49,7 +38,10 @@ public class WildyWyrmEvent extends NPC {
             new WildywyrmLocation(3157, 3887, 0, "Spider Hill"),
             new WildywyrmLocation(3193, 3677, 0, "Graveyard")
     };
-
+    public static int[] COMMONLOOT = {15273, 13883, 1726, 248, 1620, 9244, 868, 12154, 1516, 1272, 2358, 1457, 1459, 1514, 2358, 537, 13883, 13879, 220, 1290, 2504, 4132, 1334, 1705, 4100, 4094, 4114, 15271, 6686};
+    public static int[] MEDIUMLOOT = {15273, 13883, 242, 248, 1620, 1451, 1457, 2362, 2360, 1459, 1276, 1726, 9244, 868, 1514, 2358, 537, 13883, 13879, 220, 1290, 2504, 4132, 1334, 1705, 4100, 4094, 4114, 15271, 6686};
+    public static int[] RARELOOT = {15273, 13883, 242, 248, 1620, 1451, 1457, 2362, 2360, 1459, 1276, 18831, 1726, 9244, 868, 1514, 2358, 537, 13883, 13879, 220, 1290, 2504, 4132, 1334, 1705, 4100, 4094, 4114, 6686, 1080, 1202, 11127, 1164, 6529, 15271};
+    public static int[] SUPERRARELOOT = {21026, 18782, 20000, 20001, 20002, 6500, 10551, 10548, 10550, 15220, 15018, 15020, 15019, 6585, 4151, 2571, 2577, 11283, 4706, 20072, 15486, 11235, 20061, 11970, 11970, 11970, 13899, 13876, 13870, 13873, 13864, 13858, 13861, 13867, 6199, 13896, 13884, 13890, 13902, 13887, 13893, 12601, 1419, 19335, 11848, 11846, 11850, 11852, 11854, 11856, 11728, 6829};
     /**
      *
      */

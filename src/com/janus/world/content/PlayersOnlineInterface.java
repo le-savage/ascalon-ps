@@ -12,8 +12,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PlayersOnlineInterface {
 
-    private static Stopwatch lastResort = new Stopwatch();
     private final static CopyOnWriteArrayList<Player> PLAYERS_ONLINE_LIST = new CopyOnWriteArrayList<Player>();
+    private static Stopwatch lastResort = new Stopwatch();
 
     public static void add(Player player) {
         PLAYERS_ONLINE_LIST.add(player);
@@ -173,7 +173,7 @@ public class PlayersOnlineInterface {
             case SUPPORT:
                 value = 9;
                 break;
-            case COMMUNITYMANAGER:
+            case GLOBAL_ADMIN:
                 value = 8;
                 break;
         }

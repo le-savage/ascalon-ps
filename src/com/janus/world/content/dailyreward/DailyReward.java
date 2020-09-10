@@ -3,7 +3,6 @@ package com.janus.world.content.dailyreward;
 import com.janus.model.Item;
 import com.janus.world.World;
 import com.janus.world.content.PlayerPunishment;
-import com.janus.world.content.discord.DiscordMessenger;
 import com.janus.world.entity.impl.player.Player;
 
 public class DailyReward {
@@ -86,7 +85,7 @@ public class DailyReward {
 
         PlayerPunishment.addIpToDailyRewardList(player.getUsername(), player.getHostAddress(), player.getUUID(), player.getMac());
 
-        if (todaysItem.getDefinition().isNoted()) {
+        if (todaysItem.getDefinition().isNoted() || todaysItem.getId() == 995) {
             if (player.getInventory().getFreeSlots() >= 1) {
                 player.getInventory().add(todaysItem.getId(), todaysItem.getAmount());
             } else {
@@ -125,13 +124,13 @@ public class DailyReward {
         this.nextRewardTime = nextRewardTime;
     }
 
-    public void setDay(int day) {
-        this.day = day;
-    }
-
     public int getDay() {
         checkToResetDay();
         return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public boolean hasClaimedTodaysReward() {

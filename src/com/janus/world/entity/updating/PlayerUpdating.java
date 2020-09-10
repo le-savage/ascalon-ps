@@ -1,27 +1,21 @@
 package com.janus.world.entity.updating;
 
-import java.util.Iterator;
-
-import com.janus.model.Appearance;
-import com.janus.model.Direction;
-import com.janus.model.Flag;
-import com.janus.model.Gender;
-import com.janus.model.Position;
-import com.janus.model.Skill;
-import com.janus.model.UpdateFlag;
+import com.janus.model.*;
 import com.janus.model.ChatMessage.Message;
 import com.janus.model.Locations.Location;
 import com.janus.model.container.impl.Equipment;
 import com.janus.model.definitions.ItemDefinition;
 import com.janus.model.movement.MovementQueue;
 import com.janus.net.packet.ByteOrder;
-import com.janus.net.packet.PacketBuilder;
-import com.janus.net.packet.ValueType;
 import com.janus.net.packet.Packet.PacketType;
+import com.janus.net.packet.PacketBuilder;
 import com.janus.net.packet.PacketBuilder.AccessType;
+import com.janus.net.packet.ValueType;
 import com.janus.world.World;
 import com.janus.world.entity.Entity;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.Iterator;
 
 /**
  * Represents the associated player's player updating.

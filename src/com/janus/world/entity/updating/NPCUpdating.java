@@ -1,20 +1,20 @@
 package com.janus.world.entity.updating;
 
-import java.util.Iterator;
-
 import com.janus.model.Direction;
 import com.janus.model.Flag;
 import com.janus.model.Position;
 import com.janus.model.UpdateFlag;
 import com.janus.net.packet.ByteOrder;
-import com.janus.net.packet.PacketBuilder;
-import com.janus.net.packet.ValueType;
 import com.janus.net.packet.Packet.PacketType;
+import com.janus.net.packet.PacketBuilder;
 import com.janus.net.packet.PacketBuilder.AccessType;
+import com.janus.net.packet.ValueType;
 import com.janus.world.World;
 import com.janus.world.entity.Entity;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.Iterator;
 
 /**
  * Represents a player's npc updating task, which loops through all local

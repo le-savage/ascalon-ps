@@ -1,8 +1,8 @@
 package com.janus.model;
 
 import com.janus.model.container.impl.Bank;
-import com.janus.world.content.PlayerPanel;
 import com.janus.world.content.Achievements.AchievementData;
+import com.janus.world.content.PlayerPanel;
 import com.janus.world.content.skill.impl.slayer.SlayerMaster;
 import com.janus.world.content.skill.impl.slayer.SlayerTasks;
 import com.janus.world.entity.impl.player.Player;
@@ -20,11 +20,6 @@ public enum GameMode {
     GameMode(int drBoost) { // Used to show the drop rate in the player panel. Actual rate calculated in NPCDrops.
         this.drBoost = drBoost;
     }
-
-    public double getDropRateModifier() {
-        return drBoost;
-    }
-
 
     public static void set(Player player, GameMode newMode, boolean death) {
         if (!death && !player.getClickDelay().elapsed(1000))
@@ -72,5 +67,9 @@ public enum GameMode {
         } else {
             player.setPlayerLocked(false);
         }
+    }
+
+    public double getDropRateModifier() {
+        return drBoost;
     }
 }

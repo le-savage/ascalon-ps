@@ -2,7 +2,6 @@ package com.janus.net.packet.impl;
 
 import com.janus.net.packet.Packet;
 import com.janus.net.packet.PacketListener;
-import com.janus.world.content.EnergyHandler;
 import com.janus.world.entity.impl.player.Player;
 
 //CALLED EVERY 3 MINUTES OF INACTIVITY

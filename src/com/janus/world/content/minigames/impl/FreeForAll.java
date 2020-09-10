@@ -1,12 +1,7 @@
 package com.janus.world.content.minigames.impl;
 
 import com.janus.GameSettings;
-import com.janus.model.Flag;
-import com.janus.model.Item;
-import com.janus.model.MagicSpellbook;
-import com.janus.model.Position;
-import com.janus.model.Prayerbook;
-import com.janus.model.Skill;
+import com.janus.model.*;
 import com.janus.model.container.impl.Equipment;
 import com.janus.net.packet.impl.EquipPacketListener;
 import com.janus.util.Misc;
@@ -24,28 +19,27 @@ import java.util.Map;
  */
 
 public class FreeForAll {
+    public static final String PLAYING = "PLAYING";
+    public static final String WAITING = "WAITING";
     public static int TOTAL_PLAYERS = 0;
-    private static int PLAYERS_IN_LOBBY = 0;
-
     /**
      * @note Stores player and State
      */
     public static Map<Player, String> playerMap = new HashMap<Player, String>();
     public static Map<Player, String> playersInGame = new HashMap<Player, String>();
-    public static final String PLAYING = "PLAYING";
-    public static final String WAITING = "WAITING";
-    public String type = "";
     public static boolean pure = false;
+    public static boolean brid = false;
+    public static boolean dharok = false;
+    public static int[][] coordinates = {{2265, 4684, 4}, {2261, 4699, 4}, {2282, 4706, 4}, {2282, 4689, 4}};
+    private static int PLAYERS_IN_LOBBY = 0;
+    private static boolean gameRunning = false;
+    private static boolean eventRunning = false;
+    private static int waitTimer = 150;
+    public String type = "";
     public int[][] pureInv = new int[][]{{Equipment.HEAD_SLOT, 1153}, {Equipment.CAPE_SLOT, 10499},
             {Equipment.AMULET_SLOT, 1725}, {Equipment.WEAPON_SLOT, 4587}, {Equipment.BODY_SLOT, 1129},
             {Equipment.SHIELD_SLOT, 1540}, {Equipment.LEG_SLOT, 2497}, {Equipment.HANDS_SLOT, 7459},
             {Equipment.FEET_SLOT, 3105}, {Equipment.RING_SLOT, 2550}, {Equipment.AMMUNITION_SLOT, 9244}};
-    public static boolean brid = false;
-    public static boolean dharok = false;
-    private static boolean gameRunning = false;
-    private static boolean eventRunning = false;
-    private static int waitTimer = 150;
-    public static int[][] coordinates = {{2265, 4684, 4}, {2261, 4699, 4}, {2282, 4706, 4}, {2282, 4689, 4}};
 
     public static String getState(Player player) {
         return playerMap.get(player);

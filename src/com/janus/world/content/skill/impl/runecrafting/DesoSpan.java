@@ -2,15 +2,7 @@ package com.janus.world.content.skill.impl.runecrafting;
 
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
-import com.janus.model.Animation;
-import com.janus.model.CombatIcon;
-import com.janus.model.Graphic;
-import com.janus.model.GraphicHeight;
-import com.janus.model.Hit;
-import com.janus.model.Hitmask;
-import com.janus.model.Position;
-import com.janus.model.Projectile;
-import com.janus.model.Skill;
+import com.janus.model.*;
 import com.janus.model.movement.MovementQueue;
 import com.janus.util.Misc;
 import com.janus.world.World;
@@ -21,31 +13,6 @@ public class DesoSpan {
 
     private static final Animation SIPHONING_ANIMATION = new Animation(9368);
     private static final int ENERGY_FRAGMENT = 13653;
-
-    enum Energy {
-        GREEN_ENERGY(8028, 40, 1754, 912, 551, 999),
-        YELLOW_ENERGY(8022, 72, 4124, 913, 554, 1006);
-
-        Energy(int npcId, int levelReq, int experience, int playerGraphic, int projectileGraphic, int npcGraphic) {
-            this.npcId = npcId;
-            this.levelReq = levelReq;
-            this.experience = experience;
-            this.playerGraphic = playerGraphic;
-            this.projectileGraphic = projectileGraphic;
-            this.npcGraphic = npcGraphic;
-        }
-
-        public int npcId, levelReq, experience;
-        public int playerGraphic, projectileGraphic, npcGraphic;
-
-        static Energy forId(int npc) {
-            for (Energy e : Energy.values()) {
-                if (e.npcId == npc)
-                    return e;
-            }
-            return null;
-        }
-    }
 
     public static void spawn() {
         int lastX = 0;
@@ -102,6 +69,30 @@ public class DesoSpan {
                 }
             });
             TaskManager.submit(player.getCurrentTask());
+        }
+    }
+
+    enum Energy {
+        GREEN_ENERGY(8028, 40, 1754, 912, 551, 999),
+        YELLOW_ENERGY(8022, 72, 4124, 913, 554, 1006);
+
+        public int npcId, levelReq, experience;
+        public int playerGraphic, projectileGraphic, npcGraphic;
+        Energy(int npcId, int levelReq, int experience, int playerGraphic, int projectileGraphic, int npcGraphic) {
+            this.npcId = npcId;
+            this.levelReq = levelReq;
+            this.experience = experience;
+            this.playerGraphic = playerGraphic;
+            this.projectileGraphic = projectileGraphic;
+            this.npcGraphic = npcGraphic;
+        }
+
+        static Energy forId(int npc) {
+            for (Energy e : Energy.values()) {
+                if (e.npcId == npc)
+                    return e;
+            }
+            return null;
         }
     }
 

@@ -9,12 +9,12 @@ import com.janus.world.entity.impl.npc.NPC;
 
 public class NPCRespawnTask extends Task {
 
+    final NPC npc;
+
     public NPCRespawnTask(NPC npc, int respawn) {
         super(respawn);
         this.npc = npc;
     }
-
-    final NPC npc;
 
     @Override
     public void execute() {

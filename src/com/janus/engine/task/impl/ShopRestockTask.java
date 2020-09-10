@@ -6,12 +6,20 @@ import com.janus.model.container.impl.Shop;
 
 public class ShopRestockTask extends Task {
 
+    private final Shop shop;
+
     public ShopRestockTask(Shop shop) {
         super(5);
         this.shop = shop;
     }
 
-    private final Shop shop;
+    public static int getRestockAmount(int amountMissing) {
+        return (int) (Math.pow(amountMissing, 1.2) / 30 + 1);
+    }
+
+    public static int getDeleteRatio(int x) {
+        return (int) (Math.pow(x, 1.05) / 50 + 1);
+    }
 
     @Override
     protected void execute() {
@@ -50,13 +58,5 @@ public class ShopRestockTask extends Task {
     public void stop() {
         setEventRunning(false);
         shop.setRestockingItems(false);
-    }
-
-    public static int getRestockAmount(int amountMissing) {
-        return (int) (Math.pow(amountMissing, 1.2) / 30 + 1);
-    }
-
-    public static int getDeleteRatio(int x) {
-        return (int) (Math.pow(x, 1.05) / 50 + 1);
     }
 }

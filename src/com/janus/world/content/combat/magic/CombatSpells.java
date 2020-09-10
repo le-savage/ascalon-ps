@@ -1,20 +1,15 @@
 package com.janus.world.content.combat.magic;
 
-import java.util.Optional;
-
 import com.janus.engine.task.TaskManager;
-import com.janus.model.Animation;
-import com.janus.model.Graphic;
-import com.janus.model.GraphicHeight;
-import com.janus.model.Item;
-import com.janus.model.Projectile;
-import com.janus.model.Skill;
+import com.janus.model.*;
 import com.janus.world.content.combat.CombatFactory;
-import com.janus.world.content.combat.effect.CombatTeleblockEffect;
 import com.janus.world.content.combat.effect.CombatPoisonEffect.PoisonType;
+import com.janus.world.content.combat.effect.CombatTeleblockEffect;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.Optional;
 
 /**
  * Holds all of the {@link CombatSpell}s that can be cast by an {@link Character}.
@@ -2919,15 +2914,6 @@ public enum CombatSpells {
     }
 
     /**
-     * Gets the combat spell that can be casted.
-     *
-     * @return the combat spell that can be casted.
-     */
-    public CombatSpell getSpell() {
-        return spell;
-    }
-
-    /**
      * Gets the spell constant by its spell id.
      *
      * @param spellId the spell to retrieve.
@@ -2944,5 +2930,14 @@ public enum CombatSpells {
             }
         }
         return null;
+    }
+
+    /**
+     * Gets the combat spell that can be casted.
+     *
+     * @return the combat spell that can be casted.
+     */
+    public CombatSpell getSpell() {
+        return spell;
     }
 }

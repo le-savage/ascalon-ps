@@ -1,15 +1,5 @@
 package com.janus.world.content.pos;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.janus.GameSettings;
 import com.janus.model.GameMode;
 import com.janus.model.definitions.ItemDefinition;
@@ -23,6 +13,16 @@ import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.dialogue.DialogueType;
 import com.janus.world.content.pos.PlayerOwnedShop.Item;
 import com.janus.world.entity.impl.player.Player;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A management class for all player owned shops and information related to a
@@ -80,6 +80,54 @@ public class PlayerOwnedShopManager {
      */
     public PlayerOwnedShopManager(Player player) {
         this.player = player;
+    }
+
+    public static void loadShops() {
+
+        File[] files = DIRECTORY.listFiles();
+
+        for (File file : files) {
+
+            Path path = Paths.get(DIRECTORY + File.separator, file.getName());
+            PlayerOwnedShop shop = new PlayerOwnedShop();
+
+            shop.setUsername(file.getName().replaceAll(".txt", ""));
+
+            try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+
+                String line;
+                int offset = 0;
+
+                while ((line = reader.readLine()) != null) {
+
+                    String[] split = line.split(" - ");
+
+                    if (split.length == 3) {
+
+                        int id = Integer.parseInt(split[0]);
+                        int amount = Integer.parseInt(split[1]);
+                        int price = Integer.parseInt(split[2]);
+
+                        shop.getItems()[offset++] = new Item(id, amount, price);
+
+                    }
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            SHOPS.add(shop);
+
+        }
+
+    }
+
+    public static void saveShops() {
+        for (PlayerOwnedShop shop : SHOPS) {
+            shop.save();
+        }
     }
 
     /**
@@ -699,9 +747,9 @@ public class PlayerOwnedShopManager {
         earnings -= available;
 
         String formatPrice1 = Misc.sendCashToString(available);
-        System.out.println("Available: "+available);
+        System.out.println("Available: " + available);
         String formatPrice2 = Misc.sendCashToString(earnings);
-        System.out.println("Available: "+earnings);
+        System.out.println("Available: " + earnings);
 
         //player.getInventory().add(995, (int) available);
         player.setMoneyInPouch(player.getMoneyInPouch() + available);
@@ -709,54 +757,6 @@ public class PlayerOwnedShopManager {
         statement(player, "You have claimed " + formatPrice1 + " coins. This leaves " + formatPrice2 + " coins",
                 "left to claim from your shop earnings depository.");
 
-    }
-
-    public static void loadShops() {
-
-        File[] files = DIRECTORY.listFiles();
-
-        for (File file : files) {
-
-            Path path = Paths.get(DIRECTORY + File.separator, file.getName());
-            PlayerOwnedShop shop = new PlayerOwnedShop();
-
-            shop.setUsername(file.getName().replaceAll(".txt", ""));
-
-            try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
-
-                String line;
-                int offset = 0;
-
-                while ((line = reader.readLine()) != null) {
-
-                    String[] split = line.split(" - ");
-
-                    if (split.length == 3) {
-
-                        int id = Integer.parseInt(split[0]);
-                        int amount = Integer.parseInt(split[1]);
-                        int price = Integer.parseInt(split[2]);
-
-                        shop.getItems()[offset++] = new Item(id, amount, price);
-
-                    }
-
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            SHOPS.add(shop);
-
-        }
-
-    }
-
-    public static void saveShops() {
-        for (PlayerOwnedShop shop : SHOPS) {
-            shop.save();
-        }
     }
 
     public PlayerOwnedShop getCurrent() {

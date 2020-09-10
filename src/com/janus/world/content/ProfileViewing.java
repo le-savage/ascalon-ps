@@ -1,4 +1,3 @@
-
 package com.janus.world.content;
 
 import com.janus.model.Item;

@@ -1,14 +1,13 @@
 package com.janus.net.packet.codec;
 
+import com.janus.net.packet.Packet;
+import com.janus.net.packet.Packet.PacketType;
+import com.janus.net.security.IsaacRandom;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.handler.codec.oneone.OneToOneEncoder;
-
-import com.janus.net.packet.Packet;
-import com.janus.net.packet.Packet.PacketType;
-import com.janus.net.security.IsaacRandom;
 
 /**
  * An implementation of netty's {@link OneToOneEncoder} to
@@ -19,6 +18,11 @@ import com.janus.net.security.IsaacRandom;
 public final class PacketEncoder extends OneToOneEncoder {
 
     /**
+     * The encoder used for incoming packets.
+     */
+    private final IsaacRandom encoder;
+
+    /**
      * The GamePacketEncoder constructor.
      *
      * @param encoder The encoder used for the packets.
@@ -26,11 +30,6 @@ public final class PacketEncoder extends OneToOneEncoder {
     public PacketEncoder(IsaacRandom encoder) {
         this.encoder = encoder;
     }
-
-    /**
-     * The encoder used for incoming packets.
-     */
-    private final IsaacRandom encoder;
 
     @Override
     protected Object encode(ChannelHandlerContext context, Channel channel,

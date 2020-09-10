@@ -2,8 +2,8 @@ package com.janus.world.clip.stream;
 
 public class ByteStream {
 
-    private byte[] buffer;
     public int offset;
+    private byte[] buffer;
 
     public ByteStream(byte[] buffer) {
         this.buffer = buffer;

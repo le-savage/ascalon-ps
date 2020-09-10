@@ -2,7 +2,6 @@ package mysql.impl.FoxSystems;
 
 
 import com.janus.model.Skill;
-import com.janus.util.Misc;
 import com.janus.world.World;
 import com.janus.world.entity.impl.player.Player;
 
@@ -14,21 +13,10 @@ import java.util.HashMap;
 
 public class Hiscores implements Runnable {
 
-    /**
-     * Just for testing the code.
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        Player player = World.getPlayerByName("Flub");
-        new Thread(new Hiscores(player)).start();
-    }
-
     public static final String HOST = "199.192.31.129"; // website ip address
     public static final String USER = "janugswd_scores";
     public static final String PASS = "52tlfsX3eMknPlb";
     public static final String DATABASE = "janugswd_scores";
-
     /**
      * Skills array, should be in order of their id.
      * If you have divination/invention just add it after dungeoneering
@@ -39,11 +27,20 @@ public class Hiscores implements Runnable {
             "Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting", "Construction",
             "Hunter", "Summoning", "Dungeoneering"
     };
-
     private Player player;
 
     public Hiscores(Player player) {
         this.player = player;
+    }
+
+    /**
+     * Just for testing the code.
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        Player player = World.getPlayerByName("Flub");
+        new Thread(new Hiscores(player)).start();
     }
 
     /**
@@ -82,8 +79,8 @@ public class Hiscores implements Runnable {
 
             // only update exp if there's a change in overall exp.
             if (stored_xp != overall_xp) {
-                map.put("mode", ""+ player.getGameMode().name().toLowerCase()); // fetch game mode
-                map.put("exp_rate", ""+ player.getDifficulty().name().toLowerCase()); // fetch exp rate
+                map.put("mode", "" + player.getGameMode().name().toLowerCase()); // fetch game mode
+                map.put("exp_rate", "" + player.getDifficulty().name().toLowerCase()); // fetch exp rate
 
                 map.put("total_level", "" + player.getSkillManager().getTotalLevel());
                 map.put("cmb_level", "" + player.getSkillManager().getCombatLevel());

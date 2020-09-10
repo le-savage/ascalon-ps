@@ -2,11 +2,7 @@ package com.janus.world.content.combat.strategy.impl;
 
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
-import com.janus.model.Animation;
-import com.janus.model.Graphic;
-import com.janus.model.Locations;
-import com.janus.model.Position;
-import com.janus.model.Projectile;
+import com.janus.model.*;
 import com.janus.util.Misc;
 import com.janus.world.content.combat.CombatContainer;
 import com.janus.world.content.combat.CombatHitTask;
@@ -17,6 +13,17 @@ import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
 public class BandosAvatar implements CombatStrategy {
+
+    public static int getAnimation(int npc) {
+        int anim = 12259;
+        if (npc == 50)
+            anim = 81;
+        else if (npc == 5362 || npc == 5363)
+            anim = 14246;
+        else if (npc == 51)
+            anim = 13152;
+        return anim;
+    }
 
     @Override
     public boolean canAttack(Character entity, Character victim) {
@@ -90,18 +97,6 @@ public class BandosAvatar implements CombatStrategy {
         }
         return true;
     }
-
-    public static int getAnimation(int npc) {
-        int anim = 12259;
-        if (npc == 50)
-            anim = 81;
-        else if (npc == 5362 || npc == 5363)
-            anim = 14246;
-        else if (npc == 51)
-            anim = 13152;
-        return anim;
-    }
-
 
     @Override
     public int attackDelay(Character entity) {

@@ -29,6 +29,23 @@ public enum DragonBoltsData {
         this.amount = amount;
     }
 
+    public static DragonBoltsData forBolts(int id) {
+        for (DragonBoltsData bolt : DragonBoltsData.values()) {
+            if (bolt.getDragonBolt() == id) {
+                return bolt;
+            }
+        }
+        return null;
+    }
+
+    public static DragonBoltsData forTip(int id) {
+        for (DragonBoltsData bolt : DragonBoltsData.values()) {
+            if (bolt.getTip() == id) {
+                return bolt;
+            }
+        }
+        return null;
+    }
 
     public int getDragonBolt() {
         return bolt;
@@ -52,25 +69,6 @@ public enum DragonBoltsData {
 
     public int getXp() {
         return xp;
-    }
-
-
-    public static DragonBoltsData forBolts(int id) {
-        for (DragonBoltsData bolt : DragonBoltsData.values()) {
-            if (bolt.getDragonBolt() == id) {
-                return bolt;
-            }
-        }
-        return null;
-    }
-
-    public static DragonBoltsData forTip(int id) {
-        for (DragonBoltsData bolt : DragonBoltsData.values()) {
-            if (bolt.getTip() == id) {
-                return bolt;
-            }
-        }
-        return null;
     }
 }
 

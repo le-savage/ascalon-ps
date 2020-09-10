@@ -139,6 +139,10 @@ public final class PlayerSession {
         return player;
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     /**
      * Gets the current state of this I/O session.
      *
@@ -159,10 +163,6 @@ public final class PlayerSession {
 
     public Channel getChannel() {
         return channel;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
     }
 
 }

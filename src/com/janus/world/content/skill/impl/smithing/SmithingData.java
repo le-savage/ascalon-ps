@@ -10,7 +10,7 @@ import com.janus.world.entity.impl.player.Player;
 public class SmithingData {
 
     public static final int[] BARS_SMITH_ORDER = {2363, 2361, 2359, 2353, 2351, 2349, 2357, 2355}; //Rune -> Bronze, then Gold, Silver
-    public static final int[] NEW_BARS = {21061, 21062, 21063, 21064, 21065};
+    public static final int[] NEW_BARS = {21061, 21062, 21063, 21064, 21065, 21066};
     public static final int[] SMELT_BARS = {2349, 2351, 2355, 2353, 2357, 2359, 2361, 2363};
     public static final int[] SMELT_FRAME = {2405, 2406, 2407, 2409, 2410, 2411, 2412, 2413};
 

@@ -5,7 +5,6 @@ import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
 import com.janus.model.Graphic;
 import com.janus.model.Locations;
-import com.janus.model.Position;
 import com.janus.model.Projectile;
 import com.janus.util.Misc;
 import com.janus.world.content.combat.CombatContainer;

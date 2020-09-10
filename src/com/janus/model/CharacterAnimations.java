@@ -72,24 +72,6 @@ public class CharacterAnimations {
     }
 
     /**
-     * Gets the walking animation for this player.
-     *
-     * @return the walking animation.
-     */
-    public int getWalkingAnimation() {
-        return walkingAnimation;
-    }
-
-    /**
-     * Gets the running animation for this player.
-     *
-     * @return the running animation.
-     */
-    public int getRunningAnimation() {
-        return runningAnimation;
-    }
-
-    /**
      * Sets the standing animation for this player.
      *
      * @param standingAnimation the new standing animation to set.
@@ -99,12 +81,30 @@ public class CharacterAnimations {
     }
 
     /**
+     * Gets the walking animation for this player.
+     *
+     * @return the walking animation.
+     */
+    public int getWalkingAnimation() {
+        return walkingAnimation;
+    }
+
+    /**
      * Sets the walking animation for this player.
      *
      * @param walkingAnimation the new walking animation to set.
      */
     public void setWalkingAnimation(int walkingAnimation) {
         this.walkingAnimation = walkingAnimation;
+    }
+
+    /**
+     * Gets the running animation for this player.
+     *
+     * @return the running animation.
+     */
+    public int getRunningAnimation() {
+        return runningAnimation;
     }
 
     /**

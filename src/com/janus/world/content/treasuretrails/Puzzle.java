@@ -1,11 +1,11 @@
 package com.janus.world.content.treasuretrails;
 
-import java.util.ArrayList;
-
 import com.janus.model.Item;
 import com.janus.model.Position;
 import com.janus.util.Misc;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA. User: levi Date: 11/14/16 Time: 22:01 To change

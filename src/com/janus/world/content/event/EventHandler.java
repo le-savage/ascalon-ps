@@ -1,10 +1,10 @@
 package com.janus.world.content.event;
 
+import com.google.common.base.Preconditions;
+import com.janus.world.World;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import com.janus.world.World;
-import com.google.common.base.Preconditions;
 
 /**
  * Handles all the event that may happen within the server.

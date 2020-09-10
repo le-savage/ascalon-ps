@@ -3,11 +3,7 @@ package com.janus.world.content.skill.impl.dungeoneering;
 import com.janus.GameSettings;
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
-import com.janus.model.GameObject;
-import com.janus.model.GroundItem;
-import com.janus.model.Item;
-import com.janus.model.Position;
-import com.janus.model.Skill;
+import com.janus.model.*;
 import com.janus.util.Misc;
 import com.janus.world.World;
 import com.janus.world.content.CustomObjects;
@@ -24,6 +20,11 @@ import com.janus.world.entity.impl.player.Player;
  * @author Gabriel Hannason
  */
 public class Dungeoneering {
+
+    public static final int FORM_PARTY_INTERFACE = 27224;
+    public static final int PARTY_INTERFACE = 26224;
+    public static final int DUNGEONEERING_GATESTONE_ID = 17489;
+    private static final Item[] misc = {new Item(555, 121), new Item(557, 87), new Item(554, 81), new Item(565, 63), new Item(5678), new Item(560, 97), new Item(861, 1), new Item(892, 127), new Item(18161, 2), new Item(18159, 2), new Item(139, 1)};
 
     public static void start(final Player p) {
         p.getPacketSender().sendInterfaceRemoval();
@@ -146,7 +147,6 @@ public class Dungeoneering {
         }
     }
 
-
     public static boolean doingDungeoneering(Player p) {
         return p.getMinigameAttributes().getDungeoneeringAttributes().getParty() != null && p.getMinigameAttributes().getDungeoneeringAttributes().getParty().hasEnteredDungeon();
     }
@@ -161,8 +161,6 @@ public class Dungeoneering {
         party.setDeaths(party.getDeaths() + 1);
         party.sendFrame(37508, "Party deaths: " + party.getDeaths());
     }
-
-    private static final Item[] misc = {new Item(555, 121), new Item(557, 87), new Item(554, 81), new Item(565, 63), new Item(5678), new Item(560, 97), new Item(861, 1), new Item(892, 127), new Item(18161, 2), new Item(18159, 2), new Item(139, 1)};
 
     public static void handleNpcDeath(Player p, NPC n) {
         if (n.getPosition().getZ() == p.getPosition().getZ()) {
@@ -189,8 +187,4 @@ public class Dungeoneering {
                 GroundItemManager.spawnGroundItem(p, new GroundItem(misc[Misc.getRandom(misc.length - 1)], n.getPosition().copy(), "Dungeoneering", false, -1, false, -1));
         }
     }
-
-    public static final int FORM_PARTY_INTERFACE = 27224;
-    public static final int PARTY_INTERFACE = 26224;
-    public static final int DUNGEONEERING_GATESTONE_ID = 17489;
 }

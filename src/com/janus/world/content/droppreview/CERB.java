@@ -6,12 +6,10 @@ import com.janus.world.entity.impl.player.Player;
 
 public class CERB {
 
+    public static final int[] CERB = {12708, 13239, 13235, 11732, 6585};
     public static int config;
     public static int item;
     public static int index = 0;
-
-    public static final int[] CERB = {12708, 13239, 13235, 11732, 6585};
-
 
     /*
      * Get rare drop(s) for that boss location

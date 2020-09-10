@@ -1,19 +1,12 @@
 package com.janus.world.entity.impl;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Queue;
-import java.util.Spliterator;
-import java.util.Spliterators;
+import com.janus.net.SessionState;
+import com.janus.world.entity.impl.player.Player;
+
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-
-import com.janus.net.SessionState;
-import com.janus.world.entity.impl.player.Player;
 
 /**
  * A collection that provides functionality for storing and managing characters.
@@ -30,22 +23,19 @@ import com.janus.world.entity.impl.player.Player;
 public final class CharacterList<E extends Character> implements Iterable<E> {
 
     /**
-     * The backing array of {@link CharacterNode}s within this collection.
-     */
-    private E[] characters;
-
-    /**
      * The queue containing all of the slots that {@link CharacterNode}s were
      * recently removed from. This is used to reduce slot lookup times for
      * characters being added to this character list.
      */
     private final Queue<Integer> slotQueue = new LinkedList<>();
-
     /**
      * The finite capacity of this collection.
      */
     private final int capacity;
-
+    /**
+     * The backing array of {@link CharacterNode}s within this collection.
+     */
+    private E[] characters;
     /**
      * The size of this collection.
      */

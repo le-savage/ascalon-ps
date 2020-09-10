@@ -4,14 +4,75 @@ import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.definitions.ItemDefinition;
 import com.janus.model.definitions.NPCDrops;
-import com.janus.model.definitions.NpcDefinition;
 import com.janus.model.definitions.NPCDrops.NpcDropItem;
+import com.janus.model.definitions.NpcDefinition;
 import com.janus.model.input.Input;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.dialogue.impl.ExplorerJack;
 import com.janus.world.entity.impl.player.Player;
 
 public class ItemSearch extends Input {
+
+    public static Object[] getFixedSyntax(String searchSyntax) {
+        searchSyntax = searchSyntax.toLowerCase();
+        switch (searchSyntax) {
+            case "ags":
+                return new Object[]{"armadyl godsword", 11694};
+            case "sgs":
+                return new Object[]{"saradomin godsword", 11698};
+            case "bgs":
+                return new Object[]{"bandos godsword", 11696};
+            case "zgs":
+                return new Object[]{"zamorak godsword", 11700};
+            case "dclaws":
+            case "d claws":
+                return new Object[]{"dragon claws", 14484};
+            case "bcp":
+                return new Object[]{"bandos chestplate", 11724};
+            case "dds":
+                return new Object[]{"dragon dagger", 1215};
+            case "sol":
+                return new Object[]{"staff of light", 15486};
+            case "vls":
+                return new Object[]{"vesta's longsword", 13899};
+            case "tassy":
+                return new Object[]{"bandos tassets", 11726};
+            case "swh":
+                return new Object[]{"statius's warhammer", 13902};
+            case "steads":
+                return new Object[]{"steadfast boots", 20000};
+            case "obby maul":
+                return new Object[]{"Tthaar-ket-om", 6528};
+            case "g maul":
+            case "gmaul":
+                return new Object[]{"granite maul", 4153};
+            case "nat":
+                return new Object[]{"nature rune", 561};
+            case "ely":
+                return new Object[]{"elysian spirit shield", 13742};
+            case "dfs":
+                return new Object[]{"dragonfire shield", 11283};
+            case "dkite":
+                return new Object[]{"dragon kiteshield", 11613};
+            case "dbones":
+                return new Object[]{"dragon bones", 536};
+            case "fury":
+                return new Object[]{"amulet of fury", 6585};
+            case "dboots":
+            case "d boots":
+                return new Object[]{"dragon boots", 11732};
+            case "whip":
+            case "abby whip":
+            case "abbysal whip":
+            case "abbyssal whip":
+                return new Object[]{"abyssal whip", 4151};
+            case "abbyssal vine whip":
+                return new Object[]{"abyssal vine whip", 4705};
+            case "vine whip":
+                return new Object[]{"vine whip", 4705};
+        }
+        return new Object[]{searchSyntax, -1};
+    }
 
     @Override
     public void handleSyntax(Player player, final String syntax) {
@@ -91,67 +152,5 @@ public class ItemSearch extends Input {
                 player.getMovementQueue().setLockMovement(false);
             }
         });
-    }
-
-
-    public static Object[] getFixedSyntax(String searchSyntax) {
-        searchSyntax = searchSyntax.toLowerCase();
-        switch (searchSyntax) {
-            case "ags":
-                return new Object[]{"armadyl godsword", 11694};
-            case "sgs":
-                return new Object[]{"saradomin godsword", 11698};
-            case "bgs":
-                return new Object[]{"bandos godsword", 11696};
-            case "zgs":
-                return new Object[]{"zamorak godsword", 11700};
-            case "dclaws":
-            case "d claws":
-                return new Object[]{"dragon claws", 14484};
-            case "bcp":
-                return new Object[]{"bandos chestplate", 11724};
-            case "dds":
-                return new Object[]{"dragon dagger", 1215};
-            case "sol":
-                return new Object[]{"staff of light", 15486};
-            case "vls":
-                return new Object[]{"vesta's longsword", 13899};
-            case "tassy":
-                return new Object[]{"bandos tassets", 11726};
-            case "swh":
-                return new Object[]{"statius's warhammer", 13902};
-            case "steads":
-                return new Object[]{"steadfast boots", 20000};
-            case "obby maul":
-                return new Object[]{"Tthaar-ket-om", 6528};
-            case "g maul":
-            case "gmaul":
-                return new Object[]{"granite maul", 4153};
-            case "nat":
-                return new Object[]{"nature rune", 561};
-            case "ely":
-                return new Object[]{"elysian spirit shield", 13742};
-            case "dfs":
-                return new Object[]{"dragonfire shield", 11283};
-            case "dkite":
-                return new Object[]{"dragon kiteshield", 11613};
-            case "dbones":
-                return new Object[]{"dragon bones", 536};
-            case "fury":
-                return new Object[]{"amulet of fury", 6585};
-            case "dboots":
-            case "d boots":
-                return new Object[]{"dragon boots", 11732};
-            case "whip":
-            case "abby whip":
-            case "abbysal whip":
-            case "abbyssal whip":
-                return new Object[]{"abyssal whip", 4151};
-            case "abbyssal vine whip":
-                return new Object[]{"abyssal vine whip", 4705};
-            case "vine whip":
-                return new Object[]{"vine whip", 4705};
-        }
-        return new Object[]{searchSyntax, -1};
     }
 }

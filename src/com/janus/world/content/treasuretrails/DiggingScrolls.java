@@ -1,103 +1,18 @@
 package com.janus.world.content.treasuretrails;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 import com.janus.model.Item;
 import com.janus.model.Position;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by IntelliJ IDEA. User: levi Date: 11/14/16 Time: 22:37 To change
  * this template use File | Settings | File Templates.
  */
 public class DiggingScrolls {
-
-    public static enum DigData {
-
-        DIG1(new String[]{"Dig near some giant mushrooms ",
-                " behind The Grand Tree"}, 3618, new Position(2458, 3504), 1), DIG2(
-                new String[]{"46 is my number, and fire is my ",
-                        "blood. I have created over a ",
-                        "thousand blades. Unknown to life, ",
-                        "nor known to death."}, 7274,
-                new Position(3170, 3885), 3), DIG3(new String[]{
-                "As you desert this town, keep ",
-                "that could ruin nearby rugs: ", "dig carefully around the ",
-                "greenery"}, 3609, new Position(3397, 2915), 3), DIG4(
-                new String[]{"By the town of the dead, ",
-                        "walk south down a rickety ",
-                        "bridge, then dig near the ", "slime-covered tree."},
-                3611, new Position(3647, 3496), 3), DIG5(new String[]{
-                "Come to the evil ", "ledge, Yew know yew ",
-                "want to, And try not to ", "get stung."}, 7238, new Position(
-                3088, 3469), 3), DIG6(new String[]{"Covered in shadows, ",
-                "the centre of the ", "circle is where you will ",
-                "find the answer."}, 7252, new Position(3489, 3289), 3), DIG7(
-                new String[]{"I lie lonely and forgotten ",
-                        "in mid wilderness, ", "Where the dead rise ",
-                        "from their beds. Feel ", "free to quarrel and wind ",
-                        "me up, and dig while ", "you shoot their heads."},
-                7270, new Position(3174, 3663), 3), DIG8(new String[]{
-                "The beasts to my east ", "snap claws and tails. ",
-                "The rest to my west can ", "slide and eat fish. The ",
-                "northern are silly and ", "jump and wail. Dig by ",
-                "my fire and make a ", "wish."}, 7250,
-                new Position(2599, 3266), 3),
-
-        ;
-        private String[] hints;
-        private int clueId;
-        private Position diggingPosition;
-        private int level;
-
-        private static Map<Integer, DigData> clues = new HashMap<Integer, DigData>();
-        private static Map<Position, DigData> positions = new HashMap<Position, DigData>();
-
-        public static DigData forIdPosition(Position position) {
-            for (int i = 0; i < DigData.values().length; i++) {
-                if (DigData.values()[i].getDiggingPosition().equals(position)) {
-                    return DigData.values()[i];
-                }
-            }
-            return null;
-        }
-
-        public static DigData forIdClue(int clueId) {
-            return clues.get(clueId);
-        }
-
-        static {
-            for (DigData data : DigData.values()) {
-                clues.put(data.clueId, data);
-                positions.put(data.diggingPosition, data);
-            }
-        }
-
-        DigData(String[] hints, int clueId, Position diggingPosition, int level) {
-            this.hints = hints;
-            this.clueId = clueId;
-            this.diggingPosition = diggingPosition;
-            this.level = level;
-        }
-
-        public String[] getHints() {
-            return hints;
-        }
-
-        public int getClueId() {
-            return clueId;
-        }
-
-        public Position getDiggingPosition() {
-            return diggingPosition;
-        }
-
-        public int getLevel() {
-            return level;
-        }
-    }
 
     public static boolean loadClueInterface(Player player, int itemId) {
         DigData digData = DigData.forIdClue(itemId);
@@ -140,8 +55,6 @@ public class DiggingScrolls {
         return true;
     }
 
-    /* put the right childs ids on the interface */
-
     public static int[] getChilds(String[] sentences) {
         switch (sentences.length) {
             case 1:
@@ -164,6 +77,8 @@ public class DiggingScrolls {
         return null;
     }
 
+    /* put the right childs ids on the interface */
+
     public static int getRandomScroll(int level) {
         int pick = new Random().nextInt(DigData.values().length);
         while (DigData.values()[pick].getLevel() != level) {
@@ -171,6 +86,91 @@ public class DiggingScrolls {
         }
 
         return DigData.values()[pick].getClueId();
+    }
+
+    public static enum DigData {
+
+        DIG1(new String[]{"Dig near some giant mushrooms ",
+                " behind The Grand Tree"}, 3618, new Position(2458, 3504), 1), DIG2(
+                new String[]{"46 is my number, and fire is my ",
+                        "blood. I have created over a ",
+                        "thousand blades. Unknown to life, ",
+                        "nor known to death."}, 7274,
+                new Position(3170, 3885), 3), DIG3(new String[]{
+                "As you desert this town, keep ",
+                "that could ruin nearby rugs: ", "dig carefully around the ",
+                "greenery"}, 3609, new Position(3397, 2915), 3), DIG4(
+                new String[]{"By the town of the dead, ",
+                        "walk south down a rickety ",
+                        "bridge, then dig near the ", "slime-covered tree."},
+                3611, new Position(3647, 3496), 3), DIG5(new String[]{
+                "Come to the evil ", "ledge, Yew know yew ",
+                "want to, And try not to ", "get stung."}, 7238, new Position(
+                3088, 3469), 3), DIG6(new String[]{"Covered in shadows, ",
+                "the centre of the ", "circle is where you will ",
+                "find the answer."}, 7252, new Position(3489, 3289), 3), DIG7(
+                new String[]{"I lie lonely and forgotten ",
+                        "in mid wilderness, ", "Where the dead rise ",
+                        "from their beds. Feel ", "free to quarrel and wind ",
+                        "me up, and dig while ", "you shoot their heads."},
+                7270, new Position(3174, 3663), 3), DIG8(new String[]{
+                "The beasts to my east ", "snap claws and tails. ",
+                "The rest to my west can ", "slide and eat fish. The ",
+                "northern are silly and ", "jump and wail. Dig by ",
+                "my fire and make a ", "wish."}, 7250,
+                new Position(2599, 3266), 3),
+
+        ;
+        private static Map<Integer, DigData> clues = new HashMap<Integer, DigData>();
+        private static Map<Position, DigData> positions = new HashMap<Position, DigData>();
+
+        static {
+            for (DigData data : DigData.values()) {
+                clues.put(data.clueId, data);
+                positions.put(data.diggingPosition, data);
+            }
+        }
+
+        private String[] hints;
+        private int clueId;
+        private Position diggingPosition;
+        private int level;
+
+        DigData(String[] hints, int clueId, Position diggingPosition, int level) {
+            this.hints = hints;
+            this.clueId = clueId;
+            this.diggingPosition = diggingPosition;
+            this.level = level;
+        }
+
+        public static DigData forIdPosition(Position position) {
+            for (int i = 0; i < DigData.values().length; i++) {
+                if (DigData.values()[i].getDiggingPosition().equals(position)) {
+                    return DigData.values()[i];
+                }
+            }
+            return null;
+        }
+
+        public static DigData forIdClue(int clueId) {
+            return clues.get(clueId);
+        }
+
+        public String[] getHints() {
+            return hints;
+        }
+
+        public int getClueId() {
+            return clueId;
+        }
+
+        public Position getDiggingPosition() {
+            return diggingPosition;
+        }
+
+        public int getLevel() {
+            return level;
+        }
     }
 
 }

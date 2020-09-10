@@ -7,7 +7,6 @@ import com.janus.net.packet.PacketListener;
 import com.janus.util.Misc;
 import com.janus.world.content.PlayerLogs;
 import com.janus.world.content.PlayerPunishment;
-import com.janus.world.content.discord.DiscordMessenger;
 import com.janus.world.entity.impl.player.Player;
 
 /**

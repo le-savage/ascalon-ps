@@ -6,16 +6,15 @@ package com.janus.model;
 
 public class DwarfCannon {
 
-    public DwarfCannon(int ownerIndex, GameObject object) {
-        this.ownerIndex = ownerIndex;
-        this.object = object;
-    }
-
     private int ownerIndex;
     private GameObject object;
     private int cannonballs = 0;
     private boolean cannonFiring = false;
     private int rotations = 0;
+    public DwarfCannon(int ownerIndex, GameObject object) {
+        this.ownerIndex = ownerIndex;
+        this.object = object;
+    }
 
     public int getOwnerIndex() {
         return this.ownerIndex;

@@ -1,8 +1,8 @@
 package com.janus.world.entity.impl.player;
 
-import java.io.File;
-
 import com.janus.model.container.impl.Bank;
+
+import java.io.File;
 
 /*
  * @Author Bas - Restoring Arlania w/ this file

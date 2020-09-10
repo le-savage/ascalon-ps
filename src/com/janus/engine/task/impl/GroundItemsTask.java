@@ -7,8 +7,17 @@ import com.janus.world.entity.impl.GroundItemManager;
 
 public class GroundItemsTask extends Task {
 
+    private static boolean running;
+
     public GroundItemsTask() {
         super(1);
+    }
+
+    public static void fireTask() {
+        if (running)
+            return;
+        running = true;
+        TaskManager.submit(new GroundItemsTask());
     }
 
     @Override
@@ -45,13 +54,4 @@ public class GroundItemsTask extends Task {
         setEventRunning(false);
         running = false;
     }
-
-    public static void fireTask() {
-        if (running)
-            return;
-        running = true;
-        TaskManager.submit(new GroundItemsTask());
-    }
-
-    private static boolean running;
 }

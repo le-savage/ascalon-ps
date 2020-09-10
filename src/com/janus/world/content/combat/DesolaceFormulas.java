@@ -22,6 +22,14 @@ public class DesolaceFormulas {
     /*===================================MELEE=====================================*/
 
 
+    /**
+     * Obsidian items
+     */
+
+    public static final int[] obsidianWeapons = {
+            746, 747, 6523, 6525, 6526, 6527, 6528
+    };
+
     public static int calculateMaxMeleeHit(Character entity, Character victim) {
         double maxHit = 0;
         if (entity.isNpc()) {
@@ -194,15 +202,6 @@ public class DesolaceFormulas {
         return p.getBonusManager().getAttackBonus()[2] <= p.getBonusManager().getAttackBonus()[1] || p.getBonusManager().getAttackBonus()[2] <= p.getBonusManager().getAttackBonus()[0] ? 0 : 2;
     }
 
-
-    /**
-     * Obsidian items
-     */
-
-    public static final int[] obsidianWeapons = {
-            746, 747, 6523, 6525, 6526, 6527, 6528
-    };
-
     public static boolean hasObsidianEffect(Player plr) {
         if (plr.getEquipment().getItems()[2].getId() != 11128)
             return false;
@@ -322,7 +321,9 @@ public class DesolaceFormulas {
         boolean voidEliteEquipment = EquipmentBonus.wearingEliteVoid(plr, CombatType.MAGIC);
         int attackLevel = plr.getSkillManager().getCurrentLevel(Skill.MAGIC);
         if (voidEquipment)
-            attackLevel += plr.getSkillManager().getCurrentLevel(Skill.MAGIC) * 0.2;
+            attackLevel *= 1.10;
+        if (voidEliteEquipment)
+            attackLevel *= 1.30;
         if (plr.getPrayerActive()[PrayerHandler.MYSTIC_WILL] || plr.getCurseActive()[CurseHandler.SAP_MAGE]) {
             attackLevel *= 1.05;
         } else if (plr.getPrayerActive()[PrayerHandler.MYSTIC_LORE]) {
@@ -333,7 +334,7 @@ public class DesolaceFormulas {
             attackLevel *= 1.22;
         } else if (plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21054 || plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21055 ||
                 plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21056 || plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21057) {
-            attackLevel *= 2.5; //BUFF TOP TIER MAGIC NIGHTMARE STAFF
+            attackLevel *= 1.6; //BUFF TOP TIER MAGIC NIGHTMARE STAFF
         } else if (plr.getCurseActive()[CurseHandler.LEECH_MAGIC]) {
             attackLevel *= 1.18;
         }

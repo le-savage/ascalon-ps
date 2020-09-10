@@ -1,7 +1,7 @@
 package com.janus.world.entity.impl.npc;
 
-import com.janus.model.Position;
 import com.janus.model.Locations.Location;
+import com.janus.model.Position;
 import com.janus.model.movement.PathFinder;
 import com.janus.util.Misc;
 import com.janus.world.clip.region.RegionClipping;
@@ -28,11 +28,6 @@ public class NPCMovementCoordinator {
      * The coordinator for coordinating movement.
      */
     private Coordinator coordinator;
-
-    public enum CoordinateState {
-        HOME,
-        AWAY
-    }
 
     public NPCMovementCoordinator(NPC npc) {
         this.npc = npc;
@@ -162,27 +157,31 @@ public class NPCMovementCoordinator {
         this.coordinator = coordinator;
     }
 
-    public void setCoordinateState(CoordinateState coordinateState) {
-        this.coordinateState = coordinateState;
-    }
-
     public CoordinateState getCoordinateState() {
         return coordinateState;
     }
 
+    public void setCoordinateState(CoordinateState coordinateState) {
+        this.coordinateState = coordinateState;
+    }
+
+    public enum CoordinateState {
+        HOME,
+        AWAY
+    }
+
     public static class Coordinator {
+
+        private boolean coordinate;
+        private int radius;
 
         public Coordinator(boolean coordinate, int radius) {
             this.coordinate = coordinate;
             this.radius = radius;
         }
-
         public Coordinator() {
 
         }
-
-        private boolean coordinate;
-        private int radius;
 
         public boolean isCoordinate() {
             return coordinate;

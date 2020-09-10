@@ -30,14 +30,14 @@ public enum Potion {
     SARADOMIN_BREW(6685, 6687, 6689, 6691),
     EXTREME_RANGING(15324, 15325, 15326, 15327);
 
+    private int quarterId, halfId, threeQuartersId, fullId;
+
     Potion(int fullId, int threeQuartersId, int halfId, int quarterId) {
         this.quarterId = quarterId;
         this.halfId = halfId;
         this.threeQuartersId = threeQuartersId;
         this.fullId = fullId;
     }
-
-    private int quarterId, halfId, threeQuartersId, fullId;
 
     public int getQuarterId() {
         return this.quarterId;

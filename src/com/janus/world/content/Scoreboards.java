@@ -1,12 +1,12 @@
 package com.janus.world.content;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import com.janus.util.Misc;
 import com.janus.world.World;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Scoreboards {
 
@@ -14,30 +14,6 @@ public class Scoreboards {
     public static Scoreboard TOP_KILLSTREAKS;
     public static Scoreboard TOP_ACHIEVER;
     public static Scoreboard TOP_TOTAL_EXP;
-
-    public static abstract class Scoreboard {
-
-        public Scoreboard(String title, String file) {
-            this.title = title;
-            //this.file = file;
-        }
-
-        public abstract void resort(ArrayList<ScoreboardEntry> entries);
-
-        private String title;
-        //private String file;
-    }
-
-    public static class ScoreboardEntry {
-
-        public ScoreboardEntry(String player, String[] value) {
-            this.player = player;
-            this.value = value;
-        }
-
-        private String player;
-        private String[] value;
-    }
 
     public static void init() {
         TOP_PKERS = new Scoreboard("Janus's Top Pkers", "top-pkers.txt") {
@@ -156,5 +132,28 @@ public class Scoreboards {
                 }
             }
         });
+    }
+
+    public static abstract class Scoreboard {
+
+        private String title;
+
+        public Scoreboard(String title, String file) {
+            this.title = title;
+            //this.file = file;
+        }
+
+        public abstract void resort(ArrayList<ScoreboardEntry> entries);
+        //private String file;
+    }
+
+    public static class ScoreboardEntry {
+
+        private String player;
+        private String[] value;
+        public ScoreboardEntry(String player, String[] value) {
+            this.player = player;
+            this.value = value;
+        }
     }
 }

@@ -14,6 +14,17 @@ import com.janus.world.entity.impl.npc.NPC;
 
 public class Dragon implements CombatStrategy {
 
+    public static int getAnimation(int npc) {
+        int anim = 12259;
+        if (npc == 50)
+            anim = 81;
+        else if (npc == 5363 || npc == 1590 || npc == 1591 || npc == 1592)
+            anim = 14246;
+        else if (npc == 51)
+            anim = 13152;
+        return anim;
+    }
+
     @Override
     public boolean canAttack(Character entity, Character victim) {
         return true;
@@ -60,18 +71,6 @@ public class Dragon implements CombatStrategy {
         }
         return true;
     }
-
-    public static int getAnimation(int npc) {
-        int anim = 12259;
-        if (npc == 50)
-            anim = 81;
-        else if (npc == 5363 || npc == 1590 || npc == 1591 || npc == 1592)
-            anim = 14246;
-        else if (npc == 51)
-            anim = 13152;
-        return anim;
-    }
-
 
     @Override
     public int attackDelay(Character entity) {

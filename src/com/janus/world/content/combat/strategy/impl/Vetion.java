@@ -1,7 +1,5 @@
 package com.janus.world.content.combat.strategy.impl;
 
-import java.util.List;
-
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
@@ -15,6 +13,8 @@ import com.janus.world.content.combat.strategy.CombatStrategy;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
+
+import java.util.List;
 
 public class Vetion implements CombatStrategy {
 

@@ -23,10 +23,15 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class Fletching {
 
+    public static int FEATHER = 314;
     /**
      * Bolt tip creation
      */
     private static int chisel = 1755;
+    /**
+     * Bow stringing
+     */
+    private static int BOW_STRING = 1777;
 
     public static void openGemCrushingInterface(Player player, int gem) {
         player.getPacketSender().sendRichPresenceState("Making Gem Tips");
@@ -108,7 +113,6 @@ public class Fletching {
             }
         });
     }
-
 
     public static void tipDragonBolt(final Player player, int tip) {
         //	final int Bolt = player.getSelectedSkillingItem();
@@ -457,11 +461,6 @@ public class Fletching {
         TaskManager.submit(player.getCurrentTask());
     }
 
-    /**
-     * Bow stringing
-     */
-    private static int BOW_STRING = 1777;
-
     public static void openBowStringSelection(Player player, int log) {
         for (final StringingData g : StringingData.values()) {
             if (log == g.unStrung()) {
@@ -546,10 +545,6 @@ public class Fletching {
             }
         }
     }
-
-
-    public static int FEATHER = 314;
-
 
     public static void openMakeBoltSelection(Player player, int unfinishedBolt) {
         for (final BoltData g : BoltData.values()) {

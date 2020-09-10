@@ -10,9 +10,9 @@ import com.janus.model.definitions.NpcDefinition;
 import com.janus.util.Misc;
 import com.janus.world.World;
 import com.janus.world.content.Achievements;
-import com.janus.world.content.PlayerPanel;
 import com.janus.world.content.Achievements.AchievementData;
-import com.janus.world.content.Emotes.*;
+import com.janus.world.content.Emotes.Skillcape_Data;
+import com.janus.world.content.PlayerPanel;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.entity.impl.npc.NPC;
@@ -20,16 +20,92 @@ import com.janus.world.entity.impl.player.Player;
 
 public class Slayer {
 
+    public boolean doubleSlayerXP = false;
     private Player player;
+    private SlayerTasks slayerTask = SlayerTasks.NO_TASK, lastTask = SlayerTasks.NO_TASK;
+    private SlayerMaster slayerMaster = SlayerMaster.VANNAKA;
+    private int amountToSlay, taskStreak;
+    private String duoPartner, duoInvitation;
 
     public Slayer(Player p) {
         this.player = p;
     }
 
-    private SlayerTasks slayerTask = SlayerTasks.NO_TASK, lastTask = SlayerTasks.NO_TASK;
-    private SlayerMaster slayerMaster = SlayerMaster.VANNAKA;
-    private int amountToSlay, taskStreak;
-    private String duoPartner, duoInvitation;
+    public static boolean checkDuoSlayer(Player p, boolean login) {
+        if (p.getSlayer().getDuoPartner() == null) {
+            return false;
+        }
+        Player partner = World.getPlayerByName(p.getSlayer().getDuoPartner());
+        if (partner == null) {
+            return false;
+        }
+        if (partner.getSlayer().getDuoPartner() == null || !partner.getSlayer().getDuoPartner().equals(p.getUsername())) {
+            resetDuo(p, null);
+            return false;
+        }
+        if (partner.getSlayer().getSlayerMaster() != p.getSlayer().getSlayerMaster()) {
+            resetDuo(p, partner);
+            return false;
+        }
+        if (login) {
+            p.getSlayer().setSlayerTask(partner.getSlayer().getSlayerTask());
+            p.getSlayer().setAmountToSlay(partner.getSlayer().getAmountToSlay());
+        }
+        return true;
+    }
+
+    public static void resetDuo(Player player, Player partner) {
+        if (partner != null) {
+            if (partner.getSlayer().getDuoPartner() != null && partner.getSlayer().getDuoPartner().equals(player.getUsername())) {
+                partner.getSlayer().setDuoPartner(null);
+                partner.getPacketSender().sendMessage("Your Slayer duo team has been disbanded.");
+                PlayerPanel.refreshPanel(partner);
+            }
+        }
+        player.getSlayer().setDuoPartner(null);
+        player.getPacketSender().sendMessage("Your Slayer duo team has been disbanded.");
+        PlayerPanel.refreshPanel(player);
+    }
+
+    public static boolean handleRewardsInterface(Player player, int button) {
+        if (player.getInterfaceId() == 36000) {
+            switch (button) {
+                case -29534:
+                    player.getPacketSender().sendInterfaceRemoval();
+                    break;
+                case -29522:
+                    if (player.getPointsHandler().getSlayerPoints() < 10) {
+                        player.getPacketSender().sendMessage("You do not have 10 Slayer points.");
+                        return true;
+                    }
+                    player.getPointsHandler().refreshPanel();
+                    player.getPointsHandler().setSlayerPoints(-10, true);
+                    player.getSkillManager().addExperience(Skill.SLAYER, 10000);
+                    player.getPacketSender().sendMessage("You've bought 10000 Slayer XP for 10 Slayer points.");
+                    break;
+                case -29519:
+                    if (player.getPointsHandler().getSlayerPoints() < 300) {
+                        player.getPacketSender().sendMessage("You do not have 300 Slayer points.");
+                        return true;
+                    }
+                    if (player.getSlayer().doubleSlayerXP) {
+                        player.getPacketSender().sendMessage("You already have this buff.");
+                        return true;
+                    }
+                    player.getPointsHandler().setSlayerPoints(-300, true);
+                    player.getSlayer().doubleSlayerXP = true;
+                    player.getPointsHandler().refreshPanel();
+                    player.getPacketSender().sendMessage("You will now permanently receive double Slayer experience.");
+                    break;
+                case -29531:
+                    ShopManager.getShops().get(47).open(player);
+                    break;
+            }
+            player.getPacketSender().sendString(36030, "Current Points:   " + player.getPointsHandler().getSlayerPoints());
+            return true;
+        }
+        return false;
+    }
 
     public void assignTask() {
         boolean hasTask = getSlayerTask() != SlayerTasks.NO_TASK && player.getSlayer().getLastTask() != getSlayerTask();
@@ -199,42 +275,6 @@ public class Slayer {
         return true;
     }
 
-    public static boolean checkDuoSlayer(Player p, boolean login) {
-        if (p.getSlayer().getDuoPartner() == null) {
-            return false;
-        }
-        Player partner = World.getPlayerByName(p.getSlayer().getDuoPartner());
-        if (partner == null) {
-            return false;
-        }
-        if (partner.getSlayer().getDuoPartner() == null || !partner.getSlayer().getDuoPartner().equals(p.getUsername())) {
-            resetDuo(p, null);
-            return false;
-        }
-        if (partner.getSlayer().getSlayerMaster() != p.getSlayer().getSlayerMaster()) {
-            resetDuo(p, partner);
-            return false;
-        }
-        if (login) {
-            p.getSlayer().setSlayerTask(partner.getSlayer().getSlayerTask());
-            p.getSlayer().setAmountToSlay(partner.getSlayer().getAmountToSlay());
-        }
-        return true;
-    }
-
-    public static void resetDuo(Player player, Player partner) {
-        if (partner != null) {
-            if (partner.getSlayer().getDuoPartner() != null && partner.getSlayer().getDuoPartner().equals(player.getUsername())) {
-                partner.getSlayer().setDuoPartner(null);
-                partner.getPacketSender().sendMessage("Your Slayer duo team has been disbanded.");
-                PlayerPanel.refreshPanel(partner);
-            }
-        }
-        player.getSlayer().setDuoPartner(null);
-        player.getPacketSender().sendMessage("Your Slayer duo team has been disbanded.");
-        PlayerPanel.refreshPanel(player);
-    }
-
     public void handleInvitation(boolean accept) {
         if (duoInvitation != null) {
             Player inviteOwner = World.getPlayerByName(duoInvitation);
@@ -306,15 +346,13 @@ public class Slayer {
         this.lastTask = lastTask;
     }
 
-    public boolean doubleSlayerXP = false;
+    public String getDuoPartner() {
+        return duoPartner;
+    }
 
     public Slayer setDuoPartner(String duoPartner) {
         this.duoPartner = duoPartner;
         return this;
-    }
-
-    public String getDuoPartner() {
-        return duoPartner;
     }
 
     public SlayerTasks getSlayerTask() {
@@ -336,45 +374,5 @@ public class Slayer {
 
     public void setDuoInvitation(String player) {
         this.duoInvitation = player;
-    }
-
-    public static boolean handleRewardsInterface(Player player, int button) {
-        if (player.getInterfaceId() == 36000) {
-            switch (button) {
-                case -29534:
-                    player.getPacketSender().sendInterfaceRemoval();
-                    break;
-                case -29522:
-                    if (player.getPointsHandler().getSlayerPoints() < 10) {
-                        player.getPacketSender().sendMessage("You do not have 10 Slayer points.");
-                        return true;
-                    }
-                    player.getPointsHandler().refreshPanel();
-                    player.getPointsHandler().setSlayerPoints(-10, true);
-                    player.getSkillManager().addExperience(Skill.SLAYER, 10000);
-                    player.getPacketSender().sendMessage("You've bought 10000 Slayer XP for 10 Slayer points.");
-                    break;
-                case -29519:
-                    if (player.getPointsHandler().getSlayerPoints() < 300) {
-                        player.getPacketSender().sendMessage("You do not have 300 Slayer points.");
-                        return true;
-                    }
-                    if (player.getSlayer().doubleSlayerXP) {
-                        player.getPacketSender().sendMessage("You already have this buff.");
-                        return true;
-                    }
-                    player.getPointsHandler().setSlayerPoints(-300, true);
-                    player.getSlayer().doubleSlayerXP = true;
-                    player.getPointsHandler().refreshPanel();
-                    player.getPacketSender().sendMessage("You will now permanently receive double Slayer experience.");
-                    break;
-                case -29531:
-                    ShopManager.getShops().get(47).open(player);
-                    break;
-            }
-            player.getPacketSender().sendString(36030, "Current Points:   " + player.getPointsHandler().getSlayerPoints());
-            return true;
-        }
-        return false;
     }
 }

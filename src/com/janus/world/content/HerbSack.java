@@ -1,17 +1,17 @@
 package com.janus.world.content;
 
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
+import com.google.common.collect.Multisets;
+import com.janus.model.Item;
+import com.janus.model.definitions.ItemDefinition;
+import com.janus.world.entity.impl.player.Player;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-
-import com.janus.model.Item;
-import com.janus.model.definitions.ItemDefinition;
-import com.janus.world.entity.impl.player.Player;
-import com.google.common.collect.HashMultiset;
-import com.google.common.collect.Multiset;
-import com.google.common.collect.Multisets;
 
 /**
  * This class handles all functionality for the herb sack item from OSRS.
@@ -20,6 +20,11 @@ import com.google.common.collect.Multisets;
  */
 public final class HerbSack {
 
+    /**
+     * An {@link Multiset} of Integer's (Item IDs) which handles the contents of
+     * the herb sack.
+     */
+    private final Multiset<Integer> herbSack = HashMultiset.create();
     /**
      * The player participating in this action.
      */
@@ -34,12 +39,6 @@ public final class HerbSack {
     public HerbSack(Player player) {
         this.player = player;
     }
-
-    /**
-     * An {@link Multiset} of Integer's (Item IDs) which handles the contents of
-     * the herb sack.
-     */
-    private final Multiset<Integer> herbSack = HashMultiset.create();
 
     /**
      * Handles the action of filling the herb sack.

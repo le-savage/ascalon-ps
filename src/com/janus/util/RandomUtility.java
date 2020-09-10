@@ -1,11 +1,11 @@
 package com.janus.util;
 
+import com.janus.model.Item;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-
-import com.janus.model.Item;
 
 /**
  * Handles all utility related to psuedo-random element generation.

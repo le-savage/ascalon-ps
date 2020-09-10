@@ -1,13 +1,7 @@
 package com.janus.world.content.skill.impl.dungeoneering;
 
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.janus.GameSettings;
-import com.janus.model.Flag;
-import com.janus.model.GroundItem;
-import com.janus.model.PlayerRights;
-import com.janus.model.Position;
-import com.janus.model.Skill;
+import com.janus.model.*;
 import com.janus.model.Locations.Location;
 import com.janus.util.Misc;
 import com.janus.world.World;
@@ -18,16 +12,12 @@ import com.janus.world.entity.impl.GroundItemManager;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
+import java.util.concurrent.CopyOnWriteArrayList;
+
 /**
  * @author Gabriel Hannason
  */
 public class DungeoneeringParty {
-
-    public DungeoneeringParty(Player owner) {
-        this.owner = owner;
-        player_members = new CopyOnWriteArrayList<Player>();
-        player_members.add(owner);
-    }
 
     private Player owner;
     private DungeoneeringFloor floor;
@@ -39,6 +29,31 @@ public class DungeoneeringParty {
     private boolean hasEnteredDungeon;
     private int kills, deaths;
     private boolean killedBoss;
+    public DungeoneeringParty(Player owner) {
+        this.owner = owner;
+        player_members = new CopyOnWriteArrayList<Player>();
+        player_members.add(owner);
+    }
+
+    public static void create(Player p) {
+        if (p.getLocation() != Location.DUNGEONEERING) {
+            p.getPacketSender().sendMessage("You must be in Daemonheim to create a party.");
+            return;
+        }
+        if (p.getMinigameAttributes().getDungeoneeringAttributes().getParty() != null) {
+            p.getPacketSender().sendMessage("You are already in a Dungeoneering party.");
+            return;
+        }
+        if (p.getMinigameAttributes().getDungeoneeringAttributes().getParty() == null)
+            p.getMinigameAttributes().getDungeoneeringAttributes().setParty(new DungeoneeringParty(p));
+        p.getMinigameAttributes().getDungeoneeringAttributes().getParty().setDungeoneeringFloor(DungeoneeringFloor.FIRST_FLOOR);
+        p.getMinigameAttributes().getDungeoneeringAttributes().getParty().setComplexity(1);
+        p.getPacketSender().sendMessage("<img=10> <col=660000>You've created a Dungeoneering party. Perhaps you should invite a few players?");
+        p.getMinigameAttributes().getDungeoneeringAttributes().getParty().refreshInterface();
+        p.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, Dungeoneering.PARTY_INTERFACE);
+        p.getPacketSender().sendDungeoneeringTabIcon(true);
+        p.getPacketSender().sendTab(GameSettings.QUESTS_TAB).sendInterfaceRemoval();
+    }
 
     public void invite(Player p) {
         if (getOwner() == null || p == getOwner())
@@ -218,26 +233,6 @@ public class DungeoneeringParty {
                 member.getPacketSender().sendString(frame, string);
             }
         }
-    }
-
-    public static void create(Player p) {
-        if (p.getLocation() != Location.DUNGEONEERING) {
-            p.getPacketSender().sendMessage("You must be in Daemonheim to create a party.");
-            return;
-        }
-        if (p.getMinigameAttributes().getDungeoneeringAttributes().getParty() != null) {
-            p.getPacketSender().sendMessage("You are already in a Dungeoneering party.");
-            return;
-        }
-        if (p.getMinigameAttributes().getDungeoneeringAttributes().getParty() == null)
-            p.getMinigameAttributes().getDungeoneeringAttributes().setParty(new DungeoneeringParty(p));
-        p.getMinigameAttributes().getDungeoneeringAttributes().getParty().setDungeoneeringFloor(DungeoneeringFloor.FIRST_FLOOR);
-        p.getMinigameAttributes().getDungeoneeringAttributes().getParty().setComplexity(1);
-        p.getPacketSender().sendMessage("<img=10> <col=660000>You've created a Dungeoneering party. Perhaps you should invite a few players?");
-        p.getMinigameAttributes().getDungeoneeringAttributes().getParty().refreshInterface();
-        p.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, Dungeoneering.PARTY_INTERFACE);
-        p.getPacketSender().sendDungeoneeringTabIcon(true);
-        p.getPacketSender().sendTab(GameSettings.QUESTS_TAB).sendInterfaceRemoval();
     }
 
     public DungeoneeringFloor getDungeoneeringFloor() {

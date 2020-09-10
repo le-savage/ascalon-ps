@@ -88,26 +88,13 @@ public class CombatRangedAmmo {
 
         KARILS_CROSSBOW(new int[]{4734}, new AmmunitionData[]{AmmunitionData.BOLT_RACK}, RangedWeaponType.CROSSBOW);
 
+        private int[] weaponIds;
+        private AmmunitionData[] ammunitionData;
+        private RangedWeaponType type;
         RangedWeaponData(int[] weaponIds, AmmunitionData[] ammunitionData, RangedWeaponType type) {
             this.weaponIds = weaponIds;
             this.ammunitionData = ammunitionData;
             this.type = type;
-        }
-
-        private int[] weaponIds;
-        private AmmunitionData[] ammunitionData;
-        private RangedWeaponType type;
-
-        public int[] getWeaponIds() {
-            return weaponIds;
-        }
-
-        public AmmunitionData[] getAmmunitionData() {
-            return ammunitionData;
-        }
-
-        public RangedWeaponType getType() {
-            return type;
         }
 
         public static RangedWeaponData getData(Player p) {
@@ -133,6 +120,18 @@ public class CombatRangedAmmo {
                 }
             }
             return AmmunitionData.BRONZE_ARROW;
+        }
+
+        public int[] getWeaponIds() {
+            return weaponIds;
+        }
+
+        public AmmunitionData[] getAmmunitionData() {
+            return ammunitionData;
+        }
+
+        public RangedWeaponType getType() {
+            return type;
         }
     }
 
@@ -212,6 +211,14 @@ public class CombatRangedAmmo {
         BOLT_RACK(new int[]{4740}, -1, 27, 3, 33, 70, 43, 31);
 
 
+        private int[] itemIds;
+        private int startGfxId;
+        private int projectileId;
+        private int projectileSpeed;
+        private int projectileDelay;
+        private int strength;
+        private int startHeight;
+        private int endHeight;
         AmmunitionData(int[] itemIds, int startGfxId, int projectileId, int projectileSpeed, int projectileDelay, int strength, int startHeight, int endHeight) {
             this.itemIds = itemIds;
             this.startGfxId = startGfxId;
@@ -222,15 +229,6 @@ public class CombatRangedAmmo {
             this.startHeight = startHeight;
             this.endHeight = endHeight;
         }
-
-        private int[] itemIds;
-        private int startGfxId;
-        private int projectileId;
-        private int projectileSpeed;
-        private int projectileDelay;
-        private int strength;
-        private int startHeight;
-        private int endHeight;
 
         public int[] getItemIds() {
             return itemIds;
@@ -280,13 +278,12 @@ public class CombatRangedAmmo {
         HAND_CANNON(5, 4),
         BLOWPIPE(5, 3);
 
+        private int distanceRequired;
+        private int attackDelay;
         RangedWeaponType(int distanceRequired, int attackDelay) {
             this.distanceRequired = distanceRequired;
             this.attackDelay = attackDelay;
         }
-
-        private int distanceRequired;
-        private int attackDelay;
 
         public int getDistanceRequired() {
             return distanceRequired;

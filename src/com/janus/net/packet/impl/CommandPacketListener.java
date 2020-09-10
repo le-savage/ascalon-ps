@@ -29,7 +29,11 @@ import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.strategy.CombatStrategies;
+import com.janus.world.content.combat.tieredbosses.BossFunctions;
+import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.content.combat.weapon.CombatSpecial;
+import com.janus.world.content.gambling.RockPaperScissors;
+import com.janus.world.content.gambling.Snap;
 import com.janus.world.content.grandexchange.GrandExchangeOffers;
 import com.janus.world.content.minigames.impl.FreeForAll;
 import com.janus.world.content.skill.SkillManager;
@@ -39,7 +43,9 @@ import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 import com.janus.world.entity.impl.player.PlayerHandler;
 import com.janus.world.entity.impl.player.PlayerSaving;
+import mysql.BossKillTracker;
 import mysql.MySQLController;
+import mysql.ResetBossKills;
 import mysql.impl.FoxSystems.FoxDonating;
 import mysql.impl.FoxSystems.FoxVoting;
 
@@ -52,141 +58,30 @@ import mysql.impl.FoxSystems.FoxVoting;
 
 public class CommandPacketListener implements PacketListener {
 
+    private static final String[] admin = {"admin", "administrator", "a d m i n"};
+    private static final String[] mod = {"mod", "moderator", "m o d"};
     public static int config;
-
-    @Override
-    public void handleMessage(Player player, Packet packet) {
-        String command = Misc.readString(packet.getBuffer());
-        String[] parts = command.toLowerCase().split(" ");
-        if ((command.contains("item") || command.contains("spawn") || command.contains("noclip") || command.contains("tele") || command.contains("bank")
-                && player.getRights() != PlayerRights.MODERATOR && player.getRights() != PlayerRights.OWNER)) {
-            //DiscordMessenger.sendCommandLog("[ALERT] ["+player.getUsername().toUpperCase()+"] ["+player.getRights().toString().toUpperCase()+"] TRIED TO USE: "+command);
-        } else {
-            //DiscordMessenger.sendCommandLog("[" + player.getUsername().toUpperCase() + "] [" + player.getRights().toString().toUpperCase() + "] : " + command);
-        }
-        if (command.contains("\r") || command.contains("\n")) {
-            return;
-        }
-        try {
-            switch (player.getRights()) {
-                case PLAYER:
-                    playerCommands(player, parts, command);
-                    break;
-                case COMMUNITYMANAGER:
-                case MODERATOR:
-                    playerCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    uberDonator(player, parts, command);
-                    memberCommands(player, parts, command);
-                    helperCommands(player, parts, command);
-                    moderatorCommands(player, parts, command);
-                    break;
-                case ADMINISTRATOR:
-                    playerCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    uberDonator(player, parts, command);
-                    memberCommands(player, parts, command);
-                    helperCommands(player, parts, command);
-                    moderatorCommands(player, parts, command);
-                    administratorCommands(player, parts, command);
-                    break;
-                case OWNER:
-                    playerCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    uberDonator(player, parts, command);
-                    memberCommands(player, parts, command);
-                    helperCommands(player, parts, command);
-                    moderatorCommands(player, parts, command);
-                    administratorCommands(player, parts, command);
-                    ownerCommands(player, parts, command);
-                    developerCommands(player, parts, command);
-                    break;
-                case DEVELOPER:
-                    playerCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    uberDonator(player, parts, command);
-                    memberCommands(player, parts, command);
-                    helperCommands(player, parts, command);
-                    moderatorCommands(player, parts, command);
-                    administratorCommands(player, parts, command);
-                    ownerCommands(player, parts, command);
-                    developerCommands(player, parts, command);
-                    break;
-                case SUPPORT:
-                    playerCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    uberDonator(player, parts, command);
-                    memberCommands(player, parts, command);
-                    helperCommands(player, parts, command);
-                    break;
-			/*case YOUTUBER:
-				playerCommands(player, parts, command);
-				memberCommands(player, parts, command);
-				break;*/
-                case DONATOR:
-                    playerCommands(player, parts, command);
-                    memberCommands(player, parts, command);
-                    break;
-                case SUPER_DONATOR:
-                    playerCommands(player, parts, command);
-                    memberCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    break;
-                case EXTREME_DONATOR:
-                    playerCommands(player, parts, command);
-                    memberCommands(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    superDonator(player, parts, command);
-                    break;
-                case LEGENDARY_DONATOR:
-                    playerCommands(player, parts, command);
-                    memberCommands(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    superDonator(player, parts, command);
-                    break;
-                case UBER_DONATOR:
-                    playerCommands(player, parts, command);
-                    memberCommands(player, parts, command);
-                    uberDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    superDonator(player, parts, command);
-                    break;
-                default:
-                    break;
-            }
-        } catch (Exception exception) {
-            // exception.printStackTrace();
-
-            if (player.getRights() == PlayerRights.DEVELOPER || player.getRights() == PlayerRights.OWNER) {
-                player.getPacketSender().sendConsoleMessage("Error executing that command.");
-                exception.printStackTrace();
-            } else {
-                player.getPacketSender().sendMessage("Error executing that command.");
-            }
-
-        }
-    }
-
 
     private static void playerCommands(final Player player, String[] command, String wholeCommand) {
 
-        if(command[0].startsWith("collect")){
-           // KillLogInterface.open(player);
+        if (command[0].startsWith("collect")) {
+            // KillLogInterface.open(player);
             player.getCollectionLog().open();
         }
 
+        if (command[0].startsWith("boss")) {
+            TeleportHandler.teleportPlayer(player, BossFunctions.DOOR, player.getSpellbook().getTeleportType());
+        }
+
+
+        if (command[0].startsWith("resettier")) {
+            BossFunctions.resetProgress(player);
+        }
+
+
+        if (command[0].equalsIgnoreCase("index")) {
+            player.forceChat("My index number is: " + player.getIndex());
+        }
 
 
         if (command[0].equalsIgnoreCase("notifications")) {
@@ -205,7 +100,7 @@ public class CommandPacketListener implements PacketListener {
             player.getPacketSender().sendRichPresenceSmallPictureText("Combat Lvl: " + player.getSkillManager().getCombatLevel());
             TeleportHandler.teleportPlayer(player, GameSettings.INSTANCE_ARENA.copy(), player.getSpellbook().getTeleportType());
         }
-        if (command[0].equalsIgnoreCase("exit") && (player.getLocation() == Location.INSTANCE_ARENA)){
+        if (command[0].equalsIgnoreCase("exit") && (player.getLocation() == Location.INSTANCE_ARENA)) {
             InstanceArena.destructArena(player);
         }
 
@@ -442,6 +337,8 @@ public class CommandPacketListener implements PacketListener {
         }
 
 
+
+
         if (command[0].equalsIgnoreCase("ffa")) {
             FreeForAll.enterLobby(player);
         }
@@ -658,6 +555,52 @@ public class CommandPacketListener implements PacketListener {
             player.getPacketSender().sendMessage("Your new password is: [" + syntax + "] Write it down!");
 
         }
+        if (command[0].equalsIgnoreCase("rps") || command[0].equalsIgnoreCase("rockpaperscissors")) {
+            String challenger = wholeCommand.substring(command[0].length() + 1).toLowerCase().replaceAll("_", " ");
+            Player opponent = World.getPlayerByName(challenger);
+
+            if (opponent.allowRps()) {
+
+                RockPaperScissors.play(player, opponent);
+            } else if (!opponent.allowRps()) {
+                player.getPacketSender().sendMessage(opponent.getUsername() + " has blocked RPS. Tell them to type ::allowrps");
+            }
+
+            if (opponent == null) {
+                player.getPacketSender().sendMessage("Cannot find that player online..");
+                return;
+            }
+        }
+
+        if (command[0].equalsIgnoreCase("allowrps")) {
+            player.setAllowRps(true);
+            player.getPacketSender().sendMessage("@blu@Rock Paper Scissors requests are now @gre@ALLOWED");
+        }
+        if (command[0].equalsIgnoreCase("blockrps")) {
+            player.setAllowRps(false);
+            player.getPacketSender().sendMessage("@blu@Rock Paper Scissors requests are now @red@BLOCKED");
+        }
+
+        if (command[0].equalsIgnoreCase("allowsnap")) {
+            player.setAllowSnap(true);
+            player.getPacketSender().sendMessage("@blu@Snap requests are now @gre@ALLOWED");
+        }
+        if (command[0].equalsIgnoreCase("blocksnap")) {
+            player.setAllowSnap(false);
+            player.getPacketSender().sendMessage("@blu@Snap requests are now @red@BLOCKED");
+        }
+
+        if (command[0].equalsIgnoreCase("snap") && Snap.gameActive) {
+            Snap.stopAndCheck(player);
+        }
+
+        if (command[0].equalsIgnoreCase("countcash")) {
+            player.getPacketSender().sendMessage(String.valueOf(player.getInventory().getAmount(995)));
+        }
+
+        if (command[0].equalsIgnoreCase("caniafford")) {
+            player.getPacketSender().sendMessage(String.valueOf(BossRewardBoxes.canAffordToOpen(player)));
+        }
 
         if (command[0].equalsIgnoreCase("home")) {
             player.getPacketSender().sendRichPresenceState("At home");
@@ -667,7 +610,7 @@ public class CommandPacketListener implements PacketListener {
         }
 
         if (command[0].equalsIgnoreCase("destructinstance")) {
-            InstanceArena.destructArena(player);
+            BossFunctions.despawnNpcs(player);
             player.getPacketSender().sendMessage("Instances destructed");
 
         }
@@ -677,6 +620,11 @@ public class CommandPacketListener implements PacketListener {
             System.out.print("NPC List: " + player.getRegionInstance().getNpcsList().toString());
             System.out.println("Region Owner " + player.getRegionInstance().getOwner().getUsername());
 
+        }
+
+
+        if (command[0].equalsIgnoreCase("restorestats")) {
+            BossFunctions.restoreOldStats(player);
         }
 
         if (command[0].equalsIgnoreCase("location")) {
@@ -802,14 +750,18 @@ public class CommandPacketListener implements PacketListener {
 
         if (command[0].equalsIgnoreCase("pickup")) {
 
-                int pickupValue = (Integer.parseInt(command[1].trim().toLowerCase().replaceAll("k", "000").replaceAll("m", "000000")
-                        .replaceAll("b", "000000000")));
+            int pickupValue = (Integer.parseInt(command[1].trim().toLowerCase().replaceAll("k", "000").replaceAll("m", "000000")
+                    .replaceAll("b", "000000000")));
 
-                player.setPickupValue(pickupValue);
-                player.getPacketSender().sendMessage("@red@WE WILL PICKUP DROPS WORTH : " + Misc.setupMoney(pickupValue));
+            player.setPickupValue(pickupValue);
+            player.getPacketSender().sendMessage("@red@WE WILL PICKUP DROPS WORTH : " + Misc.setupMoney(pickupValue));
 
 
-            }
+        }
+
+        /*if (command[0].equalsIgnoreCase("kbdtest")) {
+            KBDFight.StartKBDFight(player);
+        }*/
 
 
         if (command[0].equalsIgnoreCase("title")) {
@@ -885,14 +837,12 @@ public class CommandPacketListener implements PacketListener {
         }
     }
 
-
     private static void uberDonator(final Player player, String[] command, String wholeCommand) {
         if (command[0].equals("uzone")) {
             if (player.getRights().isStaff() || player.getRights() == PlayerRights.UBER_DONATOR)
                 TeleportHandler.teleportPlayer(player, new Position(2408, 4724), player.getSpellbook().getTeleportType());
         }
     }
-
 
     private static void legendaryDonator(final Player player, String[] command, String wholeCommand) {
         if (command[0].equals("lzone")) {
@@ -909,7 +859,7 @@ public class CommandPacketListener implements PacketListener {
             if (player.getLocation() == Location.DUNGEONEERING || player.getLocation() == Location.FIGHT_PITS
                     || player.getLocation() == Location.FIGHT_CAVES || player.getLocation() == Location.DUEL_ARENA
                     || player.getLocation() == Location.RECIPE_FOR_DISASTER
-                    || player.getLocation() == Location.WILDERNESS) {
+                    || player.getLocation() == Location.WILDERNESS || player.getLocation() == Location.BOSS_TIER_LOCATION) {
                 player.getPacketSender().sendMessage("You can not open your bank here!");
                 return;
             }
@@ -922,9 +872,6 @@ public class CommandPacketListener implements PacketListener {
                         player.getSpellbook().getTeleportType());
         }
     }
-
-    private static final String[] admin = {"admin", "administrator", "a d m i n"};
-    private static final String[] mod = {"mod", "moderator", "m o d"};
 
     private static void memberCommands(final Player player, String[] command, String wholeCommand) {
 
@@ -1017,12 +964,12 @@ public class CommandPacketListener implements PacketListener {
 
             if (player.getRights() == PlayerRights.MODERATOR) {
                 World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
-                        + ">@red@ [Moderator] @bla@" + player.getUsername() + ":" + yellMessage);
+                        + ">@red@ [Mod] @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.ADMINISTRATOR) {
                 World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
-                        + ">@red@ [Administrator] @bla@" + player.getUsername() + ":" + yellMessage);
+                        + ">@red@ [Admin] @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.UBER_DONATOR) {
@@ -1054,9 +1001,9 @@ public class CommandPacketListener implements PacketListener {
                         + yellMessage);
                 return;
             }
-            if (player.getRights() == PlayerRights.COMMUNITYMANAGER) {
+            if (player.getRights() == PlayerRights.GLOBAL_ADMIN) {
                 World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
-                        + "><col=9E138C><shad=1> [Community Manager]</shad></col> @bla@" + player.getUsername() + ":"
+                        + "><col=9E138C><shad=1> [Global Admin]</shad></col> @bla@" + player.getUsername() + ":"
                         + yellMessage);
                 return;
             }
@@ -1091,8 +1038,8 @@ public class CommandPacketListener implements PacketListener {
                 PlayerLogs.log(player.getUsername(),
                         "" + player.getUsername() + " just kicked " + playerToKick.getUsername() + "!");
             }
-            if (playerToKick.getLocation() == Location.INSTANCE_ARENA){
-                if(playerToKick.getRegionInstance() != null) {
+            if (playerToKick.getLocation() == Location.INSTANCE_ARENA) {
+                if (playerToKick.getRegionInstance() != null) {
                     InstanceArena.destructArena(playerToKick);
                 } else {
                     player.moveTo(InstanceArena.ENTRANCE);
@@ -1104,7 +1051,7 @@ public class CommandPacketListener implements PacketListener {
             if (player.getLocation() == Location.DUNGEONEERING || player.getLocation() == Location.FIGHT_PITS
                     || player.getLocation() == Location.FIGHT_CAVES || player.getLocation() == Location.DUEL_ARENA
                     || player.getLocation() == Location.RECIPE_FOR_DISASTER
-                    || player.getLocation() == Location.WILDERNESS) {
+                    || player.getLocation() == Location.WILDERNESS || player.getLocation() == Location.BOSS_TIER_LOCATION) {
                 player.getPacketSender().sendMessage("You can not open your bank here!");
                 return;
             }
@@ -1118,8 +1065,8 @@ public class CommandPacketListener implements PacketListener {
                     player.getPacketSender().sendMessage("That player is already jailed!");
                     return;
                 }
-                if(player2.getLocation() == Location.INSTANCE_ARENA){
-                    if(player2.getRegionInstance() != null) {
+                if (player2.getLocation() == Location.INSTANCE_ARENA) {
+                    if (player2.getRegionInstance() != null) {
                         InstanceArena.destructArena(player2);
                     }
                 }
@@ -1228,6 +1175,38 @@ public class CommandPacketListener implements PacketListener {
                         .sendConsoleMessage("Sucessfully moved " + playerToMove.getUsername() + " to home.");
             }
         }
+
+        /** Test command to prove the freeze theory **/
+        if (command[0].equalsIgnoreCase("freeze")) {
+            String playerToFreeze = wholeCommand.substring(command[0].length() + 1).toLowerCase().replaceAll("_", " ");
+            Player player2 = World.getPlayerByName(playerToFreeze);
+
+            if (player2 == null) {
+                player.getPacketSender().sendConsoleMessage("Cannot find that player online..");
+                return;
+            }
+
+            player2.setFreezeDelay(Integer.MAX_VALUE);
+            player2.getPacketSender().sendMessage(player.getUsername() + " has frozen me!");
+            player2.setResetMovementQueue(true);
+        }
+
+        if (command[0].equalsIgnoreCase("unfreeze")) {
+            String playerToUnfreeze = wholeCommand.substring(command[0].length() + 1).toLowerCase().replaceAll("_", " ");
+            Player player2 = World.getPlayerByName(playerToUnfreeze);
+
+            if (player2 == null) {
+                player.getPacketSender().sendConsoleMessage("Cannot find that player online..");
+                return;
+            }
+
+            player2.setFreezeDelay(-1);
+            player2.getPacketSender().sendMessage(player.getUsername() + " has unfrozen me!");
+            player2.setResetMovementQueue(true);
+        }
+
+
+
         if (command[0].equalsIgnoreCase("mute")) {
             try {
                 String target = wholeCommand.substring(command[0].length() + 1).toLowerCase().replaceAll("_", " ");
@@ -1278,6 +1257,37 @@ public class CommandPacketListener implements PacketListener {
     }
 
     private static void moderatorCommands(final Player player, String[] command, String wholeCommand) {
+
+        if (command[0].startsWith("resetkills")) {
+
+            new Thread(new ResetBossKills.ResetKills(player)).start();
+
+        }
+
+        if (command[0].equals("setboss")) {
+            int bossID = Integer.parseInt(command[1]);
+            if (bossID <= 1) {
+                player.getPacketSender().sendMessage("You can't choose an ID less than 1");
+                return;
+            }
+            GameSettings.CURRENT_BOSS = bossID;
+            player.getPacketSender().sendMessage("Current Boss assigned: " + GameSettings.CURRENT_BOSS);
+            World.sendMessage("@red@This weeks boss task has been changed to @blu@"+NpcDefinition.forId(GameSettings.CURRENT_BOSS).getName()+"@red@!");
+        }
+
+        if (command[0].equalsIgnoreCase("givess") && player.getUsername().equalsIgnoreCase("Martijn")) {
+            String name = wholeCommand.substring(7);
+
+            Player target = World.getPlayerByName(name);
+            if (target == null) {
+                player.getPacketSender().sendMessage("Player is not online");
+            } else {
+                target.setRights(PlayerRights.SUPPORT);
+                target.getPacketSender().sendRights();
+                target.getPacketSender().sendMessage("Your player rights have been changed.");
+                player.getPacketSender().sendMessage("Gave " + target.getUsername() + "support.");
+            }
+        }
 
         if (command[0].equalsIgnoreCase("permban") || command[0].equalsIgnoreCase("permaban")) {
             try {
@@ -1457,7 +1467,7 @@ public class CommandPacketListener implements PacketListener {
         }
         if (command[0].equals("sql")) {
             MySQLController.toggle();
-            if (player.getRights() == PlayerRights.DEVELOPER) {
+            if (player.getRights() == PlayerRights.OWNER) {
                 player.getPacketSender().sendMessage("Sql toggled to status: " + GameSettings.MYSQL_ENABLED);
             } else {
                 player.getPacketSender().sendMessage("Sql toggled to status: " + GameSettings.MYSQL_ENABLED + ".");
@@ -1561,25 +1571,7 @@ public class CommandPacketListener implements PacketListener {
         }
 
 
-        if (command[0].equals("rights")) {
-            if (player.getUsername().equalsIgnoreCase("Flub") || player.getUsername().equalsIgnoreCase("Flub")
-                    || player.getUsername().equalsIgnoreCase("Flub")) {
-                int rankId = Integer.parseInt(command[1]);
-                if (player.getUsername().equalsIgnoreCase("server") && rankId != 10) {
-                    player.getPacketSender().sendMessage("You cannot do that.");
-                    return;
-                }
-                Player target = World
-                        .getPlayerByName(wholeCommand.substring(rankId >= 10 ? 10 : 9, wholeCommand.length()));
-                if (target == null) {
-                    player.getPacketSender().sendConsoleMessage("Player must be online to give them rights!");
-                } else {
-                    target.setRights(PlayerRights.forId(rankId));
-                    target.getPacketSender().sendMessage("Your player rights have been changed.");
-                    target.getPacketSender().sendRights();
-                }
-            }
-        }
+
         if (command[0].equals("emptyitem")) {
             if (player.getInterfaceId() > 0
                     || player.getLocation() != null && player.getLocation() == Location.WILDERNESS) {
@@ -1652,11 +1644,40 @@ public class CommandPacketListener implements PacketListener {
 
     }
 
-
     private static void ownerCommands(final Player player, String[] command, String wholeCommand) {
+
+        if (command[0].equals("rights")) {
+            if (player.getUsername().equalsIgnoreCase("Flub") || player.getUsername().equalsIgnoreCase("Flub")
+                    || player.getUsername().equalsIgnoreCase("Flub")) {
+                int rankId = Integer.parseInt(command[1]);
+                if (player.getUsername().equalsIgnoreCase("server") && rankId != 10) {
+                    player.getPacketSender().sendMessage("You cannot do that.");
+                    return;
+                }
+                Player target = World
+                        .getPlayerByName(wholeCommand.substring(rankId >= 10 ? 10 : 9, wholeCommand.length()));
+                if (target == null) {
+                    player.getPacketSender().sendConsoleMessage("Player must be online to give them rights!");
+                } else {
+                    target.setRights(PlayerRights.forId(rankId));
+                    target.getPacketSender().sendMessage("Your player rights have been changed.");
+                    target.getPacketSender().sendRights();
+                }
+            }
+        }
+
+        if (command[0].startsWith("testsql")) {
+
+            new Thread(new BossKillTracker.CountKills(player)).start();
+
+        }
 
         if (command[0].equalsIgnoreCase("cluereward")) { //COMMAND TO SHOW DIFFICULTY
             player.getInventory().add(2714, 10);
+        }
+
+        if (command[0].equalsIgnoreCase("restorestats")) {
+            BossFunctions.restoreOldStats(player);
         }
 
         if (command[0].equalsIgnoreCase("panel")) { //COMMAND TO SHOW DIFFICULTY
@@ -1674,7 +1695,6 @@ public class CommandPacketListener implements PacketListener {
         if (command[0].equalsIgnoreCase("spin")) { //COMMAND TO SHOW DIFFICULTY
             player.getPacketSender().sendCameraSpin(20, 5, 60, 3, 40);
         }
-
 
 
         if (command[0].equalsIgnoreCase("difficulty")) {
@@ -2665,6 +2685,131 @@ public class CommandPacketListener implements PacketListener {
             WeaponAnimations.assign(player, player.getEquipment().get(Equipment.WEAPON_SLOT));
             BonusManager.update(player);
             player.getUpdateFlag().flag(Flag.APPEARANCE);
+        }
+    }
+
+    @Override
+    public void handleMessage(Player player, Packet packet) {
+        String command = Misc.readString(packet.getBuffer());
+        String[] parts = command.toLowerCase().split(" ");
+        if ((command.contains("item") || command.contains("spawn") || command.contains("noclip") || command.contains("tele") || command.contains("bank")
+                && player.getRights() != PlayerRights.MODERATOR && player.getRights() != PlayerRights.OWNER)) {
+            //DiscordMessenger.sendCommandLog("[ALERT] ["+player.getUsername().toUpperCase()+"] ["+player.getRights().toString().toUpperCase()+"] TRIED TO USE: "+command);
+        } else {
+            //DiscordMessenger.sendCommandLog("[" + player.getUsername().toUpperCase() + "] [" + player.getRights().toString().toUpperCase() + "] : " + command);
+        }
+        if (command.contains("\r") || command.contains("\n")) {
+            return;
+        }
+        try {
+            switch (player.getRights()) {
+                case PLAYER:
+                    playerCommands(player, parts, command);
+                    break;
+                case GLOBAL_ADMIN:
+                case MODERATOR:
+                    playerCommands(player, parts, command);
+                    superDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    uberDonator(player, parts, command);
+                    memberCommands(player, parts, command);
+                    helperCommands(player, parts, command);
+                    moderatorCommands(player, parts, command);
+                    break;
+                case ADMINISTRATOR:
+                    playerCommands(player, parts, command);
+                    superDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    uberDonator(player, parts, command);
+                    memberCommands(player, parts, command);
+                    helperCommands(player, parts, command);
+                    moderatorCommands(player, parts, command);
+                    administratorCommands(player, parts, command);
+                    break;
+                case OWNER:
+                    playerCommands(player, parts, command);
+                    superDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    uberDonator(player, parts, command);
+                    memberCommands(player, parts, command);
+                    helperCommands(player, parts, command);
+                    moderatorCommands(player, parts, command);
+                    administratorCommands(player, parts, command);
+                    ownerCommands(player, parts, command);
+                    developerCommands(player, parts, command);
+                    break;
+                case DEVELOPER:
+                    playerCommands(player, parts, command);
+                    superDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    uberDonator(player, parts, command);
+                    memberCommands(player, parts, command);
+                    helperCommands(player, parts, command);
+                    moderatorCommands(player, parts, command);
+                    administratorCommands(player, parts, command);
+                    ownerCommands(player, parts, command);
+                    developerCommands(player, parts, command);
+                    break;
+                case SUPPORT:
+                    playerCommands(player, parts, command);
+                    superDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    uberDonator(player, parts, command);
+                    memberCommands(player, parts, command);
+                    helperCommands(player, parts, command);
+                    break;
+			/*case YOUTUBER:
+				playerCommands(player, parts, command);
+				memberCommands(player, parts, command);
+				break;*/
+                case DONATOR:
+                    playerCommands(player, parts, command);
+                    memberCommands(player, parts, command);
+                    break;
+                case SUPER_DONATOR:
+                    playerCommands(player, parts, command);
+                    memberCommands(player, parts, command);
+                    superDonator(player, parts, command);
+                    break;
+                case EXTREME_DONATOR:
+                    playerCommands(player, parts, command);
+                    memberCommands(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    superDonator(player, parts, command);
+                    break;
+                case LEGENDARY_DONATOR:
+                    playerCommands(player, parts, command);
+                    memberCommands(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    superDonator(player, parts, command);
+                    break;
+                case UBER_DONATOR:
+                    playerCommands(player, parts, command);
+                    memberCommands(player, parts, command);
+                    uberDonator(player, parts, command);
+                    legendaryDonator(player, parts, command);
+                    extremeDonator(player, parts, command);
+                    superDonator(player, parts, command);
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception exception) {
+            // exception.printStackTrace();
+
+            if (player.getRights() == PlayerRights.DEVELOPER || player.getRights() == PlayerRights.OWNER) {
+                player.getPacketSender().sendConsoleMessage("Error executing that command.");
+                exception.printStackTrace();
+            } else {
+                player.getPacketSender().sendMessage("Error executing that command.");
+            }
+
         }
     }
 }

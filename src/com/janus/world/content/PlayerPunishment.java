@@ -8,7 +8,6 @@ import com.janus.GameServer;
 import com.janus.GameSettings;
 import com.janus.model.Position;
 import com.janus.util.Misc;
-import com.janus.world.content.discord.DiscordMessenger;
 import com.janus.world.entity.impl.player.Player;
 
 import java.io.*;

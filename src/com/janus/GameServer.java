@@ -19,10 +19,8 @@ public class GameServer {
 
     private static final GameLoader loader = new GameLoader(GameSettings.GAME_PORT);
     private static final Logger logger = Logger.getLogger("Janus");
-    private static boolean updating;
     public static String serverHost;
-
-
+    private static boolean updating;
 
     static {
         try {
@@ -70,12 +68,12 @@ public class GameServer {
         return logger;
     }
 
-    public static void setUpdating(boolean updating) {
-        GameServer.updating = updating;
-    }
-
     public static boolean isUpdating() {
         return GameServer.updating;
+    }
+
+    public static void setUpdating(boolean updating) {
+        GameServer.updating = updating;
     }
 
 }

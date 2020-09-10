@@ -51,6 +51,14 @@ public final class GameLoader {
     public static final int THURSDAY = 5;
     public static final int FRIDAY = 6;
     public static final int SATURDAY = 7;
+    private final ExecutorService serviceLoader = Executors.newSingleThreadExecutor(new ThreadFactoryBuilder().setNameFormat("GameLoadingThread").build());
+    private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(new ThreadFactoryBuilder().setNameFormat("GameThread").build());
+    private final GameEngine engine;
+    private final int port;
+    protected GameLoader(int port) {
+        this.port = port;
+        this.engine = new GameEngine();
+    }
 
     //public static Object getSpecialDay;
     //Double EXP days
@@ -81,16 +89,6 @@ public final class GameLoader {
                 return "X2 Exp.";
         }
         return "X2 Exp.";
-    }
-
-    private final ExecutorService serviceLoader = Executors.newSingleThreadExecutor(new ThreadFactoryBuilder().setNameFormat("GameLoadingThread").build());
-    private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(new ThreadFactoryBuilder().setNameFormat("GameThread").build());
-    private final GameEngine engine;
-    private final int port;
-
-    protected GameLoader(int port) {
-        this.port = port;
-        this.engine = new GameEngine();
     }
 
     public void init() {

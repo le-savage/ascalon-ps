@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+DATE=$(date +'%d-%m-%Y')
+HOUR=$(date +'%H')
+
+if [ ! -d "../../home/ubuntu/Janus/data/backups/" ]
+then
+  mkdir  "../../home/ubuntu/Janus/data/backups/"
+fi
+
+if [ ! -d "../../home/ubuntu/Janus/data/backups/$DATE" ]
+then
+  mkdir  "../../home/ubuntu/Janus/data/backups/$DATE"
+fi
+
+
+
+sudo zip -r "../../home/ubuntu/Janus/data/backups/$DATE/BACKUP HOUR $HOUR" ../../home/ubuntu/Janus/data/saves/ ../../home/ubuntu/Janus/data/shops/

@@ -1,10 +1,9 @@
 package com.janus.net.packet;
 
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBuffers;
-
 import com.janus.model.ChatMessage.Message;
 import com.janus.net.packet.Packet.PacketType;
+import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.buffer.ChannelBuffers;
 
 /**
  * The {@link Message} implementation that functions as a dynamic buffer wrapper
@@ -21,7 +20,22 @@ public final class PacketBuilder {
     private static final int[] BIT_MASK = {0, 0x1, 0x3, 0x7, 0xf, 0x1f, 0x3f, 0x7f, 0xff, 0x1ff, 0x3ff, 0x7ff, 0xfff, 0x1fff, 0x3fff,
             0x7fff, 0xffff, 0x1ffff, 0x3ffff, 0x7ffff, 0xfffff, 0x1fffff, 0x3fffff, 0x7fffff, 0xffffff, 0x1ffffff, 0x3ffffff, 0x7ffffff,
             0xfffffff, 0x1fffffff, 0x3fffffff, 0x7fffffff, -1};
-
+    /**
+     * The packet id.
+     */
+    private final int opcode;
+    /**
+     * The packet packetType.
+     */
+    private final PacketType packetType;
+    /**
+     * The packet's current bit position.
+     */
+    private int bitPosition;
+    /**
+     * The buffer used to write the packet information.
+     */
+    private ChannelBuffer buffer = ChannelBuffers.dynamicBuffer();
 
     /**
      * The PacketBuilder constructor.
@@ -49,26 +63,6 @@ public final class PacketBuilder {
     public PacketBuilder() {
         this(-1);
     }
-
-    /**
-     * The packet id.
-     */
-    private final int opcode;
-
-    /**
-     * The packet packetType.
-     */
-    private final PacketType packetType;
-
-    /**
-     * The packet's current bit position.
-     */
-    private int bitPosition;
-
-    /**
-     * The buffer used to write the packet information.
-     */
-    private ChannelBuffer buffer = ChannelBuffers.dynamicBuffer();
 
     /**
      * Writes the bytes from the argued buffer into this buffer. This method
@@ -498,16 +492,6 @@ public final class PacketBuilder {
     }
 
     /**
-     * Represents an access packetType the packet can have.
-     *
-     * @author relex lawl
-     */
-    public enum AccessType {
-        BIT,
-        BYTE,
-    }
-
-    /**
      * Writes a byte value on the packet.
      *
      * @param value The byte value to write on the packet.
@@ -560,6 +544,16 @@ public final class PacketBuilder {
     public PacketBuilder writeShortA(int value) {
         writeByte((value >> 8)).writeByte((value + 128));
         return this;
+    }
+
+    /**
+     * Represents an access packetType the packet can have.
+     *
+     * @author relex lawl
+     */
+    public enum AccessType {
+        BIT,
+        BYTE,
     }
 }
 

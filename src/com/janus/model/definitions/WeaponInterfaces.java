@@ -1,15 +1,15 @@
 package com.janus.model.definitions;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.janus.model.Item;
 import com.janus.util.JsonLoader;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.FightType;
 import com.janus.world.entity.impl.player.Player;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A static utility class that displays holds and displays data for weapon
@@ -23,6 +23,90 @@ public final class WeaponInterfaces {
      * A map of items and their respective interfaces.
      */
     private static Map<Integer, WeaponInterface> interfaces = new HashMap<>(500);
+
+    /**
+     * Assigns an interface to the combat sidebar based on the argued weapon.
+     *
+     * @param player the player that the interface will be assigned for.
+     * @param item   the item that the interface will be chosen for.
+     */
+    public static void assign(Player player, Item item) {
+        WeaponInterface weapon;
+        FightType fightStyle;
+
+        fightStyle = player.getFightType();
+
+        if (item == null || item.getId() == -1) {
+            weapon = WeaponInterface.UNARMED;
+        } else {
+            weapon = interfaces.get(item.getId());
+        }
+
+        if (weapon == null)
+            weapon = WeaponInterface.UNARMED;
+
+        if (weapon == WeaponInterface.UNARMED) {
+            player.getPacketSender().sendTabInterface(0, weapon.getInterfaceId());
+            player.getPacketSender().sendString(weapon.getNameLineId(), "Unarmed");
+            player.setWeapon(WeaponInterface.UNARMED);
+        } else if (weapon == WeaponInterface.CROSSBOW) {
+            player.getPacketSender().sendString(weapon.getNameLineId() - 1, "Weapon: ");
+        } else if (weapon == WeaponInterface.WHIP) {
+            player.getPacketSender().sendString(weapon.getNameLineId() - 1, "Weapon: ");
+        }
+
+        player.getPacketSender().sendItemOnInterface(
+                weapon.getInterfaceId() + 1, 200, item.getId());
+        player.getPacketSender().sendTabInterface(0,
+                weapon.getInterfaceId());
+        player.getPacketSender().sendString(
+                weapon.getNameLineId(), item.getDefinition().getName());
+        player.setWeapon(weapon);
+        CombatSpecial.assign(player);
+        CombatSpecial.updateBar(player);
+
+        for (FightType type : weapon.getFightType()) {
+            if (type.getStyle() == player.getFightType().getStyle()) {
+                player.setFightType(type);
+                player.getPacketSender().sendConfig(player.getFightType().getParentId(), player.getFightType().getChildId());
+                return;
+            }
+        }
+
+        int fightTypeIndex = 0;
+
+        if (fightStyle != null) { //Fix for weapon style changes
+            if (fightStyle.getChildId() < weapon.getFightType().length) {
+                fightTypeIndex = fightStyle.getChildId();
+            }
+        }
+
+        player.setFightType(player.getWeapon().getFightType()[fightTypeIndex]);
+        player.getPacketSender().sendConfig(player.getFightType().getParentId(), player.getFightType().getChildId());
+    }
+
+    /**
+     * Prepares the dynamic json loader for loading weapon interfaces.
+     *
+     * @return the dynamic json loader.
+     * @throws Exception if any errors occur while preparing for load.
+     */
+    public static JsonLoader parseInterfaces() {
+        return new JsonLoader() {
+            @Override
+            public void load(JsonObject reader, Gson builder) {
+                int id = reader.get("item-id").getAsInt();
+                WeaponInterface animation = builder.fromJson(
+                        reader.get("interface"), WeaponInterface.class);
+                interfaces.put(id, animation);
+            }
+
+            @Override
+            public String filePath() {
+                return "./data/def/json/weapon_interfaces.json";
+            }
+        };
+    }
 
     /**
      * All of the interfaces for weapons and the data needed to display these
@@ -228,89 +312,5 @@ public final class WeaponInterfaces {
         public int getSpecialMeter() {
             return specialMeter;
         }
-    }
-
-    /**
-     * Assigns an interface to the combat sidebar based on the argued weapon.
-     *
-     * @param player the player that the interface will be assigned for.
-     * @param item   the item that the interface will be chosen for.
-     */
-    public static void assign(Player player, Item item) {
-        WeaponInterface weapon;
-        FightType fightStyle;
-
-        fightStyle = player.getFightType();
-
-        if (item == null || item.getId() == -1) {
-            weapon = WeaponInterface.UNARMED;
-        } else {
-            weapon = interfaces.get(item.getId());
-        }
-
-        if (weapon == null)
-            weapon = WeaponInterface.UNARMED;
-
-        if (weapon == WeaponInterface.UNARMED) {
-            player.getPacketSender().sendTabInterface(0, weapon.getInterfaceId());
-            player.getPacketSender().sendString(weapon.getNameLineId(), "Unarmed");
-            player.setWeapon(WeaponInterface.UNARMED);
-        } else if (weapon == WeaponInterface.CROSSBOW) {
-            player.getPacketSender().sendString(weapon.getNameLineId() - 1, "Weapon: ");
-        } else if (weapon == WeaponInterface.WHIP) {
-            player.getPacketSender().sendString(weapon.getNameLineId() - 1, "Weapon: ");
-        }
-
-        player.getPacketSender().sendItemOnInterface(
-                weapon.getInterfaceId() + 1, 200, item.getId());
-        player.getPacketSender().sendTabInterface(0,
-                weapon.getInterfaceId());
-        player.getPacketSender().sendString(
-                weapon.getNameLineId(), item.getDefinition().getName());
-        player.setWeapon(weapon);
-        CombatSpecial.assign(player);
-        CombatSpecial.updateBar(player);
-
-        for (FightType type : weapon.getFightType()) {
-            if (type.getStyle() == player.getFightType().getStyle()) {
-                player.setFightType(type);
-                player.getPacketSender().sendConfig(player.getFightType().getParentId(), player.getFightType().getChildId());
-                return;
-            }
-        }
-
-        int fightTypeIndex = 0;
-
-        if (fightStyle != null) { //Fix for weapon style changes
-            if (fightStyle.getChildId() < weapon.getFightType().length) {
-                fightTypeIndex = fightStyle.getChildId();
-            }
-        }
-
-        player.setFightType(player.getWeapon().getFightType()[fightTypeIndex]);
-        player.getPacketSender().sendConfig(player.getFightType().getParentId(), player.getFightType().getChildId());
-    }
-
-    /**
-     * Prepares the dynamic json loader for loading weapon interfaces.
-     *
-     * @return the dynamic json loader.
-     * @throws Exception if any errors occur while preparing for load.
-     */
-    public static JsonLoader parseInterfaces() {
-        return new JsonLoader() {
-            @Override
-            public void load(JsonObject reader, Gson builder) {
-                int id = reader.get("item-id").getAsInt();
-                WeaponInterface animation = builder.fromJson(
-                        reader.get("interface"), WeaponInterface.class);
-                interfaces.put(id, animation);
-            }
-
-            @Override
-            public String filePath() {
-                return "./data/def/json/weapon_interfaces.json";
-            }
-        };
     }
 }

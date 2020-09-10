@@ -12,11 +12,14 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class EnterAmountToFletch extends EnterAmount {
 
+    private static final int SHAFTS_BUTTON = 8894, SHAFTS_ID = 52;
+    private static final int LONGBOW_BUTTON = 8886, LONGBOW_BUTTON_2 = 8871;
+    private static final int SHORTBOW_BUTTON = 8890, SHORTBOW_BUTTON_2 = 8875;
+    private int button;
+
     public EnterAmountToFletch() {
 
     }
-
-    private int button;
 
     public EnterAmountToFletch setButton(int button) {
         this.button = button;
@@ -47,8 +50,4 @@ public class EnterAmountToFletch extends EnterAmount {
             }
         }
     }
-
-    private static final int SHAFTS_BUTTON = 8894, SHAFTS_ID = 52;
-    private static final int LONGBOW_BUTTON = 8886, LONGBOW_BUTTON_2 = 8871;
-    private static final int SHORTBOW_BUTTON = 8890, SHORTBOW_BUTTON_2 = 8875;
 }

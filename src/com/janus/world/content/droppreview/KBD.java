@@ -6,12 +6,10 @@ import com.janus.world.entity.impl.player.Player;
 
 public class KBD {
 
+    public static final int[] KBD = {11613, 11286, 11732, 6585, 11996};
     public static int config;
     public static int item;
     public static int index = 0;
-
-    public static final int[] KBD = {11613, 11286, 11732, 6585, 11996};
-
 
     /*
      * Get rare drop(s) for that boss location

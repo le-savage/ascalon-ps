@@ -60,8 +60,6 @@ public enum GrandExchangeSlotState {
         }
     };
 
-    public abstract void update(Player p, int slot, int geData, int percent, int item);
-
     public static GrandExchangeSlotState forId(int updateStateOrdinal) {
         for (GrandExchangeSlotState state : GrandExchangeSlotState.values()) {
             if (state.ordinal() == updateStateOrdinal) {
@@ -70,5 +68,7 @@ public enum GrandExchangeSlotState {
         }
         return null;
     }
+
+    public abstract void update(Player p, int slot, int geData, int percent, int item);
 
 }

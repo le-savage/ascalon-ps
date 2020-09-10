@@ -7,6 +7,15 @@ public class Palette {
     public static final int DIRECTION_CW_90 = 1;
     public static final int DIRECTION_CW_180 = 2;
     public static final int DIRECTION_CW_270 = 3;
+    private PaletteTile[][][] tiles = new PaletteTile[13][13][4];
+
+    public PaletteTile getTile(int x, int y, int z) {
+        return tiles[x][y][z];
+    }
+
+    public void setTile(int x, int y, int z, PaletteTile tile) {
+        tiles[x][y][z] = tile;
+    }
 
     public static class PaletteTile {
 
@@ -46,16 +55,6 @@ public class Palette {
             return rot % 4;
         }
 
-    }
-
-    private PaletteTile[][][] tiles = new PaletteTile[13][13][4];
-
-    public PaletteTile getTile(int x, int y, int z) {
-        return tiles[x][y][z];
-    }
-
-    public void setTile(int x, int y, int z, PaletteTile tile) {
-        tiles[x][y][z] = tile;
     }
 
 }

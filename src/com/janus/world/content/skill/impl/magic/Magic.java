@@ -12,177 +12,6 @@ import java.util.Map;
 
 public class Magic {
 
-    public enum Enchant {
-
-        SAPPHIRERING(1637, 2550, 7, 18, 719, 114, 1, 1),
-        SAPPHIREAMULET(1694, 1727, 7, 18, 719, 114, 1, 1),
-        SAPPHIRENECKLACE(1656, 3853, 7, 18, 719, 114, 1, 1),
-        SAPPHIREBOLTS(9337, 9240, 7, 18, 712, 238, 1, 10),
-        OPALBOLTS(879, 9236, 7, 18, 712, 238, 1, 10),
-        DRAGONSAPPHIREBOLTS(21036, 21045, 7, 18, 712, 238, 1, 10),
-        DRAGONOPALBOLTS(21027, 21028, 7, 18, 712, 238, 1, 10),
-
-
-        EMERALDRING(1639, 2552, 27, 37, 719, 114, 2, 1),
-        EMERALDAMULET(1696, 1729, 27, 37, 719, 114, 2, 1),
-        EMERALDNECKLACE(1658, 5521, 27, 37, 719, 114, 2, 1),
-        EMERALDBOLTS(9338, 9241, 27, 37, 712, 238, 2, 10),
-        JADEBOLTS(9335, 9237, 27, 37, 712, 238, 2, 10),
-        DRAGONEMERALDBOLTS(21037, 21046, 27, 37, 712, 238, 2, 10),
-        DRAGONJADEBOLTS(21033, 21042, 27, 37, 712, 238, 2, 10),
-
-
-        RUBYRING(1641, 2568, 47, 59, 720, 115, 3, 1),
-        RUBYAMULET(1698, 1725, 47, 59, 720, 115, 3, 1),
-        RUBYNECKLACE(1660, 11194, 47, 59, 720, 115, 3, 1),
-        RUBYBOLTS(9339, 9242, 47, 59, 712, 238, 3, 10),
-        TOPAZBOLTS(9336, 9239, 47, 59, 712, 238, 3, 10),
-        DRAGONTOPAZBOLTS(21035, 21044, 47, 59, 712, 238, 3, 10),
-        DRAGONRUBYBOLTS(21038, 21047, 47, 59, 712, 238, 3, 10),
-
-
-        DIAMONDRING(1643, 2570, 57, 67, 720, 115, 4, 1),
-        DIAMONDAMULET(1700, 1731, 57, 67, 720, 115, 4, 1),
-        DIAMONDNECKLACE(1662, 11090, 57, 67, 720, 115, 4, 1),
-        DIAMONDBOLTS(9340, 9243, 57, 67, 712, 238, 4, 10),
-        PEARLBOLTS(880, 9238, 57, 67, 720, 115, 4, 1),
-        DRAGONPEARLBOLTS(21034, 21043, 57, 67, 720, 115, 4, 1),
-        DRAGONDIAMONDBOLTS(21039, 21048, 57, 67, 712, 238, 4, 10),
-
-        DRAGONSTONERING(1645, 2572, 68, 78, 721, 116, 5, 1),
-        DRAGONSTONEAMULET(1702, 1712, 68, 78, 721, 116, 5, 1),
-        DRAGONSTONENECKLACE(1664, 11113, 68, 78, 721, 116, 5, 1),
-        DRAGONSTONEBOLTS(9341, 9244, 68, 78, 712, 238, 5, 10),
-        DRAGONDRAGONSTONEBOLTS(21040, 21049, 68, 78, 712, 238, 5, 10),
-
-        ONYXRING(6575, 6583, 87, 97, 721, 452, 6, 1),
-        ONYXAMULET(6581, 6585, 87, 97, 721, 452, 6, 1),
-        ONYXNECKLACE(6577, 11128, 87, 97, 721, 452, 6, 1),
-        ONYXBOLTS(9342, 9245, 87, 97, 712, 238, 6, 10),
-        DRAGONONYXBOLTS(21041, 21050, 87, 97, 712, 238, 6, 10);
-
-        int unenchanted, enchanted, levelReq, xpGiven, anim, gfx, reqEnchantmentLevel, amount;
-
-        private Enchant(int unenchanted, int enchanted, int levelReq, int xpGiven, int anim, int gfx, int reqEnchantmentLevel, int amount) {
-            this.unenchanted = unenchanted;
-            this.enchanted = enchanted;
-            this.levelReq = levelReq;
-            this.xpGiven = xpGiven;
-            this.anim = anim;
-            this.gfx = gfx;
-            this.reqEnchantmentLevel = reqEnchantmentLevel;
-            this.amount = amount;
-        }
-
-        public int getUnenchanted() {
-            return unenchanted;
-        }
-
-        public int getEnchanted() {
-            return enchanted;
-        }
-
-        public int getLevelReq() {
-            return levelReq;
-        }
-
-        public int getXp() {
-            return xpGiven;
-        }
-
-        public int getAnim() {
-            return anim;
-        }
-
-        public int getGFX() {
-            return gfx;
-        }
-
-        public int getELevel() {
-            return reqEnchantmentLevel;
-        }
-
-        public int getAmount() {
-            return amount;
-        }
-
-        private static final Map<Integer, Enchant> enc = new HashMap<Integer, Enchant>();
-
-        public static Enchant forId(int itemID) {
-            return enc.get(itemID);
-        }
-
-        static {
-            for (Enchant en : Enchant.values()) {
-                enc.put(en.getUnenchanted(), en);
-            }
-        }
-    }
-
-    private enum EnchantSpell {
-
-        SAPPHIRE(1155, 555, 1, 564, 1, -1, 0),
-        EMERALD(1165, 556, 3, 564, 1, -1, 0),
-        RUBY(1176, 554, 5, 564, 1, -1, 0),
-        DIAMOND(1180, 557, 10, 564, 1, -1, 0),
-        DRAGONSTONE(1187, 555, 15, 557, 15, 564, 1),
-        ONYX(6003, 557, 20, 554, 20, 564, 1);
-
-        int spell, reqRune1, reqAmtRune1, reqRune2, reqAmtRune2, reqRune3, reqAmtRune3;
-
-        private EnchantSpell(int spell, int reqRune1, int reqAmtRune1, int reqRune2, int reqAmtRune2, int reqRune3, int reqAmtRune3) {
-            this.spell = spell;
-            this.reqRune1 = reqRune1;
-            this.reqAmtRune1 = reqAmtRune1;
-            this.reqRune2 = reqRune2;
-            this.reqAmtRune2 = reqAmtRune2;
-            this.reqRune3 = reqRune3;
-            this.reqAmtRune3 = reqAmtRune3;
-        }
-
-        public int getSpell() {
-            return spell;
-        }
-
-        public int getReq1() {
-            return reqRune1;
-        }
-
-        public int getReqAmt1() {
-            return reqAmtRune1;
-        }
-
-        public int getReq2() {
-            return reqRune2;
-        }
-
-        public int getReqAmt2() {
-            return reqAmtRune2;
-        }
-
-        public int getReq3() {
-            return reqRune3;
-        }
-
-        public int getReqAmt3() {
-            return reqAmtRune3;
-        }
-
-
-        public static final Map<Integer, EnchantSpell> ens = new HashMap<Integer, EnchantSpell>();
-
-        public static EnchantSpell forId(int id) {
-            return ens.get(id);
-        }
-
-        static {
-            for (EnchantSpell en : EnchantSpell.values()) {
-                ens.put(en.getSpell(), en);
-            }
-        }
-
-    }
-
     private static boolean hasRunes(Player player, int spellID) {
         if (player.getEquipment().contains(17293) || player.getEquipment().contains(15835)) {
             return true;
@@ -254,6 +83,176 @@ public class Magic {
         } else {
             player.getPacketSender().sendMessage("You need a Magic level of at least " + enc.getLevelReq() + " to cast this spell.");
         }
+    }
+
+    public enum Enchant {
+
+        SAPPHIRERING(1637, 2550, 7, 18, 719, 114, 1, 1),
+        SAPPHIREAMULET(1694, 1727, 7, 18, 719, 114, 1, 1),
+        SAPPHIRENECKLACE(1656, 3853, 7, 18, 719, 114, 1, 1),
+        SAPPHIREBOLTS(9337, 9240, 7, 18, 712, 238, 1, 10),
+        OPALBOLTS(879, 9236, 7, 18, 712, 238, 1, 10),
+        DRAGONSAPPHIREBOLTS(21036, 21045, 7, 18, 712, 238, 1, 10),
+        DRAGONOPALBOLTS(21027, 21028, 7, 18, 712, 238, 1, 10),
+
+
+        EMERALDRING(1639, 2552, 27, 37, 719, 114, 2, 1),
+        EMERALDAMULET(1696, 1729, 27, 37, 719, 114, 2, 1),
+        EMERALDNECKLACE(1658, 5521, 27, 37, 719, 114, 2, 1),
+        EMERALDBOLTS(9338, 9241, 27, 37, 712, 238, 2, 10),
+        JADEBOLTS(9335, 9237, 27, 37, 712, 238, 2, 10),
+        DRAGONEMERALDBOLTS(21037, 21046, 27, 37, 712, 238, 2, 10),
+        DRAGONJADEBOLTS(21033, 21042, 27, 37, 712, 238, 2, 10),
+
+
+        RUBYRING(1641, 2568, 47, 59, 720, 115, 3, 1),
+        RUBYAMULET(1698, 1725, 47, 59, 720, 115, 3, 1),
+        RUBYNECKLACE(1660, 11194, 47, 59, 720, 115, 3, 1),
+        RUBYBOLTS(9339, 9242, 47, 59, 712, 238, 3, 10),
+        TOPAZBOLTS(9336, 9239, 47, 59, 712, 238, 3, 10),
+        DRAGONTOPAZBOLTS(21035, 21044, 47, 59, 712, 238, 3, 10),
+        DRAGONRUBYBOLTS(21038, 21047, 47, 59, 712, 238, 3, 10),
+
+
+        DIAMONDRING(1643, 2570, 57, 67, 720, 115, 4, 1),
+        DIAMONDAMULET(1700, 1731, 57, 67, 720, 115, 4, 1),
+        DIAMONDNECKLACE(1662, 11090, 57, 67, 720, 115, 4, 1),
+        DIAMONDBOLTS(9340, 9243, 57, 67, 712, 238, 4, 10),
+        PEARLBOLTS(880, 9238, 57, 67, 720, 115, 4, 1),
+        DRAGONPEARLBOLTS(21034, 21043, 57, 67, 720, 115, 4, 1),
+        DRAGONDIAMONDBOLTS(21039, 21048, 57, 67, 712, 238, 4, 10),
+
+        DRAGONSTONERING(1645, 2572, 68, 78, 721, 116, 5, 1),
+        DRAGONSTONEAMULET(1702, 1712, 68, 78, 721, 116, 5, 1),
+        DRAGONSTONENECKLACE(1664, 11113, 68, 78, 721, 116, 5, 1),
+        DRAGONSTONEBOLTS(9341, 9244, 68, 78, 712, 238, 5, 10),
+        DRAGONDRAGONSTONEBOLTS(21040, 21049, 68, 78, 712, 238, 5, 10),
+
+        ONYXRING(6575, 6583, 87, 97, 721, 452, 6, 1),
+        ONYXAMULET(6581, 6585, 87, 97, 721, 452, 6, 1),
+        ONYXNECKLACE(6577, 11128, 87, 97, 721, 452, 6, 1),
+        ONYXBOLTS(9342, 9245, 87, 97, 712, 238, 6, 10),
+        DRAGONONYXBOLTS(21041, 21050, 87, 97, 712, 238, 6, 10);
+
+        private static final Map<Integer, Enchant> enc = new HashMap<Integer, Enchant>();
+
+        static {
+            for (Enchant en : Enchant.values()) {
+                enc.put(en.getUnenchanted(), en);
+            }
+        }
+
+        int unenchanted, enchanted, levelReq, xpGiven, anim, gfx, reqEnchantmentLevel, amount;
+
+        private Enchant(int unenchanted, int enchanted, int levelReq, int xpGiven, int anim, int gfx, int reqEnchantmentLevel, int amount) {
+            this.unenchanted = unenchanted;
+            this.enchanted = enchanted;
+            this.levelReq = levelReq;
+            this.xpGiven = xpGiven;
+            this.anim = anim;
+            this.gfx = gfx;
+            this.reqEnchantmentLevel = reqEnchantmentLevel;
+            this.amount = amount;
+        }
+
+        public static Enchant forId(int itemID) {
+            return enc.get(itemID);
+        }
+
+        public int getUnenchanted() {
+            return unenchanted;
+        }
+
+        public int getEnchanted() {
+            return enchanted;
+        }
+
+        public int getLevelReq() {
+            return levelReq;
+        }
+
+        public int getXp() {
+            return xpGiven;
+        }
+
+        public int getAnim() {
+            return anim;
+        }
+
+        public int getGFX() {
+            return gfx;
+        }
+
+        public int getELevel() {
+            return reqEnchantmentLevel;
+        }
+
+        public int getAmount() {
+            return amount;
+        }
+    }
+
+    private enum EnchantSpell {
+
+        SAPPHIRE(1155, 555, 1, 564, 1, -1, 0),
+        EMERALD(1165, 556, 3, 564, 1, -1, 0),
+        RUBY(1176, 554, 5, 564, 1, -1, 0),
+        DIAMOND(1180, 557, 10, 564, 1, -1, 0),
+        DRAGONSTONE(1187, 555, 15, 557, 15, 564, 1),
+        ONYX(6003, 557, 20, 554, 20, 564, 1);
+
+        public static final Map<Integer, EnchantSpell> ens = new HashMap<Integer, EnchantSpell>();
+
+        static {
+            for (EnchantSpell en : EnchantSpell.values()) {
+                ens.put(en.getSpell(), en);
+            }
+        }
+
+        int spell, reqRune1, reqAmtRune1, reqRune2, reqAmtRune2, reqRune3, reqAmtRune3;
+
+        private EnchantSpell(int spell, int reqRune1, int reqAmtRune1, int reqRune2, int reqAmtRune2, int reqRune3, int reqAmtRune3) {
+            this.spell = spell;
+            this.reqRune1 = reqRune1;
+            this.reqAmtRune1 = reqAmtRune1;
+            this.reqRune2 = reqRune2;
+            this.reqAmtRune2 = reqAmtRune2;
+            this.reqRune3 = reqRune3;
+            this.reqAmtRune3 = reqAmtRune3;
+        }
+
+        public static EnchantSpell forId(int id) {
+            return ens.get(id);
+        }
+
+        public int getSpell() {
+            return spell;
+        }
+
+        public int getReq1() {
+            return reqRune1;
+        }
+
+        public int getReqAmt1() {
+            return reqAmtRune1;
+        }
+
+        public int getReq2() {
+            return reqRune2;
+        }
+
+        public int getReqAmt2() {
+            return reqAmtRune2;
+        }
+
+        public int getReq3() {
+            return reqRune3;
+        }
+
+        public int getReqAmt3() {
+            return reqAmtRune3;
+        }
+
     }
 
 }

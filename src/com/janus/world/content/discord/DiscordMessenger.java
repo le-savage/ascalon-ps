@@ -4,16 +4,12 @@ import ca.momoperes.canarywebhooks.DiscordMessage;
 import ca.momoperes.canarywebhooks.WebhookClient;
 import ca.momoperes.canarywebhooks.WebhookClientBuilder;
 import ca.momoperes.canarywebhooks.embed.DiscordEmbed;
-import com.cryo.entities.Game;
-import com.janus.GameServer;
 import com.janus.GameSettings;
 import com.janus.util.Misc;
 import org.json.simple.JSONObject;
 
 import java.awt.*;
-import java.net.Inet4Address;
 import java.net.URI;
-import java.net.UnknownHostException;
 
 @SuppressWarnings("all")
 
@@ -42,7 +38,7 @@ public class DiscordMessenger extends JSONObject {
 
 
     public static void sendDailyLoginLog(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -76,7 +72,7 @@ public class DiscordMessenger extends JSONObject {
 
 
     public static void sendChatLog(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -109,7 +105,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendCommandLog(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -142,7 +138,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendRareDrop(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -175,7 +171,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendTradeLog(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -208,7 +204,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendDropLog(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -241,7 +237,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendErrorLog(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -274,7 +270,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendAnnouncement(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -308,7 +304,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendNewPlayer(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -342,7 +338,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void dropMessage(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -375,7 +371,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendStaffMessage(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -407,7 +403,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendChatMessage(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -445,7 +441,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendClanMessage(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -484,7 +480,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendPrivateMessage(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -523,7 +519,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendInGameMessage(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -562,7 +558,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendDebugMessage(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {
@@ -595,7 +591,7 @@ public class DiscordMessenger extends JSONObject {
     }
 
     public static void sendYellMessage(String msg) {
-        if(GameSettings.DEVELOPERSERVER){
+        if (GameSettings.DEVELOPERSERVER) {
             return;
         }
         try {

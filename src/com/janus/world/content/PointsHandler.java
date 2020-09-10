@@ -5,7 +5,17 @@ import com.janus.world.entity.impl.player.Player;
 public class PointsHandler {
 
     private Player p;
-
+    private int prestigePoints;
+    private int triviaPoints;
+    private int slayerPoints;
+    private int commendations;
+    private int dungTokens;
+    private int pkPoints;
+    private double loyaltyPoints;
+    private int votingPoints;
+    private int achievementPoints;
+    private int donationPoints;
+    private int afkPoints;
     public PointsHandler(Player p) {
         this.p = p;
     }
@@ -40,19 +50,6 @@ public class PointsHandler {
 
         return this;
     }
-
-    private int prestigePoints;
-    private int triviaPoints;
-    private int slayerPoints;
-    private int commendations;
-    private int dungTokens;
-    private int pkPoints;
-    private double loyaltyPoints;
-    private int votingPoints;
-    private int achievementPoints;
-    private int donationPoints;
-    private int afkPoints;
-
 
     public int getPrestigePoints() {
         return prestigePoints;

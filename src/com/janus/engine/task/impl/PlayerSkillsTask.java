@@ -22,6 +22,10 @@ public class PlayerSkillsTask extends Task {
      * The task's delay
      */
     private static final int TIME_WITHOUT_BERSERKER_CURSE = 130, TIME_WITH_BERSERKER_CURSE = 150;
+    /**
+     * The player associated with this task.
+     */
+    private Player player;
 
     /**
      * The PlayerSkillsTask constructor.
@@ -32,11 +36,6 @@ public class PlayerSkillsTask extends Task {
         super(player.getCurseActive()[CurseHandler.BERSERKER] ? TIME_WITH_BERSERKER_CURSE : TIME_WITHOUT_BERSERKER_CURSE, player, false);
         this.player = player;
     }
-
-    /**
-     * The player associated with this task.
-     */
-    private Player player;
 
     @Override
     public void execute() {

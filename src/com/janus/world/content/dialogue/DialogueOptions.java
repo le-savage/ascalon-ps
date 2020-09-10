@@ -12,6 +12,7 @@ import com.janus.world.content.Achievements.AchievementData;
 import com.janus.world.content.*;
 import com.janus.world.content.Gambling.FlowersData;
 import com.janus.world.content.clan.ClanChatManager;
+import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.content.dialogue.impl.AgilityTicketExchange;
 import com.janus.world.content.dialogue.impl.Mandrith;
 import com.janus.world.content.minigames.impl.Graveyard;
@@ -34,9 +35,26 @@ import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.npc.NpcAggression;
 import com.janus.world.entity.impl.player.Player;
 
+import static com.janus.world.content.combat.tieredbosses.BossRewardBoxes.hasEarnedReward;
+
 public class DialogueOptions {
 
     //Last id used = 78
+
+    public static int FIRST_OPTION_OF_FIVE = 2494;
+    public static int SECOND_OPTION_OF_FIVE = 2495;
+    public static int THIRD_OPTION_OF_FIVE = 2496;
+    public static int FOURTH_OPTION_OF_FIVE = 2497;
+    public static int FIFTH_OPTION_OF_FIVE = 2498;
+    public static int FIRST_OPTION_OF_FOUR = 2482;
+    public static int SECOND_OPTION_OF_FOUR = 2483;
+    public static int THIRD_OPTION_OF_FOUR = 2484;
+    public static int FOURTH_OPTION_OF_FOUR = 2485;
+    public static int FIRST_OPTION_OF_THREE = 2471;
+    public static int SECOND_OPTION_OF_THREE = 2472;
+    public static int THIRD_OPTION_OF_THREE = 2473;
+    public static int FIRST_OPTION_OF_TWO = 2461;
+    public static int SECOND_OPTION_OF_TWO = 2462;
 
     public static void handle(Player player, int id) {
         if (player.getRights() == PlayerRights.OWNER) {
@@ -1202,6 +1220,13 @@ public class DialogueOptions {
                         PlayerPanel.refreshPanel(player);
                     }
                     break;
+                case 85:
+                    if (!hasEarnedReward(player) && !BossRewardBoxes.hasExistingBox(player)) {
+                        player.getPacketSender().sendMessage("You haven't earned this reward!");
+                    } else {
+                        BossRewardBoxes.openBossRewardBox(player);
+                    }
+                    break;
             }
         } else if (id == SECOND_OPTION_OF_TWO) {
             switch (player.getDialogueActionId()) {
@@ -1251,6 +1276,12 @@ public class DialogueOptions {
                         player.getMinigameAttributes().getDungeoneeringAttributes().getPartyInvitation().getOwner().getPacketSender().sendMessage("" + player.getUsername() + " has declined your invitation.");
                     player.getMinigameAttributes().getDungeoneeringAttributes().setPartyInvitation(null);
                     break;
+
+                case 85:
+                    player.getPacketSender().sendMessage("We've skipped opening this reward box <3");
+                    player.getPacketSender().sendInterfaceRemoval();
+                    player.setShouldGiveBossReward(false);
+                    BossRewardBoxes.removeBossRewardBox(player);
             }
         } else if (id == FIRST_OPTION_OF_THREE) {
             switch (player.getDialogueActionId()) {
@@ -1332,7 +1363,7 @@ public class DialogueOptions {
                     break;
                 case 70:
                 case 71:
-                    if (player.getDifficulty().highDifficulty() || !player.getGameMode().equals(GameMode.NORMAL)){
+                    if (player.getDifficulty().highDifficulty() || !player.getGameMode().equals(GameMode.NORMAL)) {
                         player.sendMessage("You can't claim bonus xp scrolls on your difficulty or gamemode!");
                         player.getPacketSender().sendInterfaceRemoval();
                         return;
@@ -1503,24 +1534,5 @@ public class DialogueOptions {
         }
 
     }
-
-    public static int FIRST_OPTION_OF_FIVE = 2494;
-    public static int SECOND_OPTION_OF_FIVE = 2495;
-    public static int THIRD_OPTION_OF_FIVE = 2496;
-    public static int FOURTH_OPTION_OF_FIVE = 2497;
-    public static int FIFTH_OPTION_OF_FIVE = 2498;
-
-    public static int FIRST_OPTION_OF_FOUR = 2482;
-    public static int SECOND_OPTION_OF_FOUR = 2483;
-    public static int THIRD_OPTION_OF_FOUR = 2484;
-    public static int FOURTH_OPTION_OF_FOUR = 2485;
-
-
-    public static int FIRST_OPTION_OF_THREE = 2471;
-    public static int SECOND_OPTION_OF_THREE = 2472;
-    public static int THIRD_OPTION_OF_THREE = 2473;
-
-    public static int FIRST_OPTION_OF_TWO = 2461;
-    public static int SECOND_OPTION_OF_TWO = 2462;
 
 }

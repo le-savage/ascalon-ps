@@ -1,49 +1,43 @@
 package com.janus.net.packet;
 
-import com.janus.net.packet.impl.ButtonClickPacketListener;
-import com.janus.net.packet.impl.ChangeAppearancePacketListener;
-import com.janus.net.packet.impl.ChangeRelationStatusPacketListener;
-import com.janus.net.packet.impl.ChatPacketListener;
-import com.janus.net.packet.impl.ClickTextMenuPacketListener;
-import com.janus.net.packet.impl.CloseInterfacePacketListener;
-import com.janus.net.packet.impl.CommandPacketListener;
-import com.janus.net.packet.impl.DialoguePacketListener;
-import com.janus.net.packet.impl.DropItemPacketListener;
-import com.janus.net.packet.impl.DuelAcceptancePacketListener;
-import com.janus.net.packet.impl.DungeoneeringPartyInvitatationPacketListener;
-import com.janus.net.packet.impl.EnterInputPacketListener;
-import com.janus.net.packet.impl.EquipPacketListener;
-import com.janus.net.packet.impl.ExamineItemPacketListener;
-import com.janus.net.packet.impl.ExamineNpcPacketListener;
-import com.janus.net.packet.impl.FinalizedMapRegionChangePacketListener;
-import com.janus.net.packet.impl.FollowPlayerPacketListener;
-import com.janus.net.packet.impl.GESelectItemPacketListener;
-import com.janus.net.packet.impl.HeightCheckPacketListener;
-import com.janus.net.packet.impl.IdleLogoutPacketListener;
-import com.janus.net.packet.impl.ItemActionPacketListener;
-import com.janus.net.packet.impl.ItemColorCustomization;
-import com.janus.net.packet.impl.ItemContainerActionPacketListener;
-import com.janus.net.packet.impl.MagicOnItemsPacketListener;
-import com.janus.net.packet.impl.MagicOnPlayerPacketListener;
-import com.janus.net.packet.impl.MovementPacketListener;
-import com.janus.net.packet.impl.NPCOptionPacketListener;
-import com.janus.net.packet.impl.ObjectActionPacketListener;
-import com.janus.net.packet.impl.PickupItemPacketListener;
-import com.janus.net.packet.impl.PlayerOptionPacketListener;
-import com.janus.net.packet.impl.PlayerRelationPacketListener;
-import com.janus.net.packet.impl.PrestigeSkillPacketListener;
-import com.janus.net.packet.impl.RegionChangePacketListener;
-import com.janus.net.packet.impl.SendClanChatMessagePacketListener;
-import com.janus.net.packet.impl.SilencedPacketListener;
-import com.janus.net.packet.impl.SwitchItemSlotPacketListener;
-import com.janus.net.packet.impl.TradeInvitationPacketListener;
-import com.janus.net.packet.impl.UseItemPacketListener;
-import com.janus.net.packet.impl.WithdrawMoneyFromPouchPacketListener;
+import com.janus.net.packet.impl.*;
 import com.janus.world.entity.impl.player.Player;
 
 public class PacketConstants {
 
     public static final PacketListener[] PACKETS = new PacketListener[257];
+    /**
+     * The size of packets sent from client to the server
+     * used to decode them.
+     */
+    public final static int[] MESSAGE_SIZES = {
+            0, 0, 2, 1, -1, -1, 2, 4, 4, 4, //0
+            4, -1, -1, -1, 8, 0, 6, 2, 2, 0,  //10
+            0, 2, 0, 6, 0, 12, 0, 0, 0, 0, //20
+            9, 0, 0, 0, 0, 8, 4, 0, 0, 2,  //30
+            2, 6, 0, 6, 0, -1, 0, 0, 0, 1, //40
+            0, 0, 0, 12, 0, 0, 0, 8, 8, 0, //50
+            -1, 8, 0, 0, 0, 0, 0, 0, 0, 0,  //60
+            6, 0, 2, 2, 8, 6, 0, -1, 0, 6, //70
+            -1, 0, 0, 0, 0, 1, 4, 6, 0, 0,  //80
+            0, 0, 0, 0, 0, 3, 0, 0, -1, 0, //90
+            0, 13, 0, -1, 0, 0, 0, 0, 0, 0,//100
+            0, 0, 0, 0, 0, 0, 0, 6, 0, 0,  //110
+            1, 0, 6, 0, 0, 0, -1, -1, 2, 6, //120
+            0, 4, 6, 8, 0, 6, 0, 0, 6, 2,  //130
+            6, 6, 0, 0, 0, 6, 0, 0, 0, 0,  //140
+            0, 0, 1, 2, 0, 2, 6, 0, 0, 0,  //150
+            0, 0, 0, 0, -1, -1, 0, 0, 0, 0,//160
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //170
+            0, 8, 0, 3, 0, 2, 19, 0, 8, 1,  //180
+            0, 0, 12, 0, 0, 0, 0, 0, 0, 0, //190
+            2, 0, 0, 0, 2, 0, 0, 0, 4, 0,  //200
+            4, 0, 0, 0, 7, 8, 0, 0, 10, 0, //210
+            0, 0, 3, 2, 0, 0, -1, 0, 6, 1, //220
+            1, 0, 0, 0, 6, 0, 6, 8, 1, 0,  //230
+            0, 4, 0, 0, 0, 0, -1, 0, -1, 4,//240
+            0, 0, 6, 6, 0, 0           //250
+    };
 
     static {
         for (int i = 0; i < PACKETS.length; i++)
@@ -159,37 +153,4 @@ public class PacketConstants {
 
         };
     }
-
-    /**
-     * The size of packets sent from client to the server
-     * used to decode them.
-     */
-    public final static int[] MESSAGE_SIZES = {
-            0, 0, 2, 1, -1, -1, 2, 4, 4, 4, //0
-            4, -1, -1, -1, 8, 0, 6, 2, 2, 0,  //10
-            0, 2, 0, 6, 0, 12, 0, 0, 0, 0, //20
-            9, 0, 0, 0, 0, 8, 4, 0, 0, 2,  //30
-            2, 6, 0, 6, 0, -1, 0, 0, 0, 1, //40
-            0, 0, 0, 12, 0, 0, 0, 8, 8, 0, //50
-            -1, 8, 0, 0, 0, 0, 0, 0, 0, 0,  //60
-            6, 0, 2, 2, 8, 6, 0, -1, 0, 6, //70
-            -1, 0, 0, 0, 0, 1, 4, 6, 0, 0,  //80
-            0, 0, 0, 0, 0, 3, 0, 0, -1, 0, //90
-            0, 13, 0, -1, 0, 0, 0, 0, 0, 0,//100
-            0, 0, 0, 0, 0, 0, 0, 6, 0, 0,  //110
-            1, 0, 6, 0, 0, 0, -1, -1, 2, 6, //120
-            0, 4, 6, 8, 0, 6, 0, 0, 6, 2,  //130
-            6, 6, 0, 0, 0, 6, 0, 0, 0, 0,  //140
-            0, 0, 1, 2, 0, 2, 6, 0, 0, 0,  //150
-            0, 0, 0, 0, -1, -1, 0, 0, 0, 0,//160
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  //170
-            0, 8, 0, 3, 0, 2, 19, 0, 8, 1,  //180
-            0, 0, 12, 0, 0, 0, 0, 0, 0, 0, //190
-            2, 0, 0, 0, 2, 0, 0, 0, 4, 0,  //200
-            4, 0, 0, 0, 7, 8, 0, 0, 10, 0, //210
-            0, 0, 3, 2, 0, 0, -1, 0, 6, 1, //220
-            1, 0, 0, 0, 6, 0, 6, 8, 1, 0,  //230
-            0, 4, 0, 0, 0, 0, -1, 0, -1, 4,//240
-            0, 0, 6, 6, 0, 0           //250
-    };
 }

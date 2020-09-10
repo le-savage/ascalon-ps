@@ -8,6 +8,80 @@ import com.janus.world.entity.impl.player.Player;
 
 public class LoyaltyProgramme {
 
+    public static void unlock(Player player, LoyaltyTitles title) {
+        if (player.getUnlockedLoyaltyTitles()[title.ordinal()])
+            return;
+        Achievements.doProgress(player, AchievementData.UNLOCK_ALL_LOYALTY_TITLES);
+        player.setUnlockedLoyaltyTitle(title.ordinal());
+        player.getPacketSender().sendMessage("You've unlocked the " + Misc.formatText(title.name().toLowerCase()) + " loyalty title!");
+    }
+
+    public static boolean handleButton(Player player, int button) {
+        LoyaltyTitles title = LoyaltyTitles.getTitle(button);
+        if (title != null) {
+            if (title.canBuy(player, true)) {
+
+                if (player.getPointsHandler().getLoyaltyPoints() >= title.cost) {
+
+                    player.setTitle("@or2@" + title);
+
+                    player.getPointsHandler().setLoyaltyPoints(-title.cost, true);
+                    player.getPointsHandler().refreshPanel();
+                    player.getPacketSender().sendMessage("You've changed your title.");
+                    player.getUpdateFlag().flag(Flag.APPEARANCE);
+                    open(player);
+                } else {
+                    player.getPacketSender().sendMessage("You need at least " + title.cost + " Loyalty Points to buy this title.");
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static void open(Player player) {
+        for (LoyaltyTitles title : LoyaltyTitles.values()) {
+            if (title.cost > 0) {
+                player.getPacketSender().sendString(title.frame, title.cost + " LP");
+            } else {
+                if (title.canBuy(player, false)) {
+                    player.getPacketSender().sendString(title.frame, "@gre@Unlocked");
+                } else {
+                    player.getPacketSender().sendString(title.frame, "  @red@Locked");
+                }
+            }
+        }
+        player.getPacketSender().sendString(43120, "Your Loyalty Points: " + player.getPointsHandler().getLoyaltyPoints()).sendInterface(43000);
+    }
+
+    public static void reset(Player player) {
+        player.setLoyaltyTitle(LoyaltyTitles.NONE);
+        player.getUpdateFlag().flag(Flag.APPEARANCE);
+    }
+
+    public static void incrementPoints(Player player) {
+        double pts = player.getRights().getLoyaltyPointsGainModifier();
+        if (WellOfGoodwill.bonusLoyaltyPoints(player))
+            pts *= 1.5;
+        player.getPointsHandler().incrementLoyaltyPoints(pts);
+        player.getAchievementAttributes().incrementTotalLoyaltyPointsEarned(pts);
+
+        int totalPoints = (int) player.getPointsHandler().getLoyaltyPoints();
+        if (totalPoints >= 100000) {
+            unlock(player, LoyaltyTitles.LOYALIST);
+        }
+
+        if (player.getInterfaceId() == 43000) {
+            player.getPacketSender().sendString(43120, "Your Loyalty Points: " + totalPoints);
+        }
+//		player.getPacketSender().sendString(39178, "@or2@Loyalty Points: @yel@"+totalPoints);
+        player.getPacketSender().sendString(39180, PlayerPanel.LINE_START + "@or1@Loyalty Points:@yel@ " + totalPoints);
+
+        if (player.getAchievementAttributes().getTotalLoyaltyPointsEarned() >= 500000) {
+            unlock(player, LoyaltyTitles.VETERAN);
+        }
+    }
+
     public enum LoyaltyTitles {
 
         NONE(0, 0, 0) {
@@ -239,17 +313,14 @@ public class LoyaltyProgramme {
             }
         };
 
+        private int cost;
+        private int frame;
+        private int button;
         private LoyaltyTitles(int cost, int frame, int button) {
             this.cost = cost;
             this.frame = frame;
             this.button = button;
         }
-
-        private int cost;
-        private int frame;
-        private int button;
-
-        abstract boolean canBuy(Player p, boolean sendMessage);
 
         public static LoyaltyTitles getTitle(int button) {
             for (LoyaltyTitles t : LoyaltyTitles.values()) {
@@ -258,79 +329,7 @@ public class LoyaltyProgramme {
             }
             return null;
         }
-    }
 
-    public static void unlock(Player player, LoyaltyTitles title) {
-        if (player.getUnlockedLoyaltyTitles()[title.ordinal()])
-            return;
-        Achievements.doProgress(player, AchievementData.UNLOCK_ALL_LOYALTY_TITLES);
-        player.setUnlockedLoyaltyTitle(title.ordinal());
-        player.getPacketSender().sendMessage("You've unlocked the " + Misc.formatText(title.name().toLowerCase()) + " loyalty title!");
-    }
-
-    public static boolean handleButton(Player player, int button) {
-        LoyaltyTitles title = LoyaltyTitles.getTitle(button);
-        if (title != null) {
-            if (title.canBuy(player, true)) {
-
-                if (player.getPointsHandler().getLoyaltyPoints() >= title.cost) {
-
-                    player.setTitle("@or2@" + title);
-
-                    player.getPointsHandler().setLoyaltyPoints(-title.cost, true);
-                    player.getPointsHandler().refreshPanel();
-                    player.getPacketSender().sendMessage("You've changed your title.");
-                    player.getUpdateFlag().flag(Flag.APPEARANCE);
-                    open(player);
-                } else {
-                    player.getPacketSender().sendMessage("You need at least " + title.cost + " Loyalty Points to buy this title.");
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    public static void open(Player player) {
-        for (LoyaltyTitles title : LoyaltyTitles.values()) {
-            if (title.cost > 0) {
-                player.getPacketSender().sendString(title.frame, title.cost + " LP");
-            } else {
-                if (title.canBuy(player, false)) {
-                    player.getPacketSender().sendString(title.frame, "@gre@Unlocked");
-                } else {
-                    player.getPacketSender().sendString(title.frame, "  @red@Locked");
-                }
-            }
-        }
-        player.getPacketSender().sendString(43120, "Your Loyalty Points: " + player.getPointsHandler().getLoyaltyPoints()).sendInterface(43000);
-    }
-
-    public static void reset(Player player) {
-        player.setLoyaltyTitle(LoyaltyTitles.NONE);
-        player.getUpdateFlag().flag(Flag.APPEARANCE);
-    }
-
-    public static void incrementPoints(Player player) {
-        double pts = player.getRights().getLoyaltyPointsGainModifier();
-        if (WellOfGoodwill.bonusLoyaltyPoints(player))
-            pts *= 1.5;
-        player.getPointsHandler().incrementLoyaltyPoints(pts);
-        player.getAchievementAttributes().incrementTotalLoyaltyPointsEarned(pts);
-
-        int totalPoints = (int) player.getPointsHandler().getLoyaltyPoints();
-        if (totalPoints >= 100000) {
-            unlock(player, LoyaltyTitles.LOYALIST);
-        }
-
-        if (player.getInterfaceId() == 43000) {
-            player.getPacketSender().sendString(43120, "Your Loyalty Points: " + totalPoints);
-        }
-//		player.getPacketSender().sendString(39178, "@or2@Loyalty Points: @yel@"+totalPoints);
-        player.getPacketSender().sendString(39180, PlayerPanel.LINE_START + "@or1@Loyalty Points:@yel@ " + totalPoints);
-
-        if (player.getAchievementAttributes().getTotalLoyaltyPointsEarned() >= 500000) {
-            unlock(player, LoyaltyTitles.VETERAN);
-        }
+        abstract boolean canBuy(Player p, boolean sendMessage);
     }
 }
