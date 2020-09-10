@@ -807,7 +807,7 @@ public class ButtonClickPacketListener implements PacketListener {
                 PlayerPanel.refreshPanel(player);
                 break;
             case 32388:
-                player.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 639); // 26600
+                player.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 40000); // 26600
                 PlayerPanel.refreshPanel(player);
                 break;
             case -26359:
@@ -1738,6 +1738,8 @@ public class ButtonClickPacketListener implements PacketListener {
     }
 
     private boolean checkHandlers(Player player, int id) {
+        if(player.getQuestTab().handleButton(id))
+            return true;
         if(player.getCollectionLog().handleButton(id))
             return true;
         if(KillLogInterface.handleButton(player, id))

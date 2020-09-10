@@ -49,6 +49,7 @@ import com.janus.world.content.minigames.Minigame;
 import com.janus.world.content.minigames.MinigameAttributes;
 import com.janus.world.content.minigames.impl.Dueling;
 import com.janus.world.content.pos.PlayerOwnedShopManager;
+import com.janus.world.content.questtab.QuestTab;
 import com.janus.world.content.skill.SkillManager;
 import com.janus.world.content.skill.impl.construction.ConstructionData.HouseLocation;
 import com.janus.world.content.skill.impl.construction.ConstructionData.HouseTheme;
@@ -74,7 +75,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Player extends Character {
 
-
+    @Getter
+    private QuestTab questTab = new QuestTab(this);
     @Getter
     private CollectionLog collectionLog = new CollectionLog(this);
     @Getter
