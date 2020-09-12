@@ -147,9 +147,9 @@ public class DesolaceFormulas {
         int i = (int) plr.getBonusManager().getAttackBonus()[bestMeleeAtk(plr)];
 
         if (hasObsidianEffect(plr) || hasVoid)
-            i *= 1.20;
+            i *= 1.10;// This is the attack bonus * 1.10.. so 10% boost
         if (hasEliteVoid)
-            i *= 1.40;
+            i *= 1.15; //This is 15% boost
         return (int) (attackLevel + (attackLevel * 0.15) + (i + i * 0.04));
     }
 
@@ -281,9 +281,9 @@ public class DesolaceFormulas {
             rangeLevel *= 1.10;
         }
         if (hasVoid && accuracy > 1.15)
-            rangeLevel *= 1.8;
+            rangeLevel *= 1.8;// Changes range level by 80%
         if (hasEliteVoid && accuracy > 1.40)
-            rangeLevel *= 2.0;
+            rangeLevel *= 2.0; // Changes range level by 100% (x2 basically)
         return (int) (rangeLevel + (plr.getBonusManager().getAttackBonus()[4] * 2));
     }
 
