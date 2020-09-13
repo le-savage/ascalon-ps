@@ -138,11 +138,24 @@ public class DesolaceFormulas {
         }
 
         if (hasVoid) {
-            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.1;
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.05; //5% Boost
         }
         if (hasEliteVoid) {
-            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.3;
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.15; //15% boost
         }
+
+        /** Justicar bonus **/
+
+        if (EquipmentBonus.fullJusticar(plr)) {
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.35; // 35% Boost
+        }
+
+        /** Torva bonus **/
+
+        if (EquipmentBonus.fullTorva(plr)) {
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.22; // 22% boost
+        }
+
         attackLevel *= plr.isSpecialActivated() ? plr.getCombatSpecial().getAccuracyBonus() : 1;
         int i = (int) plr.getBonusManager().getAttackBonus()[bestMeleeAtk(plr)];
 

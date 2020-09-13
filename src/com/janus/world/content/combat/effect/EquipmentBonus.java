@@ -38,6 +38,22 @@ public class EquipmentBonus {
         return correctEquipment >= 3 && player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == helmet;
     }
 
+    /** Boolean to detect Full Justicar **/
+
+    public static boolean fullJusticar(Player player) {
+        return (player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == 18891) &&
+                (player.getEquipment().getItems()[Equipment.BODY_SLOT].getId() == 18892) &&
+                (player.getEquipment().getItems()[Equipment.LEG_SLOT].getId() == 18893);
+    }
+
+    /** Boolean to detect Full Torva **/
+
+    public static boolean fullTorva(Player player) {
+        return (player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == 14008) &&
+                (player.getEquipment().getItems()[Equipment.BODY_SLOT].getId() == 14009) &&
+                (player.getEquipment().getItems()[Equipment.LEG_SLOT].getId() == 14010);
+    }
+
     public static boolean wearingEliteVoid(Player player, CombatType attackType) {
         int correctEquipment = 0;
         int helmet = attackType == CombatType.MAGIC ? MAGE_VOID_HELM :
