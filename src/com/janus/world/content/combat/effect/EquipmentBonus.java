@@ -38,6 +38,8 @@ public class EquipmentBonus {
         return correctEquipment >= 3 && player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == helmet;
     }
 
+    /** Detect Full Armour Sets Used For Bonuses in DesolaceFormulas.java **/
+
     /** Boolean to detect Full Justicar **/
 
     public static boolean fullJusticar(Player player) {
@@ -52,6 +54,25 @@ public class EquipmentBonus {
         return (player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == 14008) &&
                 (player.getEquipment().getItems()[Equipment.BODY_SLOT].getId() == 14009) &&
                 (player.getEquipment().getItems()[Equipment.LEG_SLOT].getId() == 14010);
+    }
+
+    /** Boolean to detect Full Pernix **/
+
+    public static boolean fullPernix(Player player) {
+        return (player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == 14011) &&
+                (player.getEquipment().getItems()[Equipment.BODY_SLOT].getId() == 14012) &&
+                (player.getEquipment().getItems()[Equipment.LEG_SLOT].getId() == 14013);
+    }
+
+    /** Boolean to detect Full Primal **/
+
+    public static boolean fullPrimal(Player player) {
+        return (player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == 16711) &&
+                (player.getEquipment().getItems()[Equipment.BODY_SLOT].getId() == 17259) &&
+                (player.getEquipment().getItems()[Equipment.LEG_SLOT].getId() == 16689) &&
+                (player.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 17361) &&
+                (player.getEquipment().getItems()[Equipment.FEET_SLOT].getId() == 16359) &&
+                (player.getEquipment().getItems()[Equipment.HANDS_SLOT].getId() == 16293);
     }
 
     public static boolean wearingEliteVoid(Player player, CombatType attackType) {
