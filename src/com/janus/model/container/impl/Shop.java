@@ -44,7 +44,7 @@ public class Shop extends ItemContainer {
     public static final int NAME_INTERFACE_CHILD_ID = 3901;
     /**
      * The inventory interface id, used to set the items right click values to
-     * 'sell'.
+     * sell.
      */
     public static final int INVENTORY_INTERFACE_ID = 3823;
     public static final int DONATOR_STORE_1 = 48;
