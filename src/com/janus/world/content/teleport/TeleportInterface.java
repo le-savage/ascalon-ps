@@ -87,7 +87,8 @@ public class TeleportInterface {
             return true;
         }
         if(id >= -27524 && id <= -27519) {
-            sendDataForCategory(Categories.values()[27524 + id]);
+            currentCategory = Categories.values()[27524 + id];
+            sendDataForCategory(currentCategory);
             return true;
         }
         if(id == -27534) {
