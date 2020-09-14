@@ -5,5 +5,6 @@ public enum Categories {
     BOSSES,
     SKILLING,
     WILDERNESS,
-    MINIGAMES
+    MINIGAMES,
+    MISC
 }
