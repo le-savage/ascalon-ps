@@ -202,7 +202,7 @@ public class PlayerHandler {
 
         player.getPacketSender().updateSpecialAttackOrb().sendIronmanMode(player.getGameMode().ordinal());
 
-        if (player.getRights().isStaff() && !player.getUsername().equalsIgnoreCase("flub")) {
+        if (player.getRights().isStaff() && !player.getRights().equals(PlayerRights.OWNER)) {
             World.sendFilteredMessage("<img=" + player.getRights().ordinal() + "><col=6600CC> " + Misc.formatText(player.getRights().toString().toLowerCase()) + " " + player.getUsername() + " has just logged in, feel free to message them for support.");
             if (!StaffList.staff.contains(getPrefix(player) + " @gre@" + player.getUsername())) {
                 StaffList.login(player);

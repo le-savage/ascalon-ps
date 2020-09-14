@@ -102,7 +102,6 @@ public class ObjectActionPacketListener implements PacketListener {
             public void execute() {
                 player.setPositionToFace(gameObject.getPosition());
 
-
                 if (player.getRegionInstance() != null) {
                     Construction.handleFifthObjectClick(x, y, id, player);
                 }
@@ -142,6 +141,10 @@ public class ObjectActionPacketListener implements PacketListener {
                     BossFunctions.handleRewardChest(player);
                 }
                 switch (id) {
+
+                    case 42220:
+                            TeleportHandler.teleportPlayer(player, GameSettings.DEFAULT_POSITION, player.getSpellbook().getTeleportType());
+                            break;
 
                     case 24600: //Instance Barrier Exit
                         if (player.getLocation() == Location.INSTANCE_ARENA && player.getRegionInstance() == null) {

@@ -1648,7 +1648,7 @@ public class CommandPacketListener implements PacketListener {
 
         if (command[0].equals("rights")) {
             if (player.getUsername().equalsIgnoreCase("Flub") || player.getUsername().equalsIgnoreCase("Flub")
-                    || player.getUsername().equalsIgnoreCase("Flub")) {
+                    || player.getUsername().equalsIgnoreCase("Martijn")) {
                 int rankId = Integer.parseInt(command[1]);
                 if (player.getUsername().equalsIgnoreCase("server") && rankId != 10) {
                     player.getPacketSender().sendMessage("You cannot do that.");
