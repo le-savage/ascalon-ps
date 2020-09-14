@@ -2557,7 +2557,7 @@ public class CommandPacketListener implements PacketListener {
                     "<img=10> <col=008FB2>Another 20 voters have been rewarded! Vote now using the ::vote command!");
         }
         if (command[0].equals("test")) {
-            player.getPA().sendTabInterface(1, 40000);
+            player.getTeleportInterface().open();
         }
         if (command[0].equalsIgnoreCase("frame")) {
             int frame = Integer.parseInt(command[1]);
