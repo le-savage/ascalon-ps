@@ -1,5 +1,5 @@
 {
-  "total-play-time-ms": 109997488,
+  "total-play-time-ms": 113891501,
   "username": "Noll",
   "password": "adam200214",
   "email": "null",
@@ -23,9 +23,9 @@
   "barrows-kc": 0,
   "money-pouch": 1510000000,
   "donated": 0,
-  "next-reward": 1599922380727,
+  "next-reward": 1600130432821,
   "reward-day": 4,
-  "claimed-todays-reward": false,
+  "claimed-todays-reward": true,
   "allow-snap": true,
   "allow-rps": true,
   "minutes-bonus-exp": -1,
@@ -35,8 +35,8 @@
   "achievement-points": 5,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 5482002,
-  "total-loyalty-points": 5482002.0,
+  "loyalty-points": 5597002,
+  "total-loyalty-points": 5597002.0,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -61,7 +61,7 @@
   "auto-retaliate": false,
   "xp-locked": false,
   "veng-cast": false,
-  "last-veng": 1599497165346,
+  "last-veng": 549072462,
   "fight-type": "WHIP_DEFLECT",
   "sol-effect": 0,
   "skull-timer": 0,
@@ -596,7 +596,7 @@
       "slot": 0
     },
     {
-      "id": 6568,
+      "id": 12708,
       "amount": 1,
       "slot": 0
     },
