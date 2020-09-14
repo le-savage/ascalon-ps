@@ -163,6 +163,13 @@ public class KillsTracker {
         player.getKillsTracker().add(entry);
         return entry;
     }
+    public static KillsEntry forId(final Player player, final int npcId) {
+        for (KillsEntry killsEntry : player.getKillsTracker()) {
+            if (killsEntry.getId() == npcId)
+                return killsEntry;
+        }
+        return null;
+    }
 
     public static int getIndex(Player player, KillsEntry kill) {
         for (int i = 0; i < player.getKillsTracker().size(); i++) {
