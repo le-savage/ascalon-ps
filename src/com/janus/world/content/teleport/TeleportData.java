@@ -65,8 +65,21 @@ public enum TeleportData {
     /** Page four - Bosses **/
     PHOENIX("Phoenix", 8549, new Position(2839, 9557), Categories.BOSSES),
     BANDOS_AVATAR("Bandos Avatar", 4540, new Position(2891, 4767), Categories.BOSSES),
+    GLACORS_CAVE("Glacors Cave", 1382, new Position(3050, 9573), Categories.BOSSES),
+    NEX("Nex", 13447, new Position(2903, 5203), Categories.BOSSES),
+    SCORPIA("Scorpia", 2001, new Position(3236, 3941), Categories.WILDERNESS),
+    VENENATIS("Venenatis", 2001, new Position(3350, 3734), Categories.WILDERNESS),
+    CERBERUS("Cerberus", 1999, new Position(1240, 1243), Categories.BOSSES),
+    SKOTIZO("Skotizo", 7286, new Position(3378, 9816), Categories.BOSSES),
+    ABYSSAL_SIRE("Abyssal Sire", 5886, new Position(3333, 3864), Categories.WILDERNESS),
+    THERMONUCLEAR("Smoke Devil", 499, new Position(2388, 4692), Categories.BOSSES),
+    LVL2CRAZYMAN("Crazy Man", 3, new Position(1959, 4759), Categories.BOSSES),
 
-    GLACORS_CAVE("Glacors", 1382, new Position(3050, 9573), Categories.BOSSES),
+    /** Page five - PKing **/
+    GREEN_DRAGONS("Green Dragons", 941, new Position(3351, 3680), Categories.WILDERNESS),
+    GRAVEYARD("Graveyard", 2, new Position(3351, 3680), Categories.WILDERNESS),
+
+
 
 
 
