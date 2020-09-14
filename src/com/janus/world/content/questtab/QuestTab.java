@@ -15,7 +15,7 @@ public class QuestTab {
     private final Player player;
     private int currentTab = 1;
     public static Task refreshPanel() {
-        return new Task(1) {
+        return new Task() {
 
             @Override
             protected void execute() {
@@ -94,6 +94,7 @@ public class QuestTab {
                 player.getPA().sendSpriteChange(40004, 1055);
                 player.getPA().sendSpriteChange(40005, 1054);
                 player.getPA().sendSpriteChange(40006, 1054);
+                player.getQuestTab().refresh();
                 return true;
             case -25531:
                 currentTab = 2;
@@ -101,6 +102,7 @@ public class QuestTab {
                 player.getPA().sendSpriteChange(40004, 1054);
                 player.getPA().sendSpriteChange(40005, 1055);
                 player.getPA().sendSpriteChange(40006, 1054);
+                player.getQuestTab().refresh();
                 return true;
             case -25530:
                 currentTab = 3;
@@ -108,6 +110,7 @@ public class QuestTab {
                 player.getPA().sendSpriteChange(40004, 1054);
                 player.getPA().sendSpriteChange(40005, 1054);
                 player.getPA().sendSpriteChange(40006, 1055);
+                player.getQuestTab().refresh();
                 return true;
         }
 
