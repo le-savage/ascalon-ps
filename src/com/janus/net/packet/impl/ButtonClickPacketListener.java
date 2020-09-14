@@ -1747,6 +1747,8 @@ public class ButtonClickPacketListener implements PacketListener {
     }
 
     private boolean checkHandlers(Player player, int id) {
+        if(player.getTeleportInterface().handleButton(id))
+            return true;
         if(player.getQuestTab().handleButton(id))
             return true;
         if (player.getCollectionLog().handleButton(id))

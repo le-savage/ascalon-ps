@@ -60,6 +60,7 @@ import com.janus.world.content.skill.impl.farming.Farming;
 import com.janus.world.content.skill.impl.slayer.Slayer;
 import com.janus.world.content.skill.impl.summoning.Pouch;
 import com.janus.world.content.skill.impl.summoning.Summoning;
+import com.janus.world.content.teleport.TeleportInterface;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 import lombok.Getter;
@@ -74,7 +75,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class Player extends Character {
-
+    @Getter
+    private TeleportInterface teleportInterface = new TeleportInterface(this);
     @Getter
     private QuestTab questTab = new QuestTab(this);
 

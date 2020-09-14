@@ -20,6 +20,7 @@ import com.janus.world.content.combat.strategy.CombatStrategies;
 import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.pos.PlayerOwnedShopManager;
+import com.janus.world.content.teleport.TeleportRepository;
 import com.janus.world.entity.impl.npc.NPC;
 import mysql.MySQLController;
 import org.jboss.netty.bootstrap.ServerBootstrap;
@@ -133,6 +134,7 @@ public final class GameLoader {
         serviceLoader.execute(() -> PlayerOwnedShopManager.loadShops());
         serviceLoader.execute(() -> MonsterDrops.initialize());
         serviceLoader.execute(() -> ItemEffect.loadEffects());
+        serviceLoader.execute(() -> TeleportRepository.loadData());
         serviceLoader.execute(() -> WildyWyrmEvent.initialize());
 
     }
