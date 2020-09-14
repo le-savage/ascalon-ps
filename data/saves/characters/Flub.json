@@ -1,42 +1,42 @@
 {
-  "total-play-time-ms": 190827945,
+  "total-play-time-ms": 198652456,
   "username": "Flub",
   "password": "BLOWJOBS",
   "email": "null",
   "staff-rights": "OWNER",
   "game-mode": "NORMAL",
   "difficulty": "Easy",
-  "boss-points": 38,
+  "boss-points": 39,
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2037,
-    "y": 4496,
+    "x": 2702,
+    "y": 5350,
     "z": 0
   },
   "online-status": "ON",
   "given-starter": false,
-  "has-played-new-barrows": false,
+  "has-played-new-barrows": true,
   "has-used-boss-tier-tp": true,
   "should-give-boss-reward": false,
   "kbd-tier": 5,
   "barrows-kc": 0,
   "money-pouch": 557267909,
   "donated": 0,
-  "next-reward": 1599729408405,
-  "reward-day": 7,
+  "next-reward": 1600159388672,
+  "reward-day": 9,
   "claimed-todays-reward": true,
   "allow-snap": false,
   "allow-rps": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 100000,
-  "total-gained-exp": 578886360,
+  "total-gained-exp": 657005730,
   "prestige-points": 0,
-  "achievement-points": 9,
+  "achievement-points": 10,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 12649034,
-  "total-loyalty-points": 1.2649034E7,
+  "loyalty-points": 14199034,
+  "total-loyalty-points": 1.4199034E7,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -47,8 +47,8 @@
   "player-kills": 0,
   "player-killstreak": 0,
   "player-deaths": 0,
-  "target-percentage": 0,
-  "bh-rank": -1,
+  "target-percentage": 40,
+  "bh-rank": 0,
   "gender": "MALE",
   "spell-book": "NORMAL",
   "shop-updated": true,
@@ -60,9 +60,9 @@
   "sounds": false,
   "auto-retaliate": true,
   "xp-locked": false,
-  "veng-cast": true,
-  "last-veng": 1599230435086,
-  "fight-type": "UNARMED_PUNCH",
+  "veng-cast": false,
+  "last-veng": 1599242327155,
+  "fight-type": "SCYTHE_REAP",
   "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
@@ -73,7 +73,7 @@
   "fire-damage-mod": 0,
   "prayer-renewal-timer": 0,
   "teleblock-timer": 0,
-  "special-amount": 15000,
+  "special-amount": 100,
   "entered-gwd-room": false,
   "gwd-altar-delay": 0,
   "gwd-killcount": [
@@ -102,49 +102,49 @@
       "runningTotal": 1,
       "npcId": 1265,
       "npcName": "Rock Crab",
-      "amount": 7,
+      "amount": 9,
       "boss": false
     },
     {
       "runningTotal": 1,
       "npcId": 2027,
       "npcName": "Guthan the Infested",
-      "amount": 5,
+      "amount": 6,
       "boss": false
     },
     {
       "runningTotal": 1,
       "npcId": 2028,
       "npcName": "Karil the Tainted",
-      "amount": 5,
+      "amount": 6,
       "boss": false
     },
     {
       "runningTotal": 1,
       "npcId": 2026,
       "npcName": "Dharok the Wretched",
-      "amount": 5,
+      "amount": 6,
       "boss": false
     },
     {
       "runningTotal": 1,
       "npcId": 2025,
       "npcName": "Ahrim the Blighted",
-      "amount": 5,
+      "amount": 6,
       "boss": false
     },
     {
       "runningTotal": 1,
       "npcId": 2029,
       "npcName": "Torag the Corrupted",
-      "amount": 5,
+      "amount": 6,
       "boss": false
     },
     {
       "runningTotal": 1,
       "npcId": 2030,
       "npcName": "Verac the Defiled",
-      "amount": 4,
+      "amount": 5,
       "boss": false
     },
     {
@@ -153,12 +153,54 @@
       "npcName": "Crazy lvl 2 Man",
       "amount": 6,
       "boss": true
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 8162,
+      "npcName": "Armoured Zombie",
+      "amount": 1,
+      "boss": false
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 1471,
+      "npcName": "Skeleton",
+      "amount": 3,
+      "boss": false
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 1459,
+      "npcName": "Monkey Guard",
+      "amount": 1,
+      "boss": false
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 3491,
+      "npcName": "Culinaromancer",
+      "amount": 2,
+      "boss": true
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 76,
+      "npcName": "Zombie",
+      "amount": 3,
+      "boss": false
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 2882,
+      "npcName": "Dagannoth Prime",
+      "amount": 1,
+      "boss": true
     }
   ],
   "drops": [
     {
       "item": 995,
-      "amount": 600702,
+      "amount": 604702,
       "rareDrop": false
     },
     {
@@ -248,7 +290,7 @@
     },
     {
       "item": 985,
-      "amount": 4,
+      "amount": 5,
       "rareDrop": false
     },
     {
@@ -410,6 +452,41 @@
       "item": 17926,
       "amount": 50,
       "rareDrop": false
+    },
+    {
+      "item": 1454,
+      "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 441,
+      "amount": 3,
+      "rareDrop": false
+    },
+    {
+      "item": 45,
+      "amount": 3,
+      "rareDrop": false
+    },
+    {
+      "item": 439,
+      "amount": 2,
+      "rareDrop": false
+    },
+    {
+      "item": 6155,
+      "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 4698,
+      "amount": 32,
+      "rareDrop": false
+    },
+    {
+      "item": 6141,
+      "amount": 1,
+      "rareDrop": false
     }
   ],
   "coins-gambled": 0,
@@ -469,21 +546,21 @@
   "random-coffin": 0,
   "barrows-killcount": 0,
   "nomad": [
-    false,
+    true,
     false
   ],
   "recipe-for-disaster": [
+    true,
+    true,
     false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
   ],
-  "recipe-for-disaster-wave": 0,
+  "recipe-for-disaster-wave": 6,
   "dung-items-bound": [
     0,
     0,
@@ -528,13 +605,12 @@
   ],
   "skills": {
     "level": [
-      14975,
-      14975,
-      14975,
-      149975,
-      14975,
-      150000,
-      14975,
+      99,
+      99,
+      99,
+      990,
+      99,
+      990,
       99,
       99,
       99,
@@ -551,14 +627,15 @@
       99,
       99,
       99,
-      15000,
+      99,
+      99,
       99
     ],
     "maxLevel": [
       99,
       99,
       99,
-      15000,
+      990,
       99,
       990,
       99,
@@ -582,11 +659,11 @@
       99
     ],
     "experience": [
-      157773505,
+      161939215,
       104273167,
       104273167,
-      560212567,
-      140812885,
+      119220127,
+      104273167,
       104273167,
       104273167,
       104273167,
@@ -636,38 +713,38 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 18831,
+      "amount": 200,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1530,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 952,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 16933,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1540,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 995,
+      "amount": 7332062,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 6729,
+      "amount": 1,
       "slot": 0
     },
     {
@@ -753,8 +830,28 @@
   ],
   "equipment": [
     {
+      "id": 18891,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 21014,
+      "amount": 1,
+      "slot": 0
+    },
+    {
       "id": -1,
       "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": 18899,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 18892,
+      "amount": 1,
       "slot": 0
     },
     {
@@ -768,28 +865,8 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
+      "id": 18893,
+      "amount": 1,
       "slot": 0
     },
     {
@@ -1071,7 +1148,7 @@
     true,
     false,
     false,
-    false,
+    true,
     false,
     false,
     false,
@@ -1160,14 +1237,14 @@
     0,
     0,
     0,
-    1334122,
+    1698279,
     318077,
     10177,
     0,
     0,
     0,
-    74,
-    38,
+    98,
+    41,
     0,
     2
   ],
@@ -1970,6 +2047,56 @@
       "npcId": 50,
       "item": 1747,
       "amount": 1
+    },
+    {
+      "npcId": 1265,
+      "item": 1454,
+      "amount": 1
+    },
+    {
+      "npcId": 1265,
+      "item": 441,
+      "amount": 3
+    },
+    {
+      "npcId": 1265,
+      "item": 45,
+      "amount": 3
+    },
+    {
+      "npcId": 1265,
+      "item": 439,
+      "amount": 2
+    },
+    {
+      "npcId": 1265,
+      "item": 985,
+      "amount": 1
+    },
+    {
+      "npcId": 2882,
+      "item": 6155,
+      "amount": 1
+    },
+    {
+      "npcId": 2882,
+      "item": 6729,
+      "amount": 1
+    },
+    {
+      "npcId": 2882,
+      "item": 4698,
+      "amount": 32
+    },
+    {
+      "npcId": 2882,
+      "item": 6141,
+      "amount": 1
+    },
+    {
+      "npcId": 2882,
+      "item": 995,
+      "amount": 4000
     }
   ]
 }
