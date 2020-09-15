@@ -2,6 +2,7 @@ package mysql.impl.FoxSystems;
 
 import com.janus.GameLoader;
 import com.janus.world.World;
+import com.janus.world.content.Achievements;
 import com.janus.world.content.discord.DiscordMessenger;
 import com.janus.world.entity.impl.player.Player;
 
@@ -50,6 +51,8 @@ public class FoxVoting {
                     } else {
                         player.getInventory().add(19670, 1);
                     }
+
+                    Achievements.doProgress(player, Achievements.AchievementData.VOTE_50_TIMES);
 
                     //DiscordMessenger.sendErrorLog("VOTES CLAIMED BY: "+name);
 

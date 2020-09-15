@@ -1203,10 +1203,7 @@ public class ButtonClickPacketListener implements PacketListener {
             case 10000:
             case 913:
             case 950:
-                if (player.getInterfaceId() < 0)
-                    player.getPacketSender().sendInterface(40030);
-                else
-                    player.getPacketSender().sendMessage("Please close the interface you have open before doing this.");
+                    player.getPacketSender().sendMessage("Use the RuneLite settings to edit your configuration.");
                 break;
             case 3546:
             case 3420:
