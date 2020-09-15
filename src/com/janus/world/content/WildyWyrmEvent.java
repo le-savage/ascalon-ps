@@ -91,7 +91,7 @@ public class WildyWyrmEvent extends NPC {
 
         World.register(instance);
         setCurrent(instance);
-        //System.out.print("spawned.");
+        //System.out.println("spawned.");
 
         World.sendMessage("@red@[WildyWyrm]@bla@ A WildyWyrm has spawned at " + location.getLocation() + "!");
         World.getPlayers().forEach(p -> p.getPacketSender().sendString(26707, "@or2@WildyWyrm: @gre@" + location.getLocation() + ""));

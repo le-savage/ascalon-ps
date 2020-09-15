@@ -1134,6 +1134,8 @@ public class Shop extends ItemContainer {
                     case 10362://amulet of glory (t)
                     case 7803://yin yang amulet
                         return new Object[]{15, "Donation Points"};
+                    case 18894://ghrazi rapier
+                    case 18901://Avernic Defender
                     case 1038://Red Partyhat
                     case 1040://Yellow Partyhat
                     case 1046://Purple Partyhat
@@ -1164,10 +1166,8 @@ public class Shop extends ItemContainer {
                     case 18891://justiciar helm
                     case 18892://justiciar platebody
                     case 18893://justiciar platelegs
-                    case 18894://ghrazi rapier
                     case 18898://ring of suffering
                     case 18900://sanguinesti staff
-                    case 18901://Avernic Defender
                     case 14008://Torva helm
                     case 14009://Torva Plate
                     case 14010://Torva Legs

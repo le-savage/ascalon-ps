@@ -133,16 +133,16 @@ public class Snap {
 
                         numberOne = (Misc.random(0, 10));
                         numberTwo = (Misc.random(0, 10));
-                        System.out.print("NUMBER ONE " + numberOne + " | NUMBER TWO " + numberTwo);
+                        System.out.println("NUMBER ONE " + numberOne + " | NUMBER TWO " + numberTwo);
                         drawNumber++;
-                        System.out.print("Draw " + drawNumber);
+                        System.out.println("Draw " + drawNumber);
                         player.forceChat(String.valueOf(numberOne));
                         player2.forceChat(String.valueOf(numberTwo));
 
                         if (numberOne == numberTwo && gameActive) {
-                            System.out.print("DUPLICATE NUMBER");
+                            System.out.println("DUPLICATE NUMBER");
                             opportunitiesToWin++;
-                            System.out.print(opportunitiesToWin);
+                            System.out.println(opportunitiesToWin);
                             player.getPacketSender().sendMessage("Opportunity to win! :" + opportunitiesToWin + "/3");
                             player2.getPacketSender().sendMessage("Opportunity to win! :" + opportunitiesToWin + "/3");
                         }
@@ -158,7 +158,7 @@ public class Snap {
         }
 
     public static void stopAndCheck(Player player) {
-        System.out.print("STOP AND CHECK STARTED");
+        System.out.println("STOP AND CHECK STARTED");
         Player winner = null;
         gameActive = false;
 
@@ -166,10 +166,10 @@ public class Snap {
 
                 if (player.getUsername().equals(gambler1.getUsername())) {
                     gambler1Attempts++;
-                    System.out.print("Attempt made by " + player.getUsername() + " now : " + gambler1Attempts + "/3");
+                    System.out.println("Attempt made by " + player.getUsername() + " now : " + gambler1Attempts + "/3");
                 } else if (player.getUsername().equals(gambler2.getUsername())) {
                     gambler2Attempts++;
-                    System.out.print("Attempt made by " + player.getUsername() + " now : " + gambler2Attempts + "/3");
+                    System.out.println("Attempt made by " + player.getUsername() + " now : " + gambler2Attempts + "/3");
                 }
 
                 TaskManager.submit(new Task(1) {

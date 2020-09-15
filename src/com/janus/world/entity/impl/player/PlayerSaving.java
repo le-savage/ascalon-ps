@@ -60,6 +60,7 @@ public class PlayerSaving {
             object.addProperty("has-used-boss-tier-tp", new Boolean(player.hasUsedBossTierTP()));
             object.addProperty("should-give-boss-reward", new Boolean(player.shouldGiveBossReward()));
             object.addProperty("kbd-tier", new Integer(player.getKbdTier()));
+            object.addProperty("instances-kc", new Integer(player.getInstanceKC()));
             object.addProperty("barrows-kc", new Integer(player.getBarrowsKC()));
             object.addProperty("money-pouch", new Long(player.getMoneyInPouch()));
             object.addProperty("donated", new Long(player.getAmountDonated()));

@@ -35,13 +35,13 @@ public class CrazyMan {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.MAN || player.getRegionInstance().getNpcsList().contains(CrazyMan)) {
-                    System.out.print("Failed to spawn man. One of the variables was not correct.");
+                    System.out.println("Failed to spawn man. One of the variables was not correct.");
                     stop();
                     return;
                 }
 
 
-                System.out.print("Man spawn task finished");
+                System.out.println("Man spawn task finished");
                 //player.setRegionInstance(new RegionInstance(player, RegionInstanceType.MAN));
                 NPC man = new NPC(CrazyManID, new Position(1964, 4754, player.getPosition().getZ())).setSpawnedFor(player);
                 World.register(man);

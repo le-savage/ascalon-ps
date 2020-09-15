@@ -332,7 +332,7 @@ public class NPCDrops {
             } else {
                 GroundItemManager.spawnGroundItem(toGive, new GroundItem(item, pos, toGive.getUsername(), false, 150, goGlobal, 200));
                 DropLog.submit(toGive, new DropLog.DropLogEntry(itemId, item.getAmount()));
-                System.out.println("Spawn stackable item : "+item.getDefinition().getName()+" for "+toGive.getUsername());
+                //System.out.println("Spawn stackable item : "+item.getDefinition().getName()+" for "+toGive.getUsername());
             }
         }
 

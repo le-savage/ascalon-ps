@@ -223,6 +223,53 @@ public class NPCDeathTask extends Task {
 
         if (npc.getLocation() == Location.INSTANCE_ARENA) {
 
+            /** Setting the maximum number of kills a player
+             * can have in the instance
+             * arena before being teleported out.
+             * Woohoo - Saving the economy..
+             */
+
+            int currentKC = killer.getInstanceKC();
+
+            System.out.println(killer.getUsername() + " has a current KC of "+ currentKC);
+
+            int maxKC = 0;
+
+            if (killer.getRights().equals(PlayerRights.DONATOR))
+                maxKC = 10;
+            else if (killer.getRights().equals(PlayerRights.SUPER_DONATOR))
+                maxKC = 20;
+            else if (killer.getRights().equals(PlayerRights.EXTREME_DONATOR))
+                maxKC = 30;
+            else if (killer.getRights().equals(PlayerRights.LEGENDARY_DONATOR))
+                maxKC = 40;
+            else if (killer.getRights().equals(PlayerRights.UBER_DONATOR))
+                maxKC = 50;
+            else if (killer.getRights().isStaff())
+                maxKC = 30;
+
+            System.out.println("Player : "+killer.getUsername() + " is rank : "+killer.getRights().toString() + " and is allowed : "+maxKC);
+
+
+            /** Comparing the current KC with the max KC
+             * We also remove the regular players
+             * since they are now allowed respawns
+             */
+
+            if (currentKC >= maxKC && killer.getRights() != PlayerRights.PLAYER) {
+                System.out.println("Player "+killer.getUsername() + " has now got "+currentKC + " / "+maxKC+" Destroying.");
+                if (killer.getLocation() == Location.INSTANCE_ARENA && killer.getRegionInstance() == null) {
+                    killer.moveTo(InstanceArena.ENTRANCE);
+                }
+                InstanceArena.destructArena(killer);
+                return;
+            } else {
+                currentKC++;
+                System.out.println("Instance KC incremented for "+killer.getUsername());
+                killer.setInstanceKC(currentKC);
+                System.out.println("New KC for "+killer.getUsername() + " is "+killer.getInstanceKC());
+            }
+
 
             if (killer.getRights() != PlayerRights.PLAYER) {
 

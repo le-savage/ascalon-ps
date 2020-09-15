@@ -66,7 +66,7 @@ public class Cows {
 
 
             TeleportHandler.teleportPlayer(player, new Position(3260, 3272), player.getSpellbook().getTeleportType());
-            //System.out.print("location:" + player.getLocation());
+            //System.out.println("location:" + player.getLocation());
 
             giveItems(player);
             coinRemoval(player);
@@ -128,10 +128,10 @@ public class Cows {
             public void execute() {
 
                 if (player.getLocation() == Location.COWS) {
-                    //System.out.print("is in cowfield");
+                    //System.out.println("is in cowfield");
                 }
                 if (player.getLocation() != Location.COWS) {
-                    System.out.print("is not in field, stopping thread");
+                    System.out.println("is not in field, stopping thread");
                     this.stop();
                     return;
                 }

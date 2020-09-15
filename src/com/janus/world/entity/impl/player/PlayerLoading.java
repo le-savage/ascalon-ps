@@ -124,6 +124,9 @@ public class PlayerLoading {
             if (reader.has("kbd-tier")) {
                 player.setKbdTier(reader.get("kbd-tier").getAsInt());
             }
+            if (reader.has("instances-kc")) {
+                player.setInstanceKC(reader.get("instances-kc").getAsInt());
+            }
             if (reader.has("barrows-kc")) {
                 player.setBarrowsKC(reader.get("barrows-kc").getAsInt());
             }

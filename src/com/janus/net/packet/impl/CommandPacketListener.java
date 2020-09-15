@@ -617,7 +617,7 @@ public class CommandPacketListener implements PacketListener {
 
         if (command[0].equalsIgnoreCase("instanceinfo")) {
             System.out.println("Region Instance " + player.getRegionInstance().getType().toString());
-            System.out.print("NPC List: " + player.getRegionInstance().getNpcsList().toString());
+            System.out.println("NPC List: " + player.getRegionInstance().getNpcsList().toString());
             System.out.println("Region Owner " + player.getRegionInstance().getOwner().getUsername());
 
         }
@@ -2366,7 +2366,7 @@ public class CommandPacketListener implements PacketListener {
         }
 
         if (command[0].equalsIgnoreCase("printdaily")) {
-            System.out.print(PlayerPunishment.dailyRewardClaimed);
+            System.out.println(PlayerPunishment.dailyRewardClaimed);
         }
 
         if (command[0].equals("item")) {

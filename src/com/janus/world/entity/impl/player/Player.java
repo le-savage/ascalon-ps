@@ -144,6 +144,7 @@ public class Player extends Character {
     public int destination = 0;
     public int lastClickedTab = 0;
     public int kbdTier = 0;
+    public int instanceKC = 0;
     public int barrowsKC = 0;
     public int timeOnline;
     public ArrayList<Integer> walkableInterfaceList = new ArrayList<>();
@@ -1831,9 +1832,18 @@ public class Player extends Character {
         return kbdTier;
     }
 
+    public int getInstanceKC() {
+        return instanceKC;
+    }
+
     public void setKbdTier(int kbdTier) {
         this.kbdTier = kbdTier;
     }
+
+    public void setInstanceKC(int instanceKC) {
+        this.instanceKC = instanceKC;
+    }
+
 
     public int getBarrowsKC() {
         return barrowsKC;

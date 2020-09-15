@@ -452,11 +452,11 @@ public class Consumables {
                         player.getSkillManager().setCurrentLevel(Skill.PRAYER, player.getSkillManager().getMaxLevel(Skill.PRAYER));
                     break;
                 case 143: //Prayer pot 1
-                    System.out.print("Final potion for "+player.getUsername());
+                    System.out.println("Final potion for "+player.getUsername());
                     player.performAnimation(new Animation(829));
                     //
                     player.getInventory().delete(143, 1);
-                    System.out.print("Deleting prayer pot");
+                    System.out.println("Deleting prayer pot");
                     player.getInventory().refreshItems();
                     player.getSkillManager().setCurrentLevel(Skill.PRAYER, (int) (player.getSkillManager().getCurrentLevel(Skill.PRAYER) + (player.getSkillManager().getMaxLevel(Skill.PRAYER) * 0.33)));
                     if (player.getSkillManager().getCurrentLevel(Skill.PRAYER) > player.getSkillManager().getMaxLevel(Skill.PRAYER))
