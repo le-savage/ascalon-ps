@@ -10,8 +10,8 @@
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2674,
-    "y": 3714,
+    "x": 3236,
+    "y": 3296,
     "z": 0
   },
   "online-status": "ON",
@@ -30,13 +30,13 @@
   "allow-rps": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 100000,
-  "total-gained-exp": 6791189,
+  "total-gained-exp": 6924366,
   "prestige-points": 0,
   "achievement-points": 5,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 5609002,
-  "total-loyalty-points": 5609002.0,
+  "loyalty-points": 5663002,
+  "total-loyalty-points": 5663002.0,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -61,7 +61,7 @@
   "auto-retaliate": false,
   "xp-locked": false,
   "veng-cast": false,
-  "last-veng": 1599561983666,
+  "last-veng": 1599577882629,
   "fight-type": "WHIP_DEFLECT",
   "sol-effect": 0,
   "skull-timer": 0,
@@ -118,6 +118,13 @@
       "npcName": "Rock Crab",
       "amount": 5,
       "boss": false
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 41,
+      "npcName": "Chicken",
+      "amount": 1,
+      "boss": false
     }
   ],
   "drops": [
@@ -128,7 +135,7 @@
     },
     {
       "item": 526,
-      "amount": 80,
+      "amount": 81,
       "rareDrop": false
     },
     {
@@ -340,6 +347,16 @@
       "item": 403,
       "amount": 3,
       "rareDrop": false
+    },
+    {
+      "item": 314,
+      "amount": 15,
+      "rareDrop": false
+    },
+    {
+      "item": 2138,
+      "amount": 1,
+      "rareDrop": false
     }
   ],
   "coins-gambled": 0,
@@ -513,9 +530,9 @@
     ],
     "experience": [
       104296926,
-      104591870,
+      104697629,
       541175096,
-      105671121,
+      105698539,
       104291755,
       104273438,
       104273167,
@@ -938,13 +955,13 @@
     0,
     0,
     0,
-    503887,
+    523472,
     1727,
     0,
     0,
     0,
     0,
-    86,
+    87,
     5,
     0,
     2
@@ -982,6 +999,21 @@
     {
       "npcId": 1265,
       "item": 1625,
+      "amount": 1
+    },
+    {
+      "npcId": 41,
+      "item": 314,
+      "amount": 15
+    },
+    {
+      "npcId": 41,
+      "item": 526,
+      "amount": 1
+    },
+    {
+      "npcId": 41,
+      "item": 2138,
       "amount": 1
     }
   ]
