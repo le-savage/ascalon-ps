@@ -1042,7 +1042,7 @@ public class Shop extends ItemContainer {
                     case 14012: //pernix top
                     case 14013:    //pernix chaps
                     case 12601:    //ring of the gods
-                        return new Object[]{3000, "Boss Points"};
+                        return new Object[]{4000, "Boss Points"};
                     case 18782: //dragonkin lamp
                         return new Object[]{50, "Boss Points"};
                     case 20998: //twisted bow
@@ -1050,32 +1050,33 @@ public class Shop extends ItemContainer {
                         return new Object[]{30000, "Boss Points"};
                     case 15272: //rocktail
                     case 989: //crystal key
-                        return new Object[]{10, "Boss Points"};
+                        return new Object[]{10, "Boss points"};
                     case 11718: //armadyl helmet
                     case 11720: //armadyl chestplate
                     case 11722: //armadyl chainskirt
                     case 11724: //bandos chestplate
                     case 11726:    //bandos tassets
-                    case 13905: //vesta spear
-                    case 13899: //vesta longsword
-                    case 13887: //vesta chainbody
-                    case 13893: //vesta chainskirt
-                    case 13896:    //statius full helm
-                    case 13884: //statius platebody
-                    case 13890: //statius platelegs
-                    case 13861://zuriel robe bottom
-                    case 13858://zuriel robe top
-                    case 13864://zuriel hood
+                        return new Object[]{1500, "Boss points"};
                     case 20012: //trickster helm
                     case 20010: //trickster robe
                     case 20011: //trickster robe legs
                     case 20020: //trickster gloves
-                    case 20019:    //trickster boots
+                    case 20019: //trickster boots
+                    case 13051: //armadyl crossbow
+                    case 20016: // battlemage
+                    case 20017: //battlemage
+                    case 20018: //battlemage
+                    case 20021: //battlemage
+                    case 20022: //battlemage
+                    case 14018: //katana
+                    case 4454: //kodai
+                        return new Object[]{1000, "boss points"};
                     case 13239: //primoridial boots
                     case 12708: //pegasian boots
-                    case 13235:    //eternal boots
-                    case 13051: //armadyl crossbow
-                        return new Object[]{450, "Boss Points"};
+                    case 13235: //eternal boots
+                    case 16955: //primal rapier
+                        return new Object[]{350, "Boss points"};
+
                 }
                 return new Object[]{25000, "Boss Points"};
             } else if (shop == DONATOR_STORE_1 || shop == DONATOR_STORE_2 || shop == DONATOR_STORE_3) {

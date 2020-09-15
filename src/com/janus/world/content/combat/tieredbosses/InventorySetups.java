@@ -35,7 +35,7 @@ public class InventorySetups {
                 break;
             case 4: // Magic
                 invent.addItems(FOUR, true);
-                invent.add(315, 12);// Shrimp
+                invent.add(351, 9);// pike
                 break;
         }
     }
