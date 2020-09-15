@@ -20,9 +20,46 @@ public class InstanceArena {
     public static final Position ENTRANCE = new Position(2717, 5324);
     public static final int crabX = 2711;
     public static final int crabY = 5317;
-    private static int barrierID = 38144;
-    private static int npcListInterface = 6028;
+    private static final int barrierID = 38144;
+    private static final int npcListInterface = 6028;
 
+    /** Int's used in NPCDeathTask to stop AFKing **/
+
+    public static int getMaxKC(Player player) {
+        int maxKC = 0;
+
+        if (player.getRights().equals(PlayerRights.DONATOR))
+            maxKC = 10;
+        else if (player.getRights().equals(PlayerRights.SUPER_DONATOR))
+            maxKC = 20;
+        else if (player.getRights().equals(PlayerRights.EXTREME_DONATOR))
+            maxKC = 30;
+        else if (player.getRights().equals(PlayerRights.LEGENDARY_DONATOR))
+            maxKC = 40;
+        else if (player.getRights().equals(PlayerRights.UBER_DONATOR) || (player.getRights().isStaff()))
+            maxKC = 50;
+
+        return maxKC;
+    }
+
+    public static int getMaxKcForRank(int rightID) {
+        int maxKC = 0;
+
+        if (rightID == 4)
+            maxKC = 10;
+        else if (rightID == 5)
+            maxKC = 20;
+        else if (rightID == 6)
+            maxKC = 30;
+        else if (rightID == 7)
+            maxKC = 40;
+        else if (rightID >= 8)
+            maxKC = 50;
+
+        return maxKC;
+    }
+
+    /** Start Method to handle clicking barrier **/
 
     public static void handleInstance(Player player, GameObject object) {
         if (object.getId() == barrierID) {
@@ -37,6 +74,8 @@ public class InstanceArena {
             }
         }
     }
+
+    /** Healing / Stat Restore methods **/
 
     public static void restoreHP(Player player) {
         if (player.getRights().isMember() || player.getRights().isStaff()) {
@@ -79,6 +118,7 @@ public class InstanceArena {
         restoreStats(player);
     }
 
+    /** Spawning NPC's **/
 
     public static void spawnMan(final Player player) {
 
@@ -787,6 +827,7 @@ public class InstanceArena {
         });
     }
 
+    /** Final destruction method **/
 
     public static void destructArena(final Player player) {
         if ((player.getLocation() != Locations.Location.INSTANCE_ARENA) || (!player.getRegionInstance().equals(RegionInstance.RegionInstanceType.INSTANCE_ARENA)) || (player.getRegionInstance().getNpcsList().isEmpty())) {
