@@ -69,7 +69,7 @@ public class TeleportInterface {
         }
         player.getPacketSender().sendString(38009, underLine);
         for(int i = 0; i < 54; i++) {
-            player.getPA().sendItemOnInterface(38005, -1, i, 0);
+            player.getPA().sendItemOnInterfaceInt(38005, -1, i, 0);
         }
         player.getPacketSender().sendString(38008, NpcDefinition.forId(teleportData.getNpcId()).getName());
         player.getPacketSender().sendNpcOnInterface(38011, teleportData.getNpcId());
@@ -78,7 +78,7 @@ public class TeleportInterface {
             drops.add(item);
         }
         drops.forEach(drop -> {
-            player.getPacketSender().sendItemOnInterface(38005, drop.getItem().getId(), drops.indexOf(drop), drop.getCount()[drop.getCount().length - 1]);
+            player.getPacketSender().sendItemOnInterfaceInt(38005, drop.getItem().getId(), drops.indexOf(drop), drop.getCount()[drop.getCount().length - 1]);
         });
     }
     public boolean handleButton(int id) {

@@ -1116,7 +1116,8 @@ public class ButtonClickPacketListener implements PacketListener {
                 break;
 
             case 10003:
-                Teleporting.openTab(player, -4934);
+                player.getTeleportInterface().open();
+                //Teleporting.openTab(player, -4934);
                 break;
             case -4934:
                 Teleporting.openTab(player, -4934);

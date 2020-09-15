@@ -77,7 +77,33 @@ public enum TeleportData {
 
     /** Page five - PKing **/
     GREEN_DRAGONS("Green Dragons", 941, new Position(3351, 3680), Categories.WILDERNESS),
-    GRAVEYARD("Graveyard", 2, new Position(3351, 3680), Categories.WILDERNESS),
+    GRAVEYARD("Graveyard", 2, new Position(3166, 3682), Categories.WILDERNESS),
+    GREATER_DEMONS("Greater Demons", 2, new Position(3288, 3886), Categories.WILDERNESS),
+    WILDERNESS_CASTLE("Wildy Castle", 2, new Position(3005, 3631), Categories.WILDERNESS),
+    WEST_DRAGONS("West Dragons", 941, new Position(2980, 3599), Categories.WILDERNESS),
+    EAST_DRAGONS("East Dragons", 941, new Position(3339, 3667), Categories.WILDERNESS),
+    CHAOS_ALTER("Chaos Alter", 5621, new Position(3240, 3620), Categories.WILDERNESS),
+    WILDY_MINING("Wildy Mining", 5497, new Position(3061, 3886), Categories.WILDERNESS),
+    REVS("Revs", 6691, new Position(3651, 3486), Categories.WILDERNESS),
+    ROGUES_CASTLE("Rogues Castle", 3286, new Position(3286, 3922), Categories.WILDERNESS),
+    ICE_PLATEAU("Ice Plateau", 51, new Position(2953, 3901), Categories.WILDERNESS),
+    FUN_PVP("Fun PVP", 51, new Position(2953, 3901), Categories.MINIGAMES),
+
+    /** Page six - Dungeons **/
+    EDGEVILLVE("Edge Dungeon", 90, new Position(3097, 9870), Categories.MISC),
+    CHAOS_TUNNELS("Chaos Tunnels", 5393, new Position(3185, 5471), Categories.MISC),
+    BRIMHAVEN("Brim Dungeon", 112, new Position(2713, 9564), Categories.MISC),
+    TAVERLEY("Tav Dungeon", 55, new Position(2884, 9796), Categories.MISC),
+    STRYKEWORMS("Strykewyrms", 9467, new Position(2731, 5095), Categories.MONSTER),
+    ANCIENT_CAVERN("Ancient Cavern", 749, new Position(1745, 5325), Categories.MISC),
+    METAL_DRAGONS("Metal Dragons", 1591, new Position(2711, 9464), Categories.MONSTER),
+    APE_ATOLL("Ape Atoll", 1471, new Position(2804, 9146), Categories.MISC),
+    SLAYER_TOWER("Slayer Tower", 1657, new Position(3429, 3538), Categories.SKILLING),
+    /** Fin **/
+
+
+
+
 
 
 
