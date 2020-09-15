@@ -211,9 +211,9 @@ public class NPCDeathTask extends Task {
         World.deregister(npc);
 
         if (npc.getLocation() == Location.BARROWS) {
-            System.out.println("PLAYER: " +killer.getUsername()+ "BARROWS KC BEFORE KILL : "+ killer.barrowsKC);
+            System.out.println("PLAYER: " + killer.getUsername() + "BARROWS KC BEFORE KILL : " + killer.barrowsKC);
             killer.barrowsKC++;
-            System.out.println("PLAYER: " +killer.getUsername()+ "KILLED A BARROWS NPC! NEW KC = "+killer.barrowsKC);
+            System.out.println("PLAYER: " + killer.getUsername() + "KILLED A BARROWS NPC! NEW KC = " + killer.barrowsKC);
             if (killer.barrowsKC >= 6) {
                 NewBarrows.rewardPlayer(killer);
                 NewBarrows.resetBarrows(killer);
@@ -223,6 +223,8 @@ public class NPCDeathTask extends Task {
 
         if (npc.getLocation() == Location.INSTANCE_ARENA) {
 
+            boolean multiEnemyInstance = (npc.getId() == 1265) || (npc.getId() == 2605) || (npc.getId() == 2611) || (npc.getId() == 2600) || (npc.getId() == 2591) || (npc.getId() == 181);
+
             /** Setting the maximum number of kills a player
              * can have in the instance
              * arena before being teleported out.
@@ -231,11 +233,11 @@ public class NPCDeathTask extends Task {
 
             int currentKC = killer.getInstanceKC();
 
-            System.out.println(killer.getUsername() + " has a current KC of "+ currentKC);
+            System.out.println(killer.getUsername() + " has a current KC of " + currentKC);
 
             int maxKC = InstanceArena.getMaxKC(killer);
 
-            System.out.println("Player : "+killer.getUsername() + " is rank : "+killer.getRights().toString() + " and is allowed : "+maxKC);
+            System.out.println("Player : " + killer.getUsername() + " is rank : " + killer.getRights().toString() + " and is allowed : " + maxKC);
 
 
             /** Comparing the current KC with the max KC
@@ -243,27 +245,30 @@ public class NPCDeathTask extends Task {
              * since they are now allowed respawns
              */
 
-            if (currentKC >= maxKC && killer.getRights() != PlayerRights.PLAYER) {
-                System.out.println("Player "+killer.getUsername() + " has now got "+currentKC + " / "+maxKC+" Destroying.");
+            System.out.println("Multi NPC Instance = " + multiEnemyInstance);
+
+            if (currentKC >= maxKC && killer.getRights() != PlayerRights.PLAYER) { // END INSTANCE
+                System.out.println("Player " + killer.getUsername() + " has now got " + currentKC + " / " + maxKC + " Destroying.");
                 if (killer.getLocation() == Location.INSTANCE_ARENA && killer.getRegionInstance() == null) {
                     killer.moveTo(InstanceArena.ENTRANCE);
                 }
                 InstanceArena.destructArena(killer);
-                killer.setInstanceKC(0);
-                System.out.println("KC Reset for "+killer.getUsername());
+                System.out.println("KC Reset for " + killer.getUsername());
                 return;
             } else {
-                currentKC++;
-                System.out.println("Instance KC incremented for "+killer.getUsername());
-                killer.setInstanceKC(currentKC);
-                System.out.println("New KC for "+killer.getUsername() + " is "+killer.getInstanceKC());
+                if (!multiEnemyInstance) {
+                    currentKC++; // INCREMENT CURRENT KC
+                    System.out.println("Instance KC incremented for " + killer.getUsername());
+                    killer.setInstanceKC(currentKC);
+                    System.out.println("New KC for " + killer.getUsername() + " is " + killer.getInstanceKC());
+                }
             }
 
             if (currentKC == 1)
                 killer.getPacketSender().sendMessage("@red@You're allowed " + maxKC + " kills before you'll be teleported out");
             if (currentKC == maxKC / 2)
-                killer.getPacketSender().sendMessage("@red@You've used @blu@" + currentKC + "@bla@/@red@" + maxKC + " kills");
-            if (currentKC == maxKC){
+                killer.getPacketSender().sendMessage("@red@You've used @blu@" + currentKC + "@bla@/@red@" + maxKC + " kills.");
+            if (currentKC == maxKC) {
                 killer.getPacketSender().sendMessage("You've used all of your available kills as a " + killer.getRights().toString());
             }
 
@@ -273,11 +278,11 @@ public class NPCDeathTask extends Task {
              * After that, we find out what the maxKC
              * would be for that rank.
              */
-            if (killer.getRights().ordinal() <= 8 && !killer.getRights().isStaff()) {
+            if (killer.getRights().ordinal() < 8 && !killer.getRights().isStaff()) {
                 String nextKCRank = PlayerRights.forId(killer.getRights().ordinal() + (killer.getRights().ordinal() == 0 ? 5 : 1)).toString();
-                killer.getPacketSender().sendMessage("The next rank, @blu@" + nextKCRank + "@bla@ will allow a maximum of @blu@" + InstanceArena.getMaxKcForRank(killer.getRights().ordinal() + (killer.getRights().ordinal() == 0 ? 4 : 1))+" @bla@kills.");
+                killer.getPacketSender().sendMessage("The next rank, @blu@" + nextKCRank + "@bla@ will allow a maximum of @blu@" + InstanceArena.getMaxKcForRank(killer.getRights().ordinal() + (killer.getRights().ordinal() == 0 ? 4 : 1)) + " @bla@kills before ending your instance.");
             } else
-                killer.getPacketSender().sendMessage("You've used all of your allowed kills.. Teleporting out <3");
+                killer.getPacketSender().sendMessage("You've used all of your kills for this instance.. Teleporting out <3");
 
 
             if (killer.getRights() != PlayerRights.PLAYER) {
@@ -324,11 +329,6 @@ public class NPCDeathTask extends Task {
                     InstanceArena.spawnZulrah(killer);
             }
 
-            if ((npc.getId() == 1265) || (npc.getId() == 2605) || (npc.getId() == 2611) || (npc.getId() == 2600) || (npc.getId() == 2591) || (npc.getId() == 181)) {
-                killer.getPacketSender().sendMessage("Nice job! Use the button or ::exit to leave!");
-                killer.setInstanceKC(0);
-            }
-
             if (killer.getRights() == PlayerRights.PLAYER) {
                 killer.getPacketSender().sendMessage("Nice job! Use the button or ::exit to leave!");
             }
@@ -342,7 +342,7 @@ public class NPCDeathTask extends Task {
                     killer.forceChat("I should leave now!");
                     BossFunctions.despawnNpcs(killer);
                 }
-                if (killer.kbdTier == 3 || killer.kbdTier == 4){ // Unfreeze the last two tiers
+                if (killer.kbdTier == 3 || killer.kbdTier == 4) { // Unfreeze the last two tiers
                     killer.setFreezeDelay(-1);
                     killer.setResetMovementQueue(true);
                 }

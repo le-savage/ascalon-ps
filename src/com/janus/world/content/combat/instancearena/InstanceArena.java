@@ -839,6 +839,7 @@ public class InstanceArena {
             player.getRegionInstance().getNpcsList().forEach(npc -> World.deregister(npc));
             player.getRegionInstance().destruct(); //todo Maybe I doubled the destruct?
             restore(player);
+            player.setInstanceKC(0);
         }
     }
 }
