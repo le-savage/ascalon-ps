@@ -15,26 +15,29 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TeleportInterface {
     private Categories currentCategory = Categories.MONSTER;
     private TeleportData selectedTeleport, previousTeleport;
+    private List<TeleportData> teleportDataList = null;
     public void open() {
         sendDataForCategory(currentCategory);
         player.getPacketSender().sendInterface(38000);
     }
 
     private void sendDataForCategory(Categories category) {
-        List<TeleportData> teleports = TeleportRepository.filterByCategory(category);
-        sendNpcNames(teleports);
+        teleportDataList = TeleportRepository.filterByCategory(category);
+        sendNpcNames(teleportDataList);
         try {
-            sendNpc(teleports.get(0));
-            selectedTeleport = teleports.get(0);
+            sendNpc(teleportDataList.get(0));
+            selectedTeleport = teleportDataList.get(0);
         } catch(Exception e) {
 
         }
     }
-    private void sendNpcForCategory(Categories category, int index) {
-        List<TeleportData> teleports = TeleportRepository.filterByCategory(category);
+    private void sendNpc(int index) {
         try {
-            sendNpc(teleports.get(index));
-            selectedTeleport = teleports.get(index);
+            selectedTeleport = teleportDataList.get(index);
+            System.out.println("");
+            System.out.println("SendNpc(int index): selectedTeleport = " + selectedTeleport.getName());
+            System.out.println("");
+            sendNpc(selectedTeleport);
         } catch(Exception e) {
 
         }
@@ -48,6 +51,9 @@ public class TeleportInterface {
         data.forEach(teleportData -> player.getPacketSender().sendString(start.getAndIncrement(), teleportData.getName()));
     }
     private void sendNpc(TeleportData teleportData) {
+        System.out.println("");
+        System.out.println("SendNpc(TeleportData): selectedTeleport = " + selectedTeleport.getName());
+        System.out.println("");
         String underLine = "";
         switch (currentCategory) {
             case BOSSES:
@@ -83,7 +89,7 @@ public class TeleportInterface {
     }
     public boolean handleButton(int id) {
         if(id >= -27415 && id <= -27395) {
-            sendNpcForCategory(currentCategory, 27415 + id);
+            sendNpc(27415 + id);
             return true;
         }
         if(id >= -27524 && id <= -27519) {
@@ -92,6 +98,7 @@ public class TeleportInterface {
             return true;
         }
         if(id == -27534) {
+            System.out.println("Currently category = " + currentCategory.name() + " - current teleport = " + selectedTeleport.getName() + " - current teleport location = " + selectedTeleport.getLocation().toString());
             TeleportHandler.teleportPlayer(player, selectedTeleport.getLocation(), player.getSpellbook().getTeleportType());
             previousTeleport = selectedTeleport;
             return true;
