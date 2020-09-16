@@ -147,13 +147,13 @@ public class DesolaceFormulas {
         /** Justicar bonus **/
 
         if (EquipmentBonus.fullJusticar(player)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.35; // 35% Boost
+            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.08; // 35% Boost
         }
 
         /** Torva bonus **/
 
         if (EquipmentBonus.fullTorva(player)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.22; // 22% boost
+            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.05; // 22% boost
         }
 
         attackLevel *= player.isSpecialActivated() ? player.getCombatSpecial().getAccuracyBonus() : 1;
@@ -178,7 +178,7 @@ public class DesolaceFormulas {
 
         boolean fullPrimal = EquipmentBonus.fullPrimal(player);
         if (fullPrimal) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.10;
+            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.05;
         }
         if (player.getPrayerActive()[PrayerHandler.THICK_SKIN]) {
             defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.05;
@@ -278,8 +278,8 @@ public class DesolaceFormulas {
 
         double accuracy = player.isSpecialActivated() ? player.getCombatSpecial().getAccuracyBonus() : 1;
         rangeLevel *= accuracy;
-        if (fullPernix) { //30% Pernix Buff
-            rangeLevel *= 1.30;
+        if (fullPernix) { //5% Pernix Buff
+            rangeLevel *= 1.05;
         }
         if (hasVoid) {
             rangeLevel += SkillManager.getLevelForExperience(player.getSkillManager().getExperience(Skill.RANGED)) * 0.15;
@@ -293,7 +293,7 @@ public class DesolaceFormulas {
         if (player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == 15492) {
             rangeLevel *= 1.2;
         } else if (player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 20998) {
-            rangeLevel *= 2.5; //BUFF TOP TIER RANGED
+            rangeLevel *= 1.3; //BUFF TOP TIER RANGED
         } else if (player.getPrayerActive()[PrayerHandler.HAWK_EYE]) {
             rangeLevel *= 1.10;
         } else if (player.getPrayerActive()[PrayerHandler.EAGLE_EYE]) {
@@ -303,10 +303,6 @@ public class DesolaceFormulas {
         } else if (player.getCurseActive()[CurseHandler.LEECH_RANGED]) {
             rangeLevel *= 1.10;
         }
-        if (hasVoid && accuracy > 1.15)
-            rangeLevel *= 1.8;// Changes range level by 80%
-        if (hasEliteVoid && accuracy > 1.40)
-            rangeLevel *= 2.0; // Changes range level by 100% (x2 basically)
         return (int) (rangeLevel + (player.getBonusManager().getAttackBonus()[4] * 2));
     }
 
@@ -358,7 +354,7 @@ public class DesolaceFormulas {
             attackLevel *= 1.22;
         } else if (player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21054 || player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21055 ||
                 player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21056 || player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21057) {
-            attackLevel *= 1.6; //BUFF TOP TIER MAGIC NIGHTMARE STAFF
+            attackLevel *= 1.15; //BUFF TOP TIER MAGIC NIGHTMARE STAFF - Was 60...
         } else if (player.getCurseActive()[CurseHandler.LEECH_MAGIC]) {
             attackLevel *= 1.18;
         }
@@ -441,13 +437,13 @@ public class DesolaceFormulas {
                 damageMultiplier += .20;
                 break;
             case 12284:
-                damageMultiplier += .60;
+                damageMultiplier += .22;
                 break;
             case 21054:
             case 21055:
             case 21056:
             case 21057:
-                damageMultiplier += 2.2;
+                damageMultiplier += .25;
                 break;
 
 

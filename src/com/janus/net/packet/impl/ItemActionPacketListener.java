@@ -1017,6 +1017,23 @@ public class ItemActionPacketListener implements PacketListener {
         }
         switch (itemId) {
 
+            case 21055:
+                player.getInventory().delete(21055, 1);
+                player.getInventory().add(21058, 1);
+                player.getInventory().add(21054, 1);
+                break;
+
+            case 21056:
+                player.getInventory().delete(21056, 1);
+                player.getInventory().add(21059, 1);
+                player.getInventory().add(21054, 1);
+                break;
+            case 21057:
+                player.getInventory().delete(21057, 1);
+                player.getInventory().add(21060, 1);
+                player.getInventory().add(21054, 1);
+                break;
+
             case 6500:
                 if (player.getCombatBuilder().isAttacking() || player.getCombatBuilder().isBeingAttacked()) {
                     player.getPacketSender().sendMessage("You cannot configure this right now.");

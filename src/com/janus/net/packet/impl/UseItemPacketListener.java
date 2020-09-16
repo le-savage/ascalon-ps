@@ -12,6 +12,7 @@ import com.janus.util.Misc;
 import com.janus.util.RandomUtility;
 import com.janus.world.World;
 import com.janus.world.clip.region.RegionClipping;
+import com.janus.world.content.CombineNightmare;
 import com.janus.world.content.GamblingAction;
 import com.janus.world.content.ItemForging;
 import com.janus.world.content.dialogue.DialogueManager;
@@ -79,6 +80,10 @@ public class UseItemPacketListener implements PacketListener {
 			player.getPacketSender().sendMessage("To make an Amulet of Fury, you need to put an onyx in a furnace.");
 			return;
 		}*/
+
+        if (usedWith.getId() == 21054) {
+            CombineNightmare.combineOrbs(itemUsedWith, player);
+        }
         if (usedWith.getId() == 12926) {
             player.getBlowpipeLoading().handleLoadBlowpipe(itemUsedWith);
             return;

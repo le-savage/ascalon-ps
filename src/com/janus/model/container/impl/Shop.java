@@ -646,7 +646,7 @@ public class Shop extends ItemContainer {
 
     @Override
     public int capacity() {
-        return 42;
+        return 100;
     }
 
     @Override
@@ -1177,6 +1177,10 @@ public class Shop extends ItemContainer {
                     case 14014://Virtus Helmet
                     case 14015://Virtus Plate
                     case 14016://Virtus Legs
+                    case 16711://primal full helm
+                    case 17259://primal platebody
+                    case 16689://primal platelegs
+                    case 17361://primal kiteshield
                         return new Object[]{25, "Donation Points"};
                     case 10350://3rd age full helm
                     case 10348://3rd age platebody
@@ -1188,10 +1192,6 @@ public class Shop extends ItemContainer {
                     case 20998://Twisted Bow
                     case 6832://30$ donation box
                         return new Object[]{30, "Donation Points"};
-                    case 16711://primal full helm
-                    case 17259://primal platebody
-                    case 16689://primal platelegs
-                    case 17361://primal kiteshield
                     case 18899://scythe of vitur
                         return new Object[]{35, "Donation Points"};
                     case 14044://Black Partyhat

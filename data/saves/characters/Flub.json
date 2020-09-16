@@ -1,5 +1,5 @@
 {
-  "total-play-time-ms": 221608834,
+  "total-play-time-ms": 228454998,
   "username": "Flub",
   "password": "BLOWJOBS",
   "email": "null",
@@ -10,8 +10,8 @@
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 3233,
-    "y": 3295,
+    "x": 3331,
+    "y": 3870,
     "z": 0
   },
   "online-status": "ON",
@@ -31,13 +31,13 @@
   "allow-rps": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 100000,
-  "total-gained-exp": 1369110906,
+  "total-gained-exp": 1398695586,
   "prestige-points": 0,
-  "achievement-points": 10,
+  "achievement-points": 11,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 16016651,
-  "total-loyalty-points": 1.6016651E7,
+  "loyalty-points": 17313651,
+  "total-loyalty-points": 1.7313651E7,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -62,8 +62,8 @@
   "auto-retaliate": true,
   "xp-locked": false,
   "veng-cast": true,
-  "last-veng": 905729745,
-  "fight-type": "SCYTHE_REAP",
+  "last-veng": 911773214,
+  "fight-type": "STAFF_BASH",
   "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
@@ -74,7 +74,7 @@
   "fire-damage-mod": 0,
   "prayer-renewal-timer": 0,
   "teleblock-timer": 0,
-  "special-amount": 100,
+  "special-amount": 15000,
   "entered-gwd-room": false,
   "gwd-altar-delay": 0,
   "gwd-killcount": [
@@ -110,7 +110,7 @@
       "runningTotal": 1,
       "npcId": 3491,
       "npcName": "Culinaromancer",
-      "amount": 2,
+      "amount": 5,
       "boss": true
     },
     {
@@ -173,7 +173,7 @@
       "runningTotal": 1,
       "npcId": 1471,
       "npcName": "Skeleton",
-      "amount": 4,
+      "amount": 5,
       "boss": false
     },
     {
@@ -208,6 +208,20 @@
       "runningTotal": 1,
       "npcId": 1592,
       "npcName": "Steel dragon",
+      "amount": 1,
+      "boss": true
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 8528,
+      "npcName": "Nomad",
+      "amount": 1,
+      "boss": true
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 5886,
+      "npcName": "Abyssal Sire",
       "amount": 1,
       "boss": true
     }
@@ -270,7 +284,7 @@
     },
     {
       "item": 995,
-      "amount": 674488,
+      "amount": 864488,
       "rareDrop": false
     },
     {
@@ -305,7 +319,7 @@
     },
     {
       "item": 565,
-      "amount": 100,
+      "amount": 200,
       "rareDrop": false
     },
     {
@@ -385,7 +399,7 @@
     },
     {
       "item": 385,
-      "amount": 8,
+      "amount": 9,
       "rareDrop": false
     },
     {
@@ -575,7 +589,7 @@
     },
     {
       "item": 560,
-      "amount": 2400,
+      "amount": 2550,
       "rareDrop": false
     },
     {
@@ -666,6 +680,31 @@
     {
       "item": 2485,
       "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 5667,
+      "amount": 40,
+      "rareDrop": false
+    },
+    {
+      "item": 1113,
+      "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 888,
+      "amount": 1200,
+      "rareDrop": false
+    },
+    {
+      "item": 3142,
+      "amount": 5,
+      "rareDrop": false
+    },
+    {
+      "item": 1784,
+      "amount": 250,
       "rareDrop": false
     }
   ],
@@ -785,13 +824,13 @@
   ],
   "skills": {
     "level": [
-      14952,
-      14952,
-      14952,
-      149822,
-      14952,
+      14975,
+      14975,
+      14975,
+      149975,
+      14975,
       150000,
-      14952,
+      14975,
       99,
       99,
       99,
@@ -839,10 +878,10 @@
       99
     ],
     "experience": [
-      727410421,
+      750906901,
       104273167,
       104273167,
-      265821427,
+      271909627,
       104273167,
       104305837,
       104273167,
@@ -868,143 +907,143 @@
   },
   "inventory": [
     {
-      "id": 1149,
+      "id": 21060,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 2368,
+      "id": 21058,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 2677,
+      "id": 21059,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 2368,
+      "id": 21054,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 2368,
+      "id": 18888,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 18831,
-      "amount": 200,
-      "slot": 0
-    },
-    {
-      "id": 1530,
+      "id": 18889,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 952,
+      "id": 18890,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 16933,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1540,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 995,
-      "amount": 7332062,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 4718,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 11133,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1215,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1215,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 2368,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 11133,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 2368,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1215,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1249,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1215,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1249,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 2368,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1215,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1215,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 15134,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1249,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1215,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
       "slot": 0
     }
   ],
@@ -1025,7 +1064,7 @@
       "slot": 0
     },
     {
-      "id": 18899,
+      "id": 12284,
       "amount": 1,
       "slot": 0
     },
@@ -1329,7 +1368,7 @@
     false,
     false,
     true,
-    false,
+    true,
     false,
     false,
     false,
@@ -1417,14 +1456,14 @@
     0,
     0,
     0,
-    5188842,
+    5333882,
     318077,
     10177,
     0,
     0,
     0,
-    194,
-    79,
+    200,
+    84,
     0,
     2
   ],
@@ -4967,6 +5006,51 @@
       "npcId": 1265,
       "item": 995,
       "amount": 234
+    },
+    {
+      "npcId": 5886,
+      "item": 995,
+      "amount": 190000
+    },
+    {
+      "npcId": 5886,
+      "item": 5667,
+      "amount": 40
+    },
+    {
+      "npcId": 5886,
+      "item": 1113,
+      "amount": 1
+    },
+    {
+      "npcId": 5886,
+      "item": 888,
+      "amount": 1200
+    },
+    {
+      "npcId": 5886,
+      "item": 3142,
+      "amount": 5
+    },
+    {
+      "npcId": 5886,
+      "item": 385,
+      "amount": 1
+    },
+    {
+      "npcId": 5886,
+      "item": 565,
+      "amount": 100
+    },
+    {
+      "npcId": 5886,
+      "item": 560,
+      "amount": 150
+    },
+    {
+      "npcId": 5886,
+      "item": 1784,
+      "amount": 250
     }
   ]
 }
