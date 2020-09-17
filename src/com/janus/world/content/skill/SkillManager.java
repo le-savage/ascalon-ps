@@ -37,20 +37,7 @@ public class SkillManager {
      * achieve in a skill.
      */
     private static final int MAX_EXPERIENCE = 1000000000;
-	
-	
-	/*if (skills.maxLevel[skill.ordinal()] == getMaxAchievingLevel(skill)) {
-			for(int i = 0; i < Skill.values().length; i++) {
-				if(i == 21)
-					continue;
-				if(player.getSkillManager().getMaxLevel(i) < (i == 3 || i == 5 ? 990 : 99)) {
-					return true;
-				}
-			World.sendMessage("Testing");
-				}
-			}
-	return false;
-	}*/
+
     private static final int EXPERIENCE_FOR_99 = 13034431;
     private static final int EXP_ARRAY[] = {
             0, 83, 174, 276, 388, 512, 650, 801, 969, 1154, 1358, 1584, 1833, 2107, 2411, 2746, 3115, 3523,
@@ -78,6 +65,30 @@ public class SkillManager {
         this.player = player;
         newSkillManager();
     }
+
+    /** Checking if the player has boosted stats upon attacking **/
+
+    public static boolean boostedAttack(Player player) {
+        return  (player.getSkillManager().getCurrentLevel(Skill.ATTACK) > player.getSkillManager().getMaxLevel(Skill.ATTACK));
+    }
+
+    public static boolean boostedStrength(Player player) {
+        return  (player.getSkillManager().getCurrentLevel(Skill.STRENGTH) > player.getSkillManager().getMaxLevel(Skill.STRENGTH));
+    }
+
+    public static boolean boostedDefence(Player player) {
+        return  (player.getSkillManager().getCurrentLevel(Skill.DEFENCE) > player.getSkillManager().getMaxLevel(Skill.DEFENCE));
+    }
+
+    public static boolean boostedCombatStats(Player player) {
+        if (boostedAttack(player) && boostedStrength(player) && boostedDefence(player)) {
+            System.out.println(player.getUsername() + " has boosted combat stats");
+            return true;
+        }
+        return false;
+    }
+
+    /** End stat checking booleans **/
 
     public static boolean maxed(Player p) {
         for (int i = 0; i < Skill.values().length; i++) {

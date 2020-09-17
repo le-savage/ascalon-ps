@@ -1,6 +1,7 @@
 package com.janus.world.content.combat;
 
 import com.janus.model.Graphic;
+import com.janus.model.PlayerRights;
 import com.janus.model.Skill;
 import com.janus.model.container.impl.Equipment;
 import com.janus.model.definitions.ItemDefinition;
@@ -30,7 +31,18 @@ public class DesolaceFormulas {
             746, 747, 6523, 6525, 6526, 6527, 6528
     };
 
+    private static boolean boostedCombatStats(Player player) {
+        return SkillManager.boostedCombatStats(player);
+    }
+
     public static int calculateMaxMeleeHit(Character entity, Character victim) {
+        /** We can kill the scythe damage in here if we really want to.. This is the way the game
+         * decides the maximum hit of the player
+         *
+         * We can make it so that if the guy has scythe + boosted stats the max hit is lowered hmm
+         *
+         * Since if they use ovl + scythe it'll be mental yeah true lets see how it works out
+         */
         double maxHit = 0;
         if (entity.isNpc()) {
             NPC npc = (NPC) entity;
@@ -65,7 +77,11 @@ public class DesolaceFormulas {
             if (hasObsidianEffect(player) || EquipmentBonus.wearingVoid(player, CombatType.MELEE))
                 base = (base * 1.2);
             if (EquipmentBonus.wearingEliteVoid(player, CombatType.MELEE))
-                base = (base * 1.4);
+                base = (base * 1.1);
+
+            /** REDUCING MAX HIT BY 20% IF THE PLAYER TAKES A STR POT AND IS WEARING SCYTHE **/
+            if (EquipmentBonus.scytheEquipped(player) && SkillManager.boostedStrength(player))
+                base = (base * 0.8);
 
             if (victim.isNpc()) {
                 NPC npc = (NPC) victim;
@@ -93,6 +109,7 @@ public class DesolaceFormulas {
                 p.performGraphic(new Graphic(2319));
             }
         }
+        System.out.println("Max hit for "+ entity.getAsPlayer().getUsername() + " is :"+maxHit);
         return (int) Math.floor(maxHit);
     }
 
@@ -146,25 +163,35 @@ public class DesolaceFormulas {
 
         /** Justicar bonus **/
 
-        if (EquipmentBonus.fullJusticar(player)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.08; // 35% Boost
+        if (EquipmentBonus.fullJusticar(player) && !boostedCombatStats(player)) {
+            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.25; // 25% Boost
+            if (player.getRights().equals(PlayerRights.OWNER))
+                player.getPacketSender().sendMessage(player.getUsername() + ", your attack level has been buffed (Justicar) and is now: " + attackLevel);
         }
 
         /** Torva bonus **/
 
-        if (EquipmentBonus.fullTorva(player)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.05; // 22% boost
+        if (EquipmentBonus.fullTorva(player) && !boostedCombatStats(player)) {
+            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.20; // 20% boost
+            if (player.getRights().equals(PlayerRights.OWNER))
+                player.getPacketSender().sendMessage(player.getUsername() + ", your attack level has been buffed (Torva) and is now: " + attackLevel);
+        }
+
+        if (EquipmentBonus.fullPrimal(player) && !boostedCombatStats(player)) {
+            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.15; // 15% ? yeah ima test it first anyway
+            if (player.getRights().equals(PlayerRights.OWNER))
+                player.getPacketSender().sendMessage(player.getUsername() + ", your attack level has been buffed (Primal) and is now: " + attackLevel);
         }
 
         attackLevel *= player.isSpecialActivated() ? player.getCombatSpecial().getAccuracyBonus() : 1;
         int i = (int) player.getBonusManager().getAttackBonus()[bestMeleeAtk(player)];
 
-        if (hasObsidianEffect(player) || hasVoid)
+        if (hasObsidianEffect(player))
             i *= 1.10;// This is the attack bonus * 1.10.. so 10% boost
-        if (hasEliteVoid)
-            i *= 1.15; //This is 15% boost
         return (int) (attackLevel + (attackLevel * 0.15) + (i + i * 0.04));
     }
+
+
 
     /**
      * Calculates a player's Melee Defence level
@@ -176,8 +203,7 @@ public class DesolaceFormulas {
         int defenceLevel = player.getSkillManager().getCurrentLevel(Skill.DEFENCE);
         int bestMeleeDef = (int) player.getBonusManager().getDefenceBonus()[bestMeleeDef(player)];
 
-        boolean fullPrimal = EquipmentBonus.fullPrimal(player);
-        if (fullPrimal) {
+        if (EquipmentBonus.fullPrimal(player) && !boostedCombatStats(player)) {
             defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.05;
         }
         if (player.getPrayerActive()[PrayerHandler.THICK_SKIN]) {
@@ -272,19 +298,17 @@ public class DesolaceFormulas {
      */
     public static int getRangedAttack(Player player) {
         int rangeLevel = player.getSkillManager().getCurrentLevel(Skill.RANGED);
-        boolean hasVoid = EquipmentBonus.wearingVoid(player, CombatType.RANGED);
-        boolean hasEliteVoid = EquipmentBonus.wearingEliteVoid(player, CombatType.RANGED);
-        boolean fullPernix = EquipmentBonus.fullPernix(player);
+
 
         double accuracy = player.isSpecialActivated() ? player.getCombatSpecial().getAccuracyBonus() : 1;
         rangeLevel *= accuracy;
-        if (fullPernix) { //5% Pernix Buff
-            rangeLevel *= 1.05;
+        if (EquipmentBonus.fullPernix(player) && !boostedCombatStats(player)) { //15% Pernix Buff
+            rangeLevel *= 1.15;
         }
-        if (hasVoid) {
+        if (EquipmentBonus.wearingVoid(player, CombatType.RANGED)) {
             rangeLevel += SkillManager.getLevelForExperience(player.getSkillManager().getExperience(Skill.RANGED)) * 0.15;
         }
-        if (hasEliteVoid) {
+        if (EquipmentBonus.wearingEliteVoid(player, CombatType.RANGED)) {
             rangeLevel += SkillManager.getLevelForExperience(player.getSkillManager().getExperience(Skill.RANGED)) * 0.30;
         }
         if (player.getCurseActive()[PrayerHandler.SHARP_EYE] || player.getCurseActive()[CurseHandler.SAP_RANGER]) {
@@ -398,9 +422,6 @@ public class DesolaceFormulas {
 
     /**
      * Calculates a player's magic max hit
-     *
-     * @param player The player to calculate magic max hit for
-     * @return The player's magic max hit damage
      */
     public static int getMagicMaxhit(Character c) {
         int damage = 0;

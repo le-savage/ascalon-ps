@@ -58,7 +58,7 @@ public class ScytheOfVitur extends ItemEffect {
             target.getCombatBuilder().attack(attacker);
             for (int i = 1; i <= hitAmount(attacker, victim); i++) {
                 if (CombatFactory.rollAccuracy(attacker, target, CombatType.MELEE)) {
-                    target.dealDamage(attacker.getAsPlayer(), new Hit(Misc.random(DesolaceFormulas.calculateMaxMeleeHit(attacker, target)/2), Hitmask.RED, CombatIcon.MELEE));
+                    target.dealDamage(attacker.getAsPlayer(), new Hit(Misc.random(DesolaceFormulas.calculateMaxMeleeHit(attacker, target)), Hitmask.RED, CombatIcon.MELEE));
                 } else {
                     target.dealDamage(attacker.getAsPlayer(), new Hit(0, Hitmask.RED, CombatIcon.BLOCK));
                 }

@@ -1245,7 +1245,7 @@
 "attackable": true,
 "aggressive": false,
 "retreats": false,
-"poisonous": true,
+"poisonous": false,
 "respawn": 7,
 "maxHit": 155,
 "hitpoints": 3400,

@@ -89,4 +89,8 @@ public class EquipmentBonus {
         }
         return correctEquipment >= 3 && player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == helmet;
     }
+
+    public static boolean scytheEquipped(Player player) {
+        return (player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 18899);
+    }
 }
