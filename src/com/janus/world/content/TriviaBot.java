@@ -15,7 +15,7 @@ public class TriviaBot {
             {"<col=AD096E>[Trivia] </col>@bla@ Which slayer master requires 92 slayer?", "sumona"},//
             {"<col=AD096E>[Trivia] </col>@bla@ What attack level is needed to wield a whip?", "70"},//
             {"<col=AD096E>[Trivia] </col>@bla@ What summoning level is needed to infuse a Granite lobster pouch?", "74"},//
-            {"<col=AD096E>[Trivia] </col>@bla@ How many boss points does it take to buy an entire nex set?", "9000"},//
+            {"<col=AD096E>[Trivia] </col>@bla@ How many boss points does it take to buy an entire nex set?", "12000"},//
             {"<col=AD096E>[Trivia] </col>@bla@ What command teleports you to the gambling zone?", "::gamble"},//
             {"<col=AD096E>[Trivia] </col>@bla@ What is the drop rate of twisted bow from Crazy Man?", "1/900"},//
             {"<col=AD096E>[Trivia] </col>@bla@ How many variations of Nightmare staves are available on Janus?", "4"},
