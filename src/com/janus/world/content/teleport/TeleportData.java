@@ -49,10 +49,10 @@ public enum TeleportData {
     NOMADS_REQUIEM("Nomads Requiem", 8528, new Position(1892, 3177), Categories.MISC),
 
     /** Page three - Bosses **/
-    KBD("KBD", 50, new Position(2273, 4658), Categories.BOSSES),
+    KBD("KBD", 50, new Position(2273, 4681), Categories.BOSSES),
     GWD("Godwars", 6247, new Position(2871, 5318, 2), Categories.BOSSES),
     KALPHITE_QUEEN("Kalphite Queen", 1158, new Position(3488, 9516), Categories.BOSSES),
-    SLASH_BASH("KBD", 2060, new Position(2547, 9446), Categories.BOSSES),
+    SLASH_BASH("Slash Bash", 2060, new Position(2547, 9446), Categories.BOSSES),
     FROST_DRAGON("Frost Dragons", 51, new Position(2961, 3882), Categories.WILDERNESS),
     DAGANNOTH_CAVE("Dagannoth Cave", 2882, new Position(1913, 4368), Categories.BOSSES),
     TORMENTED_DEMONS("Tormented Demons", 8349, new Position(2540, 5774), Categories.BOSSES),

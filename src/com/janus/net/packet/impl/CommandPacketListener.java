@@ -1,5 +1,4 @@
 package com.janus.net.packet.impl;
-
 import com.janus.GameServer;
 import com.janus.GameSettings;
 import com.janus.engine.task.Task;
