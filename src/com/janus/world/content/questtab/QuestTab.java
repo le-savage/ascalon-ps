@@ -2,11 +2,13 @@ package com.janus.world.content.questtab;
 
 import com.janus.GameLoader;
 import com.janus.GameSettings;
-import com.janus.engine.task.Task;
 import com.janus.model.definitions.NPCDrops;
-import com.janus.util.Misc;
+import com.janus.model.definitions.NpcDefinition;
 import com.janus.world.World;
 import com.janus.world.content.*;
+import com.janus.world.content.combat.instancearena.InstanceArena;
+import com.janus.world.content.combat.tieredbosses.BossFunctions;
+import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.entity.impl.player.Player;
 import lombok.RequiredArgsConstructor;
 
@@ -14,19 +16,13 @@ import lombok.RequiredArgsConstructor;
 public class QuestTab {
     private final Player player;
     private int currentTab = 1;
-    public static Task refreshPanel() {
-        return new Task() {
-
-            @Override
-            protected void execute() {
+    public static void refreshPanel() {
                 for(Player player : World.getPlayers()) {
                     if(player == null)
                         continue;
                     player.getQuestTab().refresh();
                 }
-            }
-        };
-    }
+        }
     public void refresh() {
         for(int i = 40051; i <= 40101; i++) {
             player.getPA().sendString(i, "");
@@ -46,7 +42,7 @@ public class QuestTab {
     public void sendServerOverview() {
         int id = 40051;
         player.getPA().sendString(id++, "");
-        player.getPA().sendString(id++, "Server Time - " + Misc.getCurrentServerTime());
+        player.getPA().sendString(id++, "Weekly Boss - " + (GameSettings.WEEKLY_BOSS_ENABLED ? NpcDefinition.forId(GameSettings.CURRENT_BOSS).getName() : "None"));
         player.getPA().sendString(id++, "Players Online - " + World.getPlayers().size());
         player.getPA().sendString(id++, "Server Bonus - " + GameLoader.getSpecialDay());
         player.getPA().sendString(id++, "Crashed Star - "  + (ShootingStar.getLocation() != null ? ShootingStar.getLocation().playerPanelFrame : "N/A"));
@@ -85,6 +81,11 @@ public class QuestTab {
         player.getPA().sendString(id++, "Kill Log");
         player.getPA().sendString(id++, "Staff Online");
         player.getPA().sendString(id++, "Drop Log");
+        player.getPA().sendString(id++, "Drop Viewer");
+        player.getPA().sendString(id++, "Toggle RPS Requests");
+        player.getPA().sendString(id++, "Toggle Donor Messages");
+        player.getPA().sendString(id++, "Instance Zone");
+        player.getPA().sendString(id++, "Boss Minigame");
     }
     public boolean handleButton(int id) {
         switch(id) {
@@ -130,6 +131,35 @@ public class QuestTab {
                     return true;
                 case -25481:
                     DropLog.open(player);
+                    return true;
+                case -25480:
+                    DropsInterface.open(player);
+                    return true;
+                    case -25479:
+                        if (player.allowRps()) {
+                            player.setAllowRps(false);
+                            player.getPA().sendMessage("@red@RPS Requests Blocked");
+                        }
+                        else if (!player.allowRps()) {
+                            player.setAllowRps(true);
+                            player.getPA().sendMessage("@gre@RPS Requests Allowed");
+                        }
+                    return true;
+                case -25478:
+                    if (player.getDonorMessages()) {
+                        player.setDonorMessages(false);
+                        player.getPA().sendMessage("@red@Donor Messages Disabled");
+                    }
+                    else if (!player.getDonorMessages()) {
+                        player.setDonorMessages(true);
+                        player.getPA().sendMessage("@gre@Donor Messages Enabled");
+                    }
+                    return true;
+                case -25477:
+                    TeleportHandler.teleportPlayer(player, InstanceArena.ENTRANCE, player.getSpellbook().getTeleportType());
+                    return true;
+                case -25476:
+                    TeleportHandler.teleportPlayer(player, BossFunctions.DOOR, player.getSpellbook().getTeleportType());
                     return true;
             }
         }

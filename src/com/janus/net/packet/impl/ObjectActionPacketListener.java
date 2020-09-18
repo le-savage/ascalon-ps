@@ -142,6 +142,10 @@ public class ObjectActionPacketListener implements PacketListener {
                 }
                 switch (id) {
 
+                    case 13132:
+                        player.forceChat("GO CHAMP!");
+                        break;
+
                     case 42220:
                             TeleportHandler.teleportPlayer(player, GameSettings.DEFAULT_POSITION, player.getSpellbook().getTeleportType());
                             break;
@@ -157,10 +161,6 @@ public class ObjectActionPacketListener implements PacketListener {
                         if (!player.getClickDelay().elapsed(10000))
                             return;
                         InstanceArena.handleInstance(player, gameObject);
-                        break;
-
-                    case 13132:
-                        player.getRegionInstance().getNpcsList().forEach(n -> n.forceChat("Pussy! Stop trying to run!"));
                         break;
 
 

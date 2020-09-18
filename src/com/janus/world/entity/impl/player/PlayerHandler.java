@@ -1,6 +1,7 @@
 package com.janus.world.entity.impl.player;
 
 import com.janus.GameServer;
+import com.janus.GameSettings;
 import com.janus.engine.task.TaskManager;
 import com.janus.engine.task.impl.*;
 import com.janus.model.*;
@@ -157,29 +158,22 @@ public class PlayerHandler {
 
         player.getUpdateFlag().flag(Flag.APPEARANCE);
 
-        /*Lottery.onLogin(player);*/
         Locations.login(player);
 
-        if (player.didReceiveStarter() == false) {
-            //player.getInventory().add(995, 1000000).add(15501, 1).add(1153, 1).add(1115, 1).add(1067, 1).add(1323, 1).add(1191, 1).add(841, 1).add(882, 50).add(1167, 1).add(1129, 1).add(1095, 1).add(1063, 1).add(579, 1).add(577, 1).add(1011, 1).add(1379, 1).add(556, 50).add(558, 50).add(557, 50).add(555, 50).add(1351, 1).add(1265, 1).add(1712, 1).add(11118, 1).add(1007, 1).add(1061, 1).add(1419, 1);
-
-            //player.setReceivedStarter(true);
-        }
-        //DialogueManager.start(player, 177);
         player.getPacketSender().sendMessage("@blu@Welcome to Janus! We hope you enjoy your stay!");
 
 
         if (player.experienceLocked()) {
             player.getPacketSender().sendMessage("@red@Warning: your experience is currently locked.");
         }
-        ClanChatManager.handleLogin(player);
-        ClanChatManager.join(player, "help");
+        //ClanChatManager.handleLogin(player);
+        ClanChatManager.join(player, "Help");
 
         if (Misc.isWeekend()) {
             player.getPacketSender().sendMessage("<img=10> <col=008FB2>Janus currently has a bonus experience event going on, make sure to use it!");
         }
-        if (WellOfWealth.isActive()) {
-            player.getPacketSender().sendMessage("<img=10> @blu@The Well of Wealth is granting x2 Easier Droprates for another " + WellOfWealth.getMinutesRemaining() + " minutes.");
+        if (GameSettings.WEEKLY_BOSS_ENABLED && GameSettings.CURRENT_BOSS > 1) {
+            player.getPacketSender().sendMessage("<img=10> @blu@This weeks weekly boss is " + NpcDefinition.forId(GameSettings.CURRENT_BOSS)+"!");
         }
         if (WellOfGoodwill.isActive()) {
             player.getPacketSender().sendMessage("<img=10> @blu@The Fountain of Goodwill is granting 30% Bonus xp for another " + WellOfGoodwill.getMinutesRemaining() + " minutes.");
@@ -204,6 +198,9 @@ public class PlayerHandler {
 
         if (player.getRights().isStaff() && !player.getRights().equals(PlayerRights.OWNER)) {
             World.sendFilteredMessage("<img=" + player.getRights().ordinal() + "><col=6600CC> " + Misc.formatText(player.getRights().toString().toLowerCase()) + " " + player.getUsername() + " has just logged in, feel free to message them for support.");
+        }
+
+        if (player.getRights().isStaff()) {
             if (!StaffList.staff.contains(getPrefix(player) + " @gre@" + player.getUsername())) {
                 StaffList.login(player);
             }
@@ -279,7 +276,7 @@ public class PlayerHandler {
                 }
 
 
-                if (player.getRights() == PlayerRights.MODERATOR || player.getRights() == PlayerRights.ADMINISTRATOR || player.getRights() == PlayerRights.SUPPORT || player.getRights() == PlayerRights.DEVELOPER || player.getRights() == PlayerRights.OWNER || player.getRights() == PlayerRights.GLOBAL_ADMIN) {
+                if (player.getRights().isStaff()) {
                     StaffList.logout(player);
                 }
                 Hunter.handleLogout(player);

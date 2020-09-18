@@ -34,9 +34,9 @@ public class TeleportInterface {
     private void sendNpc(int index) {
         try {
             selectedTeleport = teleportDataList.get(index);
-            System.out.println("");
+            /*System.out.println("");
             System.out.println("SendNpc(int index): selectedTeleport = " + selectedTeleport.getName());
-            System.out.println("");
+            System.out.println("");*/
             sendNpc(selectedTeleport);
         } catch(Exception e) {
 

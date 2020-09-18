@@ -38,6 +38,7 @@ import com.janus.world.content.minigames.impl.Dueling;
 import com.janus.world.content.minigames.impl.Nomad;
 import com.janus.world.content.minigames.impl.PestControl;
 import com.janus.world.content.minigames.impl.RecipeForDisaster;
+import com.janus.world.content.questtab.QuestTab;
 import com.janus.world.content.skill.ChatboxInterfaceSkillAction;
 import com.janus.world.content.skill.impl.construction.Construction;
 import com.janus.world.content.skill.impl.crafting.LeatherMaking;
@@ -94,6 +95,12 @@ public class ButtonClickPacketListener implements PacketListener {
 
         switch (id) {
 
+            case -25530:
+            case -25531:
+            case -25532:
+                QuestTab.refreshPanel();
+                break;
+
             case 6033:
                 if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
                     return;
@@ -113,6 +120,7 @@ public class ButtonClickPacketListener implements PacketListener {
 
                 InstanceArena.spawnMan(player);
                 break;
+
             case 6035:
                 if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
                     return;
@@ -675,6 +683,9 @@ public class ButtonClickPacketListener implements PacketListener {
                 break;
             case -27454:
             case -27534:
+            case -19534:
+            case -19454:
+
             case 5384:
             case 12729:
                 player.getPacketSender().sendInterfaceRemoval();
@@ -989,7 +1000,7 @@ public class ButtonClickPacketListener implements PacketListener {
                 break;
 
             case 11014:
-                Teleporting.openTab(player, -4928);
+                player.getTeleportInterface().open();
                 break;
 //		case -26333:
 //			player.getPacketSender().sendString(1, "www.janus.rip");
@@ -1203,7 +1214,7 @@ public class ButtonClickPacketListener implements PacketListener {
             case 10000:
             case 913:
             case 950:
-                    player.getPacketSender().sendMessage("Use the RuneLite settings to edit your configuration.");
+                player.getPacketSender().sendMessage("Use the RuneLite settings to edit your configuration.");
                 break;
             case 3546:
             case 3420:
@@ -1251,12 +1262,12 @@ public class ButtonClickPacketListener implements PacketListener {
             case 2735:
             case 1511:
                 if (player.getLocation() != Location.BOSS_TIER_LOCATION || player.getLocation() != Location.BOSS_TIER_ENTRANCE)
-                if (player.getSummoning().getBeastOfBurden() != null) {
-                    player.getSummoning().toInventory();
-                    player.getPacketSender().sendInterfaceRemoval();
-                } else {
-                    player.getPacketSender().sendMessage("You do not have a familiar who can hold items.");
-                }
+                    if (player.getSummoning().getBeastOfBurden() != null) {
+                        player.getSummoning().toInventory();
+                        player.getPacketSender().sendInterfaceRemoval();
+                    } else {
+                        player.getPacketSender().sendMessage("You do not have a familiar who can hold items.");
+                    }
                 break;
             case -11501:
             case -11504:
@@ -1289,16 +1300,16 @@ public class ButtonClickPacketListener implements PacketListener {
             case 8669:
             case 8660:
             case 11008:
-                Teleporting.openTab(player, -4934);
+                player.getTeleportInterface().open();
                 break;
             case 11017:
-                Teleporting.openTab(player, -4931);
+                player.getTeleportInterface().open();
                 break;
             case 11011:
-                Teleporting.openTab(player, -4919);
+                player.getTeleportInterface().open();
                 break;
             case 11020:
-                Teleporting.openTab(player, -4922);
+                player.getTeleportInterface().open();
                 break;
             case 2799:
             case 2798:
@@ -1338,7 +1349,7 @@ public class ButtonClickPacketListener implements PacketListener {
                     player.getPacketSender().sendMessage("You do not have a familiar which can hold items.");
                     return;
                 }
-                if (player.getLocation() == Location.BOSS_TIER_LOCATION || player.getLocation() == Location.BOSS_TIER_ENTRANCE){
+                if (player.getLocation() == Location.BOSS_TIER_LOCATION || player.getLocation() == Location.BOSS_TIER_ENTRANCE) {
                     return;
                 }
                 Bank.depositItems(player, player.getSummoning().getBeastOfBurden(), false);
@@ -1745,9 +1756,9 @@ public class ButtonClickPacketListener implements PacketListener {
     }
 
     private boolean checkHandlers(Player player, int id) {
-        if(player.getTeleportInterface().handleButton(id))
+        if (player.getTeleportInterface().handleButton(id))
             return true;
-        if(player.getQuestTab().handleButton(id))
+        if (player.getQuestTab().handleButton(id))
             return true;
         if (player.getCollectionLog().handleButton(id))
             return true;

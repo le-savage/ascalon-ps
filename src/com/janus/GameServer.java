@@ -1,8 +1,7 @@
 package com.janus;
 
-import com.janus.engine.task.TaskManager;
 import com.janus.util.ShutdownHook;
-import com.janus.world.content.questtab.QuestTab;
+import com.janus.world.content.clan.ClanChatManager;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -53,7 +52,7 @@ public class GameServer {
             loader.finish();
             logger.info("The loader has finished loading utility tasks.");
             logger.info("Janus is now online on port " + GameSettings.GAME_PORT + "!");
-            TaskManager.submit(QuestTab.refreshPanel());
+            ClanChatManager.forceCreate("Help");
         } catch (Exception ex) {
             logger.log(Level.SEVERE, "Could not start Janus! Program terminated.", ex);
             System.exit(1);

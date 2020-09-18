@@ -1142,8 +1142,8 @@ public class DialogueOptions {
                     player.getPacketSender().sendRights();
                     break;
                 case 78:
-                    player.getPacketSender().sendString(38006, "Select a skill...").sendString(38090, "Which skill would you like to prestige?");
-                    player.getPacketSender().sendInterface(38000);
+                    player.getPacketSender().sendString(46006, "Select a skill...").sendString(46090, "Which skill would you like to prestige?");
+                    player.getPacketSender().sendInterface(46000);
                     player.setUsableObject(new Object[2]).setUsableObject(0, "prestige");
                     break;
                 case 79:
