@@ -82,8 +82,8 @@ public class QuestTab {
         player.getPA().sendString(id++, "Staff Online");
         player.getPA().sendString(id++, "Drop Log");
         player.getPA().sendString(id++, "Drop Viewer");
-        player.getPA().sendString(id++, "Toggle RPS Requests");
-        player.getPA().sendString(id++, "Toggle Donor Messages");
+        player.getPA().sendString(id++, (player.allowRps() ? "@gre@Toggle RPS Requests" : "@red@Toggle RPS Requests"));
+        player.getPA().sendString(id++, (player.getDonorMessages() ? "@gre@Toggle Donor Messages" : "@red@Toggle Donor Messages"));
         player.getPA().sendString(id++, "Instance Zone");
         player.getPA().sendString(id++, "Boss Minigame");
     }
@@ -144,6 +144,7 @@ public class QuestTab {
                             player.setAllowRps(true);
                             player.getPA().sendMessage("@gre@RPS Requests Allowed");
                         }
+                        refresh();
                     return true;
                 case -25478:
                     if (player.getDonorMessages()) {
@@ -154,6 +155,7 @@ public class QuestTab {
                         player.setDonorMessages(true);
                         player.getPA().sendMessage("@gre@Donor Messages Enabled");
                     }
+                    refresh();
                     return true;
                 case -25477:
                     TeleportHandler.teleportPlayer(player, InstanceArena.ENTRANCE, player.getSpellbook().getTeleportType());

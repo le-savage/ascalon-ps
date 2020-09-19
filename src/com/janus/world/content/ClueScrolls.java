@@ -148,7 +148,7 @@ public class ClueScrolls {
             "Dig near the mining guild teleport", "Dig somewhere near the duel arena tele",
             "Dig near one of the slayer masters", "Dig in the area you might see fisherman",
             "Dig near the tele to get chaotics", "Dig near the king of dragons",
-            "Dig near the fourth minigame teleport", "Dig where players plant flowers"};
+            "Dig where pests need controlling teleport", "Dig where players plant flowers"};
     public static int CluesCompleted;
     public static String currentHint;
 

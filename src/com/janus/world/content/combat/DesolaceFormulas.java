@@ -36,13 +36,7 @@ public class DesolaceFormulas {
     }
 
     public static int calculateMaxMeleeHit(Character entity, Character victim) {
-        /** We can kill the scythe damage in here if we really want to.. This is the way the game
-         * decides the maximum hit of the player
-         *
-         * We can make it so that if the guy has scythe + boosted stats the max hit is lowered hmm
-         *
-         * Since if they use ovl + scythe it'll be mental yeah true lets see how it works out
-         */
+
         double maxHit = 0;
         if (entity.isNpc()) {
             NPC npc = (NPC) entity;
@@ -79,7 +73,7 @@ public class DesolaceFormulas {
             if (EquipmentBonus.wearingEliteVoid(player, CombatType.MELEE))
                 base = (base * 1.1);
 
-            /** REDUCING MAX HIT BY 20% IF THE PLAYER TAKES A STR POT AND IS WEARING SCYTHE **/
+            // REDUCING MAX HIT BY 20% IF THE PLAYER TAKES A STR POT AND IS WEARING SCYTHE
             if (EquipmentBonus.scytheEquipped(player) && SkillManager.boostedStrength(player))
                 base = (base * 0.8);
 
@@ -109,14 +103,13 @@ public class DesolaceFormulas {
                 p.performGraphic(new Graphic(2319));
             }
         }
-        System.out.println("Max hit for "+ entity.getAsPlayer().getUsername() + " is :"+maxHit);
         return (int) Math.floor(maxHit);
     }
 
     /**
      * Calculates a player's Melee attack level (how likely that they're going to hit through defence)
      *
-     * @param player The player's Meelee attack level
+     * @param player The player's Melee attack level
      * @return The player's Melee attack level
      */
     @SuppressWarnings("incomplete-switch")

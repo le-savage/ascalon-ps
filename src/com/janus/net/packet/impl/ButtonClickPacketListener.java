@@ -967,7 +967,8 @@ public class ButtonClickPacketListener implements PacketListener {
             case -10531:
                 if (player.isKillsTrackerOpen()) {
                     player.setKillsTrackerOpen(false);
-                    player.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 639);
+                    player.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 40000);
+                    QuestTab.refreshPanel();
                     PlayerPanel.refreshPanel(player);
                 }
                 break;

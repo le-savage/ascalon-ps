@@ -10,6 +10,7 @@ import com.janus.world.content.CustomObjects;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.dialogue.DialogueManager;
+import com.janus.world.content.questtab.QuestTab;
 import com.janus.world.entity.impl.GroundItemManager;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -121,7 +122,8 @@ public class Dungeoneering {
         if (p.getMinigameAttributes().getDungeoneeringAttributes().getParty() != null) {
             p.getMinigameAttributes().getDungeoneeringAttributes().getParty().remove(p, resetTab, leaveParty);
         } else if (resetTab) {
-            p.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 639);//
+            p.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 40000);//
+            QuestTab.refreshPanel();
             p.getPacketSender().sendDungeoneeringTabIcon(false);
             p.getPacketSender().sendTab(GameSettings.QUESTS_TAB);
         }

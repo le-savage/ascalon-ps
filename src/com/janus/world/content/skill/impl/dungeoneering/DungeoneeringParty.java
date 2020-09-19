@@ -8,6 +8,7 @@ import com.janus.world.World;
 import com.janus.world.content.PlayerPanel;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.dialogue.impl.DungPartyInvitation;
+import com.janus.world.content.questtab.QuestTab;
 import com.janus.world.entity.impl.GroundItemManager;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -117,7 +118,8 @@ public class DungeoneeringParty {
         if (fromParty) {
             player_members.remove(p);
             if (resetTab) {
-                p.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 639); //26600
+                p.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 40000); //26600
+                QuestTab.refreshPanel();
                 p.getPacketSender().sendDungeoneeringTabIcon(false);
                 p.getPacketSender().sendTab(GameSettings.QUESTS_TAB);
             } else {

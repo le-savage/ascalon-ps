@@ -27,6 +27,7 @@ import com.janus.world.content.combat.range.DwarfMultiCannon;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.content.minigames.impl.Barrows;
+import com.janus.world.content.questtab.QuestTab;
 import com.janus.world.content.skill.impl.hunter.Hunter;
 import com.janus.world.content.skill.impl.slayer.Slayer;
 
@@ -99,6 +100,7 @@ public class PlayerHandler {
         WeaponInterfaces.assign(player, player.getEquipment().get(Equipment.WEAPON_SLOT));
         CombatSpecial.updateBar(player);
         BonusManager.update(player);
+        QuestTab.refreshPanel();
 
 
         player.getFarming().load();
