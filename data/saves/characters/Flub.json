@@ -1,5 +1,5 @@
 {
-  "total-play-time-ms": 237226262,
+  "total-play-time-ms": 242370493,
   "username": "Flub",
   "password": "BLOWJOBS",
   "email": "null",
@@ -10,7 +10,7 @@
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2704,
+    "x": 2703,
     "y": 5349,
     "z": 0
   },
@@ -24,20 +24,20 @@
   "barrows-kc": 0,
   "money-pouch": 492267909,
   "donated": 0,
-  "next-reward": 1600639020593,
-  "reward-day": 12,
+  "next-reward": 1600727394144,
+  "reward-day": 13,
   "claimed-todays-reward": true,
   "allow-snap": false,
   "allow-rps": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 100000,
-  "total-gained-exp": 1406459376,
+  "total-gained-exp": 1407941745,
   "prestige-points": 0,
-  "achievement-points": 11,
+  "achievement-points": 12,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 18858651,
-  "total-loyalty-points": 1.8858651E7,
+  "loyalty-points": 19547651,
+  "total-loyalty-points": 1.9547651E7,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -51,7 +51,7 @@
   "target-percentage": 100,
   "bh-rank": 0,
   "gender": "MALE",
-  "spell-book": "ANCIENT",
+  "spell-book": "NORMAL",
   "shop-updated": true,
   "shop-earnings": 1,
   "prayer-book": "CURSES",
@@ -62,8 +62,8 @@
   "auto-retaliate": false,
   "xp-locked": false,
   "veng-cast": false,
-  "last-veng": 1019445998,
-  "fight-type": "UNARMED_PUNCH",
+  "last-veng": 1599625448123,
+  "fight-type": "STAFF_BASH",
   "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
@@ -223,6 +223,13 @@
       "npcId": 5886,
       "npcName": "Abyssal Sire",
       "amount": 1,
+      "boss": true
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 2,
+      "npcName": "Man",
+      "amount": 2,
       "boss": true
     }
   ],
@@ -649,7 +656,7 @@
     },
     {
       "item": 554,
-      "amount": 50,
+      "amount": 54,
       "rareDrop": false
     },
     {
@@ -705,6 +712,16 @@
     {
       "item": 1784,
       "amount": 250,
+      "rareDrop": false
+    },
+    {
+      "item": 526,
+      "amount": 2,
+      "rareDrop": false
+    },
+    {
+      "item": 562,
+      "amount": 2,
       "rareDrop": false
     }
   ],
@@ -824,161 +841,161 @@
   ],
   "skills": {
     "level": [
-      0,
-      1,
-      2,
-      30,
-      4,
-      500,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
-      24
+      99,
+      99,
+      99,
+      990,
+      99,
+      990,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99
     ],
     "maxLevel": [
-      0,
-      1,
-      2,
-      30,
-      4,
-      500,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
-      24
+      99,
+      99,
+      99,
+      990,
+      99,
+      990,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99
     ],
     "experience": [
       104273167,
-      0,
-      83,
-      13363,
-      276,
-      536870911,
-      512,
-      650,
-      801,
-      969,
-      1154,
-      1358,
-      1584,
-      1833,
-      2107,
-      2411,
-      2746,
-      3115,
-      3523,
-      3973,
-      4470,
-      5018,
-      5624,
-      6291,
-      7028
+      104273167,
+      104273167,
+      104575279,
+      104273167,
+      104273167,
+      105453424,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167,
+      104273167
     ]
   },
   "inventory": [
     {
-      "id": -1,
-      "amount": 0,
+      "id": 14484,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 7584,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 556,
+      "amount": 200000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 558,
+      "amount": 200000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 555,
+      "amount": 200000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 554,
+      "amount": 200000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 557,
+      "amount": 200000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 559,
+      "amount": 200000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 564,
+      "amount": 200000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 562,
+      "amount": 200000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 566,
+      "amount": 200000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 9075,
+      "amount": 200000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 563,
+      "amount": 200000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 565,
+      "amount": 200000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 560,
+      "amount": 200000,
       "slot": 0
     },
     {
@@ -1064,8 +1081,8 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 21054,
+      "amount": 1,
       "slot": 0
     },
     {
@@ -1363,7 +1380,7 @@
     false,
     true,
     true,
-    false,
+    true,
     true,
     false,
     false,
@@ -1436,7 +1453,7 @@
     0,
     97985,
     79457,
-    10177,
+    89774,
     0,
     0,
     0,
@@ -1458,12 +1475,12 @@
     0,
     5338277,
     318077,
-    10177,
+    225999,
     0,
     0,
     0,
-    201,
-    85,
+    203,
+    87,
     0,
     2
   ],
@@ -5051,6 +5068,26 @@
       "npcId": 5886,
       "item": 1784,
       "amount": 250
+    },
+    {
+      "npcId": 2,
+      "item": 526,
+      "amount": 1
+    },
+    {
+      "npcId": 2,
+      "item": 526,
+      "amount": 1
+    },
+    {
+      "npcId": 2,
+      "item": 562,
+      "amount": 2
+    },
+    {
+      "npcId": 2,
+      "item": 554,
+      "amount": 4
     }
   ]
 }

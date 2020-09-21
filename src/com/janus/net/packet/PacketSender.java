@@ -118,7 +118,6 @@ public class PacketSender {
      *
      * @return The PacketSender instance.
      */
-    //TODO WOOOOO THIS IS DISCORD GETTING MAP DATA..........
     public PacketSender sendDetails() {
         PacketBuilder out = new PacketBuilder(249);
         out.put(1, ValueType.A);

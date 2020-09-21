@@ -375,7 +375,7 @@ public final class CombatFactory {
             switch (type) {
                 case MAGIC:
                     int mageAttk = DesolaceFormulas.getMagicAttack(p1);
-                    return Misc.getRandom(DesolaceFormulas.getMagicDefence(p2)) < Misc.getRandom((mageAttk / 2)) + Misc.getRandom((int) (mageAttk / 2.1));
+                    return Misc.getRandom(DesolaceFormulas.getMagicDefence(p2)) < Misc.getRandom((int) (mageAttk / 1.7)) + Misc.getRandom((int) (mageAttk / 2.1));
                 case MELEE:
                     int def = 1 + DesolaceFormulas.getMeleeDefence(p2);
                     return Misc.getRandom(def) < Misc.getRandom(1 + DesolaceFormulas.getMeleeAttack(p1)) + (def / 4.5);

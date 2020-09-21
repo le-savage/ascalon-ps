@@ -29,20 +29,20 @@ public class Kraken {
     }
 
     public static void attackPool(Player player, NPC npc) {
-        WhirpoolData d = WhirpoolData.getPool(npc.getId());
-        if (d != null) {
-            if (((KrakenInstance) player.getRegionInstance()).disturbedPool(d.ordinal()))
+        WhirpoolData whirpoolData = WhirpoolData.getPool(npc.getId());
+        if (whirpoolData != null) {
+            if (((KrakenInstance) player.getRegionInstance()).disturbedPool(whirpoolData.ordinal()))
                 return;
             player.getRegionInstance().getNpcsList().remove(npc);
-            ((KrakenInstance) player.getRegionInstance()).setDisturbedPool(d.ordinal(), true);
+            ((KrakenInstance) player.getRegionInstance()).setDisturbedPool(whirpoolData.ordinal(), true);
             World.deregister(npc);
 
-            final boolean kraken = d == WhirpoolData.BIG_POOL;
+            final boolean kraken = whirpoolData == WhirpoolData.BIG_POOL;
             TaskManager.submit(new Task(1, player, false) {
                 @Override
                 protected void execute() {
                     int npcToSpawn = kraken ? 2005 : 3580;
-                    Position positionToSpawn = kraken ? new Position(3677, 9887, player.getPosition().getZ()) : new Position(d.spawn.getX() + 2, d.spawn.getY() + 1, player.getPosition().getZ());
+                    Position positionToSpawn = kraken ? new Position(3677, 9887, player.getPosition().getZ()) : new Position(whirpoolData.spawn.getX() + 2, whirpoolData.spawn.getY() + 1, player.getPosition().getZ());
                     NPC spawn = new NPC(npcToSpawn, positionToSpawn);
                     player.getRegionInstance().getNpcsList().add(spawn);
                     World.register(spawn);
