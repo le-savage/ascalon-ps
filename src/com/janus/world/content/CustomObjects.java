@@ -60,7 +60,6 @@ public class CustomObjects {
             {13618, 2724, 5319, 0, 0},//Camelot Poral
             {13405, 2703, 5336, 0, 1}, //House Portal
 
-
             /*** FIRE ZONE ***/
 
             {38828, 2718, 5333, 0, 0}, //fire

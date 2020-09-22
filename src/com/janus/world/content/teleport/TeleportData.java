@@ -99,6 +99,7 @@ public enum TeleportData {
     METAL_DRAGONS("Metal Dragons", 1591, new Position(2711, 9464), Categories.MONSTER),
     APE_ATOLL("Ape Atoll", 1471, new Position(2804, 9146), Categories.MISC),
     SLAYER_TOWER("Slayer Tower", 1657, new Position(3429, 3538), Categories.SKILLING),
+    FREMENNIK_SLAYER_DUNGEON("Fremennik slayer dungeon", 1624, new Position(2807, 10002), Categories.MISC)
     /** Fin **/
 
 
