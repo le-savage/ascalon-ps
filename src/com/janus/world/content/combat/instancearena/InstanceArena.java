@@ -4,6 +4,8 @@ import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.*;
 import com.janus.world.World;
+import com.janus.world.content.combat.prayer.CurseHandler;
+import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -840,6 +842,8 @@ public class InstanceArena {
             player.getRegionInstance().destruct(); //todo Maybe I doubled the destruct?
             restore(player);
             player.setInstanceKC(0);
+            PrayerHandler.deactivateAll(player);
+            CurseHandler.deactivateAll(player);
         }
     }
 }

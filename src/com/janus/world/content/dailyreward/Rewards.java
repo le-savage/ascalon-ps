@@ -35,7 +35,7 @@ public class Rewards {
             new Item(18746, 1),//29
             new Item(17291, 1),//30
             new Item(12601, 1),//31
-            new Item(14664, 1)//32
+            new Item(6833, 1)//32
 
     };
 }

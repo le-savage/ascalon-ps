@@ -86,6 +86,8 @@ public class QuestTab {
         player.getPA().sendString(id++, (player.getDonorMessages() ? "@gre@Toggle Donor Messages" : "@red@Toggle Donor Messages"));
         player.getPA().sendString(id++, "Instance Zone");
         player.getPA().sendString(id++, "Boss Minigame");
+        player.getPA().sendString(id++, (player.getRights().ordinal() >= 6 || player.getRights().isStaff() ? "@gre@Swap Spellbook" : "@red@Swap Spellbook"));
+        player.getPA().sendString(id++, (player.getRights().ordinal() >= 6 || player.getRights().isStaff() ? "@gre@Swap Prayers" : "@red@Swap Prayers"));
     }
     public boolean handleButton(int id) {
         switch(id) {
@@ -162,6 +164,12 @@ public class QuestTab {
                     return true;
                 case -25476:
                     TeleportHandler.teleportPlayer(player, BossFunctions.DOOR, player.getSpellbook().getTeleportType());
+                    return true;
+                case -25475:
+                    SpellBookSwap.swap(player);
+                    return true;
+                case -25474:
+                    PrayerSwap.swap(player);
                     return true;
             }
         }

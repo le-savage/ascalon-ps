@@ -2,6 +2,7 @@ package com.janus.world.content.combat.magic;
 
 import com.janus.engine.task.TaskManager;
 import com.janus.model.*;
+import com.janus.util.Misc;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.effect.CombatPoisonEffect.PoisonType;
 import com.janus.world.content.combat.effect.CombatTeleblockEffect;
@@ -2735,6 +2736,9 @@ public enum CombatSpells {
             if (damage < 1) {
                 return;
             }
+            int random = Misc.inclusiveRandom(1);
+            System.out.println("Random: "+random);
+            if (random == 1)
             cast.heal((int) (damage * 0.25));
         }
 
@@ -2760,7 +2764,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 299;
+            return 550;
         }
 
         @Override
@@ -2817,7 +2821,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 500;
+            return 670;
         }
 
         @Override

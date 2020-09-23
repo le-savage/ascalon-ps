@@ -8,6 +8,8 @@ import com.janus.net.packet.impl.EquipPacketListener;
 import com.janus.world.World;
 import com.janus.world.content.BonusManager;
 import com.janus.world.content.combat.magic.Autocasting;
+import com.janus.world.content.combat.prayer.CurseHandler;
+import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.skill.SkillManager;
 import com.janus.world.entity.impl.player.Player;
 
@@ -171,6 +173,8 @@ public class BossFunctions {
         Autocasting.resetAutocast(player, true);
         player.setFreezeDelay(-1);
         player.setResetMovementQueue(true);
+        PrayerHandler.deactivateAll(player);
+        CurseHandler.deactivateAll(player);
     }
 
     public static boolean shouldDespawnNPCs(Player player) {
