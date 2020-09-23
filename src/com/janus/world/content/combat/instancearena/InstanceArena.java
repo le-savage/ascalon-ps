@@ -846,5 +846,82 @@ public class InstanceArena {
             CurseHandler.deactivateAll(player);
         }
     }
+
+    public static void handleButtons(Player player, int button) {
+        switch (button) {
+            case 6033:
+                spawnMan(player);
+                break;
+            case 6035:
+                spawnKBD(player);
+                break;
+            case 6036:
+                spawnRockCrabMadness(player);
+                break;
+            case 6037:
+                spawnIronDragon(player);
+                break;
+            case 6038:
+                spawnSteelDragon(player);
+                break;
+            case 6039:
+                spawnFrostDragon(player);
+                break;
+            case 6040:
+                spawnTzHaar(player);
+                break;
+            case 6041:
+                spawnSlashBash(player);
+                break;
+            case 6042:
+                spawnSmokeDevil(player);
+                break;
+            case 6043:
+                spawnSupreme(player);
+                break;
+            case 6044:
+                spawnPrime(player);
+                break;
+            case 6045:
+                spawnRex(player);
+                break;
+            case 6046:
+                spawnIceWorm(player);
+                break;
+            case 6047:
+                spawnDesertWorm(player);
+                break;
+            case 6048:
+                spawnJungleWorm(player);
+                break;
+            case 6049:
+                spawnCerberus(player);
+                break;
+            case 6050:
+                spawnChaosDruid(player);
+                break;
+            case 6051:
+                spawnTormentedDemon(player);
+                break;
+            case 6052:
+                spawnGorilla(player);
+                break;
+            case 6053:
+                spawnBork(player);
+                break;
+            case 6054:
+                spawnChaosElemental(player);
+                break;
+            case 6055:
+                spawnLizardShaman(player);
+                break;
+            case 6056:
+                spawnZulrah(player);
+                break;
+            default:
+                player.getPA().sendMessage("Coming soon..");
+                break;
+        }
+    }
 }
 
