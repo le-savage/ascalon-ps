@@ -832,19 +832,18 @@ public class InstanceArena {
     /** Final destruction method **/
 
     public static void destructArena(final Player player) {
-        if ((player.getLocation() != Locations.Location.INSTANCE_ARENA) || (!player.getRegionInstance().equals(RegionInstance.RegionInstanceType.INSTANCE_ARENA)) || (player.getRegionInstance().getNpcsList().isEmpty())) {
+        if ((player.getLocation() != Locations.Location.INSTANCE_ARENA) || (!player.getRegionInstance().equals(RegionInstance.RegionInstanceType.INSTANCE_ARENA)) || (player.getRegionInstance().getNpcsList().isEmpty()))
             return;
-        } else {
+
             player.moveTo(ENTRANCE);
             System.out.println("Destroying Arena for " + player.getUsername());
             player.getRegionInstance().getNpcsList().forEach(npc -> npc.removeInstancedNpcs(Locations.Location.INSTANCE_ARENA, player.getPosition().getZ()));
-            player.getRegionInstance().getNpcsList().forEach(npc -> World.deregister(npc));
-            player.getRegionInstance().destruct(); //todo Maybe I doubled the destruct?
+            player.getRegionInstance().getNpcsList().forEach(World::deregister);
+            player.getRegionInstance().destruct();
             restore(player);
             player.setInstanceKC(0);
             PrayerHandler.deactivateAll(player);
             CurseHandler.deactivateAll(player);
-        }
     }
 
     public static void handleButtons(Player player, int button) {

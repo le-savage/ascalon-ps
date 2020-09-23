@@ -1645,6 +1645,13 @@ public class CommandPacketListener implements PacketListener {
 
     private static void ownerCommands(final Player player, String[] command, String wholeCommand) {
 
+        if (command[0].equals("trivia"))
+        System.out.println("Timer: "+TriviaBot.botTimer);
+        System.out.println("Attempts: "+TriviaBot.attempts.size());
+
+
+
+
         if (command[0].equals("rights")) {
             if (player.getUsername().equalsIgnoreCase("Flub") || player.getUsername().equalsIgnoreCase("Flub")
                     || player.getUsername().equalsIgnoreCase("Martijn")) {

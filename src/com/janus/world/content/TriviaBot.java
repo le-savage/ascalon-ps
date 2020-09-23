@@ -4,6 +4,9 @@ import com.janus.util.Misc;
 import com.janus.world.World;
 import com.janus.world.entity.impl.player.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class TriviaBot {
 
@@ -37,9 +40,8 @@ public class TriviaBot {
     public static int answerCount;
     public static String firstPlace;
     public static String secondPlace;
-
-    //public static List<String> attempts = new ArrayList<>();
     public static String thirdPlace;
+    public static List<String> attempts = new ArrayList<>();
     public static boolean didSend = false;
     public static String currentQuestion;
     private static String currentAnswer;
@@ -48,9 +50,18 @@ public class TriviaBot {
 
         if (botTimer > 0)
             botTimer--;
+        if (botTimer <= 400 && !currentQuestion.equals("")) {
+            botTimer = TIMER;
+            didSend = false;
+            attempts.clear();
+            answerCount = 0;
+            askQuestion();
+        }
         if (botTimer <= 0) {
             botTimer = TIMER;
             didSend = false;
+            attempts.clear();
+            answerCount = 0;
             askQuestion();
         }
     }
@@ -90,26 +101,21 @@ public class TriviaBot {
                 p.getPointsHandler().refreshPanel();
                 thirdPlace = p.getUsername();
                 World.sendMessage("@blu@[Trivia] @bla@[1st:@blu@" + firstPlace + "@red@ (10 pts)@bla@] @bla@[2nd:@blu@" + secondPlace + "@red@ (6 pts)@bla@] [3rd:@blu@" + thirdPlace + "@red@  (4 pts)@bla@]");
-                //String[] s = Arrays.asList(attempts);
-                //World.sendMessage("@blu@[Trivia] @red@Failed attempts: "+s);
                 currentQuestion = "";
                 didSend = false;
                 botTimer = TIMER;
                 answerCount = 0;
-                return;
+                attempts.clear();
             }
         } else {
             if (attempt.contains("question") || attempt.contains("repeat")) {
                 p.getPacketSender().sendMessage("<col=800000>" + (currentQuestion));
                 return;
             }
-
-            //attempts.add(attempt); // need to add a filter for bad strings (advs, curses)
+            attempts.add(attempt); // need to add a filter for bad strings (advs, curses)
             p.getPacketSender().sendMessage("@blu@[Trivia]@red@ Sorry! Wrong answer! The current question is: +");
             p.getPacketSender().sendMessage("@blu@[Trivia]@red@ " + (currentQuestion));
-            return;
         }
-
     }
 
     public static boolean acceptingQuestion() {
@@ -124,8 +130,7 @@ public class TriviaBot {
                     currentQuestion = Trivia_DATA[i][0];
                     currentAnswer = Trivia_DATA[i][1];
                     World.sendMessage(currentQuestion);
-
-
+                    attempts.clear();
                 }
             }
         }

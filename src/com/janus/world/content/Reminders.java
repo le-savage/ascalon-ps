@@ -10,15 +10,12 @@ public class Reminders {
     private static final int TIME = 900000; //10 minutes
 
     private static final String[][] MESSAGE_DATA = {
-            {"<img=10> @blu@[TIPS]@bla@ Donators get free access to instances!"},
-            {"<img=10> @blu@[TIPS]@bla@ Donors get HP refills and other perks in instances!"},
+            {"<img=10> @blu@[TIPS]@bla@ ::Instances are now free for everyone!"},
             {"<img=10> @blu@[TIPS]@bla@ Super Donor? Use ::pickup (value) to auto pickup drops!"},
             {"<img=10> @blu@[TIPS]@bla@ Melt your unwanted armour and weapons! TP To Smithing!"},
             {"<img=10> @blu@[TIPS]@bla@ ::benefits for donation rewards!"},
             {"<img=10> @blu@[TIPS]@bla@ ::loot to see mystery box items!"},
             {"<img=10> @blu@[TIPS]@bla@ ::drops for our drop table!"},
-            {"<img=10> @blu@[TIPS]@bla@ Join 'Help' CC For Help/Tips!"},
-            {"<img=10> @blu@[TIPS]@bla@ Donate to help the server grow! ::store"},
             {"<img=10> @blu@[TIPS]@bla@ Use the ::help command to ask staff for help"},
             {"<img=10> @blu@[TIPS]@bla@ Use ::commands to find a list of commands"},
             {"<img=10> @blu@[TIPS]@bla@ Register and post on the forums to keep them active! ::Forum"},
@@ -32,12 +29,10 @@ public class Reminders {
             {"<img=10> @blu@[TIPS]@bla@ Boss Pet boxes now available!"},
             {"<img=10> @blu@[TIPS]@bla@ Use ::updates to view our latest additions!"},
             {"<img=10> @blu@[TIPS]@bla@ Use ::maxhit to see what damage you can do!"},
-            {"<img=10> @blu@[TIPS]@bla@ Use ::bug to report a bug and receive a reward!"},
             {"<img=10> @blu@[TIPS]@bla@ Talk to Max to prestige your skills!"},
             {"<img=10> @blu@[TIPS]@bla@ ::afk to skill whilst you're away!"},
             {"<img=10> @blu@[TIPS]@bla@ ::rps PlayerNameHere to challenge someone to Rock Paper Scissors!"},
             {"<img=10> @blu@[TIPS]@bla@ Donator+ can sell items for 100% value in the gen store!"},
-            {"<img=10> @blu@[TIPS]@bla@ Prize rates and runner up prizes for ::boss improved massively!"},
 
     };
     public static String currentMessage;
