@@ -159,6 +159,18 @@ public class PlayerLoading {
                 player.setAllowRps(reader.get("allow-rps").getAsBoolean());
             }
 
+            if (reader.has("show-tips")) {
+                player.setShowTips(reader.get("show-tips").getAsBoolean());
+            }
+
+            if (reader.has("show-trivia")) {
+                player.setShowTrivia(reader.get("show-trivia").getAsBoolean());
+            }
+
+            if (reader.has("show-world-messages")) {
+                player.setShowWorldMessages(reader.get("show-world-messages").getAsBoolean());
+            }
+
             if (reader.has("minutes-bonus-exp")) {
                 player.setMinutesBonusExp(reader.get("minutes-bonus-exp").getAsInt(), false);
             }

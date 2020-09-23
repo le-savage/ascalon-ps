@@ -88,6 +88,9 @@ public class QuestTab {
         player.getPA().sendString(id++, "Boss Minigame");
         player.getPA().sendString(id++, (player.getRights().ordinal() >= 6 || player.getRights().isStaff() ? "@gre@Swap Spellbook" : "@red@Swap Spellbook"));
         player.getPA().sendString(id++, (player.getRights().ordinal() >= 6 || player.getRights().isStaff() ? "@gre@Swap Prayers" : "@red@Swap Prayers"));
+        player.getPA().sendString(id++, (player.showTips() ? "@gre@Toggle Tips" : "@red@Toggle Tips"));
+        player.getPA().sendString(id++, (player.showTrivia() ? "@gre@Toggle Trivia" : "@red@Toggle Trivia"));
+        player.getPA().sendString(id++, (player.showWorldMessages() ? "@gre@World Messages" : "@red@World Messages"));
     }
     public boolean handleButton(int id) {
         switch(id) {
@@ -138,25 +141,13 @@ public class QuestTab {
                     DropsInterface.open(player);
                     return true;
                     case -25479:
-                        if (player.allowRps()) {
-                            player.setAllowRps(false);
-                            player.getPA().sendMessage("@red@RPS Requests Blocked");
-                        }
-                        else if (!player.allowRps()) {
-                            player.setAllowRps(true);
-                            player.getPA().sendMessage("@gre@RPS Requests Allowed");
-                        }
-                        refresh();
+                    player.setAllowRps(!player.allowRps());
+                    player.getPA().sendMessage("Rock Paper Scissors " + (player.allowRps() ? "@gre@Enabled" : "@red@Disabled"));
+                    refresh();
                     return true;
                 case -25478:
-                    if (player.getDonorMessages()) {
-                        player.setDonorMessages(false);
-                        player.getPA().sendMessage("@red@Donor Messages Disabled");
-                    }
-                    else if (!player.getDonorMessages()) {
-                        player.setDonorMessages(true);
-                        player.getPA().sendMessage("@gre@Donor Messages Enabled");
-                    }
+                    player.setDonorMessages(!player.donorMessages);
+                    player.getPA().sendMessage("Donor Messages " + (player.donorMessages ? "@gre@Enabled" : "@red@Disabled"));
                     refresh();
                     return true;
                 case -25477:
@@ -170,6 +161,21 @@ public class QuestTab {
                     return true;
                 case -25474:
                     PrayerSwap.swap(player);
+                    return true;
+                case -25473:
+                    player.getPA().sendMessage("Tips " + (player.showTips() ? "@red@Disabled" : "@gre@Enabled"));
+                    player.setShowTips(!player.showTips());
+                    refresh();
+                    return true;
+                case -25472:
+                    player.getPA().sendMessage("Trivia " + (player.showTrivia() ? "@red@Disabled" : "@gre@Enabled"));
+                    player.setShowTrivia(!player.showTrivia());
+                    refresh();
+                    return true;
+                case -25471:
+                    player.getPA().sendMessage("Toggle World Messages " + (player.showWorldMessages() ? "@red@Disabled" : "@gre@Enabled"));
+                    player.setShowWorldMessages(!player.showWorldMessages());
+                    refresh();
                     return true;
             }
         }

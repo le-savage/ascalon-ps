@@ -36,7 +36,6 @@ public class PlayerSaving {
                 file.getParentFile().mkdirs();
             } catch (SecurityException e) {
                 System.out.println("Unable to create directory for player data!");
-                DiscordMessenger.sendErrorLog("Unable to create directory for player data!");
             }
         }
         try (FileWriter writer = new FileWriter(file)) {
@@ -71,6 +70,9 @@ public class PlayerSaving {
 
             object.addProperty("allow-snap", new Boolean(player.allowSnap()));
             object.addProperty("allow-rps", new Boolean(player.allowRps()));
+            object.addProperty("show-tips", new Boolean(player.showTips()));
+            object.addProperty("show-trivia", new Boolean(player.showTrivia()));
+            object.addProperty("show-world-messages", new Boolean(player.showWorldMessages()));
 
             object.addProperty("minutes-bonus-exp", new Integer(player.getMinutesBonusExp()));
             object.addProperty("pickupValue", new Integer(player.getPickupValue()));

@@ -3,7 +3,6 @@ package com.janus.world.content;
 import com.janus.util.Misc;
 import com.janus.world.World;
 import com.janus.world.entity.impl.player.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class TriviaBot {
 
         if (botTimer > 0)
             botTimer--;
-        if (botTimer <= 400 && !currentQuestion.equals("")) {
+        if (botTimer <= 400) {
             botTimer = TIMER;
             didSend = false;
             attempts.clear();
@@ -100,7 +99,7 @@ public class TriviaBot {
                 p.getPacketSender().sendMessage("You received 4 trivia points for @red@3rd Place.");
                 p.getPointsHandler().refreshPanel();
                 thirdPlace = p.getUsername();
-                World.sendMessage("@blu@[Trivia] @bla@[1st:@blu@" + firstPlace + "@red@ (10 pts)@bla@] @bla@[2nd:@blu@" + secondPlace + "@red@ (6 pts)@bla@] [3rd:@blu@" + thirdPlace + "@red@  (4 pts)@bla@]");
+                World.sendTrivia("@blu@[Trivia] @bla@[1st:@blu@" + firstPlace + "@red@ (10 pts)@bla@] @bla@[2nd:@blu@" + secondPlace + "@red@ (6 pts)@bla@] [3rd:@blu@" + thirdPlace + "@red@  (4 pts)@bla@]");
                 currentQuestion = "";
                 didSend = false;
                 botTimer = TIMER;
@@ -129,7 +128,7 @@ public class TriviaBot {
                     didSend = true;
                     currentQuestion = Trivia_DATA[i][0];
                     currentAnswer = Trivia_DATA[i][1];
-                    World.sendMessage(currentQuestion);
+                    World.sendTrivia(currentQuestion);
                     attempts.clear();
                 }
             }

@@ -188,6 +188,15 @@ public class Player extends Character {
     private boolean shopUpdated;
     private boolean allowSnap = true;
     private boolean allowRps = true;
+    @Setter
+    @Getter
+    private boolean showTips = true;
+    @Getter
+    @Setter
+    private boolean showTrivia = true;
+    @Getter
+    @Setter
+    private boolean showWorldMessages = true;
     private Map<String, Object> attributes = new HashMap<>();
     private Minigame minigame = null;
     private int hardwareNumber;
@@ -2284,6 +2293,18 @@ public class Player extends Character {
 
     public boolean allowRps() {
         return allowRps;
+    }
+
+    public boolean showTips() {
+        return showTips;
+    }
+
+    public boolean showTrivia() {
+        return showTrivia;
+    }
+
+    public boolean showWorldMessages() {
+        return showWorldMessages;
     }
 
     public void setAllowRps(boolean allowRps) {

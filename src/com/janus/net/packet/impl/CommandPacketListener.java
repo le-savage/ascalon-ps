@@ -1,4 +1,5 @@
 package com.janus.net.packet.impl;
+
 import com.janus.GameServer;
 import com.janus.GameSettings;
 import com.janus.engine.task.Task;
@@ -63,8 +64,23 @@ public class CommandPacketListener implements PacketListener {
 
     private static void playerCommands(final Player player, String[] command, String wholeCommand) {
 
+        if (command[0].startsWith("tips")) {
+            player.getPA().sendMessage("Tips " + (player.showTips() ? "@red@Disabled" : "@gre@Enabled"));
+            player.setShowTips(!player.showTips());
+        }
+
+        if (command[0].startsWith("trivia")) {
+            player.getPA().sendMessage("Trivia " + (player.showTrivia() ? "@red@Disabled" : "@gre@Enabled"));
+            player.setShowTrivia(!player.showTrivia());
+        }
+
+        if (command[0].startsWith("worldmessages")) {
+            player.getPA().sendMessage("World Messages " + (player.showWorldMessages() ? "@red@Disabled" : "@gre@Enabled"));
+            player.setShowWorldMessages(!player.showWorldMessages());
+        }
+
+
         if (command[0].startsWith("collect")) {
-            // KillLogInterface.open(player);
             player.getCollectionLog().open();
         }
 
@@ -334,8 +350,6 @@ public class CommandPacketListener implements PacketListener {
             new Thread(new FoxDonating(player)).start();
 
         }
-
-
 
 
         if (command[0].equalsIgnoreCase("ffa")) {
@@ -889,21 +903,6 @@ public class CommandPacketListener implements PacketListener {
             TeleportHandler.teleportPlayer(player, new Position(3363, 9638), player.getSpellbook().getTeleportType());
         }
 
-        /*if (command[0].equals("tray") && (player.getNotificationPreference())) {
-            player.getPacketSender().trayMessage(1, "1 test");
-            player.getPacketSender().trayMessage(2, "2 test");
-            player.getPacketSender().trayMessage(3, "3 test");
-            player.getPacketSender().trayMessage(4, "4 test");
-            player.getPacketSender().trayMessage(5, "5 test");
-        }*/
-
-        /*if (command[0].equals("trayminimised") && (player.getNotificationPreference())) {
-            player.getPacketSender().minimisedTrayMessage(1, "1 test");
-            player.getPacketSender().minimisedTrayMessage(2, "2 test");
-            player.getPacketSender().minimisedTrayMessage(3, "3 test");
-            player.getPacketSender().minimisedTrayMessage(4, "4 test");
-            player.getPacketSender().minimisedTrayMessage(5, "5 test");
-        }*/
 
         if (wholeCommand.toLowerCase().startsWith("yell")) {
             if (PlayerPunishment.muted(player.getUsername()) || PlayerPunishment.IPMuted(player.getHostAddress())) {
@@ -919,89 +918,78 @@ public class CommandPacketListener implements PacketListener {
             String yellMessage = wholeCommand.substring(4, wholeCommand.length());
 
             player.getLastYell().reset();
-            // if (player.getUsername().equalsIgnoreCase("levi")) {
-            // World.sendMessage("" + player.getRights().getYellPrefix() +
-            // "<img=" + player.getRights().ordinal()
-            // + ">@red@ [DEVELOPER] @bla@" + player.getUsername() + ":" +
-            // yellMessage);
-            // return;
-            // }
             if (player.getRights() == PlayerRights.MODERATOR && player.getUsername().equalsIgnoreCase("metasploit")) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + ">@gre@ [Global Mod] @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
-		/*	if (player.getRights() == PlayerRights.COMMUNITYMANAGER) {
-								World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=31>"+"<col=9E138C><shad=1> [Community Manager]</shad></col> @bla@" + player.getUsername() + ":" + yellMessage);
-								return;
-			}*/
             if (player.getRights() == PlayerRights.SUPPORT && player.getUsername().equalsIgnoreCase("nico")) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + ">@red@ [Meme Bot] @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.ADMINISTRATOR && player.getUsername().equalsIgnoreCase("jack")) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + ">@red@ [Web Dev/Manager] @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.OWNER) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + ">@red@ [Owner] @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.DEVELOPER) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + ">@red@ [Developer] @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.SUPPORT) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + ">@red@ [Support] @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
 
             if (player.getRights() == PlayerRights.MODERATOR) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + ">@red@ [Mod] @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.ADMINISTRATOR) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + ">@red@ [Admin] @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.UBER_DONATOR) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + "><col=0EBFE9><shad=1> [Uber]</shad></col> @bla@" + player.getUsername() + ":" + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.LEGENDARY_DONATOR) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + "><col=697998><shad=1> [Legendary]</shad></col> @bla@" + player.getUsername() + ":"
                         + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.EXTREME_DONATOR) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + "><col=D9D919><shad=1> [Extreme]</shad></col> @bla@" + player.getUsername() + ":"
                         + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.SUPER_DONATOR) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + "><col=787878><shad=1> [Super]</shad></col> @bla@" + player.getUsername() + ":"
                         + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.DONATOR) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + "><col=FF7F00><shad=1> [Donator]</shad></col> @bla@" + player.getUsername() + ":"
                         + yellMessage);
                 return;
             }
             if (player.getRights() == PlayerRights.GLOBAL_ADMIN) {
-                World.sendFilteredMessage("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
+                World.sendYell("" + player.getRights().getYellPrefix() + "<img=" + player.getRights().ordinal()
                         + "><col=9E138C><shad=1> [Global Admin]</shad></col> @bla@" + player.getUsername() + ":"
                         + yellMessage);
                 return;
@@ -1205,7 +1193,6 @@ public class CommandPacketListener implements PacketListener {
         }
 
 
-
         if (command[0].equalsIgnoreCase("mute")) {
             try {
                 String target = wholeCommand.substring(command[0].length() + 1).toLowerCase().replaceAll("_", " ");
@@ -1271,7 +1258,7 @@ public class CommandPacketListener implements PacketListener {
             }
             GameSettings.CURRENT_BOSS = bossID;
             player.getPacketSender().sendMessage("Current Boss assigned: " + GameSettings.CURRENT_BOSS);
-            World.sendMessage("@red@This weeks boss task has been changed to @blu@"+NpcDefinition.forId(GameSettings.CURRENT_BOSS).getName()+"@red@!");
+            World.sendMessage("@red@This weeks boss task has been changed to @blu@" + NpcDefinition.forId(GameSettings.CURRENT_BOSS).getName() + "@red@!");
         }
 
         if (command[0].equalsIgnoreCase("givess") && player.getUsername().equalsIgnoreCase("Martijn")) {
@@ -1570,7 +1557,6 @@ public class CommandPacketListener implements PacketListener {
         }
 
 
-
         if (command[0].equals("emptyitem")) {
             if (player.getInterfaceId() > 0
                     || player.getLocation() != null && player.getLocation() == Location.WILDERNESS) {
@@ -1646,10 +1632,8 @@ public class CommandPacketListener implements PacketListener {
     private static void ownerCommands(final Player player, String[] command, String wholeCommand) {
 
         if (command[0].equals("trivia"))
-        System.out.println("Timer: "+TriviaBot.botTimer);
-        System.out.println("Attempts: "+TriviaBot.attempts.size());
-
-
+            System.out.println("Timer: " + TriviaBot.botTimer);
+        System.out.println("Attempts: " + TriviaBot.attempts.size());
 
 
         if (command[0].equals("rights")) {
