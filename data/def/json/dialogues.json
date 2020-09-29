@@ -1506,5 +1506,25 @@
     "line2": "No - Screw that",
     "next": -1,
     "npcId": -1
+  },
+  {
+    "id": 180,
+    "type": "OPTION",
+    "lines": 2,
+    "line1": "Task Tutorial",
+    "line2": "Get a task!",
+    "next": -1,
+    "npcId": -1
+  },
+  {
+    "id": 181,
+    "type": "NPC_STATEMENT",
+    "anim": "NORMAL",
+    "lines": 3,
+    "line1": "Welcome",
+    "line2": "Good luck on your adventure..",
+    "line3": "I hope to see you here very soon!",
+    "next": 182,
+    "npcId": 945
   }
 ]

@@ -67,10 +67,10 @@ public class Achievements {
         if (achievement.progressData != null) {
             int progressIndex = achievement.progressData[0];
             int amountNeeded = achievement.progressData[1];
-            int previousDone = player.getAchievementAttributes().getProgress()[progressIndex];
-            if ((previousDone + amt) < amountNeeded) {
-                player.getAchievementAttributes().getProgress()[progressIndex] = previousDone + amt;
-                if (previousDone == 0)
+            int currentProgress = player.getAchievementAttributes().getProgress()[progressIndex];
+            if ((currentProgress + amt) < amountNeeded) {
+                player.getAchievementAttributes().getProgress()[progressIndex] = currentProgress + amt;
+                if (currentProgress == 0)
                     player.getPacketSender().sendString(achievement.interfaceFrame, "@yel@" + achievement.interfaceLine);
             } else {
                 finishAchievement(player, achievement);

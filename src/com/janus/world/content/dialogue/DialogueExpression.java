@@ -36,7 +36,8 @@ public enum DialogueExpression {
     GOOFY_LAUGH(9851),
     NORMAL_STILL(9855),
     THINKING_STILL(9859),
-    LOOKING_UP(9862), CALM(9805);
+    LOOKING_UP(9862),
+    CALM(9805);
 
     /**
      * The animation the dialogue head model will perform.

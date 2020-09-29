@@ -1,14 +1,13 @@
 package com.janus.world.content.teleport;
 
 import com.janus.model.definitions.NpcDefinition;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@Slf4j
+
 public class TeleportRepository {
     public static List<TeleportData> teleportDataList = new ArrayList<>();
     public static void loadData() {

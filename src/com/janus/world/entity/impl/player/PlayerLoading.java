@@ -171,6 +171,18 @@ public class PlayerLoading {
                 player.setShowWorldMessages(reader.get("show-world-messages").getAsBoolean());
             }
 
+            if (reader.has("skill-task-ordinal")) {
+                player.setSkillTaskOrdinal(reader.get("skill-task-ordinal").getAsInt());
+            }
+
+            if (reader.has("skill-task-points")) {
+                player.setSkillTaskPoints(reader.get("skill-task-points").getAsInt());
+            }
+
+            if (reader.has("task-difficulty")) {
+                player.setTaskDifficulty(reader.get("task-difficulty").getAsString());
+            }
+
             if (reader.has("minutes-bonus-exp")) {
                 player.setMinutesBonusExp(reader.get("minutes-bonus-exp").getAsInt(), false);
             }

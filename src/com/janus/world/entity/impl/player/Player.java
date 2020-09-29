@@ -60,6 +60,7 @@ import com.janus.world.content.skill.impl.farming.Farming;
 import com.janus.world.content.skill.impl.slayer.Slayer;
 import com.janus.world.content.skill.impl.summoning.Pouch;
 import com.janus.world.content.skill.impl.summoning.Summoning;
+import com.janus.world.content.skillingtasks.SkillingTasks;
 import com.janus.world.content.teleport.TeleportInterface;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
@@ -73,11 +74,10 @@ import java.util.List;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-
+@Getter
+@Setter
 public class Player extends Character {
-    @Getter
     private TeleportInterface teleportInterface = new TeleportInterface(this);
-    @Getter
     private QuestTab questTab = new QuestTab(this);
 
 
@@ -113,6 +113,7 @@ public class Player extends Character {
     private final BankPinAttributes bankPinAttributes = new BankPinAttributes();
     private final BankSearchAttributes bankSearchAttributes = new BankSearchAttributes();
     private final AchievementAttributes achievementAttributes = new AchievementAttributes();
+    private final SkillingTasks.SkillingTaskAttributes skillTaskAttributes = new SkillingTasks.SkillingTaskAttributes();
     private final BonusManager bonusManager = new BonusManager();
     private final PointsHandler pointsHandler = new PointsHandler(this);
     private final PacketSender packetSender = new PacketSender(this);
@@ -144,6 +145,9 @@ public class Player extends Character {
     public int destination = 0;
     public int lastClickedTab = 0;
     public int kbdTier = 0;
+    public int skillTaskOrdinal;
+    public int skillTaskPoints = 0;
+    public String taskDifficulty = "Easy";
     public int instanceKC = 0;
     public int barrowsKC = 0;
     public int timeOnline;
@@ -159,10 +163,7 @@ public class Player extends Character {
     public int[] bossGameLevels = new int[25];
     public int[] bossGameSkillXP = new int[25];
     public int[] bossGameMaxLevels = new int[25];
-    @Getter
     private CollectionLog collectionLog = new CollectionLog(this);
-    @Getter
-    @Setter
     private List<CollectionLogEntry> collectionLogData = new ArrayList<>();
     private String mac;
     private String uuid;
@@ -188,14 +189,8 @@ public class Player extends Character {
     private boolean shopUpdated;
     private boolean allowSnap = true;
     private boolean allowRps = true;
-    @Setter
-    @Getter
     private boolean showTips = true;
-    @Getter
-    @Setter
     private boolean showTrivia = true;
-    @Getter
-    @Setter
     private boolean showWorldMessages = true;
     private Map<String, Object> attributes = new HashMap<>();
     private Minigame minigame = null;

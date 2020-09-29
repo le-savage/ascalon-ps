@@ -1,11 +1,13 @@
 package com.janus.world.content.skill.impl.agility;
 
 import com.janus.model.GameObject;
+import com.janus.model.Locations;
 import com.janus.model.Skill;
 import com.janus.model.container.impl.Equipment;
 import com.janus.util.Misc;
 import com.janus.world.content.Achievements;
 import com.janus.world.content.Achievements.AchievementData;
+import com.janus.world.content.skillingtasks.SkillingTasks;
 import com.janus.world.entity.impl.player.Player;
 
 public class Agility {
@@ -27,14 +29,10 @@ public class Agility {
             p.setPositionToFace(object.getPosition());
             p.setResetPosition(p.getPosition());
             p.setCrossingObstacle(true);
-            //boolean wasRunning = p.getAttributes().isRunning();
-            //if(agilityObject.mustWalk()) {
-            //p.getAttributes().setRunning(false);
-            //	p.getPacketSender().sendRunStatus();
-            //}
             agilityObject.cross(p);
             Achievements.finishAchievement(p, AchievementData.CLIMB_AN_AGILITY_OBSTACLE);
             Achievements.doProgress(p, AchievementData.CLIMB_50_AGILITY_OBSTACLES);
+            SkillingTasks.doProgress(p, SkillingTasks.Tasks.USE_ANY_OBSTACLE);
         }
         return false;
     }
@@ -43,6 +41,9 @@ public class Agility {
         for (boolean crossedObstacle : player.getCrossedObstacles()) {
             if (!crossedObstacle)
                 return false;
+        }
+        if (player.getLocation().equals(Locations.Location.EDGEVILLE)) {
+            SkillingTasks.finishTask(player, SkillingTasks.Tasks.COMPLETE_EDGE_AGILITY_COURSE);
         }
         return true;
     }

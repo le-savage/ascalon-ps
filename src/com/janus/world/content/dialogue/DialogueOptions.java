@@ -28,6 +28,7 @@ import com.janus.world.content.skill.impl.slayer.SlayerDialogues;
 import com.janus.world.content.skill.impl.slayer.SlayerMaster;
 import com.janus.world.content.skill.impl.summoning.CharmingImp;
 import com.janus.world.content.skill.impl.summoning.SummoningTab;
+import com.janus.world.content.skillingtasks.SelectorInterface;
 import com.janus.world.content.transportation.JewelryTeleporting;
 import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.content.transportation.TeleportType;
@@ -1285,6 +1286,7 @@ public class DialogueOptions {
             }
         } else if (id == FIRST_OPTION_OF_THREE) {
             switch (player.getDialogueActionId()) {
+
                 case 5:
                     DialogueManager.start(player, MemberScrolls.getTotalFunds(player));
                     break;
@@ -1377,6 +1379,9 @@ public class DialogueOptions {
                         BonusExperienceTask.addBonusXp(player, minutes * amt);
                         player.getClickDelay().reset();
                     }
+                    break;
+                case 72:
+                    SelectorInterface.openSelector(player);
                     break;
             }
         } else if (id == SECOND_OPTION_OF_THREE) {
@@ -1496,6 +1501,9 @@ public class DialogueOptions {
                         player.getClickDelay().reset();
                     }
                     break;
+                case 72:
+                    ShopManager.getShops().get(53).open(player); // TODO Finish a real store
+                    break;
             }
         } else if (id == THIRD_OPTION_OF_THREE) {
             switch (player.getDialogueActionId()) {
@@ -1519,6 +1527,7 @@ public class DialogueOptions {
                 case 69:
                 case 70:
                 case 71:
+                case 72:
                 case 77:
                     player.getPacketSender().sendInterfaceRemoval();
                     break;

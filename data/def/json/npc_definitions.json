@@ -20941,8 +20941,8 @@
 },
 {
 "id": 945,
-"name": "Guide of Janus",
-"examine": "Your introduction to the world of Janus.",
+"name": "Task Master",
+"examine": "He seems very needy.",
 "combat": 0,
 "size": 1,
 "attackable": false,

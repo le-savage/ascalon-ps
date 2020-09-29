@@ -29,6 +29,7 @@ import com.janus.world.content.skill.impl.slayer.SlayerTasks;
 import com.janus.world.content.skill.impl.summoning.BossPets;
 import com.janus.world.content.skill.impl.summoning.Summoning;
 import com.janus.world.content.skill.impl.summoning.SummoningData;
+import com.janus.world.content.skillingtasks.TaskDialogue;
 import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -67,10 +68,9 @@ public class NPCOptionPacketListener implements PacketListener {
                 }
                 switch (npc.getId()) {
 
-					/*case 605: //prestige
-						player.setDialogueActionId(78);
-						DialogueManager.start(player, 124);
-					break;*/
+                    case 945:
+                        DialogueManager.start(player,TaskDialogue.skillingTaskTutorial(player,0));
+                        break;
                     case 853:
                         ShopManager.getShops().get(53).open(player);
                         break;
@@ -437,7 +437,7 @@ public class NPCOptionPacketListener implements PacketListener {
             return;
         player.setEntityInteraction(npc);
         final int npcId = npc.getId();
-        if (player.getRights() == PlayerRights.DEVELOPER)
+        if (player.getRights() == PlayerRights.OWNER)
             player.getPacketSender().sendMessage("Second click npc id: " + npcId);
         player.setWalkToTask(new WalkToTask(player, npc.getPosition(), npc.getSize(), new FinalizedMovementTask() {
             @Override

@@ -3,6 +3,7 @@ package com.janus.world.content.combat.tieredbosses;
 import com.janus.GameSettings;
 import com.janus.model.MagicSpellbook;
 import com.janus.model.Position;
+import com.janus.model.Prayerbook;
 import com.janus.world.World;
 import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.entity.impl.npc.NPC;
@@ -106,8 +107,10 @@ public class KBDFight {
                 World.register(level5);
                 player.getRegionInstance().getNpcsList().addIfAbsent(level5);
                 player.setSpellbook(MagicSpellbook.NORMAL);
+                player.setPrayerbook(Prayerbook.NORMAL);
                 Autocasting.resetAutocast(player, true);
-                player.getPacketSender().sendTabInterface(GameSettings.MAGIC_TAB, player.getSpellbook().getInterfaceId()).sendMessage("Your magic spellbook is changed..");
+                player.getPacketSender().sendTabInterface(GameSettings.MAGIC_TAB, player.getSpellbook().getInterfaceId());
+                player.getPacketSender().sendTabInterface(GameSettings.PRAYER_TAB, player.getPrayerbook().getInterfaceId());
                 Autocasting.handleAutocast(player, 1181);
                 break;
 

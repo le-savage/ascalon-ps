@@ -30,6 +30,7 @@ import com.janus.world.content.minigames.impl.Barrows;
 import com.janus.world.content.questtab.QuestTab;
 import com.janus.world.content.skill.impl.hunter.Hunter;
 import com.janus.world.content.skill.impl.slayer.Slayer;
+import com.janus.world.content.skillingtasks.SkillingTasks;
 
 import static com.janus.world.content.ProfileViewing.getAccountWorth;
 import static com.janus.world.content.StaffList.getPrefix;
@@ -75,6 +76,11 @@ public class PlayerHandler {
         World.getPlayers().add(player);
         World.updatePlayersOnline();
         PlayersOnlineInterface.add(player);
+
+        SkillingTasks.loadData();
+        if (SkillingTasks.currentTask == null && player.getSkillTaskOrdinal() > 0) {
+            SkillingTasks.restoreTaskOnLogin(player);
+        }
 
         if (player.getSession().getState().equals(SessionState.LOGGED_IN)) {
             player.logout();

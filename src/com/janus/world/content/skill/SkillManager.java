@@ -429,6 +429,159 @@ public class SkillManager {
         return this;
     }
 
+    public SkillManager addExperienceWithNoBonuses(Skill skill, int experience) {
+
+
+
+        if (player.experienceLocked())
+            return this;
+
+        if (this.skills.experience[skill.ordinal()] >= MAX_EXPERIENCE)
+            return this;
+
+        experience *= GameLoader.getDoubleEXPWeekend();//DOUBLE XP WEEKENDS FOR EVERYONE
+
+        /*
+         * The skill's level before adding experience.
+         */
+        int startingLevel = isNewSkill(skill) ? (int) (skills.maxLevel[skill.ordinal()] / 10) : skills.maxLevel[skill.ordinal()];
+        /*
+         * Adds the experience to the skill's experience.
+         */
+        this.skills.experience[skill.ordinal()] = this.skills.experience[skill.ordinal()] + experience > MAX_EXPERIENCE ? MAX_EXPERIENCE : this.skills.experience[skill.ordinal()] + experience;
+
+
+        if (this.skills.experience[skill.ordinal()] >= MAX_EXPERIENCE) {
+            String skillName = Misc.formatText(skill.toString().toLowerCase());
+            player.getPacketSender().sendMessage("Well done! You've achieved the highest possible Experience in this skill!");
+            World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved Maximum Exp in " + skillName + " @blu@[" + player.getDifficulty().toString().toUpperCase() + "]@bla@!");
+            Achievements.finishAchievement(player, AchievementData.REACH_MAX_EXP_IN_A_SKILL);
+        }
+        /*
+         * The skill's level after adding the experience.
+         */
+        int newLevel = getLevelForExperience(this.skills.experience[skill.ordinal()]);
+        /*
+         * If the starting level less than the new level, level up.
+         */
+        if (newLevel > startingLevel) {
+            int level = newLevel - startingLevel;
+            String skillName = Misc.formatText(skill.toString().toLowerCase());
+            skills.maxLevel[skill.ordinal()] += isNewSkill(skill) ? level * 10 : level;
+
+            if (!isNewSkill(skill) && !skill.equals(Skill.SUMMONING)) {
+                setCurrentLevel(skill, skills.maxLevel[skill.ordinal()]);
+            }
+
+            player.getPacketSender().sendMessage("You've just advanced " + skillName + " level! You have reached level " + newLevel);
+            Sounds.sendSound(player, Sound.LEVELUP);
+
+            if (skills.maxLevel[skill.ordinal()] == getMaxAchievingLevel(skill)) {
+
+                String easyColor = "<col=00e62b>";
+                String mediumColor = "<col=ad820a>";
+                String hardColor = "<col=f76472>";
+                String insaneColor = "<col=d81124>";
+                String zezimaColor = "<col=ff031b>";
+                String difficulty = ("" + player.getDifficulty().toString().toUpperCase() + "");
+
+                player.getPacketSender().sendMessage("Well done! You've achieved the highest possible level in this skill!");
+                /*if(player.getNotificationPreference()) {
+                    player.getPacketSender().trayMessage(3, "Congrats! " + player.getUsername() + "! Level 99 " + skillName + " obtained!");
+                }*/
+                if (player.getDifficulty() == Difficulty.Easy) {
+                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 99 in " + skillName + " on [" + easyColor + difficulty + "@bla@] mode!");
+                }
+
+                if (player.getDifficulty() == Difficulty.Medium) {
+                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 99 in " + skillName + " on [" + mediumColor + difficulty + "@bla@] mode!");
+                }
+
+                if (player.getDifficulty() == Difficulty.Hard) {
+                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 99 in " + skillName + " on [" + hardColor + difficulty + "@bla@] mode!");
+                }
+
+                if (player.getDifficulty() == Difficulty.Insane) {
+                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 99 in " + skillName + " on [" + insaneColor + difficulty + "@bla@] mode!");
+                }
+
+                if (player.getDifficulty() == Difficulty.Zezima) {
+                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 99 in " + skillName + " on [" + zezimaColor + difficulty + "@bla@] mode!");
+                }
+
+                if ((maxed(player)) && (player.getDifficulty() == Difficulty.Easy)) {
+                    if (player.getRights() == PlayerRights.PLAYER) {
+                        player.setRights(PlayerRights.DONATOR);
+                    }
+                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
+                    World.sendMessage("@red@" + player.getUsername() + " has just achieved the highest possible level in all skills on [" + easyColor + difficulty + "@red@] mode!");
+                }
+
+                if ((maxed(player)) && (player.getDifficulty() == Difficulty.Medium)) {
+                    if (player.getRights() == PlayerRights.PLAYER) {
+                        player.setRights(PlayerRights.DONATOR);
+                    }
+                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
+                    World.sendMessage("@red@" + player.getUsername() + " has just achieved the highest possible level in all skills on [" + mediumColor + difficulty + "@red@] mode!");
+                }
+
+                if ((maxed(player)) && (player.getDifficulty() == Difficulty.Hard)) {
+                    if (player.getRights() == PlayerRights.PLAYER) {
+                        player.setRights(PlayerRights.DONATOR);
+                    }
+                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
+                    World.sendMessage("@red@" + player.getUsername() + " has just achieved the highest possible level in all skills on [" + hardColor + difficulty + "@red@] mode!");
+                }
+
+                if ((maxed(player)) && (player.getDifficulty() == Difficulty.Insane)) {
+                    if (player.getRights() == PlayerRights.PLAYER) {
+                        player.setRights(PlayerRights.DONATOR);
+                    }
+                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
+                    World.sendMessage("@red@" + player.getUsername() + " has just achieved the highest possible level in all skills on [" + insaneColor + difficulty + "@red@] mode!");
+                }
+
+                if ((maxed(player)) && (player.getDifficulty() == Difficulty.Zezima)) {
+                    if (player.getRights() == PlayerRights.PLAYER) {
+                        player.setRights(PlayerRights.DONATOR);
+                    }
+                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
+                    World.sendMessage("@red@" + player.getUsername() + " has just achieved the highest possible level in all skills on [" + zezimaColor + difficulty + "@red@] mode!");
+                }
+
+
+                //World.sendMessage("@red@[Player News] @bla@"+player.getUsername()+" has just achieved level 99 in "+skillName+"!"); OLD MESSAGE
+                TaskManager.submit(new Task(2, player, true) {
+                    int localGFX = 1634;
+
+                    @Override
+                    public void execute() {
+                        player.performGraphic(new Graphic(localGFX));
+                        if (localGFX == 1637) {
+                            stop();
+                            return;
+                        }
+                        localGFX++;
+                        player.performGraphic(new Graphic(localGFX));
+                    }
+                });
+            } else {
+                TaskManager.submit(new Task(2, player, false) {
+                    @Override
+                    public void execute() {
+                        player.performGraphic(new Graphic(199));
+                        stop();
+                    }
+                });
+            }
+            player.getUpdateFlag().flag(Flag.APPEARANCE);
+        }
+        updateSkill(skill);
+
+        this.totalGainedExp += experience;
+        return this;
+    }
+
     public SkillManager stopSkilling() {
         if (player.getCurrentTask() != null) {
             player.getPacketSender().sendRichPresenceState("Exploring Janus..");

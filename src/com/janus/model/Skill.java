@@ -1,6 +1,7 @@
 package com.janus.model;
 
 import com.janus.util.Misc;
+import lombok.Getter;
 
 
 /**
@@ -9,6 +10,7 @@ import com.janus.util.Misc;
  *
  * @author Gabriel Hannason
  */
+@Getter
 public enum Skill {
 
     ATTACK(6247, 1, 0),

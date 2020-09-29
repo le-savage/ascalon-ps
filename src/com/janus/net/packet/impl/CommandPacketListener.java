@@ -32,11 +32,14 @@ import com.janus.world.content.combat.strategy.CombatStrategies;
 import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.content.combat.weapon.CombatSpecial;
+import com.janus.world.content.dialogue.DialogueManager;
+import com.janus.world.content.dialogue.impl.Tutorial;
 import com.janus.world.content.gambling.RockPaperScissors;
 import com.janus.world.content.gambling.Snap;
 import com.janus.world.content.grandexchange.GrandExchangeOffers;
 import com.janus.world.content.minigames.impl.FreeForAll;
 import com.janus.world.content.skill.SkillManager;
+import com.janus.world.content.skillingtasks.SkillingTasks;
 import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.content.transportation.TeleportType;
 import com.janus.world.entity.impl.npc.NPC;
@@ -67,6 +70,11 @@ public class CommandPacketListener implements PacketListener {
         if (command[0].startsWith("tips")) {
             player.getPA().sendMessage("Tips " + (player.showTips() ? "@red@Disabled" : "@gre@Enabled"));
             player.setShowTips(!player.showTips());
+        }
+
+        if (command[0].startsWith("stoptask")) {
+            player.getPA().sendMessage("Current task has been cancelled!");
+            SkillingTasks.tasksList.forEach(tasks -> tasks.setActive(false));
         }
 
         if (command[0].startsWith("trivia")) {
@@ -1631,19 +1639,39 @@ public class CommandPacketListener implements PacketListener {
 
     private static void ownerCommands(final Player player, String[] command, String wholeCommand) {
 
-        if (command[0].equals("trivia"))
+        if (command[0].equals("trivia")) {
             System.out.println("Timer: " + TriviaBot.botTimer);
-        System.out.println("Attempts: " + TriviaBot.attempts.size());
+            System.out.println("Attempts: " + TriviaBot.attempts.size());
+        }
+
+        if (command[0].equals("skilltask")) {
+            SkillingTasks.assignTask(player, Skill.AGILITY);
+        }
+
+        if (command[0].equals("currenttask")) {
+            String desc = SkillingTasks.getCurrentTask().getDescription();
+            int ordinal = SkillingTasks.currentTask.ordinal();
+            System.out.println("Current task: "+desc + " ordinal"+ ordinal + " Active? "+ (SkillingTasks.currentTask.isActive() ? "YES" : "NO"));
+        }
+
+        if (command[0].equals("skillpoints")) {
+            int points = player.getSkillTaskPoints();
+            player.getPA().sendMessage("Points : " + points);
+        }
+
+        if (command[0].equals("objectcheck")) {
+            System.out.println(player.getUsableObject()[0].toString() + " " + player.getUsableObject()[1].toString() + " " + player.getUsableObject()[2].toString());
+        }
+
+        if (command[0].equals("tutorial")) { // TODO Finish proper tutorial.. Maybe click a book?
+            DialogueManager.start(player, Tutorial.get(player,0));
+        }
 
 
         if (command[0].equals("rights")) {
-            if (player.getUsername().equalsIgnoreCase("Flub") || player.getUsername().equalsIgnoreCase("Flub")
+            if (player.getUsername().equalsIgnoreCase("Flub")
                     || player.getUsername().equalsIgnoreCase("Martijn")) {
                 int rankId = Integer.parseInt(command[1]);
-                if (player.getUsername().equalsIgnoreCase("server") && rankId != 10) {
-                    player.getPacketSender().sendMessage("You cannot do that.");
-                    return;
-                }
                 Player target = World
                         .getPlayerByName(wholeCommand.substring(rankId >= 10 ? 10 : 9, wholeCommand.length()));
                 if (target == null) {

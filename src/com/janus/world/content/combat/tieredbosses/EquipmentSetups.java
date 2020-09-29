@@ -1,5 +1,10 @@
 package com.janus.world.content.combat.tieredbosses;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum EquipmentSetups {
 
     ZERO(13899, 1540, 10828 ,13887, 13893, 6585,19111, 7462, 13239),
@@ -17,54 +22,5 @@ public enum EquipmentSetups {
     private final int cape;
     private final int hands;
     private final int feet;
-
-    EquipmentSetups(int weapon, int shield, int helm, int body, int legs, int neck, int cape, int hands, int feet) {
-        this.weapon = weapon;
-        this.shield = shield;
-        this.helm = helm;
-        this.body = body;
-        this.legs = legs;
-        this.neck = neck;
-        this.cape = cape;
-        this.hands = hands;
-        this.feet = feet;
-    }
-
-    public int getWeapon() {
-        return weapon;
-    }
-
-    public int getShield() {
-        return shield;
-    }
-
-    public int getHelm() {
-        return helm;
-    }
-
-    public int getBody() {
-        return body;
-    }
-
-    public int getLegs() {
-        return legs;
-    }
-
-    public int getNeck() {
-        return neck;
-    }
-
-    public int getCape() {
-        return cape;
-    }
-
-    public int getHands() {
-        return hands;
-    }
-
-    public int getFeet() {
-        return feet;
-    }
-
 
 }

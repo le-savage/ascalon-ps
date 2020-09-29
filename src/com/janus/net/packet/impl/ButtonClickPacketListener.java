@@ -52,6 +52,7 @@ import com.janus.world.content.skill.impl.slayer.Slayer;
 import com.janus.world.content.skill.impl.smithing.SmithingData;
 import com.janus.world.content.skill.impl.summoning.PouchMaking;
 import com.janus.world.content.skill.impl.summoning.SummoningTab;
+import com.janus.world.content.skillingtasks.SelectorInterface;
 import com.janus.world.content.teleportation.Teleporting;
 import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.entity.impl.player.Player;
@@ -86,6 +87,14 @@ public class ButtonClickPacketListener implements PacketListener {
 
         if (id >= 32410 && id <= 32460) {
             StaffList.handleButton(player, id);
+        }
+
+        if (id == SelectorInterface.confirmButton) {
+            SelectorInterface.handleConfirm(player);
+        }
+
+        if (id == SelectorInterface.difficultyButton) {
+            SelectorInterface.changeDifficulty(player);
         }
 
         if (id == DailyRewardConstants.CLAIM_BUTTON) {
@@ -799,6 +808,7 @@ public class ButtonClickPacketListener implements PacketListener {
             case 10162:
             case -18269:
             case 11729:
+            case -16534:
                 player.getPacketSender().sendInterfaceRemoval();
                 break;
             case 841:
@@ -1408,6 +1418,9 @@ public class ButtonClickPacketListener implements PacketListener {
             return true;
         }
         if (ExperienceLamps.handleButton(player, id)) {
+            return true;
+        }
+        if (SelectorInterface.handleButton(player, id)) {
             return true;
         }
         if (PlayersOnlineInterface.handleButton(player, id)) {

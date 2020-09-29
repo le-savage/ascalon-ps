@@ -1,7 +1,11 @@
 package com.janus.world.content;
 
 import com.janus.world.entity.impl.player.Player;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class PointsHandler {
 
     private Player p;
@@ -14,6 +18,7 @@ public class PointsHandler {
     private double loyaltyPoints;
     private int votingPoints;
     private int achievementPoints;
+    private int skillingTaskPoints;
     private int donationPoints;
     private int afkPoints;
     public PointsHandler(Player p) {
