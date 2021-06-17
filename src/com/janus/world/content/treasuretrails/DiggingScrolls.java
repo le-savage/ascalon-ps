@@ -14,80 +14,6 @@ import java.util.Random;
  */
 public class DiggingScrolls {
 
-    public static boolean loadClueInterface(Player player, int itemId) {
-        DigData digData = DigData.forIdClue(itemId);
-        if (digData == null) {
-            return false;
-        }
-        ClueScroll.cleanClueInterface(player);
-        player.getPacketSender()
-                .sendInterface(ClueScroll.CLUE_SCROLL_INTERFACE);
-        for (int i = 0; i < digData.getHints().length; i++) {
-            player.getPacketSender().sendString(getChilds(digData.getHints())[i],
-                    digData.getHints()[i]);
-        }
-        return true;
-    }
-
-    public static boolean digClue(Player player) {
-        DigData digData = DigData.forIdPosition(new Position(player
-                .getPosition().getX(), player.getPosition().getY(), player
-                .getPosition().getZ()));
-        if (digData == null) {
-            return false;
-        }
-        if (!player.getInventory().contains(digData.getClueId())) {
-            return false;
-        }
-        player.getInventory().delete(new Item(digData.getClueId(), 1));
-        switch (digData.getLevel()) {
-            case 1:
-                player.getInventory().add(new Item(ClueScroll.CASKET_LV1, 1));
-                break;
-            case 2:
-                player.getInventory().add(new Item(ClueScroll.CASKET_LV2, 1));
-                break;
-            case 3:
-                player.getInventory().add(new Item(ClueScroll.CASKET_LV3, 1));
-                break;
-        }
-        player.getPacketSender().sendMessage("You've found a casket!");
-        return true;
-    }
-
-    public static int[] getChilds(String[] sentences) {
-        switch (sentences.length) {
-            case 1:
-                return new int[]{6971};
-            case 2:
-                return new int[]{6971, 6972};
-            case 3:
-                return new int[]{6970, 6971, 6972};
-            case 4:
-                return new int[]{6970, 6971, 6972, 6973};
-            case 5:
-                return new int[]{6969, 6970, 6971, 6972, 6973};
-            case 6:
-                return new int[]{6969, 6970, 6971, 6972, 6973, 6974};
-            case 7:
-                return new int[]{6968, 6969, 6970, 6971, 6972, 6973, 6974};
-            case 8:
-                return new int[]{6968, 6969, 6970, 6971, 6972, 6973, 6974, 6975};
-        }
-        return null;
-    }
-
-    /* put the right childs ids on the interface */
-
-    public static int getRandomScroll(int level) {
-        int pick = new Random().nextInt(DigData.values().length);
-        while (DigData.values()[pick].getLevel() != level) {
-            pick = new Random().nextInt(DigData.values().length);
-        }
-
-        return DigData.values()[pick].getClueId();
-    }
-
     public static enum DigData {
 
         DIG1(new String[]{"Dig near some giant mushrooms ",
@@ -171,6 +97,80 @@ public class DiggingScrolls {
         public int getLevel() {
             return level;
         }
+    }
+
+    public static boolean loadClueInterface(Player player, int itemId) {
+        DigData digData = DigData.forIdClue(itemId);
+        if (digData == null) {
+            return false;
+        }
+        ClueScroll.cleanClueInterface(player);
+        player.getPacketSender()
+                .sendInterface(ClueScroll.CLUE_SCROLL_INTERFACE);
+        for (int i = 0; i < digData.getHints().length; i++) {
+            player.getPacketSender().sendString(getChilds(digData.getHints())[i],
+                    digData.getHints()[i]);
+        }
+        return true;
+    }
+
+    public static boolean digClue(Player player) {
+        DigData digData = DigData.forIdPosition(new Position(player
+                .getPosition().getX(), player.getPosition().getY(), player
+                .getPosition().getZ()));
+        if (digData == null) {
+            return false;
+        }
+        if (!player.getInventory().contains(digData.getClueId())) {
+            return false;
+        }
+        player.getInventory().delete(new Item(digData.getClueId(), 1));
+        switch (digData.getLevel()) {
+            case 1:
+                player.getInventory().add(new Item(ClueScroll.CASKET_LV1, 1));
+                break;
+            case 2:
+                player.getInventory().add(new Item(ClueScroll.CASKET_LV2, 1));
+                break;
+            case 3:
+                player.getInventory().add(new Item(ClueScroll.CASKET_LV3, 1));
+                break;
+        }
+        player.getPacketSender().sendMessage("You've found a casket!");
+        return true;
+    }
+
+    /* put the right childs ids on the interface */
+
+    public static int[] getChilds(String[] sentences) {
+        switch (sentences.length) {
+            case 1:
+                return new int[]{6971};
+            case 2:
+                return new int[]{6971, 6972};
+            case 3:
+                return new int[]{6970, 6971, 6972};
+            case 4:
+                return new int[]{6970, 6971, 6972, 6973};
+            case 5:
+                return new int[]{6969, 6970, 6971, 6972, 6973};
+            case 6:
+                return new int[]{6969, 6970, 6971, 6972, 6973, 6974};
+            case 7:
+                return new int[]{6968, 6969, 6970, 6971, 6972, 6973, 6974};
+            case 8:
+                return new int[]{6968, 6969, 6970, 6971, 6972, 6973, 6974, 6975};
+        }
+        return null;
+    }
+
+    public static int getRandomScroll(int level) {
+        int pick = new Random().nextInt(DigData.values().length);
+        while (DigData.values()[pick].getLevel() != level) {
+            pick = new Random().nextInt(DigData.values().length);
+        }
+
+        return DigData.values()[pick].getClueId();
     }
 
 }

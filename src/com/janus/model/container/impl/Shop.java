@@ -30,52 +30,6 @@ import java.util.Map;
 
 public class Shop extends ItemContainer {
 
-    /**
-     * The shop interface id.
-     */
-    public static final int INTERFACE_ID = 3824;
-    /**
-     * The starting interface child id of items.
-     */
-    public static final int ITEM_CHILD_ID = 3900;
-    /**
-     * The interface child id of the shop's name.
-     */
-    public static final int NAME_INTERFACE_CHILD_ID = 3901;
-    /**
-     * The inventory interface id, used to set the items right click values to
-     * sell.
-     */
-    public static final int INVENTORY_INTERFACE_ID = 3823;
-    public static final int DONATOR_STORE_1 = 48;
-    public static final int DONATOR_STORE_2 = 49;
-    public static final int DONATOR_STORE_3 = 59;
-    public static final int TRIVIA_STORE = 50;
-    public static final int GENERAL_STORE = 12;
-    public static final int RECIPE_FOR_DISASTER_STORE = 36;
-    public static final int BOSS_POINT_STORE = 92;
-    public static final int STARDUST_STORE = 55;
-    public static final int PRESTIGE_STORE = 46;
-    public static final int AFK_STORE = 53;
-    private static final int VOTING_REWARDS_STORE = 27;
-    private static final int PKING_REWARDS_STORE = 26;
-    private static final int ENERGY_FRAGMENT_STORE = 33;
-    private static final int AGILITY_TICKET_STORE = 39;
-    private static final int GRAVEYARD_STORE = 42;
-    private static final int TOKKUL_EXCHANGE_STORE = 43;
-    private static final int HOLY_WATER_STORE = 51;
-    private static final int SKILLCAPE_STORE_1 = 8;
-    private static final int SKILLCAPE_STORE_2 = 9;
-    private static final int SKILLCAPE_STORE_3 = 10;
-    private static final int GAMBLING_STORE = 41;
-    private static final int DUNGEONEERING_STORE = 44;
-    private static final int SLAYER_STORE = 47;
-    private final int id;
-    private String name;
-    private Item currency;
-    private Item[] originalStock;
-    private boolean restockingItems;
-
     /*
      * The shop constructor
      */
@@ -96,55 +50,26 @@ public class Shop extends ItemContainer {
     }
 
     /**
-     * Checks if a player has enough inventory space to buy an item
-     *
-     * @param item The item which the player is buying
-     * @return true or false if the player has enough space to buy the item
+     * The shop interface id.
      */
-    public static boolean hasInventorySpace(Player player, Item item, int currency, int pricePerItem) {
-        if (player.getInventory().getFreeSlots() >= 1) {
-            return true;
-        }
-        if (item.getDefinition().isStackable()) {
-            if (player.getInventory().contains(item.getId())) {
-                return true;
-            }
-        }
-        if (currency != -1) {
-            if (player.getInventory().getFreeSlots() == 0
-                    && player.getInventory().getAmount(currency) == pricePerItem) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean shopBuysItem(int shopId, Item item) {
-        if (shopId == GENERAL_STORE)
-            return true;
-        if (shopId == DUNGEONEERING_STORE || shopId == BOSS_POINT_STORE || shopId == TRIVIA_STORE
-                || shopId == DONATOR_STORE_1 || shopId == DONATOR_STORE_2 || shopId == DONATOR_STORE_3 || shopId == PKING_REWARDS_STORE
-                || shopId == VOTING_REWARDS_STORE || shopId == RECIPE_FOR_DISASTER_STORE || shopId == HOLY_WATER_STORE
-                || shopId == ENERGY_FRAGMENT_STORE || shopId == AGILITY_TICKET_STORE || shopId == GRAVEYARD_STORE
-                || shopId == TOKKUL_EXCHANGE_STORE || shopId == STARDUST_STORE || shopId == SLAYER_STORE || shopId == PRESTIGE_STORE || shopId == AFK_STORE)
-            return false;
-        Shop shop = ShopManager.getShops().get(shopId);
-        if (shop != null && shop.getOriginalStock() != null) {
-            for (Item it : shop.getOriginalStock()) {
-                if (it != null && it.getId() == item.getId())
-                    return true;
-            }
-        }
-        return false;
-    }
+    public static final int INTERFACE_ID = 3824;
+    /**
+     * The starting interface child id of items.
+     */
+    public static final int ITEM_CHILD_ID = 3900;
+    /**
+     * The interface child id of the shop's name.
+     */
+    public static final int NAME_INTERFACE_CHILD_ID = 3901;
+    /**
+     * The inventory interface id, used to set the items right click values to
+     * 'sell'.
+     */
+    public static final int INVENTORY_INTERFACE_ID = 3823;
 
     public Item[] getOriginalStock() {
         return this.originalStock;
     }
-
-    /*
-     * Declared shops
-     */
 
     public int getId() {
         return this.id;
@@ -167,6 +92,7 @@ public class Shop extends ItemContainer {
         this.currency = currency;
         return this;
     }
+    public static final int DONATOR_STORE_1 = 48;
 
     public boolean isRestockingItems() {
         return restockingItems;
@@ -208,184 +134,8 @@ public class Shop extends ItemContainer {
                 player.getShop().setItems(publicShop.getItems());
         }
     }
-
-    /**
-     * Checks a value of an item in a shop
-     *
-     * @param player      The player who's checking the item's value
-     * @param slot        The shop item's slot (in the shop!)
-     * @param sellingItem Is the player selling the item?
-     */
-    public void checkValue(Player player, int slot, boolean sellingItem) {
-        this.setPlayer(player);
-        Item shopItem = new Item(getItems()[slot].getId());
-        if (!player.isShopping()) {
-            player.getPacketSender().sendInterfaceRemoval();
-            return;
-        }
-        Item item = sellingItem ? player.getInventory().getItems()[slot] : getItems()[slot];
-        if (item.getId() == 995)
-            return;
-        if (sellingItem) {
-            if (!shopBuysItem(id, item)) {
-                player.getPacketSender().sendMessage("You cannot sell this item to this store.");
-                return;
-            }
-        }
-        int finalValue = 0;
-        String finalString = sellingItem ? "" + ItemDefinition.forId(item.getId()).getName() + ": shop will buy for "
-                : "" + ItemDefinition.forId(shopItem.getId()).getName() + " currently costs ";
-        if (getCurrency().getId() != -1) {
-            finalValue = ItemDefinition.forId(item.getId()).getValue();
-            String s = currency.getDefinition().getName().toLowerCase().endsWith("s")
-                    ? currency.getDefinition().getName().toLowerCase()
-                    : currency.getDefinition().getName().toLowerCase() + "s";
-            /** CUSTOM CURRENCY, CUSTOM SHOP VALUES **/
-            if (id == TOKKUL_EXCHANGE_STORE || id == ENERGY_FRAGMENT_STORE || id == STARDUST_STORE || id == AGILITY_TICKET_STORE
-                    || id == GRAVEYARD_STORE || id == HOLY_WATER_STORE || id == AFK_STORE) {
-                Object[] obj = ShopManager.getCustomShopData(id, item.getId());
-                if (obj == null)
-                    return;
-                finalValue = (int) obj[0];
-                s = (String) obj[1];
-            }
-            if (sellingItem) {
-                if (finalValue != 1) {
-                    if (player.getRights().equals(PlayerRights.PLAYER)) {
-                        finalValue = (int) (finalValue * 0.85);
-                    }
-                }
-            }
-            finalString += "" + (int) finalValue + " " + s + "" + shopPriceEx((int) finalValue) + ".";
-        } else {
-            Object[] obj = ShopManager.getCustomShopData(id, item.getId());
-            if (obj == null)
-                return;
-            finalValue = (int) obj[0];
-            if (sellingItem) {
-                if (finalValue != 1) {
-                    if (player.getRights().equals(PlayerRights.PLAYER)) {
-                        finalValue = (int) (finalValue * 0.85);
-                    }
-                }
-            }
-            finalString += "" + finalValue + " " + (String) obj[1] + ".";
-        }
-        if (player != null && finalValue > 0) {
-            player.getPacketSender().sendMessage(finalString);
-            return;
-        }
-    }
-
-    public void sellItem(Player player, int slot, int amountToSell) {
-        this.setPlayer(player);
-        if (!player.isShopping() || player.isBanking()) {
-            player.getPacketSender().sendInterfaceRemoval();
-            return;
-        }
-
-        if (!player.isShopping() || player.isBanking()) {
-            player.getPacketSender().sendInterfaceRemoval();
-            return;
-        }
-        Item itemToSell = player.getInventory().getItems()[slot];
-        if (!itemToSell.sellable()) {
-            player.getPacketSender().sendMessage("This item cannot be sold.");
-            return;
-        }
-        if (!shopBuysItem(id, itemToSell)) {
-            player.getPacketSender().sendMessage("You cannot sell this item to this store.");
-            return;
-        }
-        if (!player.getInventory().contains(itemToSell.getId()) || itemToSell.getId() == 995)
-            return;
-        if (this.full(itemToSell.getId()))
-            return;
-        if (player.getInventory().getAmount(itemToSell.getId()) < amountToSell)
-            amountToSell = player.getInventory().getAmount(itemToSell.getId());
-        if (amountToSell == 0)
-            return;
-        /*
-         * if(amountToSell > 300) { String s =
-         * ItemDefinition.forId(itemToSell.getId()).getName().endsWith("s") ?
-         * ItemDefinition.forId(itemToSell.getId()).getName() :
-         * ItemDefinition.forId(itemToSell.getId()).getName() + "s";
-         * player.getPacketSender().sendMessage("You can only sell 300 "+s+
-         * " at a time."); return; }
-         */
-        int itemId = itemToSell.getId();
-        boolean customShop = this.getCurrency().getId() == -1;
-        boolean inventorySpace = customShop ? true : false;
-        if (!customShop) {
-            if (!itemToSell.getDefinition().isStackable()) {
-                if (!player.getInventory().contains(this.getCurrency().getId()))
-                    inventorySpace = true;
-            }
-            if (player.getInventory().getFreeSlots() <= 0
-                    && player.getInventory().getAmount(this.getCurrency().getId()) > 0)
-                inventorySpace = true;
-            if (player.getInventory().getFreeSlots() > 0
-                    || player.getInventory().getAmount(this.getCurrency().getId()) > 0)
-                inventorySpace = true;
-        }
-        int itemValue = 0;
-        if (getCurrency().getId() > 0) {
-            itemValue = ItemDefinition.forId(itemToSell.getId()).getValue();
-        } else {
-            Object[] obj = ShopManager.getCustomShopData(id, itemToSell.getId());
-            if (obj == null)
-                return;
-            itemValue = (int) obj[0];
-        }
-        if (itemValue <= 0)
-            return;
-        if (player.getRights().equals(PlayerRights.PLAYER)) {
-            itemValue = (int) (itemValue * 0.85);
-        }
-        if (itemValue <= 0) {
-            itemValue = 1;
-        }
-        for (int i = amountToSell; i > 0; i--) {
-            itemToSell = new Item(itemId);
-            if (this.full(itemToSell.getId()) || !player.getInventory().contains(itemToSell.getId())
-                    || !player.isShopping())
-                break;
-            if (!itemToSell.getDefinition().isStackable()) {
-                if (inventorySpace) {
-                    super.switchItem(player.getInventory(), this, itemToSell.getId(), -1);
-                    if (!customShop) {
-                        player.getInventory().add(new Item(getCurrency().getId(), itemValue), false);
-                    } else {
-                        // Return points here
-                    }
-                } else {
-                    player.getPacketSender().sendMessage("Please free some inventory space before doing that.");
-                    break;
-                }
-            } else {
-                if (inventorySpace) {
-                    super.switchItem(player.getInventory(), this, itemToSell.getId(), amountToSell);
-                    if (!customShop) {
-                        player.getInventory().add(new Item(getCurrency().getId(), itemValue * amountToSell), false);
-                    } else {
-                        // Return points here
-                    }
-                    break;
-                } else {
-                    player.getPacketSender().sendMessage("Please free some inventory space before doing that.");
-                    break;
-                }
-            }
-            amountToSell--;
-        }
-        if (customShop) {
-            player.getPointsHandler().refreshPanel();
-        }
-        player.getInventory().refreshItems();
-        fireRestockTask();
-        refreshItems();
-        publicRefresh();
-    }
+    public static final int DONATOR_STORE_2 = 49;
+    public static final int DONATOR_STORE_3 = 59;
 
     /**
      * Buying an item from a shop
@@ -635,6 +385,7 @@ public class Shop extends ItemContainer {
         publicRefresh();
         return this;
     }
+    public static final int TRIVIA_STORE = 50;
 
     @Override
     public Shop add(Item item, boolean refresh) {
@@ -643,11 +394,7 @@ public class Shop extends ItemContainer {
             publicRefresh();
         return this;
     }
-
-    @Override
-    public int capacity() {
-        return 100;
-    }
+    public static final int GENERAL_STORE = 12;
 
     @Override
     public StackType stackType() {
@@ -723,6 +470,253 @@ public class Shop extends ItemContainer {
             }
         }
         return true;
+    }
+    public static final int RECIPE_FOR_DISASTER_STORE = 36;
+    public static final int BOSS_POINT_STORE = 92;
+    public static final int STARDUST_STORE = 55;
+    public static final int PRESTIGE_STORE = 46;
+    public static final int AFK_STORE = 53;
+    private static final int VOTING_REWARDS_STORE = 27;
+
+    /*
+     * Declared shops
+     */
+    private static final int PKING_REWARDS_STORE = 26;
+    private static final int ENERGY_FRAGMENT_STORE = 33;
+    private static final int AGILITY_TICKET_STORE = 39;
+    private static final int GRAVEYARD_STORE = 42;
+    private static final int TOKKUL_EXCHANGE_STORE = 43;
+    private static final int HOLY_WATER_STORE = 51;
+    private static final int SKILLCAPE_STORE_1 = 8;
+    private static final int SKILLCAPE_STORE_2 = 9;
+    private static final int SKILLCAPE_STORE_3 = 10;
+    private static final int GAMBLING_STORE = 41;
+    private static final int DUNGEONEERING_STORE = 44;
+    private static final int SLAYER_STORE = 47;
+    private final int id;
+    private String name;
+    private Item currency;
+    private Item[] originalStock;
+    private boolean restockingItems;
+
+    /**
+     * Checks if a player has enough inventory space to buy an item
+     *
+     * @param item The item which the player is buying
+     * @return true or false if the player has enough space to buy the item
+     */
+    public static boolean hasInventorySpace(Player player, Item item, int currency, int pricePerItem) {
+        if (player.getInventory().getFreeSlots() >= 1) {
+            return true;
+        }
+        if (item.getDefinition().isStackable()) {
+            if (player.getInventory().contains(item.getId())) {
+                return true;
+            }
+        }
+        if (currency != -1) {
+            if (player.getInventory().getFreeSlots() == 0
+                    && player.getInventory().getAmount(currency) == pricePerItem) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean shopBuysItem(int shopId, Item item) {
+        if (shopId == GENERAL_STORE)
+            return true;
+        if (shopId == DUNGEONEERING_STORE || shopId == BOSS_POINT_STORE || shopId == TRIVIA_STORE
+                || shopId == DONATOR_STORE_1 || shopId == DONATOR_STORE_2 || shopId == DONATOR_STORE_3 || shopId == PKING_REWARDS_STORE
+                || shopId == VOTING_REWARDS_STORE || shopId == RECIPE_FOR_DISASTER_STORE || shopId == HOLY_WATER_STORE
+                || shopId == ENERGY_FRAGMENT_STORE || shopId == AGILITY_TICKET_STORE || shopId == GRAVEYARD_STORE
+                || shopId == TOKKUL_EXCHANGE_STORE || shopId == STARDUST_STORE || shopId == SLAYER_STORE || shopId == PRESTIGE_STORE || shopId == AFK_STORE)
+            return false;
+        Shop shop = ShopManager.getShops().get(shopId);
+        if (shop != null && shop.getOriginalStock() != null) {
+            for (Item it : shop.getOriginalStock()) {
+                if (it != null && it.getId() == item.getId())
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks a value of an item in a shop
+     *
+     * @param player      The player who's checking the item's value
+     * @param slot        The shop item's slot (in the shop!)
+     * @param sellingItem Is the player selling the item?
+     */
+    public void checkValue(Player player, int slot, boolean sellingItem) {
+        this.setPlayer(player);
+        Item shopItem = new Item(getItems()[slot].getId());
+        if (!player.isShopping()) {
+            player.getPacketSender().sendInterfaceRemoval();
+            return;
+        }
+        Item item = sellingItem ? player.getInventory().getItems()[slot] : getItems()[slot];
+        if (item.getId() == 995)
+            return;
+        if (sellingItem) {
+            if (!shopBuysItem(id, item)) {
+                player.getPacketSender().sendMessage("You cannot sell this item to this store.");
+                return;
+            }
+        }
+        int finalValue = 0;
+        String finalString = sellingItem ? "" + ItemDefinition.forId(item.getId()).getName() + ": shop will buy for "
+                : "" + ItemDefinition.forId(shopItem.getId()).getName() + " currently costs ";
+        if (getCurrency().getId() != -1) {
+            finalValue = ItemDefinition.forId(item.getId()).getValue();
+            String s = currency.getDefinition().getName().toLowerCase().endsWith("s")
+                    ? currency.getDefinition().getName().toLowerCase()
+                    : currency.getDefinition().getName().toLowerCase() + "s";
+            /** CUSTOM CURRENCY, CUSTOM SHOP VALUES **/
+            if (id == TOKKUL_EXCHANGE_STORE || id == ENERGY_FRAGMENT_STORE || id == STARDUST_STORE || id == AGILITY_TICKET_STORE
+                    || id == GRAVEYARD_STORE || id == HOLY_WATER_STORE || id == AFK_STORE) {
+                Object[] obj = ShopManager.getCustomShopData(id, item.getId());
+                if (obj == null)
+                    return;
+                finalValue = (int) obj[0];
+                s = (String) obj[1];
+            }
+            if (sellingItem) {
+                if (finalValue != 1) {
+                    finalValue = (int) (finalValue * 0.85);
+                }
+            }
+            finalString += "" + (int) finalValue + " " + s + "" + shopPriceEx((int) finalValue) + ".";
+        } else {
+            Object[] obj = ShopManager.getCustomShopData(id, item.getId());
+            if (obj == null)
+                return;
+            finalValue = (int) obj[0];
+            if (sellingItem) {
+                if (finalValue != 1) {
+                    finalValue = (int) (finalValue * 0.85);
+                }
+            }
+            finalString += "" + finalValue + " " + (String) obj[1] + ".";
+        }
+        if (player != null && finalValue > 0) {
+            player.getPacketSender().sendMessage(finalString);
+            return;
+        }
+    }
+
+    public void sellItem(Player player, int slot, int amountToSell) {
+        this.setPlayer(player);
+        if (!player.isShopping() || player.isBanking()) {
+            player.getPacketSender().sendInterfaceRemoval();
+            return;
+        }
+
+        if (!player.isShopping() || player.isBanking()) {
+            player.getPacketSender().sendInterfaceRemoval();
+            return;
+        }
+        Item itemToSell = player.getInventory().getItems()[slot];
+        if (!itemToSell.sellable()) {
+            player.getPacketSender().sendMessage("This item cannot be sold.");
+            return;
+        }
+        if (!shopBuysItem(id, itemToSell)) {
+            player.getPacketSender().sendMessage("You cannot sell this item to this store.");
+            return;
+        }
+        if (!player.getInventory().contains(itemToSell.getId()) || itemToSell.getId() == 995)
+            return;
+        if (this.full(itemToSell.getId()))
+            return;
+        if (player.getInventory().getAmount(itemToSell.getId()) < amountToSell)
+            amountToSell = player.getInventory().getAmount(itemToSell.getId());
+        if (amountToSell == 0)
+            return;
+        /*
+         * if(amountToSell > 300) { String s =
+         * ItemDefinition.forId(itemToSell.getId()).getName().endsWith("s") ?
+         * ItemDefinition.forId(itemToSell.getId()).getName() :
+         * ItemDefinition.forId(itemToSell.getId()).getName() + "s";
+         * player.getPacketSender().sendMessage("You can only sell 300 "+s+
+         * " at a time."); return; }
+         */
+        int itemId = itemToSell.getId();
+        boolean customShop = this.getCurrency().getId() == -1;
+        boolean inventorySpace = customShop ? true : false;
+        if (!customShop) {
+            if (!itemToSell.getDefinition().isStackable()) {
+                if (!player.getInventory().contains(this.getCurrency().getId()))
+                    inventorySpace = true;
+            }
+            if (player.getInventory().getFreeSlots() <= 0
+                    && player.getInventory().getAmount(this.getCurrency().getId()) > 0)
+                inventorySpace = true;
+            if (player.getInventory().getFreeSlots() > 0
+                    || player.getInventory().getAmount(this.getCurrency().getId()) > 0)
+                inventorySpace = true;
+        }
+        int itemValue = 0;
+        if (getCurrency().getId() > 0) {
+            itemValue = ItemDefinition.forId(itemToSell.getId()).getValue();
+        } else {
+            Object[] obj = ShopManager.getCustomShopData(id, itemToSell.getId());
+            if (obj == null)
+                return;
+            itemValue = (int) obj[0];
+        }
+        if (itemValue <= 0)
+            return;
+        itemValue = (int) (itemValue * 0.85);
+        if (itemValue <= 0) {
+            itemValue = 1;
+        }
+        for (int i = amountToSell; i > 0; i--) {
+            itemToSell = new Item(itemId);
+            if (this.full(itemToSell.getId()) || !player.getInventory().contains(itemToSell.getId())
+                    || !player.isShopping())
+                break;
+            if (!itemToSell.getDefinition().isStackable()) {
+                if (inventorySpace) {
+                    super.switchItem(player.getInventory(), this, itemToSell.getId(), -1);
+                    if (!customShop) {
+                        player.getInventory().add(new Item(getCurrency().getId(), itemValue), false);
+                    } else {
+                        // Return points here
+                    }
+                } else {
+                    player.getPacketSender().sendMessage("Please free some inventory space before doing that.");
+                    break;
+                }
+            } else {
+                if (inventorySpace) {
+                    super.switchItem(player.getInventory(), this, itemToSell.getId(), amountToSell);
+                    if (!customShop) {
+                        player.getInventory().add(new Item(getCurrency().getId(), itemValue * amountToSell), false);
+                    } else {
+                        // Return points here
+                    }
+                    break;
+                } else {
+                    player.getPacketSender().sendMessage("Please free some inventory space before doing that.");
+                    break;
+                }
+            }
+            amountToSell--;
+        }
+        if (customShop) {
+            player.getPointsHandler().refreshPanel();
+        }
+        player.getInventory().refreshItems();
+        fireRestockTask();
+        refreshItems();
+        publicRefresh();
+    }
+
+    @Override
+    public int capacity() {
+        return 42;
     }
 
     public static class ShopManager {
@@ -1042,7 +1036,7 @@ public class Shop extends ItemContainer {
                     case 14012: //pernix top
                     case 14013:    //pernix chaps
                     case 12601:    //ring of the gods
-                        return new Object[]{4000, "Boss Points"};
+                        return new Object[]{3000, "Boss Points"};
                     case 18782: //dragonkin lamp
                         return new Object[]{50, "Boss Points"};
                     case 20998: //twisted bow
@@ -1050,33 +1044,32 @@ public class Shop extends ItemContainer {
                         return new Object[]{30000, "Boss Points"};
                     case 15272: //rocktail
                     case 989: //crystal key
-                        return new Object[]{10, "Boss points"};
+                        return new Object[]{10, "Boss Points"};
                     case 11718: //armadyl helmet
                     case 11720: //armadyl chestplate
                     case 11722: //armadyl chainskirt
                     case 11724: //bandos chestplate
                     case 11726:    //bandos tassets
-                        return new Object[]{1500, "Boss points"};
+                    case 13905: //vesta spear
+                    case 13899: //vesta longsword
+                    case 13887: //vesta chainbody
+                    case 13893: //vesta chainskirt
+                    case 13896:    //statius full helm
+                    case 13884: //statius platebody
+                    case 13890: //statius platelegs
+                    case 13861://zuriel robe bottom
+                    case 13858://zuriel robe top
+                    case 13864://zuriel hood
                     case 20012: //trickster helm
                     case 20010: //trickster robe
                     case 20011: //trickster robe legs
                     case 20020: //trickster gloves
-                    case 20019: //trickster boots
-                    case 13051: //armadyl crossbow
-                    case 20016: // battlemage
-                    case 20017: //battlemage
-                    case 20018: //battlemage
-                    case 20021: //battlemage
-                    case 20022: //battlemage
-                    case 14018: //katana
-                    case 4454: //kodai
-                        return new Object[]{1000, "boss points"};
+                    case 20019:    //trickster boots
                     case 13239: //primoridial boots
                     case 12708: //pegasian boots
-                    case 13235: //eternal boots
-                    case 16955: //primal rapier
-                        return new Object[]{350, "Boss points"};
-
+                    case 13235:    //eternal boots
+                    case 18902: //trident of the swamp
+                        return new Object[]{450, "Boss Points"};
                 }
                 return new Object[]{25000, "Boss Points"};
             } else if (shop == DONATOR_STORE_1 || shop == DONATOR_STORE_2 || shop == DONATOR_STORE_3) {
@@ -1117,10 +1110,9 @@ public class Shop extends ItemContainer {
                     case 4740://bolt rack
                         return new Object[]{1, "Donation Points"};
                     case 6830://10$ donation box
-                    case 17291://blood necklace
+                        return new Object[]{10, "Donation Points"};
                     case 16359://primal boots
                     case 16293://primal gauntlets
-                        return new Object[]{10, "Donation Points"};
                     case 10336://3rd age vambraces
                     case 6831://15$ donation box
                     case 10374://zamorak coif
@@ -1134,8 +1126,7 @@ public class Shop extends ItemContainer {
                     case 10362://amulet of glory (t)
                     case 7803://yin yang amulet
                         return new Object[]{15, "Donation Points"};
-                    case 18894://ghrazi rapier
-                    case 18901://Avernic Defender
+                    case 6832://30$ donation box
                     case 1038://Red Partyhat
                     case 1040://Yellow Partyhat
                     case 1046://Purple Partyhat
@@ -1143,9 +1134,9 @@ public class Shop extends ItemContainer {
                     case 1048://White Partyhat
                     case 1044://Green Partyhat
                     case 1050:// santa hat
-                    case 7449://Meat Tenderizer
-                    case 5608://Fox
-                    case 13666://Giant Hand
+                        return new Object[]{30, "Donation Points"};
+                    case 17291://blood necklace
+                        return new Object[]{35, "Donation Points"};
                     case 9946://cap and goggles
                     case 9945://bomber cap
                     case 9944://bomber jack
@@ -1161,11 +1152,11 @@ public class Shop extends ItemContainer {
                     case 9920://jack lantern mask
                     case 10507://reindeer hat
                     case 19314://3rd age druidic wreath
-                    case 9472://gnome goggles
-                        return new Object[]{20, "Donation Points"};
+                    case 9472://gnome goggels
                     case 18891://justiciar helm
                     case 18892://justiciar platebody
                     case 18893://justiciar platelegs
+                    case 18894://ghrazi rapier
                     case 18898://ring of suffering
                     case 18900://sanguinesti staff
                     case 14008://Torva helm
@@ -1177,27 +1168,28 @@ public class Shop extends ItemContainer {
                     case 14014://Virtus Helmet
                     case 14015://Virtus Plate
                     case 14016://Virtus Legs
-                    case 16711://primal full helm
-                    case 17259://primal platebody
-                    case 16689://primal platelegs
-                    case 17361://primal kiteshield
-                        return new Object[]{25, "Donation Points"};
                     case 10350://3rd age full helm
                     case 10348://3rd age platebody
                     case 10346://3rd age platelegs
                     case 10352://3rd age kiteshield
+                    case 10342://3rd age mage hat
+                    case 10338://3rd age robe top
+                    case 10340://3rd age robe
                     case 10334://3rd age range coif
                     case 10330://3rd age range top
                     case 10332://3rd age range legs
-                    case 20998://Twisted Bow
-                    case 6832://30$ donation box
-                        return new Object[]{30, "Donation Points"};
-                    case 18899://scythe of vitur
-                        return new Object[]{35, "Donation Points"};
+                    case 20998://twisted bow
+                        return new Object[]{40, "Donation Points"};
+                    case 16711://primal full helm
+                    case 17259://primal platebody
+                    case 16689://primal platelegs
+                    case 17361://primal kiteshield
+                    case 6833://50$ donation box
+                    case 18899://scythe of vigur
+                        return new Object[]{50, "Donation Points"};
                     case 14044://Black Partyhat
                     case 14050://Black Santa Hat
-                    case 6833://50$ donation box
-                        return new Object[]{50, "Donation Points"};
+                        return new Object[]{80, "Donation Points"};
                 }
                 return new Object[]{100, "Donation Points"}; // Default Value if we miss one
             } else if (shop == AGILITY_TICKET_STORE) {

@@ -24,7 +24,6 @@ import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.range.DwarfMultiCannon;
-import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.FightStyle;
 import com.janus.world.content.dialogue.DialogueManager;
@@ -67,6 +66,214 @@ public class ObjectActionPacketListener implements PacketListener {
 
     public static final int FIRST_CLICK = 132, SECOND_CLICK = 252, THIRD_CLICK = 70, FOURTH_CLICK = 234, FIFTH_CLICK = 228;
 
+    private static void secondClick(final Player player, Packet packet) {
+        final int id = packet.readLEShortA();
+        final int y = packet.readLEShort();
+        final int x = packet.readUnsignedShortA();
+        final Position position = new Position(x, y, player.getPosition().getZ());
+        final GameObject gameObject = new GameObject(id, position);
+        if (id > 0 && id != 6 && !RegionClipping.objectExists(gameObject)) {
+            //player.getPacketSender().sendMessage("An error occured. Error code: "+id).sendMessage("Please report the error to a staff member.");
+            return;
+        }
+        if ((player.getRights() == PlayerRights.DEVELOPER) || (player.getRights() == PlayerRights.OWNER))
+            player.getPacketSender().sendMessage("Second click object id; [id, position] : [" + id + ", " + position.toString() + "]");
+        player.setPositionToFace(gameObject.getPosition());
+        int distanceX = (player.getPosition().getX() - position.getX());
+        int distanceY = (player.getPosition().getY() - position.getY());
+        if (distanceX < 0)
+            distanceX = -(distanceX);
+        if (distanceY < 0)
+            distanceY = -(distanceY);
+        int size = distanceX > distanceY ? distanceX : distanceY;
+        gameObject.setSize(size);
+        player.setInteractingObject(gameObject).setWalkToTask(new WalkToTask(player, position, gameObject.getSize(), new FinalizedMovementTask() {
+            public void execute() {
+                if (MiningData.forRock(gameObject.getId()) != null) {
+                    Prospecting.prospectOre(player, id);
+                    return;
+                }
+                if (player.getFarming().click(player, x, y, 1))
+                    return;
+                switch (gameObject.getId()) {
+
+                    case 6189:
+                        Smelting.openInterface(player);
+                        break;
+
+
+                    case -16000://afk firemaking
+                        player.getPacketSender().sendRichPresenceState("AFK Firemaking");
+                        player.getPacketSender().sendSmallImageKey("firemaking");
+                        player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.FIREMAKING));
+                        AfkSkilling.afkSkilling(player, 50, 250, 11, 733);
+                        break;
+
+                    case -28577://afk magic
+                        player.getPacketSender().sendRichPresenceState("AFK Magic");
+                        player.getPacketSender().sendSmallImageKey("magic");
+                        player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.MAGIC));
+                        if (player.getEquipment().getFreeSlots() != player.getEquipment().capacity()) {
+                            player.getPacketSender().sendMessage("Please unequip all your items first.");
+                            return;
+                        } else {
+                            AfkSkilling.afkSkilling(player, 50, 250, 6, 716);
+                        }
+                        break;
+
+                    case -16014://afk cooking
+                        player.getPacketSender().sendRichPresenceState("AFK Cooking");
+                        player.getPacketSender().sendSmallImageKey("cooking");
+                        player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.COOKING));
+                        AfkSkilling.afkSkilling(player, 50, 250, 7, 896);
+                        break;
+
+                    case 884:
+                        player.setDialogueActionId(41);
+                        player.setInputHandling(new DonateToWell());
+                        player.getPacketSender().sendInterfaceRemoval().sendEnterAmountPrompt("How much money would you like to contribute with?");
+                        break;
+                    case 21505:
+                    case 21507:
+                        player.moveTo(new Position(2328, 3804));
+                        break;
+                    case 2646:
+                    case 312:
+                        if (!player.getClickDelay().elapsed(1200))
+                            return;
+                        if (player.getInventory().isFull()) {
+                            player.getPacketSender().sendMessage("You don't have enough free inventory space.");
+                            return;
+                        }
+                        String type = gameObject.getId() == 312 ? "Potato" : "Flax";
+                        player.performAnimation(new Animation(827));
+                        player.getInventory().add(gameObject.getId() == 312 ? 1942 : 1779, 1);
+                        player.getPacketSender().sendMessage("You pick some " + type + "..");
+                        gameObject.setPickAmount(gameObject.getPickAmount() + 1);
+                        if (RandomUtility.getRandom(3) == 1 && gameObject.getPickAmount() >= 1 || gameObject.getPickAmount() >= 6) {
+                            player.getPacketSender().sendClientRightClickRemoval();
+                            gameObject.setPickAmount(0);
+                            CustomObjects.globalObjectRespawnTask(new GameObject(-1, gameObject.getPosition()), gameObject, 10);
+                        }
+                        player.getClickDelay().reset();
+                        break;
+                    case 2644:
+                        Flax.showSpinInterface(player);
+                        break;
+                    case 6:
+                        DwarfCannon cannon = player.getCannon();
+                        if (cannon == null || cannon.getOwnerIndex() != player.getIndex()) {
+                            player.getPacketSender().sendMessage("This is not your cannon!");
+                        } else {
+                            DwarfMultiCannon.pickupCannon(player, cannon, false);
+                        }
+                        break;
+
+                    case 4875:
+                        Stalls.stealFromStall(player, 1, 5100, 18199, "You steal a banana.");
+                        break;
+                    case 4874:
+                        Stalls.stealFromStall(player, 30, 6130, 15009, "You steal a golden ring.");
+                        break;
+                    case 4876:
+                        Stalls.stealFromStall(player, 60, 7370, 17401, "You steal a damaged hammer.");
+                        break;
+                    case 4877:
+                        Stalls.stealFromStall(player, 65, 7990, 1389, "You steal a staff.");
+                        break;
+                    case 4878:
+                        Stalls.stealFromStall(player, 80, 9230, 11998, "You steal a scimitar.");
+                        break;
+                    case 2152:
+                    case 22823:
+                        player.performAnimation(new Animation(8502));
+                        player.performGraphic(new Graphic(1308));
+                        player.getSkillManager().setCurrentLevel(Skill.SUMMONING, player.getSkillManager().getMaxLevel(Skill.SUMMONING));
+                        player.getPacketSender().sendMessage("You renew your Summoning points.");
+                        break;
+                }
+            }
+        }));
+    }
+
+    private static void thirdClick(final Player player, Packet packet) {
+        final int id = packet.readUnsignedShortA();
+        final int y = packet.readUnsignedShortA();
+        final int x = packet.readShort();
+        final Position position = new Position(x, y, player.getPosition().getZ());
+        final GameObject gameObject = new GameObject(id, position);
+        if ((player.getRights() == PlayerRights.DEVELOPER) || (player.getRights() == PlayerRights.OWNER))
+            player.getPacketSender().sendMessage("Third click object id; [id, position] : [" + id + ", " + position.toString() + "]");
+    }
+
+
+    private static void fourthClick(Player player, Packet packet) {
+        final int id = packet.readUnsignedShortA();
+        final int y = packet.readUnsignedShortA();
+        final int x = packet.readShort();
+        final Position position = new Position(x, y, player.getPosition().getZ());
+        final GameObject gameObject = new GameObject(id, position);
+        if ((player.getRights() == PlayerRights.DEVELOPER) || (player.getRights() == PlayerRights.OWNER))
+            player.getPacketSender().sendMessage("Fourth click object id; [id, position] : [" + id + ", " + position.toString() + "]");
+    }
+
+    private static void fifthClick(final Player player, Packet packet) {
+        final int id = packet.readUnsignedShortA();
+        final int y = packet.readUnsignedShortA();
+        final int x = packet.readShort();
+        final Position position = new Position(x, y, player.getPosition().getZ());
+        final GameObject gameObject = new GameObject(id, position);
+        if ((player.getRights() == PlayerRights.DEVELOPER) || (player.getRights() == PlayerRights.OWNER))
+            player.getPacketSender().sendMessage("Fith click object id; [id, position] : [" + id + ", " + position.toString() + "]");
+        if (!Construction.buildingHouse(player)) {
+            if (id > 0 && !RegionClipping.objectExists(gameObject)) {
+                //player.getPacketSender().sendMessage("An error occured. Error code: "+id).sendMessage("Please report the error to a staff member.");
+                return;
+            }
+        }
+        player.setPositionToFace(gameObject.getPosition());
+        int distanceX = (player.getPosition().getX() - position.getX());
+        int distanceY = (player.getPosition().getY() - position.getY());
+        if (distanceX < 0)
+            distanceX = -(distanceX);
+        if (distanceY < 0)
+            distanceY = -(distanceY);
+        int size = distanceX > distanceY ? distanceX : distanceY;
+        gameObject.setSize(size);
+        player.setInteractingObject(gameObject);
+        player.setWalkToTask(new WalkToTask(player, position, gameObject.getSize(), new FinalizedMovementTask() {
+            @Override
+            public void execute() {
+                switch (id) {
+                }
+                Construction.handleFifthObjectClick(x, y, id, player);
+            }
+        }));
+    }
+
+    @Override
+    public void handleMessage(Player player, Packet packet) {
+        if (player.isTeleporting() || player.isPlayerLocked() || player.getMovementQueue().isLockMovement())
+            return;
+        switch (packet.getOpcode()) {
+            case FIRST_CLICK:
+                firstClick(player, packet);
+                break;
+            case SECOND_CLICK:
+                secondClick(player, packet);
+                break;
+            case THIRD_CLICK:
+                //thirdClick(player, packet);
+                break;
+            case FOURTH_CLICK:
+                //fourthClick(player, packet);
+                break;
+            case FIFTH_CLICK:
+                fifthClick(player, packet);
+                break;
+        }
+    }
+
     /**
      * The PacketListener logger to debug information and print out errors.
      */
@@ -102,6 +309,7 @@ public class ObjectActionPacketListener implements PacketListener {
             public void execute() {
                 player.setPositionToFace(gameObject.getPosition());
 
+
                 if (player.getRegionInstance() != null) {
                     Construction.handleFifthObjectClick(x, y, id, player);
                 }
@@ -131,29 +339,13 @@ public class ObjectActionPacketListener implements PacketListener {
                 if (player.getLocation() == Location.WILDERNESS && WildernessObelisks.handleObelisk(gameObject.getId())) {
                     return;
                 }
-                if (id == BossFunctions.ENTRY_DOOR_ID) {
-                    BossFunctions.handleDoor(player);
-                }
-                if (id == BossFunctions.EXIT_CAVE_ID) {
-                    BossFunctions.handleExit(player);
-                }
-                if (id == BossFunctions.rewardChestID) {
-                    BossFunctions.handleRewardChest(player);
-                }
                 switch (id) {
-
-                    case 13132:
-                        player.forceChat("GO CHAMP!");
-                        break;
-
-                    case 42220:
-                            TeleportHandler.teleportPlayer(player, GameSettings.DEFAULT_POSITION, player.getSpellbook().getTeleportType());
-                            break;
 
                     case 24600: //Instance Barrier Exit
                         if (player.getLocation() == Location.INSTANCE_ARENA && player.getRegionInstance() == null) {
                             player.moveTo(InstanceArena.ENTRANCE);
                         }
+                        System.out.println("Object click registered");
                         InstanceArena.destructArena(player);
                         break;
 
@@ -163,9 +355,13 @@ public class ObjectActionPacketListener implements PacketListener {
                         InstanceArena.handleInstance(player, gameObject);
                         break;
 
+                    case 13132:
+                        player.getRegionInstance().getNpcsList().forEach(n -> n.forceChat("Pussy! Stop trying to run!"));
+                        break;
+
 
                     case 54259://afk smithing
-                        AfkSkilling.AfkSkillMethod(player, 50, 250, 13, 898);
+                        AfkSkilling.afkSkilling(player, 50, 250, 13, 898);
                         player.getPacketSender().sendRichPresenceState("AFK Smithing");
                         player.getPacketSender().sendSmallImageKey("smithing");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.SMITHING));
@@ -175,34 +371,34 @@ public class ObjectActionPacketListener implements PacketListener {
                         player.getPacketSender().sendRichPresenceState("AFK Hunter");
                         player.getPacketSender().sendSmallImageKey("hunter");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.HUNTER));
-                        AfkSkilling.AfkSkillMethod(player, 50, 250, 22, 827);
+                        AfkSkilling.afkSkilling(player, 50, 250, 22, 827);
                         break;
 
                     case 49536://afk fletching
                         player.getPacketSender().sendRichPresenceState("AFK Fletching");
                         player.getPacketSender().sendSmallImageKey("fletching");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.FLETCHING));
-                        AfkSkilling.AfkSkillMethod(player, 50, 250, 9, 1248);
+                        AfkSkilling.afkSkilling(player, 50, 250, 9, 1248);
                         break;
 
                     case 5896://afk rock mining
                         player.getPacketSender().sendRichPresenceState("AFK Mining");
                         player.getPacketSender().sendSmallImageKey("mining");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.MINING));
-                        AfkSkilling.AfkSkillMethod(player, 50, 250, 14, 10226);
+                        AfkSkilling.afkSkilling(player, 50, 250, 14, 10226);
                         break;
 
                     case 2023://afk tree
                         player.getPacketSender().sendRichPresenceState("AFK Woodcutting");
                         player.getPacketSender().sendSmallImageKey("woodcutting");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.WOODCUTTING));
-                        AfkSkilling.AfkSkillMethod(player, 50, 250, 8, 10227);
+                        AfkSkilling.afkSkilling(player, 50, 250, 8, 10227);
                         break;
                     case 49522://afk fishing
                         player.getPacketSender().sendRichPresenceState("AFK Fishing");
                         player.getPacketSender().sendSmallImageKey("fishing");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.FISHING));
-                        AfkSkilling.AfkSkillMethod(player, 50, 250, 10, 623);
+                        AfkSkilling.afkSkilling(player, 50, 250, 10, 623);
                         break;
 
                     case 36959://afk melee
@@ -210,9 +406,9 @@ public class ObjectActionPacketListener implements PacketListener {
                             player.getPacketSender().sendMessage("Please unequip all your items first.");
                             return;
                         } else if (player.getFightType().getStyle() == FightStyle.AGGRESSIVE) {
-                            AfkSkilling.AfkCombatMethod(player, 50, 250, 0);
+                            AfkSkilling.afkCombat(player, 50, 250, 0);
                         } else {
-                            AfkSkilling.AfkCombatMethod(player, 50, 250, 0);
+                            AfkSkilling.afkCombat(player, 50, 250, 0);
                         }
                         break;
 
@@ -248,7 +444,7 @@ public class ObjectActionPacketListener implements PacketListener {
                         player.getPacketSender().sendRichPresenceState("AFK Thieving!");
                         player.getPacketSender().sendSmallImageKey("thieving");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.THIEVING));
-                        AfkSkilling.AfkSkillMethod(player, 50, 250, 17, 881);
+                        AfkSkilling.afkSkilling(player, 50, 250, 17, 881);
                         break;
 
 
@@ -1437,212 +1633,5 @@ public class ObjectActionPacketListener implements PacketListener {
                 }
             }
         }));
-    }
-
-    private static void secondClick(final Player player, Packet packet) {
-        final int id = packet.readLEShortA();
-        final int y = packet.readLEShort();
-        final int x = packet.readUnsignedShortA();
-        final Position position = new Position(x, y, player.getPosition().getZ());
-        final GameObject gameObject = new GameObject(id, position);
-        if (id > 0 && id != 6 && !RegionClipping.objectExists(gameObject)) {
-            //player.getPacketSender().sendMessage("An error occured. Error code: "+id).sendMessage("Please report the error to a staff member.");
-            return;
-        }
-        if ((player.getRights() == PlayerRights.DEVELOPER) || (player.getRights() == PlayerRights.OWNER))
-            player.getPacketSender().sendMessage("Second click object id; [id, position] : [" + id + ", " + position.toString() + "]");
-        player.setPositionToFace(gameObject.getPosition());
-        int distanceX = (player.getPosition().getX() - position.getX());
-        int distanceY = (player.getPosition().getY() - position.getY());
-        if (distanceX < 0)
-            distanceX = -(distanceX);
-        if (distanceY < 0)
-            distanceY = -(distanceY);
-        int size = distanceX > distanceY ? distanceX : distanceY;
-        gameObject.setSize(size);
-        player.setInteractingObject(gameObject).setWalkToTask(new WalkToTask(player, position, gameObject.getSize(), new FinalizedMovementTask() {
-            public void execute() {
-                if (MiningData.forRock(gameObject.getId()) != null) {
-                    Prospecting.prospectOre(player, id);
-                    return;
-                }
-                if (player.getFarming().click(player, x, y, 1))
-                    return;
-                switch (gameObject.getId()) {
-
-                    case 6189:
-                        Smelting.openInterface(player);
-                        break;
-
-
-                    case -16000://afk firemaking
-                        player.getPacketSender().sendRichPresenceState("AFK Firemaking");
-                        player.getPacketSender().sendSmallImageKey("firemaking");
-                        player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.FIREMAKING));
-                        AfkSkilling.AfkSkillMethod(player, 50, 250, 11, 733);
-                        break;
-
-                    case -28577://afk magic
-                        player.getPacketSender().sendRichPresenceState("AFK Magic");
-                        player.getPacketSender().sendSmallImageKey("magic");
-                        player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.MAGIC));
-                        if (player.getEquipment().getFreeSlots() != player.getEquipment().capacity()) {
-                            player.getPacketSender().sendMessage("Please unequip all your items first.");
-                            return;
-                        } else {
-                            AfkSkilling.AfkSkillMethod(player, 50, 250, 6, 716);
-                        }
-                        break;
-
-                    case -16014://afk cooking
-                        player.getPacketSender().sendRichPresenceState("AFK Cooking");
-                        player.getPacketSender().sendSmallImageKey("cooking");
-                        player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.COOKING));
-                        AfkSkilling.AfkSkillMethod(player, 50, 250, 7, 896);
-                        break;
-
-                    case 884:
-                        player.setDialogueActionId(41);
-                        player.setInputHandling(new DonateToWell());
-                        player.getPacketSender().sendInterfaceRemoval().sendEnterAmountPrompt("How much money would you like to contribute with?");
-                        break;
-                    case 21505:
-                    case 21507:
-                        player.moveTo(new Position(2328, 3804));
-                        break;
-                    case 2646:
-                    case 312:
-                        if (!player.getClickDelay().elapsed(1200))
-                            return;
-                        if (player.getInventory().isFull()) {
-                            player.getPacketSender().sendMessage("You don't have enough free inventory space.");
-                            return;
-                        }
-                        String type = gameObject.getId() == 312 ? "Potato" : "Flax";
-                        player.performAnimation(new Animation(827));
-                        player.getInventory().add(gameObject.getId() == 312 ? 1942 : 1779, 1);
-                        player.getPacketSender().sendMessage("You pick some " + type + "..");
-                        gameObject.setPickAmount(gameObject.getPickAmount() + 1);
-                        if (RandomUtility.getRandom(3) == 1 && gameObject.getPickAmount() >= 1 || gameObject.getPickAmount() >= 6) {
-                            player.getPacketSender().sendClientRightClickRemoval();
-                            gameObject.setPickAmount(0);
-                            CustomObjects.globalObjectRespawnTask(new GameObject(-1, gameObject.getPosition()), gameObject, 10);
-                        }
-                        player.getClickDelay().reset();
-                        break;
-                    case 2644:
-                        Flax.showSpinInterface(player);
-                        break;
-                    case 6:
-                        DwarfCannon cannon = player.getCannon();
-                        if (cannon == null || cannon.getOwnerIndex() != player.getIndex()) {
-                            player.getPacketSender().sendMessage("This is not your cannon!");
-                        } else {
-                            DwarfMultiCannon.pickupCannon(player, cannon, false);
-                        }
-                        break;
-
-                    case 4875:
-                        Stalls.stealFromStall(player, 1, 5100, 18199, "You steal a banana.");
-                        break;
-                    case 4874:
-                        Stalls.stealFromStall(player, 30, 6130, 15009, "You steal a golden ring.");
-                        break;
-                    case 4876:
-                        Stalls.stealFromStall(player, 60, 7370, 17401, "You steal a damaged hammer.");
-                        break;
-                    case 4877:
-                        Stalls.stealFromStall(player, 65, 7990, 1389, "You steal a staff.");
-                        break;
-                    case 4878:
-                        Stalls.stealFromStall(player, 80, 9230, 11998, "You steal a scimitar.");
-                        break;
-                    case 2152:
-                    case 22823:
-                        player.performAnimation(new Animation(8502));
-                        player.performGraphic(new Graphic(1308));
-                        player.getSkillManager().setCurrentLevel(Skill.SUMMONING, player.getSkillManager().getMaxLevel(Skill.SUMMONING));
-                        player.getPacketSender().sendMessage("You renew your Summoning points.");
-                        break;
-                }
-            }
-        }));
-    }
-
-    private static void thirdClick(final Player player, Packet packet) {
-        final int id = packet.readUnsignedShortA();
-        final int y = packet.readUnsignedShortA();
-        final int x = packet.readShort();
-        final Position position = new Position(x, y, player.getPosition().getZ());
-        final GameObject gameObject = new GameObject(id, position);
-        if ((player.getRights() == PlayerRights.DEVELOPER) || (player.getRights() == PlayerRights.OWNER))
-            player.getPacketSender().sendMessage("Third click object id; [id, position] : [" + id + ", " + position.toString() + "]");
-    }
-
-    private static void fourthClick(Player player, Packet packet) {
-        final int id = packet.readUnsignedShortA();
-        final int y = packet.readUnsignedShortA();
-        final int x = packet.readShort();
-        final Position position = new Position(x, y, player.getPosition().getZ());
-        final GameObject gameObject = new GameObject(id, position);
-        if ((player.getRights() == PlayerRights.DEVELOPER) || (player.getRights() == PlayerRights.OWNER))
-            player.getPacketSender().sendMessage("Fourth click object id; [id, position] : [" + id + ", " + position.toString() + "]");
-    }
-
-    private static void fifthClick(final Player player, Packet packet) {
-        final int id = packet.readUnsignedShortA();
-        final int y = packet.readUnsignedShortA();
-        final int x = packet.readShort();
-        final Position position = new Position(x, y, player.getPosition().getZ());
-        final GameObject gameObject = new GameObject(id, position);
-        if ((player.getRights() == PlayerRights.DEVELOPER) || (player.getRights() == PlayerRights.OWNER))
-            player.getPacketSender().sendMessage("Fith click object id; [id, position] : [" + id + ", " + position.toString() + "]");
-        if (!Construction.buildingHouse(player)) {
-            if (id > 0 && !RegionClipping.objectExists(gameObject)) {
-                //player.getPacketSender().sendMessage("An error occured. Error code: "+id).sendMessage("Please report the error to a staff member.");
-                return;
-            }
-        }
-        player.setPositionToFace(gameObject.getPosition());
-        int distanceX = (player.getPosition().getX() - position.getX());
-        int distanceY = (player.getPosition().getY() - position.getY());
-        if (distanceX < 0)
-            distanceX = -(distanceX);
-        if (distanceY < 0)
-            distanceY = -(distanceY);
-        int size = distanceX > distanceY ? distanceX : distanceY;
-        gameObject.setSize(size);
-        player.setInteractingObject(gameObject);
-        player.setWalkToTask(new WalkToTask(player, position, gameObject.getSize(), new FinalizedMovementTask() {
-            @Override
-            public void execute() {
-                switch (id) {
-                }
-                Construction.handleFifthObjectClick(x, y, id, player);
-            }
-        }));
-    }
-
-    @Override
-    public void handleMessage(Player player, Packet packet) {
-        if (player.isTeleporting() || player.isPlayerLocked() || player.getMovementQueue().isLockMovement())
-            return;
-        switch (packet.getOpcode()) {
-            case FIRST_CLICK:
-                firstClick(player, packet);
-                break;
-            case SECOND_CLICK:
-                secondClick(player, packet);
-                break;
-            case THIRD_CLICK:
-                //thirdClick(player, packet);
-                break;
-            case FOURTH_CLICK:
-                //fourthClick(player, packet);
-                break;
-            case FIFTH_CLICK:
-                fifthClick(player, packet);
-                break;
-        }
     }
 }

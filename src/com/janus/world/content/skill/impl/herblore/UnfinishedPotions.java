@@ -28,15 +28,6 @@ public enum UnfinishedPotions {
         this.levelReq = levelReq;
     }
 
-    public static UnfinishedPotions forId(int herbId) {
-        for (UnfinishedPotions unf : UnfinishedPotions.values()) {
-            if (unf.getHerbNeeded() == herbId) {
-                return unf;
-            }
-        }
-        return null;
-    }
-
     public int getUnfPotion() {
         return unfinishedPotion;
     }
@@ -47,6 +38,15 @@ public enum UnfinishedPotions {
 
     public int getLevelReq() {
         return levelReq;
+    }
+
+    public static UnfinishedPotions forId(int herbId) {
+        for (UnfinishedPotions unf : UnfinishedPotions.values()) {
+            if (unf.getHerbNeeded() == herbId) {
+                return unf;
+            }
+        }
+        return null;
     }
 
 }

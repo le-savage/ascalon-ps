@@ -15,7 +15,6 @@ public class GrassyPatch {
     public int hour;
     public int day;
     public int year;
-    boolean raking = false;
 
     public void setTime() {
         minute = Calendar.getInstance().get(12);
@@ -51,6 +50,8 @@ public class GrassyPatch {
         if (option == 1)
             rake(player, index);
     }
+
+    boolean raking = false;
 
     public void rake(final Player p, final int index) {
         if (raking)

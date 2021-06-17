@@ -21,11 +21,6 @@ import java.util.stream.Stream;
 public final class HerbSack {
 
     /**
-     * An {@link Multiset} of Integer's (Item IDs) which handles the contents of
-     * the herb sack.
-     */
-    private final Multiset<Integer> herbSack = HashMultiset.create();
-    /**
      * The player participating in this action.
      */
     private Player player;
@@ -39,6 +34,12 @@ public final class HerbSack {
     public HerbSack(Player player) {
         this.player = player;
     }
+
+    /**
+     * An {@link Multiset} of Integer's (Item IDs) which handles the contents of
+     * the herb sack.
+     */
+    private final Multiset<Integer> herbSack = HashMultiset.create();
 
     /**
      * Handles the action of filling the herb sack.

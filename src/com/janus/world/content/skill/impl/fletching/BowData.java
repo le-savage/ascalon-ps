@@ -29,6 +29,23 @@ public enum BowData {
         this.levelReq = levelReq;
     }
 
+    public int getLogID() {
+        return logID;
+    }
+
+    public int getBowID() {
+        return unstrungBow;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public int getLevelReq() {
+        return levelReq;
+    }
+
+
     public static BowData forBow(int id) {
         for (BowData fl : BowData.values()) {
             if (fl.getBowID() == id) {
@@ -65,21 +82,5 @@ public enum BowData {
             }
         }
         return null;
-    }
-
-    public int getLogID() {
-        return logID;
-    }
-
-    public int getBowID() {
-        return unstrungBow;
-    }
-
-    public int getXp() {
-        return xp;
-    }
-
-    public int getLevelReq() {
-        return levelReq;
     }
 }

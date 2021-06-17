@@ -7,17 +7,18 @@ public enum Difficulty {
 
     Default(0, 0),
     Easy(3, 0),
-    Medium(1, 2),
+    Medium(0, 2),
     Hard(0.5, 5),
     Insane(0.25, 10),
-    Zezima(0.1, 20);
+    Zezima(0.1, 20); //TODO change DR
+
+    private double xpRate;
+    private int drBoost;
 
     private static final ImmutableSet<Difficulty> LOW = Sets.immutableEnumSet(Default, Easy, Medium);
     private static final ImmutableSet<Difficulty> HIGH = Sets.immutableEnumSet(Hard, Insane, Zezima);
-    private double xpRate;
-    private int drBoost;
-    Difficulty(double xpRate, int drBoost) {
-        this.xpRate = xpRate;
+    Difficulty(double xpBoost, int drBoost) {
+        this.xpRate = xpBoost;
         this.drBoost = drBoost;
     }
 

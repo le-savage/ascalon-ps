@@ -18,11 +18,6 @@ import org.jboss.netty.handler.codec.oneone.OneToOneEncoder;
 public final class PacketEncoder extends OneToOneEncoder {
 
     /**
-     * The encoder used for incoming packets.
-     */
-    private final IsaacRandom encoder;
-
-    /**
      * The GamePacketEncoder constructor.
      *
      * @param encoder The encoder used for the packets.
@@ -30,6 +25,11 @@ public final class PacketEncoder extends OneToOneEncoder {
     public PacketEncoder(IsaacRandom encoder) {
         this.encoder = encoder;
     }
+
+    /**
+     * The encoder used for incoming packets.
+     */
+    private final IsaacRandom encoder;
 
     @Override
     protected Object encode(ChannelHandlerContext context, Channel channel,

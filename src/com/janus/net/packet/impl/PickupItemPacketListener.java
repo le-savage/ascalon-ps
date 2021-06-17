@@ -4,7 +4,6 @@ import com.janus.engine.task.impl.WalkToTask;
 import com.janus.engine.task.impl.WalkToTask.FinalizedMovementTask;
 import com.janus.model.GroundItem;
 import com.janus.model.Item;
-import com.janus.model.Locations;
 import com.janus.model.Position;
 import com.janus.model.definitions.ItemDefinition;
 import com.janus.net.packet.Packet;
@@ -49,10 +48,6 @@ public class PickupItemPacketListener implements PacketListener {
                 if (gItem != null) {
                     if (player.getInventory().getAmount(gItem.getItem().getId()) + gItem.getItem().getAmount() > Integer.MAX_VALUE || player.getInventory().getAmount(gItem.getItem().getId()) + gItem.getItem().getAmount() <= 0) {
                         player.getPacketSender().sendMessage("You cannot hold that amount of this item. Clear your inventory!");
-                        return;
-                    }
-                    if (player.getLocation() == Locations.Location.BOSS_TIER_LOCATION) {
-                        player.forceChat("I can't pickup items in here!");
                         return;
                     }
                     GroundItemManager.pickupGroundItem(player, new Item(itemId), new Position(x, y, player.getPosition().getZ()));

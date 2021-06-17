@@ -16,15 +16,6 @@ public class WalkToTask {
      * The associated game character.
      */
     private final Player player;
-    /**
-     * The task a player must execute upon reaching said destination.
-     */
-    private final FinalizedMovementTask finalizedTask;
-    private int distance = -1;
-    /**
-     * The destination the game character will move to.
-     */
-    private Position destination;
 
     /**
      * The WalkToTask constructor.
@@ -38,6 +29,19 @@ public class WalkToTask {
         this.destination = destination;
         this.finalizedTask = finalizedTask;
         this.distance = distance;
+    }
+    /**
+     * The task a player must execute upon reaching said destination.
+     */
+    private final FinalizedMovementTask finalizedTask;
+    private int distance = -1;
+    /**
+     * The destination the game character will move to.
+     */
+    private Position destination;
+
+    public interface FinalizedMovementTask {
+        public void execute();
     }
 
     /**
@@ -61,9 +65,5 @@ public class WalkToTask {
                 player.setWalkToTask(null);
             }
         }
-    }
-
-    public interface FinalizedMovementTask {
-        public void execute();
     }
 }

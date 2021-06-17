@@ -72,6 +72,11 @@ public class PlayerPunishment {
         }
     }
 
+	/*public static void logChatMsg(String Msg) {
+		addToFile(""+CHAT_LOG+"Chatlog.txt", Msg);
+			ChatMsg.add(Msg);
+		}*/
+
 
     public static void addMutedIP(String IP) {
         if (!IPSMuted.contains(IP)) {

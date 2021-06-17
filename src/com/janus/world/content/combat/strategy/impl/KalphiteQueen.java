@@ -36,10 +36,6 @@ public class KalphiteQueen implements CombatStrategy {
         });
     }
 
-    public static boolean secondForm() {
-        return KALPHITE_QUEEN.getId() == 1160;
-    }
-
     @Override
     public boolean canAttack(Character entity, Character victim) {
         return true;
@@ -107,6 +103,11 @@ public class KalphiteQueen implements CombatStrategy {
         }
         return true;
     }
+
+    public static boolean secondForm() {
+        return KALPHITE_QUEEN.getId() == 1160;
+    }
+
 
     @Override
     public int attackDelay(Character entity) {

@@ -16,19 +16,6 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class MagicOnItemsPacketListener implements PacketListener {
 
-    public static final int MAGIC_ON_GROUNDITEMS = 181;
-    public static final int MAGIC_ON_ITEMS = 237;
-    final static int[][] ORE_DATA = {
-            {436, 1, 438, 1, 2349, 53}, // TIN
-            {438, 1, 436, 1, 2349, 53}, // COPPER
-            {440, 1, -1, -1, 2351, 53}, // IRON ORE
-            {442, 1, -1, -1, 2355, 53}, // SILVER ORE
-            {444, 1, -1, -1, 2357, 23}, // GOLD BAR
-            {447, 1, 453, 4, 2359, 30}, // MITHRIL ORE
-            {449, 1, 453, 6, 2361, 38}, // ADDY ORE
-            {451, 1, 453, 8, 2363, 50}, // RUNE ORE
-    };
-
     @SuppressWarnings("unused")
     @Override
     public void handleMessage(Player player, Packet packet) {
@@ -121,4 +108,17 @@ public class MagicOnItemsPacketListener implements PacketListener {
             player.getInventory().refreshItems();
         }
     }
+
+    public static final int MAGIC_ON_GROUNDITEMS = 181;
+    public static final int MAGIC_ON_ITEMS = 237;
+    final static int[][] ORE_DATA = {
+            {436, 1, 438, 1, 2349, 53}, // TIN
+            {438, 1, 436, 1, 2349, 53}, // COPPER
+            {440, 1, -1, -1, 2351, 53}, // IRON ORE
+            {442, 1, -1, -1, 2355, 53}, // SILVER ORE
+            {444, 1, -1, -1, 2357, 23}, // GOLD BAR
+            {447, 1, 453, 4, 2359, 30}, // MITHRIL ORE
+            {449, 1, 453, 6, 2361, 38}, // ADDY ORE
+            {451, 1, 453, 8, 2363, 50}, // RUNE ORE
+    };
 }

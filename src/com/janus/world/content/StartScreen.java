@@ -12,6 +12,42 @@ import com.janus.world.entity.impl.player.Player;
  * @author Joey wijers
  */
 public class StartScreen {
+    public enum GameModes {
+        NORMAL("Normal", 52761, -12780, 1, 0, new Item[]{new Item(2441, 50), new Item(2437, 50), new Item(2443, 50), new Item(3025, 50), new Item(2435, 30), new Item(392, 300), new Item(995, 10000000), (new Item(1323, 1)), (new Item(1333, 1)), (new Item(11818, 1)), (new Item(11838, 1)), (new Item(6568, 1)), (new Item(841, 1)), (new Item(861, 1)), (new Item(882, 500)), (new Item(892, 500)), (new Item(18768, 1)), (new Item(1381, 1)), (new Item(558, 1000)), (new Item(557, 1000)), (new Item(555, 1000)), (new Item(554, 1000))}, "As a normal player you will be able to", "play the game without any restrictions.", "", "", "", "", ""),
+        IRONMAN("  Ironman", 52762, -12779, 1, 1, new Item[]{new Item(2441, 10), new Item(2437, 10), new Item(2443, 10), new Item(3025, 10), new Item(392, 200), new Item(995, 2000000), new Item(1153, 1), new Item(1115, 1), new Item(1067, 1), (new Item(1191, 1)), (new Item(1323, 1)), (new Item(4391, 1)), (new Item(841, 1)), (new Item(882, 500)), (new Item(1169, 1)), (new Item(1129, 1)), (new Item(1095, 1)), (new Item(1478, 1)), (new Item(579, 1)), (new Item(577, 1)), (new Item(1011, 1)), (new Item(1381, 1)), (new Item(558, 1000)), (new Item(557, 1000)), (new Item(555, 1000)), (new Item(554, 1000))}, "Play Janus as an Iron man.", "You will be restricted from trading, staking and looting items from killed players.", "You will not get a npc drop if another player has done more damage.", "You will have to rely on your starter, skilling, pvming, and shops.", "This game mode is for players that love a challenge.", "", ""),
+        ULTIMATE_IRON("  Ultimate Iron", 52763, -12778, 1, 2, new Item[]{new Item(2441, 10), new Item(2437, 10), new Item(2443, 10), new Item(3025, 10), new Item(392, 200), new Item(995, 2000000), new Item(1153, 1), new Item(1115, 1), new Item(1067, 1), (new Item(1191, 1)), (new Item(1323, 1)), (new Item(4391, 1)), (new Item(841, 1)), (new Item(882, 500)), (new Item(1169, 1)), (new Item(1129, 1)), (new Item(1095, 1)), (new Item(1478, 1)), (new Item(579, 1)), (new Item(577, 1)), (new Item(1011, 1)), (new Item(1381, 1)), (new Item(558, 1000)), (new Item(557, 1000)), (new Item(555, 1000)), (new Item(554, 1000))}, "Play Janus as a Ultimate Ironman.", "In addiction to the iron man rules you cannot use banks.", "This gamemode is for the players that love the impossible.", "", "", "", "");
+
+        private String name;
+        private int stringId;
+        private int checkClick;
+        private int textClick;
+        private int configId;
+        private Item[] starterPackItems;
+        private String line1;
+        private String line2;
+        private String line3;
+        private String line4;
+        private String line5;
+        private String line6;
+        private String line7;
+
+        private GameModes(String name, int stringId, int checkClick, int textClick, int configId, Item[] starterPackItems, String line1, String line2, String line3, String line4, String line5, String line6, String line7) {
+            this.name = name;
+            this.stringId = stringId;
+            this.checkClick = checkClick;
+            this.textClick = textClick;
+            this.configId = configId;
+            this.starterPackItems = starterPackItems;
+            this.line1 = line1;
+            this.line2 = line2;
+            this.line3 = line3;
+            this.line4 = line4;
+            this.line5 = line5;
+            this.line6 = line6;
+            this.line7 = line7;
+        }
+    }
+
     public static void open(Player player) {
         sendNames(player);
         player.getPacketSender().sendInterface(52750);
@@ -145,42 +181,6 @@ public class StartScreen {
     public static void sendNames(Player player) {
         for (GameModes mode : GameModes.values()) {
             player.getPacketSender().sendString(mode.stringId, mode.name);
-        }
-    }
-
-    public enum GameModes {
-        NORMAL("Normal", 52761, -12780, 1, 0, new Item[]{new Item(2441, 50), new Item(2437, 50), new Item(2443, 50), new Item(3025, 50), new Item(2435, 30), new Item(392, 300), new Item(995, 10000000), (new Item(1323, 1)), (new Item(1333, 1)), (new Item(11818, 1)), (new Item(11838, 1)), (new Item(6568, 1)), (new Item(841, 1)), (new Item(861, 1)), (new Item(882, 500)), (new Item(892, 500)), (new Item(18768, 1)), (new Item(1381, 1)), (new Item(558, 1000)), (new Item(557, 1000)), (new Item(555, 1000)), (new Item(554, 1000))}, "As a normal player you will be able to", "play the game without any restrictions.", "", "", "", "", ""),
-        IRONMAN("  Ironman", 52762, -12779, 1, 1, new Item[]{new Item(2441, 10), new Item(2437, 10), new Item(2443, 10), new Item(3025, 10), new Item(392, 200), new Item(995, 2000000), new Item(1153, 1), new Item(1115, 1), new Item(1067, 1), (new Item(1191, 1)), (new Item(1323, 1)), (new Item(4391, 1)), (new Item(841, 1)), (new Item(882, 500)), (new Item(1169, 1)), (new Item(1129, 1)), (new Item(1095, 1)), (new Item(1478, 1)), (new Item(579, 1)), (new Item(577, 1)), (new Item(1011, 1)), (new Item(1381, 1)), (new Item(558, 1000)), (new Item(557, 1000)), (new Item(555, 1000)), (new Item(554, 1000))}, "Play Janus as an Iron man.", "You will be restricted from trading, staking and looting items from killed players.", "You will not get a npc drop if another player has done more damage.", "You will have to rely on your starter, skilling, pvming, and shops.", "This game mode is for players that love a challenge.", "", ""),
-        ULTIMATE_IRON("  Ultimate Iron", 52763, -12778, 1, 2, new Item[]{new Item(2441, 10), new Item(2437, 10), new Item(2443, 10), new Item(3025, 10), new Item(392, 200), new Item(995, 2000000), new Item(1153, 1), new Item(1115, 1), new Item(1067, 1), (new Item(1191, 1)), (new Item(1323, 1)), (new Item(4391, 1)), (new Item(841, 1)), (new Item(882, 500)), (new Item(1169, 1)), (new Item(1129, 1)), (new Item(1095, 1)), (new Item(1478, 1)), (new Item(579, 1)), (new Item(577, 1)), (new Item(1011, 1)), (new Item(1381, 1)), (new Item(558, 1000)), (new Item(557, 1000)), (new Item(555, 1000)), (new Item(554, 1000))}, "Play Janus as a Ultimate Ironman.", "In addiction to the iron man rules you cannot use banks.", "This gamemode is for the players that love the impossible.", "", "", "", "");
-
-        private String name;
-        private int stringId;
-        private int checkClick;
-        private int textClick;
-        private int configId;
-        private Item[] starterPackItems;
-        private String line1;
-        private String line2;
-        private String line3;
-        private String line4;
-        private String line5;
-        private String line6;
-        private String line7;
-
-        private GameModes(String name, int stringId, int checkClick, int textClick, int configId, Item[] starterPackItems, String line1, String line2, String line3, String line4, String line5, String line6, String line7) {
-            this.name = name;
-            this.stringId = stringId;
-            this.checkClick = checkClick;
-            this.textClick = textClick;
-            this.configId = configId;
-            this.starterPackItems = starterPackItems;
-            this.line1 = line1;
-            this.line2 = line2;
-            this.line3 = line3;
-            this.line4 = line4;
-            this.line5 = line5;
-            this.line6 = line6;
-            this.line7 = line7;
         }
     }
 }

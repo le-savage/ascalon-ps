@@ -36,13 +36,7 @@ public enum DialogueExpression {
     GOOFY_LAUGH(9851),
     NORMAL_STILL(9855),
     THINKING_STILL(9859),
-    LOOKING_UP(9862),
-    CALM(9805);
-
-    /**
-     * The animation the dialogue head model will perform.
-     */
-    private final Animation animation;
+    LOOKING_UP(9862), CALM(9805);
 
     /**
      * The DialogueExpression constructor.
@@ -52,6 +46,11 @@ public enum DialogueExpression {
     private DialogueExpression(int animationId) {
         animation = new Animation(animationId);
     }
+
+    /**
+     * The animation the dialogue head model will perform.
+     */
+    private final Animation animation;
 
     /**
      * Gets the animation for dialogue head model to perform.

@@ -30,21 +30,6 @@ import com.janus.world.entity.impl.player.Player;
 
 public class EquipPacketListener implements PacketListener {
 
-    public static final int OPCODE = 41;
-
-    public static void resetWeapon(Player player) {
-        Item weapon = player.getEquipment().get(Equipment.WEAPON_SLOT);
-        WeaponInterfaces.assign(player, weapon);
-        WeaponAnimations.assign(player, weapon);
-        if (player.getAutocastSpell() != null || player.isAutocast()) {
-            Autocasting.resetAutocast(player, true);
-            player.getPacketSender().sendMessage("Autocast spell cleared.");
-        }
-        player.setSpecialActivated(false);
-        player.getPacketSender().sendSpriteChange(41006, 945);
-        CombatSpecial.updateBar(player);
-    }
-
     @Override
     public void handleMessage(Player player, Packet packet) {
         if (player.getConstitution() <= 0)
@@ -178,5 +163,20 @@ public class EquipPacketListener implements PacketListener {
                 }
                 break;
         }
+    }
+
+    public static final int OPCODE = 41;
+
+    public static void resetWeapon(Player player) {
+        Item weapon = player.getEquipment().get(Equipment.WEAPON_SLOT);
+        WeaponInterfaces.assign(player, weapon);
+        WeaponAnimations.assign(player, weapon);
+        if (player.getAutocastSpell() != null || player.isAutocast()) {
+            Autocasting.resetAutocast(player, true);
+            player.getPacketSender().sendMessage("Autocast spell cleared.");
+        }
+        player.setSpecialActivated(false);
+        player.getPacketSender().sendSpriteChange(41006, 945);
+        CombatSpecial.updateBar(player);
     }
 }

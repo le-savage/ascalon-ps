@@ -29,15 +29,6 @@ public enum GemData {
         this.animation = animation;
     }
 
-    public static GemData forGem(int id) {
-        for (GemData gem : GemData.values()) {
-            if (gem.getGem() == id) {
-                return gem;
-            }
-        }
-        return null;
-    }
-
     public int getGem() {
         return gem;
     }
@@ -60,5 +51,14 @@ public enum GemData {
 
     public Animation getAnimation() {
         return animation;
+    }
+
+    public static GemData forGem(int id) {
+        for (GemData gem : GemData.values()) {
+            if (gem.getGem() == id) {
+                return gem;
+            }
+        }
+        return null;
     }
 }

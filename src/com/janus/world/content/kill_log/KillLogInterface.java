@@ -12,6 +12,12 @@ import java.util.Objects;
 public class KillLogInterface {
     private static List<KillsTracker.KillsEntry> currentlyViewing = new ArrayList<>();
 
+    private static enum Type {
+        MONSTERS,
+        BOSSES,
+        OTHER;
+    }
+
     public static void open(Player player) {
         player.getPA().sendString(33310, "Total NPC Kills:" + Misc.insertCommasToNumber(String.valueOf(KillsTracker.getTotalKills(player))));
         sendNames(player, Type.MONSTERS);
@@ -41,7 +47,6 @@ public class KillLogInterface {
             }
         }
     }
-
     private static void loadType(Player player, Type type) {
         currentlyViewing.clear();
         switch (type) {
@@ -138,12 +143,6 @@ public class KillLogInterface {
                 return true;
         }
         return false;
-    }
-
-    private static enum Type {
-        MONSTERS,
-        BOSSES,
-        OTHER;
     }
 }
 

@@ -160,15 +160,6 @@ public enum FamiliarData {
     STEEL_TITAN(12790, 99, 435.2, 7343, 4.9, 10, 12825, new Item(12160),
             new Item(1119), new Item(12155), new Item(12183, 178));
 
-    public final int pouchId;
-    final int levelRequired;
-    final double createExperience;
-    final int npcId;
-    final double summonExperience;
-    final int summoningPointsRequired;
-    final Item[] recipe;
-    final int scroll;
-
     private FamiliarData(int pouchId, int levelRequired, double createExperience,
                          int npcId, double summonExperience, int summoningPointsRequired, int scroll, Item... recipe) {
         this.pouchId = pouchId;
@@ -180,6 +171,22 @@ public enum FamiliarData {
         this.scroll = scroll;
         this.recipe = recipe;
     }
+
+    public final int pouchId;
+
+    final int levelRequired;
+
+    final double createExperience;
+
+    final int npcId;
+
+    final double summonExperience;
+
+    final int summoningPointsRequired;
+
+    final Item[] recipe;
+
+    final int scroll;
 
     public static FamiliarData forId(int pouchId) {
         for (FamiliarData familiar : FamiliarData.values()) {

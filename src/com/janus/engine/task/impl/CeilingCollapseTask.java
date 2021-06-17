@@ -17,12 +17,12 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class CeilingCollapseTask extends Task {
 
-    private Player player;
-
     public CeilingCollapseTask(Player player) {
         super(9, player, false);
         this.player = player;
     }
+
+    private Player player;
 
     @Override
     public void execute() {

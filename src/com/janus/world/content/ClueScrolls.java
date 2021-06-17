@@ -8,7 +8,56 @@ import com.janus.world.entity.impl.player.Player;
 
 public class ClueScrolls {
 
+    private static final Item[][] MEDIUM_LEVEL_REWARD = {//1 in 3 chance to hit this table
+
+
+            {new Item(4587, 1)},//dragon scimitar
+            {new Item(20072, 1)},//dragon defender
+            {new Item(4178, 1)},//abbysal whip
+            {new Item(11335, 1)},//dragon full helm
+            {new Item(6586, 1)},//amulet of fury
+            {new Item(1514, 500)},//magic logs
+            {new Item(2364, 500)},//rune bar
+            {new Item(454, 500)},//coal
+            {new Item(995, 20000000)},//coins
+            {new Item(15259, 1)},//dragon pickaxe
+            {new Item(990, 5)},//crystal key
+            {new Item(19336, 1)},//dragon full helm (or)
+            {new Item(19337, 1)},//dragon plateboy (or)
+            {new Item(19338, 1)},//dragon platelegs (or)
+    };
+    private static final Item[][] HIGH_LEVEL_REWARD = {//1 in 10 chance to hit the table
+            {new Item(454, 1000)},//Coal
+            {new Item(437, 750)},//Copper Ore
+            {new Item(439, 750)},//Tin Ore
+            {new Item(454, 250)},//Iron Ore
+            {new Item(454, 100)},//Mithril Ore
+            {new Item(454, 900)},//Addy Ore
+            {new Item(454, 700)},//Rune Ore
+            {new Item(2350, 800)},//Bronze Bar
+            {new Item(2352, 800)},//Iron Bar
+            {new Item(2354, 800)},//Steel Bar
+            {new Item(2360, 650)},//Mithril Bar
+            {new Item(2362, 700)},//Adamant Bar
+            {new Item(2364, 600)},//Rune Bar
+            {new Item(299, 500)},//Mithril Seeds
+            {new Item(537, 200)},//Dragon Bones
+            {new Item(18331, 2)},//Frost Dragon Bones
+            {new Item(18937, 1)},//1h bonus xp scroll
+            {new Item(7936, 700)},//pure essence
+            {new Item(20059, 1)},//dryogre rapier
+            {new Item(20057, 1)},//drygore longsword
+            {new Item(19111, 1)},//Kiln Cape
+            {new Item(20058, 1)},//drygore mace
+            {new Item(21026, 1)},//ring of coins
+            {new Item(1543, 10)},//Red Key
+
+    };
+
     public static final int[] ACTIVE_CLUES = {2677, 2678, 2679, 2680, 2681, 2682, 2683, 2684, 2685};
+    // digging locations or show reward on reading clue??
+    // to-do change name of clue scrolls in item def
+
     private static final Item[][] BASIC_STACKS = {//Always get 1 of the following
             {new Item(454, 25)},//Coal
             {new Item(437, 50)},//Copper Ore
@@ -33,6 +82,7 @@ public class ClueScrolls {
             {new Item(995, 10000000)},//coins
 
     };
+
     private static final Item[][] LOW_LEVEL_REWARD = {//Always get 2 of the following
             {new Item(454, 125)},//Coal
             {new Item(437, 250)},//Copper Ore
@@ -78,53 +128,13 @@ public class ClueScrolls {
             {new Item(8928, 1)},//Pirate Hat
             {new Item(13354, 1)},//Pirate Hat
     };
-    // digging locations or show reward on reading clue??
-    // to-do change name of clue scrolls in item def
-    private static final Item[][] MEDIUM_LEVEL_REWARD = {//1 in 3 chance to hit this table
+    private static final String[] HINTS = {"Dig somewhere in the edgeville bank",
+            "Dig near the mining guild teleport", "Dig somewhere near the duel arena tele",
+            "Dig near one of the slayer masters", "Dig in the area you might see fisherman",
+            "Dig near the tele to get chaotics", "Dig near the king of dragons",
+            "Dig near the fourth minigame teleport", "Dig where players plant flowers"};
+    public static int CluesCompleted;
 
-
-            {new Item(4587, 1)},//dragon scimitar
-            {new Item(20072, 1)},//dragon defender
-            {new Item(4151, 1)},//abbysal whip
-            {new Item(11335, 1)},//dragon full helm
-            {new Item(6586, 1)},//amulet of fury
-            {new Item(1514, 500)},//magic logs
-            {new Item(2364, 500)},//rune bar
-            {new Item(454, 500)},//coal
-            {new Item(995, 20000000)},//coins
-            {new Item(15259, 1)},//dragon pickaxe
-            {new Item(990, 5)},//crystal key
-            {new Item(19336, 1)},//dragon full helm (or)
-            {new Item(19337, 1)},//dragon plateboy (or)
-            {new Item(19338, 1)},//dragon platelegs (or)
-    };
-    private static final Item[][] HIGH_LEVEL_REWARD = {//1 in 10 chance to hit the table
-            {new Item(454, 1000)},//Coal
-            {new Item(437, 750)},//Copper Ore
-            {new Item(439, 750)},//Tin Ore
-            {new Item(454, 250)},//Iron Ore
-            {new Item(454, 100)},//Mithril Ore
-            {new Item(454, 900)},//Addy Ore
-            {new Item(454, 700)},//Rune Ore
-            {new Item(2350, 800)},//Bronze Bar
-            {new Item(2352, 800)},//Iron Bar
-            {new Item(2354, 800)},//Steel Bar
-            {new Item(2360, 650)},//Mithril Bar
-            {new Item(2362, 700)},//Adamant Bar
-            {new Item(2364, 600)},//Rune Bar
-            {new Item(299, 500)},//Mithril Seeds
-            {new Item(537, 200)},//Dragon Bones
-            {new Item(18331, 2)},//Frost Dragon Bones
-            {new Item(18937, 1)},//1h bonus xp scroll
-            {new Item(7937, 700)},//pure essence
-            {new Item(20059, 1)},//dryogre rapier
-            {new Item(20057, 1)},//drygore longsword
-            {new Item(19111, 1)},//Kiln Cape
-            {new Item(20058, 1)},//drygore mace
-            {new Item(21026, 1)},//ring of coins
-            {new Item(1543, 10)},//Red Key
-
-    };
     private static final Item[][] EXTREME_LEVEL_REWARD = {//1 in 1500 chance to hit the table
             {new Item(14484, 1)},//dragon claws
             {new Item(13051, 1)},//armadyl crossbow
@@ -144,12 +154,6 @@ public class ClueScrolls {
             {new Item(14050, 1)},//Black Santa
             {new Item(4084, 1)},//Sled
     };
-    private static final String[] HINTS = {"Dig somewhere in the edgeville bank",
-            "Dig near the mining guild teleport", "Dig somewhere near the duel arena tele",
-            "Dig near one of the slayer masters", "Dig in the area you might see fisherman",
-            "Dig near the tele to get chaotics", "Dig near the king of dragons",
-            "Dig where pests need controlling teleport", "Dig where players plant flowers"};
-    public static int CluesCompleted;
     public static String currentHint;
 
     public static void addClueRewards(Player player) {

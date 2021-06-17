@@ -58,10 +58,18 @@ public enum PlayerRights {
      */
     //YOUTUBER(30, "<col=CD661D>", 1, 1),
 
-    GLOBAL_ADMIN(-1, "<col=780a80>", 1, 1.5); // Just for Martijn LOL
+    COMMUNITYMANAGER(-1, "<col=780a80>", 1, 1.5); // Just for Martijn LOL
 
-    private static final ImmutableSet<PlayerRights> STAFF = Sets.immutableEnumSet(SUPPORT, MODERATOR, GLOBAL_ADMIN, ADMINISTRATOR, OWNER, DEVELOPER);
+    private static final ImmutableSet<PlayerRights> STAFF = Sets.immutableEnumSet(SUPPORT, MODERATOR, COMMUNITYMANAGER, ADMINISTRATOR, OWNER, DEVELOPER);
+
+    PlayerRights(int yellDelaySeconds, String yellHexColorPrefix, double loyaltyPointsGainModifier, double experienceGainModifier) {
+        this.yellDelay = yellDelaySeconds;
+        this.yellHexColorPrefix = yellHexColorPrefix;
+        this.loyaltyPointsGainModifier = loyaltyPointsGainModifier;
+        this.experienceGainModifier = experienceGainModifier;
+    }
     private static final ImmutableSet<PlayerRights> MEMBERS = Sets.immutableEnumSet(DONATOR, SUPER_DONATOR, EXTREME_DONATOR, LEGENDARY_DONATOR, UBER_DONATOR);
+
     /*
      * The yell delay for the rank
      * The amount of seconds the player with the specified rank must wait before sending another yell message.
@@ -70,36 +78,15 @@ public enum PlayerRights {
     private String yellHexColorPrefix;
     private double loyaltyPointsGainModifier;
     private double experienceGainModifier;
-    PlayerRights(int yellDelaySeconds, String yellHexColorPrefix, double loyaltyPointsGainModifier, double experienceGainModifier) {
-        this.yellDelay = yellDelaySeconds;
-        this.yellHexColorPrefix = yellHexColorPrefix;
-        this.loyaltyPointsGainModifier = loyaltyPointsGainModifier;
-        this.experienceGainModifier = experienceGainModifier;
-    }
 
-    /**
-     * Gets the rank for a certain id.
-     *
-     * @param id The id (ordinal()) of the rank.
-     * @return rights.
-     */
-    public static PlayerRights forId(int id) {
-        for (PlayerRights rights : PlayerRights.values()) {
-            if (rights.ordinal() == id) {
-                return rights;
-            }
-        }
-        return null;
+    public int getYellDelay() {
+        return yellDelay;
     }
 
     /*
      * The player's yell message prefix.
      * Color and shadowing.
      */
-
-    public int getYellDelay() {
-        return yellDelay;
-    }
 
     public String getYellPrefix() {
         return yellHexColorPrefix;
@@ -122,6 +109,21 @@ public enum PlayerRights {
 
     public boolean isMember() {
         return MEMBERS.contains(this);
+    }
+
+    /**
+     * Gets the rank for a certain id.
+     *
+     * @param id The id (ordinal()) of the rank.
+     * @return rights.
+     */
+    public static PlayerRights forId(int id) {
+        for (PlayerRights rights : PlayerRights.values()) {
+            if (rights.ordinal() == id) {
+                return rights;
+            }
+        }
+        return null;
     }
 
     @Override

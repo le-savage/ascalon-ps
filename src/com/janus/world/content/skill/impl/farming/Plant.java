@@ -24,9 +24,11 @@ public class Plant {
     public byte stage = 0;
     public byte disease = -1;
     public byte watered = 0;
+
+    private boolean dead = false;
+
     public byte harvested = 0;
     boolean harvesting = false;
-    private boolean dead = false;
 
     public Plant(int patchId, int plantId) {
         patch = patchId;

@@ -18,37 +18,6 @@ import java.util.Map;
 public class DialogueManager {
 
     /**
-     * This array contains the child id where the dialogue
-     * statement starts for npc and item dialogues.
-     */
-    private static final int[] NPC_DIALOGUE_ID = {
-            4885,
-            4890,
-            4896,
-            4903
-    };
-    /**
-     * This array contains the child id where the dialogue
-     * statement starts for player dialogues.
-     */
-    private static final int[] PLAYER_DIALOGUE_ID = {
-            971,
-            976,
-            982,
-            989
-    };
-    /**
-     * This array contains the child id where the dialogue
-     * statement starts for option dialogues.
-     */
-    private static final int[] OPTION_DIALOGUE_ID = {
-            13760,
-            2461,
-            2471,
-            2482,
-            2494,
-    };
-    /**
      * Contains all dialogues loaded from said file.
      */
     public static Map<Integer, Dialogue> dialogues = new HashMap<Integer, Dialogue>();
@@ -260,4 +229,38 @@ public class DialogueManager {
     public static Map<Integer, Dialogue> getDialogues() {
         return dialogues;
     }
+
+    /**
+     * This array contains the child id where the dialogue
+     * statement starts for npc and item dialogues.
+     */
+    private static final int[] NPC_DIALOGUE_ID = {
+            4885,
+            4890,
+            4896,
+            4903
+    };
+
+    /**
+     * This array contains the child id where the dialogue
+     * statement starts for player dialogues.
+     */
+    private static final int[] PLAYER_DIALOGUE_ID = {
+            971,
+            976,
+            982,
+            989
+    };
+
+    /**
+     * This array contains the child id where the dialogue
+     * statement starts for option dialogues.
+     */
+    private static final int[] OPTION_DIALOGUE_ID = {
+            13760,
+            2461,
+            2471,
+            2482,
+            2494,
+    };
 }

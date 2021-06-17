@@ -14,16 +14,6 @@ import com.janus.world.entity.impl.npc.NPC;
 
 public class Aviansie implements CombatStrategy {
 
-    public static int getGfx(int npc) {
-        switch (npc) {
-            case 6230:
-                return 1837;
-            case 6231:
-                return 2729;
-        }
-        return 37;
-    }
-
     @Override
     public boolean canAttack(Character entity, Character victim) {
         return true;
@@ -63,6 +53,16 @@ public class Aviansie implements CombatStrategy {
             });
         }
         return true;
+    }
+
+    public static int getGfx(int npc) {
+        switch (npc) {
+            case 6230:
+                return 1837;
+            case 6231:
+                return 2729;
+        }
+        return 37;
     }
 
     @Override

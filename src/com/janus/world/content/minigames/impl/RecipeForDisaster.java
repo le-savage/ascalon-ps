@@ -25,25 +25,6 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class RecipeForDisaster {
 
-    private static final Position spawnPos = new Position(1900, 5354);
-    private static final String questTitle = "Recipe for Disaster";
-    private static final String[] questIntro = {
-            "The Culinaromancer has returned and only you",
-            "             can stop him!                  ",
-            "",
-    };
-    private static final String[] questGuide = {
-            "Talk to the Gypsy in Edgeville and agree to help her.",
-            "Enter the portal.",
-            "Defeat the following servants:",
-            "* Agrith-Na-Na",
-            "* Flambeed",
-            "* Karamel",
-            "* Dessourt",
-            "* Gelatinnoth mother",
-            "And finally.. Defeat the Culinaromancer!"
-    };
-
     public static void enter(Player player) {
         if (player.getMinigameAttributes().getRecipeForDisasterAttributes().getWavesCompleted() == 6)
             return;
@@ -200,4 +181,24 @@ public class RecipeForDisaster {
             player.getPacketSender().sendInterfaceSet(Shop.INTERFACE_ID, Shop.INVENTORY_INTERFACE_ID - 1);
         player.setShop(shop).setInterfaceId(Shop.INTERFACE_ID).setShopping(true);
     }
+
+
+    private static final Position spawnPos = new Position(1900, 5354);
+    private static final String questTitle = "Recipe for Disaster";
+    private static final String[] questIntro = {
+            "The Culinaromancer has returned and only you",
+            "             can stop him!                  ",
+            "",
+    };
+    private static final String[] questGuide = {
+            "Talk to the Gypsy in Edgeville and agree to help her.",
+            "Enter the portal.",
+            "Defeat the following servants:",
+            "* Agrith-Na-Na",
+            "* Flambeed",
+            "* Karamel",
+            "* Dessourt",
+            "* Gelatinnoth mother",
+            "And finally.. Defeat the Culinaromancer!"
+    };
 }

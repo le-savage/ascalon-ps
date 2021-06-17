@@ -11,245 +11,6 @@ import com.janus.world.entity.impl.player.Player;
 
 public class Sounds {
 
-    public static boolean handleButton(Player player, int id) {
-        if (id >= 930 && id <= 934) {
-            player.setMusicActive(id != 930);
-            if (id <= 931) {
-                sendSound(player, 319);
-            }
-            PlayerPanel.refreshPanel(player);
-            return true;
-        }
-        if (id >= 941 && id <= 945) {
-            player.setSoundsActive(id != 941);
-            sendSound(player, 319);
-            PlayerPanel.refreshPanel(player);
-            return true;
-        }
-        return false;
-    }
-
-    public static void handleRegionChange(Player player) {
-        if (player.musicActive()) {
-            int songId = getSongID(getAreaID(player));
-            if (songId > 0) {
-                player.getPacketSender().sendSong(songId);
-            }
-        }
-    }
-
-    public static void sendSound(Player player, int id) {
-        if (player.soundsActive()) {
-            player.getPacketSender().sendSound(id, 10, 0);
-        }
-    }
-
-    public static void sendSound(Player player, Sound sound) {
-        sendSound(player, sound.getSound());
-    }
-
-    public static void sendGlobalSound(final Player player, final Sound sound) {
-        for (Player p : Misc.getCombinedPlayerList(player)) {
-            if (p == null)
-                continue;
-            sendSound(p, sound.getSound());
-        }
-    }
-
-    public static void sendGlobalSoundTask(final Player player, final Sound sound) {
-        TaskManager.submit(new Task(1, player, true) {
-            @Override
-            protected void execute() {
-                sendGlobalSound(player, sound);
-                stop();
-            }
-        });
-    }
-
-    public static int getNpcAttackSounds(int NPCID) {
-        String npc = NpcDefinition.forId(NPCID) == null ? "" : NpcDefinition.forId(NPCID).getName().toLowerCase();
-        if (npc.contains("bat")) {
-            return 1;
-        }
-        if (npc.contains("cow")) {
-            return 4;
-        }
-        if (npc.contains("imp")) {
-            return 11;
-        }
-        if (npc.contains("rat")) {
-            return 17;
-        }
-        if (npc.contains("duck")) {
-            return 26;
-        }
-        if (npc.contains("wolf") || npc.contains("bear")) {
-            return 28;
-        }
-        if (npc.contains("dragon")) {
-            return 47;
-        }
-        if (npc.contains("ghost")) {
-            return 57;
-        }
-        if (npc.contains("goblin")) {
-            return 88;
-        }
-        if (npc.contains("skeleton") || npc.contains("demon") || npc.contains("ogre") || npc.contains("giant") || npc.contains("tz-") || npc.contains("jad")) {
-            return 48;
-        }
-        if (npc.contains("zombie")) {
-            return 1155;
-        }
-        if (npc.contains("man") || npc.contains("woman") || npc.contains("monk")) {
-            return 417;
-        }
-        return Misc.getRandom(6) > 3 ? 398 : 394;
-    }
-
-    public static int getNpcBlockSound(int NPCID) {
-        String npc = NpcDefinition.forId(NPCID) == null ? "" : NpcDefinition.forId(NPCID).getName().toLowerCase();
-        if (npc.contains("bat")) {
-            return 7;
-        }
-        if (npc.contains("cow")) {
-            return 5;
-        }
-        if (npc.contains("imp")) {
-            return 11;
-        }
-        if (npc.contains("rat")) {
-            return 16;
-        }
-        if (npc.contains("duck")) {
-            return 24;
-        }
-        if (npc.contains("wolf") || npc.contains("bear")) {
-            return 34;
-        }
-        if (npc.contains("dragon")) {
-            return 45;
-        }
-        if (npc.contains("ghost")) {
-            return 53;
-        }
-        if (npc.contains("goblin")) {
-            return 87;
-        }
-        if (npc.contains("skeleton") || npc.contains("demon") || npc.contains("ogre") || npc.contains("giant") || npc.contains("tz-") || npc.contains("jad")) {
-            return 1154;
-        }
-        if (npc.contains("zombie")) {
-            return 1151;
-        }
-        if (npc.contains("man") && !npc.contains("woman")) {
-            return 816;
-        }
-        if (npc.contains("monk")) {
-            return 816;
-        }
-
-        if (!npc.contains("man") && npc.contains("woman")) {
-            return 818;
-        }
-        return 791;
-    }
-
-    public static int getNpcDeathSounds(int NPCID) {
-        String npc = NpcDefinition.forId(NPCID) == null ? "" : NpcDefinition.forId(NPCID).getName().toLowerCase();
-        if (npc.contains("bat")) {
-            return 7;
-        }
-        if (npc.contains("cow")) {
-            return 3;
-        }
-        if (npc.contains("imp")) {
-            return 9;
-        }
-        if (npc.contains("rat")) {
-            return 15;
-        }
-        if (npc.contains("duck")) {
-            return 25;
-        }
-        if (npc.contains("wolf") || npc.contains("bear")) {
-            return 35;
-        }
-        if (npc.contains("dragon")) {
-            return 44;
-        }
-        if (npc.contains("ghost")) {
-            return 60;
-        }
-        if (npc.contains("goblin")) {
-            return 125;
-        }
-        if (npc.contains("skeleton") || npc.contains("demon") || npc.contains("ogre") || npc.contains("giant") || npc.contains("tz-") || npc.contains("jad")) {
-            return 70;
-        }
-        if (npc.contains("zombie")) {
-            return 1140;
-        }
-        return 70;
-
-    }
-
-    public static int getPlayerBlockSounds(int wepId) {
-
-        int blockSound = 511;
-
-        if (wepId == 2499 ||
-                wepId == 2501 ||
-                wepId == 2503 ||
-                wepId == 4746 ||
-                wepId == 4757 ||
-                wepId == 10330) {//Dragonhide sound
-            blockSound = 24;
-        } else if (wepId == 10551 ||//Torso
-                wepId == 10438) {//3rd age
-            blockSound = 32;//Weird sound
-        } else if (wepId == 10338 ||//3rd age
-                wepId == 7399 ||//Enchanted
-                wepId == 6107 ||//Ghostly
-                wepId == 4091 ||//Mystic
-                wepId == 4101 ||//Mystic
-                wepId == 4111 ||//Mystic
-                wepId == 1035 ||//Zamorak
-                wepId == 12971) {//Combat
-            blockSound = 14;//Robe sound
-        } else if (wepId == 1101 ||//Chains
-                wepId == 1103 ||
-                wepId == 1105 ||
-                wepId == 1107 ||
-                wepId == 1109 ||
-                wepId == 1111 ||
-                wepId == 1113 ||
-                wepId == 1115 || //Plates
-                wepId == 1117 ||
-                wepId == 1119 ||
-                wepId == 1121 ||
-                wepId == 1123 ||
-                wepId == 1125 ||
-                wepId == 1127 ||
-                wepId == 4720 || //Barrows armour
-                wepId == 4728 ||
-                wepId == 4749 ||
-                wepId == 4712 ||
-                wepId == 11720 ||//Godwars armour
-                wepId == 11724 ||
-                wepId == 3140 ||//Dragon
-                wepId == 2615 ||//Fancy
-                wepId == 2653 ||
-                wepId == 2661 ||
-                wepId == 2669 ||
-                wepId == 2623 ||
-                wepId == 3841 ||
-                wepId == 1127) {//Metal armour sound
-            blockSound = 511;
-        }
-        return blockSound;
-    }
-
     public static int getPlayerAttackSound(Player c) {
 
         String wep = ItemDefinition.forId(c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId()).getName().toLowerCase();
@@ -388,15 +149,256 @@ public class Sounds {
         if (c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 2745 || c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 2746 || c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 2747 || c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 2748) { // Godswords
             return 390;
         }
-        if (c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 4151 || c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 4178) {
+        if (c.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 4151) {
             return 1080;
         } else {
             return 398; //Daggers(this is enything that isn't added)
         }
     }
 
+    public static boolean handleButton(Player player, int id) {
+        if (id >= 930 && id <= 934) {
+            player.setMusicActive(id != 930);
+            if (id <= 931) {
+                sendSound(player, 319);
+            }
+            PlayerPanel.refreshPanel(player);
+            return true;
+        }
+        if (id >= 941 && id <= 945) {
+            player.setSoundsActive(id != 941);
+            sendSound(player, 319);
+            PlayerPanel.refreshPanel(player);
+            return true;
+        }
+        return false;
+    }
+
+    public static void handleRegionChange(Player player) {
+        if (player.musicActive()) {
+            int songId = getSongID(getAreaID(player));
+            if (songId > 0) {
+                player.getPacketSender().sendSong(songId);
+            }
+        }
+    }
+
+    public static void sendSound(Player player, int id) {
+        if (player.soundsActive()) {
+            player.getPacketSender().sendSound(id, 10, 0);
+        }
+    }
+
+    public static void sendSound(Player player, Sound sound) {
+        sendSound(player, sound.getSound());
+    }
+
+    public static void sendGlobalSound(final Player player, final Sound sound) {
+        for (Player p : Misc.getCombinedPlayerList(player)) {
+            if (p == null)
+                continue;
+            sendSound(p, sound.getSound());
+        }
+    }
+
+    public static void sendGlobalSoundTask(final Player player, final Sound sound) {
+        TaskManager.submit(new Task(1, player, true) {
+            @Override
+            protected void execute() {
+                sendGlobalSound(player, sound);
+                stop();
+            }
+        });
+    }
+
+    public static int getNpcAttackSounds(int NPCID) {
+        String npc = NpcDefinition.forId(NPCID) == null ? "" : NpcDefinition.forId(NPCID).getName().toLowerCase();
+        if (npc.contains("bat")) {
+            return 1;
+        }
+        if (npc.contains("cow")) {
+            return 4;
+        }
+        if (npc.contains("imp")) {
+            return 11;
+        }
+        if (npc.contains("rat")) {
+            return 17;
+        }
+        if (npc.contains("duck")) {
+            return 26;
+        }
+        if (npc.contains("wolf") || npc.contains("bear")) {
+            return 28;
+        }
+        if (npc.contains("dragon")) {
+            return 47;
+        }
+        if (npc.contains("ghost")) {
+            return 57;
+        }
+        if (npc.contains("goblin")) {
+            return 88;
+        }
+        if (npc.contains("skeleton") || npc.contains("demon") || npc.contains("ogre") || npc.contains("giant") || npc.contains("tz-") || npc.contains("jad")) {
+            return 48;
+        }
+        if (npc.contains("zombie")) {
+            return 1155;
+        }
+        if (npc.contains("man") || npc.contains("woman") || npc.contains("monk")) {
+            return 417;
+        }
+        return Misc.getRandom(6) > 3 ? 398 : 394;
+    }
+
+
+    public static int getNpcBlockSound(int NPCID) {
+        String npc = NpcDefinition.forId(NPCID) == null ? "" : NpcDefinition.forId(NPCID).getName().toLowerCase();
+        if (npc.contains("bat")) {
+            return 7;
+        }
+        if (npc.contains("cow")) {
+            return 5;
+        }
+        if (npc.contains("imp")) {
+            return 11;
+        }
+        if (npc.contains("rat")) {
+            return 16;
+        }
+        if (npc.contains("duck")) {
+            return 24;
+        }
+        if (npc.contains("wolf") || npc.contains("bear")) {
+            return 34;
+        }
+        if (npc.contains("dragon")) {
+            return 45;
+        }
+        if (npc.contains("ghost")) {
+            return 53;
+        }
+        if (npc.contains("goblin")) {
+            return 87;
+        }
+        if (npc.contains("skeleton") || npc.contains("demon") || npc.contains("ogre") || npc.contains("giant") || npc.contains("tz-") || npc.contains("jad")) {
+            return 1154;
+        }
+        if (npc.contains("zombie")) {
+            return 1151;
+        }
+        if (npc.contains("man") && !npc.contains("woman")) {
+            return 816;
+        }
+        if (npc.contains("monk")) {
+            return 816;
+        }
+
+        if (!npc.contains("man") && npc.contains("woman")) {
+            return 818;
+        }
+        return 791;
+    }
+
+    public static int getNpcDeathSounds(int NPCID) {
+        String npc = NpcDefinition.forId(NPCID) == null ? "" : NpcDefinition.forId(NPCID).getName().toLowerCase();
+        if (npc.contains("bat")) {
+            return 7;
+        }
+        if (npc.contains("cow")) {
+            return 3;
+        }
+        if (npc.contains("imp")) {
+            return 9;
+        }
+        if (npc.contains("rat")) {
+            return 15;
+        }
+        if (npc.contains("duck")) {
+            return 25;
+        }
+        if (npc.contains("wolf") || npc.contains("bear")) {
+            return 35;
+        }
+        if (npc.contains("dragon")) {
+            return 44;
+        }
+        if (npc.contains("ghost")) {
+            return 60;
+        }
+        if (npc.contains("goblin")) {
+            return 125;
+        }
+        if (npc.contains("skeleton") || npc.contains("demon") || npc.contains("ogre") || npc.contains("giant") || npc.contains("tz-") || npc.contains("jad")) {
+            return 70;
+        }
+        if (npc.contains("zombie")) {
+            return 1140;
+        }
+        return 70;
+
+    }
+
+
+    public static int getPlayerBlockSounds(int wepId) {
+
+        int blockSound = 511;
+
+        if (wepId == 2499 ||
+                wepId == 2501 ||
+                wepId == 2503 ||
+                wepId == 4746 ||
+                wepId == 4757 ||
+                wepId == 10330) {//Dragonhide sound
+            blockSound = 24;
+        } else if (wepId == 10551 ||//Torso
+                wepId == 10438) {//3rd age
+            blockSound = 32;//Weird sound
+        } else if (wepId == 10338 ||//3rd age
+                wepId == 7399 ||//Enchanted
+                wepId == 6107 ||//Ghostly
+                wepId == 4091 ||//Mystic
+                wepId == 4101 ||//Mystic
+                wepId == 4111 ||//Mystic
+                wepId == 1035 ||//Zamorak
+                wepId == 12971) {//Combat
+            blockSound = 14;//Robe sound
+        } else if (wepId == 1101 ||//Chains
+                wepId == 1103 ||
+                wepId == 1105 ||
+                wepId == 1107 ||
+                wepId == 1109 ||
+                wepId == 1111 ||
+                wepId == 1113 ||
+                wepId == 1115 || //Plates
+                wepId == 1117 ||
+                wepId == 1119 ||
+                wepId == 1121 ||
+                wepId == 1123 ||
+                wepId == 1125 ||
+                wepId == 1127 ||
+                wepId == 4720 || //Barrows armour
+                wepId == 4728 ||
+                wepId == 4749 ||
+                wepId == 4712 ||
+                wepId == 11720 ||//Godwars armour
+                wepId == 11724 ||
+                wepId == 3140 ||//Dragon
+                wepId == 2615 ||//Fancy
+                wepId == 2653 ||
+                wepId == 2661 ||
+                wepId == 2669 ||
+                wepId == 2623 ||
+                wepId == 3841 ||
+                wepId == 1127) {//Metal armour sound
+            blockSound = 511;
+        }
+        return blockSound;
+    }
+
     public static int specialSounds(int id) {
-        if (id == 4151 || id == 4178) //whip
+        if (id == 4151) //whip
         {
             return 1081;
         }
@@ -448,6 +450,43 @@ public class Sounds {
             return 389;
         }
         return -1;
+    }
+
+
+    public enum Sound {
+        ROTATING_CANNON(new int[]{941}),
+        FIRING_CANNON(new int[]{341}),
+        LEVELUP(new int[]{51}),
+        DRINK_POTION(new int[]{334}),
+        EAT_FOOD(new int[]{317}),
+        EQUIP_ITEM(new int[]{319, 320}),
+        DROP_ITEM(new int[]{376}),
+        PICKUP_ITEM(new int[]{358, 359}),
+        SMITH_ITEM(new int[]{464, 468}),
+        SMELT_ITEM(new int[]{352}),
+        MINE_ITEM(new int[]{429, 431, 432}),
+        FLETCH_ITEM(new int[]{375}),
+        WOODCUT(new int[]{471, 472, 473}),
+        LIGHT_FIRE(new int[]{811}),
+        TELEPORT(new int[]{202, 201}),
+        ACTIVATE_PRAYER_OR_CURSE(new int[]{433}),
+        DEACTIVATE_PRAYER_OR_CURSE(new int[]{435}),
+        RUN_OUT_OF_PRAYER_POINTS(new int[]{438}),
+        BURY_BONE(new int[]{380});
+
+        private int[] sounds;
+
+        Sound(int[] sounds) {
+            this.sounds = sounds;
+        }
+
+        public int[] getSounds() {
+            return sounds;
+        }
+
+        public int getSound() {
+            return sounds[Misc.getRandom(getSounds().length - 1)];
+        }
     }
 
     /**
@@ -762,41 +801,5 @@ public class Sounds {
         if (location.getX() >= 2880 && location.getX() <= 3325 && location.getY() >= 2935 && location.getY() <= 3394)
             return 71;
         return 0;
-    }
-
-    public enum Sound {
-        ROTATING_CANNON(new int[]{941}),
-        FIRING_CANNON(new int[]{341}),
-        LEVELUP(new int[]{51}),
-        DRINK_POTION(new int[]{334}),
-        EAT_FOOD(new int[]{317}),
-        EQUIP_ITEM(new int[]{319, 320}),
-        DROP_ITEM(new int[]{376}),
-        PICKUP_ITEM(new int[]{358, 359}),
-        SMITH_ITEM(new int[]{464, 468}),
-        SMELT_ITEM(new int[]{352}),
-        MINE_ITEM(new int[]{429, 431, 432}),
-        FLETCH_ITEM(new int[]{375}),
-        WOODCUT(new int[]{471, 472, 473}),
-        LIGHT_FIRE(new int[]{811}),
-        TELEPORT(new int[]{202, 201}),
-        ACTIVATE_PRAYER_OR_CURSE(new int[]{433}),
-        DEACTIVATE_PRAYER_OR_CURSE(new int[]{435}),
-        RUN_OUT_OF_PRAYER_POINTS(new int[]{438}),
-        BURY_BONE(new int[]{380});
-
-        private int[] sounds;
-
-        Sound(int[] sounds) {
-            this.sounds = sounds;
-        }
-
-        public int[] getSounds() {
-            return sounds;
-        }
-
-        public int getSound() {
-            return sounds[Misc.getRandom(getSounds().length - 1)];
-        }
     }
 }

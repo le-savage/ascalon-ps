@@ -27,7 +27,7 @@ public class ExamineItemPacketListener implements PacketListener {
             if (itemDef.getValue() == 0) {
                 player.getPacketSender().sendMessage(itemDef.getDescription());
             } else {
-                player.getPacketSender().sendMessage(itemDef.getDescription() + " Worth " + Misc.setupMoney(value) + " GP.");
+                player.getPacketSender().sendMessage(itemDef.getDescription() + " Worth " + Misc.insertCommasToNumber(Integer.toString(value)) + " GP.");
 
             }
             for (Skill skill : Skill.values()) {

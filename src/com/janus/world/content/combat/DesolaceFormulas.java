@@ -1,7 +1,6 @@
 package com.janus.world.content.combat;
 
 import com.janus.model.Graphic;
-import com.janus.model.PlayerRights;
 import com.janus.model.Skill;
 import com.janus.model.container.impl.Equipment;
 import com.janus.model.definitions.ItemDefinition;
@@ -31,12 +30,7 @@ public class DesolaceFormulas {
             746, 747, 6523, 6525, 6526, 6527, 6528
     };
 
-    private static boolean boostedCombatStats(Player player) {
-        return SkillManager.boostedCombatStats(player);
-    }
-
     public static int calculateMaxMeleeHit(Character entity, Character victim) {
-
         double maxHit = 0;
         if (entity.isNpc()) {
             NPC npc = (NPC) entity;
@@ -54,28 +48,24 @@ public class DesolaceFormulas {
                 maxHit += (int) ((int) (npc.getDefaultConstitution() - npc.getConstitution()) * 0.2);
             }
         } else {
-            Player player = (Player) entity;
+            Player plr = (Player) entity;
 
             double base = 0;
-            double effective = getEffectiveStr(player);
+            double effective = getEffectiveStr(plr);
             double specialBonus = 1;
-            if (player.isSpecialActivated()) {
-                specialBonus = player.getCombatSpecial().getStrengthBonus();
+            if (plr.isSpecialActivated()) {
+                specialBonus = plr.getCombatSpecial().getStrengthBonus();
             }
-            double strengthBonus = player.getBonusManager().getOtherBonus()[0];
+            double strengthBonus = plr.getBonusManager().getOtherBonus()[0];
             base = (13 + effective + (strengthBonus / 8) + ((effective * strengthBonus) / 65)) / 11;
-            if (player.getEquipment().getItems()[3].getId() == 4718 && player.getEquipment().getItems()[0].getId() == 4716 && player.getEquipment().getItems()[4].getId() == 4720 && player.getEquipment().getItems()[7].getId() == 4722)
-                base += ((player.getSkillManager().getMaxLevel(Skill.CONSTITUTION) - player.getConstitution()) * .045) + 1;
+            if (plr.getEquipment().getItems()[3].getId() == 4718 && plr.getEquipment().getItems()[0].getId() == 4716 && plr.getEquipment().getItems()[4].getId() == 4720 && plr.getEquipment().getItems()[7].getId() == 4722)
+                base += ((plr.getSkillManager().getMaxLevel(Skill.CONSTITUTION) - plr.getConstitution()) * .045) + 1;
             if (specialBonus > 1)
                 base = (base * specialBonus);
-            if (hasObsidianEffect(player) || EquipmentBonus.wearingVoid(player, CombatType.MELEE))
+            if (hasObsidianEffect(plr) || EquipmentBonus.wearingVoid(plr, CombatType.MELEE))
                 base = (base * 1.2);
-            if (EquipmentBonus.wearingEliteVoid(player, CombatType.MELEE))
-                base = (base * 1.1);
-
-            // REDUCING MAX HIT BY 20% IF THE PLAYER TAKES A STR POT AND IS WEARING SCYTHE
-            if (EquipmentBonus.scytheEquipped(player) && SkillManager.boostedStrength(player))
-                base = (base * 0.8);
+            if (EquipmentBonus.wearingEliteVoid(plr, CombatType.MELEE))
+                base = (base * 1.4);
 
             if (victim.isNpc()) {
                 NPC npc = (NPC) victim;
@@ -88,8 +78,8 @@ public class DesolaceFormulas {
                 }
 
                 /** SLAYER HELMET **/
-                if (npc.getId() == player.getSlayer().getSlayerTask().getNpcId()) {
-                    if (player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == 13263) {
+                if (npc.getId() == plr.getSlayer().getSlayerTask().getNpcId()) {
+                    if (plr.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == 13263) {
                         base *= 1.12;
                     }
                 }
@@ -109,13 +99,13 @@ public class DesolaceFormulas {
     /**
      * Calculates a player's Melee attack level (how likely that they're going to hit through defence)
      *
-     * @param player The player's Melee attack level
+     * @param plr The player's Meelee attack level
      * @return The player's Melee attack level
      */
     @SuppressWarnings("incomplete-switch")
-    public static int getMeleeAttack(Player player) {
-        int attackLevel = player.getSkillManager().getCurrentLevel(Skill.ATTACK);
-        switch (player.getFightType().getStyle()) {
+    public static int getMeleeAttack(Player plr) {
+        int attackLevel = plr.getSkillManager().getCurrentLevel(Skill.ATTACK);
+        switch (plr.getFightType().getStyle()) {
             case AGGRESSIVE:
                 attackLevel += 3;
                 break;
@@ -123,100 +113,44 @@ public class DesolaceFormulas {
                 attackLevel += 1;
                 break;
         }
-        boolean hasVoid = EquipmentBonus.wearingVoid(player, CombatType.MELEE);
-        boolean hasEliteVoid = EquipmentBonus.wearingEliteVoid(player, CombatType.MELEE);
+        boolean hasVoid = EquipmentBonus.wearingVoid(plr, CombatType.MELEE);
+        boolean hasEliteVoid = EquipmentBonus.wearingEliteVoid(plr, CombatType.MELEE);
 
-        if (PrayerHandler.isActivated(player,
+        if (PrayerHandler.isActivated(plr,
                 PrayerHandler.CLARITY_OF_THOUGHT)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.05;
-        } else if (PrayerHandler.isActivated(player,
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.05;
+        } else if (PrayerHandler.isActivated(plr,
                 PrayerHandler.IMPROVED_REFLEXES)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.1;
-        } else if (PrayerHandler.isActivated(player,
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.1;
+        } else if (PrayerHandler.isActivated(plr,
                 PrayerHandler.INCREDIBLE_REFLEXES)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.15;
-        } else if (PrayerHandler.isActivated(player,
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.15;
+        } else if (PrayerHandler.isActivated(plr,
                 PrayerHandler.CHIVALRY)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.15;
-        } else if (PrayerHandler.isActivated(player, PrayerHandler.PIETY)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.2;
-        } else if (CurseHandler.isActivated(player, CurseHandler.LEECH_ATTACK)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.05 + player.getLeechedBonuses()[2];
-        } else if (CurseHandler.isActivated(player, CurseHandler.TURMOIL)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK)
-                    * 0.3 + player.getLeechedBonuses()[2];
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.15;
+        } else if (PrayerHandler.isActivated(plr, PrayerHandler.PIETY)) {
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.2;
+        } else if (CurseHandler.isActivated(plr, CurseHandler.LEECH_ATTACK)) {
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.05 + plr.getLeechedBonuses()[2];
+        } else if (CurseHandler.isActivated(plr, CurseHandler.TURMOIL)) {
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK)
+                    * 0.3 + plr.getLeechedBonuses()[2];
         }
 
         if (hasVoid) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.05; //5% Boost
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.1;
         }
         if (hasEliteVoid) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.15; //15% boost
+            attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.3;
         }
+        attackLevel *= plr.isSpecialActivated() ? plr.getCombatSpecial().getAccuracyBonus() : 1;
+        int i = (int) plr.getBonusManager().getAttackBonus()[bestMeleeAtk(plr)];
 
-        /** Justicar bonus **/
-
-        if (EquipmentBonus.fullJusticar(player) && !boostedCombatStats(player)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.25; // 25% Boost
-            if (player.getRights().equals(PlayerRights.OWNER))
-                player.getPacketSender().sendMessage(player.getUsername() + ", your attack level has been buffed (Justicar) and is now: " + attackLevel);
-        }
-
-        /** Torva bonus **/
-
-        if (EquipmentBonus.fullTorva(player) && !boostedCombatStats(player)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.20; // 20% boost
-            if (player.getRights().equals(PlayerRights.OWNER))
-                player.getPacketSender().sendMessage(player.getUsername() + ", your attack level has been buffed (Torva) and is now: " + attackLevel);
-        }
-
-        if (EquipmentBonus.fullPrimal(player) && !boostedCombatStats(player)) {
-            attackLevel += player.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.15; // 15% ? yeah ima test it first anyway
-            if (player.getRights().equals(PlayerRights.OWNER))
-                player.getPacketSender().sendMessage(player.getUsername() + ", your attack level has been buffed (Primal) and is now: " + attackLevel);
-        }
-
-        attackLevel *= player.isSpecialActivated() ? player.getCombatSpecial().getAccuracyBonus() : 1;
-        int i = (int) player.getBonusManager().getAttackBonus()[bestMeleeAtk(player)];
-
-        if (hasObsidianEffect(player))
-            i *= 1.10;// This is the attack bonus * 1.10.. so 10% boost
+        if (hasObsidianEffect(plr) || hasVoid)
+            i *= 1.20;
+        if (hasEliteVoid)
+            i *= 1.40;
         return (int) (attackLevel + (attackLevel * 0.15) + (i + i * 0.04));
-    }
-
-
-
-    /**
-     * Calculates a player's Melee Defence level
-     *
-     * @param player The player to calculate Melee defence for
-     * @return The player's Melee defence level
-     */
-    public static int getMeleeDefence(Player player) {
-        int defenceLevel = player.getSkillManager().getCurrentLevel(Skill.DEFENCE);
-        int bestMeleeDef = (int) player.getBonusManager().getDefenceBonus()[bestMeleeDef(player)];
-
-        if (EquipmentBonus.fullPrimal(player) && !boostedCombatStats(player)) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.05;
-        }
-        if (player.getPrayerActive()[PrayerHandler.THICK_SKIN]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.05;
-        } else if (player.getPrayerActive()[PrayerHandler.ROCK_SKIN]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.1;
-        } else if (player.getPrayerActive()[PrayerHandler.STEEL_SKIN]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.15;
-        } else if (player.getPrayerActive()[PrayerHandler.CHIVALRY]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.2;
-        } else if (player.getPrayerActive()[PrayerHandler.PIETY]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
-        } else if (player.getPrayerActive()[PrayerHandler.RIGOUR]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
-        } else if (player.getPrayerActive()[PrayerHandler.AUGURY]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
-        } else if (player.getCurseActive()[CurseHandler.TURMOIL]) { // turmoil
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.15;
-        }
-        return (int) (defenceLevel + (defenceLevel * 0.15) + (bestMeleeDef + bestMeleeDef * 1.0));
     }
 
     public static int bestMeleeDef(Player p) {
@@ -239,20 +173,49 @@ public class DesolaceFormulas {
         return p.getBonusManager().getAttackBonus()[2] <= p.getBonusManager().getAttackBonus()[1] || p.getBonusManager().getAttackBonus()[2] <= p.getBonusManager().getAttackBonus()[0] ? 0 : 2;
     }
 
-    public static boolean hasObsidianEffect(Player player) {
-        if (player.getEquipment().getItems()[2].getId() != 11128)
+    /**
+     * Calculates a player's Melee Defence level
+     *
+     * @param plr The player to calculate Melee defence for
+     * @return The player's Melee defence level
+     */
+    public static int getMeleeDefence(Player plr) {
+        int defenceLevel = plr.getSkillManager().getCurrentLevel(Skill.DEFENCE);
+        int i = (int) plr.getBonusManager().getDefenceBonus()[bestMeleeDef(plr)];
+        if (plr.getPrayerActive()[PrayerHandler.THICK_SKIN]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.05;
+        } else if (plr.getPrayerActive()[PrayerHandler.ROCK_SKIN]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.1;
+        } else if (plr.getPrayerActive()[PrayerHandler.STEEL_SKIN]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.15;
+        } else if (plr.getPrayerActive()[PrayerHandler.CHIVALRY]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.2;
+        } else if (plr.getPrayerActive()[PrayerHandler.PIETY]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
+        } else if (plr.getPrayerActive()[PrayerHandler.RIGOUR]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
+        } else if (plr.getPrayerActive()[PrayerHandler.AUGURY]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
+        } else if (plr.getCurseActive()[CurseHandler.TURMOIL]) { // turmoil
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.15;
+        }
+        return (int) (defenceLevel + (defenceLevel * 0.15) + (i + i * 1.0));
+    }
+
+    public static boolean hasObsidianEffect(Player plr) {
+        if (plr.getEquipment().getItems()[2].getId() != 11128)
             return false;
 
         for (int weapon : obsidianWeapons) {
-            if (player.getEquipment().getItems()[3].getId() == weapon)
+            if (plr.getEquipment().getItems()[3].getId() == weapon)
                 return true;
         }
         return false;
     }
 
     @SuppressWarnings("incomplete-switch")
-    public static int getStyleBonus(Player player) {
-        switch (player.getFightType().getStyle()) {
+    public static int getStyleBonus(Player plr) {
+        switch (plr.getFightType().getStyle()) {
             case AGGRESSIVE:
             case ACCURATE:
                 return 3;
@@ -262,22 +225,22 @@ public class DesolaceFormulas {
         return 0;
     }
 
-    public static double getEffectiveStr(Player player) {
-        return ((player.getSkillManager().getCurrentLevel(Skill.STRENGTH)) * getPrayerStr(player)) + getStyleBonus(player);
+    public static double getEffectiveStr(Player plr) {
+        return ((plr.getSkillManager().getCurrentLevel(Skill.STRENGTH)) * getPrayerStr(plr)) + getStyleBonus(plr);
     }
 
-    public static double getPrayerStr(Player player) {
-        if (player.getPrayerActive()[1] || player.getCurseActive()[CurseHandler.LEECH_STRENGTH])
+    public static double getPrayerStr(Player plr) {
+        if (plr.getPrayerActive()[1] || plr.getCurseActive()[CurseHandler.LEECH_STRENGTH])
             return 1.05;
-        else if (player.getPrayerActive()[6])
+        else if (plr.getPrayerActive()[6])
             return 1.1;
-        else if (player.getPrayerActive()[14])
+        else if (plr.getPrayerActive()[14])
             return 1.15;
-        else if (player.getPrayerActive()[24])
+        else if (plr.getPrayerActive()[24])
             return 1.18;
-        else if (player.getPrayerActive()[25])
+        else if (plr.getPrayerActive()[25])
             return 1.23;
-        else if (player.getCurseActive()[CurseHandler.TURMOIL])
+        else if (plr.getCurseActive()[CurseHandler.TURMOIL])
             return 1.24;
         return 1;
     }
@@ -286,98 +249,96 @@ public class DesolaceFormulas {
      * Calculates a player's Ranged attack (level).
      * Credits: Dexter Morgan
      *
-     * @param player The player to calculate Ranged attack level for
+     * @param plr The player to calculate Ranged attack level for
      * @return The player's Ranged attack level
      */
-    public static int getRangedAttack(Player player) {
-        int rangeLevel = player.getSkillManager().getCurrentLevel(Skill.RANGED);
-
-
-        double accuracy = player.isSpecialActivated() ? player.getCombatSpecial().getAccuracyBonus() : 1;
+    public static int getRangedAttack(Player plr) {
+        int rangeLevel = plr.getSkillManager().getCurrentLevel(Skill.RANGED);
+        boolean hasVoid = EquipmentBonus.wearingVoid(plr, CombatType.RANGED);
+        boolean hasEliteVoid = EquipmentBonus.wearingEliteVoid(plr, CombatType.RANGED);
+        double accuracy = plr.isSpecialActivated() ? plr.getCombatSpecial().getAccuracyBonus() : 1;
         rangeLevel *= accuracy;
-        if (EquipmentBonus.fullPernix(player) && !boostedCombatStats(player)) { //15% Pernix Buff
-            rangeLevel *= 1.15;
+        if (hasVoid) {
+            rangeLevel += SkillManager.getLevelForExperience(plr.getSkillManager().getExperience(Skill.RANGED)) * 0.15;
         }
-        if (EquipmentBonus.wearingVoid(player, CombatType.RANGED)) {
-            rangeLevel += SkillManager.getLevelForExperience(player.getSkillManager().getExperience(Skill.RANGED)) * 0.15;
+        if (hasEliteVoid) {
+            rangeLevel += SkillManager.getLevelForExperience(plr.getSkillManager().getExperience(Skill.RANGED)) * 0.30;
         }
-        if (EquipmentBonus.wearingEliteVoid(player, CombatType.RANGED)) {
-            rangeLevel += SkillManager.getLevelForExperience(player.getSkillManager().getExperience(Skill.RANGED)) * 0.30;
-        }
-        if (player.getCurseActive()[PrayerHandler.SHARP_EYE] || player.getCurseActive()[CurseHandler.SAP_RANGER]) {
+        if (plr.getCurseActive()[PrayerHandler.SHARP_EYE] || plr.getCurseActive()[CurseHandler.SAP_RANGER]) {
             rangeLevel *= 1.05;
         }
-        if (player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == 15492) {
+        if (plr.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == 15492) {
             rangeLevel *= 1.2;
-        } else if (player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 20998) {
-            rangeLevel *= 1.3; //BUFF TOP TIER RANGED
-        } else if (player.getPrayerActive()[PrayerHandler.HAWK_EYE]) {
+        } else if (plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 20998) {
+            rangeLevel *= 2.5; //BUFF TOP TIER RANGED
+        } else if (plr.getPrayerActive()[PrayerHandler.HAWK_EYE]) {
             rangeLevel *= 1.10;
-        } else if (player.getPrayerActive()[PrayerHandler.EAGLE_EYE]) {
+        } else if (plr.getPrayerActive()[PrayerHandler.EAGLE_EYE]) {
             rangeLevel *= 1.15;
-        } else if (player.getPrayerActive()[PrayerHandler.RIGOUR]) {
+        } else if (plr.getPrayerActive()[PrayerHandler.RIGOUR]) {
             rangeLevel *= 1.22;
-        } else if (player.getCurseActive()[CurseHandler.LEECH_RANGED]) {
+        } else if (plr.getCurseActive()[CurseHandler.LEECH_RANGED]) {
             rangeLevel *= 1.10;
         }
-        return (int) (rangeLevel + (player.getBonusManager().getAttackBonus()[4] * 2));
+        if (hasVoid && accuracy > 1.15)
+            rangeLevel *= 1.8;
+        if (hasEliteVoid && accuracy > 1.40)
+            rangeLevel *= 2.0;
+        return (int) (rangeLevel + (plr.getBonusManager().getAttackBonus()[4] * 2));
     }
 
     /**
      * Calculates a player's Ranged defence level.
      *
-     * @param player The player to calculate the Ranged defence level for
+     * @param plr The player to calculate the Ranged defence level for
      * @return The player's Ranged defence level
      */
-    public static int getRangedDefence(Player player) {
-        int defenceLevel = player.getSkillManager().getCurrentLevel(Skill.DEFENCE);
-        if (player.getPrayerActive()[PrayerHandler.THICK_SKIN]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.05;
-        } else if (player.getPrayerActive()[PrayerHandler.ROCK_SKIN]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.1;
-        } else if (player.getPrayerActive()[PrayerHandler.STEEL_SKIN]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.15;
-        } else if (player.getPrayerActive()[PrayerHandler.CHIVALRY]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.2;
-        } else if (player.getPrayerActive()[PrayerHandler.PIETY]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
-        } else if (player.getPrayerActive()[PrayerHandler.RIGOUR]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
-        } else if (player.getPrayerActive()[PrayerHandler.AUGURY]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
-        } else if (player.getCurseActive()[CurseHandler.TURMOIL]) { // turmoil
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE)
-                    * 0.20 + player.getLeechedBonuses()[0];
+    public static int getRangedDefence(Player plr) {
+        int defenceLevel = plr.getSkillManager().getCurrentLevel(Skill.DEFENCE);
+        if (plr.getPrayerActive()[PrayerHandler.THICK_SKIN]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.05;
+        } else if (plr.getPrayerActive()[PrayerHandler.ROCK_SKIN]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.1;
+        } else if (plr.getPrayerActive()[PrayerHandler.STEEL_SKIN]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.15;
+        } else if (plr.getPrayerActive()[PrayerHandler.CHIVALRY]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.2;
+        } else if (plr.getPrayerActive()[PrayerHandler.PIETY]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
+        } else if (plr.getPrayerActive()[PrayerHandler.RIGOUR]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
+        } else if (plr.getPrayerActive()[PrayerHandler.AUGURY]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
+        } else if (plr.getCurseActive()[CurseHandler.TURMOIL]) { // turmoil
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE)
+                    * 0.20 + plr.getLeechedBonuses()[0];
         }
-        return (int) (defenceLevel + player.getBonusManager().getDefenceBonus()[4] + (player.getBonusManager().getDefenceBonus()[4] / 2));
+        return (int) (defenceLevel + plr.getBonusManager().getDefenceBonus()[4] + (plr.getBonusManager().getDefenceBonus()[4] / 2));
     }
 
-    public static int getMagicAttack(Player player) {
-        boolean voidEquipment = EquipmentBonus.wearingVoid(player, CombatType.MAGIC);
-        boolean voidEliteEquipment = EquipmentBonus.wearingEliteVoid(player, CombatType.MAGIC);
-
-        int attackLevel = player.getSkillManager().getCurrentLevel(Skill.MAGIC);
+    public static int getMagicAttack(Player plr) {
+        boolean voidEquipment = EquipmentBonus.wearingVoid(plr, CombatType.MAGIC);
+        boolean voidEliteEquipment = EquipmentBonus.wearingEliteVoid(plr, CombatType.MAGIC);
+        int attackLevel = plr.getSkillManager().getCurrentLevel(Skill.MAGIC);
         if (voidEquipment)
-            attackLevel *= 1.10;
-        if (voidEliteEquipment)
-            attackLevel *= 1.15;
-        if (player.getPrayerActive()[PrayerHandler.MYSTIC_WILL] || player.getCurseActive()[CurseHandler.SAP_MAGE]) {
+            attackLevel += plr.getSkillManager().getCurrentLevel(Skill.MAGIC) * 0.2;
+        if (plr.getPrayerActive()[PrayerHandler.MYSTIC_WILL] || plr.getCurseActive()[CurseHandler.SAP_MAGE]) {
             attackLevel *= 1.05;
-        } else if (player.getPrayerActive()[PrayerHandler.MYSTIC_LORE]) {
+        } else if (plr.getPrayerActive()[PrayerHandler.MYSTIC_LORE]) {
             attackLevel *= 1.10;
-        } else if (player.getPrayerActive()[PrayerHandler.MYSTIC_MIGHT]) {
+        } else if (plr.getPrayerActive()[PrayerHandler.MYSTIC_MIGHT]) {
             attackLevel *= 1.15;
-        } else if (player.getPrayerActive()[PrayerHandler.AUGURY]) {
+        } else if (plr.getPrayerActive()[PrayerHandler.AUGURY]) {
             attackLevel *= 1.22;
-        } else if (player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21054 || player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21055 ||
-                player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21056 || player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21057) {
-            attackLevel *= 1.15; //BUFF TOP TIER MAGIC NIGHTMARE STAFF - Was 60...
-        } else if (player.getCurseActive()[CurseHandler.LEECH_MAGIC]) {
+        } else if (plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21054 || plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21055 ||
+                plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21056 || plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21057) {
+            attackLevel *= 2.5; //BUFF TOP TIER MAGIC NIGHTMARE STAFF
+        } else if (plr.getCurseActive()[CurseHandler.LEECH_MAGIC]) {
             attackLevel *= 1.18;
         }
-        attackLevel *= player.isSpecialActivated() ? player.getCombatSpecial().getAccuracyBonus() : 1;
+        attackLevel *= plr.isSpecialActivated() ? plr.getCombatSpecial().getAccuracyBonus() : 1;
 
-        return (int) (attackLevel + (player.getBonusManager().getAttackBonus()[3] * 2));
+        return (int) (attackLevel + (plr.getBonusManager().getAttackBonus()[3] * 2));
     }
 
     /**
@@ -386,35 +347,38 @@ public class DesolaceFormulas {
      * @param player The player to calculate magic defence level for
      * @return The player's magic defence level
      */
-    public static int getMagicDefence(Player player) {
+    public static int getMagicDefence(Player plr) {
 
 
-        int defenceLevel = player.getSkillManager().getCurrentLevel(Skill.DEFENCE) / 2 + player.getSkillManager().getCurrentLevel(Skill.MAGIC) / 2;
+        int defenceLevel = plr.getSkillManager().getCurrentLevel(Skill.DEFENCE) / 2 + plr.getSkillManager().getCurrentLevel(Skill.MAGIC) / 2;
 
-        if (player.getPrayerActive()[PrayerHandler.THICK_SKIN]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.05;
-        } else if (player.getPrayerActive()[PrayerHandler.ROCK_SKIN]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.1;
-        } else if (player.getPrayerActive()[PrayerHandler.STEEL_SKIN]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.15;
-        } else if (player.getPrayerActive()[PrayerHandler.CHIVALRY]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.2;
-        } else if (player.getPrayerActive()[PrayerHandler.PIETY]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
-        } else if (player.getPrayerActive()[PrayerHandler.RIGOUR]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
-        } else if (player.getPrayerActive()[PrayerHandler.AUGURY]) {
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
-        } else if (player.getCurseActive()[CurseHandler.TURMOIL]) { // turmoil
-            defenceLevel += player.getSkillManager().getMaxLevel(Skill.DEFENCE)
-                    * 0.20 + player.getLeechedBonuses()[0];
+        if (plr.getPrayerActive()[PrayerHandler.THICK_SKIN]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.05;
+        } else if (plr.getPrayerActive()[PrayerHandler.ROCK_SKIN]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.1;
+        } else if (plr.getPrayerActive()[PrayerHandler.STEEL_SKIN]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.15;
+        } else if (plr.getPrayerActive()[PrayerHandler.CHIVALRY]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.2;
+        } else if (plr.getPrayerActive()[PrayerHandler.PIETY]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
+        } else if (plr.getPrayerActive()[PrayerHandler.RIGOUR]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
+        } else if (plr.getPrayerActive()[PrayerHandler.AUGURY]) {
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.25;
+        } else if (plr.getCurseActive()[CurseHandler.TURMOIL]) { // turmoil
+            defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE)
+                    * 0.20 + plr.getLeechedBonuses()[0];
         }
 
-        return (int) (defenceLevel + player.getBonusManager().getDefenceBonus()[3] + (player.getBonusManager().getDefenceBonus()[3] / 3));
+        return (int) (defenceLevel + plr.getBonusManager().getDefenceBonus()[3] + (plr.getBonusManager().getDefenceBonus()[3] / 3));
     }
 
     /**
      * Calculates a player's magic max hit
+     *
+     * @param player The player to calculate magic max hit for
+     * @return The player's magic max hit damage
      */
     public static int getMagicMaxhit(Character c) {
         int damage = 0;
@@ -451,13 +415,13 @@ public class DesolaceFormulas {
                 damageMultiplier += .20;
                 break;
             case 12284:
-                damageMultiplier += .22;
+                damageMultiplier += .60;
                 break;
             case 21054:
             case 21055:
             case 21056:
             case 21057:
-                damageMultiplier += .25;
+                damageMultiplier += 2.2;
                 break;
 
 
@@ -499,17 +463,17 @@ public class DesolaceFormulas {
     }
 
 
-    public static int getAttackDelay(Player player) {
-        int id = player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId();
+    public static int getAttackDelay(Player plr) {
+        int id = plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId();
         String s = ItemDefinition.forId(id).getName().toLowerCase();
         if (id == -1)
             return 4;// unarmed
         if (id == 18357 || id == 14684 || id == 13051)
             return 3;
-        RangedWeaponData rangedData = player.getRangedWeaponData();
+        RangedWeaponData rangedData = plr.getRangedWeaponData();
         if (rangedData != null) {
             int speed = rangedData.getType().getAttackDelay();
-            if (player.getFightType() == FightType.SHORTBOW_RAPID || player.getFightType() == FightType.DART_RAPID || player.getFightType() == FightType.KNIFE_RAPID || player.getFightType() == FightType.THROWNAXE_RAPID || player.getFightType() == FightType.JAVELIN_RAPID) {
+            if (plr.getFightType() == FightType.SHORTBOW_RAPID || plr.getFightType() == FightType.DART_RAPID || plr.getFightType() == FightType.KNIFE_RAPID || plr.getFightType() == FightType.THROWNAXE_RAPID || plr.getFightType() == FightType.JAVELIN_RAPID) {
                 speed--;
             }
             return speed;

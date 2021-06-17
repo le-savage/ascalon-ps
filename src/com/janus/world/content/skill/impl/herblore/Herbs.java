@@ -28,15 +28,6 @@ public enum Herbs {
         this.cleaningExp = cleaningExp;
     }
 
-    public static Herbs forId(int herbId) {
-        for (Herbs herb : Herbs.values()) {
-            if (herb.getGrimyHerb() == herbId) {
-                return herb;
-            }
-        }
-        return null;
-    }
-
     public int getGrimyHerb() {
         return grimyHerb;
     }
@@ -51,6 +42,15 @@ public enum Herbs {
 
     public int getExp() {
         return cleaningExp;
+    }
+
+    public static Herbs forId(int herbId) {
+        for (Herbs herb : Herbs.values()) {
+            if (herb.getGrimyHerb() == herbId) {
+                return herb;
+            }
+        }
+        return null;
     }
 
 }

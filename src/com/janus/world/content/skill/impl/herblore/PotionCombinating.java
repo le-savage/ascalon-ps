@@ -9,9 +9,6 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class PotionCombinating {
 
-    private static final int VIAL = 227;
-    private static final int EMPTY_VIAL = 229;
-
     public static void combinePotion(Player p, int firstPotID, int secondPotID) {
         CombiningDoses potion = CombiningDoses.getPotionByID(firstPotID);
         if (potion == null || !p.getInventory().contains(firstPotID) || !p.getInventory().contains(secondPotID))
@@ -33,6 +30,9 @@ public class PotionCombinating {
             }
         }
     }
+
+    private static final int VIAL = 227;
+    private static final int EMPTY_VIAL = 229;
 
     public enum CombiningDoses {
 
@@ -113,32 +113,6 @@ public class PotionCombinating {
          * enumeration.
          */
 
-        /**
-         * @param ID
-         * @return The potion that matches the ID. ID can be any dose of the
-         * potion.
-         * @date 2/28/12
-         * @author 0021sordna
-         */
-
-        public static CombiningDoses getPotionByID(int id) {
-            for (CombiningDoses potion : CombiningDoses.values()) {
-                if (id == potion.oneDosePotionID) {
-                    return potion;
-                }
-                if (id == potion.twoDosePotionID) {
-                    return potion;
-                }
-                if (id == potion.threeDosePotionID) {
-                    return potion;
-                }
-                if (id == potion.fourDosePotionID) {
-                    return potion;
-                }
-            }
-            return null;
-        }
-
         public int getDoseID1() {
             return oneDosePotionID;
         }
@@ -212,6 +186,32 @@ public class PotionCombinating {
 				return EMPTY_VIAL;
 			}*/
             return -1;
+        }
+
+        /**
+         * @param ID
+         * @return The potion that matches the ID. ID can be any dose of the
+         * potion.
+         * @date 2/28/12
+         * @author 0021sordna
+         */
+
+        public static CombiningDoses getPotionByID(int id) {
+            for (CombiningDoses potion : CombiningDoses.values()) {
+                if (id == potion.oneDosePotionID) {
+                    return potion;
+                }
+                if (id == potion.twoDosePotionID) {
+                    return potion;
+                }
+                if (id == potion.threeDosePotionID) {
+                    return potion;
+                }
+                if (id == potion.fourDosePotionID) {
+                    return potion;
+                }
+            }
+            return null;
         }
     }
 }

@@ -45,19 +45,6 @@ public enum FinishedPotions {
         this.expGained = expGained;
     }
 
-    public static FinishedPotions forId(int id, int id2) {
-        boolean hasOnePart = false;
-        for (FinishedPotions pot : FinishedPotions.values()) {
-            if ((pot.getUnfinishedPotion() == id || pot.getUnfinishedPotion() == id2)) {
-                hasOnePart = true;
-            }
-            if ((pot.getItemNeeded() == id || pot.getItemNeeded() == id2) && (pot.getUnfinishedPotion() == id || pot.getUnfinishedPotion() == id2)) {
-                return pot;
-            }
-        }
-        return hasOnePart ? MISSING_INGRIDIENTS : null;
-    }
-
     public int getFinishedPotion() {
         return finishedPotion;
     }
@@ -76,5 +63,18 @@ public enum FinishedPotions {
 
     public int getExpGained() {
         return expGained;
+    }
+
+    public static FinishedPotions forId(int id, int id2) {
+        boolean hasOnePart = false;
+        for (FinishedPotions pot : FinishedPotions.values()) {
+            if ((pot.getUnfinishedPotion() == id || pot.getUnfinishedPotion() == id2)) {
+                hasOnePart = true;
+            }
+            if ((pot.getItemNeeded() == id || pot.getItemNeeded() == id2) && (pot.getUnfinishedPotion() == id || pot.getUnfinishedPotion() == id2)) {
+                return pot;
+            }
+        }
+        return hasOnePart ? MISSING_INGRIDIENTS : null;
     }
 }

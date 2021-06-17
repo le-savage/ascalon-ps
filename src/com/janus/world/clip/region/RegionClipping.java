@@ -23,29 +23,22 @@ import java.util.ArrayList;
 public final class RegionClipping {
 
     public static final int PROJECTILE_NORTH_WEST_BLOCKED = 0x200;
-    public static final int PROJECTILE_NORTH_BLOCKED = 0x400;
-    public static final int PROJECTILE_NORTH_EAST_BLOCKED = 0x800;
-    public static final int PROJECTILE_EAST_BLOCKED = 0x1000;
-    public static final int PROJECTILE_SOUTH_EAST_BLOCKED = 0x2000;
-    public static final int PROJECTILE_SOUTH_BLOCKED = 0x4000;
-    public static final int PROJECTILE_SOUTH_WEST_BLOCKED = 0x8000;
-    public static final int PROJECTILE_WEST_BLOCKED = 0x10000;
-    public static final int PROJECTILE_TILE_BLOCKED = 0x20000;
-    public static final int UNKNOWN = 0x80000;
-    public static final int BLOCKED_TILE = 0x200000;
-    public static final int UNLOADED_TILE = 0x1000000;
-    public static final int OCEAN_TILE = 2097152;
     private static final ArrayList<Integer> loadedRegions = new ArrayList<Integer>();
-    private static RegionClipping[] regionArray;
-    public GameObject[][][] gameObjects = new GameObject[4][][];
+    public static final int PROJECTILE_NORTH_BLOCKED = 0x400;
+
     private int id;
     private int[][][] clips = new int[4][][];
+    public static final int PROJECTILE_NORTH_EAST_BLOCKED = 0x800;
+
     private RegionData regionData;
 
     public RegionClipping(int id, int map, int mapObj) {
         this.id = id;
         regionData = new RegionData(map, mapObj);
     }
+    public static final int PROJECTILE_EAST_BLOCKED = 0x1000;
+    public static final int PROJECTILE_SOUTH_EAST_BLOCKED = 0x2000;
+    public static final int PROJECTILE_SOUTH_BLOCKED = 0x4000;
 
     public static void init() {
         try {
@@ -522,6 +515,7 @@ public final class RegionClipping {
         }
         return 0;
     }
+    public static final int PROJECTILE_SOUTH_WEST_BLOCKED = 0x8000;
 
     public static boolean canMove(int startX, int startY, int endX, int endY,
                                   int height, int xLength, int yLength) {
@@ -816,6 +810,14 @@ public final class RegionClipping {
                 && attacker.getPosition().getY() + 1 == attacked.getPosition()
                 .getY();
     }
+    public static final int PROJECTILE_WEST_BLOCKED = 0x10000;
+    public static final int PROJECTILE_TILE_BLOCKED = 0x20000;
+    public static final int UNKNOWN = 0x80000;
+    public static final int BLOCKED_TILE = 0x200000;
+    public static final int UNLOADED_TILE = 0x1000000;
+    public static final int OCEAN_TILE = 2097152;
+    private static RegionClipping[] regionArray;
+    public GameObject[][][] gameObjects = new GameObject[4][][];
 
     public int getId() {
         return id;

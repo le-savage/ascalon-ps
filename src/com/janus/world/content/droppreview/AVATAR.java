@@ -6,10 +6,12 @@ import com.janus.world.entity.impl.player.Player;
 
 public class AVATAR {
 
-    public static final int[] AVATAR = {2572, 15486, 11730, 995, 15126, 11988};
     public static int config;
     public static int item;
     public static int index = 0;
+
+    public static final int[] AVATAR = {2572, 15486, 11730, 995, 15126, 11988};
+
 
     /*
      * Get rare drop(s) for that boss location

@@ -18,83 +18,6 @@ public class MapScrolls {
 
     /* contains the whole map clue */
 
-    public static boolean loadClueInterface(Player player, int itemId) {
-        MapCluesData mapCluesData = MapCluesData.forIdClue(itemId);
-        if (mapCluesData == null) {
-            return false;
-        }
-        if (mapCluesData.getInterfaceId() < 0) {
-            return false;
-        }
-        ClueScroll.cleanClueInterface(player);
-        player.getPacketSender().sendInterface(mapCluesData.getInterfaceId());
-        return true;
-    }
-
-    /* loading the clue interface */
-
-    public static boolean digClue(Player player) {
-        MapCluesData mapCluesData = MapCluesData.forIdPosition(new Position(
-                player.getPosition().getX(), player.getPosition().getY(),
-                player.getPosition().getZ()));
-        if (mapCluesData == null) {
-            return false;
-        }
-        if (!player.getInventory().contains(mapCluesData.getClueId())) {
-            return false;
-        }
-        player.getInventory().delete(
-                new Item(mapCluesData.getClueId(), 1));
-        switch (mapCluesData.getLevel()) {
-            case 1:
-                player.getInventory().add(new Item(ClueScroll.CASKET_LV1, 1));
-                break;
-            case 2:
-                player.getInventory().add(new Item(ClueScroll.CASKET_LV2, 1));
-                break;
-            case 3:
-                player.getInventory().add(new Item(ClueScroll.CASKET_LV3, 1));
-                break;
-        }
-        player.getPacketSender().sendMessage("You've found a casket!");
-        return true;
-    }
-
-    /* handles the digging clue method */
-
-    public static int getRandomScroll(int level) {
-        int pick = new Random().nextInt(MapCluesData.values().length);
-        while (MapCluesData.values()[pick].getLevel() != level) {
-            pick = new Random().nextInt(MapCluesData.values().length);
-        }
-
-        return MapCluesData.values()[pick].getClueId();
-    }
-
-    /* getting a random clue scroll */
-
-    public static boolean handleCrate(Player player, int objectX, int objectY) {
-        MapCluesData mapCluesData = MapCluesData.forIdPosition(new Position(
-                objectX, objectY));
-        if (mapCluesData == null) {
-            return false;
-        }
-        if (!mapCluesData.isCrate()) {
-            return false;
-        }
-        if (!player.getInventory().contains(mapCluesData.getClueId())) {
-            return false;
-        }
-        player.getInventory().delete(
-                new Item(mapCluesData.getClueId(), 1));
-        player.performAnimation(new Animation(832));
-        ClueScroll.clueReward(player, mapCluesData.getLevel(),
-                "You've found another clue!", false, "");
-        return true;
-    }
-
-    /* handle crate clicking for some of the clues */
-
     public static enum MapCluesData {
         BLACK_FORTERESS(2713, 9507, new Position(3026, 3628), true, 2), GALAHAD(
                 2716, 9108, new Position(2612, 3482), false, 1), CHAMPION_GUILD(
@@ -180,6 +103,83 @@ public class MapScrolls {
         public int getLevel() {
             return level;
         }
+    }
+
+    /* loading the clue interface */
+
+    public static boolean loadClueInterface(Player player, int itemId) {
+        MapCluesData mapCluesData = MapCluesData.forIdClue(itemId);
+        if (mapCluesData == null) {
+            return false;
+        }
+        if (mapCluesData.getInterfaceId() < 0) {
+            return false;
+        }
+        ClueScroll.cleanClueInterface(player);
+        player.getPacketSender().sendInterface(mapCluesData.getInterfaceId());
+        return true;
+    }
+
+    /* handles the digging clue method */
+
+    public static boolean digClue(Player player) {
+        MapCluesData mapCluesData = MapCluesData.forIdPosition(new Position(
+                player.getPosition().getX(), player.getPosition().getY(),
+                player.getPosition().getZ()));
+        if (mapCluesData == null) {
+            return false;
+        }
+        if (!player.getInventory().contains(mapCluesData.getClueId())) {
+            return false;
+        }
+        player.getInventory().delete(
+                new Item(mapCluesData.getClueId(), 1));
+        switch (mapCluesData.getLevel()) {
+            case 1:
+                player.getInventory().add(new Item(ClueScroll.CASKET_LV1, 1));
+                break;
+            case 2:
+                player.getInventory().add(new Item(ClueScroll.CASKET_LV2, 1));
+                break;
+            case 3:
+                player.getInventory().add(new Item(ClueScroll.CASKET_LV3, 1));
+                break;
+        }
+        player.getPacketSender().sendMessage("You've found a casket!");
+        return true;
+    }
+
+    /* getting a random clue scroll */
+
+    public static int getRandomScroll(int level) {
+        int pick = new Random().nextInt(MapCluesData.values().length);
+        while (MapCluesData.values()[pick].getLevel() != level) {
+            pick = new Random().nextInt(MapCluesData.values().length);
+        }
+
+        return MapCluesData.values()[pick].getClueId();
+    }
+
+    /* handle crate clicking for some of the clues */
+
+    public static boolean handleCrate(Player player, int objectX, int objectY) {
+        MapCluesData mapCluesData = MapCluesData.forIdPosition(new Position(
+                objectX, objectY));
+        if (mapCluesData == null) {
+            return false;
+        }
+        if (!mapCluesData.isCrate()) {
+            return false;
+        }
+        if (!player.getInventory().contains(mapCluesData.getClueId())) {
+            return false;
+        }
+        player.getInventory().delete(
+                new Item(mapCluesData.getClueId(), 1));
+        player.performAnimation(new Animation(832));
+        ClueScroll.clueReward(player, mapCluesData.getLevel(),
+                "You've found another clue!", false, "");
+        return true;
     }
 
 }

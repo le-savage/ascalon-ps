@@ -11,11 +11,11 @@ import com.janus.world.content.minigames.impl.PestControl;
  */
 public class ServerTimeUpdateTask extends Task {
 
-    private int tick = 0;
-
     public ServerTimeUpdateTask() {
         super(40);
     }
+
+    private int tick = 0;
 
     @Override
     protected void execute() {

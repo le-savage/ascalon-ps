@@ -104,6 +104,17 @@ public class WeaponPoison {
         BRONZE_DAGGER(1205, new int[][]{{5940, 5688}, {5937, 5670}});
 
         /**
+         * Creates the weapon.
+         *
+         * @param itemId    The weapon item id.
+         * @param newItemId The poisoned weapon item id.
+         */
+        private Weapon(int itemId, int[][] newItemId) {
+            this.itemId = itemId;
+            this.newItemId = newItemId;
+        }
+
+        /**
          * Represents a map for the weapon item ids.
          */
         public static HashMap<Integer, Weapon> weapon = new HashMap<Integer, Weapon>();
@@ -122,22 +133,10 @@ public class WeaponPoison {
          * The weapon item id.
          */
         private int itemId;
-
         /**
          * The poisoned weapon item id.
          */
         private int[][] newItemId;
-
-        /**
-         * Creates the weapon.
-         *
-         * @param itemId    The weapon item id.
-         * @param newItemId The poisoned weapon item id.
-         */
-        private Weapon(int itemId, int[][] newItemId) {
-            this.itemId = itemId;
-            this.newItemId = newItemId;
-        }
 
         /**
          * Gets the weapon id by the item.
@@ -151,19 +150,19 @@ public class WeaponPoison {
         }
 
         /**
+         * @return the newItemId
+         */
+        public int[][] getNewItemId() {
+            return newItemId;
+        }
+
+        /**
          * Gets the item id.
          *
          * @return the itemId
          */
         public int getItemId() {
             return itemId;
-        }
-
-        /**
-         * @return the newItemId
-         */
-        public int[][] getNewItemId() {
-            return newItemId;
         }
     }
 }

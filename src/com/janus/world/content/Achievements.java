@@ -38,6 +38,10 @@ public class Achievements {
         return true;
     }
 
+    public enum Difficulty {
+        BEGINNER, EASY, MEDIUM, HARD, ELITE;
+    }
+
     public static void updateInterface(Player player) {
         for (AchievementData achievement : AchievementData.values()) {
             boolean completed = player.getAchievementAttributes().getCompletion()[achievement.ordinal()];
@@ -67,10 +71,10 @@ public class Achievements {
         if (achievement.progressData != null) {
             int progressIndex = achievement.progressData[0];
             int amountNeeded = achievement.progressData[1];
-            int currentProgress = player.getAchievementAttributes().getProgress()[progressIndex];
-            if ((currentProgress + amt) < amountNeeded) {
-                player.getAchievementAttributes().getProgress()[progressIndex] = currentProgress + amt;
-                if (currentProgress == 0)
+            int previousDone = player.getAchievementAttributes().getProgress()[progressIndex];
+            if ((previousDone + amt) < amountNeeded) {
+                player.getAchievementAttributes().getProgress()[progressIndex] = previousDone + amt;
+                if (previousDone == 0)
                     player.getPacketSender().sendString(achievement.interfaceFrame, "@yel@" + achievement.interfaceLine);
             } else {
                 finishAchievement(player, achievement);
@@ -200,10 +204,6 @@ public class Achievements {
         UNLOCK_ALL_LOYALTY_TITLES(Difficulty.ELITE, "Unlock All Loyalty Titles", 45111, new int[]{52, 11}),
         ;
 
-        private Difficulty difficulty;
-        private String interfaceLine;
-        private int interfaceFrame;
-        private int[] progressData;
         AchievementData(Difficulty difficulty, String interfaceLine, int interfaceFrame, int[] progressData) {
             this.difficulty = difficulty;
             this.interfaceLine = interfaceLine;
@@ -211,54 +211,56 @@ public class Achievements {
             this.progressData = progressData;
         }
 
+        private Difficulty difficulty;
+        private String interfaceLine;
+        private int interfaceFrame;
+        private int[] progressData;
+
         public Difficulty getDifficulty() {
             return difficulty;
         }
     }
 
-    public enum Difficulty {
-        BEGINNER, EASY, MEDIUM, HARD, ELITE;
-    }
-
     public static class AchievementAttributes {
+
+        /**
+         * MISC
+         **/
+        private int coinsGambled;
 
         /**
          * ACHIEVEMENTS
          **/
         private boolean[] completed = new boolean[AchievementData.values().length];
         private int[] progress = new int[53];
-        /**
-         * MISC
-         **/
-        private int coinsGambled;
-        private double totalLoyaltyPointsEarned;
-        private boolean[] godsKilled = new boolean[5];
-
-        public AchievementAttributes() {
-        }
 
         public boolean[] getCompletion() {
             return completed;
         }
+        private double totalLoyaltyPointsEarned;
 
         public void setCompletion(boolean[] completed) {
             this.completed = completed;
-        }
-
-        public void setCompletion(int index, boolean value) {
-            this.completed[index] = value;
         }
 
         public int[] getProgress() {
             return progress;
         }
 
-        public void setProgress(int[] progress) {
-            this.progress = progress;
-        }
-
         public void setProgress(int index, int value) {
             this.progress[index] = value;
+        }
+        private boolean[] godsKilled = new boolean[5];
+
+        public AchievementAttributes() {
+        }
+
+        public void setCompletion(int index, boolean value) {
+            this.completed[index] = value;
+        }
+
+        public void setProgress(int[] progress) {
+            this.progress = progress;
         }
 
         public int getCoinsGambled() {
@@ -281,12 +283,12 @@ public class Achievements {
             return godsKilled;
         }
 
-        public void setGodsKilled(boolean[] b) {
-            this.godsKilled = b;
-        }
-
         public void setGodKilled(int index, boolean godKilled) {
             this.godsKilled[index] = godKilled;
+        }
+
+        public void setGodsKilled(boolean[] b) {
+            this.godsKilled = b;
         }
     }
 }

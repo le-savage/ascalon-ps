@@ -23,12 +23,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class PacketSender {
 
-    private Player player;
-
-    public PacketSender(Player player) {
-        this.player = player;
-    }
-
     public PacketSender sendActiveWidget(int widgetId, boolean active) {
         PacketBuilder out = new PacketBuilder(210);
         out.putShort(widgetId);
@@ -36,19 +30,6 @@ public class PacketSender {
         player.getSession().queueMessage(out);
         return this;
     }
-
-    public PacketSender resetItemsOnInterface(final int childId, final int maxItems) {
-        PacketBuilder out = new PacketBuilder(34, PacketType.SHORT);
-        out.putShort(childId);
-        for (int index = 0; index < maxItems; index++) {
-            out.put(index);
-            out.putShort(0);
-            out.put(0);
-        }
-        player.getSession().queueMessage(out);
-        return this;
-    }
-
     public PacketSender sendNpcOnInterface(int interfaceId, int npcId) {
         PacketBuilder out = new PacketBuilder(190);
         out.putShort(interfaceId);
@@ -58,6 +39,7 @@ public class PacketSender {
         player.getSession().queueMessage(out);
         return this;
     }
+
 
     public PacketSender trayMessage(int msgtype, String traymsg) {
         PacketBuilder out = new PacketBuilder(181, PacketType.BYTE);
@@ -74,6 +56,7 @@ public class PacketSender {
         player.getSession().queueMessage(out);
         return this;
     }
+
 
     /*** DISCORD PRESENCE ***/
 
@@ -532,25 +515,7 @@ public class PacketSender {
         return this;
     }
 
-    public PacketSender sendTabs() {
-        sendTabInterface(GameSettings.ATTACK_TAB, 2423);
-        sendTabInterface(GameSettings.SKILLS_TAB, 3917);//31110);
-        sendTabInterface(GameSettings.QUESTS_TAB, 40000); //26600
-        sendTabInterface(GameSettings.ACHIEVEMENT_TAB, 45000);
-        sendTabInterface(GameSettings.INVENTORY_TAB, 3213);
-        sendTabInterface(GameSettings.EQUIPMENT_TAB, 27650);
-        sendTabInterface(GameSettings.MAGIC_TAB, player.getSpellbook().getInterfaceId());
-        sendTabInterface(GameSettings.PRAYER_TAB, player.getPrayerbook().getInterfaceId());
-        //Row 2
-        sendTabInterface(GameSettings.FRIEND_TAB, 5065);
-        sendTabInterface(GameSettings.IGNORE_TAB, 5715);
-        sendTabInterface(GameSettings.CLAN_CHAT_TAB, 29328);
-        sendTabInterface(GameSettings.LOGOUT, 2449);
-        sendTabInterface(GameSettings.OPTIONS_TAB, 904);
-        sendTabInterface(GameSettings.EMOTES_TAB, 147);
-        sendTabInterface(GameSettings.SUMMONING_TAB, 54017);
-        return this;
-    }
+    private Player player;
 
     public PacketSender sendTab(int id) {
         PacketBuilder out = new PacketBuilder(106);
@@ -749,18 +714,6 @@ public class PacketSender {
         return this;
     }
 
-    /*public PacketSender sendConstructionInterfaceItems(ArrayList<Furniture> items) {
-     PacketBuilder builder = new PacketBuilder(53, PacketType.SHORT);
-     builder.writeShort(38274);
-     builder.writeShort(items.size());
-     for (int i = 0; i < items.size(); i++) {
-     builder.writeByte(1);
-     builder.writeLEShortA(items.get(i).getItemId() + 1);
-     }
-     player.write(builder.toPacket());
-     return this;
-     }*/
-
     public PacketSender sendItemOnInterface(int interfaceId, int item, int amount) {
         if (item <= 0) {
             item = -1;
@@ -812,6 +765,19 @@ public class PacketSender {
         player.getSession().queueMessage(out);
         return this;
     }
+
+    /*public PacketSender sendConstructionInterfaceItems(ArrayList<Furniture> items) {
+     PacketBuilder builder = new PacketBuilder(53, PacketType.SHORT);
+     builder.writeShort(38274);
+     builder.writeShort(items.size());
+     for (int i = 0; i < items.size(); i++) {
+     builder.writeByte(1);
+     builder.writeLEShortA(items.get(i).getItemId() + 1);
+     }
+     player.write(builder.toPacket());
+     return this;
+     }*/
+
 
     public PacketSender sendInterfaceItems(int interfaceId, Item[] items) {
         PacketBuilder builder = new PacketBuilder(53, PacketType.SHORT);
@@ -1066,13 +1032,8 @@ public class PacketSender {
         return this;
     }
 
-    public PacketSender createGroundItem(int itemID, int itemX, int itemY, int itemAmount) {
-        sendPosition(new Position(itemX, itemY));
-        PacketBuilder out = new PacketBuilder(44);
-        out.putInt(itemID);
-        out.putInt(itemAmount).put(0);
-        player.getSession().queueMessage(out);
-        return this;
+    public PacketSender(Player player) {
+        this.player = player;
     }
 
     public PacketSender removeGroundItem(int itemID, int itemX, int itemY, int Amount) {
@@ -1110,6 +1071,35 @@ public class PacketSender {
         int y = position.getY() - (position.getRegionY() & 0x7);
         int offset = ((x & 0x7)) << 4 + (y & 0x7);
         return offset;
+    }
+
+    public PacketSender sendTabs() {
+        sendTabInterface(GameSettings.ATTACK_TAB, 2423);
+        sendTabInterface(GameSettings.SKILLS_TAB, 3917);//31110);
+        sendTabInterface(GameSettings.QUESTS_TAB, 639); //26600
+        sendTabInterface(GameSettings.ACHIEVEMENT_TAB, 45000);
+        sendTabInterface(GameSettings.INVENTORY_TAB, 3213);
+        sendTabInterface(GameSettings.EQUIPMENT_TAB, 27650);
+        sendTabInterface(GameSettings.MAGIC_TAB, player.getSpellbook().getInterfaceId());
+        sendTabInterface(GameSettings.PRAYER_TAB, player.getPrayerbook().getInterfaceId());
+        //Row 2
+        sendTabInterface(GameSettings.FRIEND_TAB, 5065);
+        sendTabInterface(GameSettings.IGNORE_TAB, 5715);
+        sendTabInterface(GameSettings.CLAN_CHAT_TAB, 29328);
+        sendTabInterface(GameSettings.LOGOUT, 2449);
+        sendTabInterface(GameSettings.OPTIONS_TAB, 904);
+        sendTabInterface(GameSettings.EMOTES_TAB, 147);
+        sendTabInterface(GameSettings.SUMMONING_TAB, 54017);
+        return this;
+    }
+
+    public PacketSender createGroundItem(int itemID, int itemX, int itemY, int itemAmount) {
+        sendPosition(new Position(itemX, itemY));
+        PacketBuilder out = new PacketBuilder(44);
+        out.putShort(itemID, ValueType.A, ByteOrder.LITTLE);
+        out.putShort(itemAmount).put(0);
+        player.getSession().queueMessage(out);
+        return this;
     }
 
     public PacketSender sendProjectile(Position position, Position offset,

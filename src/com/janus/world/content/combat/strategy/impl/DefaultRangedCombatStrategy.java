@@ -35,36 +35,12 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class DefaultRangedCombatStrategy implements CombatStrategy {
 
-    public static void fireProjectile(Character e, Character victim, final AmmunitionData ammo, boolean dBow) {
-        TaskManager.submit(new Task(1, e.getCombatBuilder(), false) { // TODO
-            // FIX
-            // THIS
-            // PROJECTILE,
-            // SHOULDNT
-            // BE A
-            // TASK
-            @Override
-            protected void execute() {
-                new Projectile(e, victim, ammo.getProjectileId(), ammo.getProjectileDelay() + 16,
-                        ammo.getProjectileSpeed(), ammo.getStartHeight(), ammo.getEndHeight(), 0).sendProjectile();
-                if (dBow) {
-                    new Projectile(e, victim, ammo.getProjectileId(), ammo.getProjectileDelay() + 32,
-                            ammo.getProjectileSpeed(), ammo.getStartHeight() - 2, ammo.getEndHeight(), 0)
-                            .sendProjectile();
-                }
-
-                stop();
-            }
-        });
-    }
-
     /**
      * Decrements the amount ammo the {@link Player} currently has equipped.
      *
      * @param player the player to decrement ammo for.
      */
     public static void decrementAmmo(Player player, Position pos) {
-       // System.out.println("Decrement Ammo method called for " + player.getUsername());
         if (player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12926) {
             if (!player.getBlowpipeLoading().getContents().isEmpty()) {
                 for (Entry<Integer> dart : player.getBlowpipeLoading().getContents().entrySet()) {
@@ -103,23 +79,20 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
         final boolean vet = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 14021;
         final boolean mast = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 21018;
 
-        if (avas && Misc.getRandom(2) <= 1){
-            return;
-        }
+        if (avas && Misc.getRandom(2) <= 1)
             if (mast && Misc.getRandom(2) <= 1) {
                 return;
             }
 
         // Decrement the ammo in the selected slot.
 
-        if (!avas && player.getFireAmmo() == 15243) {
+        if (!avas && player.getFireAmmo() != 15243) {
             return;
         }
-        if (!mast && player.getFireAmmo() == 15243) {
+        if (!mast && player.getFireAmmo() != 15243) {
             return;
         }
         player.getEquipment().get(slot).decrementAmount();
-        //System.out.println("Slot: " + slot);
         {
             GroundItemManager.spawnGroundItem(player,
                     new GroundItem(new Item(player.getFireAmmo()), pos, player.getUsername(), false, 120, true, 120));
@@ -139,117 +112,6 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
         // Refresh the equipment interface.
         player.getEquipment().refreshItems();
 
-    }
-
-    private static final int getModifiedDamage(Player player, Character target, CombatContainer container) {
-        if (container == null || container.getHits().length < 1)
-            return 0;
-        CombatHit hit = container.getHits()[0];
-        if (!hit.isAccurate())
-            return 0;
-        int damage = container.getHits()[0].getHit().getDamage();
-        int ammo = player.getFireAmmo();
-        if (ammo == -1) {
-            return damage;
-        }
-        double multiplier = 1;
-        Player pTarget = target.isPlayer() ? ((Player) target) : null;
-        switch (ammo) {
-            case 9236: // Lucky Lightning
-                target.performGraphic(new Graphic(749));
-                multiplier = 1.3;
-                break;
-            case 9237: // Earth's Fury
-                target.performGraphic(new Graphic(755));
-                multiplier = 1.05;
-                break;
-            case 9238: // Sea Curse
-                target.performGraphic(new Graphic(750));
-                multiplier = 1.1;
-                break;
-            case 9239: // Down To Earth
-                target.performGraphic(new Graphic(757));
-                if (pTarget != null) {
-                    pTarget.getSkillManager().setCurrentLevel(Skill.MAGIC,
-                            pTarget.getSkillManager().getCurrentLevel(Skill.MAGIC) - 3);
-                    pTarget.getPacketSender().sendMessage("Your Magic level has been reduced.");
-                }
-                break;
-            case 9240: // Clear Mind
-                target.performGraphic(new Graphic(751));
-                if (pTarget != null) {
-                    pTarget.getSkillManager().setCurrentLevel(Skill.PRAYER,
-                            pTarget.getSkillManager().getCurrentLevel(Skill.PRAYER) - 40);
-                    if (pTarget.getSkillManager().getCurrentLevel(Skill.PRAYER) < 0) {
-                        pTarget.getSkillManager().setCurrentLevel(Skill.PRAYER, 0);
-                    }
-                    pTarget.getPacketSender().sendMessage("Your Prayer level has been leeched.");
-                    player.getSkillManager().setCurrentLevel(Skill.PRAYER,
-                            pTarget.getSkillManager().getCurrentLevel(Skill.PRAYER) + 40);
-                    if (player.getSkillManager().getCurrentLevel(Skill.PRAYER) > player.getSkillManager()
-                            .getMaxLevel(Skill.PRAYER)) {
-                        player.getSkillManager().setCurrentLevel(Skill.PRAYER,
-                                player.getSkillManager().getMaxLevel(Skill.PRAYER));
-                    } else {
-                        player.getPacketSender()
-                                .sendMessage("Your enchanced bolts leech some Prayer points from your opponent..");
-                    }
-                }
-                break;
-            case 9241: // Magical Posion
-                target.performGraphic(new Graphic(752));
-                CombatFactory.poisonEntity(target, PoisonType.MILD);
-                break;
-            case 9242:
-                if (player.getSkillManager().getCurrentLevel(Skill.CONSTITUTION)
-                        - player.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) / 200 < 10) {
-                    break;
-                }
-                int priceDamage = (int) (player.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) * 0.08);
-                if (priceDamage < 0) {
-                    return damage;
-                }
-                int dmg2 = (int) ((int) ((int) target.getConstitution() * 0.065) > 1000 ? 650 + Misc.getRandom(50)
-                        : ((int) target.getConstitution() * 0.065));
-                if (dmg2 <= 0) {
-                    return damage;
-                }
-                target.performGraphic(new Graphic(754));
-                player.dealDamage(new Hit(priceDamage, Hitmask.RED, CombatIcon.RANGED));
-                return dmg2;
-            case 9243:
-                target.performGraphic(new Graphic(758, GraphicHeight.MIDDLE));
-                multiplier = 1.15;
-                break;
-            case 9244:
-                target.performGraphic(new Graphic(756));
-                if (pTarget != null && (pTarget.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 1540
-                        || pTarget.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 11613
-                        || pTarget.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 11283
-                        || pTarget.getFireImmunity() > 0)) {
-                    return damage;
-                }
-                if (damage < 300 && Misc.getRandom(3) <= 1) {
-                    damage = 300 + Misc.getRandom(150);
-                }
-                multiplier = 1.33;
-                break;
-            case 9245:
-                target.performGraphic(new Graphic(753));
-                multiplier = 1.26;
-                int heal = (int) (damage * 0.25) + 10;
-                player.getSkillManager().setCurrentLevel(Skill.CONSTITUTION,
-                        player.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) + heal);
-                if (player.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) >= 1120) {
-                    player.getSkillManager().setCurrentLevel(Skill.CONSTITUTION, 1120);
-                }
-                player.getSkillManager().updateSkill(Skill.CONSTITUTION);
-                if (damage < 250 && Misc.getRandom(3) <= 1) {
-                    damage += 150 + Misc.getRandom(80);
-                }
-                break;
-        }
-        return (int) (damage * multiplier);
     }
 
     @Override
@@ -284,6 +146,29 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
             return false;
         }
         return true;
+    }
+
+    public static void fireProjectile(Character e, Character victim, final AmmunitionData ammo, boolean dBow) {
+        TaskManager.submit(new Task(1, e.getCombatBuilder(), false) { // TODO
+            // FIX
+            // THIS
+            // PROJECTILE,
+            // SHOULDNT
+            // BE A
+            // TASK
+            @Override
+            protected void execute() {
+                new Projectile(e, victim, ammo.getProjectileId(), ammo.getProjectileDelay() + 16,
+                        ammo.getProjectileSpeed(), ammo.getStartHeight(), ammo.getEndHeight(), 0).sendProjectile();
+                if (dBow) {
+                    new Projectile(e, victim, ammo.getProjectileId(), ammo.getProjectileDelay() + 32,
+                            ammo.getProjectileSpeed(), ammo.getStartHeight() - 2, ammo.getEndHeight(), 0)
+                            .sendProjectile();
+                }
+
+                stop();
+            }
+        });
     }
 
     @Override
@@ -461,6 +346,117 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
     @Override
     public boolean customContainerAttack(Character entity, Character victim) {
         return false;
+    }
+
+    private static final int getModifiedDamage(Player player, Character target, CombatContainer container) {
+        if (container == null || container.getHits().length < 1)
+            return 0;
+        CombatHit hit = container.getHits()[0];
+        if (!hit.isAccurate())
+            return 0;
+        int damage = container.getHits()[0].getHit().getDamage();
+        int ammo = player.getFireAmmo();
+        if (ammo == -1) {
+            return damage;
+        }
+        double multiplier = 1;
+        Player pTarget = target.isPlayer() ? ((Player) target) : null;
+        switch (ammo) {
+            case 9236: // Lucky Lightning
+                target.performGraphic(new Graphic(749));
+                multiplier = 1.3;
+                break;
+            case 9237: // Earth's Fury
+                target.performGraphic(new Graphic(755));
+                multiplier = 1.05;
+                break;
+            case 9238: // Sea Curse
+                target.performGraphic(new Graphic(750));
+                multiplier = 1.1;
+                break;
+            case 9239: // Down To Earth
+                target.performGraphic(new Graphic(757));
+                if (pTarget != null) {
+                    pTarget.getSkillManager().setCurrentLevel(Skill.MAGIC,
+                            pTarget.getSkillManager().getCurrentLevel(Skill.MAGIC) - 3);
+                    pTarget.getPacketSender().sendMessage("Your Magic level has been reduced.");
+                }
+                break;
+            case 9240: // Clear Mind
+                target.performGraphic(new Graphic(751));
+                if (pTarget != null) {
+                    pTarget.getSkillManager().setCurrentLevel(Skill.PRAYER,
+                            pTarget.getSkillManager().getCurrentLevel(Skill.PRAYER) - 40);
+                    if (pTarget.getSkillManager().getCurrentLevel(Skill.PRAYER) < 0) {
+                        pTarget.getSkillManager().setCurrentLevel(Skill.PRAYER, 0);
+                    }
+                    pTarget.getPacketSender().sendMessage("Your Prayer level has been leeched.");
+                    player.getSkillManager().setCurrentLevel(Skill.PRAYER,
+                            pTarget.getSkillManager().getCurrentLevel(Skill.PRAYER) + 40);
+                    if (player.getSkillManager().getCurrentLevel(Skill.PRAYER) > player.getSkillManager()
+                            .getMaxLevel(Skill.PRAYER)) {
+                        player.getSkillManager().setCurrentLevel(Skill.PRAYER,
+                                player.getSkillManager().getMaxLevel(Skill.PRAYER));
+                    } else {
+                        player.getPacketSender()
+                                .sendMessage("Your enchanced bolts leech some Prayer points from your opponent..");
+                    }
+                }
+                break;
+            case 9241: // Magical Posion
+                target.performGraphic(new Graphic(752));
+                CombatFactory.poisonEntity(target, PoisonType.MILD);
+                break;
+            case 9242:
+                if (player.getSkillManager().getCurrentLevel(Skill.CONSTITUTION)
+                        - player.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) / 200 < 10) {
+                    break;
+                }
+                int priceDamage = (int) (player.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) * 0.08);
+                if (priceDamage < 0) {
+                    return damage;
+                }
+                int dmg2 = (int) ((int) ((int) target.getConstitution() * 0.065) > 1000 ? 650 + Misc.getRandom(50)
+                        : ((int) target.getConstitution() * 0.065));
+                if (dmg2 <= 0) {
+                    return damage;
+                }
+                target.performGraphic(new Graphic(754));
+                player.dealDamage(new Hit(priceDamage, Hitmask.RED, CombatIcon.RANGED));
+                return dmg2;
+            case 9243:
+                target.performGraphic(new Graphic(758, GraphicHeight.MIDDLE));
+                multiplier = 1.15;
+                break;
+            case 9244:
+                target.performGraphic(new Graphic(756));
+                if (pTarget != null && (pTarget.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 1540
+                        || pTarget.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 11613
+                        || pTarget.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 11283
+                        || pTarget.getFireImmunity() > 0)) {
+                    return damage;
+                }
+                if (damage < 300 && Misc.getRandom(3) <= 1) {
+                    damage = 300 + Misc.getRandom(150);
+                }
+                multiplier = 1.33;
+                break;
+            case 9245:
+                target.performGraphic(new Graphic(753));
+                multiplier = 1.26;
+                int heal = (int) (damage * 0.25) + 10;
+                player.getSkillManager().setCurrentLevel(Skill.CONSTITUTION,
+                        player.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) + heal);
+                if (player.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) >= 1120) {
+                    player.getSkillManager().setCurrentLevel(Skill.CONSTITUTION, 1120);
+                }
+                player.getSkillManager().updateSkill(Skill.CONSTITUTION);
+                if (damage < 250 && Misc.getRandom(3) <= 1) {
+                    damage += 150 + Misc.getRandom(80);
+                }
+                break;
+        }
+        return (int) (damage * multiplier);
     }
 
     @Override

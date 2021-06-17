@@ -5,15 +5,6 @@ import com.janus.world.entity.impl.player.Player;
 
 public class Logdata {
 
-    public static logData getLogData(Player p, int log) {
-        for (final Logdata.logData l : Logdata.logData.values()) {
-            if (log == l.getLogId() || log == -1 && p.getInventory().contains(l.getLogId())) {
-                return l;
-            }
-        }
-        return null;
-    }
-
     public static enum logData {
 
         LOG(1511, 1, 4125, 30),
@@ -54,6 +45,15 @@ public class Logdata {
         public int getBurnTime() {
             return this.burnTime;
         }
+    }
+
+    public static logData getLogData(Player p, int log) {
+        for (final Logdata.logData l : Logdata.logData.values()) {
+            if (log == l.getLogId() || log == -1 && p.getInventory().contains(l.getLogId())) {
+                return l;
+            }
+        }
+        return null;
     }
 
 }

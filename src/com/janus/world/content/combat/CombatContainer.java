@@ -175,6 +175,11 @@ public class CombatContainer {
         return array;
     }
 
+    public void setHits(CombatHit[] hits) {
+        this.hits = hits;
+        prepareHits(hits.length);
+    }
+
     /**
      * Performs an action on every single hit in this container.
      *
@@ -224,12 +229,12 @@ public class CombatContainer {
         return ((Player) attacker).getFightType().getStyle().skill(type);
     }
 
-    public int getModifiedDamage() {
-        return modifiedDamage;
-    }
-
     public void setModifiedDamage(int modifiedDamage) {
         this.modifiedDamage = modifiedDamage;
+    }
+
+    public int getModifiedDamage() {
+        return modifiedDamage;
     }
 
     /**
@@ -252,11 +257,6 @@ public class CombatContainer {
      */
     public final CombatHit[] getHits() {
         return hits;
-    }
-
-    public void setHits(CombatHit[] hits) {
-        this.hits = hits;
-        prepareHits(hits.length);
     }
 
     /**

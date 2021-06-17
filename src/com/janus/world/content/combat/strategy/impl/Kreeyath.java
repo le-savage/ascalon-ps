@@ -20,17 +20,6 @@ public class Kreeyath implements CombatStrategy {
     private static final Graphic graphic1 = new Graphic(1212);
     private static final Graphic graphic2 = new Graphic(1213);
 
-    public static int getAnimation(int npc) {
-        int anim = 12259;
-        if (npc == 50)
-            anim = 81;
-        else if (npc == 5363 || npc == 1590 || npc == 1591 || npc == 1592)
-            anim = 14246;
-        else if (npc == 51)
-            anim = 13152;
-        return anim;
-    }
-
     @Override
     public boolean canAttack(Character entity, Character victim) {
         return victim.isPlayer() && ((Player) victim).getMinigameAttributes().getGodwarsDungeonAttributes().hasEnteredRoom();
@@ -76,6 +65,18 @@ public class Kreeyath implements CombatStrategy {
         }
         return true;
     }
+
+    public static int getAnimation(int npc) {
+        int anim = 12259;
+        if (npc == 50)
+            anim = 81;
+        else if (npc == 5363 || npc == 1590 || npc == 1591 || npc == 1592)
+            anim = 14246;
+        else if (npc == 51)
+            anim = 13152;
+        return anim;
+    }
+
 
     @Override
     public int attackDelay(Character entity) {

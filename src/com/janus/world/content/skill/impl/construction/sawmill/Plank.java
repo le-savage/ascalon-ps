@@ -16,14 +16,6 @@ public enum Plank {
         this.setCost(cost);
     }
 
-    public static Plank forId(int id) {
-        for (Plank p : values()) {
-            if (p.getLogId() == id || p.getPlankId() == id)
-                return p;
-        }
-        return null;
-    }
-
     public int getLogId() {
         return logId;
     }
@@ -46,5 +38,13 @@ public enum Plank {
 
     public void setCost(int cost) {
         this.cost = cost;
+    }
+
+    public static Plank forId(int id) {
+        for (Plank p : values()) {
+            if (p.getLogId() == id || p.getPlankId() == id)
+                return p;
+        }
+        return null;
     }
 }

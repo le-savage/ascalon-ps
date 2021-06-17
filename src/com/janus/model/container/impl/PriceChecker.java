@@ -8,38 +8,10 @@ import com.janus.world.entity.impl.player.Player;
 
 public class PriceChecker extends ItemContainer {
 
-    public static final int INTERFACE_ID = 42000, INTERFACE_PC_ID = 2100;
-    private static final int frames[][] = {
-            {0, 18353, 18246}, {1, 18356, 18500}, {2, 18359, 18501}, {3, 18362, 18502}, {4, 18365, 18503}, {5, 18368, 18504},
-            {6, 18371, 18505}, {7, 18374, 18506}, {8, 18377, 18507}, {9, 18380, 18508}, {10, 18383, 18509}, {11, 18386, 18510},
-            {12, 18389, 18511}, {13, 18392, 18512}, {14, 18395, 18513}, {15, 18398, 18514}, {16, 18401, 18515}, {17, 18404, 18516},
-            {18, 18407, 18517}, {19, 18410, 18518}
-    };
     private boolean open;
 
     public PriceChecker(Player player) {
         super(player);
-    }
-
-    public static int priceCheckerSlot(int interfaceId) {
-        if (interfaceId == 18246)
-            return 0;
-        else if (interfaceId == 18500)
-            return 1;
-        else {
-            int index = interfaceId - 18499;
-            return index >= 1 && index <= 20 ? index : -1;
-        }
-    }
-
-    public static int getFrame(int slot, int index) {
-        int k = -1;
-        for (int i = 0; i < frames.length; i++) {
-            if (frames[i][0] == slot) {
-                k = frames[i][index];
-            }
-        }
-        return k;
     }
 
     public PriceChecker open() {
@@ -138,6 +110,7 @@ public class PriceChecker extends ItemContainer {
         getPlayer().getPacketSender().sendInterfaceRemoval();
     }
 
+
     public int calculateTotalWealth() {
         int k = 0;
         for (Item item : getValidItems())
@@ -145,6 +118,35 @@ public class PriceChecker extends ItemContainer {
         if (k >= Integer.MAX_VALUE) {
             getPlayer().getPacketSender().sendString(18351, "Too High!");
             return 0;
+        }
+        return k;
+    }
+
+    public static final int INTERFACE_ID = 42000, INTERFACE_PC_ID = 2100;
+    private static final int frames[][] = {
+            {0, 18353, 18246}, {1, 18356, 18500}, {2, 18359, 18501}, {3, 18362, 18502}, {4, 18365, 18503}, {5, 18368, 18504},
+            {6, 18371, 18505}, {7, 18374, 18506}, {8, 18377, 18507}, {9, 18380, 18508}, {10, 18383, 18509}, {11, 18386, 18510},
+            {12, 18389, 18511}, {13, 18392, 18512}, {14, 18395, 18513}, {15, 18398, 18514}, {16, 18401, 18515}, {17, 18404, 18516},
+            {18, 18407, 18517}, {19, 18410, 18518}
+    };
+
+    public static int priceCheckerSlot(int interfaceId) {
+        if (interfaceId == 18246)
+            return 0;
+        else if (interfaceId == 18500)
+            return 1;
+        else {
+            int index = interfaceId - 18499;
+            return index >= 1 && index <= 20 ? index : -1;
+        }
+    }
+
+    public static int getFrame(int slot, int index) {
+        int k = -1;
+        for (int i = 0; i < frames.length; i++) {
+            if (frames[i][0] == slot) {
+                k = frames[i][index];
+            }
         }
         return k;
     }

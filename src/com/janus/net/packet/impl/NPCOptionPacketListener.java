@@ -29,7 +29,6 @@ import com.janus.world.content.skill.impl.slayer.SlayerTasks;
 import com.janus.world.content.skill.impl.summoning.BossPets;
 import com.janus.world.content.skill.impl.summoning.Summoning;
 import com.janus.world.content.skill.impl.summoning.SummoningData;
-import com.janus.world.content.skillingtasks.TaskDialogue;
 import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -38,6 +37,33 @@ public class NPCOptionPacketListener implements PacketListener {
 
 
     public static final int ATTACK_NPC = 72, FIRST_CLICK_OPCODE = 155, MAGE_NPC = 131, SECOND_CLICK_OPCODE = 17, THIRD_CLICK_OPCODE = 21, FOURTH_CLICK_OPCODE = 18;
+
+    private static void attackNPC(Player player, Packet packet) {
+        int index = packet.readShortA();
+        if (index < 0 || index > World.getNpcs().capacity())
+            return;
+        final NPC interact = World.getNpcs().get(index);
+        if (interact == null)
+            return;
+
+        if (!NpcDefinition.getDefinitions()[interact.getId()].isAttackable()) {
+            return;
+        }
+
+        if (interact.getConstitution() <= 0) {
+            player.getMovementQueue().reset();
+            return;
+        }
+
+        if (player.getCombatBuilder().getStrategy() == null) {
+            player.getCombatBuilder().determineStrategy();
+        }
+        if (CombatFactory.checkAttackDistance(player, interact)) {
+            player.getMovementQueue().reset();
+        }
+
+        player.getCombatBuilder().attack(interact);
+    }
 
     private static void firstClick(Player player, Packet packet) {
         int index = packet.readLEShort();
@@ -68,9 +94,10 @@ public class NPCOptionPacketListener implements PacketListener {
                 }
                 switch (npc.getId()) {
 
-                    case 945:
-                        DialogueManager.start(player,TaskDialogue.skillingTaskTutorial(player,0));
-                        break;
+					/*case 605: //prestige
+						player.setDialogueActionId(78);
+						DialogueManager.start(player, 124);
+					break;*/
                     case 853:
                         ShopManager.getShops().get(53).open(player);
                         break;
@@ -401,192 +428,6 @@ public class NPCOptionPacketListener implements PacketListener {
         }));
     }
 
-    private static void attackNPC(Player player, Packet packet) {
-        int index = packet.readShortA();
-        if (index < 0 || index > World.getNpcs().capacity())
-            return;
-        final NPC interact = World.getNpcs().get(index);
-        if (interact == null)
-            return;
-
-        if (!NpcDefinition.getDefinitions()[interact.getId()].isAttackable()) {
-            return;
-        }
-
-        if (interact.getConstitution() <= 0) {
-            player.getMovementQueue().reset();
-            return;
-        }
-
-        if (player.getCombatBuilder().getStrategy() == null) {
-            player.getCombatBuilder().determineStrategy();
-        }
-        if (CombatFactory.checkAttackDistance(player, interact)) {
-            player.getMovementQueue().reset();
-        }
-
-        player.getCombatBuilder().attack(interact);
-    }
-
-    public void handleSecondClick(Player player, Packet packet) {
-        int index = packet.readLEShortA();
-        if (index < 0 || index > World.getNpcs().capacity())
-            return;
-        final NPC npc = World.getNpcs().get(index);
-        if (npc == null)
-            return;
-        player.setEntityInteraction(npc);
-        final int npcId = npc.getId();
-        if (player.getRights() == PlayerRights.OWNER)
-            player.getPacketSender().sendMessage("Second click npc id: " + npcId);
-        player.setWalkToTask(new WalkToTask(player, npc.getPosition(), npc.getSize(), new FinalizedMovementTask() {
-            @Override
-            public void execute() {
-                switch (npc.getId()) {
-
-
-                    case 4905://Smithing tutor
-                        if (player.getInventory().contains(2347)) {
-                            npc.forceChat("You already have a hammer!");
-                        } else {
-                            player.getInventory().add(2347, 1);
-                            npc.forceChat("Did you know that donator's don't need a hammer?");
-                        }
-                        break;
-
-
-                    case 2998://TODO
-                        //DialogueManager.start(player, 155);
-                        player.getPacketSender().sendEnterAmountPrompt("How many coins would you like to gamble?");
-                        player.setInputHandling(new GambleAmount());
-                        break;
-                    case 3192:
-                        PlayerPanel.refreshPanel(player);
-                        player.getPacketSender().sendInterface(3200);
-                        break;
-                    case 4559:
-                        ShopManager.getShops().get(46).open(player);
-                        break;
-                    case 961:
-                        ShopManager.getShops().get(6).open(player);
-                        break;
-                    case 2579:
-                        player.getPacketSender().sendRichPresenceState("Viewing Prestige Store!");
-                        player.getPacketSender().sendSmallImageKey("trade");
-
-                        player.getPacketSender().sendRichPresenceSmallPictureText("Prestige Pts: " + player.getPointsHandler().getPrestigePoints());
-                        ShopManager.getShops().get(46).open(player);
-                        player.getPacketSender().sendMessage("<col=255>You currently have " + player.getPointsHandler().getPrestigePoints() + " Prestige points!");
-                        break;
-                    case 212:
-                        player.getPacketSender().sendRichPresenceState("Viewing Donator Store!");
-                        player.getPacketSender().sendSmallImageKey("trade");
-                        player.getPacketSender().sendRichPresenceSmallPictureText("Donor Pts: " + player.getPointsHandler().getDonationPoints());
-                        ShopManager.getShops().get(49).open(player);
-                        break;
-                    case 541://zeke shop 2
-                        ShopManager.getShops().get(52).open(player);
-                        break;
-                    case 853:
-                        player.getPacketSender().sendMessage("You're a freak..");
-                        player.performAnimation(new Animation(837));
-                        player.forceChat("O Shit");
-                        npc.forceChat("FUCK OFF M8");
-                        break;
-                    case 457:
-                        player.getPacketSender().sendMessage("The ghost teleports you away.");
-                        player.getPacketSender().sendInterfaceRemoval();
-                        player.moveTo(new Position(3651, 3486));
-                        break;
-                    case 947:
-                        player.getPlayerOwnedShopManager().open();
-                        break;
-                    case 2622:
-                        ShopManager.getShops().get(43).open(player);
-                        break;
-                    case 4902:
-                        ShopManager.getShops().get(55).open(player);
-                        break;
-                    case 462:
-                        npc.performAnimation(CombatSpells.CONFUSE.getSpell().castAnimation().get());
-                        npc.forceChat("Off you go!");
-                        TeleportHandler.teleportPlayer(player, new Position(2911, 4832), player.getSpellbook().getTeleportType());
-                        break;
-                    case 3101:
-                        DialogueManager.start(player, 95);
-                        player.setDialogueActionId(57);
-                        break;
-				/*case 7969:
-					ShopManager.getShops().get(28).open(player);
-					break;*/
-                    case 364:
-                        player.getPacketSender().sendRichPresenceState("Viewing Vote Store!");
-                        player.getPacketSender().sendSmallImageKey("trade");
-                        player.getPacketSender().sendRichPresenceSmallPictureText("Vote Pts: " + player.getPointsHandler().getVotingPoints());
-
-                        player.getPacketSender().sendMessage("").sendMessage("You currently have " + player.getPointsHandler().getVotingPoints() + " Voting points.").sendMessage("You can earn points and coins by voting. To do so, simply use the ::vote command.");
-                        ;
-                        ShopManager.getShops().get(27).open(player);
-                        break;
-                    case 4657:
-                        DialogueManager.start(player, MemberScrolls.getTotalFunds(player));
-                        break;
-                    case 1597:
-                    case 9085:
-                    case 7780:
-                        if (npc.getId() != player.getSlayer().getSlayerMaster().getNpcId()) {
-                            player.getPacketSender().sendMessage("This is not your current Slayer master.");
-                            return;
-                        }
-                        if (player.getSlayer().getSlayerTask() == SlayerTasks.NO_TASK)
-                            player.getSlayer().assignTask();
-                        else
-                            DialogueManager.start(player, SlayerDialogues.findAssignment(player));
-                        break;
-                    case 8591:
-                        if (!player.getMinigameAttributes().getNomadAttributes().hasFinishedPart(1)) {
-                            player.getPacketSender().sendMessage("You must complete Nomad's quest before being able to use this shop.");
-                            return;
-                        }
-                        ShopManager.getShops().get(37).open(player);
-                        break;
-                    case 805:
-                        Tanning.selectionInterface(player);
-                        break;
-                    case 318:
-                    case 316:
-                    case 313:
-                    case 312:
-                        player.setEntityInteraction(npc);
-                        Fishing.setupFishing(player, Fishing.forSpot(npc.getId(), true));
-                        break;
-                    case 4946:
-                        ShopManager.getShops().get(15).open(player);
-                        break;
-
-
-                    case 683:
-                        player.getPacketSender().sendRichPresenceState("Viewing Ranger Store!");
-                        player.getPacketSender().sendSmallImageKey("trade");
-                        ShopManager.getShops().get(3).open(player);
-                        break;
-                    case 705:
-                        ShopManager.getShops().get(4).open(player);
-                        break;
-                    case 2253:
-                        ShopManager.getShops().get(9).open(player);
-                        break;
-                    case 6970:
-                        player.setDialogueActionId(35);
-                        DialogueManager.start(player, 63);
-                        break;
-                }
-                npc.setPositionToFace(player.getPosition());
-                player.setPositionToFace(npc.getPosition());
-            }
-        }));
-    }
-
     public void handleThirdClick(Player player, Packet packet) {
         int index = packet.readShort();
         if (index < 0 || index > World.getNpcs().capacity())
@@ -781,5 +622,165 @@ public class NPCOptionPacketListener implements PacketListener {
                 player.getCombatBuilder().attack(n);
                 break;
         }
+    }
+
+    public void handleSecondClick(Player player, Packet packet) {
+        int index = packet.readLEShortA();
+        if (index < 0 || index > World.getNpcs().capacity())
+            return;
+        final NPC npc = World.getNpcs().get(index);
+        if (npc == null)
+            return;
+        player.setEntityInteraction(npc);
+        final int npcId = npc.getId();
+        if (player.getRights() == PlayerRights.DEVELOPER)
+            player.getPacketSender().sendMessage("Second click npc id: " + npcId);
+        player.setWalkToTask(new WalkToTask(player, npc.getPosition(), npc.getSize(), new FinalizedMovementTask() {
+            @Override
+            public void execute() {
+                switch (npc.getId()) {
+
+
+
+                    case 4905://Smithing tutor
+                        if (player.getInventory().contains(2347)) {
+                            npc.forceChat("You already have a hammer!");
+                        } else {
+                            player.getInventory().add(2347, 1);
+                            npc.forceChat("Did you know that donator's don't need a hammer?");
+                        }
+                        break;
+
+
+                    case 2998://TODO
+                        //DialogueManager.start(player, 155);
+                        player.getPacketSender().sendEnterAmountPrompt("How many coins would you like to gamble?");
+                        player.setInputHandling(new GambleAmount());
+                        break;
+                    case 3192:
+                        PlayerPanel.refreshPanel(player);
+                        player.getPacketSender().sendInterface(3200);
+                        break;
+                    case 4559:
+                        ShopManager.getShops().get(46).open(player);
+                        break;
+                    case 961:
+                        ShopManager.getShops().get(6).open(player);
+                        break;
+                    case 2579:
+                        player.getPacketSender().sendRichPresenceState("Viewing Prestige Store!");
+                        player.getPacketSender().sendSmallImageKey("trade");
+
+                        player.getPacketSender().sendRichPresenceSmallPictureText("Prestige Pts: " + player.getPointsHandler().getPrestigePoints());
+                        ShopManager.getShops().get(46).open(player);
+                        player.getPacketSender().sendMessage("<col=255>You currently have " + player.getPointsHandler().getPrestigePoints() + " Prestige points!");
+                        break;
+                    case 212:
+                        player.getPacketSender().sendRichPresenceState("Viewing Donator Store!");
+                        player.getPacketSender().sendSmallImageKey("trade");
+                        player.getPacketSender().sendRichPresenceSmallPictureText("Donor Pts: " + player.getPointsHandler().getDonationPoints());
+                        ShopManager.getShops().get(49).open(player);
+                        break;
+                    case 541://zeke shop 2
+                        ShopManager.getShops().get(52).open(player);
+                        break;
+                    case 853:
+                        player.getPacketSender().sendMessage("You're a freak..");
+                        player.performAnimation(new Animation(837));
+                        player.forceChat("O Shit");
+                        npc.forceChat("FUCK OFF M8");
+                        break;
+                    case 457:
+                        player.getPacketSender().sendMessage("The ghost teleports you away.");
+                        player.getPacketSender().sendInterfaceRemoval();
+                        player.moveTo(new Position(3651, 3486));
+                        break;
+                    case 947:
+                        player.getPlayerOwnedShopManager().open();
+                        break;
+                    case 2622:
+                        ShopManager.getShops().get(43).open(player);
+                        break;
+                    case 4902:
+                        ShopManager.getShops().get(55).open(player);
+                        break;
+                    case 462:
+                        npc.performAnimation(CombatSpells.CONFUSE.getSpell().castAnimation().get());
+                        npc.forceChat("Off you go!");
+                        TeleportHandler.teleportPlayer(player, new Position(2911, 4832), player.getSpellbook().getTeleportType());
+                        break;
+                    case 3101:
+                        DialogueManager.start(player, 95);
+                        player.setDialogueActionId(57);
+                        break;
+				/*case 7969:
+					ShopManager.getShops().get(28).open(player);
+					break;*/
+                    case 364:
+                        player.getPacketSender().sendRichPresenceState("Viewing Vote Store!");
+                        player.getPacketSender().sendSmallImageKey("trade");
+                        player.getPacketSender().sendRichPresenceSmallPictureText("Vote Pts: " + player.getPointsHandler().getVotingPoints());
+
+                        player.getPacketSender().sendMessage("").sendMessage("You currently have " + player.getPointsHandler().getVotingPoints() + " Voting points.").sendMessage("You can earn points and coins by voting. To do so, simply use the ::vote command.");
+                        ;
+                        ShopManager.getShops().get(27).open(player);
+                        break;
+                    case 4657:
+                        DialogueManager.start(player, MemberScrolls.getTotalFunds(player));
+                        break;
+                    case 1597:
+                    case 9085:
+                    case 7780:
+                        if (npc.getId() != player.getSlayer().getSlayerMaster().getNpcId()) {
+                            player.getPacketSender().sendMessage("This is not your current Slayer master.");
+                            return;
+                        }
+                        if (player.getSlayer().getSlayerTask() == SlayerTasks.NO_TASK)
+                            player.getSlayer().assignTask();
+                        else
+                            DialogueManager.start(player, SlayerDialogues.findAssignment(player));
+                        break;
+                    case 8591:
+                        if (!player.getMinigameAttributes().getNomadAttributes().hasFinishedPart(1)) {
+                            player.getPacketSender().sendMessage("You must complete Nomad's quest before being able to use this shop.");
+                            return;
+                        }
+                        ShopManager.getShops().get(37).open(player);
+                        break;
+                    case 805:
+                        Tanning.selectionInterface(player);
+                        break;
+                    case 318:
+                    case 316:
+                    case 313:
+                    case 312:
+                        player.setEntityInteraction(npc);
+                        Fishing.setupFishing(player, Fishing.forSpot(npc.getId(), true));
+                        break;
+                    case 4946:
+                        ShopManager.getShops().get(15).open(player);
+                        break;
+
+
+                    case 683:
+                        player.getPacketSender().sendRichPresenceState("Viewing Ranger Store!");
+                        player.getPacketSender().sendSmallImageKey("trade");
+                        ShopManager.getShops().get(3).open(player);
+                        break;
+                    case 705:
+                        ShopManager.getShops().get(4).open(player);
+                        break;
+                    case 2253:
+                        ShopManager.getShops().get(9).open(player);
+                        break;
+                    case 6970:
+                        player.setDialogueActionId(35);
+                        DialogueManager.start(player, 63);
+                        break;
+                }
+                npc.setPositionToFace(player.getPosition());
+                player.setPositionToFace(npc.getPosition());
+            }
+        }));
     }
 }

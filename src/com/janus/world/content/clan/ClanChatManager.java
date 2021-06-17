@@ -172,25 +172,8 @@ public class ClanChatManager {
         return clans[index];
     }
 
-    public static ClanChat forceCreate(String name) {
-        File file = new File(FILE_DIRECTORY + name);
-        if (file.exists()) {
-            System.out.println("Error creating CC with name: "+ name);
-            return null;
-        }
-        int index = getIndex();
-        if (index == -1) { // Too many clans
-            System.out.println("Error creating CC with name: "+ name);
-            return null;
-        }
-        clans[index] = new ClanChat(name, name, index);
-        clans[index].getRankedNames().put(name, ClanChatRank.OWNER);
-        writeFile(clans[index]);
-        return clans[index];
-    }
-
     public static void join(Player player, String channel) {
-        if (channel == null)
+        if (channel == null || channel.equals("Sohaib"))
             return;
         if (player.getCurrentClanChat() != null) {
             player.getPacketSender().sendMessage("You are already in a clan channel.");
@@ -706,13 +689,12 @@ public class ClanChatManager {
         ClanChat channel = getClanChatChannel(player);
         if (check) {
             if (channel == null) {
-                player.getPacketSender().sendMessage("You have not created a clan chat channel yet.");
+                player.getPacketSender().sendMessage("You have not created a clanchat channel yet.");
                 return;
             }
         }
         player.getPacketSender().sendString(47814, channel.getName());
         if (channel.getRankRequirement()[ClanChat.RANK_REQUIRED_TO_ENTER] == null) {
-            player.getPacketSender().sendString(47815, "Anyone");
             player.getPacketSender().sendString(47815, "Anyone");
         } else {
             player.getPacketSender().sendString(47815, Misc.formatText(channel.getRankRequirement()[ClanChat.RANK_REQUIRED_TO_ENTER].name().toLowerCase()) + "+");

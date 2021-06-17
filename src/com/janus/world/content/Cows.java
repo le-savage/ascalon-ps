@@ -23,6 +23,20 @@ public class Cows {
     public static NPC cowkiller;
     public static NPC cowkiller2;
     public static NPC cowkiller3;
+
+
+    private static CopyOnWriteArrayList<NPC> npcList = new CopyOnWriteArrayList<NPC>();
+
+    public static void checkCoins(final Player player) {
+
+    }
+
+    public static void giveItems(final Player player) {
+
+        player.getInventory().add(1277, 1);
+        player.getInventory().add(1171, 1);
+    }
+
     public static String[] KILLER_CHAT = {
             "We must not fail, slay them all!",
             "There shall be no cows left! Diminish them!",
@@ -37,17 +51,6 @@ public class Cows {
 
 
     };
-    private static CopyOnWriteArrayList<NPC> npcList = new CopyOnWriteArrayList<NPC>();
-
-    public static void checkCoins(final Player player) {
-
-    }
-
-    public static void giveItems(final Player player) {
-
-        player.getInventory().add(1277, 1);
-        player.getInventory().add(1171, 1);
-    }
 
     public static void teleportIn(final Player player) {
         for (Item t : player.getEquipment().getItems()) {
@@ -66,7 +69,7 @@ public class Cows {
 
 
             TeleportHandler.teleportPlayer(player, new Position(3260, 3272), player.getSpellbook().getTeleportType());
-            //System.out.println("location:" + player.getLocation());
+            //System.out.print("location:" + player.getLocation());
 
             giveItems(player);
             coinRemoval(player);
@@ -128,10 +131,10 @@ public class Cows {
             public void execute() {
 
                 if (player.getLocation() == Location.COWS) {
-                    //System.out.println("is in cowfield");
+                    //System.out.print("is in cowfield");
                 }
                 if (player.getLocation() != Location.COWS) {
-                    System.out.println("is not in field, stopping thread");
+                    System.out.print("is not in field, stopping thread");
                     this.stop();
                     return;
                 }

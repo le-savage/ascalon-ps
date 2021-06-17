@@ -30,30 +30,6 @@ public class PrayerHandler {
             INCREDIBLE_REFLEXES = 15, PROTECT_FROM_MAGIC = 16, PROTECT_FROM_MISSILES = 17,
             PROTECT_FROM_MELEE = 18, EAGLE_EYE = 19, MYSTIC_MIGHT = 20, RETRIBUTION = 21, REDEMPTION = 22, SMITE = 23, CHIVALRY = 24,
             PIETY = 25, RIGOUR = 26, AUGURY = 27;
-    /**
-     * Contains every prayer that counts as an overhead prayer, excluding protect from summoning.
-     */
-    public static final int[] OVERHEAD_PRAYERS = {PROTECT_FROM_MAGIC, PROTECT_FROM_MISSILES, PROTECT_FROM_MELEE, RETRIBUTION, REDEMPTION, SMITE};
-    /**
-     * Contains every prayer that counts as a defense prayer.
-     */
-    private static final int[] DEFENCE_PRAYERS = {THICK_SKIN, ROCK_SKIN, STEEL_SKIN, CHIVALRY, PIETY, RIGOUR, AUGURY};
-    /**
-     * Contains every prayer that counts as a strength prayer.
-     */
-    private static final int[] STRENGTH_PRAYERS = {BURST_OF_STRENGTH, SUPERHUMAN_STRENGTH, ULTIMATE_STRENGTH, CHIVALRY, PIETY};
-    /**
-     * Contains every prayer that counts as an attack prayer.
-     */
-    private static final int[] ATTACK_PRAYERS = {CLARITY_OF_THOUGHT, IMPROVED_REFLEXES, INCREDIBLE_REFLEXES, CHIVALRY, PIETY};
-    /**
-     * Contains every prayer that counts as a ranged prayer.
-     */
-    private static final int[] RANGED_PRAYERS = {SHARP_EYE, HAWK_EYE, EAGLE_EYE, RIGOUR};
-    /**
-     * Contains every prayer that counts as a magic prayer.
-     */
-    private static final int[] MAGIC_PRAYERS = {MYSTIC_WILL, MYSTIC_LORE, MYSTIC_MIGHT, AUGURY};
 
     /**
      * Gets the protecting prayer based on the argued combat type.
@@ -298,57 +274,10 @@ public class PrayerHandler {
             return 5;
         return -1;
     }
-
     /**
-     * Initializes the player's prayer drain once a first prayer
-     * has been selected.
-     *
-     * @param player The player to start prayer drain for.
+     * Contains every prayer that counts as an overhead prayer, excluding protect from summoning.
      */
-    private static void startDrain(final Player player) {
-        if (getDrain(player) <= 0 && !player.isDrainingPrayer())
-            return;
-        player.setDrainingPrayer(true);
-        TaskManager.submit(new Task(1, player, true) {
-            @Override
-            public void execute() {
-                if ((player.getSkillManager().getCurrentLevel(Skill.PRAYER) <= (player.getSkillManager().getMaxLevel(Skill.PRAYER)) * 0.3 ||
-                        (player.getSkillManager().getCurrentLevel(Skill.PRAYER) >= (player.getSkillManager().getMaxLevel(Skill.PRAYER)) * 0.25))) {
-                    /*if (player.getNotificationPreference()) {
-                        player.getPacketSender().minimisedTrayMessage(4, player.getUsername() + " - you have " + (player.getSkillManager().getCurrentLevel(Skill.PRAYER)) / 10 + " Prayer Points Remaining");
-                    }*/
-                }
-
-                if (player.getSkillManager().getCurrentLevel(Skill.PRAYER) <= 0) {
-                    for (int i = 0; i < player.getPrayerActive().length; i++) {
-                        if (player.getPrayerActive()[i])
-                            deactivatePrayer(player, i);
-                    }
-                    Sounds.sendSound(player, Sound.RUN_OUT_OF_PRAYER_POINTS);
-                    String warning = "You have run out of Prayer points!";
-                    player.getPacketSender().sendMessage(warning);
-                    /*player.getPacketSender().trayMessage(4, player.getUsername() + " - " + warning);*/
-                    this.stop();
-                    return;
-                }
-                double drainAmount = getDrain(player);
-                if (player.getLocation() != Location.WILDERNESS) {
-                }
-                if (drainAmount <= 0) {
-                    this.stop();
-                    return;
-                }
-                int total = (int) (player.getSkillManager().getCurrentLevel(Skill.PRAYER) - drainAmount);
-                player.getSkillManager().setCurrentLevel(Skill.PRAYER, total, true);
-            }
-
-            @Override
-            public void stop() {
-                setEventRunning(false);
-                player.setDrainingPrayer(false);
-            }
-        });
-    }
+    public static final int[] OVERHEAD_PRAYERS = {PROTECT_FROM_MAGIC, PROTECT_FROM_MISSILES, PROTECT_FROM_MELEE, RETRIBUTION, REDEMPTION, SMITE};
 
     /**
      * Gets the amount of prayer to drain for <code>player</code>.
@@ -406,6 +335,77 @@ public class PrayerHandler {
      */
     public static final boolean isButton(final int actionButtonID) {
         return PrayerData.actionButton.containsKey(actionButtonID);
+    }
+    /**
+     * Contains every prayer that counts as a defense prayer.
+     */
+    private static final int[] DEFENCE_PRAYERS = {THICK_SKIN, ROCK_SKIN, STEEL_SKIN, CHIVALRY, PIETY, RIGOUR, AUGURY};
+    /**
+     * Contains every prayer that counts as a strength prayer.
+     */
+    private static final int[] STRENGTH_PRAYERS = {BURST_OF_STRENGTH, SUPERHUMAN_STRENGTH, ULTIMATE_STRENGTH, CHIVALRY, PIETY};
+    /**
+     * Contains every prayer that counts as an attack prayer.
+     */
+    private static final int[] ATTACK_PRAYERS = {CLARITY_OF_THOUGHT, IMPROVED_REFLEXES, INCREDIBLE_REFLEXES, CHIVALRY, PIETY};
+    /**
+     * Contains every prayer that counts as a ranged prayer.
+     */
+    private static final int[] RANGED_PRAYERS = {SHARP_EYE, HAWK_EYE, EAGLE_EYE, RIGOUR};
+    /**
+     * Contains every prayer that counts as a magic prayer.
+     */
+    private static final int[] MAGIC_PRAYERS = {MYSTIC_WILL, MYSTIC_LORE, MYSTIC_MIGHT, AUGURY};
+
+    /**
+     * Initializes the player's prayer drain once a first prayer
+     * has been selected.
+     *
+     * @param player The player to start prayer drain for.
+     */
+    private static void startDrain(final Player player) {
+        if (getDrain(player) <= 0 && !player.isDrainingPrayer())
+            return;
+        player.setDrainingPrayer(true);
+        TaskManager.submit(new Task(1, player, true) {
+            @Override
+            public void execute() {
+                if ((player.getSkillManager().getCurrentLevel(Skill.PRAYER) <= (player.getSkillManager().getMaxLevel(Skill.PRAYER)) * 0.3 ||
+                        (player.getSkillManager().getCurrentLevel(Skill.PRAYER) >= (player.getSkillManager().getMaxLevel(Skill.PRAYER)) * 0.25))) {
+                    if (player.getNotificationPreference()) {
+                        player.getPacketSender().minimisedTrayMessage(4, player.getUsername() + " - you have " + (player.getSkillManager().getCurrentLevel(Skill.PRAYER)) / 10 + " Prayer Points Remaining");
+                    }
+                }
+
+                if (player.getSkillManager().getCurrentLevel(Skill.PRAYER) <= 0) {
+                    for (int i = 0; i < player.getPrayerActive().length; i++) {
+                        if (player.getPrayerActive()[i])
+                            deactivatePrayer(player, i);
+                    }
+                    Sounds.sendSound(player, Sound.RUN_OUT_OF_PRAYER_POINTS);
+                    String warning = "You have run out of Prayer points!";
+                    player.getPacketSender().sendMessage(warning);
+                    player.getPacketSender().trayMessage(4, player.getUsername() + " - " + warning);
+                    this.stop();
+                    return;
+                }
+                double drainAmount = getDrain(player);
+                if (player.getLocation() != Location.WILDERNESS) {
+                }
+                if (drainAmount <= 0) {
+                    this.stop();
+                    return;
+                }
+                int total = (int) (player.getSkillManager().getCurrentLevel(Skill.PRAYER) - drainAmount);
+                player.getSkillManager().setCurrentLevel(Skill.PRAYER, total, true);
+            }
+
+            @Override
+            public void stop() {
+                setEventRunning(false);
+                player.setDrainingPrayer(false);
+            }
+        });
     }
 
     /**

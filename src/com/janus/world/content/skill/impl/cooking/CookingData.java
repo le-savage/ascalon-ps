@@ -39,8 +39,6 @@ public enum CookingData {
     BLUE_CRAB(17813, 18175, 18195, 75, 1066, 92, "blue crab"),
     ;
 
-    public static final int[] cookingRanges = {12269, 2732, 114, 17131};
-    private static SecureRandom cookingRandom = new SecureRandom(); // The random factor
     int rawItem, cookedItem, burntItem, levelReq, xp, stopBurn;
     String name;
 
@@ -54,6 +52,29 @@ public enum CookingData {
         this.name = name;
     }
 
+    public static final int[] cookingRanges = {12269, 2732, 114, 17131};
+    private static SecureRandom cookingRandom = new SecureRandom(); // The random factor
+
+    public int getRawItem() {
+        return rawItem;
+    }
+
+    public int getCookedItem() {
+        return cookedItem;
+    }
+
+    public int getBurntItem() {
+        return burntItem;
+    }
+
+    public int getLevelReq() {
+        return levelReq;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
     public static CookingData forFish(int fish) {
         for (CookingData data : CookingData.values()) {
             if (data.getRawItem() == fish) {
@@ -61,6 +82,10 @@ public enum CookingData {
             }
         }
         return null;
+    }
+
+    public int getStopBurn() {
+        return stopBurn;
     }
 
     public static boolean isRange(int object) {
@@ -93,6 +118,10 @@ public enum CookingData {
         return burn_chance <= randNum;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public static boolean canCook(Player player, int id) {
         CookingData fish = forFish(id);
         if (fish == null)
@@ -106,34 +135,6 @@ public enum CookingData {
             return false;
         }
         return true;
-    }
-
-    public int getRawItem() {
-        return rawItem;
-    }
-
-    public int getCookedItem() {
-        return cookedItem;
-    }
-
-    public int getBurntItem() {
-        return burntItem;
-    }
-
-    public int getLevelReq() {
-        return levelReq;
-    }
-
-    public int getXp() {
-        return xp;
-    }
-
-    public int getStopBurn() {
-        return stopBurn;
-    }
-
-    public String getName() {
-        return name;
     }
 
 }

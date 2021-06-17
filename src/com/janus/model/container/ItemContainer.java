@@ -37,6 +37,16 @@ public abstract class ItemContainer {
     private Item[] items = new Item[capacity()];
 
     /**
+     * The amount of items the container can hold, such as 28 for inventory.
+     */
+    public abstract int capacity();
+
+    /**
+     * The container's type enum, see enum for information.
+     */
+    public abstract StackType stackType();
+
+    /**
      * ItemContainer constructor to create a new instance and to define the player.
      *
      * @param player Player who owns the item container.
@@ -62,25 +72,9 @@ public abstract class ItemContainer {
     }
 
     /**
-     * The amount of items the container can hold, such as 28 for inventory.
-     */
-    public abstract int capacity();
-
-    /**
-     * The container's type enum, see enum for information.
-     */
-    public abstract StackType stackType();
-
-    /**
      * The refresh method to send the container's interface on addition or deletion of an item.
      */
     public abstract ItemContainer refreshItems();
-
-    /**
-     * The full method which contains the content a player will receive upon container being full,
-     * such as a message when inventory is full.
-     */
-    public abstract ItemContainer full();
 
     /**
      * Gets the owner's player instance.
@@ -89,15 +83,6 @@ public abstract class ItemContainer {
      */
     public Player getPlayer() {
         return player;
-    }
-
-    /**
-     * Sets the player viewing the container, used
-     * for containers such as Shops.
-     */
-    public ItemContainer setPlayer(Player player) {
-        this.player = player;
-        return this;
     }
 
     public ItemContainer deleteAll() {
@@ -120,22 +105,27 @@ public abstract class ItemContainer {
     }
 
     /**
+     * The full method which contains the content a player will receive upon container being full,
+     * such as a message when inventory is full.
+     */
+    public abstract ItemContainer full();
+
+    /**
+     * Sets the player viewing the container, used
+     * for containers such as Shops.
+     */
+    public ItemContainer setPlayer(Player player) {
+        this.player = player;
+        return this;
+    }
+
+    /**
      * Gets the items in the container.
      *
      * @return items.
      */
     public Item[] getItems() {
         return items;
-    }
-
-    /**
-     * Sets all the items in the container.
-     *
-     * @param items The item array to which set the container to hold.
-     */
-    public ItemContainer setItems(Item[] items) {
-        this.items = items;
-        return this;
     }
 
     public Item[] getCopiedItems() {
@@ -169,6 +159,16 @@ public abstract class ItemContainer {
             array[i] = items.get(i);
         }
         return array;
+    }
+
+    /**
+     * Sets all the items in the container.
+     *
+     * @param items The item array to which set the container to hold.
+     */
+    public ItemContainer setItems(Item[] items) {
+        this.items = items;
+        return this;
     }
 
     /**

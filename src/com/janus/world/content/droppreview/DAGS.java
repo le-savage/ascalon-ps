@@ -6,10 +6,12 @@ import com.janus.world.entity.impl.player.Player;
 
 public class DAGS {
 
-    public static final int[] DAGS = {12601, 6731, 6733, 6735, 6737, 6739};
     public static int config;
     public static int item;
     public static int index = 0;
+
+    public static final int[] DAGS = {12601, 6731, 6733, 6735, 6737, 6739};
+
 
     /*
      * Get rare drop(s) for that boss location

@@ -11,14 +11,6 @@ import com.janus.world.entity.impl.player.Player;
 
 public class Artifacts {
 
-    /*
-     * Artifacts
-     */
-    private final static int[] LOW_ARTIFACTS = {14888, 14889, 14890, 14891, 14892};
-    private final static int[] MED_ARTIFACTS = {14883, 14884, 14885, 14886};
-    private final static int[] HIGH_ARTIFACTS = {14878, 14879, 14880, 14881, 14882};
-    private final static int[] EXR_ARTIFACTS = {14876, 14877};
-    private final static int[] PVP_ARMORS = {13899, 13893, 13887, 13902, 13896, 13890, 13858, 13861};
     public static int artifacts[] = {14876, 14877, 14878, 14879, 14880, 14881, 14882, 14883, 14884, 14885, 14886, 14887, 14888, 14889, 14890, 14891, 14892};
 
     public static void sellArtifacts(Player c) {
@@ -45,6 +37,15 @@ public class Artifacts {
         c.getPacketSender().sendMessage("You've sold your artifacts.");
 
     }
+
+    /*
+     * Artifacts
+     */
+    private final static int[] LOW_ARTIFACTS = {14888, 14889, 14890, 14891, 14892};
+    private final static int[] MED_ARTIFACTS = {14883, 14884, 14885, 14886};
+    private final static int[] HIGH_ARTIFACTS = {14878, 14879, 14880, 14881, 14882};
+    private final static int[] EXR_ARTIFACTS = {14876, 14877};
+    private final static int[] PVP_ARMORS = {13899, 13893, 13887, 13902, 13896, 13890, 13858, 13861};
 
     /**
      * Handles a target drop

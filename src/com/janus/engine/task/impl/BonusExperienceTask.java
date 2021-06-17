@@ -6,21 +6,13 @@ import com.janus.world.entity.impl.player.Player;
 
 public class BonusExperienceTask extends Task {
 
-    final Player player;
-    int msg;
     public BonusExperienceTask(final Player player) {
         super(100, player, false);
         this.player = player;
     }
 
-    public static void addBonusXp(final Player p, int minutes) {
-        boolean startEvent = p.getMinutesBonusExp() == -1;
-        p.setMinutesBonusExp(startEvent ? (minutes + 1) : minutes, true);
-        p.getPacketSender().sendMessage("<img=10> <col=330099>You have " + p.getMinutesBonusExp() + " minutes of bonus experience left.");
-        if (startEvent) {
-            TaskManager.submit(new BonusExperienceTask(p));
-        }
-    }
+    final Player player;
+    int msg;
 
     @Override
     public void execute() {
@@ -39,5 +31,14 @@ public class BonusExperienceTask extends Task {
             msg = 0;
         }
         msg++;
+    }
+
+    public static void addBonusXp(final Player p, int minutes) {
+        boolean startEvent = p.getMinutesBonusExp() == -1;
+        p.setMinutesBonusExp(startEvent ? (minutes + 1) : minutes, true);
+        p.getPacketSender().sendMessage("<img=10> <col=330099>You have " + p.getMinutesBonusExp() + " minutes of bonus experience left.");
+        if (startEvent) {
+            TaskManager.submit(new BonusExperienceTask(p));
+        }
     }
 }

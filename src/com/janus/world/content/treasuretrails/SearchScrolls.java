@@ -336,6 +336,13 @@ public class SearchScrolls {
                 "town's chapel."}, 7304, new Position(3256, 3487, 0), 378,
                 832, 3),
         ;
+        private String[] hints;
+        private int clueId;
+        private Position objectPosition;
+        private int newObject;
+        private int emote;
+        private int level;
+
         private static Map<Position, SearchData> objects = new HashMap<Position, SearchData>();
         private static Map<Integer, SearchData> clues = new HashMap<Integer, SearchData>();
 
@@ -344,23 +351,6 @@ public class SearchScrolls {
                 objects.put(data.objectPosition, data);
                 clues.put(data.clueId, data);
             }
-        }
-
-        private String[] hints;
-        private int clueId;
-        private Position objectPosition;
-        private int newObject;
-        private int emote;
-        private int level;
-
-        SearchData(String[] hints, int clueId, Position objectPosition,
-                   int newObject, int emote, int level) {
-            this.hints = hints;
-            this.clueId = clueId;
-            this.objectPosition = objectPosition;
-            this.newObject = newObject;
-            this.emote = emote;
-            this.level = level;
         }
 
         public static SearchData forIdObject(Position position) {
@@ -374,6 +364,16 @@ public class SearchScrolls {
 
         public static SearchData forIdClue(int clueId) {
             return clues.get(clueId);
+        }
+
+        SearchData(String[] hints, int clueId, Position objectPosition,
+                   int newObject, int emote, int level) {
+            this.hints = hints;
+            this.clueId = clueId;
+            this.objectPosition = objectPosition;
+            this.newObject = newObject;
+            this.emote = emote;
+            this.level = level;
         }
 
         public String[] getHints() {

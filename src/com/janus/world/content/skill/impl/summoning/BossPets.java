@@ -1,27 +1,10 @@
+
 package com.janus.world.content.skill.impl.summoning;
 
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
 public class BossPets {
-
-    public static boolean pickup(Player player, NPC npc) {
-        BossPet pet = BossPet.forSpawnId(npc.getId());
-        if (pet != null) {
-            if (player.getSummoning().getFamiliar() != null && player.getSummoning().getFamiliar().getSummonNpc() != null && player.getSummoning().getFamiliar().getSummonNpc().isRegistered()) {
-                if (player.getSummoning().getFamiliar().getSummonNpc().getId() == pet.getSpawnNpcId() && player.getSummoning().getFamiliar().getSummonNpc().getIndex() == npc.getIndex()) {
-                    player.getSummoning().unsummon(true, true);
-                    player.getPacketSender().sendMessage("You pick up your pet.");
-                    return true;
-                } else {
-                    player.getPacketSender().sendMessage("This is not your pet to pick up.");
-                }
-            } else {
-                player.getPacketSender().sendMessage("This is not your pet to pick up.");
-            }
-        }
-        return false;
-    }
 
     public enum BossPet {
 
@@ -101,6 +84,24 @@ public class BossPets {
         public int getItemId() {
             return itemId;
         }
+    }
+
+    public static boolean pickup(Player player, NPC npc) {
+        BossPet pet = BossPet.forSpawnId(npc.getId());
+        if (pet != null) {
+            if (player.getSummoning().getFamiliar() != null && player.getSummoning().getFamiliar().getSummonNpc() != null && player.getSummoning().getFamiliar().getSummonNpc().isRegistered()) {
+                if (player.getSummoning().getFamiliar().getSummonNpc().getId() == pet.getSpawnNpcId() && player.getSummoning().getFamiliar().getSummonNpc().getIndex() == npc.getIndex()) {
+                    player.getSummoning().unsummon(true, true);
+                    player.getPacketSender().sendMessage("You pick up your pet.");
+                    return true;
+                } else {
+                    player.getPacketSender().sendMessage("This is not your pet to pick up.");
+                }
+            } else {
+                player.getPacketSender().sendMessage("This is not your pet to pick up.");
+            }
+        }
+        return false;
     }
 
 }

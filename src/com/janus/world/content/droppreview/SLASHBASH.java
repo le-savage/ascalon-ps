@@ -6,10 +6,12 @@ import com.janus.world.entity.impl.player.Player;
 
 public class SLASHBASH {
 
-    public static final int[] SLASHBASH = {11335, 14479, 4224, 11994, 4087};
     public static int config;
     public static int item;
     public static int index = 0;
+
+    public static final int[] SLASHBASH = {11335, 14479, 4224, 11994, 4087};
+
 
     /*
      * Get rare drop(s) for that boss location

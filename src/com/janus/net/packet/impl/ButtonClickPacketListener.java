@@ -27,7 +27,6 @@ import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.FightType;
-import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.content.dailyreward.DailyRewardConstants;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.dialogue.DialogueOptions;
@@ -38,7 +37,6 @@ import com.janus.world.content.minigames.impl.Dueling;
 import com.janus.world.content.minigames.impl.Nomad;
 import com.janus.world.content.minigames.impl.PestControl;
 import com.janus.world.content.minigames.impl.RecipeForDisaster;
-import com.janus.world.content.questtab.QuestTab;
 import com.janus.world.content.skill.ChatboxInterfaceSkillAction;
 import com.janus.world.content.skill.impl.construction.Construction;
 import com.janus.world.content.skill.impl.crafting.LeatherMaking;
@@ -52,7 +50,6 @@ import com.janus.world.content.skill.impl.slayer.Slayer;
 import com.janus.world.content.skill.impl.smithing.SmithingData;
 import com.janus.world.content.skill.impl.summoning.PouchMaking;
 import com.janus.world.content.skill.impl.summoning.SummoningTab;
-import com.janus.world.content.skillingtasks.SelectorInterface;
 import com.janus.world.content.teleportation.Teleporting;
 import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.entity.impl.player.Player;
@@ -67,6 +64,98 @@ public class ButtonClickPacketListener implements PacketListener {
 
     public static final int OPCODE = 185;
 
+    private boolean checkHandlers(Player player, int id) {
+        if (KillLogInterface.handleButton(player, id))
+            return true;
+        if (Construction.handleButtonClick(id, player)) {
+            return true;
+        }
+        switch (id) {
+            case 2494:
+            case 2495:
+            case 2496:
+            case 2497:
+            case 2498:
+            case 2471:
+            case 2472:
+            case 2473:
+            case 2461:
+            case 2462:
+            case 2482:
+            case 2483:
+            case 2484:
+            case 2485:
+                DialogueOptions.handle(player, id);
+                return true;
+        }
+        if (player.isPlayerLocked() && id != 2458 && id != -12780 && id != -12779 && id != -12778 && id != -29767) {
+            return true;
+        }
+        if (DropsInterface.handleButton(id)) {
+            DropsInterface.handleButtonClick(player, id);
+            return true;
+        }
+        if (Achievements.handleButton(player, id)) {
+            return true;
+        }
+        if (Sounds.handleButton(player, id)) {
+            return true;
+        }
+        if (PrayerHandler.isButton(id)) {
+            PrayerHandler.togglePrayerWithActionButton(player, id);
+            return true;
+        }
+        if (CurseHandler.isButton(player, id)) {
+            return true;
+        }
+        if (StartScreen.handleButton(player, id)) {
+            return true;
+        }
+        if (Autocasting.handleAutocast(player, id)) {
+            return true;
+        }
+        if (SmithingData.handleButtons(player, id)) {
+            return true;
+        }
+        if (PouchMaking.pouchInterface(player, id)) {
+            return true;
+        }
+        if (LoyaltyProgramme.handleButton(player, id)) {
+            return true;
+        }
+        if (Fletching.fletchingButton(player, id)) {
+            return true;
+        }
+        if (LeatherMaking.handleButton(player, id) || Tanning.handleButton(player, id)) {
+            return true;
+        }
+        if (Emotes.doEmote(player, id)) {
+            return true;
+        }
+        if (PestControl.handleInterface(player, id)) {
+            return true;
+        }
+        if (player.getLocation() == Location.DUEL_ARENA && Dueling.handleDuelingButtons(player, id)) {
+            return true;
+        }
+        if (Slayer.handleRewardsInterface(player, id)) {
+            return true;
+        }
+        if (ExperienceLamps.handleButton(player, id)) {
+            return true;
+        }
+        if (PlayersOnlineInterface.handleButton(player, id)) {
+            return true;
+        }
+        if (GrandExchange.handleButton(player, id)) {
+            return true;
+        }
+        if (ClanChatManager.handleClanChatSetupButton(player, id)) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void handleMessage(Player player, Packet packet) {
 
@@ -74,7 +163,7 @@ public class ButtonClickPacketListener implements PacketListener {
 
         PlayerPanel.refreshPanel(player);
 
-        if (player.getRights() == PlayerRights.OWNER || player.getRights() == PlayerRights.DEVELOPER) {
+        if (player.getRights() == PlayerRights.OWNER) {
             player.getPacketSender().sendMessage("Clicked button: " + id);
         }
 
@@ -89,14 +178,6 @@ public class ButtonClickPacketListener implements PacketListener {
             StaffList.handleButton(player, id);
         }
 
-        if (id == SelectorInterface.confirmButton) {
-            SelectorInterface.handleConfirm(player);
-        }
-
-        if (id == SelectorInterface.difficultyButton) {
-            SelectorInterface.changeDifficulty(player);
-        }
-
         if (id == DailyRewardConstants.CLAIM_BUTTON) {
             player.getDailyReward().claimReward();
             return;
@@ -104,38 +185,463 @@ public class ButtonClickPacketListener implements PacketListener {
 
         switch (id) {
 
-            case -25530:
-            case -25531:
-            case -25532:
-                QuestTab.refreshPanel();
-                break;
-                // Instance arena teleport handler
             case 6033:
-            case 6035:
-            case 6036:
-            case 6037:
-            case 6038:
-            case 6039:
-            case 6040:
-            case 6041:
-            case 6042:
-            case 6043:
-            case 6044:
-            case 6045:
-            case 6046:
-            case 6047:
-            case 6048:
-            case 6049:
-            case 6050:
-            case 6051:
-            case 6052:
-            case 6053:
-            case 6054:
-            case 6055:
-            case 6056:
-                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA)
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
                     return;
-                InstanceArena.handleButtons(player, id);
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnMan(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnMan(player);
+                break;
+            case 6035:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnKBD(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnKBD(player);
+                break;
+            case 6036:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnRockCrabMadness(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnRockCrabMadness(player);
+                break;
+
+            case 6037:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnIronDragon(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnIronDragon(player);
+                break;
+
+            case 6038:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnSteelDragon(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnSteelDragon(player);
+                break;
+
+            case 6039:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnFrostDragon(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnFrostDragon(player);
+                break;
+
+            case 6040:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnTzHaar(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnTzHaar(player);
+                break;
+
+            case 6041:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnSlashBash(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnSlashBash(player);
+                break;
+
+            case 6042:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnSmokeDevil(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnSmokeDevil(player);
+                break;
+
+
+            case 6043:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnSupreme(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnSupreme(player);
+                break;
+
+            case 6044:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnPrime(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnPrime(player);
+                break;
+
+            case 6045:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnRex(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnRex(player);
+                break;
+
+            case 6046:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnIceWorm(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnIceWorm(player);
+                break;
+
+            case 6047:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnDesertWorm(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnDesertWorm(player);
+                break;
+
+            case 6048:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnJungleWorm(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnJungleWorm(player);
+                break;
+
+            case 6049:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnCerberus(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnCerberus(player);
+                break;
+
+            case 6050:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnChaosDruid(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnChaosDruid(player);
+                break;
+
+            case 6051:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnTormentedDemon(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnTormentedDemon(player);
+                break;
+
+            case 6052:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnGorilla(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnGorilla(player);
+                break;
+
+            case 6053:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnBork(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnBork(player);
+                break;
+
+            case 6054:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnChaosElemental(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnChaosElemental(player);
+                break;
+
+            case 6055:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnLizardShaman(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnLizardShaman(player);
+                break;
+
+            case 6056:
+                if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {
+                    return;
+                }
+                if (player.getRights() == PlayerRights.PLAYER) {
+                    if (player.getMoneyInPouchAsInt() >= 5000000) {
+                        player.setMoneyInPouch(player.getMoneyInPouch() - 5000000);
+                        player.getPacketSender().sendString(8135, "" + player.getMoneyInPouch());
+                        player.getPacketSender().sendMessage("5m instance fee paid! Good luck.");
+                        player.getPacketSender().sendMessage("Donors get free instances and perks! ::benefits to find out more <3");
+                        InstanceArena.spawnZulrah(player);
+                    } else {
+                        player.getPacketSender().sendMessage("You need 5m in your pouch to buy an instance.");
+                        return;
+                    }
+                }
+
+                InstanceArena.spawnZulrah(player);
                 break;
 
 
@@ -260,9 +766,6 @@ public class ButtonClickPacketListener implements PacketListener {
                 break;
             case -27454:
             case -27534:
-            case -19534:
-            case -19454:
-
             case 5384:
             case 12729:
                 player.getPacketSender().sendInterfaceRemoval();
@@ -398,7 +901,7 @@ public class ButtonClickPacketListener implements PacketListener {
                 PlayerPanel.refreshPanel(player);
                 break;
             case 32388:
-                player.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 40000); // 26600
+                player.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 639); // 26600
                 PlayerPanel.refreshPanel(player);
                 break;
             case -26359:
@@ -544,8 +1047,7 @@ public class ButtonClickPacketListener implements PacketListener {
             case -10531:
                 if (player.isKillsTrackerOpen()) {
                     player.setKillsTrackerOpen(false);
-                    player.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 40000);
-                    QuestTab.refreshPanel();
+                    player.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 639);
                     PlayerPanel.refreshPanel(player);
                 }
                 break;
@@ -578,7 +1080,7 @@ public class ButtonClickPacketListener implements PacketListener {
                 break;
 
             case 11014:
-                player.getTeleportInterface().open();
+                Teleporting.openTab(player, -4928);
                 break;
 //		case -26333:
 //			player.getPacketSender().sendString(1, "www.janus.rip");
@@ -705,8 +1207,7 @@ public class ButtonClickPacketListener implements PacketListener {
                 break;
 
             case 10003:
-                player.getTeleportInterface().open();
-                //Teleporting.openTab(player, -4934);
+                Teleporting.openTab(player, -4934);
                 break;
             case -4934:
                 Teleporting.openTab(player, -4934);
@@ -792,7 +1293,10 @@ public class ButtonClickPacketListener implements PacketListener {
             case 10000:
             case 913:
             case 950:
-                player.getPacketSender().sendMessage("Use the RuneLite settings to edit your configuration.");
+                if (player.getInterfaceId() < 0)
+                    player.getPacketSender().sendInterface(40030);
+                else
+                    player.getPacketSender().sendMessage("Please close the interface you have open before doing this.");
                 break;
             case 3546:
             case 3420:
@@ -808,7 +1312,6 @@ public class ButtonClickPacketListener implements PacketListener {
             case 10162:
             case -18269:
             case 11729:
-            case -16534:
                 player.getPacketSender().sendInterfaceRemoval();
                 break;
             case 841:
@@ -840,13 +1343,12 @@ public class ButtonClickPacketListener implements PacketListener {
                 break;
             case 2735:
             case 1511:
-                if (player.getLocation() != Location.BOSS_TIER_LOCATION || player.getLocation() != Location.BOSS_TIER_ENTRANCE)
-                    if (player.getSummoning().getBeastOfBurden() != null) {
-                        player.getSummoning().toInventory();
-                        player.getPacketSender().sendInterfaceRemoval();
-                    } else {
-                        player.getPacketSender().sendMessage("You do not have a familiar who can hold items.");
-                    }
+                if (player.getSummoning().getBeastOfBurden() != null) {
+                    player.getSummoning().toInventory();
+                    player.getPacketSender().sendInterfaceRemoval();
+                } else {
+                    player.getPacketSender().sendMessage("You do not have a familiar who can hold items.");
+                }
                 break;
             case -11501:
             case -11504:
@@ -879,16 +1381,16 @@ public class ButtonClickPacketListener implements PacketListener {
             case 8669:
             case 8660:
             case 11008:
-                player.getTeleportInterface().open();
+                Teleporting.openTab(player, -4934);
                 break;
             case 11017:
-                player.getTeleportInterface().open();
+                Teleporting.openTab(player, -4931);
                 break;
             case 11011:
-                player.getTeleportInterface().open();
+                Teleporting.openTab(player, -4919);
                 break;
             case 11020:
-                player.getTeleportInterface().open();
+                Teleporting.openTab(player, -4922);
                 break;
             case 2799:
             case 2798:
@@ -918,17 +1420,12 @@ public class ButtonClickPacketListener implements PacketListener {
                 if (!player.isBanking() || player.getInterfaceId() != 5292)
                     return;
                 Bank.depositItems(player, id == 27005 ? player.getEquipment() : player.getInventory(), false);
-                player.getEquipment().refreshItems();
-                ItemEffect.refreshEffects(player); //This is to stop the scythe bank bug
                 break;
             case 27023:
                 if (!player.isBanking() || player.getInterfaceId() != 5292)
                     return;
                 if (player.getSummoning().getBeastOfBurden() == null) {
                     player.getPacketSender().sendMessage("You do not have a familiar which can hold items.");
-                    return;
-                }
-                if (player.getLocation() == Location.BOSS_TIER_LOCATION || player.getLocation() == Location.BOSS_TIER_ENTRANCE) {
                     return;
                 }
                 Bank.depositItems(player, player.getSummoning().getBeastOfBurden(), false);
@@ -1332,106 +1829,5 @@ public class ButtonClickPacketListener implements PacketListener {
                 player.setFightType(FightType.BATTLEAXE_BLOCK);
                 break;
         }
-    }
-
-    private boolean checkHandlers(Player player, int id) {
-        if (player.getTeleportInterface().handleButton(id))
-            return true;
-        if (player.getQuestTab().handleButton(id))
-            return true;
-        if (player.getCollectionLog().handleButton(id))
-            return true;
-        if (KillLogInterface.handleButton(player, id))
-            return true;
-        if (Construction.handleButtonClick(id, player)) {
-            return true;
-        }
-        switch (id) {
-            case 2494:
-            case 2495:
-            case 2496:
-            case 2497:
-            case 2498:
-            case 2471:
-            case 2472:
-            case 2473:
-            case 2461:
-            case 2462:
-            case 2482:
-            case 2483:
-            case 2484:
-            case 2485:
-                DialogueOptions.handle(player, id);
-                return true;
-        }
-        if (player.isPlayerLocked() && id != 2458 && id != -12780 && id != -12779 && id != -12778 && id != -29767) {
-            return true;
-        }
-        if (DropsInterface.handleButton(id)) {
-            DropsInterface.handleButtonClick(player, id);
-            return true;
-        }
-        if (Achievements.handleButton(player, id)) {
-            return true;
-        }
-        if (Sounds.handleButton(player, id)) {
-            return true;
-        }
-        if (PrayerHandler.isButton(id)) {
-            PrayerHandler.togglePrayerWithActionButton(player, id);
-            return true;
-        }
-        if (CurseHandler.isButton(player, id)) {
-            return true;
-        }
-        if (StartScreen.handleButton(player, id)) {
-            return true;
-        }
-        if (Autocasting.handleAutocast(player, id)) {
-            return true;
-        }
-        if (SmithingData.handleButtons(player, id)) {
-            return true;
-        }
-        if (PouchMaking.pouchInterface(player, id)) {
-            return true;
-        }
-        if (LoyaltyProgramme.handleButton(player, id)) {
-            return true;
-        }
-        if (Fletching.fletchingButton(player, id)) {
-            return true;
-        }
-        if (LeatherMaking.handleButton(player, id) || Tanning.handleButton(player, id)) {
-            return true;
-        }
-        if (Emotes.doEmote(player, id)) {
-            return true;
-        }
-        if (PestControl.handleInterface(player, id)) {
-            return true;
-        }
-        if (player.getLocation() == Location.DUEL_ARENA && Dueling.handleDuelingButtons(player, id)) {
-            return true;
-        }
-        if (Slayer.handleRewardsInterface(player, id)) {
-            return true;
-        }
-        if (ExperienceLamps.handleButton(player, id)) {
-            return true;
-        }
-        if (SelectorInterface.handleButton(player, id)) {
-            return true;
-        }
-        if (PlayersOnlineInterface.handleButton(player, id)) {
-            return true;
-        }
-        if (GrandExchange.handleButton(player, id)) {
-            return true;
-        }
-        if (ClanChatManager.handleClanChatSetupButton(player, id)) {
-            return true;
-        }
-        return false;
     }
 }

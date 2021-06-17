@@ -52,13 +52,13 @@ World.deregister(KBD);
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.KBD || player.getRegionInstance().getNpcsList().contains(KBD)) {
-                    System.out.println("Failed to spawn KBD. One of the variables was not correct.");
+                    System.out.print("Failed to spawn KBD. One of the variables was not correct.");
                     stop();
                     return;
                 }
 
 
-                System.out.println("KBD spawn task finished for " + player.getUsername());
+                System.out.print("KBD spawn task finished for " + player.getUsername());
                 KBD = new NPC(50, new Position(2274, 4697, player.getIndex() * 4));
                 World.register(KBD);
                 player.getRegionInstance().getNpcsList().add(KBD);

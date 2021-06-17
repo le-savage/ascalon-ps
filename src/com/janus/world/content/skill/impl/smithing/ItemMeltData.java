@@ -253,8 +253,6 @@ public enum ItemMeltData {
     TORVA_TOP(14009, 21066, 4),
     TORVA_LEG(14010, 21066, 4);
 
-    public static final int levelReq = 50;
-    public static final int[] furnaceIDs = {6096};
     /*** End MISC ***/
 
 
@@ -266,6 +264,14 @@ public enum ItemMeltData {
         this.barAmount = barAmount;
     }
 
+    public static final int levelReq = 50;
+    public static final int[] furnaceIDs = {6096};
+
+    public int getOriginalItem() {
+        return originalItem;
+    }
+
+
     public static ItemMeltData forItem(int item) {
         for (ItemMeltData data : ItemMeltData.values()) {
             if (data.getOriginalItem() == item) {
@@ -275,12 +281,21 @@ public enum ItemMeltData {
         return null;
     }
 
+    public int getMeltedBar() {
+        return meltedBar;
+    }
+
+    public int getBarAmount() {
+        return barAmount;
+    }
+
     public static boolean isFurnace(int object) {
         for (int i : furnaceIDs)
             if (object == i)
                 return true;
         return false;
     }
+
 
     public static boolean success(Player player) {
         return true;
@@ -299,18 +314,6 @@ public enum ItemMeltData {
             return false;
         }
         return true;
-    }
-
-    public int getOriginalItem() {
-        return originalItem;
-    }
-
-    public int getMeltedBar() {
-        return meltedBar;
-    }
-
-    public int getBarAmount() {
-        return barAmount;
     }
 
 }

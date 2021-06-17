@@ -11,19 +11,6 @@ import com.janus.util.Misc;
 public class Position {
 
     /**
-     * The x coordinate of the position.
-     */
-    private int x;
-    /**
-     * The y coordinate of the position.
-     */
-    private int y;
-    /**
-     * The height level of the position.
-     */
-    private int z;
-
-    /**
      * The Position constructor.
      *
      * @param x The x-type coordinate of the position.
@@ -47,6 +34,11 @@ public class Position {
     }
 
     /**
+     * The x coordinate of the position.
+     */
+    private int x;
+
+    /**
      * Gets the x coordinate of this position.
      *
      * @return The associated x coordinate.
@@ -65,6 +57,11 @@ public class Position {
     }
 
     /**
+     * The y coordinate of the position.
+     */
+    private int y;
+
+    /**
      * Gets the y coordinate of this position.
      *
      * @return The associated y coordinate.
@@ -81,6 +78,11 @@ public class Position {
     public void setY(int y) {
         this.y = y;
     }
+
+    /**
+     * The height level of the position.
+     */
+    private int z;
 
     /**
      * Gets the height level of this position.

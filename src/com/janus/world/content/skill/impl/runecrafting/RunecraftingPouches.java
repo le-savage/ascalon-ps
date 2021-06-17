@@ -6,6 +6,28 @@ public class RunecraftingPouches {
 
     private static final int RUNE_ESS = 1436, PURE_ESS = 7936;
 
+    public enum RunecraftingPouch {
+        SMALL(5509, 7, 7),
+        MEDIUM_POUCH(5510, 16, 16),
+        LARGE_POUCH(5512, 28, 28);
+
+        private int id;
+        private int maxRuneEss, maxPureEss;
+        RunecraftingPouch(int id, int maxRuneEss, int maxPureEss) {
+            this.id = id;
+            this.maxRuneEss = maxRuneEss;
+            this.maxPureEss = maxPureEss;
+        }
+
+        public static RunecraftingPouch forId(int id) {
+            for (RunecraftingPouch pouch : RunecraftingPouch.values()) {
+                if (pouch.id == id)
+                    return pouch;
+            }
+            return null;
+        }
+    }
+
     public static void fill(Player p, RunecraftingPouch pouch) {
         if (p.getInterfaceId() > 0) {
             p.getPacketSender().sendMessage("Please close the interface you have open before doing this.");
@@ -55,27 +77,5 @@ public class RunecraftingPouches {
 
     public static void check(Player p, RunecraftingPouch pouch) {
         p.getPacketSender().sendMessage("Your pouch currently contains " + p.getStoredRuneEssence() + "/" + pouch.maxRuneEss + " Rune essence and " + p.getStoredPureEssence() + "/" + pouch.maxPureEss + " Pure essence.");
-    }
-
-    public enum RunecraftingPouch {
-        SMALL(5509, 7, 7),
-        MEDIUM_POUCH(5510, 16, 16),
-        LARGE_POUCH(5512, 28, 28);
-
-        private int id;
-        private int maxRuneEss, maxPureEss;
-        RunecraftingPouch(int id, int maxRuneEss, int maxPureEss) {
-            this.id = id;
-            this.maxRuneEss = maxRuneEss;
-            this.maxPureEss = maxPureEss;
-        }
-
-        public static RunecraftingPouch forId(int id) {
-            for (RunecraftingPouch pouch : RunecraftingPouch.values()) {
-                if (pouch.id == id)
-                    return pouch;
-            }
-            return null;
-        }
     }
 }

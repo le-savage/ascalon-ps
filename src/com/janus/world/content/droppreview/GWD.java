@@ -6,10 +6,12 @@ import com.janus.world.entity.impl.player.Player;
 
 public class GWD {
 
-    public static final int[] GWD = {11724, 11726, 11718, 11720, 11722, 13051, 11716, 11730};
     public static int config;
     public static int item;
     public static int index = 0;
+
+    public static final int[] GWD = {11724, 11726, 11718, 11720, 11722, 13051, 11716, 11730};
+
 
     /*
      * Get rare drop(s) for that boss location

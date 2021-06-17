@@ -31,6 +31,7 @@ public final class MovementQueue {
             SECOND_MOVEMENT_X = 2, SECOND_MOVEMENT_Y = 3,
             MOVEMENT_SPEED = 4, MOVEMENT_REVERSE_SPEED = 5,
             MOVEMENT_DIRECTION = 6;
+
     /**
      * The maximum size of the queue. If any additional steps are added, they
      * are discarded.
@@ -46,16 +47,12 @@ public final class MovementQueue {
      * The queue of directions.
      */
     private final Deque<Point> points = new ArrayDeque<Point>();
-    private final boolean isPlayer;
+
     /**
      * The following task
      */
     private Task followTask;
     private Character followCharacter;
-    /**
-     * If this entity's movement is locked.
-     */
-    private boolean lockMovement;
 
     /**
      * Creates a walking queue for the specified character.
@@ -66,41 +63,7 @@ public final class MovementQueue {
         this.character = character;
         this.isPlayer = character.isPlayer();
     }
-
-    public static boolean canWalk(Position from, Position to, int size) {
-        return RegionClipping.canMove(from, to, size, size);
-    }
-
-    /**
-     * Steps away from a Gamecharacter
-     *
-     * @param character The gamecharacter to step away from
-     */
-    public static void stepAway(Character character) {
-        if (character.getMovementQueue().canWalk(-1, 0))
-            character.getMovementQueue().walkStep(-1, 0);
-        else if (character.getMovementQueue().canWalk(1, 0))
-            character.getMovementQueue().walkStep(1, 0);
-        else if (character.getMovementQueue().canWalk(0, -1))
-            character.getMovementQueue().walkStep(0, -1);
-        else if (character.getMovementQueue().canWalk(0, 1))
-            character.getMovementQueue().walkStep(0, 1);
-    }
-
-    public static int getMove(int x, int p2, int size) {
-        if ((x - p2) == 0) {
-            return 0;
-        } else if ((x - p2) < 0) {
-            return size;
-        } else if ((x - p2) > 0) {
-            return -size;
-        }
-        return 0;
-    }
-
-    public Character getFollowCharacter() {
-        return followCharacter;
-    }
+    private final boolean isPlayer;
 
     /**
      * Sets a character to follow
@@ -109,6 +72,10 @@ public final class MovementQueue {
         this.followCharacter = followCharacter;
         startFollow();
     }
+    /**
+     * If this entity's movement is locked.
+     */
+    private boolean lockMovement;
 
     /**
      * Adds the first step to the queue, attempting to connect the server and
@@ -137,17 +104,6 @@ public final class MovementQueue {
         position.setY(position.getY() + y);
         addStep(position);
     }
-
-
-    /*
-     * public boolean checkBarricade(int x, int y) { Position position =
-     * character.getPosition(); if(character.isPlayer()) {
-     * if(Locations.inSoulWars((Player)character)) {
-     * if(SoulWars.checkBarricade(position.getX() + x, position.getY()+ y,
-     * position.getZ())) { ((Player)character).getPacketSender().sendMessage(
-     * "The path is blocked by a Barricade."); reset(true); return true; } } }
-     * return false; }
-     */
 
     /**
      * Adds a step.
@@ -207,6 +163,21 @@ public final class MovementQueue {
             return true;
         return canWalk(character.getPosition(), to, character.getSize());
     }
+
+    public static boolean canWalk(Position from, Position to, int size) {
+        return RegionClipping.canMove(from, to, size, size);
+    }
+
+
+    /*
+     * public boolean checkBarricade(int x, int y) { Position position =
+     * character.getPosition(); if(character.isPlayer()) {
+     * if(Locations.inSoulWars((Player)character)) {
+     * if(SoulWars.checkBarricade(position.getX() + x, position.getY()+ y,
+     * position.getZ())) { ((Player)character).getPacketSender().sendMessage(
+     * "The path is blocked by a Barricade."); reset(true); return true; } } }
+     * return false; }
+     */
 
     /**
      * Gets the last point.
@@ -424,6 +395,33 @@ public final class MovementQueue {
         return points.size();
     }
 
+    /**
+     * Steps away from a Gamecharacter
+     *
+     * @param character The gamecharacter to step away from
+     */
+    public static void stepAway(Character character) {
+        if (character.getMovementQueue().canWalk(-1, 0))
+            character.getMovementQueue().walkStep(-1, 0);
+        else if (character.getMovementQueue().canWalk(1, 0))
+            character.getMovementQueue().walkStep(1, 0);
+        else if (character.getMovementQueue().canWalk(0, -1))
+            character.getMovementQueue().walkStep(0, -1);
+        else if (character.getMovementQueue().canWalk(0, 1))
+            character.getMovementQueue().walkStep(0, 1);
+    }
+
+    public static int getMove(int x, int p2, int size) {
+        if ((x - p2) == 0) {
+            return 0;
+        } else if ((x - p2) < 0) {
+            return size;
+        } else if ((x - p2) > 0) {
+            return -size;
+        }
+        return 0;
+    }
+
     public void freeze(int delay) {
         if (character.isFrozen())
             return;
@@ -446,27 +444,8 @@ public final class MovementQueue {
         });
     }
 
-    /**
-     * Gets whether or not this entity is 'frozen'.
-     *
-     * @return true if this entity cannot move.
-     */
-    public boolean isLockMovement() {
-        return lockMovement;
-    }
-
-    /**
-     * Sets if this entity can move or not.
-     *
-     * @param lockMovement true if this entity cannot move.
-     */
-    public MovementQueue setLockMovement(boolean lockMovement) {
-        this.lockMovement = lockMovement;
-        return this;
-    }
-
-    public boolean isRunToggled() {
-        return character.isPlayer() && ((Player) character).isRunning() && !((Player) character).isCrossingObstacle();
+    public Character getFollowCharacter() {
+        return followCharacter;
     }
 
     /**
@@ -503,5 +482,28 @@ public final class MovementQueue {
                     + ", position=" + position + "]";
         }
 
+    }
+
+    /**
+     * Gets whether or not this entity is 'frozen'.
+     *
+     * @return true if this entity cannot move.
+     */
+    public boolean isLockMovement() {
+        return lockMovement;
+    }
+
+    /**
+     * Sets if this entity can move or not.
+     *
+     * @param lockMovement true if this entity cannot move.
+     */
+    public MovementQueue setLockMovement(boolean lockMovement) {
+        this.lockMovement = lockMovement;
+        return this;
+    }
+
+    public boolean isRunToggled() {
+        return character.isPlayer() && ((Player) character).isRunning() && !((Player) character).isCrossingObstacle();
     }
 }

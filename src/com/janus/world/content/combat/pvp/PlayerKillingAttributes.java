@@ -20,8 +20,6 @@ import java.util.List;
 public class PlayerKillingAttributes {
 
     private final Player player;
-    private final int WAIT_LIMIT = 2;
-    Location loc;
     private Player target;
     private int playerKills;
     private int playerKillStreak;
@@ -29,10 +27,42 @@ public class PlayerKillingAttributes {
     private int targetPercentage;
     private long lastPercentageIncrease;
     private int safeTimer;
+
+    private final int WAIT_LIMIT = 2;
+    Location loc;
     private List<String> killedPlayers = new ArrayList<String>();
 
     public PlayerKillingAttributes(Player player) {
         this.player = player;
+    }
+
+    public void add(Player other) {
+
+
+        if (other.getAppearance().getBountyHunterSkull() >= 0)
+            other.getAppearance().setBountyHunterSkull(-1);
+
+        boolean target = player.getPlayerKillingAttributes().getTarget() != null && player.getPlayerKillingAttributes().getTarget().getIndex() == other.getIndex() || other.getPlayerKillingAttributes().getTarget() != null && other.getPlayerKillingAttributes().getTarget().getIndex() == player.getIndex();
+        if (target)
+            killedPlayers.clear();
+
+        if (killedPlayers.size() >= WAIT_LIMIT) {
+            killedPlayers.clear();
+            handleReward(other, target);
+        } else {
+            if (!killedPlayers.contains(other.getUsername()))
+                handleReward(other, target);
+            else
+                player.getPacketSender().sendMessage("You were not given points because you have recently defeated " + other.getUsername() + ".");
+        }
+        Item item1 = new Item(995, 3000000 + Misc.getRandom(12000000));
+
+        if (target)
+
+            GroundItemManager.spawnGroundItem(player, new GroundItem(item1, player.getPosition(),
+                    player.getUsername(), false, 150, false, 200));
+
+        //BountyHunter.resetTargets(player, other, true, "You have defeated your target!");
     }
 
     /**
@@ -65,33 +95,12 @@ public class PlayerKillingAttributes {
         return null;
     }
 
-    public void add(Player other) {
+    public List<String> getKilledPlayers() {
+        return killedPlayers;
+    }
 
-
-        if (other.getAppearance().getBountyHunterSkull() >= 0)
-            other.getAppearance().setBountyHunterSkull(-1);
-
-        boolean target = player.getPlayerKillingAttributes().getTarget() != null && player.getPlayerKillingAttributes().getTarget().getIndex() == other.getIndex() || other.getPlayerKillingAttributes().getTarget() != null && other.getPlayerKillingAttributes().getTarget().getIndex() == player.getIndex();
-        if (target)
-            killedPlayers.clear();
-
-        if (killedPlayers.size() >= WAIT_LIMIT) {
-            killedPlayers.clear();
-            handleReward(other, target);
-        } else {
-            if (!killedPlayers.contains(other.getUsername()))
-                handleReward(other, target);
-            else
-                player.getPacketSender().sendMessage("You were not given points because you have recently defeated " + other.getUsername() + ".");
-        }
-        Item item1 = new Item(995, 3000000 + Misc.getRandom(12000000));
-
-        if (target)
-
-            GroundItemManager.spawnGroundItem(player, new GroundItem(item1, player.getPosition(),
-                    player.getUsername(), false, 150, false, 200));
-
-        //BountyHunter.resetTargets(player, other, true, "You have defeated your target!");
+    public void setKilledPlayers(List<String> list) {
+        killedPlayers = list;
     }
 
     /**
@@ -237,14 +246,6 @@ public class PlayerKillingAttributes {
                 LoyaltyProgramme.unlock(player, LoyaltyTitles.IMMORTAL);
             }
         }
-    }
-
-    public List<String> getKilledPlayers() {
-        return killedPlayers;
-    }
-
-    public void setKilledPlayers(List<String> list) {
-        killedPlayers = list;
     }
 
     public int getPlayerKills() {

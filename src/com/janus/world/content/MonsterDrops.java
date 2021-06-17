@@ -18,8 +18,6 @@ import java.util.Objects;
  * @rune-server.org/members/AuguryPS
  */
 public class MonsterDrops {
-    public static Map<String, NPCDrops> npcDrops = new HashMap<>();
-
     /**
      * A method that initializes and fills in the cache of the drops. What this
      * does is go by every {@link NPCDrops} and attaches it to its relevant npc
@@ -37,6 +35,8 @@ public class MonsterDrops {
             i.printStackTrace();
         }
     }
+
+    public static Map<String, NPCDrops> npcDrops = new HashMap<>();
 
     public static void sendNpcDrop(Player player, int id, String name) {
         // NPCDrops drops = NPCDrops.forId(id);

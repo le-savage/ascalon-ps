@@ -60,6 +60,15 @@ public enum CombatIcon {
     NONE;
 
     /**
+     * Gets the id that will be sent to client for said CombatIcon.
+     *
+     * @return The index that will be sent to client.
+     */
+    public int getId() {
+        return ordinal() - 1;
+    }
+
+    /**
      * Gets the CombatIcon object for said id, being compared
      * to it's ordinal (so ORDER IS CRUCIAL).
      *
@@ -72,14 +81,5 @@ public enum CombatIcon {
                 return icon;
         }
         return CombatIcon.BLOCK;
-    }
-
-    /**
-     * Gets the id that will be sent to client for said CombatIcon.
-     *
-     * @return The index that will be sent to client.
-     */
-    public int getId() {
-        return ordinal() - 1;
     }
 }

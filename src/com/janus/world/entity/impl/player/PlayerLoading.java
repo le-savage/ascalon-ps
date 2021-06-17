@@ -15,7 +15,6 @@ import com.janus.world.content.DropLog.DropLogEntry;
 import com.janus.world.content.KillsTracker;
 import com.janus.world.content.KillsTracker.KillsEntry;
 import com.janus.world.content.LoyaltyProgramme.LoyaltyTitles;
-import com.janus.world.content.collectionlog.CollectionLogEntry;
 import com.janus.world.content.combat.magic.CombatSpells;
 import com.janus.world.content.combat.weapon.FightType;
 import com.janus.world.content.grandexchange.GrandExchangeSlot;
@@ -28,7 +27,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.ObjectInputStream;
-import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -112,24 +110,6 @@ public class PlayerLoading {
             if (reader.has("given-starter")) {
                 player.setReceivedStarter(reader.get("given-starter").getAsBoolean());
             }
-            if (reader.has("has-played-new-barrows")) {
-                player.setHasPlayedNewBarrows(reader.get("has-played-new-barrows").getAsBoolean());
-            }
-            if (reader.has("has-used-boss-tier-tp")) {
-                player.setHasUsedBossTierTP(reader.get("has-used-boss-tier-tp").getAsBoolean());
-            }
-            if (reader.has("should-give-boss-reward")) {
-                player.setShouldGiveBossReward(reader.get("should-give-boss-reward").getAsBoolean());
-            }
-            if (reader.has("kbd-tier")) {
-                player.setKbdTier(reader.get("kbd-tier").getAsInt());
-            }
-            if (reader.has("instances-kc")) {
-                player.setInstanceKC(reader.get("instances-kc").getAsInt());
-            }
-            if (reader.has("barrows-kc")) {
-                player.setBarrowsKC(reader.get("barrows-kc").getAsInt());
-            }
             if (reader.has("money-pouch")) {
                 player.setMoneyInPouch(reader.get("money-pouch").getAsLong());
             }
@@ -149,38 +129,6 @@ public class PlayerLoading {
 
             if (reader.has("claimed-todays-reward")) {
                 player.setClaimedTodays(reader.get("claimed-todays-reward").getAsBoolean());
-            }
-
-            if (reader.has("allow-snap")) {
-                player.setAllowSnap(reader.get("allow-snap").getAsBoolean());
-            }
-
-            if (reader.has("allow-rps")) {
-                player.setAllowRps(reader.get("allow-rps").getAsBoolean());
-            }
-
-            if (reader.has("show-tips")) {
-                player.setShowTips(reader.get("show-tips").getAsBoolean());
-            }
-
-            if (reader.has("show-trivia")) {
-                player.setShowTrivia(reader.get("show-trivia").getAsBoolean());
-            }
-
-            if (reader.has("show-world-messages")) {
-                player.setShowWorldMessages(reader.get("show-world-messages").getAsBoolean());
-            }
-
-            if (reader.has("skill-task-ordinal")) {
-                player.setSkillTaskOrdinal(reader.get("skill-task-ordinal").getAsInt());
-            }
-
-            if (reader.has("skill-task-points")) {
-                player.setSkillTaskPoints(reader.get("skill-task-points").getAsInt());
-            }
-
-            if (reader.has("task-difficulty")) {
-                player.setTaskDifficulty(reader.get("task-difficulty").getAsString());
             }
 
             if (reader.has("minutes-bonus-exp")) {
@@ -307,11 +255,6 @@ public class PlayerLoading {
             }
             if (reader.has("last-veng")) {
                 player.getLastVengeance().reset(reader.get("last-veng").getAsLong());
-            }
-            if (reader.has("collection-data")) {
-                Type adventureLogType = new com.google.common.reflect.TypeToken<List<CollectionLogEntry>>() {
-                }.getType();
-                player.setCollectionLogData(new Gson().fromJson(reader.get("collection-data"), adventureLogType));
             }
             if (reader.has("fight-type")) {
                 player.setFightType(FightType.valueOf(reader.get("fight-type").getAsString()));

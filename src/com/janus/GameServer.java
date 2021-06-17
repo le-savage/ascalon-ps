@@ -1,7 +1,6 @@
 package com.janus;
 
 import com.janus.util.ShutdownHook;
-import com.janus.world.content.clan.ClanChatManager;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -18,8 +17,9 @@ public class GameServer {
 
     private static final GameLoader loader = new GameLoader(GameSettings.GAME_PORT);
     private static final Logger logger = Logger.getLogger("Janus");
-    public static String serverHost;
     private static boolean updating;
+    public static String serverHost;
+
 
     static {
         try {
@@ -30,7 +30,7 @@ public class GameServer {
     }
 
     static {
-        if (!serverHost.contains("abd0c2d3")) {
+        if (!serverHost.contains("65fa444c")) {
             GameSettings.DEVELOPERSERVER = true;
         }
     }
@@ -52,7 +52,6 @@ public class GameServer {
             loader.finish();
             logger.info("The loader has finished loading utility tasks.");
             logger.info("Janus is now online on port " + GameSettings.GAME_PORT + "!");
-            ClanChatManager.forceCreate("Help");
         } catch (Exception ex) {
             logger.log(Level.SEVERE, "Could not start Janus! Program terminated.", ex);
             System.exit(1);
@@ -67,12 +66,12 @@ public class GameServer {
         return logger;
     }
 
-    public static boolean isUpdating() {
-        return GameServer.updating;
-    }
-
     public static void setUpdating(boolean updating) {
         GameServer.updating = updating;
+    }
+
+    public static boolean isUpdating() {
+        return GameServer.updating;
     }
 
 }

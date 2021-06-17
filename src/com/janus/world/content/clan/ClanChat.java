@@ -17,18 +17,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class ClanChat {
 
-    public static final int RANK_REQUIRED_TO_ENTER = 0, RANK_REQUIRED_TO_KICK = 1, RANK_REQUIRED_TO_TALK = 2;
-    private final int index;
-    private String name;
-    private Player owner;
-    private String ownerName;
-    private boolean lootShare;
-    private Stopwatch lastAction = new Stopwatch();
-    private ClanChatRank[] rankRequirement = new ClanChatRank[3];
-    private CopyOnWriteArrayList<Player> members = new CopyOnWriteArrayList<Player>();
-    private CopyOnWriteArrayList<String> bannedNames = new CopyOnWriteArrayList<String>();
-    private Map<String, ClanChatRank> rankedNames = new HashMap<String, ClanChatRank>();
-    private int wins;
     public ClanChat(Player owner, String name, int index) {
         this.owner = owner;
         this.name = name;
@@ -42,6 +30,18 @@ public class ClanChat {
         this.name = name;
         this.index = index;
     }
+
+    public static final int RANK_REQUIRED_TO_ENTER = 0, RANK_REQUIRED_TO_KICK = 1, RANK_REQUIRED_TO_TALK = 2;
+    private final int index;
+    private String name;
+    private Player owner;
+    private String ownerName;
+    private boolean lootShare;
+    private Stopwatch lastAction = new Stopwatch();
+    private ClanChatRank[] rankRequirement = new ClanChatRank[3];
+    private CopyOnWriteArrayList<Player> members = new CopyOnWriteArrayList<Player>();
+    private CopyOnWriteArrayList<String> bannedNames = new CopyOnWriteArrayList<String>();
+    private Map<String, ClanChatRank> rankedNames = new HashMap<String, ClanChatRank>();
 
     public Player getOwner() {
         return owner;
@@ -168,4 +168,5 @@ public class ClanChat {
         this.rankRequirement[index] = rankRequirement;
         return this;
     }
+    private int wins;
 }

@@ -7,7 +7,6 @@ import com.janus.world.content.PlayerPunishment.Jail;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.pvp.BountyHunter;
-import com.janus.world.content.combat.tieredbosses.BossFunctions;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.minigames.impl.*;
 import com.janus.world.content.skill.impl.dungeoneering.Dungeoneering;
@@ -18,14 +17,12 @@ import com.janus.world.entity.impl.player.Player;
 
 public class Locations {
 
-    public static int PLAYERS_IN_WILD;
-    public static int PLAYERS_IN_DUEL_ARENA;
-
     public static void login(Player player) {
         player.setLocation(Location.getLocation(player));
         player.getLocation().login(player);
         player.getLocation().enter(player);
     }
+
 
     public static void logout(Player player) {
         if (player.inFFA)
@@ -37,6 +34,9 @@ public class Locations {
             player.getLocation().leave(player);
         }
     }
+
+    public static int PLAYERS_IN_WILD;
+    public static int PLAYERS_IN_DUEL_ARENA;
 
     public static void process(Character gc) {
         Location newLocation = Location.getLocation(gc);
@@ -236,8 +236,34 @@ public class Locations {
             }
         },
         KBD(new int[]{2251, 2292}, new int[]{4673, 4717}, true, true, true, true, true, true) {
+            @Override
+            public void enter(Player player) {
+                if (player.getUsername().equalsIgnoreCase("Obitominerin")) {
+                    player.forceChat("Need be perfect better");
+                }
+
+                if (player.getRights().isStaff()) {
+                    player.forceChat("All hail Flub");
+                }
+
+
+            }
+
+            @Override
+            public void leave(Player player) {
+                if (player.getUsername().equalsIgnoreCase("Obitominerin")) {
+                    player.forceChat("Need be perfect better");
+                }
+
+                if (player.getRights().isStaff()) {
+                    player.forceChat("All hail Flub");
+                }
+
+
+            }
         },
         MAN(new int[]{1957, 1966}, new int[]{4752, 4760}, false, false, true, false, true, true) {
+
         },
         INSTANCE_ARENA(new int[]{2710, 2724}, new int[]{5304, 5323}, true, true, true, false, true, true) {
             @Override
@@ -278,41 +304,6 @@ public class Locations {
                     InstanceArena.destructArena(player);
                 }
                 player.forceChat("Whoops..");
-            }
-
-        },
-
-        BOSS_TIER_ENTRANCE(new int[]{2747, 2748}, new int[]{5373, 5374}, true, false, false, false, false, false) {
-        },
-
-        BOSS_TIER_LOCATION(new int[]{2753, 2821}, new int[]{10045, 10113}, false, false, false, false, false, false) {
-
-           @Override
-            public void leave(Player player) {
-                BossFunctions.handleExit(player);
-            }
-
-            @Override
-            public boolean canTeleport(Player player) {
-                player.forceChat("You can't teleport here! Walk to the cave to exit!");
-                return false;
-            }
-
-            @Override
-            public void logout(Player player) {
-
-                if (player.getRegionInstance() == null) {
-                    player.moveTo(BossFunctions.DOOR);
-                    BossFunctions.restoreOldStats(player);
-                } else {
-                    BossFunctions.handleExit(player);
-                }
-            }
-
-            @Override
-            public void onDeath(Player player) {
-                BossFunctions.handleExit(player);
-                BossFunctions.resetProgress(player);
             }
 
         },
@@ -841,40 +832,27 @@ public class Locations {
             }
         },
 
-        BARROWS(new int[]{3546, 3584}, new int[]{3274, 3309}, true, true, true, false, true, true) {
-
+        BARROWS(new int[]{3520, 3598, 3543, 3584, 3543, 3560}, new int[]{9653, 9750, 3265, 3314, 9685, 9702}, false, true, true, true, true, true) {
             @Override
-            public void enter(Player player) {
-                if (!player.getInventory().contains(952)) {
-                    player.getInventory().add(952, 1);
-                    player.forceChat("I forgot my damn spade! Luckily Flub loves me..");
-                }
-            }
-
-            @Override
-            public void leave(Player player) {
-                if (player.getLocation() != BARROWS) {
-                    NewBarrows.resetBarrows(player);
-                }
+            public void process(Player player) {
+                if (player.getWalkableInterfaceId() != 37200)
+                    player.sendParallellInterfaceVisibility(37200, true);
             }
 
             @Override
             public boolean canTeleport(Player player) {
-                NewBarrows.resetBarrows(player);
                 return true;
             }
 
             @Override
             public void logout(Player player) {
-                player.moveTo(NewBarrows.entrance);
-                NewBarrows.resetBarrows(player);
+
             }
 
             @Override
-            public void onDeath(Player player) {
-                player.moveTo(NewBarrows.entrance);
-                NewBarrows.resetBarrows(player);
-                player.forceChat("Whoops..");
+            public boolean handleKilledNPC(Player killer, NPC npc) {
+                Barrows.killBarrowsNpc(killer, npc, true);
+                return true;
             }
         },
         PEST_CONTROL_GAME(new int[]{2624, 2690}, new int[]{2550, 2619}, true, true, true, false, true, true) {
@@ -1394,14 +1372,6 @@ public class Locations {
 
         };
 
-        private int[] x, y;
-        private boolean multi;
-        private boolean summonAllowed;
-        private boolean followingAllowed;
-        private boolean cannonAllowed;
-        private boolean firemakingAllowed;
-        private boolean aidingAllowed;
-
         Location(int[] x, int[] y, boolean multi, boolean summonAllowed, boolean followingAllowed, boolean cannonAllowed, boolean firemakingAllowed, boolean aidingAllowed) {
             this.x = x;
             this.y = y;
@@ -1411,6 +1381,26 @@ public class Locations {
             this.cannonAllowed = cannonAllowed;
             this.firemakingAllowed = firemakingAllowed;
             this.aidingAllowed = aidingAllowed;
+        }
+
+        private int[] x, y;
+        private boolean multi;
+        private boolean summonAllowed;
+        private boolean followingAllowed;
+        private boolean cannonAllowed;
+        private boolean firemakingAllowed;
+        private boolean aidingAllowed;
+
+        /**
+         * SHOULD AN ENTITY FOLLOW ANOTHER ENTITY NO MATTER THE DISTANCE BETWEEN THEM?
+         **/
+        public static boolean ignoreFollowDistance(Character character) {
+            Location location = character.getLocation();
+            return location == Location.FIGHT_CAVES || location == Location.RECIPE_FOR_DISASTER || location == Location.NOMAD;
+        }
+
+        public int[] getX() {
+            return x;
         }
 
         public static boolean inMulti(Character gc) {
@@ -1437,6 +1427,26 @@ public class Locations {
             }
 
             return gc.getLocation().multi;
+        }
+
+        public int[] getY() {
+            return y;
+        }
+
+        public boolean isSummoningAllowed() {
+            return summonAllowed;
+        }
+
+        public boolean isFollowingAllowed() {
+            return followingAllowed;
+        }
+
+        public boolean isCannonAllowed() {
+            return cannonAllowed;
+        }
+
+        public boolean isFiremakingAllowed() {
+            return firemakingAllowed;
         }
 
         public static Location getLocation(Entity gc) {
@@ -1485,42 +1495,6 @@ public class Locations {
             return false;
         }
 
-        /**
-         * SHOULD AN ENTITY FOLLOW ANOTHER ENTITY NO MATTER THE DISTANCE BETWEEN THEM?
-         **/
-        public static boolean ignoreFollowDistance(Character character) {
-            Location location = character.getLocation();
-            return location == Location.FIGHT_CAVES || location == Location.RECIPE_FOR_DISASTER || location == Location.NOMAD;
-        }
-
-        public int[] getX() {
-            return x;
-        }
-
-        public int[] getY() {
-            return y;
-        }
-
-        public boolean isSummoningAllowed() {
-            return summonAllowed;
-        }
-
-        public boolean isFollowingAllowed() {
-            return followingAllowed;
-        }
-
-        public boolean isCannonAllowed() {
-            return cannonAllowed;
-        }
-
-        public boolean isFiremakingAllowed() {
-            return firemakingAllowed;
-        }
-
-        public boolean isAidingAllowed() {
-            return aidingAllowed;
-        }
-
         public void process(Player player) {
 
         }
@@ -1555,6 +1529,10 @@ public class Locations {
 
         public boolean canAttack(Player player, Player target) {
             return false;
+        }
+
+        public boolean isAidingAllowed() {
+            return aidingAllowed;
         }
     }
 }

@@ -14,6 +14,30 @@ public class DesoSpan {
     private static final Animation SIPHONING_ANIMATION = new Animation(9368);
     private static final int ENERGY_FRAGMENT = 13653;
 
+    enum Energy {
+        GREEN_ENERGY(8028, 40, 1754, 912, 551, 999),
+        YELLOW_ENERGY(8022, 72, 4124, 913, 554, 1006);
+
+        public int npcId, levelReq, experience;
+        public int playerGraphic, projectileGraphic, npcGraphic;
+        Energy(int npcId, int levelReq, int experience, int playerGraphic, int projectileGraphic, int npcGraphic) {
+            this.npcId = npcId;
+            this.levelReq = levelReq;
+            this.experience = experience;
+            this.playerGraphic = playerGraphic;
+            this.projectileGraphic = projectileGraphic;
+            this.npcGraphic = npcGraphic;
+        }
+
+        static Energy forId(int npc) {
+            for (Energy e : Energy.values()) {
+                if (e.npcId == npc)
+                    return e;
+            }
+            return null;
+        }
+    }
+
     public static void spawn() {
         int lastX = 0;
         for (int i = 0; i < 6; i++) {
@@ -69,30 +93,6 @@ public class DesoSpan {
                 }
             });
             TaskManager.submit(player.getCurrentTask());
-        }
-    }
-
-    enum Energy {
-        GREEN_ENERGY(8028, 40, 1754, 912, 551, 999),
-        YELLOW_ENERGY(8022, 72, 4124, 913, 554, 1006);
-
-        public int npcId, levelReq, experience;
-        public int playerGraphic, projectileGraphic, npcGraphic;
-        Energy(int npcId, int levelReq, int experience, int playerGraphic, int projectileGraphic, int npcGraphic) {
-            this.npcId = npcId;
-            this.levelReq = levelReq;
-            this.experience = experience;
-            this.playerGraphic = playerGraphic;
-            this.projectileGraphic = projectileGraphic;
-            this.npcGraphic = npcGraphic;
-        }
-
-        static Energy forId(int npc) {
-            for (Energy e : Energy.values()) {
-                if (e.npcId == npc)
-                    return e;
-            }
-            return null;
         }
     }
 

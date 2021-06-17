@@ -15,7 +15,7 @@ public class ExamineNpcPacketListener implements PacketListener {
         }
         NpcDefinition npcDef = NpcDefinition.forId(npc);
         if ((player.getRights().isStaff()) && (npcDef != null)) {
-            player.getPacketSender().sendMessage("ID: " + npcDef.getId() + " Player Coords [X: "+ player.getPosition().getX() + ", Y: "+ player.getPosition().getY()+"]");
+            player.getPacketSender().sendMessage("ID: " + npcDef.getId());
         }
         if (npcDef != null) {
             player.getPacketSender().sendMessage(npcDef.getExamine());

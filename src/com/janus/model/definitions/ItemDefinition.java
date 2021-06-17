@@ -30,35 +30,6 @@ public class ItemDefinition {
      * ItemDefinition array containing all items' definition values.
      */
     private static ItemDefinition[] definitions = new ItemDefinition[MAX_AMOUNT_OF_ITEMS];
-    /**
-     * The id of the item.
-     */
-    private int id = 0;
-    /**
-     * The name of the item.
-     */
-    private String name = "None";
-    /**
-     * The item's description.
-     */
-    private String description = "Null";
-    /**
-     * Flag to check if item is stackable.
-     */
-    private boolean stackable;
-    /**
-     * The item's shop value.
-     */
-    private int value;
-    /**
-     * Flag that checks if item is noted.
-     */
-    private boolean noted;
-    private boolean isTwoHanded;
-    private boolean weapon;
-    private EquipmentType equipmentType = EquipmentType.WEAPON;
-    private double[] bonus = new double[18];
-    private int[] requirement = new int[25];
 
     /**
      * Loading all item definitions
@@ -157,16 +128,10 @@ public class ItemDefinition {
         return MAX_AMOUNT_OF_ITEMS;
     }
 
-    public static int getItemId(String itemName) {
-        for (int i = 0; i < MAX_AMOUNT_OF_ITEMS; i++) {
-            if (definitions[i] != null) {
-                if (definitions[i].getName().equalsIgnoreCase(itemName)) {
-                    return definitions[i].getId();
-                }
-            }
-        }
-        return -1;
-    }
+    /**
+     * The id of the item.
+     */
+    private int id = 0;
 
     /**
      * Gets the item's id.
@@ -178,6 +143,11 @@ public class ItemDefinition {
     }
 
     /**
+     * The name of the item.
+     */
+    private String name = "None";
+
+    /**
      * Gets the item's name.
      *
      * @return name.
@@ -185,6 +155,11 @@ public class ItemDefinition {
     public String getName() {
         return name;
     }
+
+    /**
+     * The item's description.
+     */
+    private String description = "Null";
 
     /**
      * Gets the item's description.
@@ -196,6 +171,11 @@ public class ItemDefinition {
     }
 
     /**
+     * Flag to check if item is stackable.
+     */
+    private boolean stackable;
+
+    /**
      * Checks if the item is stackable.
      *
      * @return stackable.
@@ -205,6 +185,11 @@ public class ItemDefinition {
             return true;
         return stackable;
     }
+
+    /**
+     * The item's shop value.
+     */
+    private int value;
 
     /**
      * Gets the item's shop value.
@@ -225,6 +210,11 @@ public class ItemDefinition {
     }
 
     /**
+     * Flag that checks if item is noted.
+     */
+    private boolean noted;
+
+    /**
      * Checks if item is noted.
      *
      * @return noted.
@@ -233,6 +223,8 @@ public class ItemDefinition {
         return noted;
     }
 
+    private boolean isTwoHanded;
+
     /**
      * Checks if item is two-handed
      */
@@ -240,9 +232,13 @@ public class ItemDefinition {
         return isTwoHanded;
     }
 
+    private boolean weapon;
+
     public boolean isWeapon() {
         return weapon;
     }
+
+    private EquipmentType equipmentType = EquipmentType.WEAPON;
 
     public EquipmentType getEquipmentType() {
         return equipmentType;
@@ -262,12 +258,27 @@ public class ItemDefinition {
         return equipmentType.equals(EquipmentType.FULL_HELMET);
     }
 
+    private double[] bonus = new double[18];
+
     public double[] getBonus() {
         return bonus;
     }
 
+    private int[] requirement = new int[25];
+
     public int[] getRequirement() {
         return requirement;
+    }
+
+    public static int getItemId(String itemName) {
+        for (int i = 0; i < MAX_AMOUNT_OF_ITEMS; i++) {
+            if (definitions[i] != null) {
+                if (definitions[i].getName().equalsIgnoreCase(itemName)) {
+                    return definitions[i].getId();
+                }
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -292,10 +303,10 @@ public class ItemDefinition {
         LEGS(Equipment.LEG_SLOT),
         WEAPON(Equipment.WEAPON_SLOT);
 
-        private int slot;
-
         private EquipmentType(int slot) {
             this.slot = slot;
         }
+
+        private int slot;
     }
 }

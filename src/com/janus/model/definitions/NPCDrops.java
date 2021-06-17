@@ -15,7 +15,6 @@ import com.janus.world.content.CoinCollector;
 import com.janus.world.content.DropLog;
 import com.janus.world.content.PlayerLogs;
 import com.janus.world.content.clan.ClanChatManager;
-import com.janus.world.content.collectionlog.CollectionLogEntry;
 import com.janus.world.content.discord.DiscordMessenger;
 import com.janus.world.content.minigames.impl.WarriorsGuild;
 import com.janus.world.content.skill.impl.prayer.BonesData;
@@ -36,20 +35,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class NPCDrops {
 
-    private static final int[] CLUESBOY = new int[]{2677, 2678, 2679, 2680, 2681, 2682, 2683, 2684, 2685};
     /**
      * The map containing all the npc drops.
      */
     private static Map<Integer, NPCDrops> dropControllers = new HashMap<Integer, NPCDrops>();
-    /**
-     * The id's of the NPC's that "owns" this class.
-     */
-    private int[] npcIds;
-
-    /**
-     * All the drops that belongs to this class.
-     */
-    private NpcDropItem[] drops;
 
     public static JsonLoader parseDrops() {
 
@@ -80,6 +69,12 @@ public class NPCDrops {
         };
     }
 
+    private static final int[] CLUESBOY = new int[]{2677, 2678, 2679, 2680, 2681, 2682, 2683, 2684, 2685};
+    /**
+     * The id's of the NPC's that "owns" this class.
+     */
+    private int[] npcIds;
+
     /**
      * Gets the NPC drop controller by an id.
      *
@@ -92,84 +87,10 @@ public class NPCDrops {
     public static Map<Integer, NPCDrops> getDrops() {
         return dropControllers;
     }
-
     /**
-     * Drops items for a player after killing an npc. A player can max receive
-     * one item per drop chance.
-     *
-     * @param p   Player to receive drop.
-     * @param npc NPC to receive drop FROM.
+     * All the drops that belongs to this class.
      */
-    public static void dropItems(Player p, NPC npc) {
-        if (npc.getLocation() == Location.WARRIORS_GUILD)
-            WarriorsGuild.handleDrop(p, npc);
-        NPCDrops drops = NPCDrops.forId(npc.getId());
-        if (drops == null)
-            return;
-        final boolean goGlobal = p.getPosition().getZ() >= 0 && p.getPosition().getZ() < 4;
-        Position npcPos = npc.getPosition().copy();
-        if (npc.getId() == 2044 || npc.getId() == 2043 || npc.getId() == 2042 || npc.getId() == 2005)
-            npcPos = p.getPosition().copy();
-        boolean[] dropsReceived = new boolean[12];
-
-
-        if (drops.getDropList().length > 0 && p.getPosition().getZ() >= 0 && p.getPosition().getZ() < 4) {
-
-            casketDrop(p, npc.getDefinition().getCombatLevel(), npcPos);
-        }
-        if (drops.getDropList().length > 0 && p.getPosition().getZ() >= 0 && p.getPosition().getZ() < 4) {
-            clueDrop(p, npc.getDefinition().getCombatLevel(), npcPos);
-
-        }
-
-
-        for (int i = 0; i < drops.getDropList().length; i++) {
-            if (drops.getDropList()[i].getItem().getId() <= 0 || drops.getDropList()[i].getItem().getId() > ItemDefinition.getMaxAmountOfItems() || drops.getDropList()[i].getItem().getAmount() <= 0) {
-                continue;
-            }
-
-            DropChance dropChance = drops.getDropList()[i].getChance();
-
-            if (dropChance == DropChance.ALWAYS) {
-                drop(p, drops.getDropList()[i].getItem(), npc, npcPos, goGlobal);
-            } else {
-                if (shouldDrop(dropsReceived, p, dropChance)) {
-                    drop(p, drops.getDropList()[i].getItem(), npc, npcPos, goGlobal);
-                    dropsReceived[dropChance.ordinal()] = true;
-                }
-            }
-        }
-
-    }
-
-    public static boolean shouldDrop(boolean[] b, Player player, DropChance chance) {
-        int random = chance.getRandom();
-        double drBoost = NPCDrops.getDroprate(player);
-        double variable = ((drBoost));
-        double percentage = random / 100;
-        random = (int) (chance.getRandom() - (percentage * variable));
-        if (Math.toIntExact(Math.round(random)) <= 1)
-            return true;
-        return Rand.hit(Math.toIntExact(Math.round(random)));
-    }
-
-    public static double getDroprate(Player p) {
-        double drBoost = 0;
-        drBoost += 5; // this is 5%
-        drBoost += p.getGameMode().getDropRateModifier();
-        drBoost += p.getDifficulty().getDropRateModifier();
-        if (ringOfWealth(p)) drBoost += 2;
-        if (ringOfCoins(p)) drBoost += 2;
-        return drBoost;
-    }
-
-    public static boolean ringOfWealth(Player p) {
-        return (p.getEquipment().get(Equipment.RING_SLOT).getId() == 2572);
-    }
-
-    public static boolean ringOfCoins(Player p) {
-        return (p.getEquipment().get(Equipment.RING_SLOT).getId() == 21026);
-    }
+    private NpcDropItem[] drops;
 
     public static void drop(Player player, Item item, NPC npc, Position pos,
                             boolean goGlobal) {
@@ -193,11 +114,18 @@ public class NPCDrops {
         }
 
 
+        if (item.getDefinition().getValue() > 1000000) {
+            if (player.getNotificationPreference()) {
+                player.getPacketSender().minimisedTrayMessage(5, player.getUsername() + " - You received an expensive drop!");
+            }
+        }
+
+
         if (itemId == 6731 || itemId == 6914 || itemId == 7158 || itemId == 6889 || itemId == 6733 || itemId == 15019 || itemId == 11235 || itemId == 15020 || itemId == 15018 || itemId == 15220 || itemId == 6735 || itemId == 6737 || itemId == 6585 || itemId == 4151 || itemId == 4087 || itemId == 2577 || itemId == 2581 || itemId == 11732 || itemId == 18782) {
             player.getPacketSender().sendMessage("@red@ YOU HAVE RECEIVED A MEDIUM DROP, CHECK THE GROUND!");
-            /*if (player.getNotificationPreference()) {
+            if (player.getNotificationPreference()) {
                 player.getPacketSender().minimisedTrayMessage(3, player.getUsername() + " - You received a medium drop!");
-            }*/
+            }
         }
 
 
@@ -248,7 +176,7 @@ public class NPCDrops {
             }
         }
 
-        if (ItemDropAnnouncer.announce(item) && player.getLocation() != Location.BOSS_TIER_LOCATION) {
+        if (ItemDropAnnouncer.announce(item)) {
             String itemName = item.getDefinition().getName();
             String itemMessage = Misc.anOrA(itemName) + " " + itemName;
             String npcName = Misc.formatText(npc.getDefinition().getName());
@@ -293,12 +221,13 @@ public class NPCDrops {
                     break;
             }
             String message = "@blu@[RARE DROP] " + toGive.getUsername()
-                    + " has just received @red@" + itemMessage + "@blu@ from " + npcName + "!";
+                    + " has just received @red@" + itemMessage + "@blu@ from " + npcName
+                    + "!";
             World.sendFilteredMessage(message);
             DiscordMessenger.sendRareDrop(message);
-            /*if (toGive.getNotificationPreference()) {
+            if (toGive.getNotificationPreference()) {
                 toGive.getPacketSender().trayMessage(3, toGive.getUsername() + " - Rare Drop: " + itemMessage + "!");
-            }*/
+            }
             if (ccAnnounce) {
                 ClanChatManager.sendMessage(player.getCurrentClanChat(), "<col=16777215>[<col=255>Lootshare<col=16777215>]<col=3300CC> " + toGive.getUsername() + " received " + itemMessage + " from " + npcName + "!");
             }
@@ -307,27 +236,10 @@ public class NPCDrops {
         }
 
 
-        /** Disable drops from ::boss minigame **/
-        if (player.getLocation().equals(Location.BOSS_TIER_LOCATION)) {
-            return;
-        }
-
-
-
-        /** Begin methods to implement the ::pickup value **/
-
-        /** Pickup method applies to any player donator+
-         * We then check for the player.getPickupValue()
-         * The first method covers stackable items
-         *
-         * The second method covers the non-stackable
-         * items. They are separated to ensure mulitple
-         * drops are not obtained.
-         */
-        if (item.getDefinition().isStackable() && player.getRights() != PlayerRights.PLAYER && player.getRights() != PlayerRights.DONATOR) {
+        if (item.getDefinition().isStackable() && (player.getRights() != PlayerRights.PLAYER || player.getRights() != PlayerRights.DONATOR)) {
             if (item.getDefinition().getValue() >= player.getPickupValue() && (player.getInventory().getFreeSlots() >= 1)) {
                 player.getInventory().add(itemId, item.getAmount());
-                System.out.println("Add stackable item to inventory: "+item.getDefinition().getName()+" for "+toGive.getUsername());
+                //System.out.println("Add stackable item to inventory: "+item.getDefinition().getName()+" for "+toGive.getUsername());
                 player.getPacketSender().sendMessage("@red@We picked up @blu@" + item.getAmount() + "@red@ x @blu@" + item.getDefinition().getName() + "@red@ worth @blu@" + Misc.setupMoney(item.getDefinition().getValue()));
             } else {
                 GroundItemManager.spawnGroundItem(toGive, new GroundItem(item, pos, toGive.getUsername(), false, 150, goGlobal, 200));
@@ -336,7 +248,7 @@ public class NPCDrops {
             }
         }
 
-        if (!item.getDefinition().isStackable() && player.getRights() != PlayerRights.PLAYER && player.getRights() != PlayerRights.DONATOR) {
+        if (!item.getDefinition().isStackable() && (player.getRights() != PlayerRights.PLAYER || player.getRights() != PlayerRights.DONATOR)) {
             if ((player.getInventory().getFreeSlots() >= item.getAmount()) && (item.getDefinition().getValue() >= player.getPickupValue())) {
                 player.getInventory().add(itemId, item.getAmount());
                 //System.out.println("Add non stackable item to inventory : "+item.getDefinition().getName()+" for "+toGive.getUsername());
@@ -348,27 +260,9 @@ public class NPCDrops {
             }
         }
 
-        if (player.getRights() == PlayerRights.PLAYER || player.getRights() == PlayerRights.DONATOR) {
-            GroundItemManager.spawnGroundItem(toGive, new GroundItem(item, pos, toGive.getUsername(), false, 150, goGlobal, 200));
-            DropLog.submit(toGive, new DropLog.DropLogEntry(itemId, item.getAmount()));
-        }
 
-        new CollectionLogEntry(npc.getId(), item.getId(), item.getAmount()).submit(player);
-    }
-
-    public static void casketDrop(Player player, int combat, Position pos) {
-        int chance = (6 + (combat / 2));
-        if (RandomUtility.getRandom(combat <= 50 ? 1300 : 1000) < chance) {
-            GroundItemManager.spawnGroundItem(player, new GroundItem(new Item(7956), pos, player.getUsername(), false, 150, true, 200));
-        }
-    }
-
-    public static void clueDrop(Player player, int combat, Position pos) {
-        int chance = (6 + (combat / 4));
-        if (RandomUtility.getRandom(combat <= 80 ? 1300 : 1000) < chance) {
-            int clueId = CLUESBOY[Misc.getRandom(CLUESBOY.length - 1)];
-            GroundItemManager.spawnGroundItem(player, new GroundItem(new Item(clueId), pos, player.getUsername(), false, 150, true, 200));
-            player.getPacketSender().sendMessage("@or2@You have received a clue scroll!");
+        if ((player.getRights() == PlayerRights.PLAYER || player.getRights() == PlayerRights.DONATOR) && (player.getLocation() == Location.INSTANCE_ARENA)) {
+            //System.out.println("Player or reg donor in instance arena");
         }
     }
 
@@ -390,9 +284,90 @@ public class NPCDrops {
         return npcIds;
     }
 
+
+    /**
+     * Drops items for a player after killing an npc. A player can max receive
+     * one item per drop chance.
+     *
+     * @param p   Player to receive drop.
+     * @param npc NPC to receive drop FROM.
+     */
+    public static void dropItems(Player p, NPC npc) {
+        if (npc.getLocation() == Location.WARRIORS_GUILD)
+            WarriorsGuild.handleDrop(p, npc);
+        NPCDrops drops = NPCDrops.forId(npc.getId());
+        if (drops == null)
+            return;
+        final boolean goGlobal = p.getPosition().getZ() >= 0 && p.getPosition().getZ() < 4;
+        Position npcPos = npc.getPosition().copy();
+        if (npc.getId() == 2044 || npc.getId() == 2043 || npc.getId() == 2042 || npc.getId() == 2005)
+            npcPos = p.getPosition().copy();
+        boolean[] dropsReceived = new boolean[12];
+
+
+        if (drops.getDropList().length > 0 && p.getPosition().getZ() >= 0 && p.getPosition().getZ() < 4) {
+
+            casketDrop(p, npc.getDefinition().getCombatLevel(), npcPos);
+        }
+        if (drops.getDropList().length > 0 && p.getPosition().getZ() >= 0 && p.getPosition().getZ() < 4) {
+            clueDrop(p, npc.getDefinition().getCombatLevel(), npcPos);
+
+        }
+
+
+        for (int i = 0; i < drops.getDropList().length; i++) {
+            if (drops.getDropList()[i].getItem().getId() <= 0 || drops.getDropList()[i].getItem().getId() > ItemDefinition.getMaxAmountOfItems() || drops.getDropList()[i].getItem().getAmount() <= 0) {
+                continue;
+            }
+
+            DropChance dropChance = drops.getDropList()[i].getChance();
+
+            if (dropChance == DropChance.ALWAYS) {
+                drop(p, drops.getDropList()[i].getItem(), npc, npcPos, goGlobal);
+            } else {
+                if (shouldDrop(dropsReceived, p, dropChance)) {
+                    drop(p, drops.getDropList()[i].getItem(), npc, npcPos, goGlobal);
+                    dropsReceived[dropChance.ordinal()] = true;
+                }
+            }
+        }
+
+    }
+
+
+    public static boolean shouldDrop(boolean[] b, Player player, DropChance chance) {
+        int random = chance.getRandom();
+        double drBoost = NPCDrops.getDroprate(player);
+        double variable = ((drBoost));
+        double percentage = random / 100;
+        random = (int) (chance.getRandom() - (percentage * variable));
+        if (Math.toIntExact(Math.round(random)) <= 1)
+            return true;
+        return Rand.hit(Math.toIntExact(Math.round(random)));
+    }
+
+    public static double getDroprate(Player p) {
+        double drBoost = 0;
+        drBoost += 5; // this is 5%
+        drBoost += p.getGameMode().getDropRateModifier();
+        drBoost += p.getDifficulty().getDropRateModifier();
+        if (ringOfWealth(p)) drBoost += 2;
+        if (ringOfCoins(p)) drBoost += 2;
+        return drBoost;
+    }
+
+    public static boolean ringOfWealth(Player p) {
+        return (p.getEquipment().get(Equipment.RING_SLOT).getId() == 2572);
+    }
+
+    public static boolean ringOfCoins(Player p) {
+        return (p.getEquipment().get(Equipment.RING_SLOT).getId() == 21026);
+    }
+
+
     public enum DropChance {
         ALWAYS(0), ALMOST_ALWAYS(2), VERY_COMMON(5), COMMON(15), UNCOMMON(40), NOTTHATRARE(
-                150), RARE(400), LEGENDARY(500), LEGENDARY_2(650), LEGENDARY_3(800), LEGENDARY_4(890), LEGENDARY_5(1000);
+                100), RARE(260), LEGENDARY(400), LEGENDARY_2(550), LEGENDARY_3(700), LEGENDARY_4(830), LEGENDARY_5(950);
 
 
         private int random;
@@ -403,6 +378,13 @@ public class NPCDrops {
 
         public int getRandom() {
             return this.random;
+        }
+    }
+
+    public static void casketDrop(Player player, int combat, Position pos) {
+        int chance = (6 + (combat / 2));
+        if (RandomUtility.getRandom(combat <= 50 ? 1300 : 1000) < chance) {
+            GroundItemManager.spawnGroundItem(player, new GroundItem(new Item(7956), pos, player.getUsername(), false, 150, true, 200));
         }
     }
 
@@ -501,6 +483,16 @@ public class NPCDrops {
             if (amount > count[0])
                 amount = count[0] + RandomUtility.getRandom(count[1]);
             return new Item(id, amount);
+        }
+    }
+
+
+    public static void clueDrop(Player player, int combat, Position pos) {
+        int chance = (6 + (combat / 4));
+        if (RandomUtility.getRandom(combat <= 80 ? 1300 : 1000) < chance) {
+            int clueId = CLUESBOY[Misc.getRandom(CLUESBOY.length - 1)];
+            GroundItemManager.spawnGroundItem(player, new GroundItem(new Item(clueId), pos, player.getUsername(), false, 150, true, 200));
+            player.getPacketSender().sendMessage("@or2@You have received a clue scroll!");
         }
     }
 

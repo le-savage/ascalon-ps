@@ -101,41 +101,6 @@ public class Herblore {
         return false;
     }
 
-    public static void handleSpecialPotion(Player p, int item1, int item2) {
-        if (item1 == item2)
-            return;
-        if (!p.getInventory().contains(item1) || !p.getInventory().contains(item2))
-            return;
-        SpecialPotion specialPotData = SpecialPotion.forItems(item1, item2);
-        if (specialPotData == null)
-            return;
-        if (p.getSkillManager().getCurrentLevel(Skill.HERBLORE) < specialPotData.getLevelReq()) {
-            p.getPacketSender().sendMessage("You need a Herblore level of at least " + specialPotData.getLevelReq() + " to make this potion.");
-            return;
-        }
-        if (!p.getClickDelay().elapsed(500))
-            return;
-        for (Item ingridients : specialPotData.getIngridients()) {
-            if (!p.getInventory().contains(ingridients.getId()) || p.getInventory().getAmount(ingridients.getId()) < ingridients.getAmount()) {
-                p.getPacketSender().sendMessage("You do not have all ingridients for this potion.");
-                p.getPacketSender().sendMessage("Remember: You can purchase an Ingridient's book from the Druid Spirit.");
-                return;
-            }
-        }
-        for (Item ingridients : specialPotData.getIngridients())
-            p.getInventory().delete(ingridients);
-        p.getInventory().add(specialPotData.getProduct());
-        p.performAnimation(new Animation(363));
-        p.getSkillManager().addExperience(Skill.HERBLORE, specialPotData.getExperience());
-        String name = specialPotData.getProduct().getDefinition().getName();
-        p.getPacketSender().sendMessage("You make " + Misc.anOrA(name) + " " + name + ".");
-        p.getClickDelay().reset();
-        if (specialPotData == SpecialPotion.OVERLOAD) {
-            Achievements.finishAchievement(p, AchievementData.MIX_AN_OVERLOAD_POTION);
-            Achievements.doProgress(p, AchievementData.MIX_100_OVERLOAD_POTIONS);
-        }
-    }
-
     enum SpecialPotion {
         EXTREME_ATTACK(new Item[]{new Item(145), new Item(261)}, new Item(15309), 88, 4430),
         EXTREME_STRENGTH(new Item[]{new Item(157), new Item(267)}, new Item(15313), 88, 4753),
@@ -182,6 +147,41 @@ public class Herblore {
 
         public int getExperience() {
             return exp;
+        }
+    }
+
+    public static void handleSpecialPotion(Player p, int item1, int item2) {
+        if (item1 == item2)
+            return;
+        if (!p.getInventory().contains(item1) || !p.getInventory().contains(item2))
+            return;
+        SpecialPotion specialPotData = SpecialPotion.forItems(item1, item2);
+        if (specialPotData == null)
+            return;
+        if (p.getSkillManager().getCurrentLevel(Skill.HERBLORE) < specialPotData.getLevelReq()) {
+            p.getPacketSender().sendMessage("You need a Herblore level of at least " + specialPotData.getLevelReq() + " to make this potion.");
+            return;
+        }
+        if (!p.getClickDelay().elapsed(500))
+            return;
+        for (Item ingridients : specialPotData.getIngridients()) {
+            if (!p.getInventory().contains(ingridients.getId()) || p.getInventory().getAmount(ingridients.getId()) < ingridients.getAmount()) {
+                p.getPacketSender().sendMessage("You do not have all ingridients for this potion.");
+                p.getPacketSender().sendMessage("Remember: You can purchase an Ingridient's book from the Druid Spirit.");
+                return;
+            }
+        }
+        for (Item ingridients : specialPotData.getIngridients())
+            p.getInventory().delete(ingridients);
+        p.getInventory().add(specialPotData.getProduct());
+        p.performAnimation(new Animation(363));
+        p.getSkillManager().addExperience(Skill.HERBLORE, specialPotData.getExperience());
+        String name = specialPotData.getProduct().getDefinition().getName();
+        p.getPacketSender().sendMessage("You make " + Misc.anOrA(name) + " " + name + ".");
+        p.getClickDelay().reset();
+        if (specialPotData == SpecialPotion.OVERLOAD) {
+            Achievements.finishAchievement(p, AchievementData.MIX_AN_OVERLOAD_POTION);
+            Achievements.doProgress(p, AchievementData.MIX_100_OVERLOAD_POTIONS);
         }
     }
 }

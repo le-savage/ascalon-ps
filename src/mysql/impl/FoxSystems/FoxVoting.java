@@ -2,7 +2,6 @@ package mysql.impl.FoxSystems;
 
 import com.janus.GameLoader;
 import com.janus.world.World;
-import com.janus.world.content.Achievements;
 import com.janus.world.content.discord.DiscordMessenger;
 import com.janus.world.entity.impl.player.Player;
 
@@ -12,6 +11,11 @@ public class FoxVoting {
 
 
     public static class FoxVote implements Runnable {
+
+									/*	public static final String HOST = "199.192.31.129";
+										public static final String USER = "janugswd_votingd";
+										public static final String PASS = "tVPIoSrc8jVxkj4W0";
+										public static final String DATABASE = "janugswd_votingd";*/
 
         public static final String HOST = "199.192.31.129";
         public static final String USER = "janugswd_votingd";
@@ -51,8 +55,6 @@ public class FoxVoting {
                     } else {
                         player.getInventory().add(19670, 1);
                     }
-
-                    Achievements.doProgress(player, Achievements.AchievementData.VOTE_50_TIMES);
 
                     //DiscordMessenger.sendErrorLog("VOTES CLAIMED BY: "+name);
 

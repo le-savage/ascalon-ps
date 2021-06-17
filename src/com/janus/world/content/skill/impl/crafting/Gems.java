@@ -12,56 +12,6 @@ import com.janus.world.entity.impl.player.Player;
 
 public class Gems {
 
-    public static void selectionInterface(Player player, int gem) {
-        player.getPacketSender().sendInterfaceRemoval();
-        GEM_DATA data = GEM_DATA.forUncutGem(gem);
-        if (data == null)
-            return;
-        if (player.getSkillManager().getMaxLevel(Skill.CRAFTING) < data.getLevelReq()) {
-            player.getPacketSender().sendMessage("You need a Crafting level of atleast " + data.getLevelReq() + " to craft this gem.");
-            return;
-        }
-        player.setSelectedSkillingItem(gem);
-        player.setInputHandling(new EnterAmountOfGemsToCut());
-        player.getPacketSender().sendString(2799, ItemDefinition.forId(gem).getName()).sendInterfaceModel(1746, gem, 150).sendChatboxInterface(4429);
-        player.getPacketSender().sendString(2800, "How many would you like to craft?");
-    }
-
-    public static void cutGem(final Player player, final int amount, final int uncutGem) {
-        player.getPacketSender().sendInterfaceRemoval();
-        player.getSkillManager().stopSkilling();
-        final GEM_DATA data = GEM_DATA.forUncutGem(uncutGem);
-        if (data == null)
-            return;
-        player.setCurrentTask(new Task(2, player, true) {
-            int amountCut = 0;
-
-            @Override
-            public void execute() {
-                player.getPacketSender().sendRichPresenceState("Cutting Gems!");
-                player.getPacketSender().sendSmallImageKey("crafting");
-                player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.CRAFTING));
-                if (!player.getInventory().contains(uncutGem)) {
-                    stop();
-                    return;
-                }
-                player.performAnimation(data.getAnimation());
-                player.getInventory().delete(uncutGem, 1);
-                player.getInventory().add(data.getCutGem(), 1);
-                if (data == GEM_DATA.DIAMOND) {
-                    Achievements.doProgress(player, AchievementData.CRAFT_1000_DIAMOND_GEMS);
-                } else if (data == GEM_DATA.ONYX) {
-                    Achievements.finishAchievement(player, AchievementData.CUT_AN_ONYX_STONE);
-                }
-                player.getSkillManager().addExperience(Skill.CRAFTING, data.getXpReward());
-                amountCut++;
-                if (amountCut >= amount)
-                    stop();
-            }
-        });
-        TaskManager.submit(player.getCurrentTask());
-    }
-
     enum GEM_DATA {
 
         OPAL(1625, 1609, 8, 347, new Animation(886)),
@@ -112,6 +62,56 @@ public class Gems {
         public Animation getAnimation() {
             return animation;
         }
+    }
+
+    public static void selectionInterface(Player player, int gem) {
+        player.getPacketSender().sendInterfaceRemoval();
+        GEM_DATA data = GEM_DATA.forUncutGem(gem);
+        if (data == null)
+            return;
+        if (player.getSkillManager().getMaxLevel(Skill.CRAFTING) < data.getLevelReq()) {
+            player.getPacketSender().sendMessage("You need a Crafting level of atleast " + data.getLevelReq() + " to craft this gem.");
+            return;
+        }
+        player.setSelectedSkillingItem(gem);
+        player.setInputHandling(new EnterAmountOfGemsToCut());
+        player.getPacketSender().sendString(2799, ItemDefinition.forId(gem).getName()).sendInterfaceModel(1746, gem, 150).sendChatboxInterface(4429);
+        player.getPacketSender().sendString(2800, "How many would you like to craft?");
+    }
+
+    public static void cutGem(final Player player, final int amount, final int uncutGem) {
+        player.getPacketSender().sendInterfaceRemoval();
+        player.getSkillManager().stopSkilling();
+        final GEM_DATA data = GEM_DATA.forUncutGem(uncutGem);
+        if (data == null)
+            return;
+        player.setCurrentTask(new Task(2, player, true) {
+            int amountCut = 0;
+
+            @Override
+            public void execute() {
+                player.getPacketSender().sendRichPresenceState("Cutting Gems!");
+                player.getPacketSender().sendSmallImageKey("crafting");
+                player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.CRAFTING));
+                if (!player.getInventory().contains(uncutGem)) {
+                    stop();
+                    return;
+                }
+                player.performAnimation(data.getAnimation());
+                player.getInventory().delete(uncutGem, 1);
+                player.getInventory().add(data.getCutGem(), 1);
+                if (data == GEM_DATA.DIAMOND) {
+                    Achievements.doProgress(player, AchievementData.CRAFT_1000_DIAMOND_GEMS);
+                } else if (data == GEM_DATA.ONYX) {
+                    Achievements.finishAchievement(player, AchievementData.CUT_AN_ONYX_STONE);
+                }
+                player.getSkillManager().addExperience(Skill.CRAFTING, data.getXpReward());
+                amountCut++;
+                if (amountCut >= amount)
+                    stop();
+            }
+        });
+        TaskManager.submit(player.getCurrentTask());
     }
 
 }

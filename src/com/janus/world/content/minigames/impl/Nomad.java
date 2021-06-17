@@ -17,17 +17,6 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class Nomad {
 
-    private static final String questTitle = "Nomad's Requiem";
-    private static final String[] questIntro = {
-            "Nomad is searching for a worthy opponent.",
-            "Are you eligible for the job?",
-            "",
-    };
-    private static final String[] questGuide = {
-            "Talk to Nomad and accept his challenge to a fight.",
-            "Defeat Nomad."
-    };
-
     public static void startFight(final Player p) {
         if (p.getMinigameAttributes().getNomadAttributes().hasFinishedPart(1))
             return;
@@ -97,4 +86,15 @@ public class Nomad {
         }
         return "@red@";
     }
+
+    private static final String questTitle = "Nomad's Requiem";
+    private static final String[] questIntro = {
+            "Nomad is searching for a worthy opponent.",
+            "Are you eligible for the job?",
+            "",
+    };
+    private static final String[] questGuide = {
+            "Talk to Nomad and accept his challenge to a fight.",
+            "Defeat Nomad."
+    };
 }

@@ -11,11 +11,13 @@ import com.janus.world.entity.impl.player.Player;
 
 public class AntiBotting {
 
+    public static String currentQuestion;
+    private static String currentAnswer;
+
     private static final String[][] QUESTION_DATA = {
             {"What is the name of this server", "Janus"}
     };
-    public static String currentQuestion;
-    private static String currentAnswer;
+
 
     public static void checkBotting(Player player) {
         if (Misc.getRandom(1) == 1) {

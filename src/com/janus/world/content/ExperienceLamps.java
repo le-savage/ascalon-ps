@@ -14,18 +14,18 @@ public class ExperienceLamps {
         if (player.getInterfaceId() > 0) {
             player.getPacketSender().sendMessage("Please close the interface you have open before doing this.");
         } else {
-            player.getPacketSender().sendString(46006, "Choose XP type...").sendString(46090, "What sort of XP would you like?");
-            player.getPacketSender().sendInterface(46000);
+            player.getPacketSender().sendString(38006, "Choose XP type...").sendString(38090, "What sort of XP would you like?");
+            player.getPacketSender().sendInterface(38000);
             player.setUsableObject(new Object[3]).setUsableObject(0, "xp").setUsableObject(2, lamp);
         }
         return true;
     }
 
     public static boolean handleButton(Player player, int button) {
-        if (button == -19451) {
+        if (button == -27451) {
             try {
                 player.getPacketSender().sendInterfaceRemoval();
-                player.getPacketSender().sendString(46006, "Choose XP type...");
+                player.getPacketSender().sendString(38006, "Choose XP type...");
                 if (player.getUsableObject()[0] != null) {
                     Skill skill = (Skill) player.getUsableObject()[1];
                     switch (((String) player.getUsableObject()[0]).toLowerCase()) {
@@ -57,7 +57,7 @@ public class ExperienceLamps {
             if (skill == null)
                 return true;
             player.setUsableObject(1, skill);
-            player.getPacketSender().sendString(46006, Misc.formatText(interfaceButton.toString().toLowerCase()));
+            player.getPacketSender().sendString(38006, Misc.formatText(interfaceButton.toString().toLowerCase()));
             boolean prestige = player.getUsableObject()[0] != null && player.getUsableObject()[0] instanceof String && ((String) (player.getUsableObject()[0])).equals("prestige");
             if (prestige) {
                 int pts = SkillManager.getPrestigePoints(player, skill);
@@ -76,17 +76,21 @@ public class ExperienceLamps {
     }
 
     public static boolean selectingExperienceReward(Player player) {
-        return player.getInterfaceId() == 46000;
+        return player.getInterfaceId() == 38000;
     }
 
     enum LampData {
         NORMAL_XP_LAMP(11137),
         DRAGONKIN_LAMP(18782);
 
-        private int itemId;
-
         LampData(int itemId) {
             this.itemId = itemId;
+        }
+
+        private int itemId;
+
+        public int getItemId() {
+            return this.itemId;
         }
 
         public static LampData forId(int id) {
@@ -96,45 +100,41 @@ public class ExperienceLamps {
             }
             return null;
         }
-
-        public int getItemId() {
-            return this.itemId;
-        }
     }
 
     enum Interface_Buttons {
 
-        ATTACK(-19529),
-        MAGIC(-19526),
-        MINING(-19523),
-        WOODCUTTING(-19520),
-        AGILITY(-19517),
-        FLETCHING(-19514),
-        THIEVING(-19511),
-        STRENGTH(-19508),
-        RANGED(-19505),
-        SMITHING(-19502),
-        FIREMAKING(-19499),
-        HERBLORE(-19496),
-        SLAYER(-19493),
-        CONSTRUCTION(-19490),
-        DEFENCE(-19487),
-        PRAYER(-19484),
-        FISHING(-19481),
-        CRAFTING(-19478),
-        FARMING(-19475),
-        HUNTER(-19472),
-        SUMMONING(-19469),
-        CONSTITUTION(-19466),
-        DUNGEONEERING(-19463),
-        COOKING(-19460),
-        RUNECRAFTING(-19457);
-
-        private int button;
+        ATTACK(-27529),
+        MAGIC(-27526),
+        MINING(-27523),
+        WOODCUTTING(-27520),
+        AGILITY(-27517),
+        FLETCHING(-27514),
+        THIEVING(-27511),
+        STRENGTH(-27508),
+        RANGED(-27505),
+        SMITHING(-27502),
+        FIREMAKING(-27499),
+        HERBLORE(-27496),
+        SLAYER(-27493),
+        CONSTRUCTION(-27490),
+        DEFENCE(-27487),
+        PRAYER(-27484),
+        FISHING(-27481),
+        CRAFTING(-27478),
+        FARMING(-27475),
+        HUNTER(-27472),
+        SUMMONING(-27469),
+        CONSTITUTION(-27466),
+        DUNGEONEERING(-27463),
+        COOKING(-27460),
+        RUNECRAFTING(-27457);
 
         Interface_Buttons(int button) {
             this.button = button;
         }
+
+        private int button;
 
         public static Interface_Buttons forButton(int button) {
             for (Interface_Buttons skill : Interface_Buttons.values()) {

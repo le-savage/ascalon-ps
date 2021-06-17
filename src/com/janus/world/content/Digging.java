@@ -4,7 +4,6 @@ import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
 import com.janus.model.Position;
-import com.janus.world.content.minigames.impl.NewBarrows;
 import com.janus.world.content.treasuretrails.CoordinateScrolls;
 import com.janus.world.content.treasuretrails.DiggingScrolls;
 import com.janus.world.content.treasuretrails.MapScrolls;
@@ -33,11 +32,8 @@ public class Digging {
                 /**
                  * Barrows
                  */
-                if (inArea(player.getPosition(), 3562, 3294, 3569, 3284)) {
-                    NewBarrows.spawnBrothers(player);
-                }
-
-
+                if (inArea(player.getPosition(), 3553, 3301, 3561, 3294))
+                    targetPosition = new Position(3578, 9706, -1);
                 /** clue scrolls** x,y**/
                 else if (inClue(player.getPosition(), 3096, 3496))
                     if (player.getInventory().contains(2677)) {
@@ -129,8 +125,23 @@ public class Digging {
                     } else {
 
                     }
-
-                player.getPacketSender().sendMessage("You find nothing of interest.");
+                else if (inArea(player.getPosition(), 3550, 3287, 3557, 3278))
+                    targetPosition = new Position(3568, 9683, -1);
+                else if (inArea(player.getPosition(), 3561, 3292, 3568, 3285))
+                    targetPosition = new Position(3557, 9703, -1);
+                else if (inArea(player.getPosition(), 3570, 3302, 3579, 3293))
+                    targetPosition = new Position(3556, 9718, -1);
+                else if (inArea(player.getPosition(), 3571, 3285, 3582, 3278))
+                    targetPosition = new Position(3534, 9704, -1);
+                else if (inArea(player.getPosition(), 3562, 3279, 3569, 3273))
+                    targetPosition = new Position(3546, 9684, -1);
+                else if (inArea(player.getPosition(), 2986, 3370, 3013, 3388))
+                    targetPosition = new Position(3546, 9684, -1);
+                if (targetPosition != null)
+                    player.moveTo(targetPosition);
+                else
+                    player.getPacketSender().sendMessage("You find nothing of interest.");
+                targetPosition = null;
                 stop();
             }
         });

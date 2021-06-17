@@ -25,35 +25,9 @@ import com.janus.world.entity.impl.player.Player;
 public class Summoning {
 
     Player player;
-    private FamiliarSpawnTask spawnTask;
-    private Familiar familiar;
-    private BeastOfBurden bob;
-    private int[] charmImpConfigs = new int[]{0, 0, 0, 0};
 
     public Summoning(Player p) {
         this.player = p;
-    }
-
-    public static String getTimer(int seconds) {
-        int minuteCounter = 0;
-        int secondCounter = 0;
-        for (int j = seconds; j > 0; j--) {
-            if (secondCounter >= 59) {
-                minuteCounter++;
-                secondCounter = 0;
-            } else
-                secondCounter++;
-        }
-        if (minuteCounter == 0 && secondCounter == 0)
-            return "";
-        String secondString = "" + secondCounter;
-        if (secondCounter < 10)
-            secondString = "0" + secondCounter + "";
-        return " " + minuteCounter + ":" + secondString;
-    }
-
-    public static boolean canSpawn(NPC n, Position pos) {
-        return MovementQueue.canWalk(n.getPosition(), pos, n.getSize());
     }
 
     public void summon(final FamiliarData familiar, boolean renew, boolean login) {
@@ -233,10 +207,6 @@ public class Summoning {
     }
 
     public void store() {
-        if (player.getLocation() == Location.BOSS_TIER_LOCATION || player.getLocation() == Location.BOSS_TIER_ENTRANCE){
-            player.getPacketSender().sendMessage("You can't do that here!");
-            World.sendStaffMessage(player.getUsername() + " tried to use a familiar near ::boss....");
-        }
         if (player.busy()) {
             player.getPacketSender().sendMessage("Please finish what you're doing first.");
             return;
@@ -272,6 +242,8 @@ public class Summoning {
             player.getPacketSender().sendMessage("You cannot do this right now.");
     }
 
+    private FamiliarSpawnTask spawnTask;
+
     public void moveFollower(boolean forced) {
         if (getFamiliar() != null && getFamiliar().getSummonNpc() != null) {
             final Position movePos = new Position(player.getPosition().getX(), player.getPosition().getY() + 1, player.getPosition().getZ());
@@ -291,6 +263,7 @@ public class Summoning {
             }
         }
     }
+    private Familiar familiar;
 
     public void login() {
         clearInterface();
@@ -310,6 +283,26 @@ public class Summoning {
         player.getPacketSender().sendString(54024, "0");
         player.getPacketSender().sendNpcHeadOnInterface(60, 54021); // 60 = invisable head to remove it
         player.getPacketSender().sendString(18045, player.getSkillManager().getMaxLevel(Skill.SUMMONING) < 10 ? "   " + player.getSkillManager().getCurrentLevel(Skill.SUMMONING) + "/" + player.getSkillManager().getMaxLevel(Skill.SUMMONING) : " " + player.getSkillManager().getCurrentLevel(Skill.SUMMONING) + "/" + player.getSkillManager().getMaxLevel(Skill.SUMMONING));
+    }
+    private BeastOfBurden bob;
+    private int[] charmImpConfigs = new int[]{0, 0, 0, 0};
+
+    public static String getTimer(int seconds) {
+        int minuteCounter = 0;
+        int secondCounter = 0;
+        for (int j = seconds; j > 0; j--) {
+            if (secondCounter >= 59) {
+                minuteCounter++;
+                secondCounter = 0;
+            } else
+                secondCounter++;
+        }
+        if (minuteCounter == 0 && secondCounter == 0)
+            return "";
+        String secondString = "" + secondCounter;
+        if (secondCounter < 10)
+            secondString = "0" + secondCounter + "";
+        return " " + minuteCounter + ":" + secondString;
     }
 
     public FamiliarSpawnTask getSpawnTask() {
@@ -331,6 +324,10 @@ public class Summoning {
 
     public BeastOfBurden getBeastOfBurden() {
         return bob;
+    }
+
+    public static boolean canSpawn(NPC n, Position pos) {
+        return MovementQueue.canWalk(n.getPosition(), pos, n.getSize());
     }
 
     public void setCharmImpConfig(int index, int config) {

@@ -13,23 +13,6 @@ import java.util.concurrent.Executors;
 public class MySQLController {
 
     public static final ExecutorService SQL_SERVICE = Executors.newSingleThreadExecutor();
-    private static MySQLController CONTROLLER;
-    private static MySQLDatabase[] DATABASES = new MySQLDatabase[2];
-    /*private static Store STORE = new Store();*/
-    /*private static Motivote VOTE;*/
-
-    public MySQLController() {
-        /* DATABASES */
-        DATABASES = new MySQLDatabase[]{
-
-
-        };
-
-	/*	VOTE = new Motivote(new Voting(), "http://runeunity.org/vote/", "0ae2dc6c");
-		VOTE.start();*/
-
-        MySQLProcessor.process();
-    }
 
     public static void toggle() {
         if (GameSettings.MYSQL_ENABLED) {
@@ -44,9 +27,9 @@ public class MySQLController {
         }
     }
 
-/*	public static Store getStore() {
-		return STORE;
-	}*/
+    private static MySQLController CONTROLLER;
+    /*private static Store STORE = new Store();*/
+    /*private static Motivote VOTE;*/
 
     public static void init() {
         try {
@@ -57,21 +40,39 @@ public class MySQLController {
         CONTROLLER = new MySQLController();
     }
 
-    /* NON STATIC CLASS START */
-
     public static MySQLController getController() {
         return CONTROLLER;
     }
 
-    public MySQLDatabase getDatabase(Database database) {
-        return DATABASES[database.ordinal()];
-    }
-
+/*	public static Store getStore() {
+		return STORE;
+	}*/
 
     public enum Database {
 		/*HIGHSCORES,
 		RECOVERY,
 		GRAND_EXCHANGE;*/
+    }
+
+    /* NON STATIC CLASS START */
+
+    private static MySQLDatabase[] DATABASES = new MySQLDatabase[2];
+
+    public MySQLController() {
+        /* DATABASES */
+        DATABASES = new MySQLDatabase[]{
+
+
+        };
+
+	/*	VOTE = new Motivote(new Voting(), "http://runeunity.org/vote/", "0ae2dc6c");
+		VOTE.start();*/
+
+        MySQLProcessor.process();
+    }
+
+    public MySQLDatabase getDatabase(Database database) {
+        return DATABASES[database.ordinal()];
     }
 
     private static class MySQLProcessor {

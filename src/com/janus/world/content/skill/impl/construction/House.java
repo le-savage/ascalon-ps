@@ -206,20 +206,20 @@ public class House extends RegionInstance {
         this.dungeon = dungeon;
     }
 
-    public Palette getPalette() {
-        return this.palette;
-    }
-
     public void setPalette(Palette palette) {
         this.palette = palette;
     }
 
-    public Palette getSecondaryPalette() {
-        return this.secondaryPalette;
+    public Palette getPalette() {
+        return this.palette;
     }
 
     public void setSecondaryPalette(Palette secondaryPalette) {
         this.secondaryPalette = secondaryPalette;
+    }
+
+    public Palette getSecondaryPalette() {
+        return this.secondaryPalette;
     }
 
     @Override

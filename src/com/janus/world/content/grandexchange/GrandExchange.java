@@ -19,14 +19,6 @@ import java.util.ArrayList;
  */
 public class GrandExchange {
 
-    public static final int COLLECT_ITEM_PURCHASE_INTERFACE = 2901;
-    public static final int COLLECT_ITEM_SALE_INTERFACE = 2902;
-    private static final int MAIN_INTERFACE = 24500;
-    private static final int BUY_INTERFACE = 24600;
-    private static final int SELL_INTERFACE = 24700;
-    private static final int VIEW_PURCHASE_INTERFACE = 53700;
-    private static final int VIEW_SALE_INTERFACE = 54700;
-
     public static boolean handleButton(Player player, int id) {
         if (player.getInterfaceId() == MAIN_INTERFACE) {
             switch (id) {
@@ -764,4 +756,12 @@ public class GrandExchange {
         }
         return cost * amount;
     }
+
+    public static final int COLLECT_ITEM_PURCHASE_INTERFACE = 2901;
+    public static final int COLLECT_ITEM_SALE_INTERFACE = 2902;
+    private static final int MAIN_INTERFACE = 24500;
+    private static final int BUY_INTERFACE = 24600;
+    private static final int SELL_INTERFACE = 24700;
+    private static final int VIEW_PURCHASE_INTERFACE = 53700;
+    private static final int VIEW_SALE_INTERFACE = 54700;
 }

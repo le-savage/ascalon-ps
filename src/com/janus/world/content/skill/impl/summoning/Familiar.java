@@ -11,12 +11,6 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class Familiar {
 
-    private boolean petNpc;
-    private Player owner;
-    private NPC summonNpc;
-    private int deathTimer;
-    private boolean respawnNeeded;
-
     public Familiar(Player owner, NPC summonNpc, int deathTimer) {
         this.owner = owner;
         this.summonNpc = summonNpc;
@@ -65,4 +59,10 @@ public class Familiar {
     public boolean isPet() {
         return petNpc;
     }
+
+    private boolean petNpc;
+    private Player owner;
+    private NPC summonNpc;
+    private int deathTimer;
+    private boolean respawnNeeded;
 }

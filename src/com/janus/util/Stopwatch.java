@@ -4,10 +4,6 @@ public class Stopwatch {
 
     private long time = System.currentTimeMillis();
 
-    public Stopwatch() {
-        time = 0;
-    }
-
     public Stopwatch headStart(long startAt) {
         time = System.currentTimeMillis() - startAt;
         return this;
@@ -33,5 +29,9 @@ public class Stopwatch {
 
     public long getTime() {
         return time;
+    }
+
+    public Stopwatch() {
+        time = 0;
     }
 }

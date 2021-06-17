@@ -82,54 +82,6 @@ public class PlayerOwnedShopManager {
         this.player = player;
     }
 
-    public static void loadShops() {
-
-        File[] files = DIRECTORY.listFiles();
-
-        for (File file : files) {
-
-            Path path = Paths.get(DIRECTORY + File.separator, file.getName());
-            PlayerOwnedShop shop = new PlayerOwnedShop();
-
-            shop.setUsername(file.getName().replaceAll(".txt", ""));
-
-            try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
-
-                String line;
-                int offset = 0;
-
-                while ((line = reader.readLine()) != null) {
-
-                    String[] split = line.split(" - ");
-
-                    if (split.length == 3) {
-
-                        int id = Integer.parseInt(split[0]);
-                        int amount = Integer.parseInt(split[1]);
-                        int price = Integer.parseInt(split[2]);
-
-                        shop.getItems()[offset++] = new Item(id, amount, price);
-
-                    }
-
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            SHOPS.add(shop);
-
-        }
-
-    }
-
-    public static void saveShops() {
-        for (PlayerOwnedShop shop : SHOPS) {
-            shop.save();
-        }
-    }
-
     /**
      * Open the player owned shop management interface.
      */
@@ -757,6 +709,54 @@ public class PlayerOwnedShopManager {
         statement(player, "You have claimed " + formatPrice1 + " coins. This leaves " + formatPrice2 + " coins",
                 "left to claim from your shop earnings depository.");
 
+    }
+
+    public static void loadShops() {
+
+        File[] files = DIRECTORY.listFiles();
+
+        for (File file : files) {
+
+            Path path = Paths.get(DIRECTORY + File.separator, file.getName());
+            PlayerOwnedShop shop = new PlayerOwnedShop();
+
+            shop.setUsername(file.getName().replaceAll(".txt", ""));
+
+            try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+
+                String line;
+                int offset = 0;
+
+                while ((line = reader.readLine()) != null) {
+
+                    String[] split = line.split(" - ");
+
+                    if (split.length == 3) {
+
+                        int id = Integer.parseInt(split[0]);
+                        int amount = Integer.parseInt(split[1]);
+                        int price = Integer.parseInt(split[2]);
+
+                        shop.getItems()[offset++] = new Item(id, amount, price);
+
+                    }
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            SHOPS.add(shop);
+
+        }
+
+    }
+
+    public static void saveShops() {
+        for (PlayerOwnedShop shop : SHOPS) {
+            shop.save();
+        }
     }
 
     public PlayerOwnedShop getCurrent() {

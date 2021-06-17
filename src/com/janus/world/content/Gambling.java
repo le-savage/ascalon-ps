@@ -79,12 +79,13 @@ public class Gambling {
         WHITE_FLOWERS(2987, 2474),
         BLACK_FLOWERS(2988, 2476);
 
-        public int objectId;
-        public int itemId;
         FlowersData(int objectId, int itemId) {
             this.objectId = objectId;
             this.itemId = itemId;
         }
+
+        public int objectId;
+        public int itemId;
 
         public static FlowersData forObject(int object) {
             for (FlowersData data : FlowersData.values()) {

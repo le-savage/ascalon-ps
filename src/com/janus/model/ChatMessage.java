@@ -41,19 +41,6 @@ public class ChatMessage {
     public static class Message {
 
         /**
-         * The color of the message.
-         */
-        private int colour;
-        /**
-         * The effects of the message.
-         */
-        private int effects;
-        /**
-         * The actual text of the message.
-         */
-        private byte[] text;
-
-        /**
          * The Message constructor.
          *
          * @param colour  The color the message will have, done through color(#):
@@ -65,6 +52,21 @@ public class ChatMessage {
             this.effects = effects;
             this.text = text;
         }
+
+        /**
+         * The color of the message.
+         */
+        private int colour;
+
+        /**
+         * The effects of the message.
+         */
+        private int effects;
+
+        /**
+         * The actual text of the message.
+         */
+        private byte[] text;
 
         /**
          * Gets the message's chat color.

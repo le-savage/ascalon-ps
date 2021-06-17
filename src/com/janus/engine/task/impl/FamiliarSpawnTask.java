@@ -14,14 +14,15 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class FamiliarSpawnTask extends Task {
 
-    public int familiarId;
-    public int deathTimer;
-    public Item[] validItems;
-    private Player player;
     public FamiliarSpawnTask(Player player) {
         super(2, player, false);
         this.player = player;
     }
+
+    public int familiarId;
+    public int deathTimer;
+    public Item[] validItems;
+    private Player player;
 
     public FamiliarSpawnTask setFamiliarId(int familiarId) {
         this.familiarId = familiarId;

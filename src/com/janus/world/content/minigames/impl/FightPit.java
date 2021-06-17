@@ -15,12 +15,34 @@ public class FightPit {
      * @note Exit waiting room
      */
     public static final int EXIT_WAITING_X = 2399;
-    public static final int EXIT_WAITING_Y = 5177;
+
     /**
      * @note States of minigames
      */
     private static final String PLAYING = "PLAYING";
     private static final String WAITING = "WAITING";
+    /**
+     * @note Current fight pits champion
+     */
+    private static String pitsChampion = "None";
+    /**
+     * @note Countdown for game to start
+     */
+    private static int gameStartTimer = 80;
+    /**
+     * @note Elapsed Game start time
+     */
+    private static int elapsedGameTime = 0;
+    public static final int EXIT_WAITING_Y = 5177;
+    /*
+     * @note Game started or not?
+     */
+    private static boolean gameStarted = false;
+
+    /**
+     * @note Stores player and State
+     */
+    private static Map<Player, String> playerMap = Collections.synchronizedMap(new HashMap<Player, String>());
     private static final int END_GAME_TIME = 400;
     /**
      * @note Where to spawn when pits game starts
@@ -38,27 +60,6 @@ public class FightPit {
     private static final int WAITING_ROOM_X = 2399;
     private static final int WAITING_ROOM_Y = 5175;
     private static final int TOKKUL_ID = 6529;
-    public static int TOTAL_PLAYERS = 0;
-    /**
-     * @note Current fight pits champion
-     */
-    private static String pitsChampion = "None";
-    /**
-     * @note Countdown for game to start
-     */
-    private static int gameStartTimer = 80;
-    /**
-     * @note Elapsed Game start time
-     */
-    private static int elapsedGameTime = 0;
-    /*
-     * @note Game started or not?
-     */
-    private static boolean gameStarted = false;
-    /**
-     * @note Stores player and State
-     */
-    private static Map<Player, String> playerMap = Collections.synchronizedMap(new HashMap<Player, String>());
 
     /**
      * @return HashMap Value
@@ -66,6 +67,7 @@ public class FightPit {
     public static String getState(Player player) {
         return playerMap.get(player);
     }
+    public static int TOTAL_PLAYERS = 0;
 
     /**
      * @note Adds player to waiting room.

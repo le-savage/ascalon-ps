@@ -313,14 +313,17 @@ public class LoyaltyProgramme {
             }
         };
 
-        private int cost;
-        private int frame;
-        private int button;
         private LoyaltyTitles(int cost, int frame, int button) {
             this.cost = cost;
             this.frame = frame;
             this.button = button;
         }
+
+        private int cost;
+        private int frame;
+        private int button;
+
+        abstract boolean canBuy(Player p, boolean sendMessage);
 
         public static LoyaltyTitles getTitle(int button) {
             for (LoyaltyTitles t : LoyaltyTitles.values()) {
@@ -329,7 +332,5 @@ public class LoyaltyProgramme {
             }
             return null;
         }
-
-        abstract boolean canBuy(Player p, boolean sendMessage);
     }
 }

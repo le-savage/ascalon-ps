@@ -21,6 +21,11 @@ public enum GameMode {
         this.drBoost = drBoost;
     }
 
+    public double getDropRateModifier() {
+        return drBoost;
+    }
+
+
     public static void set(Player player, GameMode newMode, boolean death) {
         if (!death && !player.getClickDelay().elapsed(1000))
             return;
@@ -67,9 +72,5 @@ public enum GameMode {
         } else {
             player.setPlayerLocked(false);
         }
-    }
-
-    public double getDropRateModifier() {
-        return drBoost;
     }
 }

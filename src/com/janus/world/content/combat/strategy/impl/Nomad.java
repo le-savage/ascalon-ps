@@ -12,11 +12,6 @@ import com.janus.world.entity.impl.npc.NPC;
 
 public class Nomad implements CombatStrategy {
 
-    private static final Animation anim2 = new Animation(12696);
-    private static final Animation anim3 = new Animation(12698);
-    private static final Graphic gfx2 = new Graphic(2281, GraphicHeight.LOW);
-    private static final Graphic gfx3 = new Graphic(369, GraphicHeight.LOW);
-
     @Override
     public boolean canAttack(Character entity, Character victim) {
         return true;
@@ -158,6 +153,7 @@ public class Nomad implements CombatStrategy {
         return true;
     }
 
+
     @Override
     public int attackDelay(Character entity) {
         return entity.getAttackSpeed();
@@ -172,4 +168,9 @@ public class Nomad implements CombatStrategy {
     public CombatType getCombatType() {
         return CombatType.MIXED;
     }
+
+    private static final Animation anim2 = new Animation(12696);
+    private static final Animation anim3 = new Animation(12698);
+    private static final Graphic gfx2 = new Graphic(2281, GraphicHeight.LOW);
+    private static final Graphic gfx3 = new Graphic(369, GraphicHeight.LOW);
 }

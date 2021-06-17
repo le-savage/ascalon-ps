@@ -30,13 +30,6 @@ import com.janus.world.entity.impl.player.Player;
 
 public class ItemContainerActionPacketListener implements PacketListener {
 
-    public static final int FIRST_ITEM_ACTION_OPCODE = 145;
-    public static final int SECOND_ITEM_ACTION_OPCODE = 117;
-    public static final int THIRD_ITEM_ACTION_OPCODE = 43;
-    public static final int FOURTH_ITEM_ACTION_OPCODE = 129;
-    public static final int FIFTH_ITEM_ACTION_OPCODE = 135;
-    public static final int SIXTH_ITEM_ACTION_OPCODE = 138;
-
     /**
      * Manages an item's first action.
      *
@@ -575,6 +568,7 @@ public class ItemContainerActionPacketListener implements PacketListener {
         }
     }
 
+
     /**
      * Manages an item's fifth action.
      *
@@ -714,4 +708,11 @@ public class ItemContainerActionPacketListener implements PacketListener {
                 break;
         }
     }
+
+    public static final int FIRST_ITEM_ACTION_OPCODE = 145;
+    public static final int SECOND_ITEM_ACTION_OPCODE = 117;
+    public static final int THIRD_ITEM_ACTION_OPCODE = 43;
+    public static final int FOURTH_ITEM_ACTION_OPCODE = 129;
+    public static final int FIFTH_ITEM_ACTION_OPCODE = 135;
+    public static final int SIXTH_ITEM_ACTION_OPCODE = 138;
 }

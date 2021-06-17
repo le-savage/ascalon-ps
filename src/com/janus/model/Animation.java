@@ -9,15 +9,6 @@ package com.janus.model;
 public class Animation {
 
     /**
-     * The animation's id.
-     */
-    private int id;
-    /**
-     * The delay in which to perform the animation.
-     */
-    private int delay;
-
-    /**
      * Animation constructor for entity to perform.
      *
      * @param id    The id of the animation entity should perform.
@@ -39,6 +30,11 @@ public class Animation {
     }
 
     /**
+     * The animation's id.
+     */
+    private int id;
+
+    /**
      * Gets the animation's id.
      *
      * @return id.
@@ -55,6 +51,11 @@ public class Animation {
     public void setId(int id) {
         this.id = id;
     }
+
+    /**
+     * The delay in which to perform the animation.
+     */
+    private int delay;
 
     /**
      * Gets the animation's performance delay.

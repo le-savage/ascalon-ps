@@ -19,23 +19,24 @@ import java.util.Map;
  */
 
 public class FreeForAll {
-    public static final String PLAYING = "PLAYING";
-    public static final String WAITING = "WAITING";
     public static int TOTAL_PLAYERS = 0;
+    public static final String PLAYING = "PLAYING";
+
     /**
      * @note Stores player and State
      */
     public static Map<Player, String> playerMap = new HashMap<Player, String>();
     public static Map<Player, String> playersInGame = new HashMap<Player, String>();
-    public static boolean pure = false;
-    public static boolean brid = false;
-    public static boolean dharok = false;
+    public static final String WAITING = "WAITING";
     public static int[][] coordinates = {{2265, 4684, 4}, {2261, 4699, 4}, {2282, 4706, 4}, {2282, 4689, 4}};
     private static int PLAYERS_IN_LOBBY = 0;
+    public static boolean pure = false;
+    public String type = "";
+    public static boolean brid = false;
+    public static boolean dharok = false;
     private static boolean gameRunning = false;
     private static boolean eventRunning = false;
     private static int waitTimer = 150;
-    public String type = "";
     public int[][] pureInv = new int[][]{{Equipment.HEAD_SLOT, 1153}, {Equipment.CAPE_SLOT, 10499},
             {Equipment.AMULET_SLOT, 1725}, {Equipment.WEAPON_SLOT, 4587}, {Equipment.BODY_SLOT, 1129},
             {Equipment.SHIELD_SLOT, 1540}, {Equipment.LEG_SLOT, 2497}, {Equipment.HANDS_SLOT, 7459},

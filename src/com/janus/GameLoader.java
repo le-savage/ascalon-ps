@@ -20,7 +20,6 @@ import com.janus.world.content.combat.strategy.CombatStrategies;
 import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.pos.PlayerOwnedShopManager;
-import com.janus.world.content.teleport.TeleportRepository;
 import com.janus.world.entity.impl.npc.NPC;
 import mysql.MySQLController;
 import org.jboss.netty.bootstrap.ServerBootstrap;
@@ -52,14 +51,6 @@ public final class GameLoader {
     public static final int THURSDAY = 5;
     public static final int FRIDAY = 6;
     public static final int SATURDAY = 7;
-    private final ExecutorService serviceLoader = Executors.newSingleThreadExecutor(new ThreadFactoryBuilder().setNameFormat("GameLoadingThread").build());
-    private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(new ThreadFactoryBuilder().setNameFormat("GameThread").build());
-    private final GameEngine engine;
-    private final int port;
-    protected GameLoader(int port) {
-        this.port = port;
-        this.engine = new GameEngine();
-    }
 
     //public static Object getSpecialDay;
     //Double EXP days
@@ -90,6 +81,16 @@ public final class GameLoader {
                 return "X2 Exp.";
         }
         return "X2 Exp.";
+    }
+
+    private final ExecutorService serviceLoader = Executors.newSingleThreadExecutor(new ThreadFactoryBuilder().setNameFormat("GameLoadingThread").build());
+    private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(new ThreadFactoryBuilder().setNameFormat("GameThread").build());
+    private final GameEngine engine;
+    private final int port;
+
+    protected GameLoader(int port) {
+        this.port = port;
+        this.engine = new GameEngine();
     }
 
     public void init() {
@@ -134,7 +135,6 @@ public final class GameLoader {
         serviceLoader.execute(() -> PlayerOwnedShopManager.loadShops());
         serviceLoader.execute(() -> MonsterDrops.initialize());
         serviceLoader.execute(() -> ItemEffect.loadEffects());
-        serviceLoader.execute(() -> TeleportRepository.loadData());
         serviceLoader.execute(() -> WildyWyrmEvent.initialize());
 
     }

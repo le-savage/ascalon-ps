@@ -12,15 +12,6 @@ public enum Prayerbook {
     CURSES(32500, "You sense a surge of power flow through your body!");
 
     /**
-     * The interface id to switch prayer tab to.
-     */
-    private final int interfaceId;
-    /**
-     * The message received upon switching prayers.
-     */
-    private final String message;
-
-    /**
      * The PrayerBook constructor.
      *
      * @param interfaceId The interface id to switch prayer tab to.
@@ -32,19 +23,14 @@ public enum Prayerbook {
     }
 
     /**
-     * Gets the PrayerBook instance for said id.
-     *
-     * @param id The id to match to prayer book's ordinal.
-     * @return The prayerbook who's ordinal is equal to id.
+     * The interface id to switch prayer tab to.
      */
-    public static Prayerbook forId(int id) {
-        for (Prayerbook book : Prayerbook.values()) {
-            if (book.ordinal() == id) {
-                return book;
-            }
-        }
-        return NORMAL;
-    }
+    private final int interfaceId;
+
+    /**
+     * The message received upon switching prayers.
+     */
+    private final String message;
 
     /**
      * Gets the interface id to set prayer tab to.
@@ -62,6 +48,21 @@ public enum Prayerbook {
      */
     public String getMessage() {
         return message;
+    }
+
+    /**
+     * Gets the PrayerBook instance for said id.
+     *
+     * @param id The id to match to prayer book's ordinal.
+     * @return The prayerbook who's ordinal is equal to id.
+     */
+    public static Prayerbook forId(int id) {
+        for (Prayerbook book : Prayerbook.values()) {
+            if (book.ordinal() == id) {
+                return book;
+            }
+        }
+        return NORMAL;
     }
 
 

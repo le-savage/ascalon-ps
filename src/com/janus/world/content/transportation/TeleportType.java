@@ -14,9 +14,6 @@ public enum TeleportType {
     LEVER(-1, null, null, null, null),
     PURO_PURO(9, new Animation(6601), Animations.DEFAULT_RESET_ANIMATION, new Graphic(1118), null);
 
-    private Animation startAnim, endAnim;
-    private Graphic startGraphic, endGraphic;
-    private int startTick;
     TeleportType(int startTick, Animation startAnim, Animation endAnim, Graphic startGraphic, Graphic endGraphic) {
         this.startTick = startTick;
         this.startAnim = startAnim;
@@ -24,6 +21,10 @@ public enum TeleportType {
         this.startGraphic = startGraphic;
         this.endGraphic = endGraphic;
     }
+
+    private Animation startAnim, endAnim;
+    private Graphic startGraphic, endGraphic;
+    private int startTick;
 
     public Animation getStartAnimation() {
         return startAnim;

@@ -6,10 +6,12 @@ import com.janus.world.entity.impl.player.Player;
 
 public class PHEON {
 
-    public static final int[] PHEON = {15241, 15126, 19335, 11235, 11989};
     public static int config;
     public static int item;
     public static int index = 0;
+
+    public static final int[] PHEON = {15241, 15126, 19335, 11235, 11989};
+
 
     /*
      * Get rare drop(s) for that boss location

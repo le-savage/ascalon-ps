@@ -26,15 +26,6 @@ public enum ArrowData {
         this.levelReq = levelReq;
     }
 
-    public static ArrowData forArrow(int id) {
-        for (ArrowData ar : ArrowData.values()) {
-            if (ar.getItem2() == id) {
-                return ar;
-            }
-        }
-        return null;
-    }
-
     public int getItem1() {
         return item1;
     }
@@ -53,6 +44,15 @@ public enum ArrowData {
 
     public int getLevelReq() {
         return levelReq;
+    }
+
+    public static ArrowData forArrow(int id) {
+        for (ArrowData ar : ArrowData.values()) {
+            if (ar.getItem2() == id) {
+                return ar;
+            }
+        }
+        return null;
     }
 
 }

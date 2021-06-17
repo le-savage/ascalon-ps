@@ -15,16 +15,6 @@ import com.janus.world.entity.impl.npc.NPC;
 
 public class Jad implements CombatStrategy {
 
-    private static final Animation anim1 = new Animation(9254);
-    private static final Animation anim2 = new Animation(9277);
-    private static final Animation anim3 = new Animation(9300);
-    private static final Animation anim4 = new Animation(9276);
-    private static final Graphic gfx1 = new Graphic(444);
-    private static final Graphic gfx2 = new Graphic(1625);
-    private static final Graphic gfx3 = new Graphic(1626);
-    private static final Graphic gfx4 = new Graphic(451);
-    private static final Graphic gfx5 = new Graphic(1627);
-
     @Override
     public boolean canAttack(Character entity, Character victim) {
         return true;
@@ -91,6 +81,7 @@ public class Jad implements CombatStrategy {
         return true;
     }
 
+
     @Override
     public int attackDelay(Character entity) {
         return entity.getAttackSpeed();
@@ -100,6 +91,16 @@ public class Jad implements CombatStrategy {
     public int attackDistance(Character entity) {
         return 10;
     }
+
+    private static final Animation anim1 = new Animation(9254);
+    private static final Animation anim2 = new Animation(9277);
+    private static final Animation anim3 = new Animation(9300);
+    private static final Animation anim4 = new Animation(9276);
+    private static final Graphic gfx1 = new Graphic(444);
+    private static final Graphic gfx2 = new Graphic(1625);
+    private static final Graphic gfx3 = new Graphic(1626);
+    private static final Graphic gfx4 = new Graphic(451);
+    private static final Graphic gfx5 = new Graphic(1627);
 
     @Override
     public CombatType getCombatType() {

@@ -48,7 +48,6 @@ public class KillsTracker {
             //open(player);
         }
     }
-
     public static void openBoss(Player player) {
         try {
             /* RESORT THE KILLS */
@@ -95,7 +94,6 @@ public class KillsTracker {
             e.printStackTrace();
         }
     }
-
     public static void open(Player player) {
         try {
             /* RESORT THE KILLS */
@@ -163,13 +161,6 @@ public class KillsTracker {
         player.getKillsTracker().add(entry);
         return entry;
     }
-    public static KillsEntry forId(final Player player, final int npcId) {
-        for (KillsEntry killsEntry : player.getKillsTracker()) {
-            if (killsEntry.getId() == npcId)
-                return killsEntry;
-        }
-        return null;
-    }
 
     public static int getIndex(Player player, KillsEntry kill) {
         for (int i = 0; i < player.getKillsTracker().size(); i++) {
@@ -179,6 +170,7 @@ public class KillsTracker {
         }
         return -1;
     }
+
 
     public static int getTotalKills(Player player) {
         int totalKills = 0;
@@ -201,12 +193,6 @@ public class KillsTracker {
 
     public static class KillsEntry {
 
-        public int runningTotal;
-        public int npcId;
-        public String npcName;
-        public int amount;
-        public boolean boss;
-
         public KillsEntry(int npcId, int amount, boolean boss) {
             this.npcName = NpcDefinition.forId(npcId).getName();
             this.amount = amount;
@@ -223,16 +209,22 @@ public class KillsTracker {
             return amount;
         }
 
-        public void setAmount(int amount) {
-            this.amount = amount;
-        }
-
         public int getRunningTotal() {
             return this.runningTotal;
         }
 
+        public int runningTotal;
+
         public void setRunningTotal(int amount) {
             this.runningTotal = amount;
+        }
+        public int npcId;
+        public String npcName;
+        public int amount;
+        public boolean boss;
+
+        public void setAmount(int amount) {
+            this.amount = amount;
         }
 
         @Override

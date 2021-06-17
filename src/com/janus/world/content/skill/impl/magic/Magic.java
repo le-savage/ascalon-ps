@@ -134,14 +134,6 @@ public class Magic {
         ONYXBOLTS(9342, 9245, 87, 97, 712, 238, 6, 10),
         DRAGONONYXBOLTS(21041, 21050, 87, 97, 712, 238, 6, 10);
 
-        private static final Map<Integer, Enchant> enc = new HashMap<Integer, Enchant>();
-
-        static {
-            for (Enchant en : Enchant.values()) {
-                enc.put(en.getUnenchanted(), en);
-            }
-        }
-
         int unenchanted, enchanted, levelReq, xpGiven, anim, gfx, reqEnchantmentLevel, amount;
 
         private Enchant(int unenchanted, int enchanted, int levelReq, int xpGiven, int anim, int gfx, int reqEnchantmentLevel, int amount) {
@@ -153,10 +145,6 @@ public class Magic {
             this.gfx = gfx;
             this.reqEnchantmentLevel = reqEnchantmentLevel;
             this.amount = amount;
-        }
-
-        public static Enchant forId(int itemID) {
-            return enc.get(itemID);
         }
 
         public int getUnenchanted() {
@@ -190,6 +178,18 @@ public class Magic {
         public int getAmount() {
             return amount;
         }
+
+        private static final Map<Integer, Enchant> enc = new HashMap<Integer, Enchant>();
+
+        static {
+            for (Enchant en : Enchant.values()) {
+                enc.put(en.getUnenchanted(), en);
+            }
+        }
+
+        public static Enchant forId(int itemID) {
+            return enc.get(itemID);
+        }
     }
 
     private enum EnchantSpell {
@@ -201,14 +201,6 @@ public class Magic {
         DRAGONSTONE(1187, 555, 15, 557, 15, 564, 1),
         ONYX(6003, 557, 20, 554, 20, 564, 1);
 
-        public static final Map<Integer, EnchantSpell> ens = new HashMap<Integer, EnchantSpell>();
-
-        static {
-            for (EnchantSpell en : EnchantSpell.values()) {
-                ens.put(en.getSpell(), en);
-            }
-        }
-
         int spell, reqRune1, reqAmtRune1, reqRune2, reqAmtRune2, reqRune3, reqAmtRune3;
 
         private EnchantSpell(int spell, int reqRune1, int reqAmtRune1, int reqRune2, int reqAmtRune2, int reqRune3, int reqAmtRune3) {
@@ -219,10 +211,6 @@ public class Magic {
             this.reqAmtRune2 = reqAmtRune2;
             this.reqRune3 = reqRune3;
             this.reqAmtRune3 = reqAmtRune3;
-        }
-
-        public static EnchantSpell forId(int id) {
-            return ens.get(id);
         }
 
         public int getSpell() {
@@ -251,6 +239,19 @@ public class Magic {
 
         public int getReqAmt3() {
             return reqAmtRune3;
+        }
+
+
+        public static final Map<Integer, EnchantSpell> ens = new HashMap<Integer, EnchantSpell>();
+
+        static {
+            for (EnchantSpell en : EnchantSpell.values()) {
+                ens.put(en.getSpell(), en);
+            }
+        }
+
+        public static EnchantSpell forId(int id) {
+            return ens.get(id);
         }
 
     }

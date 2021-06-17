@@ -14,20 +14,6 @@ import com.janus.world.content.Effigies;
 public class Item {
 
     /**
-     * ITEM RARITY
-     **/
-    public ItemRarity rarity;
-    /**
-     * The item id.
-     */
-    private int id;
-    /**
-     * Amount of the item.
-     */
-    private int amount;
-    private int slot;
-
-    /**
      * An Item object constructor.
      *
      * @param id     Item id.
@@ -47,43 +33,10 @@ public class Item {
         this(id, 1);
     }
 
-    public static Item getNoted(int id, int amount) {
-        int notedItem = id + 1;
-        if (ItemDefinition.forId(notedItem).getName().equals(ItemDefinition.forId(id).getName())) {
-            return new Item(notedItem, amount);
-        }
-        return new Item(id, amount);
-    }
-
-    public static int getNoted(int id) {
-        int noted = id + 1;
-        if (id == 11283 || id == 11284) {
-            noted = 11285;
-        }
-        if (ItemDefinition.forId(noted).getName().equals(ItemDefinition.forId(id).getName())) {
-            return noted;
-        }
-        return id;
-    }
-
-    public static int getUnNoted(int id) {
-        int unNoted = id - 1;
-        if (id == 11284 || id == 11285) {
-            unNoted = 11283;
-        }
-        if (ItemDefinition.forId(unNoted).getName().equals(ItemDefinition.forId(id).getName())) {
-            return unNoted;
-        }
-        return id;
-    }
-
-    public static boolean tradeable(int item) {
-        return new Item(item).tradeable();
-    }
-
-    public static boolean sellable(int item) {
-        return new Item(item).sellable();
-    }
+    /**
+     * ITEM RARITY
+     **/
+    public ItemRarity rarity;
 
     /**
      * Gets the item's id.
@@ -101,12 +54,29 @@ public class Item {
         this.id = id;
         return this;
     }
+    /**
+     * The item id.
+     */
+    private int id;
 
     /**
      * Gets the amount of the item.
      */
     public int getAmount() {
         return amount;
+    }
+    /**
+     * Amount of the item.
+     */
+    private int amount;
+    private int slot;
+
+    public static Item getNoted(int id, int amount) {
+        int notedItem = id + 1;
+        if (ItemDefinition.forId(notedItem).getName().equals(ItemDefinition.forId(id).getName())) {
+            return new Item(notedItem, amount);
+        }
+        return new Item(id, amount);
     }
 
     /**
@@ -115,14 +85,6 @@ public class Item {
     public Item setAmount(int amount) {
         this.amount = amount;
         return this;
-    }
-
-    public int getSlot() {
-        return this.slot;
-    }
-
-    public void setSlot(int slot) {
-        this.slot = slot;
     }
 
     /**
@@ -165,6 +127,40 @@ public class Item {
         if (Effigies.isEffigy(id))
             return false;
         return true;
+    }
+
+    public static int getNoted(int id) {
+        int noted = id + 1;
+        if (id == 11283 || id == 11284) {
+            noted = 11285;
+        }
+        if (ItemDefinition.forId(noted).getName().equals(ItemDefinition.forId(id).getName())) {
+            return noted;
+        }
+        return id;
+    }
+
+    public static int getUnNoted(int id) {
+        int unNoted = id - 1;
+        if (id == 11284 || id == 11285) {
+            unNoted = 11283;
+        }
+        if (ItemDefinition.forId(unNoted).getName().equals(ItemDefinition.forId(id).getName())) {
+            return unNoted;
+        }
+        return id;
+    }
+
+    public static boolean tradeable(int item) {
+        return new Item(item).tradeable();
+    }
+
+    public static boolean sellable(int item) {
+        return new Item(item).sellable();
+    }
+
+    public int getSlot() {
+        return this.slot;
     }
 
     /**
@@ -214,6 +210,10 @@ public class Item {
         } else {
             this.amount -= amount;
         }
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
     }
 
     public Item setRarity(ItemRarity rarity) {

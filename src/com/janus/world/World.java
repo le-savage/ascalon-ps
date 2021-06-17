@@ -111,33 +111,14 @@ public class World {
         }
     }
 
-    public static void sendFilteredMessage(String message) { // Non-Discord method
-        players.forEach(player -> {
-            if (player.showWorldMessages())
-                players.forEach(p -> p.getPacketSender().sendMessage(message));
-        });
-    }
+    public static void sendFilteredMessage(String message) {
+        /*players.stream().filter(p -> p != null ).forEach(p -> p.getPacketSender().sendMessage(message));*/
+        players.forEach(p -> p.getPacketSender().sendMessage(message));
 
-    public static void sendYell(String yell) { // Send Yell Messages
-        players.forEach(p -> p.getPacketSender().sendMessage(yell));
-    }
-
-    public static void sendTrivia(String question) {
-        players.forEach(player -> {
-            if (player.showTrivia())
-                players.forEach(p -> p.getPacketSender().sendMessage(question));
-        });
-    }
-
-    public static void sendTips(String tips) {
-        players.forEach(player -> {
-            if (player.showTips())
-                players.forEach(p -> p.getPacketSender().sendMessage(tips));
-        });
     }
 
     public static void sendStaffMessage(String message) {
-        players.stream().filter(p -> p != null && (p.getRights() == PlayerRights.OWNER || p.getRights() == PlayerRights.DEVELOPER || p.getRights() == PlayerRights.ADMINISTRATOR || p.getRights() == PlayerRights.MODERATOR || p.getRights() == PlayerRights.SUPPORT || p.getRights() == PlayerRights.GLOBAL_ADMIN)).forEach(p -> p.getPacketSender().sendMessage(message));
+        players.stream().filter(p -> p != null && (p.getRights() == PlayerRights.OWNER || p.getRights() == PlayerRights.DEVELOPER || p.getRights() == PlayerRights.ADMINISTRATOR || p.getRights() == PlayerRights.MODERATOR || p.getRights() == PlayerRights.SUPPORT || p.getRights() == PlayerRights.COMMUNITYMANAGER)).forEach(p -> p.getPacketSender().sendMessage(message));
         DiscordMessenger.sendStaffMessage(message);
     }
 
@@ -199,7 +180,7 @@ public class World {
 
         // FightPit.sequence();
         //Cows.sequence();
-        Tips.sequence();
+        Reminders.sequence();
         //Cows.spawnMainNPCs();
         PestControl.sequence();
         ShootingStar.sequence();

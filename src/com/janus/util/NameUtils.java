@@ -14,19 +14,6 @@ public class NameUtils {
             "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8",
             "LPT9", "m o d", "a d m i n", "mod", "admin", "moderator", "administrator", "owner", "m0d", "adm1n",
             "0wner", "developer", "dev"};
-    /**
-     * An array containing valid player name characters.
-     */
-    public static final char VALID_PLAYER_CHARACTERS[] = {'_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
-            'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5',
-            '6', '7', '8', '9', '[', ']', '/', '-', ' '};
-    /**
-     * An array containing valid characters that may be used on the server.
-     */
-    public static final char VALID_CHARACTERS[] = {'_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6',
-            '7', '8', '9', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+', '=', ':', ';', '.', '>', '<',
-            ',', '"', '[', ']', '|', '?', '/', '`'};
 
     /**
      * Capitalized all words split by a space char.
@@ -168,4 +155,19 @@ public class NameUtils {
             return name;
         }
     }
+
+    /**
+     * An array containing valid player name characters.
+     */
+    public static final char VALID_PLAYER_CHARACTERS[] = {'_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+            'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5',
+            '6', '7', '8', '9', '[', ']', '/', '-', ' '};
+
+    /**
+     * An array containing valid characters that may be used on the server.
+     */
+    public static final char VALID_CHARACTERS[] = {'_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6',
+            '7', '8', '9', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+', '=', ':', ';', '.', '>', '<',
+            ',', '"', '[', ']', '|', '?', '/', '`'};
 }

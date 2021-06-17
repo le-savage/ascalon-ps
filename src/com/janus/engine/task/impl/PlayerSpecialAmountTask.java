@@ -6,13 +6,13 @@ import com.janus.world.entity.impl.player.Player;
 
 public class PlayerSpecialAmountTask extends Task {
 
-    private final Player player;
-
     public PlayerSpecialAmountTask(Player player) {
         super(20, player, false);
         this.player = player;
         player.setRecoveringSpecialAttack(true);
     }
+
+    private final Player player;
 
     @Override
     public void execute() {
@@ -30,9 +30,9 @@ public class PlayerSpecialAmountTask extends Task {
         player.setSpecialPercentage(amount);
         CombatSpecial.updateBar(player);
         if (player.getSpecialPercentage() % 50 == 0)
-            /*if(player.getNotificationPreference()) {
+            if (player.getNotificationPreference()) {
                 player.getPacketSender().trayMessage(3, player.getUsername() + " - Your special attack is now at " + player.getSpecialPercentage() + "%!");
-            }*/
-            player.getPacketSender().sendMessage("Your special attack energy is now " + player.getSpecialPercentage() + "%.");
+            }
+        player.getPacketSender().sendMessage("Your special attack energy is now " + player.getSpecialPercentage() + "%.");
     }
 }

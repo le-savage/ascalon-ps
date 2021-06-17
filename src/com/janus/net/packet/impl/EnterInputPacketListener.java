@@ -15,8 +15,6 @@ import com.janus.world.entity.impl.player.Player;
 public class EnterInputPacketListener implements PacketListener {
 
 
-    public static final int ENTER_AMOUNT_OPCODE = 208, ENTER_SYNTAX_OPCODE = 60;
-
     @Override
     public void handleMessage(Player player, Packet packet) {
         switch (packet.getOpcode()) {
@@ -38,4 +36,6 @@ public class EnterInputPacketListener implements PacketListener {
                 break;
         }
     }
+
+    public static final int ENTER_AMOUNT_OPCODE = 208, ENTER_SYNTAX_OPCODE = 60;
 }

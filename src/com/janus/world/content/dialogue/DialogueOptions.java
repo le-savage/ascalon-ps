@@ -12,7 +12,6 @@ import com.janus.world.content.Achievements.AchievementData;
 import com.janus.world.content.*;
 import com.janus.world.content.Gambling.FlowersData;
 import com.janus.world.content.clan.ClanChatManager;
-import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.content.dialogue.impl.AgilityTicketExchange;
 import com.janus.world.content.dialogue.impl.Mandrith;
 import com.janus.world.content.minigames.impl.Graveyard;
@@ -28,15 +27,12 @@ import com.janus.world.content.skill.impl.slayer.SlayerDialogues;
 import com.janus.world.content.skill.impl.slayer.SlayerMaster;
 import com.janus.world.content.skill.impl.summoning.CharmingImp;
 import com.janus.world.content.skill.impl.summoning.SummoningTab;
-import com.janus.world.content.skillingtasks.SelectorInterface;
 import com.janus.world.content.transportation.JewelryTeleporting;
 import com.janus.world.content.transportation.TeleportHandler;
 import com.janus.world.content.transportation.TeleportType;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.npc.NpcAggression;
 import com.janus.world.entity.impl.player.Player;
-
-import static com.janus.world.content.combat.tieredbosses.BossRewardBoxes.hasEarnedReward;
 
 public class DialogueOptions {
 
@@ -1143,8 +1139,8 @@ public class DialogueOptions {
                     player.getPacketSender().sendRights();
                     break;
                 case 78:
-                    player.getPacketSender().sendString(46006, "Select a skill...").sendString(46090, "Which skill would you like to prestige?");
-                    player.getPacketSender().sendInterface(46000);
+                    player.getPacketSender().sendString(38006, "Select a skill...").sendString(38090, "Which skill would you like to prestige?");
+                    player.getPacketSender().sendInterface(38000);
                     player.setUsableObject(new Object[2]).setUsableObject(0, "prestige");
                     break;
                 case 79:
@@ -1221,13 +1217,6 @@ public class DialogueOptions {
                         PlayerPanel.refreshPanel(player);
                     }
                     break;
-                case 85:
-                    if (!hasEarnedReward(player) && !BossRewardBoxes.hasExistingBox(player)) {
-                        player.getPacketSender().sendMessage("You haven't earned this reward!");
-                    } else {
-                        BossRewardBoxes.openBossRewardBox(player);
-                    }
-                    break;
             }
         } else if (id == SECOND_OPTION_OF_TWO) {
             switch (player.getDialogueActionId()) {
@@ -1277,16 +1266,9 @@ public class DialogueOptions {
                         player.getMinigameAttributes().getDungeoneeringAttributes().getPartyInvitation().getOwner().getPacketSender().sendMessage("" + player.getUsername() + " has declined your invitation.");
                     player.getMinigameAttributes().getDungeoneeringAttributes().setPartyInvitation(null);
                     break;
-
-                case 85:
-                    player.getPacketSender().sendMessage("We've skipped opening this reward box <3");
-                    player.getPacketSender().sendInterfaceRemoval();
-                    player.setShouldGiveBossReward(false);
-                    BossRewardBoxes.removeBossRewardBox(player);
             }
         } else if (id == FIRST_OPTION_OF_THREE) {
             switch (player.getDialogueActionId()) {
-
                 case 5:
                     DialogueManager.start(player, MemberScrolls.getTotalFunds(player));
                     break;
@@ -1379,9 +1361,6 @@ public class DialogueOptions {
                         BonusExperienceTask.addBonusXp(player, minutes * amt);
                         player.getClickDelay().reset();
                     }
-                    break;
-                case 72:
-                    SelectorInterface.openSelector(player);
                     break;
             }
         } else if (id == SECOND_OPTION_OF_THREE) {
@@ -1501,9 +1480,6 @@ public class DialogueOptions {
                         player.getClickDelay().reset();
                     }
                     break;
-                case 72:
-                    ShopManager.getShops().get(53).open(player); // TODO Finish a real store
-                    break;
             }
         } else if (id == THIRD_OPTION_OF_THREE) {
             switch (player.getDialogueActionId()) {
@@ -1527,7 +1503,6 @@ public class DialogueOptions {
                 case 69:
                 case 70:
                 case 71:
-                case 72:
                 case 77:
                     player.getPacketSender().sendInterfaceRemoval();
                     break;

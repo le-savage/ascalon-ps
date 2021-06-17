@@ -6,10 +6,12 @@ import com.janus.world.entity.impl.player.Player;
 
 public class SKOT {
 
-    public static final int[] SKOT = {12284, 6914, 6889};
     public static int config;
     public static int item;
     public static int index = 0;
+
+    public static final int[] SKOT = {12284, 6914, 6889};
+
 
     /*
      * Get rare drop(s) for that boss location

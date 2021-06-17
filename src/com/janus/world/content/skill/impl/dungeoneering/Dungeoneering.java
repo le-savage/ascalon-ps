@@ -10,7 +10,6 @@ import com.janus.world.content.CustomObjects;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.dialogue.DialogueManager;
-import com.janus.world.content.questtab.QuestTab;
 import com.janus.world.entity.impl.GroundItemManager;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -21,11 +20,6 @@ import com.janus.world.entity.impl.player.Player;
  * @author Gabriel Hannason
  */
 public class Dungeoneering {
-
-    public static final int FORM_PARTY_INTERFACE = 27224;
-    public static final int PARTY_INTERFACE = 26224;
-    public static final int DUNGEONEERING_GATESTONE_ID = 17489;
-    private static final Item[] misc = {new Item(555, 121), new Item(557, 87), new Item(554, 81), new Item(565, 63), new Item(5678), new Item(560, 97), new Item(861, 1), new Item(892, 127), new Item(18161, 2), new Item(18159, 2), new Item(139, 1)};
 
     public static void start(final Player p) {
         p.getPacketSender().sendInterfaceRemoval();
@@ -118,16 +112,7 @@ public class Dungeoneering {
         p.getInventory().add(new Item(17489));
     }
 
-    public static void leave(Player p, boolean resetTab, boolean leaveParty) {
-        if (p.getMinigameAttributes().getDungeoneeringAttributes().getParty() != null) {
-            p.getMinigameAttributes().getDungeoneeringAttributes().getParty().remove(p, resetTab, leaveParty);
-        } else if (resetTab) {
-            p.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 40000);//
-            QuestTab.refreshPanel();
-            p.getPacketSender().sendDungeoneeringTabIcon(false);
-            p.getPacketSender().sendTab(GameSettings.QUESTS_TAB);
-        }
-    }
+    public static final int FORM_PARTY_INTERFACE = 27224;
 
     public static void setupFloor(DungeoneeringParty party, int height) {
         /*
@@ -149,6 +134,7 @@ public class Dungeoneering {
         }
     }
 
+
     public static boolean doingDungeoneering(Player p) {
         return p.getMinigameAttributes().getDungeoneeringAttributes().getParty() != null && p.getMinigameAttributes().getDungeoneeringAttributes().getParty().hasEnteredDungeon();
     }
@@ -163,6 +149,7 @@ public class Dungeoneering {
         party.setDeaths(party.getDeaths() + 1);
         party.sendFrame(37508, "Party deaths: " + party.getDeaths());
     }
+    public static final int PARTY_INTERFACE = 26224;
 
     public static void handleNpcDeath(Player p, NPC n) {
         if (n.getPosition().getZ() == p.getPosition().getZ()) {
@@ -187,6 +174,18 @@ public class Dungeoneering {
                 GroundItemManager.spawnGroundItem(p, new GroundItem(new Item(18201, amt), n.getPosition().copy(), "Dungeoneering", false, -1, false, -1));
             } else if (random > 150 && random < 250)
                 GroundItemManager.spawnGroundItem(p, new GroundItem(misc[Misc.getRandom(misc.length - 1)], n.getPosition().copy(), "Dungeoneering", false, -1, false, -1));
+        }
+    }
+    public static final int DUNGEONEERING_GATESTONE_ID = 17489;
+    private static final Item[] misc = {new Item(555, 121), new Item(557, 87), new Item(554, 81), new Item(565, 63), new Item(5678), new Item(560, 97), new Item(861, 1), new Item(892, 127), new Item(18161, 2), new Item(18159, 2), new Item(139, 1)};
+
+    public static void leave(Player p, boolean resetTab, boolean leaveParty) {
+        if (p.getMinigameAttributes().getDungeoneeringAttributes().getParty() != null) {
+            p.getMinigameAttributes().getDungeoneeringAttributes().getParty().remove(p, resetTab, leaveParty);
+        } else if (resetTab) {
+            p.getPacketSender().sendTabInterface(GameSettings.QUESTS_TAB, 639);//
+            p.getPacketSender().sendDungeoneeringTabIcon(false);
+            p.getPacketSender().sendTab(GameSettings.QUESTS_TAB);
         }
     }
 }

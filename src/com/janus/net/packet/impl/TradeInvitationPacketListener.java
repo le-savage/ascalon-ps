@@ -18,9 +18,6 @@ import com.janus.world.entity.impl.player.Player;
 
 public class TradeInvitationPacketListener implements PacketListener {
 
-    public static final int TRADE_OPCODE = 39;
-    public static final int CHATBOX_TRADE_OPCODE = 139;
-
     @Override
     public void handleMessage(Player player, Packet packet) {
         if (player.getConstitution() <= 0)
@@ -46,4 +43,7 @@ public class TradeInvitationPacketListener implements PacketListener {
             }
         }));
     }
+
+    public static final int TRADE_OPCODE = 39;
+    public static final int CHATBOX_TRADE_OPCODE = 139;
 }

@@ -107,14 +107,15 @@ public class ItemForging {
         ;
 
 
-        private Item[] requiredItems;
-        private Item product;
-        private int[] skillRequirement;
         ItemForgeData(Item[] requiredItems, Item product, int[] skillRequirement) {
             this.requiredItems = requiredItems;
             this.product = product;
             this.skillRequirement = skillRequirement;
         }
+
+        private Item[] requiredItems;
+        private Item product;
+        private int[] skillRequirement;
 
         public static ItemForgeData getDataForItems(int item1, int item2) {
             for (ItemForgeData shieldData : ItemForgeData.values()) {

@@ -23,19 +23,22 @@ import java.util.stream.Stream;
 public final class CharacterList<E extends Character> implements Iterable<E> {
 
     /**
+     * The backing array of {@link CharacterNode}s within this collection.
+     */
+    private E[] characters;
+
+    /**
      * The queue containing all of the slots that {@link CharacterNode}s were
      * recently removed from. This is used to reduce slot lookup times for
      * characters being added to this character list.
      */
     private final Queue<Integer> slotQueue = new LinkedList<>();
+
     /**
      * The finite capacity of this collection.
      */
     private final int capacity;
-    /**
-     * The backing array of {@link CharacterNode}s within this collection.
-     */
-    private E[] characters;
+
     /**
      * The size of this collection.
      */

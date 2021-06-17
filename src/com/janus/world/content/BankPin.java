@@ -11,17 +11,6 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class BankPin {
 
-    private static final int stringIds[] = {
-            14883, 14884, 14885, 14886,
-            14887, 14888, 14889, 14890,
-            14891, 14892
-    };
-    private static final int actionButtons[] = {
-            14873, 14874, 14875, 14876,
-            14877, 14878, 14879, 14880,
-            14881, 14882
-    };
-
     public static void deletePin(Player player) {
         player.getBankPinAttributes().setHasBankPin(false).setHasEnteredBankPin(false).setInvalidAttempts(0).setLastAttempt(System.currentTimeMillis());
         for (int i = 0; i < player.getBankPinAttributes().getBankPin().length; i++) {
@@ -182,7 +171,22 @@ public class BankPin {
         sendPins(player);
     }
 
+    private static final int stringIds[] = {
+            14883, 14884, 14885, 14886,
+            14887, 14888, 14889, 14890,
+            14891, 14892
+    };
+
+    private static final int actionButtons[] = {
+            14873, 14874, 14875, 14876,
+            14877, 14878, 14879, 14880,
+            14881, 14882
+    };
+
     public static class BankPinAttributes {
+        public BankPinAttributes() {
+        }
+
         private boolean hasBankPin;
         private boolean hasEnteredBankPin;
         private int[] bankPin = new int[4];
@@ -192,8 +196,6 @@ public class BankPin {
         };
         private int invalidAttempts;
         private long lastAttempt;
-        public BankPinAttributes() {
-        }
 
         public boolean hasBankPin() {
             return hasBankPin;

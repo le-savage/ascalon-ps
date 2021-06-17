@@ -11,65 +11,8 @@ import com.janus.world.clip.stream.MemoryArchive;
 public final class GameObjectDefinition {
 
     public static GameObjectDefinition class46;
+
     public static int totalObjects667;
-    public static boolean lowMem;
-    public static int[] streamIndices525;
-    public static int[] streamIndices667;
-    public static int cacheIndex;
-    public static GameObjectDefinition[] cache;
-    public static MemoryArchive archive;
-    private static ByteStreamExt dataBuffer525;
-    private static ByteStreamExt dataBuffer667;
-    public int[] solidObjects = {1902, 1903, 1904, 1905,
-            1906, 1907, 1908, 1909, 1910, 1911, 1912, 1536, 1535, 1537, 1538, 5139, 5140, 5141, 5142, 5143, 5144, 5145, 5146, 5147, 5148, 5149, 5150,
-            1534, 1533, 1532, 1531, 1530, 1631, 1624, 733, 1658, 1659, 1631, 1620, 14723, 14724, 14726, 14622, 14625, 14627, 11668, 11667,
-            14543, 14749, 14561, 14750, 14752, 14751, 1547, 1548, 1415, 1508, 1506, 1507, 1509, 1510, 1511, 1512, 1513, 1514, 1515, 1516,
-            1517, 1518, 1519, 1520, 1521, 1522, 1523, 1524, 1525, 1526, 1527, 1528, 1529, 1505, 1504, 3155, 3154, 3152, 10748, 9153, 9154,
-            9473, 1602, 1603, 1601, 1600, 9544, 9563, 9547, 2724, 6966, 6965, 9587, 9588, 9626, 9627, 9596, 9598, 11712, 11713, 11773, 11776,
-            11652, 11818, 11716, 11721, 14409, 11715, 11714, 11825, 11409, 11826, 11819, 14411, 14410, 11719, 11717, 14402, 11828, 11772,
-            11775, 11686, 12278, 1853, 11611, 11610, 11609, 11608, 11607, 11561, 11562, 11563, 11564, 11558, 11616, 11617, 11625, 11624, 12990,
-            12991, 5634, 1769, 1770, 135, 134, 11536, 11512, 11529, 11513, 11521, 11520, 11519, 11518, 11517, 11516, 11514, 11509, 11538, 11537,
-            11470, 11471, 136, 11528, 11529, 11530, 11531, 1854, 1000, 9265, 9264, 1591, 11708, 11709, 11851};
-    public boolean aBoolean736;
-    public byte aByte737;
-    public int anInt738;
-    public String name;
-    public int anInt740;
-    public byte aByte742;
-    public int tileSizeX;
-    public int anInt745;
-    public int anInt746;
-    public int[] originalModelColors;
-    public int anInt748;
-    public int anInt749;
-    public boolean aBoolean751;
-    public int id;
-    public boolean impenetrable;
-    public int anInt758;
-    public int childrenIDs[];
-    public int anInt760;
-    public int tileSizeY;
-    public boolean aBoolean762;
-    public boolean aBoolean764;
-    public boolean aBoolean766;
-    public boolean unwalkable;
-    public int anInt768;
-    public boolean aBoolean769;
-    public int anInt772;
-    public int[] modelArray;
-    public int anInt774;
-    public int anInt775;
-    public int[] objectModelType;
-    public byte description[];
-    public boolean interactive;
-    public boolean aBoolean779;
-    public int anInt781;
-    public int anInt783;
-    public int[] modifiedModelColors;
-    public String actions[];
-    public GameObjectDefinition() {
-        id = -1;
-    }
 
     public static boolean removedObject(int id) {
         return id == 2956 || id == 463 || id == 462 || id == 25026 || id == 25020 || id == 25019 || id == 25024 || id == 25025 || id == 25016 || id == 10527 || id == 10529 || id == 40257 || id == 296 || id == 300 || id == 1747 || id == 7332 || id == 7326 || id == 7325 || id == 7385 || id == 7331 || id == 7385 || id == 7320 || id == 7317 || id == 7323 || id == 7354 || id == 1536 || id == 1537 || id == 5126 || id == 1551 || id == 1553 || id == 1516 || id == 1519 || id == 1557 || id == 1558 || id == 7126 || id == 733 || id == 14233 || id == 14235 || id == 1596 || id == 1597 || id == 14751 || id == 14752 || id == 14923 || id == 36844 || id == 30864 || id == 2514 || id == 1805 || id == 15536 || id == 2399 || id == 14749 || id == 29315 || id == 29316 || id == 29319 || id == 29320 || id == 29360 || id == 1528 || id == 36913 || id == 36915 || id == 15516 || id == 35549 || id == 35551 || id == 26808 || id == 26910 || id == 26913 || id == 24381 || id == 15514 || id == 25891 || id == 26082 || id == 26081 || id == 1530 || id == 16776 || id == 16778 || id == 28589 || id == 1533 || id == 17089 || id == 1600 || id == 1601 || id == 11707 || id == 24376 || id == 24378 || id == 40108 || id == 59 || id == 2069 || id == 36846;
@@ -132,78 +75,7 @@ public final class GameObjectDefinition {
         class46.readValues(dataBuffer525);
         return class46;
     }
-
-    public static void init() {
-        //long startup = System.currentTimeMillis();
-        //System.out.println("Loading cache game object definitions...");
-
-        dataBuffer525 = new ByteStreamExt(getBuffer("loc.dat"));
-        ByteStreamExt idxBuffer525 = new ByteStreamExt(getBuffer("loc.idx"));
-
-        dataBuffer667 = new ByteStreamExt(getBuffer("667loc.dat"));
-        ByteStreamExt idxBuffer667 = new ByteStreamExt(getBuffer("667loc.idx"));
-
-        int totalObjects525 = idxBuffer525.readUnsignedWord();
-        totalObjects667 = idxBuffer667.readUnsignedWord();
-
-        streamIndices525 = new int[totalObjects525];
-        int i = 2;
-        for (int j = 0; j < totalObjects525; j++) {
-            streamIndices525[j] = i;
-            i += idxBuffer525.readUnsignedWord();
-        }
-
-        streamIndices667 = new int[totalObjects667];
-
-        i = 2;
-        for (int j = 0; j < totalObjects667; j++) {
-            streamIndices667[j] = i;
-            i += idxBuffer667.readUnsignedWord();
-        }
-
-        cache = new GameObjectDefinition[20];
-        for (int k = 0; k < 20; k++) {
-            cache[k] = new GameObjectDefinition();
-        }
-
-        ///System.out.println("Loaded " + totalObjects525 + " cache object definitions #525 and "
-        //		+ totalObjects667 + " cache object definitions #667 in " + (System.currentTimeMillis() - startup) + "ms");
-    }
-
-    public static byte[] getBuffer(String s) {
-        try {
-            java.io.File f = new java.io.File("./data/clipping/objects/" + s);
-            if (!f.exists())
-                return null;
-            byte[] buffer = new byte[(int) f.length()];
-            java.io.DataInputStream dis = new java.io.DataInputStream(new java.io.FileInputStream(f));
-            dis.readFully(buffer);
-            dis.close();
-            return buffer;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public boolean rangableObject() {
-        int[] rangableObjects = {3007, 980, 4262, 14437, 14438, 4437, 4439, 3487, 3457};
-        for (int i : rangableObjects) {
-            if (i == id) {
-                return true;
-            }
-        }
-        if (name != null) {
-            final String name1 = name.toLowerCase();
-            String[] rangables = {"altar", "pew", "log", "stump", "stool", "sign", "cart", "chest", "rock", "bush", "hedge", "chair", "table", "crate", "barrel", "box", "skeleton", "corpse", "vent", "stone", "rockslide"};
-            for (String i : rangables) {
-                if (name1.contains(i)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    public static boolean lowMem;
 
     public void setSolid(int type) {
         aBoolean779 = false;
@@ -255,6 +127,11 @@ public final class GameObjectDefinition {
         anInt749 = -1;
         childrenIDs = null;
     }
+    public static int[] streamIndices525;
+    public static int[] streamIndices667;
+    public static int cacheIndex;
+    public static GameObjectDefinition[] cache;
+    public static MemoryArchive archive;
 
     private void readValues(ByteStreamExt buffer) {
         int i = -1;
@@ -533,6 +410,7 @@ public final class GameObjectDefinition {
         if (anInt760 == -1)
             anInt760 = unwalkable ? 1 : 0;
     }
+    private static ByteStreamExt dataBuffer525;
 
     public boolean hasActions() {
         return interactive;
@@ -548,6 +426,129 @@ public final class GameObjectDefinition {
 
     public int yLength() {
         return tileSizeY;
+    }
+    private static ByteStreamExt dataBuffer667;
+    public int[] solidObjects = {1902, 1903, 1904, 1905,
+            1906, 1907, 1908, 1909, 1910, 1911, 1912, 1536, 1535, 1537, 1538, 5139, 5140, 5141, 5142, 5143, 5144, 5145, 5146, 5147, 5148, 5149, 5150,
+            1534, 1533, 1532, 1531, 1530, 1631, 1624, 733, 1658, 1659, 1631, 1620, 14723, 14724, 14726, 14622, 14625, 14627, 11668, 11667,
+            14543, 14749, 14561, 14750, 14752, 14751, 1547, 1548, 1415, 1508, 1506, 1507, 1509, 1510, 1511, 1512, 1513, 1514, 1515, 1516,
+            1517, 1518, 1519, 1520, 1521, 1522, 1523, 1524, 1525, 1526, 1527, 1528, 1529, 1505, 1504, 3155, 3154, 3152, 10748, 9153, 9154,
+            9473, 1602, 1603, 1601, 1600, 9544, 9563, 9547, 2724, 6966, 6965, 9587, 9588, 9626, 9627, 9596, 9598, 11712, 11713, 11773, 11776,
+            11652, 11818, 11716, 11721, 14409, 11715, 11714, 11825, 11409, 11826, 11819, 14411, 14410, 11719, 11717, 14402, 11828, 11772,
+            11775, 11686, 12278, 1853, 11611, 11610, 11609, 11608, 11607, 11561, 11562, 11563, 11564, 11558, 11616, 11617, 11625, 11624, 12990,
+            12991, 5634, 1769, 1770, 135, 134, 11536, 11512, 11529, 11513, 11521, 11520, 11519, 11518, 11517, 11516, 11514, 11509, 11538, 11537,
+            11470, 11471, 136, 11528, 11529, 11530, 11531, 1854, 1000, 9265, 9264, 1591, 11708, 11709, 11851};
+    public boolean aBoolean736;
+    public byte aByte737;
+    public int anInt738;
+    public String name;
+    public int anInt740;
+    public byte aByte742;
+    public int tileSizeX;
+    public int anInt745;
+    public int anInt746;
+    public int[] originalModelColors;
+    public int anInt748;
+    public int anInt749;
+    public boolean aBoolean751;
+    public int id;
+    public boolean impenetrable;
+    public int anInt758;
+    public int childrenIDs[];
+    public int anInt760;
+    public int tileSizeY;
+    public boolean aBoolean762;
+    public boolean aBoolean764;
+    public boolean aBoolean766;
+    public boolean unwalkable;
+    public int anInt768;
+    public boolean aBoolean769;
+    public int anInt772;
+    public int[] modelArray;
+    public int anInt774;
+    public int anInt775;
+    public int[] objectModelType;
+    public byte description[];
+    public boolean interactive;
+    public boolean aBoolean779;
+    public int anInt781;
+    public int anInt783;
+    public int[] modifiedModelColors;
+    public String actions[];
+    public GameObjectDefinition() {
+        id = -1;
+    }
+
+    public static void init() {
+        //long startup = System.currentTimeMillis();
+        //System.out.println("Loading cache game object definitions...");
+
+        dataBuffer525 = new ByteStreamExt(getBuffer("loc.dat"));
+        ByteStreamExt idxBuffer525 = new ByteStreamExt(getBuffer("loc.idx"));
+
+        dataBuffer667 = new ByteStreamExt(getBuffer("667loc.dat"));
+        ByteStreamExt idxBuffer667 = new ByteStreamExt(getBuffer("667loc.idx"));
+
+        int totalObjects525 = idxBuffer525.readUnsignedWord();
+        totalObjects667 = idxBuffer667.readUnsignedWord();
+
+        streamIndices525 = new int[totalObjects525];
+        int i = 2;
+        for (int j = 0; j < totalObjects525; j++) {
+            streamIndices525[j] = i;
+            i += idxBuffer525.readUnsignedWord();
+        }
+
+        streamIndices667 = new int[totalObjects667];
+
+        i = 2;
+        for (int j = 0; j < totalObjects667; j++) {
+            streamIndices667[j] = i;
+            i += idxBuffer667.readUnsignedWord();
+        }
+
+        cache = new GameObjectDefinition[20];
+        for (int k = 0; k < 20; k++) {
+            cache[k] = new GameObjectDefinition();
+        }
+
+        ///System.out.println("Loaded " + totalObjects525 + " cache object definitions #525 and "
+        //		+ totalObjects667 + " cache object definitions #667 in " + (System.currentTimeMillis() - startup) + "ms");
+    }
+
+    public static byte[] getBuffer(String s) {
+        try {
+            java.io.File f = new java.io.File("./data/clipping/objects/" + s);
+            if (!f.exists())
+                return null;
+            byte[] buffer = new byte[(int) f.length()];
+            java.io.DataInputStream dis = new java.io.DataInputStream(new java.io.FileInputStream(f));
+            dis.readFully(buffer);
+            dis.close();
+            return buffer;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean rangableObject() {
+        int[] rangableObjects = {3007, 980, 4262, 14437, 14438, 4437, 4439, 3487, 3457};
+        for (int i : rangableObjects) {
+            if (i == id) {
+                return true;
+            }
+        }
+        if (name != null) {
+            final String name1 = name.toLowerCase();
+            String[] rangables = {"altar", "pew", "log", "stump", "stool", "sign", "cart", "chest", "rock", "bush", "hedge", "chair", "table", "crate", "barrel", "box", "skeleton", "corpse", "vent", "stone", "rockslide"};
+            for (String i : rangables) {
+                if (name1.contains(i)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public int actionCount() {

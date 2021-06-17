@@ -121,26 +121,6 @@ public class Consumables {
         }
     }
 
-    /**
-     * Potions
-     */
-
-    public static boolean isPotion(int itemId) {
-        String pot = ItemDefinition.forId(itemId).getName();
-        return pot.contains("(4)") || pot.contains("(3)") || pot.contains("(2)") || pot.contains("(1)");
-    }
-
-    public static boolean isDecantablePotion(int itemId) {
-        String pot = ItemDefinition.forId(itemId).getName();
-        return pot.contains("(3)") || pot.contains("(2)") || pot.contains("(1)");
-    }
-
-    public static boolean healingPotion(int itemId) {
-        String pot = ItemDefinition.forId(itemId).getName();
-        pot = pot.toLowerCase();
-        return pot.contains("saradomin brew");
-    }
-
     public static void handlePotion(final Player player, final int itemId, final int slot) {
         if (player.getConstitution() <= 0)
             return;
@@ -225,7 +205,7 @@ public class Consumables {
                     break;
                 case 179:
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     PoisonImmunityTask.makeImmune(player, 86);
                     player.getPacketSender().sendMessage("You're now immune to any kind of poison for another 86 seconds.");
@@ -277,7 +257,7 @@ public class Consumables {
                     break;
                 case 131:
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     for (int i = 0; i <= 24; i++) {
                         if (i == 3 || i == 5)
@@ -315,7 +295,7 @@ public class Consumables {
                     break;
                 case 2458: //Antifire pot 1
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     FireImmunityTask.makeImmune(player, 360, 50);
                     player.getPacketSender().sendMessage("You're now 50% immune to any kind of fire for another 6 minutes.");
@@ -346,7 +326,7 @@ public class Consumables {
                     break;
                 case 15307: //Super Antifire pot 1
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     FireImmunityTask.makeImmune(player, 360, 100);
                     player.getPacketSender().sendMessage("You're now 100% immune to any kind of fire for another 6 minutes.");
@@ -384,7 +364,7 @@ public class Consumables {
                 case 3022:
                 case 3014: //Energy potion 1
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     player.setRunEnergy(player.getRunEnergy() + (itemId == 3014 ? 15 : 40));
                     if (player.getRunEnergy() > 100)
@@ -452,11 +432,8 @@ public class Consumables {
                         player.getSkillManager().setCurrentLevel(Skill.PRAYER, player.getSkillManager().getMaxLevel(Skill.PRAYER));
                     break;
                 case 143: //Prayer pot 1
-                    System.out.println("Final potion for "+player.getUsername());
                     player.performAnimation(new Animation(829));
-                    //
-                    player.getInventory().delete(143, 1);
-                    System.out.println("Deleting prayer pot");
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     player.getSkillManager().setCurrentLevel(Skill.PRAYER, (int) (player.getSkillManager().getCurrentLevel(Skill.PRAYER) + (player.getSkillManager().getMaxLevel(Skill.PRAYER) * 0.33)));
                     if (player.getSkillManager().getCurrentLevel(Skill.PRAYER) > player.getSkillManager().getMaxLevel(Skill.PRAYER))
@@ -491,7 +468,7 @@ public class Consumables {
                     break;
                 case 12146: //Summoning pot 1
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     player.getSkillManager().setCurrentLevel(Skill.SUMMONING, (int) (player.getSkillManager().getCurrentLevel(Skill.SUMMONING) + (player.getSkillManager().getMaxLevel(Skill.SUMMONING) * 0.25)));
                     if (player.getSkillManager().getCurrentLevel(Skill.SUMMONING) > player.getSkillManager().getMaxLevel(Skill.SUMMONING))
@@ -553,7 +530,7 @@ public class Consumables {
                     break;
                 case 185: // Super anti poison pot 1
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     PoisonImmunityTask.makeImmune(player, 346);
                     player.getPacketSender().sendMessage("You're now immune to any kind of poison for another 346 seconds.");
@@ -671,7 +648,7 @@ public class Consumables {
                     break;
                 case 3030:
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     for (int i = 0; i <= 24; i++) {
                         if (i == 3)
@@ -726,7 +703,7 @@ public class Consumables {
                     break;
                 case 5949: //Antipoison+ pot 1
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     PoisonImmunityTask.makeImmune(player, 650);
                     player.getPacketSender().sendMessage("You're now immune to any kind of poison for another 650 seconds.");
@@ -857,7 +834,7 @@ public class Consumables {
                         return;
                     }
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     int[] toDecrease111 = {1, 3};
                     for (int tD : toDecrease111) {
@@ -954,7 +931,7 @@ public class Consumables {
                     break;
                 case 6691:
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     decrease = new int[]{0, 2, 4, 6};
                     for (int tD : decrease) {
@@ -1042,7 +1019,7 @@ public class Consumables {
                         return;
                     }
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     player.setSpecialPercentage(player.getSpecialPercentage() + 25);
                     if (player.getSpecialPercentage() > 10.00)
@@ -1089,7 +1066,7 @@ public class Consumables {
                         return;
                     }
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     player.getSkillManager().setCurrentLevel(Skill.forId(0), player.getSkillManager().getCurrentLevel(Skill.forId(0)) + getExtremePotionBoost(player, 0));
                     break;
@@ -1132,7 +1109,7 @@ public class Consumables {
                         return;
                     }
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     player.getSkillManager().setCurrentLevel(Skill.forId(2), player.getSkillManager().getCurrentLevel(Skill.forId(2)) + getExtremePotionBoost(player, 2));
                     break;
@@ -1175,7 +1152,7 @@ public class Consumables {
                         return;
                     }
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     player.getSkillManager().setCurrentLevel(Skill.forId(1), player.getSkillManager().getCurrentLevel(Skill.forId(1)) + getExtremePotionBoost(player, 1));
                     break;
@@ -1218,7 +1195,7 @@ public class Consumables {
                         return;
                     }
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     player.getSkillManager().setCurrentLevel(Skill.forId(6), player.getSkillManager().getCurrentLevel(Skill.forId(6)) + getExtremePotionBoost(player, 6));
                     break;
@@ -1261,7 +1238,7 @@ public class Consumables {
                         return;
                     }
                     player.performAnimation(new Animation(829));
-                    
+                    player.getInventory().getItems()[slot] = new Item(-1, 1);
                     player.getInventory().refreshItems();
                     player.getSkillManager().setCurrentLevel(Skill.forId(4), player.getSkillManager().getCurrentLevel(Skill.forId(4)) + getExtremePotionBoost(player, 4));
                     break;
@@ -1335,7 +1312,6 @@ public class Consumables {
             player.getFoodTimer().reset();
             player.getPotionTimer().reset();
             String potion = ItemDefinition.forId(itemId).getName();
-            int potID = itemId;
             player.getPacketSender().sendMessage("You drink some of your " + potion + "..");
             if (potion.endsWith("(4)")) {
                 player.getPacketSender().sendMessage("You have 3 doses of potion left.");
@@ -1344,7 +1320,7 @@ public class Consumables {
             } else if (potion.endsWith("(2)")) {
                 player.getPacketSender().sendMessage("You have 1 dose of potion left.");
             } else if (potion.endsWith("(1)")) {
-                player.getInventory().delete(potID, 1);
+                player.getInventory().getItems()[slot] = new Item(-1);
                 player.getPacketSender().sendMessage("You have finished your potion.");
             }
             if (player.getOverloadPotionTimer() > 0) {  // Prevents decreasing stats
@@ -1358,67 +1334,24 @@ public class Consumables {
         }
     }
 
-    public static void drinkStatPotion(final Player player, int potion, int replacePotion, int slot, int skill, boolean super_pot) {
-        if (slot >= 0) {
-            player.performAnimation(new Animation(829));
-            player.getInventory().getItems()[slot] = new Item(replacePotion, 1);
-        }
-        player.getInventory().refreshItems();
-        boolean cbPot = potion == 9739 || potion == 9741 || potion == 9743 || potion == 9745;
-        Skill sk = Skill.forId(skill);
-        player.getSkillManager().setCurrentLevel(sk, player.getSkillManager().getCurrentLevel(sk) + getBoostedStat(player, skill, super_pot, cbPot), true);
+    /**
+     * Potions
+     */
+
+    public static boolean isPotion(int itemId) {
+        String pot = ItemDefinition.forId(itemId).getName();
+        return pot.contains("(4)") || pot.contains("(3)") || pot.contains("(2)") || pot.contains("(1)");
     }
 
-    public static boolean drinkOverload(final Player player, int slot, int replacePotion) {
-        if (player.getLocation() == Location.WILDERNESS || player.getLocation() == Location.DUEL_ARENA) {
-            player.getPacketSender().sendMessage("You cannot use this potion here.");
-            return false;
-        }
-        if (player.getOverloadPotionTimer() > 0) {
-            player.getPacketSender().sendMessage("You already have the effect of an Overload potion.");
-            return false;
-        }
-        if (player.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) < 500) {
-            player.getPacketSender().sendMessage("You need to have at least 500 Hitpoints to drink this potion.");
-            return false;
-        }
-        player.performAnimation(new Animation(829));
-        player.getInventory().getItems()[slot] = new Item(replacePotion, 1);
-        player.getInventory().refreshItems();
-        player.setOverloadPotionTimer(600);
-        TaskManager.submit(new OverloadPotionTask(player));
-        return true;
+    public static boolean isDecantablePotion(int itemId) {
+        String pot = ItemDefinition.forId(itemId).getName();
+        return pot.contains("(3)") || pot.contains("(2)") || pot.contains("(1)");
     }
 
-    public static int getBoostedStat(Player player, int skillId, boolean sup, boolean combatPotion) {
-        Skill skill = Skill.forId(skillId);
-        int increaseBy = 0;
-        if (sup)
-            increaseBy = (int) ((double) player.getSkillManager().getMaxLevel(skill) * 0.2D);
-        else
-            increaseBy = (int) ((double) player.getSkillManager().getMaxLevel(skill) * (combatPotion ? 0.10D : 0.13D)) + 1;
-        if (player.getSkillManager().getCurrentLevel(skill) + increaseBy > player.getSkillManager().getMaxLevel(skill) + increaseBy + 1) {
-            return player.getSkillManager().getMaxLevel(skill) + increaseBy - player.getSkillManager().getCurrentLevel(skill);
-        }
-        return increaseBy;
-    }
-
-    public static void overloadIncrease(final Player player, Skill skill, double l) {
-        player.getSkillManager().setCurrentLevel(skill, (int) (SkillManager.getLevelForExperience(player.getSkillManager().getExperience(skill)) + (SkillManager.getLevelForExperience(player.getSkillManager().getExperience(skill)) * l)), true);
-    }
-
-    public static int getExtremePotionBoost(Player player, int skill) {
-        int increaseBy = 0;
-        increaseBy = (int) (SkillManager.getLevelForExperience(player.getSkillManager().getExperience(Skill.forId(skill))) * .25) + 1;
-        if (player.getSkillManager().getCurrentLevel(Skill.forId(skill)) + increaseBy > SkillManager.getLevelForExperience(player.getSkillManager().getExperience(Skill.forId(skill))) + increaseBy + 1) {
-            return SkillManager.getLevelForExperience(player.getSkillManager().getExperience(Skill.forId(skill))) + increaseBy
-                    - player.getSkillManager().getCurrentLevel(Skill.forId(skill));
-        }
-        return increaseBy;
-    }
-
-    public static int getBrewStat(final Player player, int skill, double amount) {
-        return (int) (player.getSkillManager().getMaxLevel(Skill.forId(skill)) * amount);
+    public static boolean healingPotion(int itemId) {
+        String pot = ItemDefinition.forId(itemId).getName();
+        pot = pot.toLowerCase();
+        return pot.contains("saradomin brew");
     }
 
     /**
@@ -1524,5 +1457,68 @@ public class Consumables {
             this.heal = heal;
             this.name = (toString().toLowerCase().replaceAll("__", "-").replaceAll("_", " "));
         }
+    }
+
+    public static void drinkStatPotion(final Player player, int potion, int replacePotion, int slot, int skill, boolean super_pot) {
+        if (slot >= 0) {
+            player.performAnimation(new Animation(829));
+            player.getInventory().getItems()[slot] = new Item(replacePotion, 1);
+        }
+        player.getInventory().refreshItems();
+        boolean cbPot = potion == 9739 || potion == 9741 || potion == 9743 || potion == 9745;
+        Skill sk = Skill.forId(skill);
+        player.getSkillManager().setCurrentLevel(sk, player.getSkillManager().getCurrentLevel(sk) + getBoostedStat(player, skill, super_pot, cbPot), true);
+    }
+
+    public static boolean drinkOverload(final Player player, int slot, int replacePotion) {
+        if (player.getLocation() == Location.WILDERNESS || player.getLocation() == Location.DUEL_ARENA) {
+            player.getPacketSender().sendMessage("You cannot use this potion here.");
+            return false;
+        }
+        if (player.getOverloadPotionTimer() > 0) {
+            player.getPacketSender().sendMessage("You already have the effect of an Overload potion.");
+            return false;
+        }
+        if (player.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) < 500) {
+            player.getPacketSender().sendMessage("You need to have at least 500 Hitpoints to drink this potion.");
+            return false;
+        }
+        player.performAnimation(new Animation(829));
+        player.getInventory().getItems()[slot] = new Item(replacePotion, 1);
+        player.getInventory().refreshItems();
+        player.setOverloadPotionTimer(600);
+        TaskManager.submit(new OverloadPotionTask(player));
+        return true;
+    }
+
+    public static int getBoostedStat(Player player, int skillId, boolean sup, boolean combatPotion) {
+        Skill skill = Skill.forId(skillId);
+        int increaseBy = 0;
+        if (sup)
+            increaseBy = (int) ((double) player.getSkillManager().getMaxLevel(skill) * 0.2D);
+        else
+            increaseBy = (int) ((double) player.getSkillManager().getMaxLevel(skill) * (combatPotion ? 0.10D : 0.13D)) + 1;
+        if (player.getSkillManager().getCurrentLevel(skill) + increaseBy > player.getSkillManager().getMaxLevel(skill) + increaseBy + 1) {
+            return player.getSkillManager().getMaxLevel(skill) + increaseBy - player.getSkillManager().getCurrentLevel(skill);
+        }
+        return increaseBy;
+    }
+
+    public static void overloadIncrease(final Player player, Skill skill, double l) {
+        player.getSkillManager().setCurrentLevel(skill, (int) (SkillManager.getLevelForExperience(player.getSkillManager().getExperience(skill)) + (SkillManager.getLevelForExperience(player.getSkillManager().getExperience(skill)) * l)), true);
+    }
+
+    public static int getExtremePotionBoost(Player player, int skill) {
+        int increaseBy = 0;
+        increaseBy = (int) (SkillManager.getLevelForExperience(player.getSkillManager().getExperience(Skill.forId(skill))) * .25) + 1;
+        if (player.getSkillManager().getCurrentLevel(Skill.forId(skill)) + increaseBy > SkillManager.getLevelForExperience(player.getSkillManager().getExperience(Skill.forId(skill))) + increaseBy + 1) {
+            return SkillManager.getLevelForExperience(player.getSkillManager().getExperience(Skill.forId(skill))) + increaseBy
+                    - player.getSkillManager().getCurrentLevel(Skill.forId(skill));
+        }
+        return increaseBy;
+    }
+
+    public static int getBrewStat(final Player player, int skill, double amount) {
+        return (int) (player.getSkillManager().getMaxLevel(Skill.forId(skill)) * amount);
     }
 }

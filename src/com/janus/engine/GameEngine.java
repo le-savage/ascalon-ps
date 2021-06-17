@@ -26,33 +26,6 @@ public final class GameEngine implements Runnable {
 
     //private int engineTick = 0;
 
-    /**
-     * STATIC
-     **/
-
-    public static ScheduledExecutorService createLogicService() {
-        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
-        executor.setRejectedExecutionHandler(new CallerRunsPolicy());
-        executor.setThreadFactory(new ThreadFactoryBuilder().setNameFormat("LogicServiceThread").build());
-        executor.setKeepAliveTime(45, TimeUnit.SECONDS);
-        executor.allowCoreThreadTimeOut(true);
-        return Executors.unconfigurableScheduledExecutorService(executor);
-    }
-
-	/*private EngineState next() {
-		if (engineTick == PROCESS_GAME_TICK) {
-			engineTick = 0;
-			return EngineState.GAME_PROCESSING;
-		}
-		engineTick++;
-		return EngineState.PACKET_PROCESSING;
-	}
-
-	private enum EngineState {
-		PACKET_PROCESSING,
-		GAME_PROCESSING;
-	}*/
-
     @Override
     public void run() {
         try {
@@ -82,11 +55,38 @@ public final class GameEngine implements Runnable {
         }
     }
 
+	/*private EngineState next() {
+		if (engineTick == PROCESS_GAME_TICK) {
+			engineTick = 0;
+			return EngineState.GAME_PROCESSING;
+		}
+		engineTick++;
+		return EngineState.PACKET_PROCESSING;
+	}
+
+	private enum EngineState {
+		PACKET_PROCESSING,
+		GAME_PROCESSING;
+	}*/
+
     public void submit(Runnable t) {
         try {
             logicService.execute(t);
         } catch (Throwable e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * STATIC
+     **/
+
+    public static ScheduledExecutorService createLogicService() {
+        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
+        executor.setRejectedExecutionHandler(new CallerRunsPolicy());
+        executor.setThreadFactory(new ThreadFactoryBuilder().setNameFormat("LogicServiceThread").build());
+        executor.setKeepAliveTime(45, TimeUnit.SECONDS);
+        executor.allowCoreThreadTimeOut(true);
+        return Executors.unconfigurableScheduledExecutorService(executor);
     }
 }

@@ -107,7 +107,7 @@ public class StaffList {
             case DEVELOPER:
                 crown = "<img=4>";
                 break;
-            case GLOBAL_ADMIN:
+            case COMMUNITYMANAGER:
                 crown = "<img=31>";
                 break;
             default:

@@ -15,15 +15,6 @@ public enum MagicSpellbook {
     LUNAR(11800, TeleportType.LUNAR);
 
     /**
-     * The spellbook's interface id
-     */
-    private final int interfaceId;
-    /**
-     * The spellbook's teleport type
-     */
-    private TeleportType teleportType;
-
-    /**
      * The MagicSpellBook constructor.
      *
      * @param interfaceId The spellbook's interface id.
@@ -35,19 +26,14 @@ public enum MagicSpellbook {
     }
 
     /**
-     * Gets the MagicSpellBook for said id.
-     *
-     * @param id The ordinal of the SpellBook to fetch.
-     * @return The MagicSpellBook who's ordinal is equal to id.
+     * The spellbook's interface id
      */
-    public static MagicSpellbook forId(int id) {
-        for (MagicSpellbook book : MagicSpellbook.values()) {
-            if (book.ordinal() == id) {
-                return book;
-            }
-        }
-        return NORMAL;
-    }
+    private final int interfaceId;
+
+    /**
+     * The spellbook's teleport type
+     */
+    private TeleportType teleportType;
 
     /**
      * Gets the interface to switch tab interface to.
@@ -65,5 +51,20 @@ public enum MagicSpellbook {
      */
     public TeleportType getTeleportType() {
         return teleportType;
+    }
+
+    /**
+     * Gets the MagicSpellBook for said id.
+     *
+     * @param id The ordinal of the SpellBook to fetch.
+     * @return The MagicSpellBook who's ordinal is equal to id.
+     */
+    public static MagicSpellbook forId(int id) {
+        for (MagicSpellbook book : MagicSpellbook.values()) {
+            if (book.ordinal() == id) {
+                return book;
+            }
+        }
+        return NORMAL;
     }
 }

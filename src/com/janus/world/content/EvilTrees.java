@@ -22,12 +22,55 @@ import com.janus.world.entity.impl.player.Player;
 public class EvilTrees {
 
 
-    public static final int MAX_CUT_AMOUNT = 500;//Amount of logs the tree will give before
     private static final int TIME = 4000000; //40 minutes? not sure lol
+    public static final int MAX_CUT_AMOUNT = 500;//Amount of logs the tree will give before
     //despawning
+
     public static Stopwatch timer = new Stopwatch().reset();
     public static EvilTree SPAWNED_TREE = null;
     public static LocationData LAST_LOCATION = null;
+
+    /**
+     * Holds the location data in an enum for where the treee's will spawn
+     */
+    public static enum LocationData {
+
+        LOCATION_1(new Position(3052, 3516), "Outside of the monastery", "Monastery"),
+        LOCATION_2(new Position(3093, 3535), "In the wilderness (Level 2)", "Wilderness"),
+        LOCATION_3(new Position(2470, 5166), "Somewhere in the Tzhaar-Dungeon", "TzHaar dungeon"),
+        LOCATION_4(new Position(3321, 3238), "In the Duel Arena", "Duel Arena"),
+        LOCATION_5(new Position(2928, 3453), "In the taverley entrance", "Taverley"),
+        LOCATION_6(new Position(2782, 3483), "East of Camelot castle", "Camelot"),
+        LOCATION_7(new Position(2994, 3376), "In the Falador Garden", "Falador"),
+        LOCATION_8(new Position(3212, 3423), "Varrock square", "Varrock");
+
+        public String playerPanelFrame;
+        private Position spawnPos;
+        private String clue;
+        private LocationData(Position spawnPos, String clue, String playerPanelFrame) {
+            this.spawnPos = spawnPos;
+            this.clue = clue;
+            this.playerPanelFrame = playerPanelFrame;
+        }
+    }
+
+    public static class EvilTree {
+
+        private GameObject treeObject;
+        private LocationData treeLocation;
+        public EvilTree(GameObject treeObject, LocationData treeLocation) {
+            this.treeObject = treeObject;
+            this.treeLocation = treeLocation;
+        }
+
+        public GameObject getTreeObject() {
+            return treeObject;
+        }
+
+        public LocationData getTreeLocation() {
+            return treeLocation;
+        }
+    }
 
     public static LocationData getRandom() {
         LocationData tree = LocationData.values()[Misc.getRandom(LocationData.values().length - 1)];
@@ -89,48 +132,6 @@ public class EvilTrees {
 
     public static LocationData getLocation() {
         return LAST_LOCATION;
-    }
-
-    /**
-     * Holds the location data in an enum for where the treee's will spawn
-     */
-    public static enum LocationData {
-
-        LOCATION_1(new Position(3052, 3516), "Outside of the monastery", "Monastery"),
-        LOCATION_2(new Position(3093, 3535), "In the wilderness (Level 2)", "Wilderness"),
-        LOCATION_3(new Position(2470, 5166), "Somewhere in the Tzhaar-Dungeon", "TzHaar dungeon"),
-        LOCATION_4(new Position(3321, 3238), "In the Duel Arena", "Duel Arena"),
-        LOCATION_5(new Position(2928, 3453), "In the taverley entrance", "Taverley"),
-        LOCATION_6(new Position(2782, 3483), "East of Camelot castle", "Camelot"),
-        LOCATION_7(new Position(2994, 3376), "In the Falador Garden", "Falador"),
-        LOCATION_8(new Position(3212, 3423), "Varrock square", "Varrock");
-
-        public String playerPanelFrame;
-        private Position spawnPos;
-        private String clue;
-        private LocationData(Position spawnPos, String clue, String playerPanelFrame) {
-            this.spawnPos = spawnPos;
-            this.clue = clue;
-            this.playerPanelFrame = playerPanelFrame;
-        }
-    }
-
-    public static class EvilTree {
-
-        private GameObject treeObject;
-        private LocationData treeLocation;
-        public EvilTree(GameObject treeObject, LocationData treeLocation) {
-            this.treeObject = treeObject;
-            this.treeLocation = treeLocation;
-        }
-
-        public GameObject getTreeObject() {
-            return treeObject;
-        }
-
-        public LocationData getTreeLocation() {
-            return treeLocation;
-        }
     }
 }
 

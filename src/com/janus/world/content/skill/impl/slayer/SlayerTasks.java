@@ -94,13 +94,6 @@ public enum SlayerTasks {
     CRAZY_MAN(SlayerMaster.SUMONA, 3, "The crazy man can be found using the Boss teleport", 40000, new Position(1959, 4759), 101, 49),
     TZTOK_JAD(SlayerMaster.SUMONA, 2745, "Jad can be found in the minigames teleport menu!", 20000, new Position(2439, 5168), 40, 49);
 
-    private SlayerMaster taskMaster;
-    private int npcId;
-    private String npcLocation;
-    private int XP;
-    private Position taskPosition;
-    private int minimumToKill;
-    private int additionalRandom;
     private SlayerTasks(SlayerMaster taskMaster, int npcId, String npcLocation, int XP, Position taskPosition, int minimumToKill, int additionalRandom) {
         this.taskMaster = taskMaster;
         this.npcId = npcId;
@@ -109,6 +102,34 @@ public enum SlayerTasks {
         this.taskPosition = taskPosition;
         this.minimumToKill = minimumToKill;
         this.additionalRandom = additionalRandom;
+    }
+
+    private SlayerMaster taskMaster;
+    private int npcId;
+    private String npcLocation;
+    private int XP;
+    private Position taskPosition;
+    private int minimumToKill;
+    private int additionalRandom;
+
+    public SlayerMaster getTaskMaster() {
+        return this.taskMaster;
+    }
+
+    public int getNpcId() {
+        return this.npcId;
+    }
+
+    public String getNpcLocation() {
+        return this.npcLocation;
+    }
+
+    public int getXP() {
+        return this.XP;
+    }
+
+    public Position getTaskPosition() {
+        return this.taskPosition;
     }
 
     public static SlayerTasks forId(int id) {
@@ -160,27 +181,6 @@ public enum SlayerTasks {
         int amountToKill = minimumToKill + Misc.random(additionalRandom);
         return new int[]{slayerTaskId, amountToKill};
     }
-
-    public SlayerMaster getTaskMaster() {
-        return this.taskMaster;
-    }
-
-    public int getNpcId() {
-        return this.npcId;
-    }
-
-    public String getNpcLocation() {
-        return this.npcLocation;
-    }
-
-    public int getXP() {
-        return this.XP;
-    }
-
-    public Position getTaskPosition() {
-        return this.taskPosition;
-    }
-
     @Override
     public String toString() {
         return Misc.ucFirst(name().toLowerCase().replaceAll("_", " ").replaceAll("2", ""));

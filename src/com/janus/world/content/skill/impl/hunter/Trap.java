@@ -8,10 +8,13 @@ import com.janus.world.entity.impl.player.Player;
  */
 public class Trap {
 
+    private Player player;
+
     /**
      * The WorldObject linked to this HunterObject
      */
     private GameObject gameObject;
+
     /**
      * The amount of ticks this object should stay for
      */
@@ -20,7 +23,6 @@ public class Trap {
      * This trap's state
      */
     private TrapState trapState;
-    private Player player;
 
     /**
      * Reconstructs a new Trap
@@ -43,6 +45,20 @@ public class Trap {
     }
 
     /**
+     * @return the ticks
+     */
+    public int getTicks() {
+        return ticks;
+    }
+
+    /**
+     * Gets a trap's state
+     */
+    public TrapState getTrapState() {
+        return trapState;
+    }
+
+    /**
      * Sets the GameObject
      *
      * @param gameObject
@@ -52,24 +68,10 @@ public class Trap {
     }
 
     /**
-     * @return the ticks
-     */
-    public int getTicks() {
-        return ticks;
-    }
-
-    /**
      * @param ticks the ticks to set
      */
     public void setTicks(int ticks) {
         this.ticks = ticks;
-    }
-
-    /**
-     * Gets a trap's state
-     */
-    public TrapState getTrapState() {
-        return trapState;
     }
 
     /**
@@ -81,19 +83,19 @@ public class Trap {
         trapState = state;
     }
 
-    public Player getOwner() {
-        return player;
-    }
-
-    public void setOwner(Player player) {
-        this.player = player;
-    }
-
     /**
      * The possible states a trap can be in
      */
     public static enum TrapState {
 
         SET, CAUGHT;
+    }
+
+    public Player getOwner() {
+        return player;
+    }
+
+    public void setOwner(Player player) {
+        this.player = player;
     }
 }

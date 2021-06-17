@@ -21,6 +21,32 @@ import java.util.Map.Entry;
 public class CombatBuilder {
 
     /**
+     * The entity controlling this builder.
+     */
+    private Character character;
+
+    /**
+     * The entity this controller is currently attacking.
+     */
+    private Character victim;
+
+    /**
+     * The entity that last attacked you.
+     */
+    private Character lastAttacker;
+
+    /**
+     * The task used to handle the combat process.
+     */
+    private CombatHookTask combatTask;
+    private CombatDistanceTask distanceTask;
+
+    /**
+     * A map of all players who have inflicted damage on this controller.
+     */
+    private Map<Player, CombatDamageCache> damageMap = new HashMap<>();
+
+    /**
      * The time that must be waited in order to attack.
      */
     protected int attackTimer;
@@ -28,36 +54,27 @@ public class CombatBuilder {
      * The time that must be waited before the entity can be attacked.
      */
     protected int cooldown;
-    /**
-     * The entity controlling this builder.
-     */
-    private Character character;
-    /**
-     * The entity this controller is currently attacking.
-     */
-    private Character victim;
-    /**
-     * The entity that last attacked you.
-     */
-    private Character lastAttacker;
-    /**
-     * The task used to handle the combat process.
-     */
-    private CombatHookTask combatTask;
-    private CombatDistanceTask distanceTask;
-    /**
-     * A map of all players who have inflicted damage on this controller.
-     */
-    private Map<Player, CombatDamageCache> damageMap = new HashMap<>();
+
     /**
      * The combat strategy this entity is using to attack.
      */
     private CombatStrategy strategy;
+
+    public Map<Player, CombatDamageCache> getDamageMap() {
+        return damageMap;
+    }
+
+    public void setDamageMap(Map<Player, CombatDamageCache> damageMap) {
+        this.damageMap = damageMap;
+    }
+
     /**
      * Did the player's auto retaliate start the combat sequence?
      */
     private boolean retaliated;
+
     private CombatContainer container;
+
     private Stopwatch lastAttack = new Stopwatch();
 
     /**
@@ -67,14 +84,6 @@ public class CombatBuilder {
      */
     public CombatBuilder(Character entity) {
         this.character = entity;
-    }
-
-    public Map<Player, CombatDamageCache> getDamageMap() {
-        return damageMap;
-    }
-
-    public void setDamageMap(Map<Player, CombatDamageCache> damageMap) {
-        this.damageMap = damageMap;
     }
 
     /**
@@ -321,6 +330,10 @@ public class CombatBuilder {
         return cooldown > 0;
     }
 
+    public void setAttackTimer(int attackTimer) {
+        this.attackTimer = attackTimer;
+    }
+
     public CombatBuilder incrementAttackTimer(int amount) {
         this.attackTimer += amount;
         return this;
@@ -328,10 +341,6 @@ public class CombatBuilder {
 
     public int getAttackTimer() {
         return this.attackTimer;
-    }
-
-    public void setAttackTimer(int attackTimer) {
-        this.attackTimer = attackTimer;
     }
 
     /**
@@ -370,6 +379,10 @@ public class CombatBuilder {
         return combatTask;
     }
 
+    public CombatDistanceTask getDistanceTask() {
+        return distanceTask;
+    }
+
     /**
      * Sets the combat task that runs the combat process.
      *
@@ -377,10 +390,6 @@ public class CombatBuilder {
      */
     public void setCombatTask(CombatHookTask combatTask) {
         this.combatTask = combatTask;
-    }
-
-    public CombatDistanceTask getDistanceTask() {
-        return distanceTask;
     }
 
     public void setDistanceTask(CombatDistanceTask distanceTask) {
@@ -400,17 +409,6 @@ public class CombatBuilder {
         return strategy.attack(character, victim);
     }
 
-    public void setContainer(CombatContainer customContainer) {
-        if (customContainer != null && customContainer.getHits() != null && this.container != null) {
-            CombatHit[] totalHits = Misc.concat(this.container.getHits(), customContainer.getHits());
-            this.container = customContainer;
-            if (!(totalHits.length > 4 || totalHits.length < 0)) {
-                this.container.setHits(totalHits);
-            }
-        } else
-            this.container = customContainer;
-    }
-
     public boolean didAutoRetaliate() {
         return retaliated;
     }
@@ -421,6 +419,17 @@ public class CombatBuilder {
 
     public Stopwatch getLastAttack() {
         return lastAttack;
+    }
+
+    public void setContainer(CombatContainer customContainer) {
+        if (customContainer != null && customContainer.getHits() != null && this.container != null) {
+            CombatHit[] totalHits = Misc.concat(this.container.getHits(), customContainer.getHits());
+            this.container = customContainer;
+            if (!(totalHits.length > 4 || totalHits.length < 0)) {
+                this.container.setHits(totalHits);
+            }
+        } else
+            this.container = customContainer;
     }
 
     /**
@@ -439,13 +448,14 @@ public class CombatBuilder {
     public static class CombatDamageCache {
 
         /**
-         * The stopwatch to time how long the damage is cached.
-         */
-        private final Stopwatch stopwatch;
-        /**
          * The amount of cached damage.
          */
         private int damage;
+
+        /**
+         * The stopwatch to time how long the damage is cached.
+         */
+        private final Stopwatch stopwatch;
 
         /**
          * Create a new {@link CombatDamageCache}.

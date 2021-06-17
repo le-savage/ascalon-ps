@@ -28,16 +28,6 @@ public class ConstructionActions {
      * LARDER: 702 (4) 703 (4) 704 (2)
      */
 
-    private static final int[][] BARRELS = {{13568, 7740}, {13569, 7752}, {13570, 7744}, {13571, 7746}, {13572, 7748}, {13573, 7754}};
-    private static final Object[][] SHELVES = {
-            {Furniture.WOODEN_SHELVES_1.getFurnitureId(), 705, new String[]{"Kettle", "Teapot", "Cup"}},
-            {Furniture.WOODEN_SHELVES_2.getFurnitureId(), 706, new String[]{"Kettle", "Teapot", "Cup", "Beer glass"}},
-            {Furniture.WOODEN_SHELVES_3.getFurnitureId(), 707, new String[]{"Kettle", "Teapot", "Porcelain cup", "Beer glass", "Cake tin"}},
-            {Furniture.OAK_SHELVES_1.getFurnitureId(), 708, new String[]{"Kettle", "Teapot", "Cup", "Beer glass", "Bowl"}},
-            {Furniture.OAK_SHELVES_2.getFurnitureId(), 709, new String[]{"Kettle", "Teapot", "Porcelain cup", "Beer glass", "More..."}, new String[]{"Bowl", "Cake tin"}},
-            {Furniture.TEAK_SHELVES_1.getFurnitureId(), 710, new String[]{"Kettle", "Teapot", "Porcelain cup", "Beer glass", "More..."}, new String[]{"Bowl", "Pie dish", "Pot", "Chef's hat"}},
-            {Furniture.TEAK_SHELVES_2.getFurnitureId(), 711, new String[]{"Kettle", "Teapot", "Porcelain cup", "Beer glass", "More..."}, new String[]{"Bowl", "Pie dish", "Pot", "Chef's hat"}}};
-
     public static boolean handleFirstObjectClick(Player p, int objectId) {
 
         if (handleLarder(p, objectId))
@@ -395,5 +385,15 @@ public class ConstructionActions {
 
         return true;
     }
+
+    private static final int[][] BARRELS = {{13568, 7740}, {13569, 7752}, {13570, 7744}, {13571, 7746}, {13572, 7748}, {13573, 7754}};
+    private static final Object[][] SHELVES = {
+            {Furniture.WOODEN_SHELVES_1.getFurnitureId(), 705, new String[]{"Kettle", "Teapot", "Cup"}},
+            {Furniture.WOODEN_SHELVES_2.getFurnitureId(), 706, new String[]{"Kettle", "Teapot", "Cup", "Beer glass"}},
+            {Furniture.WOODEN_SHELVES_3.getFurnitureId(), 707, new String[]{"Kettle", "Teapot", "Porcelain cup", "Beer glass", "Cake tin"}},
+            {Furniture.OAK_SHELVES_1.getFurnitureId(), 708, new String[]{"Kettle", "Teapot", "Cup", "Beer glass", "Bowl"}},
+            {Furniture.OAK_SHELVES_2.getFurnitureId(), 709, new String[]{"Kettle", "Teapot", "Porcelain cup", "Beer glass", "More..."}, new String[]{"Bowl", "Cake tin"}},
+            {Furniture.TEAK_SHELVES_1.getFurnitureId(), 710, new String[]{"Kettle", "Teapot", "Porcelain cup", "Beer glass", "More..."}, new String[]{"Bowl", "Pie dish", "Pot", "Chef's hat"}},
+            {Furniture.TEAK_SHELVES_2.getFurnitureId(), 711, new String[]{"Kettle", "Teapot", "Porcelain cup", "Beer glass", "More..."}, new String[]{"Bowl", "Pie dish", "Pot", "Chef's hat"}}};
 
 }

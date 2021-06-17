@@ -15,6 +15,29 @@ public class Scoreboards {
     public static Scoreboard TOP_ACHIEVER;
     public static Scoreboard TOP_TOTAL_EXP;
 
+    public static abstract class Scoreboard {
+
+        private String title;
+
+        public Scoreboard(String title, String file) {
+            this.title = title;
+            //this.file = file;
+        }
+
+        public abstract void resort(ArrayList<ScoreboardEntry> entries);
+        //private String file;
+    }
+
+    public static class ScoreboardEntry {
+
+        private String player;
+        private String[] value;
+        public ScoreboardEntry(String player, String[] value) {
+            this.player = player;
+            this.value = value;
+        }
+    }
+
     public static void init() {
         TOP_PKERS = new Scoreboard("Janus's Top Pkers", "top-pkers.txt") {
             @Override
@@ -132,28 +155,5 @@ public class Scoreboards {
                 }
             }
         });
-    }
-
-    public static abstract class Scoreboard {
-
-        private String title;
-
-        public Scoreboard(String title, String file) {
-            this.title = title;
-            //this.file = file;
-        }
-
-        public abstract void resort(ArrayList<ScoreboardEntry> entries);
-        //private String file;
-    }
-
-    public static class ScoreboardEntry {
-
-        private String player;
-        private String[] value;
-        public ScoreboardEntry(String player, String[] value) {
-            this.player = player;
-            this.value = value;
-        }
     }
 }

@@ -6,10 +6,12 @@ import com.janus.world.entity.impl.player.Player;
 
 public class KALPH {
 
-    public static final int[] KALPH = {7158, 11993};
     public static int config;
     public static int item;
     public static int index = 0;
+
+    public static final int[] KALPH = {7158, 11993};
+
 
     /*
      * Get rare drop(s) for that boss location

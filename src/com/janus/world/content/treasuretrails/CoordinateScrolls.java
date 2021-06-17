@@ -235,6 +235,17 @@ public class CoordinateScrolls {
                 "east", 2),
         // COORDINATE_64(2803, 0, 0, 7, 13, "north", "west", 3),
         ;
+        private int clueId;
+        private int degree1;
+        private int minutes1;
+        private int degree2;
+        private int minutes2;
+        private String hint1;
+        private String hint2;
+        private int level;
+
+        private Position diggingPosition;
+
         private static Map<Integer, CoordinateData> clues = new HashMap<Integer, CoordinateData>();
         private static Map<Position, CoordinateData> positions = new HashMap<Position, CoordinateData>();
 
@@ -249,28 +260,6 @@ public class CoordinateScrolls {
             }
         }
 
-        private int clueId;
-        private int degree1;
-        private int minutes1;
-        private int degree2;
-        private int minutes2;
-        private String hint1;
-        private String hint2;
-        private int level;
-        private Position diggingPosition;
-
-        CoordinateData(int clueId, int degree1, int minutes1, int degree2,
-                       int minutes2, String hint1, String hint2, int level) {
-            this.clueId = clueId;
-            this.degree1 = degree1;
-            this.minutes1 = minutes1;
-            this.degree2 = degree2;
-            this.minutes2 = minutes2;
-            this.hint1 = hint1;
-            this.hint2 = hint2;
-            this.level = level;
-        }
-
         public static CoordinateData forIdPosition(Position position) {
             for (int i = 0; i < CoordinateData.values().length; i++) {
                 if (CoordinateData.values()[i].getDiggingPosition().equals(
@@ -283,6 +272,18 @@ public class CoordinateScrolls {
 
         public static CoordinateData forIdClue(int clueId) {
             return clues.get(clueId);
+        }
+
+        CoordinateData(int clueId, int degree1, int minutes1, int degree2,
+                       int minutes2, String hint1, String hint2, int level) {
+            this.clueId = clueId;
+            this.degree1 = degree1;
+            this.minutes1 = minutes1;
+            this.degree2 = degree2;
+            this.minutes2 = minutes2;
+            this.hint1 = hint1;
+            this.hint2 = hint2;
+            this.level = level;
         }
 
         public int getClueId() {

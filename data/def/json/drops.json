@@ -332,231 +332,231 @@
   ],
   "drops": [
 	{
-      "id": 20086,
+      "id": 20086, //pet snakeling (g)
       "count": [
         1
       ],
       "chance": 10
     },
 	{
-      "id": 14916,
+      "id": 14916, //pet snakeling (b)
       "count": [
         1
       ],
       "chance": 10
     },
 	{
-      "id": 14914,
+      "id": 14914, //pet snakeling (r)
       "count": [
         1
       ],
       "chance": 10
     },
 	{
-      "id": 20999,
+      "id": 20999, //tanzanite mutagen
       "count": [
         1
       ],
       "chance": 9
     },
 	{
-      "id": 21000,
+      "id": 21000, //magma mutagen
       "count": [
         1
       ],
       "chance": 9
     },
 	{
-      "id": 12926,
+      "id": 12926, //toxic blowpipe
       "count": [
         1
       ],
       "chance": 8
     },
 	{
-      "id": 12282,
+      "id": 12282, //serpentine helmet
       "count": [
         1
       ],
       "chance": 8
     },
 	{
-      "id": 6571,
+      "id": 6571, //uncut onyx
       "count": [
         1
       ],
       "chance": 7
     },
 	{
-      "id": 1149,
+      "id": 1149, //dragon med helm
       "count": [
         1
       ],
       "chance": 4
     },
     {
-      "id": 3204,
+      "id": 3204, //dragon halberd
       "count": [
         1
       ],
       "chance": 4
     },
 	{
-      "id": 3052,
+      "id": 3052, //grimy snapdragon (noted)
       "count": [
         10
       ],
       "chance": 4
     },
 	{
-      "id": 218,
+      "id": 218, //grimy dwarf weed (noted)
       "count": [
         30
       ],
       "chance": 4
     },
 	{
-      "id": 3050,
+      "id": 3050, //grimy toadflax (noted)
       "count": [
         25
       ],
       "chance": 4
     },
 	{
-      "id": 220,
+      "id": 220, //grimy torstol (noted)
       "count": [
         10
       ],
       "chance": 4
     },
 	{
-      "id": 2362,
+      "id": 2362, //adamanite bar (noted)
       "count": [
         20
       ],
       "chance": 3
     },
 	{
-      "id": 454,
+      "id": 454, //coal (noted)
       "count": [
         300
       ],
       "chance": 3
     },
 	{
-      "id": 537,
+      "id": 537, //dragon bones (noted)
       "count": [
         30
       ],
       "chance": 3
     },
 	{
-      "id": 1514,
+      "id": 1514, //magic logs (noted)
       "count": [
         50
       ],
       "chance": 3
     },
 	{
-      "id": 9193,
+      "id": 9193, //dragonstone bolt tips
       "count": [
         12
       ],
       "chance": 3
     },
 	{
-      "id": 1988,
+      "id": 1988, //grapes (noted)
       "count": [
         250
       ],
       "chance": 3
     },
 	{
-      "id": 5975,
+      "id": 5975, //coconut (noted)
       "count": [
         20
       ],
       "chance": 3
     },
 	{
-      "id": 1939,
+      "id": 1939, //swamp tar
       "count": [
         1000
       ],
       "chance": 3
     },
 	{
-      "id": 1392,
+      "id": 1392, //battlestaff (noted)
       "count": [
         10
       ],
       "chance": 3
     },
 	{
-      "id": 560,
+      "id": 560, //death rune
       "count": [
         300
       ],
       "chance": 3
     },
 	{
-      "id": 563,
+      "id": 563, //law rune
       "count": [
         200
       ],
       "chance": 3
     },
 	{
-      "id": 562,
+      "id": 562, //chaos rune
       "count": [
         500
       ],
       "chance": 3
     },
 	{
-      "id": 452,
+      "id": 452, //runite ore (noted)
       "count": [
         25
       ],
       "chance": 3
     },
 	{
-      "id": 7937,
+      "id": 7937, //pure essence (noted)
       "count": [
         1500
       ],
       "chance": 3
     },
 	{
-      "id": 1780,
+      "id": 1780, //flax (noted)
       "count": [
         1000
       ],
       "chance": 3
     },
 	{
-      "id": 1516,
+      "id": 1516, //yew logs (noted)
       "count": [
         35
       ],
       "chance": 3
     },
 	{
-      "id": 989,
+      "id": 989, //crystal key
       "count": [
         1
       ],
       "chance": 3
     },
 	{
-      "id": 392,
+      "id": 392, //manta ray (noted)
       "count": [
         35
       ],
       "chance": 2
     },
 	{
-      "id": 6290,
+      "id": 6290, //snakeskin (noted)
       "count": [
         35
       ],
@@ -1608,7 +1608,7 @@
       "chance": 0
     },
 	{
-
+     
       "id": 17926,
       "count": [
         50
@@ -5502,7 +5502,7 @@
       ],
       "chance": 4
     },
-
+    
     {
       "id": 18778,
       "count": [
@@ -7058,7 +7058,7 @@
       ],
       "chance": 7
     },
-
+   
     {
       "id": 6585,
       "count": [
@@ -7066,7 +7066,7 @@
       ],
       "chance": 6
     },
-
+    
     {
       "id": 13661,
       "count": [
@@ -7102,7 +7102,7 @@
       ],
       "chance": 0
     },
-
+   
     {
       "id": 995,
       "count": [
@@ -7124,7 +7124,7 @@
       ],
       "chance": 5
     },
-
+	
 	 {
       "id": 537,
       "count": [
@@ -7132,7 +7132,7 @@
       ],
       "chance": 5
     },
-
+	
     {
       "id": 1516,
       "count": [
@@ -7468,7 +7468,7 @@
       ],
       "chance": 4
     },
-
+    
     {
       "id": 1631,
       "count": [
@@ -7483,7 +7483,7 @@
       ],
       "chance": 4
     },
-
+   
     {
       "id": 1319,
       "count": [
@@ -7632,189 +7632,189 @@
   ],
   "drops": [
     {
-      "id": 6571,
+      "id": 6571, //uncut onyx
       "count": [
         1
       ],
       "chance": 10
     },
 	{
-      "id": 12284,
+      "id": 12284, //toxic staff of the dead
       "count": [
         1
       ],
       "chance": 10
     },
 	{
-      "id": 1632,
+      "id": 1632, //uncut dragonstone
       "count": [
         10
       ],
       "chance": 5
     },
 	{
-      "id": 2366,
+      "id": 2366, //shield left half
       "count": [
         1
       ],
       "chance": 5
     },
 	{
-      "id": 2368,
+      "id": 2368, //shield right half
       "count": [
         1
       ],
       "chance": 5
     },
 	{
-      "id": 18778,
+      "id": 18778, //starved ancient effigy
       "count": [
         1
       ],
       "chance": 4
     },
 	{
-      "id": 1128,
+      "id": 1128, //rune platebody
       "count": [
         3
       ],
       "chance": 3
     },
 	{
-      "id": 1080,
+      "id": 1080, //rune platelegs
       "count": [
         3
       ],
       "chance": 3
     },
 	{
-      "id": 1094,
+      "id": 1094, //rune plateskirt
       "count": [
         3
       ],
       "chance": 3
     },
 	{
-      "id": 560,
+      "id": 560, //death rune
       "count": [
         500
       ],
       "chance": 3
     },
 	{
-      "id": 566,
+      "id": 566, //soul rune
       "count": [
         450
       ],
       "chance": 3
     },
 	{
-      "id": 565,
+      "id": 565, //blood rune
       "count": [
         450
       ],
       "chance": 3
     },
 	{
-      "id": 3052,
+      "id": 3052, //grimy snapdragon
       "count": [
         20
       ],
       "chance": 3
     },
 	{
-      "id": 220,
+      "id": 220, //grimy torstol
       "count": [
         20
       ],
       "chance": 3
     },
 	{
-      "id": 1392,
+      "id": 1392, //battlestaff
       "count": [
         25
       ],
       "chance": 3
     },
 	{
-      "id": 9194,
+      "id": 9194, //onyx bolt tips
       "count": [
         40
       ],
       "chance": 3
     },
 	{
-      "id": 450,
+      "id": 450, //adamant ore
       "count": [
         75
       ],
       "chance": 3
     },
 	{
-      "id": 2364,
+      "id": 2364, //runite bar
       "count": [
         20
       ],
       "chance": 3
     },
 	{
-      "id": 15271,
+      "id": 15271, //raw rocktail
       "count": [
         60
       ],
       "chance": 3
     },
 	{
-      "id": 8783,
+      "id": 8783, //mahogany plank
       "count": [
         150
       ],
       "chance": 3
     },
 	{
-      "id": 2677,
+      "id": 2677, //clue scroll
       "count": [
         1
       ],
       "chance": 3
     },
 	{
-      "id": 995,
+      "id": 995, //coins
       "count": [
         75000
       ],
       "chance": 2
     },
 	{
-      "id": 12158,
+      "id": 12158, //gold charm
       "count": [
         2
       ],
       "chance": 2
     },
 	{
-      "id": 12159,
+      "id": 12159, //green charm
       "count": [
         2
       ],
       "chance": 2
     },
 	{
-      "id": 12163,
+      "id": 12163, //blue charm
       "count": [
         2
       ],
       "chance": 2
     },
 	{
-      "id": 12160,
+      "id": 12160, //crimson charm
       "count": [
         2
       ],
       "chance": 2
     },
 	{
-      "id": 592,
+      "id": 592, //ashes
       "count": [
         1
       ],
@@ -7870,7 +7870,7 @@
       "chance": 7
     },
 	{
-
+    
       "id": 14484,
       "count": [
         1
@@ -7884,7 +7884,7 @@
       ],
       "chance": 10
     },
-
+   
      {
       "id": 2581,
       "count": [
@@ -7899,7 +7899,7 @@
       ],
       "chance":5
     },
-
+     
     {
       "id": 14472,
       "count": [
@@ -8391,299 +8391,299 @@
   ]
 },
 {
-  "npcIds": [
-    50
+  "npcIds": [ 
+    50 //king black dragon
   ],
   "drops": [
 	{
-      "id": 11996,
+      "id": 11996, //king black dragon pet
       "count": [
         1
       ],
       "chance": 10
     },
 	{
-      "id": 20555,
+      "id": 20555, //dragon warhammer
       "count": [
         1
       ],
       "chance": 9
     },
 	{
-      "id": 4453,
+      "id": 4453, //dragon hunter crossbow
       "count": [
         1
       ],
       "chance": 9
     },
 	{
-      "id": 21051,
+      "id": 21051, //dragon hunter lance
       "count": [
         1
       ],
       "chance": 9
     },
 	{
-      "id": 6829,
+      "id": 6829, //donation box
       "count": [
         1
       ],
       "chance": 8
     },
 	{
-      "id": 11286,
+      "id": 11286, //draconic visage
       "count": [
         1
       ],
       "chance": 7
     },
 	{
-      "id": 6585,
+      "id": 6585, //amulet of fury
       "count": [
         1
       ],
       "chance": 6
     },
 	{
-      "id": 11732,
+      "id": 11732, //dragon boots
       "count": [
         1
       ],
       "chance": 6
     },
 	{
-      "id": 18778,
+      "id": 18778, //starved ancient effigy
       "count": [
         1
       ],
       "chance": 4
     },
 	{
-      "id": 1149,
+      "id": 1149, //dragon med helm
       "count": [
         1
       ],
       "chance": 4
     },
 	{
-      "id": 17926,
+      "id": 17926, //dragon bolts (unf)
       "count": [
         50
       ],
       "chance": 4
     },
 	{
-      "id": 1201,
+      "id": 1201, //rune kiteshield
       "count": [
         1
       ],
       "chance": 4
     },
 	{
-      "id": 1199,
+      "id": 1199, //adamant kiteshield
       "count": [
         1
       ],
       "chance": 4
     },
 	{
-      "id": 565,
+      "id": 565, //blood rune
       "count": [
         100
       ],
       "chance": 4
     },
 	{
-      "id": 2364,
+      "id": 2364, //runite bar (noted)
       "count": [
         5
       ],
       "chance": 4
     },
 	{
-      "id": 445,
+      "id": 445, //gold ore (noted)
       "count": [
         100
       ],
       "chance": 4
     },
 	{
-      "id": 9431,
+      "id": 9431, //runite limbs
       "count": [
         1
       ],
       "chance": 4
     },
 	{
-      "id": 7980,
+      "id": 7980, //kbd heads
       "count": [
         1
       ],
       "chance": 4
     },
 	{
-      "id": 385,
+      "id": 385, //shark
       "count": [
         4
       ],
       "chance": 3
     },
 	{
-      "id": 2362,
+      "id": 2362, //adamant bar (noted)
       "count": [
         5
       ],
       "chance": 3
     },
 	{
-      "id": 2677,
+      "id": 2677, //clue scroll
       "count": [
         1
       ],
       "chance": 3
     },
 	{
-      "id": 1303,
+      "id": 1303, //rune longsword
       "count": [
         1
       ],
       "chance": 3
     },
 	{
-      "id": 1123,
+      "id": 1123, //adamant platebody
       "count": [
         1
       ],
       "chance": 3
     },
 	{
-      "id": 556,
+      "id": 556, //air rune
       "count": [
         300
       ],
       "chance": 3
     },
 	{
-      "id": 884,
+      "id": 884, //iron arrow
       "count": [
         690
       ],
       "chance": 3
     },
 	{
-      "id": 9144,
+      "id": 9144, //runite bolts
       "count": [
         15
       ],
       "chance": 3
     },
 	{
-      "id": 554,
+      "id": 554, //fire rune
       "count": [
         300
       ],
       "chance": 3
     },
 	{
-      "id": 563,
+      "id": 563, //law rune
       "count": [
         30
       ],
       "chance": 3
     },
 	{
-      "id": 1516,
+      "id": 1516, //yew logs (noted)
       "count": [
         150
       ],
       "chance": 3
     },
 	{
-      "id": 1731,
+      "id": 1731, //amulet of power
       "count": [
         1
       ],
       "chance": 3
     },
 	{
-      "id": 985,
+      "id": 985, //tooth half of a key
       "count": [
         1
       ],
       "chance": 3
     },
     {
-      "id": 987,
+      "id": 987, //loop half of a key
       "count": [
         1
       ],
       "chance": 3
     },
 	{
-      "id": 995,
+      "id": 995, //coins
       "count": [
         120000
       ],
       "chance": 2
     },
 	{
-      "id": 2366,
+      "id": 2366, //shield left half
       "count": [
         1
       ],
       "chance": 2
     },
     {
-      "id": 2368,
+      "id": 2368, //shield right half
       "count": [
         1
       ],
       "chance": 2
     },
 	{
-      "id": 12158,
+      "id": 12158, //gold charm
       "count": [
         5
       ],
       "chance": 2
     },
 	{
-      "id": 12159,
+      "id": 12159, //green charm
       "count": [
         5
       ],
       "chance": 2
     },
     {
-      "id": 12160,
+      "id": 12160, //crimson charm
       "count": [
         5
       ],
       "chance": 2
     },
     {
-      "id": 12163,
+      "id": 12163, //blue charm
       "count": [
         5
       ],
       "chance": 2
     },
 	{
-      "id": 995,
+      "id": 995, //coins
       "count": [
         60000
       ],
       "chance": 1
     },
 	{
-      "id": 536,
+      "id": 536, //dragon bones
       "count": [
         1
       ],
       "chance": 0
     },
     {
-      "id": 1747,
+      "id": 1747, //black dragonhide
       "count": [
         1
       ],
@@ -8731,7 +8731,7 @@
       ],
       "chance": 6
     },
-
+    
     {
       "id": 11732,
       "count": [
@@ -8739,7 +8739,7 @@
       ],
       "chance": 6
     },
-
+     
 
     {
       "id": 995,
@@ -9097,7 +9097,7 @@
       ],
       "chance": 4
     },
-
+   
     {
       "id": 1631,
       "count": [
@@ -9119,7 +9119,7 @@
       ],
       "chance": 4
     },
-
+   
     {
       "id": 1319,
       "count": [
@@ -9802,34 +9802,6 @@
     3200
   ],
   "drops": [
-    {
-      "id": 21054,
-      "count": [
-        1
-      ],
-      "chance": 10
-    },
-    {
-      "id": 21058,
-      "count": [
-        1
-      ],
-      "chance": 10
-    },
-    {
-      "id": 21059,
-      "count": [
-        1
-      ],
-      "chance": 10
-    },
-    {
-      "id": 21060,
-      "count": [
-        1
-      ],
-      "chance": 10
-    },
   {
       "id": 6829,
       "count": [
@@ -9851,6 +9823,7 @@
       ],
       "chance": 1
     },
+     
      {
       "id": 7158,
       "count": [
@@ -9865,6 +9838,8 @@
       ],
       "chance": 6
     },
+  
+    
     {
       "id": 556,
       "count": [
@@ -14693,7 +14668,7 @@
       ],
          "chance": 10
     },
-
+    
     {
       "id": 4087,
       "count": [
@@ -14715,7 +14690,7 @@
       ],
          "chance": 5
     },
-
+   
     {
       "id": 12158,
       "count": [
@@ -16460,7 +16435,7 @@
          "chance": 7
     },
 	{
-
+     
       "id": 17926,
       "count": [
         50
@@ -18400,7 +18375,7 @@
          "chance": 10
     },
    {
-
+     
       "id": 17926,
       "count": [
         50
@@ -33843,7 +33818,7 @@
       ],
       "chance": 1
     },
-
+   
     {
       "id": 592,
       "count": [
@@ -33851,7 +33826,7 @@
       ],
       "chance": 0
     },
-
+	
     {
       "id": 1311,
       "count": [
@@ -44307,7 +44282,7 @@
       ],
       "chance": 6
     },
-
+   
     {
       "id": 565,
       "count": [
@@ -44470,7 +44445,7 @@
       "chance": 0
     },
     {
-
+     
       "id": 17926,
       "count": [
         50
@@ -44883,7 +44858,7 @@
       ],
       "chance": 6
     },
-
+   
     {
       "id": 565,
       "count": [
@@ -48297,7 +48272,7 @@
   ],
   "drops": [
   {
-
+     
       "id": 4453,
       "count": [
         1
@@ -48305,7 +48280,7 @@
       "chance": 9
     },
 	{
-
+     
       "id": 17926,
       "count": [
         50
@@ -48313,7 +48288,7 @@
       "chance": 4
     },
   {
-
+     
       "id": 1543,
       "count": [
         1
@@ -48321,7 +48296,7 @@
       "chance": 7
     },
     {
-
+     
       "id": 18830,
       "count": [
         1
@@ -54355,7 +54330,7 @@
       ],
       "chance": 7
     },
-
+	
 		{
       "id": 592,
       "count": [
@@ -54454,7 +54429,7 @@
       ],
       "chance": 7
     },
-
+	
 		{
       "id": 592,
       "count": [
@@ -54553,7 +54528,7 @@
       ],
       "chance": 7
     },
-
+	
 		{
       "id": 592,
       "count": [
@@ -54652,7 +54627,7 @@
       ],
       "chance": 7
     },
-
+	
     {
       "id": 13849,
       "count": [
@@ -61667,7 +61642,7 @@
       ],
       "chance": 6
     },
-
+	
 		{
       "id": 592,
       "count": [
@@ -61766,7 +61741,7 @@
       ],
       "chance": 6
     },
-
+	
 		{
       "id": 592,
       "count": [
@@ -61865,7 +61840,7 @@
       ],
       "chance": 6
     },
-
+	
     {
       "id": 13849,
       "count": [
@@ -67662,7 +67637,7 @@
       ],
       "chance": 6
     },
-
+	
 		{
       "id": 592,
       "count": [
@@ -67761,8 +67736,8 @@
       ],
       "chance": 6
     },
-
-
+	
+	
     {
       "id": 13849,
       "count": [
@@ -73132,7 +73107,7 @@
       ],
       "chance": 7
     },
-
+	
     {
       "id": 13849,
       "count": [
@@ -76612,7 +76587,7 @@
       ],
       "chance": 4
     },
-
+   
     {
       "id": 200,
       "count": [
@@ -77404,27 +77379,6 @@
     5886
   ],
   "drops": [
-    {
-      "id": 18888,
-      "count": [
-        1
-      ],
-      "chance": 10
-    },
-    {
-      "id": 18889,
-      "count": [
-        1
-      ],
-      "chance": 10
-    },
-    {
-      "id": 18890,
-      "count": [
-        1
-      ],
-      "chance": 10
-    },
     {
       "id": 15444,
       "count": [
@@ -78391,7 +78345,7 @@
       ],
       "chance": 6
     },
-
+    
     {
       "id": 11730,
       "count": [
@@ -78406,7 +78360,7 @@
       ],
       "chance": 7
     },
-
+     
      {
       "id": 537,
       "count": [
@@ -78736,8 +78690,8 @@
       ],
       "chance": 7
     },
-
-
+  
+      
     {
       "id": 11732,
       "count": [
@@ -78745,8 +78699,8 @@
       ],
       "chance": 6
     },
-
-
+    
+    
     {
       "id": 995,
       "count": [
@@ -79124,8 +79078,8 @@
       ],
       "chance": 4
     },
-
-
+   
+    
     {
       "id": 1319,
       "count": [
@@ -79273,7 +79227,7 @@
     1382
   ],
   "drops": [
-
+  
   {
       "id": 12158,
       "count": [

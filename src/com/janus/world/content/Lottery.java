@@ -45,56 +45,6 @@ import java.util.List;
  * Handles the lottery for a player on login
  * Checks if a user won the lottery without being rewarded.
  * @param p        The player to handle login for.
- * <p>
- * The list holding all users who have entered the lottery.
- * <p>
- * Gets a random winner for the lottery.
- * @return A random user who has won the lottery.
- * <p>
- * Handles a player who wishes to enter the lottery.
- * @param p            The player who wants to enter the lottery.
- * <p>
- * Adds a user to the lottery by writing their username to the file aswell as adding them to the list of users
- * who have entered already.
- * @param user        The username to add to the lists.
- * <p>
- * Reads the lottery list and adds every user from the .txt files to the lists.
- * <p>
- * Restarts the lottery and rewards this week's winner.
- * <p>
- * Rewards a player with items for winning the lottery.
- * @param player            The player to reward
- * @param ignore            Should a check be ignored?
- * @throws IOException        Throws exceptions
- * <p>
- * Handles the lottery for a player on login
- * Checks if a user won the lottery without being rewarded.
- * @param p        The player to handle login for.
- * <p>
- * The list holding all users who have entered the lottery.
- * <p>
- * Gets a random winner for the lottery.
- * @return A random user who has won the lottery.
- * <p>
- * Handles a player who wishes to enter the lottery.
- * @param p            The player who wants to enter the lottery.
- * <p>
- * Adds a user to the lottery by writing their username to the file aswell as adding them to the list of users
- * who have entered already.
- * @param user        The username to add to the lists.
- * <p>
- * Reads the lottery list and adds every user from the .txt files to the lists.
- * <p>
- * Restarts the lottery and rewards this week's winner.
- * <p>
- * Rewards a player with items for winning the lottery.
- * @param player            The player to reward
- * @param ignore            Should a check be ignored?
- * @throws IOException        Throws exceptions
- * <p>
- * Handles the lottery for a player on login
- * Checks if a user won the lottery without being rewarded.
- * @param p        The player to handle login for.
  *//*
 
 public class Lottery {

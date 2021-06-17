@@ -94,15 +94,16 @@ public class ItemDegrading {
 		BRAWLING_GLOVES_FIREMAKING(13851, 13851, Equipment.HANDS_SLOT, 600),
 		BRAWLING_GLOVES_WOODCUTTING(13850, 13850, Equipment.HANDS_SLOT, 600);*/
 
-        private int nonDeg, deg;
-        private int equipSlot;
-        private int degradingCharges;
         DegradingItem(int nonDeg, int deg, int equipSlot, int degradingCharges) {
             this.nonDeg = nonDeg;
             this.deg = deg;
             this.equipSlot = equipSlot;
             this.degradingCharges = degradingCharges;
         }
+
+        private int nonDeg, deg;
+        private int equipSlot;
+        private int degradingCharges;
 
         public static DegradingItem forNonDeg(int item) {
             for (DegradingItem d : DegradingItem.values()) {

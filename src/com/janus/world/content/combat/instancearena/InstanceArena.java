@@ -4,8 +4,6 @@ import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.*;
 import com.janus.world.World;
-import com.janus.world.content.combat.prayer.CurseHandler;
-import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -13,6 +11,8 @@ import com.janus.world.entity.impl.player.Player;
 public class InstanceArena {
 
 
+    private static int barrierID = 38144;
+    private static int npcListInterface = 6028;
     public static final Position CENTER = new Position(2717, 5314);
     public static final int centerX = 2717;
     public static final int centerY = 5314;
@@ -20,48 +20,10 @@ public class InstanceArena {
     public static final int fightX = 2717;
     public static final int fightY = 5322;
     public static final Position ENTRANCE = new Position(2717, 5324);
+
     public static final int crabX = 2711;
     public static final int crabY = 5317;
-    private static final int barrierID = 38144;
-    private static final int npcListInterface = 6028;
 
-    /** Int's used in NPCDeathTask to stop AFKing **/
-
-    public static int getMaxKC(Player player) {
-        int maxKC = 0;
-
-        if (player.getRights().equals(PlayerRights.DONATOR))
-            maxKC = 10;
-        else if (player.getRights().equals(PlayerRights.SUPER_DONATOR))
-            maxKC = 20;
-        else if (player.getRights().equals(PlayerRights.EXTREME_DONATOR))
-            maxKC = 30;
-        else if (player.getRights().equals(PlayerRights.LEGENDARY_DONATOR))
-            maxKC = 40;
-        else if (player.getRights().equals(PlayerRights.UBER_DONATOR) || (player.getRights().isStaff()))
-            maxKC = 50;
-
-        return maxKC;
-    }
-
-    public static int getMaxKcForRank(int rightID) {
-        int maxKC = 0;
-
-        if (rightID == 4)
-            maxKC = 10;
-        else if (rightID == 5)
-            maxKC = 20;
-        else if (rightID == 6)
-            maxKC = 30;
-        else if (rightID == 7)
-            maxKC = 40;
-        else if (rightID >= 8)
-            maxKC = 50;
-
-        return maxKC;
-    }
-
-    /** Start Method to handle clicking barrier **/
 
     public static void handleInstance(Player player, GameObject object) {
         if (object.getId() == barrierID) {
@@ -76,8 +38,6 @@ public class InstanceArena {
             }
         }
     }
-
-    /** Healing / Stat Restore methods **/
 
     public static void restoreHP(Player player) {
         if (player.getRights().isMember() || player.getRights().isStaff()) {
@@ -120,7 +80,6 @@ public class InstanceArena {
         restoreStats(player);
     }
 
-    /** Spawning NPC's **/
 
     public static void spawnMan(final Player player) {
 
@@ -134,7 +93,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -160,7 +119,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -186,7 +145,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -212,7 +171,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -238,7 +197,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -264,7 +223,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -290,7 +249,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -316,7 +275,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -342,7 +301,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -368,7 +327,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -394,7 +353,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -420,7 +379,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -446,7 +405,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -472,7 +431,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -498,7 +457,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -524,7 +483,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -550,7 +509,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -576,7 +535,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -602,7 +561,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -628,7 +587,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -654,7 +613,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -701,7 +660,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -806,7 +765,7 @@ public class InstanceArena {
             @Override
             public void execute() {
                 if (player.getRegionInstance() == null || !player.isRegistered() || player.getLocation() != Locations.Location.INSTANCE_ARENA || !player.getRegionInstance().getNpcsList().isEmpty()) {
-                    System.out.println("Failed to spawn. One of the variables was not correct.");
+                    System.out.print("Failed to spawn. One of the variables was not correct.");
                     stop();
                     return;
                 }
@@ -829,97 +788,17 @@ public class InstanceArena {
         });
     }
 
-    /** Final destruction method **/
 
     public static void destructArena(final Player player) {
-        if ((player.getLocation() != Locations.Location.INSTANCE_ARENA) || (!player.getRegionInstance().equals(RegionInstance.RegionInstanceType.INSTANCE_ARENA)) || (player.getRegionInstance().getNpcsList().isEmpty()))
+        if ((player.getLocation() != Locations.Location.INSTANCE_ARENA) || (!player.getRegionInstance().equals(RegionInstance.RegionInstanceType.INSTANCE_ARENA)) || (player.getRegionInstance().getNpcsList().isEmpty())) {
             return;
-
+        } else {
             player.moveTo(ENTRANCE);
             System.out.println("Destroying Arena for " + player.getUsername());
             player.getRegionInstance().getNpcsList().forEach(npc -> npc.removeInstancedNpcs(Locations.Location.INSTANCE_ARENA, player.getPosition().getZ()));
-            player.getRegionInstance().getNpcsList().forEach(World::deregister);
-            player.getRegionInstance().destruct();
+            player.getRegionInstance().getNpcsList().forEach(npc -> World.deregister(npc));
+            player.getRegionInstance().destruct(); //todo Maybe I doubled the destruct?
             restore(player);
-            player.setInstanceKC(0);
-            PrayerHandler.deactivateAll(player);
-            CurseHandler.deactivateAll(player);
-    }
-
-    public static void handleButtons(Player player, int button) {
-        switch (button) {
-            case 6033:
-                spawnMan(player);
-                break;
-            case 6035:
-                spawnKBD(player);
-                break;
-            case 6036:
-                spawnRockCrabMadness(player);
-                break;
-            case 6037:
-                spawnIronDragon(player);
-                break;
-            case 6038:
-                spawnSteelDragon(player);
-                break;
-            case 6039:
-                spawnFrostDragon(player);
-                break;
-            case 6040:
-                spawnTzHaar(player);
-                break;
-            case 6041:
-                spawnSlashBash(player);
-                break;
-            case 6042:
-                spawnSmokeDevil(player);
-                break;
-            case 6043:
-                spawnSupreme(player);
-                break;
-            case 6044:
-                spawnPrime(player);
-                break;
-            case 6045:
-                spawnRex(player);
-                break;
-            case 6046:
-                spawnIceWorm(player);
-                break;
-            case 6047:
-                spawnDesertWorm(player);
-                break;
-            case 6048:
-                spawnJungleWorm(player);
-                break;
-            case 6049:
-                spawnCerberus(player);
-                break;
-            case 6050:
-                spawnChaosDruid(player);
-                break;
-            case 6051:
-                spawnTormentedDemon(player);
-                break;
-            case 6052:
-                spawnGorilla(player);
-                break;
-            case 6053:
-                spawnBork(player);
-                break;
-            case 6054:
-                spawnChaosElemental(player);
-                break;
-            case 6055:
-                spawnLizardShaman(player);
-                break;
-            case 6056:
-                spawnZulrah(player);
-                break;
-            default:
-                player.getPA().sendMessage("Coming soon..");
-                break;
         }
     }
 }

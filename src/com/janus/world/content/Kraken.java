@@ -11,6 +11,37 @@ import com.janus.world.entity.impl.player.Player;
 
 public class Kraken {
 
+    public static void attackPool(Player player, NPC npc) {
+        WhirpoolData d = WhirpoolData.getPool(npc.getId());
+        if (d != null) {
+            if (((KrakenInstance) player.getRegionInstance()).disturbedPool(d.ordinal()))
+                return;
+            player.getRegionInstance().getNpcsList().remove(npc);
+            ((KrakenInstance) player.getRegionInstance()).setDisturbedPool(d.ordinal(), true);
+            World.deregister(npc);
+
+            final boolean kraken = d == WhirpoolData.BIG_POOL;
+            TaskManager.submit(new Task(1, player, false) {
+                @Override
+                protected void execute() {
+                    int npcToSpawn = kraken ? 2005 : 3580;
+                    Position positionToSpawn = kraken ? new Position(3677, 9887, player.getPosition().getZ()) : new Position(d.spawn.getX() + 2, d.spawn.getY() + 1, player.getPosition().getZ());
+                    NPC spawn = new NPC(npcToSpawn, positionToSpawn);
+                    player.getRegionInstance().getNpcsList().add(spawn);
+                    World.register(spawn);
+                    spawn.getCombatBuilder().attack(player);
+                    stop();
+
+                    if (kraken) {
+                        player.getPacketSender().sendCameraShake(3, 2, 3, 2);
+                        player.getPacketSender().sendMessage("The cave begins to collapse...");
+                        TaskManager.submit(new CeilingCollapseTask(player));
+                    }
+                }
+            });
+        }
+    }
+
     public static void enter(Player player) {
         KrakenInstance kInstance = new KrakenInstance(player);
 
@@ -26,37 +57,6 @@ public class Kraken {
     public static boolean isWhirpool(NPC n) {
         int npc = n.getId();
         return npc == 2895 || npc == 2900 || npc == 2902 || npc == 2903 || npc == 2891;
-    }
-
-    public static void attackPool(Player player, NPC npc) {
-        WhirpoolData whirpoolData = WhirpoolData.getPool(npc.getId());
-        if (whirpoolData != null) {
-            if (((KrakenInstance) player.getRegionInstance()).disturbedPool(whirpoolData.ordinal()))
-                return;
-            player.getRegionInstance().getNpcsList().remove(npc);
-            ((KrakenInstance) player.getRegionInstance()).setDisturbedPool(whirpoolData.ordinal(), true);
-            World.deregister(npc);
-
-            final boolean kraken = whirpoolData == WhirpoolData.BIG_POOL;
-            TaskManager.submit(new Task(1, player, false) {
-                @Override
-                protected void execute() {
-                    int npcToSpawn = kraken ? 2005 : 3580;
-                    Position positionToSpawn = kraken ? new Position(3677, 9887, player.getPosition().getZ()) : new Position(whirpoolData.spawn.getX() + 2, whirpoolData.spawn.getY() + 1, player.getPosition().getZ());
-                    NPC spawn = new NPC(npcToSpawn, positionToSpawn);
-                    player.getRegionInstance().getNpcsList().add(spawn);
-                    World.register(spawn);
-                    spawn.getCombatBuilder().attack(player);
-                    stop();
-
-                    if (kraken) {
-                        player.getPacketSender().sendCameraShake(3, 2, 3, 2);
-                        player.getPacketSender().sendMessage("The cave begins to collapse...");
-                        TaskManager.submit(new CeilingCollapseTask(player));
-                    }
-                }
-            });
-        }
     }
 
     private static enum WhirpoolData {
@@ -86,12 +86,12 @@ public class Kraken {
 
     public static class KrakenInstance extends RegionInstance {
 
-        private boolean[] disturbedPool = new boolean[5];
-
         public KrakenInstance(Player p) {
             super(p, RegionInstance.RegionInstanceType.KRAKEN);
 
         }
+
+        private boolean[] disturbedPool = new boolean[5];
 
         public boolean disturbedPool(int index) {
             return disturbedPool[index];

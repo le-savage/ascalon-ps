@@ -12,6 +12,16 @@ import java.util.List;
 
 public abstract class ItemEffect {
 
+    public abstract int itemId();
+
+    public abstract int hitAmount(Character attacker, Character victim);
+
+    public abstract void handleAttack(Character attacker, Character victim);
+
+    public abstract void afterAttack(CombatContainer container);
+
+    public abstract List<Character> targets(Character attacker, Character victim);
+
     static List<ItemEffect> itemEffects = new ArrayList<>();
 
     public static void loadEffects() {
@@ -24,15 +34,12 @@ public abstract class ItemEffect {
             }
         }).scan();
     }
-
     public static int highestHitAmount(Player player, Character attacker, Character victim) {
         return player.currentEffects.stream().max(Comparator.comparing(v -> v.hitAmount(attacker, victim))).get().hitAmount(attacker, victim);
     }
-
     public static ItemEffect getEffectFromId(int id) {
         return itemEffects.stream().filter(wep -> wep.itemId() == id).findAny().orElse(null);
     }
-
     public static void refreshEffects(Player player) {
         player.currentEffects.clear();
         for (Item item : player.getEquipment().getItems()) {
@@ -41,14 +48,4 @@ public abstract class ItemEffect {
             }
         }
     }
-
-    public abstract int itemId();
-
-    public abstract int hitAmount(Character attacker, Character victim);
-
-    public abstract void handleAttack(Character attacker, Character victim);
-
-    public abstract void afterAttack(CombatContainer container);
-
-    public abstract List<Character> targets(Character attacker, Character victim);
 }

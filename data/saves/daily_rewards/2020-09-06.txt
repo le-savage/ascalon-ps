@@ -1,6 +1,0 @@
-StartFlub 23:04:31.506
-127.0.0.1
-4bccebdf-74a7-4666-8f6c-372a179acfb4
-AC-DE-48-00-11-22
-EndFlub
-

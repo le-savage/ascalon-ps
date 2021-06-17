@@ -9,6 +9,34 @@ import com.janus.world.entity.impl.player.Player;
 
 public class BonusManager {
 
+    public static void update(Player player) {
+        double[] bonuses = new double[18];
+        for (Item item : player.getEquipment().getItems()) {
+            ItemDefinition definition = ItemDefinition.forId(item.getId());
+            for (int i = 0; i < definition.getBonus().length; i++) {
+                bonuses[i] += definition.getBonus()[i];
+            }
+        }
+        for (int i = 0; i < STRING_ID.length; i++) {
+            if (i <= 4) {
+                player.getBonusManager().attackBonus[i] = bonuses[i];
+            } else if (i <= 13) {
+                int index = i - 5;
+                player.getBonusManager().defenceBonus[index] = bonuses[i];
+                if (player.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 11613 || player.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 11283 && !STRING_ID[i][1].contains("Magic")) {
+                    if (player.getDfsCharges() > 0) {
+                        player.getBonusManager().defenceBonus[index] += player.getDfsCharges();
+                        bonuses[i] += player.getDfsCharges();
+                    }
+                }
+            } else if (i <= 17) {
+                int index = i - 14;
+                player.getBonusManager().otherBonus[index] = bonuses[i];
+            }
+            player.getPacketSender().sendString(Integer.valueOf(STRING_ID[i][0]), STRING_ID[i][1] + ": " + bonuses[i]);
+        }
+    }
+
     public static final int
             ATTACK_STAB = 0,
             ATTACK_SLASH = 1,
@@ -56,32 +84,16 @@ public class BonusManager {
     private double[] defenceBonus = new double[9];
     private double[] otherBonus = new double[4];
 
-    public static void update(Player player) {
-        double[] bonuses = new double[18];
-        for (Item item : player.getEquipment().getItems()) {
-            ItemDefinition definition = ItemDefinition.forId(item.getId());
-            for (int i = 0; i < definition.getBonus().length; i++) {
-                bonuses[i] += definition.getBonus()[i];
-            }
-        }
-        for (int i = 0; i < STRING_ID.length; i++) {
-            if (i <= 4) {
-                player.getBonusManager().attackBonus[i] = bonuses[i];
-            } else if (i <= 13) {
-                int index = i - 5;
-                player.getBonusManager().defenceBonus[index] = bonuses[i];
-                if (player.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 11613 || player.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 11283 && !STRING_ID[i][1].contains("Magic")) {
-                    if (player.getDfsCharges() > 0) {
-                        player.getBonusManager().defenceBonus[index] += player.getDfsCharges();
-                        bonuses[i] += player.getDfsCharges();
-                    }
-                }
-            } else if (i <= 17) {
-                int index = i - 14;
-                player.getBonusManager().otherBonus[index] = bonuses[i];
-            }
-            player.getPacketSender().sendString(Integer.valueOf(STRING_ID[i][0]), STRING_ID[i][1] + ": " + bonuses[i]);
-        }
+    public double[] getAttackBonus() {
+        return attackBonus;
+    }
+
+    public double[] getDefenceBonus() {
+        return defenceBonus;
+    }
+
+    public double[] getOtherBonus() {
+        return otherBonus;
     }
 
     /**
@@ -165,17 +177,5 @@ public class BonusManager {
         if (i < 0)
             return "@red@";
         return "";
-    }
-
-    public double[] getAttackBonus() {
-        return attackBonus;
-    }
-
-    public double[] getDefenceBonus() {
-        return defenceBonus;
-    }
-
-    public double[] getOtherBonus() {
-        return otherBonus;
     }
 }

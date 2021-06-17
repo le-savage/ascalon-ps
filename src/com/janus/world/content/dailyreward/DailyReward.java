@@ -85,7 +85,7 @@ public class DailyReward {
 
         PlayerPunishment.addIpToDailyRewardList(player.getUsername(), player.getHostAddress(), player.getUUID(), player.getMac());
 
-        if (todaysItem.getDefinition().isNoted() || todaysItem.getId() == 995) {
+        if (todaysItem.getDefinition().isNoted()) {
             if (player.getInventory().getFreeSlots() >= 1) {
                 player.getInventory().add(todaysItem.getId(), todaysItem.getAmount());
             } else {
@@ -124,13 +124,13 @@ public class DailyReward {
         this.nextRewardTime = nextRewardTime;
     }
 
+    public void setDay(int day) {
+        this.day = day;
+    }
+
     public int getDay() {
         checkToResetDay();
         return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
     }
 
     public boolean hasClaimedTodaysReward() {

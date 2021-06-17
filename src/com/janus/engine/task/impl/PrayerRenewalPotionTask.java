@@ -8,12 +8,12 @@ import com.janus.world.entity.impl.player.Player;
 
 public class PrayerRenewalPotionTask extends Task {
 
-    final Player player;
-
     public PrayerRenewalPotionTask(Player player) {
         super(1, player, true);
         this.player = player;
     }
+
+    final Player player;
 
     @Override
     public void execute() {

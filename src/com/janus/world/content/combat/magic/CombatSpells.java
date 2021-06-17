@@ -2,7 +2,6 @@ package com.janus.world.content.combat.magic;
 
 import com.janus.engine.task.TaskManager;
 import com.janus.model.*;
-import com.janus.util.Misc;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.effect.CombatPoisonEffect.PoisonType;
 import com.janus.world.content.combat.effect.CombatTeleblockEffect;
@@ -1509,7 +1508,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 450;
+            return 199;
         }
 
         @Override
@@ -1639,7 +1638,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 500;
+            return 209;
         }
 
         @Override
@@ -2277,7 +2276,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 300;
+            return 219;
         }
 
         @Override
@@ -2334,7 +2333,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 300;
+            return 229;
         }
 
         @Override
@@ -2392,7 +2391,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 300;
+            return 239;
         }
 
         @Override
@@ -2460,7 +2459,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 330;
+            return 249;
         }
 
         @Override
@@ -2521,7 +2520,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 350;
+            return 259;
         }
 
         @Override
@@ -2577,7 +2576,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 370;
+            return 269;
         }
 
         @Override
@@ -2634,7 +2633,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 400;
+            return 279;
         }
 
         @Override
@@ -2701,7 +2700,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 430;
+            return 289;
         }
 
         @Override
@@ -2736,9 +2735,6 @@ public enum CombatSpells {
             if (damage < 1) {
                 return;
             }
-            int random = Misc.inclusiveRandom(1);
-            System.out.println("Random: "+random);
-            if (random == 1)
             cast.heal((int) (damage * 0.25));
         }
 
@@ -2764,7 +2760,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 550;
+            return 299;
         }
 
         @Override
@@ -2774,7 +2770,7 @@ public enum CombatSpells {
 
         @Override
         public int baseExperience() {
-            return 450;
+            return 3100;
         }
 
         @Override
@@ -2821,7 +2817,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 670;
+            return 310;
         }
 
         @Override
@@ -2918,6 +2914,15 @@ public enum CombatSpells {
     }
 
     /**
+     * Gets the combat spell that can be casted.
+     *
+     * @return the combat spell that can be casted.
+     */
+    public CombatSpell getSpell() {
+        return spell;
+    }
+
+    /**
      * Gets the spell constant by its spell id.
      *
      * @param spellId the spell to retrieve.
@@ -2934,14 +2939,5 @@ public enum CombatSpells {
             }
         }
         return null;
-    }
-
-    /**
-     * Gets the combat spell that can be casted.
-     *
-     * @return the combat spell that can be casted.
-     */
-    public CombatSpell getSpell() {
-        return spell;
     }
 }

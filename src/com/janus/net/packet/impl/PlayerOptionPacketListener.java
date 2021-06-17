@@ -1,3 +1,4 @@
+
 package com.janus.net.packet.impl;
 
 import com.janus.model.Locations.Location;
@@ -15,6 +16,28 @@ import com.janus.world.entity.impl.player.Player;
  */
 
 public class PlayerOptionPacketListener implements PacketListener {
+
+    @Override
+    public void handleMessage(Player player, Packet packet) {
+        if (player.getConstitution() <= 0)
+            return;
+        if (player.isTeleporting())
+            return;
+        switch (packet.getOpcode()) {
+            case 153:
+                attack(player, packet);
+                break;
+            case 128:
+                option1(player, packet);
+                break;
+            case 37:
+                option2(player, packet);
+                break;
+            case 227:
+                option3(player, packet);
+                break;
+        }
+    }
 
     private static void attack(Player player, Packet packet) {
         int index = packet.readLEShort();
@@ -103,27 +126,5 @@ public class PlayerOptionPacketListener implements PacketListener {
 				//do third option here
 			}
 		}));*/
-    }
-
-    @Override
-    public void handleMessage(Player player, Packet packet) {
-        if (player.getConstitution() <= 0)
-            return;
-        if (player.isTeleporting())
-            return;
-        switch (packet.getOpcode()) {
-            case 153:
-                attack(player, packet);
-                break;
-            case 128:
-                option1(player, packet);
-                break;
-            case 37:
-                option2(player, packet);
-                break;
-            case 227:
-                option3(player, packet);
-                break;
-        }
     }
 }

@@ -1,6 +1,5 @@
 package com.janus.engine.task.impl;
 
-import com.janus.GameSettings;
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
@@ -17,13 +16,8 @@ import com.janus.world.content.WildyWyrmEvent;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.strategy.impl.KalphiteQueen;
 import com.janus.world.content.combat.strategy.impl.Nex;
-import com.janus.world.content.combat.tieredbosses.BossFunctions;
-import com.janus.world.content.combat.tieredbosses.BossNPCData;
-import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
-import com.janus.world.content.minigames.impl.NewBarrows;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
-import mysql.BossKillTracker;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -42,21 +36,6 @@ public class NPCDeathTask extends Task {
      * The npc setting off the death task.
      */
     private final NPC npc;
-    /*
-     * The array which handles what bosses will give a player points
-     * after death
-     */
-    private Set<Integer> BOSSES = new HashSet<>(Arrays.asList(
-            5886, 2044, 1999, 2882, 2881, 2883, 7134, 6766, 5666, 7286, 4540, 6222, 6260, 6247, 6203, 8349, 50, 2001, 11558, 1158, 8133, 3200, 13447, 8549, 3851, 1382, 8133, 13447, 2000, 2009, 2006, 499, 2042, 3
-    )); //use this array of npcs to change the npcs you want to give boss points
-    /**
-     * The amount of ticks on the task.
-     */
-    private int ticks = 2;
-    /**
-     * The player who killed the NPC
-     */
-    private Player killer = null;
 
     /**
      * The NPCDeathTask constructor.
@@ -68,6 +47,22 @@ public class NPCDeathTask extends Task {
         this.npc = npc;
         this.ticks = 2;
     }
+    /*
+     * The array which handles what bosses will give a player points
+     * after death
+     */
+    private Set<Integer> BOSSES = new HashSet<>(Arrays.asList(
+            1999, 2882, 2881, 2883, 7134, 6766, 5666, 7286, 4540, 6222, 6260, 6247, 6203, 8349, 50, 2001, 11558, 1158, 8133, 3200, 13447, 8549, 3851, 1382, 8133, 13447, 2000, 2009, 2006, 499, 2042, 3
+    )); //use this array of npcs to change the npcs you want to give boss points
+    /**
+     * The amount of ticks on the task.
+     */
+    private int ticks = 2;
+
+    /**
+     * The player who killed the NPC
+     */
+    private Player killer = null;
 
     @SuppressWarnings("incomplete-switch")
     @Override
@@ -156,10 +151,6 @@ public class NPCDeathTask extends Task {
                             stop();
                             return;
                         }
-
-                        if (npc.getId() == GameSettings.CURRENT_BOSS) {
-                            new Thread(new BossKillTracker.CountKills(killer)).start();
-                        }
                         /*
                          * Halloween event dropping
                          */
@@ -204,161 +195,182 @@ public class NPCDeathTask extends Task {
         npc.setDying(false);
 
         //respawn
-        if (npc.getDefinition().getRespawnTime() > 0 && npc.getLocation() != Location.GRAVEYARD && npc.getLocation() != Location.DUNGEONEERING && npc.getLocation() != Location.INSTANCE_ARENA && npc.getLocation() != Location.BOSS_TIER_LOCATION && npc.getLocation() != Location.BARROWS) {
+        if (npc.getDefinition().getRespawnTime() > 0 && npc.getLocation() != Location.GRAVEYARD && npc.getLocation() != Location.DUNGEONEERING && npc.getLocation() != Location.INSTANCE_ARENA) {
             TaskManager.submit(new NPCRespawnTask(npc, npc.getDefinition().getRespawnTime()));
         }
 
         World.deregister(npc);
 
-        if (npc.getLocation() == Location.BARROWS) {
-            System.out.println("PLAYER: " + killer.getUsername() + "BARROWS KC BEFORE KILL : " + killer.barrowsKC);
-            killer.barrowsKC++;
-            System.out.println("PLAYER: " + killer.getUsername() + "KILLED A BARROWS NPC! NEW KC = " + killer.barrowsKC);
-            if (killer.barrowsKC >= 6) {
-                NewBarrows.rewardPlayer(killer);
-                NewBarrows.resetBarrows(killer);
+        /*if (npc.getLocation() == Location.INSTANCE_ARENA) {
+
+            /*if (killer.getRights() == PlayerRights.SUPER_DONATOR || killer.getRights() == PlayerRights.EXTREME_DONATOR || killer.getRights() == PlayerRights.LEGENDARY_DONATOR || killer.getRights() == PlayerRights.UBER_DONATOR || killer.getRights().isStaff()) {
+
+                if (npc.getId() == 3) {
+                    InstanceArena.spawnMan(killer);
+                }
+                if (npc.getId() == 50) {
+                    InstanceArena.spawnKBD(killer);
+                }
+                if (npc.getId() == 1591) {
+                    InstanceArena.spawnIronDragon(killer);
+                }
+                if (npc.getId() == 1592) {
+                    InstanceArena.spawnSteelDragon(killer);
+                }
+                if (npc.getId() == 51) {
+                    InstanceArena.spawnFrostDragon(killer);
+                }
+                if ((npc.getId() == 2605) || (npc.getId() == 2611) || (npc.getId() == 2600) || (npc.getId() == 2591)) {
+                    InstanceArena.spawnTzHaar(killer);
+                }
+                if (npc.getId() == 2060) {
+                    InstanceArena.spawnSlashBash(killer);
+                }
+                if (npc.getId() == 499) {
+                    InstanceArena.spawnSmokeDevil(killer);
+                }
+                if (npc.getId() == 2881) {
+                    InstanceArena.spawnSupreme(killer);
+                }
+                if (npc.getId() == 2882) {
+                    InstanceArena.spawnPrime(killer);
+                }
+                if (npc.getId() == 2883) {
+                    InstanceArena.spawnRex(killer);
+                }
+                if (npc.getId() == 9463) {
+                    InstanceArena.spawnIceWorm(killer);
+                }
+                if (npc.getId() == 9465) {
+                    InstanceArena.spawnDesertWorm(killer);
+                }
+                if (npc.getId() == 9467) {
+                    InstanceArena.spawnJungleWorm(killer);
+                }
+                if (npc.getId() == 1999) {
+                    InstanceArena.spawnCerberus(killer);
+                }
+                if (npc.getId() == 8349) {
+                    InstanceArena.spawnTormentedDemon(killer);
+                }
+                if (npc.getId() == 1459) {
+                    InstanceArena.spawnGorilla(killer);
+                }
+                if (npc.getId() == 7134) {
+                    InstanceArena.spawnBork(killer);
+                }
+                if (npc.getId() == 3200) {
+                    InstanceArena.spawnChaosElemental(killer);
+                }
+                if (npc.getId() == 6766) {
+                    InstanceArena.spawnLizardShaman(killer);
+                }
+                if (npc.getId() == 2044) {
+                    InstanceArena.spawnZulrah(killer);
+                }
             }
-        }
 
+            if ((killer.getRights() == PlayerRights.PLAYER || killer.getRights() == PlayerRights.DONATOR)) {
+                    TaskManager.submit(new Task(7, killer, false) {
+                        @Override
+                        public void execute() {
+                            InstanceArena.destructArena(killer);
+                            this.stop();
+                        }
+                    });
+                }
 
+            if ((npc.getId() == 1265) ||  (npc.getId() == 2605) || (npc.getId() == 2611) || (npc.getId() == 2600) || (npc.getId() == 2591) || (npc.getId() == 181)) {
+                TaskManager.submit(new Task(400, killer, false) {
+                    @Override
+                    public void execute() {
+                        InstanceArena.destructArena(killer);
+                        this.stop();
+                    }
+                });
+            }
+
+            }*/
         if (npc.getLocation() == Location.INSTANCE_ARENA) {
-
-            boolean multiEnemyInstance = (npc.getId() == 1265) || (npc.getId() == 2605) || (npc.getId() == 2611) || (npc.getId() == 2600) || (npc.getId() == 2591) || (npc.getId() == 181);
-
-            /** Setting the maximum number of kills a player
-             * can have in the instance
-             * arena before being teleported out.
-             * Woohoo - Saving the economy..
-             */
-
-            int currentKC = killer.getInstanceKC();
-
-            System.out.println(killer.getUsername() + " has a current KC of " + currentKC);
-
-            int maxKC = InstanceArena.getMaxKC(killer);
-
-            System.out.println("Player : " + killer.getUsername() + " is rank : " + killer.getRights().toString() + " and is allowed : " + maxKC);
-
-
-            /** Comparing the current KC with the max KC
-             * We also remove the regular players
-             * since they are now allowed respawns
-             */
-
-            System.out.println("Multi NPC Instance = " + multiEnemyInstance);
-
-            if (currentKC >= maxKC && killer.getRights() != PlayerRights.PLAYER) { // END INSTANCE
-                System.out.println("Player " + killer.getUsername() + " has now got " + currentKC + " / " + maxKC + " Destroying.");
-                if (killer.getLocation() == Location.INSTANCE_ARENA && killer.getRegionInstance() == null) {
-                    killer.moveTo(InstanceArena.ENTRANCE);
-                }
-                InstanceArena.destructArena(killer);
-                System.out.println("KC Reset for " + killer.getUsername());
-                return;
-            } else {
-                if (!multiEnemyInstance) {
-                    currentKC++; // INCREMENT CURRENT KC
-                    System.out.println("Instance KC incremented for " + killer.getUsername());
-                    killer.setInstanceKC(currentKC);
-                    System.out.println("New KC for " + killer.getUsername() + " is " + killer.getInstanceKC());
-                }
-            }
-
-            if (currentKC == 1)
-                killer.getPacketSender().sendMessage("@red@You're allowed " + maxKC + " kills before you'll be teleported out");
-            if (currentKC == maxKC / 2)
-                killer.getPacketSender().sendMessage("@red@You've used @blu@" + currentKC + "@bla@/@red@" + maxKC + " kills.");
-            if (currentKC == maxKC) {
-                killer.getPacketSender().sendMessage("You've used all of your available kills as a " + killer.getRights().toString());
-            }
-
-            /** Sending a message to the player.
-             * We detect if they're staff and then
-             * find out what the next rank would be.
-             * After that, we find out what the maxKC
-             * would be for that rank.
-             */
-            if (killer.getRights().ordinal() < 8 && !killer.getRights().isStaff()) {
-                String nextKCRank = PlayerRights.forId(killer.getRights().ordinal() + (killer.getRights().ordinal() == 0 ? 5 : 1)).toString();
-                killer.getPacketSender().sendMessage("The next rank, @blu@" + nextKCRank + "@bla@ will allow a maximum of @blu@" + InstanceArena.getMaxKcForRank(killer.getRights().ordinal() + (killer.getRights().ordinal() == 0 ? 4 : 1)) + " @bla@kills before ending your instance.");
-            } else
-                killer.getPacketSender().sendMessage("You've used all of your kills for this instance.. Teleporting out <3");
 
 
             if (killer.getRights() != PlayerRights.PLAYER) {
 
-                if (npc.getId() == 3)
+                if (npc.getId() == 3) {
                     InstanceArena.spawnMan(killer);
-                if (npc.getId() == 50)
+                }
+                if (npc.getId() == 50) {
                     InstanceArena.spawnKBD(killer);
-                if (npc.getId() == 1591)
+                }
+                if (npc.getId() == 1591) {
                     InstanceArena.spawnIronDragon(killer);
-                if (npc.getId() == 1592)
+                }
+                if (npc.getId() == 1592) {
                     InstanceArena.spawnSteelDragon(killer);
-                if (npc.getId() == 51)
+                }
+                if (npc.getId() == 51) {
                     InstanceArena.spawnFrostDragon(killer);
-                if (npc.getId() == 2060)
+                }
+                if (npc.getId() == 2060) {
                     InstanceArena.spawnSlashBash(killer);
-                if (npc.getId() == 499)
+                }
+                if (npc.getId() == 499) {
                     InstanceArena.spawnSmokeDevil(killer);
-                if (npc.getId() == 2881)
+                }
+                if (npc.getId() == 2881) {
                     InstanceArena.spawnSupreme(killer);
-                if (npc.getId() == 2882)
+                }
+                if (npc.getId() == 2882) {
                     InstanceArena.spawnPrime(killer);
-                if (npc.getId() == 2883)
+                }
+                if (npc.getId() == 2883) {
                     InstanceArena.spawnRex(killer);
-                if (npc.getId() == 9463)
+                }
+                if (npc.getId() == 9463) {
                     InstanceArena.spawnIceWorm(killer);
-                if (npc.getId() == 9465)
+                }
+                if (npc.getId() == 9465) {
                     InstanceArena.spawnDesertWorm(killer);
-                if (npc.getId() == 9467)
+                }
+                if (npc.getId() == 9467) {
                     InstanceArena.spawnJungleWorm(killer);
-                if (npc.getId() == 1999)
+                }
+                if (npc.getId() == 1999) {
                     InstanceArena.spawnCerberus(killer);
-                if (npc.getId() == 8349)
+                }
+                if (npc.getId() == 8349) {
                     InstanceArena.spawnTormentedDemon(killer);
-                if (npc.getId() == 1459)
+                }
+                if (npc.getId() == 1459) {
                     InstanceArena.spawnGorilla(killer);
-                if (npc.getId() == 7134)
+                }
+                if (npc.getId() == 7134) {
                     InstanceArena.spawnBork(killer);
-                if (npc.getId() == 3200)
+                }
+                if (npc.getId() == 3200) {
                     InstanceArena.spawnChaosElemental(killer);
-                if (npc.getId() == 6766)
+                }
+                if (npc.getId() == 6766) {
                     InstanceArena.spawnLizardShaman(killer);
-                if (npc.getId() == 2044)
+                }
+                if (npc.getId() == 2044) {
                     InstanceArena.spawnZulrah(killer);
+                }
+            }
+
+            if ((npc.getId() == 1265) || (npc.getId() == 2605) || (npc.getId() == 2611) || (npc.getId() == 2600) || (npc.getId() == 2591) || (npc.getId() == 181)) {
+                killer.getPacketSender().sendMessage("Nice job! Use the button or ::exit to leave!");
             }
 
             if (killer.getRights() == PlayerRights.PLAYER) {
-                killer.getPacketSender().sendMessage("Nice job! Use the button or ::exit to leave!");
-            }
-        }
-
-        if (npc.getLocation() == Location.BOSS_TIER_LOCATION) {
-            if (npc.getId() == BossNPCData.KING_BLACK_DRAGON.getLevel1ID()) {
-                if (killer.kbdTier <= 4 && !killer.shouldGiveBossReward() && !BossRewardBoxes.hasExistingBox(killer)) {
-                    killer.kbdTier++;
-                    killer.setShouldGiveBossReward(true);
-                    killer.forceChat("I should leave now!");
-                    BossFunctions.despawnNpcs(killer);
-                }
-                if (killer.kbdTier == 3 || killer.kbdTier == 4) { // Unfreeze the last two tiers
-                    killer.setFreezeDelay(-1);
-                    killer.setResetMovementQueue(true);
-                }
-                if (killer.kbdTier <= 4) {
-                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just completed tier " + (killer.getKbdTier() - 1) + " at ::boss!");
-                }
-                if (killer.kbdTier == 5) {
-                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just killed the final tier " + (killer.getKbdTier() - 1) + " at ::boss!");
-                }
-                TaskManager.submit(new Task(2, killer, false) {
+                /*TaskManager.submit(new Task(15, killer, false) {
                     @Override
                     public void execute() {
-                        killer.moveTo(BossFunctions.ARENA_ENTRANCE);
-                        stop();
+                        InstanceArena.destructArena(killer);
+                        this.stop();
                     }
-                });
+                });*/
+                killer.getPacketSender().sendMessage("Nice job! Use the button or ::exit to leave!");
             }
         }
 

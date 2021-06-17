@@ -6,10 +6,12 @@ import com.janus.world.entity.impl.player.Player;
 
 public class NEXX {
 
-    public static final int[] NEXX = {11987, 14008, 14009, 14010, 14011, 14012, 14013, 14014, 14015, 14016, 4706};
     public static int config;
     public static int item;
     public static int index = 0;
+
+    public static final int[] NEXX = {11987, 14008, 14009, 14010, 14011, 14012, 14013, 14014, 14015, 14016, 4706};
+
 
     /*
      * Get rare drop(s) for that boss location

@@ -1,7 +1,6 @@
 package com.janus.model;
 
 import com.janus.util.Misc;
-import lombok.Getter;
 
 
 /**
@@ -10,7 +9,6 @@ import lombok.Getter;
  *
  * @author Gabriel Hannason
  */
-@Getter
 public enum Skill {
 
     ATTACK(6247, 1, 0),
@@ -40,35 +38,30 @@ public enum Skill {
     DUNGEONEERING(10267, 5, 24);
 
     public static final int ATTACK_MODIFIER = 60; //230 before from all of these
-    public static final int DEFENCE_MODIFIER = 60;//230 before from all of these
-    public static final int STRENGTH_MODIFIER = 60;//230 before from all of these
-    public static final int CONSTITUTION_MODIFIER = 20;//190 before
-    public static final int RANGED_MODIFIER = 60;//260 before
-    public static final int PRAYER_MODIFIER = 50;//150 before
-    public static final int MAGIC_MODIFIER = 60;//230 before
+
     /**
      * The skill's chatbox interface
      * The interface which will be sent
      * on levelup.
      */
     private int chatboxInterface;
+
     /**
      * The amount of points
      * the player will receive
      * for prestiging the skill.
      */
     private int prestigePoints;
+
     /**
      * The button id for prestiging
      * this skill.
      */
     private int prestigeId;
-
-    private Skill(int chatboxInterface, int prestigePoints, int prestigeId) {
-        this.chatboxInterface = chatboxInterface;
-        this.prestigePoints = prestigePoints;
-        this.prestigeId = prestigeId;
-    }
+    public static final int DEFENCE_MODIFIER = 60;//230 before from all of these
+    public static final int STRENGTH_MODIFIER = 60;//230 before from all of these
+    public static final int CONSTITUTION_MODIFIER = 20;//190 before
+    public static final int RANGED_MODIFIER = 60;//260 before
 
     /**
      * Gets the Skill value which ordinal() matches {@code id}.
@@ -116,6 +109,39 @@ public enum Skill {
     }
 
     /**
+     * Custom skill multipliers
+     *
+     * @return multiplier.
+     */
+    public int getExperienceMultiplier() {
+        switch (this) {
+            case ATTACK:
+                return ATTACK_MODIFIER;
+            case DEFENCE:
+                return DEFENCE_MODIFIER;
+            case STRENGTH:
+                return STRENGTH_MODIFIER;
+            case CONSTITUTION:
+                return CONSTITUTION_MODIFIER;
+            case RANGED:
+                return RANGED_MODIFIER;
+            case PRAYER:
+                return PRAYER_MODIFIER;
+            case MAGIC:
+                return MAGIC_MODIFIER;
+            default:
+                return 1;
+        }
+    }
+    public static final int PRAYER_MODIFIER = 50;//150 before
+    public static final int MAGIC_MODIFIER = 60;//230 before
+    private Skill(int chatboxInterface, int prestigePoints, int prestigeId) {
+        this.chatboxInterface = chatboxInterface;
+        this.prestigePoints = prestigePoints;
+        this.prestigeId = prestigeId;
+    }
+
+    /**
      * Gets the Skill's chatbox interface.
      *
      * @return The interface which will be sent on levelup.
@@ -150,31 +176,5 @@ public enum Skill {
      */
     public String getFormatName() {
         return Misc.formatText(getName());
-    }
-
-    /**
-     * Custom skill multipliers
-     *
-     * @return multiplier.
-     */
-    public int getExperienceMultiplier() {
-        switch (this) {
-            case ATTACK:
-                return ATTACK_MODIFIER;
-            case DEFENCE:
-                return DEFENCE_MODIFIER;
-            case STRENGTH:
-                return STRENGTH_MODIFIER;
-            case CONSTITUTION:
-                return CONSTITUTION_MODIFIER;
-            case RANGED:
-                return RANGED_MODIFIER;
-            case PRAYER:
-                return PRAYER_MODIFIER;
-            case MAGIC:
-                return MAGIC_MODIFIER;
-            default:
-                return 1;
-        }
     }
 }

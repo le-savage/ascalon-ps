@@ -10,6 +10,64 @@ import com.janus.world.entity.impl.player.Player;
 
 public class CrystalChest {
 
+    public static void handleChest(final Player p, final GameObject chest) {
+        if (!p.getClickDelay().elapsed(2000))
+            return;
+        if (!p.getInventory().contains(989)) {
+            p.getPacketSender().sendMessage("This chest can only be opened with a Crystal key.");
+            return;
+        }
+        p.performAnimation(new Animation(827));
+        if (p.getRights() == PlayerRights.DONATOR) {
+            if (Misc.getRandom(15) == 5) {
+                p.getPacketSender().sendMessage("Crystal Key has been saved as a donator benefit");
+            } else {
+                p.getInventory().delete(989, 1);
+            }
+        }
+        if (p.getRights() == PlayerRights.SUPER_DONATOR || p.getRights() == PlayerRights.SUPPORT) {
+            if (Misc.getRandom(12) == 5) {
+                p.getPacketSender().sendMessage("Crystal Key has been saved as a donator benefit");
+            } else {
+                p.getInventory().delete(989, 1);
+            }
+        }
+        if (p.getRights() == PlayerRights.EXTREME_DONATOR || p.getRights() == PlayerRights.MODERATOR) {
+            if (Misc.getRandom(9) == 5) {
+                p.getPacketSender().sendMessage("Crystal Key has been saved as a donator benefit");
+            } else {
+                p.getInventory().delete(989, 1);
+            }
+        }
+        if (p.getRights() == PlayerRights.LEGENDARY_DONATOR || p.getRights() == PlayerRights.ADMINISTRATOR) {
+            if (Misc.getRandom(6) == 5) {
+                p.getPacketSender().sendMessage("Crystal Key has been saved as a donator benefit");
+            } else {
+                p.getInventory().delete(989, 1);
+            }
+        }
+        if (p.getRights() == PlayerRights.UBER_DONATOR || p.getRights() == PlayerRights.DEVELOPER) {
+            if (Misc.getRandom(3) == 2) {
+                p.getPacketSender().sendMessage("Crystal Key has been saved as a donator benefit");
+            } else {
+                p.getInventory().delete(989, 1);
+            }
+        }
+        if (p.getRights() == PlayerRights.PLAYER) {
+            p.getInventory().delete(989, 1);
+        }
+        p.getPacketSender().sendMessage("You open the chest..");
+
+        Item[] loot = itemRewards[Misc.getRandom(itemRewards.length - 1)];
+        for (Item item : loot) {
+            p.getInventory().add(item);
+        }
+        p.getInventory().add(995, 50000 + RandomUtility.RANDOM.nextInt(100000));
+
+        //CustomObjects.objectRespawnTask(p, new GameObject(173 , chest.getPosition().copy(), 10, 0), chest, 10);
+
+    }
+
     private static final Item[][] itemRewards = {
             {new Item(1969, 1), new Item(995, 200000)}, //set 1 SPINACH ROLL
             {new Item(1631, 1)}, //set 2 Dragonstone only set
@@ -107,63 +165,5 @@ public class CrystalChest {
             {new Item(7356, 1)},
 
     };
-
-    public static void handleChest(final Player p, final GameObject chest) {
-        if (!p.getClickDelay().elapsed(2000))
-            return;
-        if (!p.getInventory().contains(989)) {
-            p.getPacketSender().sendMessage("This chest can only be opened with a Crystal key.");
-            return;
-        }
-        p.performAnimation(new Animation(827));
-        if (p.getRights() == PlayerRights.DONATOR) {
-            if (Misc.getRandom(15) == 5) {
-                p.getPacketSender().sendMessage("Crystal Key has been saved as a donator benefit");
-            } else {
-                p.getInventory().delete(989, 1);
-            }
-        }
-        if (p.getRights() == PlayerRights.SUPER_DONATOR || p.getRights() == PlayerRights.SUPPORT) {
-            if (Misc.getRandom(12) == 5) {
-                p.getPacketSender().sendMessage("Crystal Key has been saved as a donator benefit");
-            } else {
-                p.getInventory().delete(989, 1);
-            }
-        }
-        if (p.getRights() == PlayerRights.EXTREME_DONATOR || p.getRights() == PlayerRights.MODERATOR) {
-            if (Misc.getRandom(9) == 5) {
-                p.getPacketSender().sendMessage("Crystal Key has been saved as a donator benefit");
-            } else {
-                p.getInventory().delete(989, 1);
-            }
-        }
-        if (p.getRights() == PlayerRights.LEGENDARY_DONATOR || p.getRights() == PlayerRights.ADMINISTRATOR) {
-            if (Misc.getRandom(6) == 5) {
-                p.getPacketSender().sendMessage("Crystal Key has been saved as a donator benefit");
-            } else {
-                p.getInventory().delete(989, 1);
-            }
-        }
-        if (p.getRights() == PlayerRights.UBER_DONATOR || p.getRights() == PlayerRights.DEVELOPER) {
-            if (Misc.getRandom(3) == 2) {
-                p.getPacketSender().sendMessage("Crystal Key has been saved as a donator benefit");
-            } else {
-                p.getInventory().delete(989, 1);
-            }
-        }
-        if (p.getRights() == PlayerRights.PLAYER) {
-            p.getInventory().delete(989, 1);
-        }
-        p.getPacketSender().sendMessage("You open the chest..");
-
-        Item[] loot = itemRewards[Misc.getRandom(itemRewards.length - 1)];
-        for (Item item : loot) {
-            p.getInventory().add(item);
-        }
-        p.getInventory().add(995, 50000 + RandomUtility.RANDOM.nextInt(100000));
-
-        //CustomObjects.objectRespawnTask(p, new GameObject(173 , chest.getPosition().copy(), 10, 0), chest, 10);
-
-    }
 
 }

@@ -12,11 +12,11 @@ public enum ClanChatRank {
     OWNER(-1),
     STAFF(-1);
 
-    private int actionMenuId;
-
     ClanChatRank(int actionMenuId) {
         this.actionMenuId = actionMenuId;
     }
+
+    private int actionMenuId;
 
     public static ClanChatRank forId(int id) {
         for (ClanChatRank rank : ClanChatRank.values()) {

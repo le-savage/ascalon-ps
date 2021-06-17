@@ -8,42 +8,6 @@ public class MiningData {
 
     public static final int[] RANDOM_GEMS = {1623, 1621, 1619, 1617, 1631};
 
-    public static Pickaxe forPick(int id) {
-        for (Pickaxe p : Pickaxe.values()) {
-            if (p.getId() == id) {
-                return p;
-            }
-        }
-        return null;
-    }
-
-    public static Ores forRock(int id) {
-        for (Ores ore : Ores.values()) {
-            for (int obj : ore.objid) {
-                if (obj == id) {
-                    return ore;
-                }
-            }
-        }
-        return null;
-    }
-
-    public static int getPickaxe(final Player plr) {
-        for (Pickaxe p : Pickaxe.values()) {
-            if (plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == p.getId())
-                return p.getId();
-            else if (plr.getInventory().contains(p.getId()))
-                return p.getId();
-        }
-        return -1;
-    }
-
-    public static int getReducedTimer(final Player plr, Pickaxe pickaxe) {
-        int skillReducement = (int) (plr.getSkillManager().getMaxLevel(Skill.MINING) * 0.03);
-        int pickaxeReducement = (int) pickaxe.getSpeed();
-        return skillReducement + pickaxeReducement;
-    }
-
     public static enum Pickaxe {
 
         Bronze(1265, 1, 625, 1.0),
@@ -80,6 +44,15 @@ public class MiningData {
         public double getSpeed() {
             return this.speed;
         }
+    }
+
+    public static Pickaxe forPick(int id) {
+        for (Pickaxe p : Pickaxe.values()) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
+        return null;
     }
 
     public static enum Ores {
@@ -131,5 +104,32 @@ public class MiningData {
         public int getTicks() {
             return ticks;
         }
+    }
+
+    public static Ores forRock(int id) {
+        for (Ores ore : Ores.values()) {
+            for (int obj : ore.objid) {
+                if (obj == id) {
+                    return ore;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static int getPickaxe(final Player plr) {
+        for (Pickaxe p : Pickaxe.values()) {
+            if (plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == p.getId())
+                return p.getId();
+            else if (plr.getInventory().contains(p.getId()))
+                return p.getId();
+        }
+        return -1;
+    }
+
+    public static int getReducedTimer(final Player plr, Pickaxe pickaxe) {
+        int skillReducement = (int) (plr.getSkillManager().getMaxLevel(Skill.MINING) * 0.03);
+        int pickaxeReducement = (int) pickaxe.getSpeed();
+        return skillReducement + pickaxeReducement;
     }
 }

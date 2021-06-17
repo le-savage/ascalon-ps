@@ -16,12 +16,13 @@ public enum PkSets {
 
     MAGIC_MAIN_SET(2000000, new Item[]{new Item(3755), new Item(1704), new Item(4091), new Item(4093), new Item(4097), new Item(4675), new Item(2550), new Item(13734), new Item(555, 600), new Item(560, 400), new Item(565, 200), new Item(386, 100), new Item(3041, 15), new Item(3025, 25)});
 
-    private int cost;
-    private Item[] items;
     PkSets(int cost, Item[] items) {
         this.cost = cost;
         this.items = items;
     }
+
+    private int cost;
+    private Item[] items;
 
     public static void buySet(Player player, PkSets set) {
         player.getPacketSender().sendInterfaceRemoval();

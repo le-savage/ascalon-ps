@@ -17,14 +17,6 @@ public class Packet {
      * The packet id being received.
      */
     private final int opcode;
-    /**
-     * The packetType of packet being read.
-     */
-    private PacketType packetType;
-    /**
-     * The buffer being used to read the packet information.
-     */
-    private ChannelBuffer buffer;
 
     /**
      * The Packet constructor.
@@ -38,6 +30,10 @@ public class Packet {
         this.packetType = packetType;
         this.buffer = buffer;
     }
+    /**
+     * The packetType of packet being read.
+     */
+    private PacketType packetType;
 
     /**
      * Gets the packet id.
@@ -47,6 +43,10 @@ public class Packet {
     public int getOpcode() {
         return opcode;
     }
+    /**
+     * The buffer being used to read the packet information.
+     */
+    private ChannelBuffer buffer;
 
     /**
      * Gets the packet packetType.
@@ -55,6 +55,12 @@ public class Packet {
      */
     public PacketType getType() {
         return packetType;
+    }
+
+    public enum PacketType {
+        FIXED,
+        BYTE,
+        SHORT;
     }
 
     /**
@@ -361,11 +367,5 @@ public class Packet {
 
     public boolean prioritize() {
         return opcode == EquipPacketListener.OPCODE || opcode == ItemActionPacketListener.FIRST_ITEM_ACTION_OPCODE || opcode == ButtonClickPacketListener.OPCODE;
-    }
-
-    public enum PacketType {
-        FIXED,
-        BYTE,
-        SHORT;
     }
 }

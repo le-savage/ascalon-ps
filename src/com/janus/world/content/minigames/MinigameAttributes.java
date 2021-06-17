@@ -26,139 +26,6 @@ public class MinigameAttributes {
         return barrowsMinigameAttributes;
     }
 
-    public WarriorsGuildAttributes getWarriorsGuildAttributes() {
-        return warriorsGuildAttributes;
-    }
-
-    public PestControlAttributes getPestControlAttributes() {
-        return pestControlAttributes;
-    }
-
-    public RecipeForDisasterAttributes getRecipeForDisasterAttributes() {
-        return rfdAttributes;
-    }
-
-    public NomadAttributes getNomadAttributes() {
-        return nomadAttributes;
-    }
-
-	/*public class SoulWarsAttributes {
-		private int activity = 30;
-		private int productChosen = -1;
-		private int team = -1;
-
-		public int getActivity() {
-			return activity;
-		}
-
-		public void setActivity(int activity) {
-			this.activity = activity;
-		}
-
-		public int getProductChosen() {
-			return productChosen;
-		}
-
-		public void setProductChosen(int prodouctChosen) {
-			this.productChosen = prodouctChosen;
-		}
-
-		public int getTeam() {
-			return team;
-		}
-
-		public void setTeam(int team) {
-			this.team = team;
-		}
-	}*/
-
-    public GraveyardAttributes getGraveyardAttributes() {
-        return graveyardAttributes;
-    }
-
-    public GodwarsDungeonAttributes getGodwarsDungeonAttributes() {
-        return godwarsDungeonAttributes;
-    }
-
-    public DungeoneeringAttributes getDungeoneeringAttributes() {
-        return dungeoneeringAttributes;
-    }
-
-    public class GraveyardAttributes {
-
-        private int wave;
-        private int requiredKills;
-        private int level;
-        private boolean entered;
-
-        public int getWave() {
-            return wave;
-        }
-
-        public GraveyardAttributes setWave(int wave) {
-            this.wave = wave;
-            return this;
-        }
-
-        public int getLevel() {
-            return level;
-        }
-
-        public void setLevel(int level) {
-            this.level = level;
-        }
-
-        public int incrementAndGetWave() {
-            return this.wave++;
-        }
-
-        public void incrementLevel() {
-            this.level++;
-        }
-
-        public int getRequiredKills() {
-            return requiredKills;
-        }
-
-        public void setRequiredKills(int requiredKills) {
-            this.requiredKills = requiredKills;
-        }
-
-        public int decrementAndGetRequiredKills() {
-            return this.requiredKills--;
-        }
-
-        public boolean hasEntered() {
-            return entered;
-        }
-
-        public GraveyardAttributes setEntered(boolean entered) {
-            this.entered = entered;
-            return this;
-        }
-    }
-
-    public class PestControlAttributes {
-
-        private int damageDealt;
-
-        public PestControlAttributes() {
-
-        }
-
-        public int getDamageDealt() {
-            return damageDealt;
-        }
-
-        public void setDamageDealt(int damageDealt) {
-            this.damageDealt = damageDealt;
-        }
-
-        public void incrementDamageDealt(int damageDealt) {
-            this.damageDealt += damageDealt;
-        }
-    }
-
     public class WarriorsGuildAttributes {
 
         private boolean hasSpawnedArmour;
@@ -182,49 +49,8 @@ public class MinigameAttributes {
 
     }
 
-    public class BarrowsMinigameAttributes {
-
-        private int killcount, randomCoffin, riddleAnswer = -1;
-        private int[][] barrowsData = { //NPCID, state
-                {2030, 0}, // verac
-                {2029, 0}, // toarg
-                {2028, 0}, // karil
-                {2027, 0}, // guthan
-                {2026, 0}, // dharok
-                {2025, 0} // ahrim
-        };
-
-        public int getKillcount() {
-            return killcount;
-        }
-
-        public void setKillcount(int killcount) {
-            this.killcount = killcount;
-        }
-
-        public int getRandomCoffin() {
-            return randomCoffin;
-        }
-
-        public void setRandomCoffin(int randomCoffin) {
-            this.randomCoffin = randomCoffin;
-        }
-
-        public int getRiddleAnswer() {
-            return riddleAnswer;
-        }
-
-        public void setRiddleAnswer(int riddleAnswer) {
-            this.riddleAnswer = riddleAnswer;
-        }
-
-        public int[][] getBarrowsData() {
-            return barrowsData;
-        }
-
-        public void setBarrowsData(int[][] barrowsData) {
-            this.barrowsData = barrowsData;
-        }
+    public WarriorsGuildAttributes getWarriorsGuildAttributes() {
+        return warriorsGuildAttributes;
     }
 
     public class RecipeForDisasterAttributes {
@@ -285,6 +111,36 @@ public class MinigameAttributes {
         }
     }
 
+	/*public class SoulWarsAttributes {
+		private int activity = 30;
+		private int productChosen = -1;
+		private int team = -1;
+
+		public int getActivity() {
+			return activity;
+		}
+
+		public void setActivity(int activity) {
+			this.activity = activity;
+		}
+
+		public int getProductChosen() {
+			return productChosen;
+		}
+
+		public void setProductChosen(int prodouctChosen) {
+			this.productChosen = prodouctChosen;
+		}
+
+		public int getTeam() {
+			return team;
+		}
+
+		public void setTeam(int team) {
+			this.team = team;
+		}
+	}*/
+
     public class GodwarsDungeonAttributes {
         private int[] killcount = new int[4]; // 0 = armadyl, 1 = bandos, 2 = saradomin, 3 = zamorak
         private boolean enteredRoom;
@@ -313,6 +169,151 @@ public class MinigameAttributes {
         public GodwarsDungeonAttributes setAltarDelay(long altarDelay) {
             this.altarDelay = altarDelay;
             return this;
+        }
+    }
+
+    public PestControlAttributes getPestControlAttributes() {
+        return pestControlAttributes;
+    }
+
+    public RecipeForDisasterAttributes getRecipeForDisasterAttributes() {
+        return rfdAttributes;
+    }
+
+    public NomadAttributes getNomadAttributes() {
+        return nomadAttributes;
+    }
+
+    public GraveyardAttributes getGraveyardAttributes() {
+        return graveyardAttributes;
+    }
+
+    public GodwarsDungeonAttributes getGodwarsDungeonAttributes() {
+        return godwarsDungeonAttributes;
+    }
+
+    public DungeoneeringAttributes getDungeoneeringAttributes() {
+        return dungeoneeringAttributes;
+    }
+
+    public class GraveyardAttributes {
+
+        private int wave;
+        private int requiredKills;
+        private int level;
+        private boolean entered;
+
+        public int getWave() {
+            return wave;
+        }
+
+        public int getLevel() {
+            return level;
+        }
+
+        public GraveyardAttributes setWave(int wave) {
+            this.wave = wave;
+            return this;
+        }
+
+        public int incrementAndGetWave() {
+            return this.wave++;
+        }
+
+        public void setLevel(int level) {
+            this.level = level;
+        }
+
+        public void incrementLevel() {
+            this.level++;
+        }
+
+        public int getRequiredKills() {
+            return requiredKills;
+        }
+
+        public int decrementAndGetRequiredKills() {
+            return this.requiredKills--;
+        }
+
+        public void setRequiredKills(int requiredKills) {
+            this.requiredKills = requiredKills;
+        }
+
+        public boolean hasEntered() {
+            return entered;
+        }
+
+        public GraveyardAttributes setEntered(boolean entered) {
+            this.entered = entered;
+            return this;
+        }
+    }
+
+    public class PestControlAttributes {
+
+        public PestControlAttributes() {
+
+        }
+
+        private int damageDealt;
+
+        public int getDamageDealt() {
+            return damageDealt;
+        }
+
+        public void setDamageDealt(int damageDealt) {
+            this.damageDealt = damageDealt;
+        }
+
+        public void incrementDamageDealt(int damageDealt) {
+            this.damageDealt += damageDealt;
+        }
+    }
+
+    public class BarrowsMinigameAttributes {
+
+        private int killcount, randomCoffin, riddleAnswer = -1;
+
+        public int getKillcount() {
+            return killcount;
+        }
+
+        public void setKillcount(int killcount) {
+            this.killcount = killcount;
+        }
+
+        public int getRandomCoffin() {
+            return randomCoffin;
+        }
+
+        public void setRandomCoffin(int randomCoffin) {
+            this.randomCoffin = randomCoffin;
+        }
+
+        public int getRiddleAnswer() {
+            return riddleAnswer;
+        }
+
+        public void setRiddleAnswer(int riddleAnswer) {
+            this.riddleAnswer = riddleAnswer;
+        }
+
+        private int[][] barrowsData = { //NPCID, state
+                {2030, 0}, // verac
+                {2029, 0}, // toarg
+                {2028, 0}, // karil
+                {2027, 0}, // guthan
+                {2026, 0}, // dharok
+                {2025, 0} // ahrim
+        };
+
+        public int[][] getBarrowsData() {
+            return barrowsData;
+        }
+
+        public void setBarrowsData(int[][] barrowsData) {
+            this.barrowsData = barrowsData;
         }
     }
 
@@ -360,12 +361,16 @@ public class MinigameAttributes {
             this.damageDealt += damage;
         }
 
+        public void setDamageDealt(int damage) {
+            this.damageDealt = damage;
+        }
+
         public int getDamageDealt() {
             return this.damageDealt;
         }
 
-        public void setDamageDealt(int damage) {
-            this.damageDealt = damage;
+        public void setDeaths(int deaths) {
+            this.deaths = deaths;
         }
 
         public void incrementDeaths() {
@@ -374,10 +379,6 @@ public class MinigameAttributes {
 
         public int getDeaths() {
             return deaths;
-        }
-
-        public void setDeaths(int deaths) {
-            this.deaths = deaths;
         }
     }
 

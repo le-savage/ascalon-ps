@@ -19,11 +19,20 @@ public enum BonesData {
     OURG_BONES(14793, 10985),
     FROSTDRAGON_BONES(18830, 14870);
 
-    private int boneId;
-    private int buryXP;
     BonesData(int boneId, int buryXP) {
         this.boneId = boneId;
         this.buryXP = buryXP;
+    }
+
+    private int boneId;
+    private int buryXP;
+
+    public int getBoneID() {
+        return this.boneId;
+    }
+
+    public int getBuryingXP() {
+        return this.buryXP;
     }
 
     public static BonesData forId(int bone) {
@@ -33,14 +42,6 @@ public enum BonesData {
             }
         }
         return null;
-    }
-
-    public int getBoneID() {
-        return this.boneId;
-    }
-
-    public int getBuryingXP() {
-        return this.buryXP;
     }
 
 }
