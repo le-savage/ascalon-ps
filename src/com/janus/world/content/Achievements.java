@@ -197,11 +197,12 @@ public class Achievements {
         COMPLETE_ALL_HARD_TASKS(Difficulty.ELITE, "Complete All Hard Tasks", 45104, new int[]{47, 32}),
         CUT_AN_ONYX_STONE(Difficulty.ELITE, "Cut An Onyx Stone", 45105, null),
         REACH_MAX_EXP_IN_A_SKILL(Difficulty.ELITE, "Reach Max Exp In A Skill", 45106, null),
-        REACH_LEVEL_99_IN_ALL_SKILLS(Difficulty.ELITE, "Reach Level 99 In All Skills", 45107, new int[]{48, 22}),
+        REACH_LEVEL_99_IN_ALL_SKILLS(Difficulty.HARD, "Reach Level 99 In All Skills", 45107, new int[]{48, 22}),
         DEFEAT_10000_MONSTERS(Difficulty.ELITE, "Defeat 10,000 Monsters", 45108, new int[]{49, 10000}),
         DEFEAT_500_BOSSES(Difficulty.ELITE, "Defeat 500 Boss Monsters", 45109, new int[]{50, 500}),
         VOTE_50_TIMES(Difficulty.ELITE, "Vote 50 Times", 45110, new int[]{51, 50}),
         UNLOCK_ALL_LOYALTY_TITLES(Difficulty.ELITE, "Unlock All Loyalty Titles", 45111, new int[]{52, 11}),
+        REACH_LEVEL_120_IN_ALL_SKILLS(Difficulty.ELITE, "Reach Level 120 In All Skills", 45107, new int[]{53, 22}),
         ;
 
         AchievementData(Difficulty difficulty, String interfaceLine, int interfaceFrame, int[] progressData) {
