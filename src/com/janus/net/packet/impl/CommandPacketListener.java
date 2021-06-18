@@ -1945,6 +1945,8 @@ public class CommandPacketListener implements PacketListener {
                     new Animation(751));
             player.getUpdateFlag().flag(Flag.APPEARANCE);
         }
+
+
         if (command[0].equals("interface")) {
             int id = Integer.parseInt(command[1]);
             player.getPacketSender().sendInterface(id);
@@ -2163,9 +2165,7 @@ public class CommandPacketListener implements PacketListener {
                 }
             }
         }
-        if (command[0].equalsIgnoreCase("jint")) {
-            player.getPacketSender().sendInterface(4161);
-        }
+
         if (command[0].equalsIgnoreCase("sendstring")) {
             player.getPacketSender().sendMessage("::sendstring id text");
             if (command.length >= 3 && Integer.parseInt(command[1]) <= Integer.MAX_VALUE) {
@@ -2290,6 +2290,7 @@ public class CommandPacketListener implements PacketListener {
             player.getPacketSender().sendConsoleMessage("You are now a master of all skills.");
             player.getUpdateFlag().flag(Flag.APPEARANCE);
         }
+
         if (command[0].equalsIgnoreCase("givedon")) {
 
             String name = wholeCommand.substring(8);

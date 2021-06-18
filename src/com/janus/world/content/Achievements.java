@@ -202,7 +202,6 @@ public class Achievements {
         DEFEAT_500_BOSSES(Difficulty.ELITE, "Defeat 500 Boss Monsters", 45109, new int[]{50, 500}),
         VOTE_50_TIMES(Difficulty.ELITE, "Vote 50 Times", 45110, new int[]{51, 50}),
         UNLOCK_ALL_LOYALTY_TITLES(Difficulty.ELITE, "Unlock All Loyalty Titles", 45111, new int[]{52, 11}),
-        REACH_LEVEL_120_IN_ALL_SKILLS(Difficulty.ELITE, "Reach Level 120 In All Skills", 45107, new int[]{53, 22}),
         ;
 
         AchievementData(Difficulty difficulty, String interfaceLine, int interfaceFrame, int[] progressData) {

@@ -377,7 +377,7 @@ public class SkillManager {
         for (int i = 0; i < Skill.values().length; i++) {
             if (i == 21)
                 continue;
-            if (p.getSkillManager().getMaxLevel(i)-21 < (i == 3 || i == 5 ? 990 : 99)) {
+            if (p.getSkillManager().getMaxLevel(i) < (i == 3 || i == 5 ? 990 : 99)) {
                 return false;
             }
         }
@@ -388,7 +388,7 @@ public class SkillManager {
         for (int i = 0; i < Skill.values().length; i++) {
             if (i == 21)
                 continue;
-            if (p.getSkillManager().getMaxLevel(i) < (i == 3 || i == 5 ? 990 : 99)) {
+            if (p.getSkillManager().getMaxLevel(i) < (i == 3 || i == 5 ? 1200 : 120)) {
                 return false;
             }
         }
@@ -586,93 +586,40 @@ public class SkillManager {
             if (!isNewSkill(skill) && !skill.equals(Skill.SUMMONING)) {
                 setCurrentLevel(skill, skills.maxLevel[skill.ordinal()]);
             }
-            //player.getPacketSender().sendFlashingSidebar(Constants.SKILLS_TAB);
 
-		/*	player.setDialogue(null);
-			player.getPacketSender().sendString(4268, "Congratulations! You have achieved a " + skillName + " level!");
-			player.getPacketSender().sendString(4269, "Well done. You are now level " + newLevel + ".");
-			player.getPacketSender().sendString(358, "Click here to continue.");
-			player.getPacketSender().sendChatboxInterface(skill.getChatboxInterface());
-			player.performGraphic(new Graphic(312));*/
             player.getPacketSender().sendMessage("You've just advanced " + skillName + " level! You have reached level " + newLevel);
             Sounds.sendSound(player, Sound.LEVELUP);
 
+            String difficulty = ("" + player.getDifficulty().toString().toUpperCase() + "");
+            String maxAlertColour = player.getDifficulty().getAlertColour();
+
             if (skills.maxLevel[skill.ordinal()] == getMaxAchievingLevel(skill)) {
 
-                String easyColor = "<col=00e62b>";
-                String mediumColor = "<col=ad820a>";
-                String hardColor = "<col=f76472>";
-                String insaneColor = "<col=d81124>";
-                String zezimaColor = "<col=ff031b>";
-                String difficulty = ("" + player.getDifficulty().toString().toUpperCase() + "");
-
                 player.getPacketSender().sendMessage("Well done! You've achieved level 120 in this skill!");
-                if (player.getNotificationPreference()) {
+
+                World.sendMessage("@red@[Player News] @bla@"
+                        + player.getUsername() + " has just achieved level 120 in "
+                        + skillName
+                        + " on ["
+                        + maxAlertColour
+                        + difficulty
+                        + "@bla@] mode!"
+                );
+
+                if (player.getNotificationPreference())
                     player.getPacketSender().trayMessage(3, "Congrats! " + player.getUsername() + "! Level 120 " + skillName + " obtained!");
-                }
-                if (player.getDifficulty() == Difficulty.Easy) {
-                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 120 in " + skillName + " on [" + easyColor + difficulty + "@bla@] mode!");
-                }
 
-                if (player.getDifficulty() == Difficulty.Medium) {
-                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 120 in " + skillName + " on [" + mediumColor + difficulty + "@bla@] mode!");
-                }
-
-                if (player.getDifficulty() == Difficulty.Hard) {
-                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 120 in " + skillName + " on [" + hardColor + difficulty + "@bla@] mode!");
+                if (fullMax(player)) {
+                    World.sendMessage("@red@"
+                            + player.getUsername()
+                            + " has just achieved level 120 in all skills on ["
+                            + maxAlertColour
+                            + difficulty
+                            + "@red@] mode!"
+                    );
                 }
 
-                if (player.getDifficulty() == Difficulty.Insane) {
-                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 120 in " + skillName + " on [" + insaneColor + difficulty + "@bla@] mode!");
-                }
-
-                if (player.getDifficulty() == Difficulty.Zezima) {
-                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 120 in " + skillName + " on [" + zezimaColor + difficulty + "@bla@] mode!");
-                }
-
-                if ((fullMax(player)) && (player.getDifficulty() == Difficulty.Easy)) {
-                    if (player.getRights() == PlayerRights.PLAYER) {
-                        player.setRights(PlayerRights.DONATOR);
-                    }
-                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_120_IN_ALL_SKILLS);
-                    World.sendMessage("@red@" + player.getUsername() + " has just achieved level 120 in all skills on [" + easyColor + difficulty + "@red@] mode!");
-                }
-
-                if ((fullMax(player)) && (player.getDifficulty() == Difficulty.Medium)) {
-                    if (player.getRights() == PlayerRights.PLAYER) {
-                        player.setRights(PlayerRights.DONATOR);
-                    }
-                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_120_IN_ALL_SKILLS);
-                    World.sendMessage("@red@" + player.getUsername() + " has just achieved level 120 in all skills on [" + mediumColor + difficulty + "@red@] mode!");
-                }
-
-                if ((fullMax(player)) && (player.getDifficulty() == Difficulty.Hard)) {
-                    if (player.getRights() == PlayerRights.PLAYER) {
-                        player.setRights(PlayerRights.DONATOR);
-                    }
-                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_120_IN_ALL_SKILLS);
-                    World.sendMessage("@red@" + player.getUsername() + " has just achieved level 120 in all skills on [" + hardColor + difficulty + "@red@] mode!");
-                }
-
-                if ((fullMax(player)) && (player.getDifficulty() == Difficulty.Insane)) {
-                    if (player.getRights() == PlayerRights.PLAYER) {
-                        player.setRights(PlayerRights.DONATOR);
-                    }
-                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_120_IN_ALL_SKILLS);
-                    World.sendMessage("@red@" + player.getUsername() + " has just achieved level 120 in all skills on [" + insaneColor + difficulty + "@red@] mode!");
-                }
-
-                if ((fullMax(player)) && (player.getDifficulty() == Difficulty.Zezima)) {
-                    if (player.getRights() == PlayerRights.PLAYER) {
-                        player.setRights(PlayerRights.DONATOR);
-                    }
-                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_120_IN_ALL_SKILLS);
-                    World.sendMessage("@red@" + player.getUsername() + " has just achieved level 120 in all skills on [" + zezimaColor + difficulty + "@red@] mode!");
-                }
-
-
-                //World.sendMessage("@red@[Player News] @bla@"+player.getUsername()+" has just achieved level 120 in "+skillName+"!"); OLD MESSAGE
-                TaskManager.submit(new Task(2, player, true) {
+                /*TaskManager.submit(new Task(2, player, true) {
                     int localGFX = 1634;
 
                     @Override
@@ -685,82 +632,45 @@ public class SkillManager {
                         localGFX++;
                         player.performGraphic(new Graphic(localGFX));
                     }
-                });
-            } else if (skills.maxLevel[skill.ordinal()] == getMaxAchievingLevel(skill) - 21) {
+                });*/
+            }
 
-                String easyColor = "<col=00e62b>";
-                String mediumColor = "<col=ad820a>";
-                String hardColor = "<col=f76472>";
-                String insaneColor = "<col=d81124>";
-                String zezimaColor = "<col=ff031b>";
-                String difficulty = ("" + player.getDifficulty().toString().toUpperCase() + "");
+            if (skills.maxLevel[skill.ordinal()] == 99) {
 
                 player.getPacketSender().sendMessage("Well done! You've achieved level 99 in this skill!");
+
                 if (player.getNotificationPreference()) {
-                    player.getPacketSender().trayMessage(3, "Congrats! " + player.getUsername() + "! Level 99 " + skillName + " obtained!");
-                }
-                if (player.getDifficulty() == Difficulty.Easy) {
-                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 99 in " + skillName + " on [" + easyColor + difficulty + "@bla@] mode!");
-                }
-
-                if (player.getDifficulty() == Difficulty.Medium) {
-                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 99 in " + skillName + " on [" + mediumColor + difficulty + "@bla@] mode!");
+                    player.getPacketSender().trayMessage(3, "Congrats! "
+                            + player.getUsername()
+                            + "! Level 99 "
+                            + skillName
+                            + " obtained!"
+                    );
                 }
 
-                if (player.getDifficulty() == Difficulty.Hard) {
-                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 99 in " + skillName + " on [" + hardColor + difficulty + "@bla@] mode!");
-                }
+                World.sendMessage("@red@[Player News] @bla@"
+                        + player.getUsername()
+                        + " has just achieved level 99 in "
+                        + skillName + " on ["
+                        + maxAlertColour
+                        + difficulty
+                        + "@bla@] mode!"
+                );
 
-                if (player.getDifficulty() == Difficulty.Insane) {
-                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 99 in " + skillName + " on [" + insaneColor + difficulty + "@bla@] mode!");
-                }
-
-                if (player.getDifficulty() == Difficulty.Zezima) {
-                    World.sendMessage("@red@[Player News] @bla@" + player.getUsername() + " has just achieved level 99 in " + skillName + " on [" + zezimaColor + difficulty + "@bla@] mode!");
-                }
-
-                if ((softMax(player)) && (player.getDifficulty() == Difficulty.Easy)) {
-                    if (player.getRights() == PlayerRights.PLAYER) {
-                        player.setRights(PlayerRights.DONATOR);
-                    }
+                if (softMax(player)) {
                     Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
-                    World.sendMessage("@red@" + player.getUsername() + " has just achieved level 99 in all skills on [" + easyColor + difficulty + "@red@] mode!");
+                    World.sendMessage("@red@"
+                            + player.getUsername()
+                            + " has just achieved level 99 in all skills on ["
+                            + maxAlertColour
+                            + difficulty
+                            + "@red@] mode!"
+                    );
                 }
+            }
 
-                if ((softMax(player)) && (player.getDifficulty() == Difficulty.Medium)) {
-                    if (player.getRights() == PlayerRights.PLAYER) {
-                        player.setRights(PlayerRights.DONATOR);
-                    }
-                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
-                    World.sendMessage("@red@" + player.getUsername() + " has just achieved level 99 in all skills on [" + mediumColor + difficulty + "@red@] mode!");
-                }
+            if (skills.maxLevel[skill.ordinal()] == 99 || skills.maxLevel[skill.ordinal()] == 120) {
 
-                if ((softMax(player)) && (player.getDifficulty() == Difficulty.Hard)) {
-                    if (player.getRights() == PlayerRights.PLAYER) {
-                        player.setRights(PlayerRights.DONATOR);
-                    }
-                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
-                    World.sendMessage("@red@" + player.getUsername() + " has just achieved level 99 in all skills on [" + hardColor + difficulty + "@red@] mode!");
-                }
-
-                if ((softMax(player)) && (player.getDifficulty() == Difficulty.Insane)) {
-                    if (player.getRights() == PlayerRights.PLAYER) {
-                        player.setRights(PlayerRights.DONATOR);
-                    }
-                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
-                    World.sendMessage("@red@" + player.getUsername() + " has just achieved level 99 in all skills on [" + insaneColor + difficulty + "@red@] mode!");
-                }
-
-                if ((softMax(player)) && (player.getDifficulty() == Difficulty.Zezima)) {
-                    if (player.getRights() == PlayerRights.PLAYER) {
-                        player.setRights(PlayerRights.DONATOR);
-                    }
-                    Achievements.finishAchievement(player, AchievementData.REACH_LEVEL_99_IN_ALL_SKILLS);
-                    World.sendMessage("@red@" + player.getUsername() + " has just achieved level 99 in all skills on [" + zezimaColor + difficulty + "@red@] mode!");
-                }
-
-
-                //World.sendMessage("@red@[Player News] @bla@"+player.getUsername()+" has just achieved level 99 in "+skillName+"!"); OLD MESSAGE
                 TaskManager.submit(new Task(2, player, true) {
                     int localGFX = 1634;
 
