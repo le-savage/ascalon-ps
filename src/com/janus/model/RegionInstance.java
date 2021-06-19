@@ -16,28 +16,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class RegionInstance {
 
-    public enum RegionInstanceType {
-        BARROWS,
-        GRAVEYARD,
-        FIGHT_CAVE,
-        WARRIORS_GUILD,
-        NOMAD,
-        RECIPE_FOR_DISASTER,
-        CONSTRUCTION_HOUSE,
-        CONSTRUCTION_DUNGEON,
-        KRAKEN,
-        KBD,
-        MAN,
-        BORINGZULRAHZONE,
-        INSTANCE_ARENA,
-        ZULRAHS_SHRINE;
-    }
-
     private Player owner;
     private RegionInstanceType type;
     private CopyOnWriteArrayList<NPC> npcsList;
     private CopyOnWriteArrayList<Player> playersList;
-
     public RegionInstance(Player p, RegionInstanceType type) {
         this.owner = p;
         this.type = type;
@@ -120,5 +102,23 @@ public class RegionInstance {
     @Override
     public boolean equals(Object other) {
         return (RegionInstanceType) other == type;
+    }
+
+    public enum RegionInstanceType {
+        BARROWS,
+        GRAVEYARD,
+        FIGHT_CAVE,
+        WARRIORS_GUILD,
+        NOMAD,
+        RECIPE_FOR_DISASTER,
+        CONSTRUCTION_HOUSE,
+        CONSTRUCTION_DUNGEON,
+        KRAKEN,
+        KBD,
+        MAN,
+        BORINGZULRAHZONE,
+        INSTANCE_ARENA,
+        ZULRAHS_SHRINE,
+        BOSS_TIER_ARENA;
     }
 }

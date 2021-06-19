@@ -26,6 +26,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PlayerDeathTask extends Task {
 
+    Position oldPosition;
+    Location loc;
+    ArrayList<Item> itemsToKeep = null;
+    NPC death;
+    private Player player;
+    private int ticks = 5;
+    private boolean dropItems = true;
     /**
      * The PlayerDeathTask constructor.
      *
@@ -35,14 +42,6 @@ public class PlayerDeathTask extends Task {
         super(1, player, false);
         this.player = player;
     }
-
-    Position oldPosition;
-    Location loc;
-    ArrayList<Item> itemsToKeep = null;
-    NPC death;
-    private Player player;
-    private int ticks = 5;
-    private boolean dropItems = true;
 
     public static NPC getDeathNpc(Player player) {
         NPC death = new NPC(2862, new Position(player.getPosition().getX() + 1, player.getPosition().getY() + 1));
@@ -121,6 +120,7 @@ public class PlayerDeathTask extends Task {
                                 dropItems = false;
                             }
 
+
                             if (player.getHostAddress().equals(killer.getHostAddress())) {
                                 dropItems = false;
                                 World.sendStaffMessage(player.getUsername().toUpperCase() + " just tried to kill their alt: " + killer.getUsername().toUpperCase() + " in the wildy!");
@@ -131,7 +131,6 @@ public class PlayerDeathTask extends Task {
                                 killer.getPacketSender().sendMessage("No items dropped due to killer being an " + Misc.formatText(killer.getGameMode().name()));
                                 dropItems = false;
                             }
-
 
 
                         }
@@ -206,7 +205,7 @@ public class PlayerDeathTask extends Task {
                     player.restart();
                     player.getUpdateFlag().flag(Flag.APPEARANCE);
                     loc.onDeath(player);
-                    if (loc != Location.DUNGEONEERING) {
+                    if (loc != Location.DUNGEONEERING && loc != Location.BOSS_TIER_LOCATION) {
                         if (player.getPosition().equals(oldPosition))
                             player.moveTo(GameSettings.DEFAULT_POSITION.copy());
                         player.getPacketSender().sendRichPresenceState("I Just Died!");

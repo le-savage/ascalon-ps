@@ -946,6 +946,53 @@ public class Player extends Character {
         }
     }
 
+    public int[] bossGameLevels = new int[25];
+    public int[] bossGameSkillXP = new int[25];
+    public int[] bossGameMaxLevels = new int[25];
+
+    public int kbdTier = 0;
+    public int barrowsKC = 0;
+
+    public int getKbdTier() {
+        return kbdTier;
+    }
+
+    public void setKbdTier(int kbdTier) {
+        this.kbdTier = kbdTier;
+    }
+
+    public int getBarrowsKC() {
+        return barrowsKC;
+    }
+
+    public void setBarrowsKC(int barrowsKC) {
+        this.barrowsKC = barrowsKC;
+    }
+
+    boolean playedNewBarrows = false;
+    boolean bossTierTP = false;
+
+    public boolean hasPlayedNewBarrows() {
+        return playedNewBarrows;
+    }
+
+    public void setHasPlayedNewBarrows(boolean playedNewBarrows) {
+        this.playedNewBarrows = playedNewBarrows;
+    }
+
+    public boolean hasUsedBossTierTP() {
+        return bossTierTP;
+    }
+
+    public void setHasUsedBossTierTP(boolean bossTierTP) {
+        this.bossTierTP = bossTierTP;
+    }
+
+    public void setShouldGiveBossReward(boolean shouldGiveBossReward) {
+        this.shouldGiveBossReward = shouldGiveBossReward;
+    }
+
+
     public void incrementSpecialPercentage(int gainAmount) {
         this.specialPercentage += gainAmount;
 
@@ -969,6 +1016,7 @@ public class Player extends Character {
         return weapon;
     }
     private boolean areCloudsSpawned;
+    private boolean shouldGiveBossReward;
     public Player(PlayerSession playerIO) {
         super(GameSettings.DEFAULT_POSITION.copy());
         this.session = playerIO;
@@ -2182,6 +2230,10 @@ public class Player extends Character {
 
     public boolean cloudsSpawned() {
         return areCloudsSpawned;
+    }
+
+    public boolean shouldGiveBossReward() {
+        return shouldGiveBossReward;
     }
 
     public void setCloudsSpawned(boolean cloudsSpawned) {

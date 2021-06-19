@@ -48,6 +48,10 @@ public class GameSettings {
     public static final int GAME_PORT = 43594;
 
     /**
+     * Current Boss Challenge NPC
+     */
+    public static int CURRENT_BOSS_ID = 50;
+    /**
      * The game version
      */
     public static final int GAME_VERSION = 13;

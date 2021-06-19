@@ -1,35 +1,40 @@
 {
-  "total-play-time-ms": 6927435,
+  "total-play-time-ms": 7926240,
   "username": "Flub",
   "password": "Browner0602",
   "email": "null",
   "staff-rights": "OWNER",
   "game-mode": "NORMAL",
   "difficulty": "Easy",
-  "boss-points": 0,
+  "boss-points": 1,
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2701,
-    "y": 5347,
+    "x": 2747,
+    "y": 5374,
     "z": 0
   },
   "online-status": "ON",
   "given-starter": true,
+  "has-played-new-barrows": false,
+  "has-used-boss-tier-tp": true,
+  "should-give-boss-reward": false,
+  "kbd-tier": 0,
+  "barrows-kc": 0,
   "money-pouch": 0,
   "donated": 0,
-  "next-reward": 0,
+  "next-reward": 1624149355990,
   "reward-day": 0,
-  "claimed-todays-reward": false,
+  "claimed-todays-reward": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 100000,
-  "total-gained-exp": 6790140,
+  "total-gained-exp": 8453568,
   "prestige-points": 0,
-  "achievement-points": 1,
+  "achievement-points": 5,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 1279008,
-  "total-loyalty-points": 1279008.0,
+  "loyalty-points": 1407008,
+  "total-loyalty-points": 1407008.0,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -54,8 +59,8 @@
   "auto-retaliate": false,
   "xp-locked": false,
   "veng-cast": false,
-  "last-veng": 10353912,
-  "fight-type": "UNARMED_PUNCH",
+  "last-veng": 10995933,
+  "fight-type": "LONGSWORD_SLASH",
   "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
@@ -83,8 +88,37 @@
   "autocast": false,
   "autocast-spell": -1,
   "dfs-charges": 0,
-  "kills": [],
-  "drops": [],
+  "kills": [
+    {
+      "runningTotal": 1,
+      "npcId": 50,
+      "npcName": "King Black Dragon",
+      "amount": 1,
+      "boss": true
+    }
+  ],
+  "drops": [
+    {
+      "item": 12159,
+      "amount": 5,
+      "rareDrop": false
+    },
+    {
+      "item": 995,
+      "amount": 60000,
+      "rareDrop": false
+    },
+    {
+      "item": 536,
+      "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 1747,
+      "amount": 1,
+      "rareDrop": false
+    }
+  ],
   "coins-gambled": 0,
   "slayer-master": "VANNAKA",
   "slayer-task": "NO_TASK",
@@ -284,113 +318,113 @@
   },
   "inventory": [
     {
-      "id": 2441,
-      "amount": 50,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 2437,
-      "amount": 50,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 2443,
-      "amount": 50,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 3025,
-      "amount": 50,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 2435,
-      "amount": 30,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 392,
-      "amount": 300,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 995,
-      "amount": 10000000,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1323,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1333,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 18768,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 11838,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 6568,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 841,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 861,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 882,
-      "amount": 500,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 892,
-      "amount": 500,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 11818,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1381,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 558,
-      "amount": 1000,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 557,
-      "amount": 1000,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 555,
-      "amount": 1000,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 554,
-      "amount": 1000,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
@@ -557,6 +591,13 @@
     false,
     false,
     false,
+    true,
+    false,
+    false,
+    true,
+    false,
+    false,
+    true,
     false,
     false,
     false,
@@ -582,14 +623,7 @@
     false,
     false,
     false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
+    true,
     false,
     false,
     false,
@@ -639,6 +673,28 @@
     false
   ],
   "achievements-progress": [
+    910,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3548,
     0,
     0,
     0,
@@ -660,36 +716,14 @@
     0,
     0,
     0,
+    3548,
     0,
     0,
     0,
     0,
     0,
     0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
+    1,
     0,
     2,
     0

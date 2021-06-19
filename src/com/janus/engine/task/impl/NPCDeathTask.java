@@ -16,6 +16,9 @@ import com.janus.world.content.WildyWyrmEvent;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.strategy.impl.KalphiteQueen;
 import com.janus.world.content.combat.strategy.impl.Nex;
+import com.janus.world.content.combat.tieredbosses.BossFunctions;
+import com.janus.world.content.combat.tieredbosses.BossNPCData;
+import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
@@ -195,102 +198,12 @@ public class NPCDeathTask extends Task {
         npc.setDying(false);
 
         //respawn
-        if (npc.getDefinition().getRespawnTime() > 0 && npc.getLocation() != Location.GRAVEYARD && npc.getLocation() != Location.DUNGEONEERING && npc.getLocation() != Location.INSTANCE_ARENA) {
+        if (npc.getDefinition().getRespawnTime() > 0 && npc.getLocation() != Location.GRAVEYARD && npc.getLocation() != Location.DUNGEONEERING && npc.getLocation() != Location.INSTANCE_ARENA && npc.getLocation() != Location.BOSS_TIER_LOCATION && npc.getLocation() != Location.BARROWS) {
             TaskManager.submit(new NPCRespawnTask(npc, npc.getDefinition().getRespawnTime()));
         }
 
         World.deregister(npc);
 
-        /*if (npc.getLocation() == Location.INSTANCE_ARENA) {
-
-            /*if (killer.getRights() == PlayerRights.SUPER_DONATOR || killer.getRights() == PlayerRights.EXTREME_DONATOR || killer.getRights() == PlayerRights.LEGENDARY_DONATOR || killer.getRights() == PlayerRights.UBER_DONATOR || killer.getRights().isStaff()) {
-
-                if (npc.getId() == 3) {
-                    InstanceArena.spawnMan(killer);
-                }
-                if (npc.getId() == 50) {
-                    InstanceArena.spawnKBD(killer);
-                }
-                if (npc.getId() == 1591) {
-                    InstanceArena.spawnIronDragon(killer);
-                }
-                if (npc.getId() == 1592) {
-                    InstanceArena.spawnSteelDragon(killer);
-                }
-                if (npc.getId() == 51) {
-                    InstanceArena.spawnFrostDragon(killer);
-                }
-                if ((npc.getId() == 2605) || (npc.getId() == 2611) || (npc.getId() == 2600) || (npc.getId() == 2591)) {
-                    InstanceArena.spawnTzHaar(killer);
-                }
-                if (npc.getId() == 2060) {
-                    InstanceArena.spawnSlashBash(killer);
-                }
-                if (npc.getId() == 499) {
-                    InstanceArena.spawnSmokeDevil(killer);
-                }
-                if (npc.getId() == 2881) {
-                    InstanceArena.spawnSupreme(killer);
-                }
-                if (npc.getId() == 2882) {
-                    InstanceArena.spawnPrime(killer);
-                }
-                if (npc.getId() == 2883) {
-                    InstanceArena.spawnRex(killer);
-                }
-                if (npc.getId() == 9463) {
-                    InstanceArena.spawnIceWorm(killer);
-                }
-                if (npc.getId() == 9465) {
-                    InstanceArena.spawnDesertWorm(killer);
-                }
-                if (npc.getId() == 9467) {
-                    InstanceArena.spawnJungleWorm(killer);
-                }
-                if (npc.getId() == 1999) {
-                    InstanceArena.spawnCerberus(killer);
-                }
-                if (npc.getId() == 8349) {
-                    InstanceArena.spawnTormentedDemon(killer);
-                }
-                if (npc.getId() == 1459) {
-                    InstanceArena.spawnGorilla(killer);
-                }
-                if (npc.getId() == 7134) {
-                    InstanceArena.spawnBork(killer);
-                }
-                if (npc.getId() == 3200) {
-                    InstanceArena.spawnChaosElemental(killer);
-                }
-                if (npc.getId() == 6766) {
-                    InstanceArena.spawnLizardShaman(killer);
-                }
-                if (npc.getId() == 2044) {
-                    InstanceArena.spawnZulrah(killer);
-                }
-            }
-
-            if ((killer.getRights() == PlayerRights.PLAYER || killer.getRights() == PlayerRights.DONATOR)) {
-                    TaskManager.submit(new Task(7, killer, false) {
-                        @Override
-                        public void execute() {
-                            InstanceArena.destructArena(killer);
-                            this.stop();
-                        }
-                    });
-                }
-
-            if ((npc.getId() == 1265) ||  (npc.getId() == 2605) || (npc.getId() == 2611) || (npc.getId() == 2600) || (npc.getId() == 2591) || (npc.getId() == 181)) {
-                TaskManager.submit(new Task(400, killer, false) {
-                    @Override
-                    public void execute() {
-                        InstanceArena.destructArena(killer);
-                        this.stop();
-                    }
-                });
-            }
-
-            }*/
         if (npc.getLocation() == Location.INSTANCE_ARENA) {
 
 
@@ -363,6 +276,39 @@ public class NPCDeathTask extends Task {
             }
 
             if (killer.getRights() == PlayerRights.PLAYER) {
+                killer.getPacketSender().sendMessage("Nice job! Use the button or ::exit to leave!");
+            }
+        }
+
+        if (npc.getLocation() == Location.BOSS_TIER_LOCATION) {
+            if (npc.getId() == BossNPCData.KING_BLACK_DRAGON.getLevel1ID()) {
+                if (killer.kbdTier <= 4 && !killer.shouldGiveBossReward() && !BossRewardBoxes.hasExistingBox(killer)) {
+                    killer.kbdTier++;
+                    killer.setShouldGiveBossReward(true);
+                    killer.forceChat("I should leave now!");
+                    BossFunctions.despawnNpcs(killer);
+                }
+                if (killer.kbdTier == 3 || killer.kbdTier == 4){ // Unfreeze the last two tiers
+                    killer.setFreezeDelay(-1);
+                    killer.setResetMovementQueue(true);
+                }
+                if (killer.kbdTier <= 4) {
+                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just completed tier " + (killer.getKbdTier() - 1) + " at ::boss!");
+                }
+                if (killer.kbdTier == 5) {
+                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just killed the final tier " + (killer.getKbdTier() - 1) + " at ::boss!");
+                }
+                TaskManager.submit(new Task(2, killer, false) {
+                    @Override
+                    public void execute() {
+                        killer.moveTo(BossFunctions.ARENA_ENTRANCE);
+                        stop();
+                    }
+                });
+            }
+        }
+
+            if (killer.getRights() == PlayerRights.PLAYER) {
                 /*TaskManager.submit(new Task(15, killer, false) {
                     @Override
                     public void execute() {
@@ -372,8 +318,6 @@ public class NPCDeathTask extends Task {
                 });*/
                 killer.getPacketSender().sendMessage("Nice job! Use the button or ::exit to leave!");
             }
-        }
-
 
         if (npc.getId() == 1158 || npc.getId() == 1160) {
             KalphiteQueen.death(npc.getId(), npc.getPosition());

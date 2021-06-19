@@ -110,6 +110,21 @@ public class PlayerLoading {
             if (reader.has("given-starter")) {
                 player.setReceivedStarter(reader.get("given-starter").getAsBoolean());
             }
+            if (reader.has("has-played-new-barrows")) {
+                player.setHasPlayedNewBarrows(reader.get("has-played-new-barrows").getAsBoolean());
+            }
+            if (reader.has("has-used-boss-tier-tp")) {
+                player.setHasUsedBossTierTP(reader.get("has-used-boss-tier-tp").getAsBoolean());
+            }
+            if (reader.has("should-give-boss-reward")) {
+                player.setShouldGiveBossReward(reader.get("should-give-boss-reward").getAsBoolean());
+            }
+            if (reader.has("kbd-tier")) {
+                player.setKbdTier(reader.get("kbd-tier").getAsInt());
+            }
+            if (reader.has("barrows-kc")) {
+                player.setBarrowsKC(reader.get("barrows-kc").getAsInt());
+            }
             if (reader.has("money-pouch")) {
                 player.setMoneyInPouch(reader.get("money-pouch").getAsLong());
             }
