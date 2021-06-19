@@ -21,6 +21,7 @@ public enum Difficulty {
     Difficulty(double xpBoost, int drBoost, String maxAlertColour) {
         this.xpRate = xpBoost;
         this.drBoost = drBoost;
+        this.maxAlertColour = maxAlertColour;
     }
 
     public boolean lowDifficulty() {

@@ -591,7 +591,7 @@ public class SkillManager {
             Sounds.sendSound(player, Sound.LEVELUP);
 
             String difficulty = ("" + player.getDifficulty().toString().toUpperCase() + "");
-            String maxAlertColour = player.getDifficulty().getAlertColour();
+            String maxAlertColour = ("" + player.getDifficulty().getAlertColour() + "");
 
             if (skills.maxLevel[skill.ordinal()] == getMaxAchievingLevel(skill)) {
 

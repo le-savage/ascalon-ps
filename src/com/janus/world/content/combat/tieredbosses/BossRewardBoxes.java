@@ -41,12 +41,6 @@ public class BossRewardBoxes {
             return true;
         }
 
-        /*for (Bank bank : player.getBanks()) {
-            if (bank == null) {
-                continue;
-            }
-            return bank.contains(rewardBox) || player.getInventory().contains(rewardBox);
-        }*/
         return false;
     }
 

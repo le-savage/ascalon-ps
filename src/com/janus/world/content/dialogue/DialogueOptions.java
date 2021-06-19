@@ -12,6 +12,7 @@ import com.janus.world.content.Achievements.AchievementData;
 import com.janus.world.content.*;
 import com.janus.world.content.Gambling.FlowersData;
 import com.janus.world.content.clan.ClanChatManager;
+import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.content.dialogue.impl.AgilityTicketExchange;
 import com.janus.world.content.dialogue.impl.Mandrith;
 import com.janus.world.content.minigames.impl.Graveyard;
@@ -33,6 +34,8 @@ import com.janus.world.content.transportation.TeleportType;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.npc.NpcAggression;
 import com.janus.world.entity.impl.player.Player;
+
+import static com.janus.world.content.combat.tieredbosses.BossRewardBoxes.hasEarnedReward;
 
 public class DialogueOptions {
 
@@ -1215,6 +1218,13 @@ public class DialogueOptions {
                         player.setDifficulty(Difficulty.Default);
                         player.getPacketSender().sendInterfaceRemoval();
                         PlayerPanel.refreshPanel(player);
+                    }
+                    break;
+                case 85:
+                    if (!hasEarnedReward(player) && !BossRewardBoxes.hasExistingBox(player)) {
+                        player.getPacketSender().sendMessage("You haven't earned this reward!");
+                    } else {
+                        BossRewardBoxes.openBossRewardBox(player);
                     }
                     break;
             }
