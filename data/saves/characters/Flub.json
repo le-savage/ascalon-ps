@@ -1,25 +1,25 @@
 {
-  "total-play-time-ms": 8872602,
+  "total-play-time-ms": 13923776,
   "username": "Flub",
-  "password": "Browner0602",
+  "password": "HodgeTwins1",
   "email": "null",
   "staff-rights": "OWNER",
   "game-mode": "NORMAL",
   "difficulty": "Easy",
-  "boss-points": 2,
+  "boss-points": 7,
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2744,
-    "y": 5373,
+    "x": 2747,
+    "y": 5374,
     "z": 0
   },
   "online-status": "ON",
   "given-starter": true,
   "has-played-new-barrows": false,
   "has-used-boss-tier-tp": true,
-  "should-give-boss-reward": true,
-  "kbd-tier": 1,
+  "should-give-boss-reward": false,
+  "kbd-tier": 4,
   "barrows-kc": 0,
   "money-pouch": 0,
   "donated": 0,
@@ -28,13 +28,13 @@
   "claimed-todays-reward": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 100000,
-  "total-gained-exp": 32888376,
+  "total-gained-exp": 102594030,
   "prestige-points": 0,
-  "achievement-points": 6,
+  "achievement-points": 10,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 1646008,
-  "total-loyalty-points": 1646008.0,
+  "loyalty-points": 2233008,
+  "total-loyalty-points": 2233008.0,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -59,8 +59,8 @@
   "auto-retaliate": false,
   "xp-locked": false,
   "veng-cast": true,
-  "last-veng": 1624129933128,
-  "fight-type": "UNARMED_KICK",
+  "last-veng": 17196298,
+  "fight-type": "STAFF_POUND",
   "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
@@ -95,17 +95,31 @@
       "npcName": "King Black Dragon",
       "amount": 2,
       "boss": true
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 3,
+      "npcName": "Crazy lvl 2 Man",
+      "amount": 4,
+      "boss": true
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 5666,
+      "npcName": "Barrelchest",
+      "amount": 1,
+      "boss": true
     }
   ],
   "drops": [
     {
       "item": 12159,
-      "amount": 5,
+      "amount": 19,
       "rareDrop": false
     },
     {
       "item": 995,
-      "amount": 60000,
+      "amount": 180000,
       "rareDrop": false
     },
     {
@@ -121,6 +135,101 @@
     {
       "item": 12158,
       "amount": 5,
+      "rareDrop": false
+    },
+    {
+      "item": 12163,
+      "amount": 13,
+      "rareDrop": false
+    },
+    {
+      "item": 560,
+      "amount": 2400,
+      "rareDrop": false
+    },
+    {
+      "item": 533,
+      "amount": 6000,
+      "rareDrop": false
+    },
+    {
+      "item": 1621,
+      "amount": 3,
+      "rareDrop": false
+    },
+    {
+      "item": 1403,
+      "amount": 2,
+      "rareDrop": false
+    },
+    {
+      "item": 890,
+      "amount": 5250,
+      "rareDrop": false
+    },
+    {
+      "item": 9144,
+      "amount": 3750,
+      "rareDrop": false
+    },
+    {
+      "item": 2366,
+      "amount": 2,
+      "rareDrop": false
+    },
+    {
+      "item": 1622,
+      "amount": 100,
+      "rareDrop": false
+    },
+    {
+      "item": 270,
+      "amount": 540,
+      "rareDrop": false
+    },
+    {
+      "item": 564,
+      "amount": 250,
+      "rareDrop": false
+    },
+    {
+      "item": 5105,
+      "amount": 1440,
+      "rareDrop": false
+    },
+    {
+      "item": 563,
+      "amount": 1503,
+      "rareDrop": false
+    },
+    {
+      "item": 1631,
+      "amount": 2,
+      "rareDrop": false
+    },
+    {
+      "item": 8781,
+      "amount": 1100,
+      "rareDrop": false
+    },
+    {
+      "item": 1623,
+      "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 7937,
+      "amount": 2500,
+      "rareDrop": false
+    },
+    {
+      "item": 450,
+      "amount": 65,
+      "rareDrop": false
+    },
+    {
+      "item": 203,
+      "amount": 1,
       "rareDrop": false
     }
   ],
@@ -243,7 +352,7 @@
       120,
       99,
       120,
-      1200,
+      1135,
       120,
       1200,
       120,
@@ -597,35 +706,35 @@
     false,
     false,
     true,
+    true,
     false,
-    false,
+    true,
+    true,
+    true,
     true,
     false,
     false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
     true,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
     false,
     false,
     true,
@@ -680,6 +789,28 @@
   "achievements-progress": [
     910,
     0,
+    890,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    99955,
+    24857,
+    2639,
     0,
     0,
     0,
@@ -699,36 +830,14 @@
     0,
     0,
     0,
-    11878,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    11878,
-    0,
-    0,
+    132680,
+    24857,
+    2639,
     0,
     1,
     0,
     0,
-    2,
+    7,
     0,
     2,
     0

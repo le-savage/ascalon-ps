@@ -35,6 +35,8 @@ public class BossFunctions {
 
     public static int rewardChestID = 4126;
 
+
+
     public static boolean checkItems(Player player) {
         if (player.getInventory().getFreeSlots() != 28) {
             return false;
@@ -85,18 +87,12 @@ public class BossFunctions {
             @Override
             protected void execute() {
                 player.getPacketSender().sendInterfaceRemoval();
-                player.forceChat("Uh oh! Tier " + player.getKbdTier() + " just spawned!");
+                //player.forceChat("Uh oh! Tier " + player.getKbdTier() + " just spawned!"); TODO Change message
                 player.performAnimation(new Animation(1746));
                 if (player.getLocation() != BOSS_TIER_LOCATION) {
-                    if (player.getKbdTier() == 3 || player.getKbdTier() == 4) {
-                        player.moveTo(new Position(frozenX, frozenY, player.getIndex() * 4));
-                        player.setFreezeDelay(Integer.MAX_VALUE);
-                        player.setResetMovementQueue(true);
-                    } else {
-                        player.moveTo(new Position(entranceX, entranceY, player.getIndex() * 4));
-                    }
+                    player.moveTo(new Position(entranceX, entranceY, player.getIndex() * 4));
                     player.setRegionInstance(new RegionInstance(player, BOSS_TIER_ARENA));
-                    KBDFight.StartKBDFight(player);
+                    BossMiniGame.StartBossMinigame(player);
                     if (player.getSummoning().getFamiliar() != null) {
                         player.getSummoning().unsummon(true, true);
                     }

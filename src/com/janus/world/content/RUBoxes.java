@@ -97,7 +97,7 @@ public class RUBoxes {//Items in mystery boxes
     }
 
 
-    public static void commonRReward(Player player) {
+    public static void  commonRReward(Player player) {
         player.getInventory().add(commonRewards[Misc.getRandom(commonRewards.length - 1)], 1);
         //player.getInventory().add(995, 1000000 + RandomUtility.RANDOM.nextInt(5000000));
     }

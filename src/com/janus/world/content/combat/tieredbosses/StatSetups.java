@@ -3,9 +3,11 @@ package com.janus.world.content.combat.tieredbosses;
 public enum StatSetups {
     ;
 
-    public enum zeroSetup {
+    public enum firstWave {
 
-        KBD(99, 99, 99, 99, 99, 990, 990);
+        KBD(99, 99, 99, 99, 99, 990, 990),
+        EXAMPLE_NPC_1(99, 99, 99, 99, 99, 990, 990),
+        EXAMPLE_NPC_2(99, 99, 99, 99, 99, 990, 990);
 
         private final int attack;
         private final int defence;
@@ -15,7 +17,7 @@ public enum StatSetups {
         private final int constitution;
         private final int prayer;
 
-        zeroSetup(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
+        firstWave(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
             this.attack = attack;
             this.defence = defence;
             this.strength = strength;
@@ -56,9 +58,11 @@ public enum StatSetups {
 
     }
 
-    public enum oneSetup {
+    public enum secondWave {
 
-        KBD(80, 80, 80, 80, 80, 880, 880);
+        KBD(80, 80, 80, 80, 80, 880, 880),
+        EXAMPLE_NPC_1(99, 99, 99, 99, 99, 990, 990),
+        EXAMPLE_NPC_2(99, 99, 99, 99, 99, 990, 990);
 
         private final int attack;
         private final int defence;
@@ -68,7 +72,7 @@ public enum StatSetups {
         private final int constitution;
         private final int prayer;
 
-        oneSetup(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
+        secondWave(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
             this.attack = attack;
             this.defence = defence;
             this.strength = strength;
@@ -109,9 +113,11 @@ public enum StatSetups {
 
     }
 
-    public enum twoSetup {
+    public enum thirdWave {
 
-        KBD(70, 70, 99, 70, 70, 770, 770);
+        KBD(70, 70, 99, 70, 70, 770, 770),
+        EXAMPLE_NPC_1(99, 99, 99, 99, 99, 990, 990),
+        EXAMPLE_NPC_2(99, 99, 99, 99, 99, 990, 990);
 
         private final int attack;
         private final int defence;
@@ -121,7 +127,7 @@ public enum StatSetups {
         private final int constitution;
         private final int prayer;
 
-        twoSetup(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
+        thirdWave(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
             this.attack = attack;
             this.defence = defence;
             this.strength = strength;
@@ -162,9 +168,11 @@ public enum StatSetups {
 
     }
 
-    public enum threeSetup {
+    public enum fourthWave {
 
-        KBD(1, 60, 1, 60, 1, 550, 660);
+        KBD(1, 60, 1, 60, 1, 550, 660),
+        EXAMPLE_NPC_1(99, 99, 99, 99, 99, 990, 990),
+        EXAMPLE_NPC_2(99, 99, 99, 99, 99, 990, 990);
 
         private final int attack;
         private final int defence;
@@ -174,7 +182,7 @@ public enum StatSetups {
         private final int constitution;
         private final int prayer;
 
-        threeSetup(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
+        fourthWave(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
             this.attack = attack;
             this.defence = defence;
             this.strength = strength;
@@ -215,9 +223,11 @@ public enum StatSetups {
 
     }
 
-    public enum fourSetup {
+    public enum fifthWave {
 
-        KBD(1, 30, 1, 1, 59, 500, 500);
+        KBD(1, 30, 1, 1, 59, 500, 500),
+        EXAMPLE_NPC_1(99, 99, 99, 99, 99, 990, 990),
+        EXAMPLE_NPC_2(99, 99, 99, 99, 99, 990, 990);
 
         private final int attack;
         private final int defence;
@@ -227,7 +237,7 @@ public enum StatSetups {
         private final int constitution;
         private final int prayer;
 
-        fourSetup(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
+        fifthWave(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
             this.attack = attack;
             this.defence = defence;
             this.strength = strength;

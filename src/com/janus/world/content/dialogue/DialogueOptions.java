@@ -1276,6 +1276,12 @@ public class DialogueOptions {
                         player.getMinigameAttributes().getDungeoneeringAttributes().getPartyInvitation().getOwner().getPacketSender().sendMessage("" + player.getUsername() + " has declined your invitation.");
                     player.getMinigameAttributes().getDungeoneeringAttributes().setPartyInvitation(null);
                     break;
+                case 85:
+                    player.getPacketSender().sendMessage("We've skipped opening this reward box <3");
+                    player.getPacketSender().sendInterfaceRemoval();
+                    player.setShouldGiveBossReward(false);
+                    BossRewardBoxes.removeBossRewardBox(player);
+                    break;
             }
         } else if (id == FIRST_OPTION_OF_THREE) {
             switch (player.getDialogueActionId()) {

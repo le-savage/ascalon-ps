@@ -17,7 +17,6 @@ import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.strategy.impl.KalphiteQueen;
 import com.janus.world.content.combat.strategy.impl.Nex;
 import com.janus.world.content.combat.tieredbosses.BossFunctions;
-import com.janus.world.content.combat.tieredbosses.BossNPCData;
 import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -281,7 +280,6 @@ public class NPCDeathTask extends Task {
         }
 
         if (npc.getLocation() == Location.BOSS_TIER_LOCATION) {
-            if (npc.getId() == BossNPCData.KING_BLACK_DRAGON.getLevel1ID()) {
                 if (killer.kbdTier <= 4 && !killer.shouldGiveBossReward() && !BossRewardBoxes.hasExistingBox(killer)) {
                     killer.kbdTier++;
                     killer.setShouldGiveBossReward(true);
@@ -306,7 +304,6 @@ public class NPCDeathTask extends Task {
                     }
                 });
             }
-        }
 
             if (killer.getRights() == PlayerRights.PLAYER) {
                 /*TaskManager.submit(new Task(15, killer, false) {
