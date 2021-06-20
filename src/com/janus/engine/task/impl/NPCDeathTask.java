@@ -173,7 +173,10 @@ public class NPCDeathTask extends Task {
 
 
                         /** PARSE DROPS **/
-                        NPCDrops.dropItems(killer, npc);
+                        if (npc.getLocation() != Location.BOSS_TIER_LOCATION) {
+                            NPCDrops.dropItems(killer, npc);
+                        }
+
                         if (npc.getId() == 3334) {
                             WildyWyrmEvent.handleDrop(npc);
                         }

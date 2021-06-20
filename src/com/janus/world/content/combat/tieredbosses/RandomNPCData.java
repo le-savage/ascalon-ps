@@ -3,7 +3,7 @@ package com.janus.world.content.combat.tieredbosses;
 import com.janus.util.Misc;
 import com.janus.world.entity.impl.player.Player;
 
-public class RandomNPCData {
+public class RandomNPCData { //CHANGE NPC'S IN HERE.. THESE ARE NPC ID'S
 
     public static final int[] firstWaveIDs = {3, 50, 0, 5666, 7286};
     public static final int[] secondWaveIDs = {3, 50, 0, 5666, 7286};
