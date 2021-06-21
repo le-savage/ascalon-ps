@@ -616,9 +616,6 @@ public class SkillManager {
                         + "@bla@] mode!"
                 );
 
-                if (player.getNotificationPreference())
-                    player.getPacketSender().trayMessage(3, "Congrats! " + player.getUsername() + "! Level 120 " + skillName + " obtained!");
-
                 if (fullMax(player)) {
                     World.sendMessage("@red@"
                             + player.getUsername()
@@ -648,15 +645,6 @@ public class SkillManager {
             if (skills.maxLevel[skill.ordinal()] == 99) {
 
                 player.getPacketSender().sendMessage("Well done! You've achieved level 99 in this skill!");
-
-                if (player.getNotificationPreference()) {
-                    player.getPacketSender().trayMessage(3, "Congrats! "
-                            + player.getUsername()
-                            + "! Level 99 "
-                            + skillName
-                            + " obtained!"
-                    );
-                }
 
                 World.sendMessage("@red@[Player News] @bla@"
                         + player.getUsername()

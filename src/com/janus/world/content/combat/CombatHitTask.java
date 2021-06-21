@@ -89,24 +89,14 @@ public class CombatHitTask extends Task {
     public void handleEntityInterface(Character attacker, Character victim, int damage) {
         if (attacker.isPlayer()) {
             Player p = (Player) attacker;
-            int maxhealth = (p.getSkillManager().getMaxLevel(Skill.CONSTITUTION)) / 10;
-            int currenthp = (p.getSkillManager().getCurrentLevel(Skill.CONSTITUTION)) / 10;
-            if (p.getNotificationPreference()) {
-                if (currenthp < maxhealth * 0.5 && currenthp > maxhealth * 0.4) {
-                    p.getPacketSender().minimisedTrayMessage(4, p.getUsername() + " - you have " + currenthp + " HP Remaining!");
-                } else if (currenthp < maxhealth * 0.25) {
-                    p.getPacketSender().minimisedTrayMessage(2, p.getUsername() + " - you have " + currenthp + " HP Remaining!");
-                }
-            }
 
-
-            if (victim.isPlayer()) {//plrs
+            if (victim.isPlayer()) {
                 Player v = (Player) victim;
                 int maximumHealth = v.getSkillManager().getMaxLevel(Skill.CONSTITUTION);
                 int currentHealth = v.getSkillManager().getCurrentLevel(Skill.CONSTITUTION);
                 String entityName = v.getUsername();
                 p.getPacketSender().sendEntityInterface(victim.isPlayer() ? 1 : 0, maximumHealth, currentHealth, entityName);
-            } else if (victim.isNpc()) {//npcs
+            } else if (victim.isNpc()) {
                 NPC v = (NPC) victim;
                 int maximumHealth = v.getDefaultConstitution();
                 int currentHealth = v.getConstitution();

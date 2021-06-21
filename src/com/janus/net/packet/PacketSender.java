@@ -41,7 +41,7 @@ public class PacketSender {
     }
 
 
-    public PacketSender trayMessage(int msgtype, String traymsg) {
+    /*public PacketSender trayMessage(int msgtype, String traymsg) {
         PacketBuilder out = new PacketBuilder(181, PacketType.BYTE);
         out.putShort(msgtype);
         out.putString(traymsg);
@@ -55,7 +55,7 @@ public class PacketSender {
         out.putString(minimisedMessage);
         player.getSession().queueMessage(out);
         return this;
-    }
+    }*/
 
 
     /*** DISCORD PRESENCE ***/

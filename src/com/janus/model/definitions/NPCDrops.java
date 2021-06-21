@@ -114,18 +114,8 @@ public class NPCDrops {
         }
 
 
-        if (item.getDefinition().getValue() > 1000000) {
-            if (player.getNotificationPreference()) {
-                player.getPacketSender().minimisedTrayMessage(5, player.getUsername() + " - You received an expensive drop!");
-            }
-        }
-
-
         if (itemId == 6731 || itemId == 6914 || itemId == 7158 || itemId == 6889 || itemId == 6733 || itemId == 15019 || itemId == 11235 || itemId == 15020 || itemId == 15018 || itemId == 15220 || itemId == 6735 || itemId == 6737 || itemId == 6585 || itemId == 4151 || itemId == 4087 || itemId == 2577 || itemId == 2581 || itemId == 11732 || itemId == 18782) {
             player.getPacketSender().sendMessage("@red@ YOU HAVE RECEIVED A MEDIUM DROP, CHECK THE GROUND!");
-            if (player.getNotificationPreference()) {
-                player.getPacketSender().minimisedTrayMessage(3, player.getUsername() + " - You received a medium drop!");
-            }
         }
 
 
@@ -225,9 +215,6 @@ public class NPCDrops {
                     + "!";
             World.sendFilteredMessage(message);
             DiscordMessenger.sendRareDrop(message);
-            if (toGive.getNotificationPreference()) {
-                toGive.getPacketSender().trayMessage(3, toGive.getUsername() + " - Rare Drop: " + itemMessage + "!");
-            }
             if (ccAnnounce) {
                 ClanChatManager.sendMessage(player.getCurrentClanChat(), "<col=16777215>[<col=255>Lootshare<col=16777215>]<col=3300CC> " + toGive.getUsername() + " received " + itemMessage + " from " + npcName + "!");
             }
