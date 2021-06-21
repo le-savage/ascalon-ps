@@ -508,6 +508,16 @@ public class SkillManager {
 
         if (player.experienceLocked())
             return this;
+
+        if (player.getLocation() == Location.BOSS_TIER_LOCATION)
+            return this;
+
+        if ((player.getLocation() == Location.INSTANCE_ARENA)  //Will not award XP in the Instance Arena to Players or reg donors
+                && (player.getRights() == PlayerRights.PLAYER
+                || player.getRights() == PlayerRights.DONATOR)) {
+            return this;
+        }
+
         /*
          * If the experience in the skill is already greater or equal to
          * {@code MAX_EXPERIENCE} then stop.

@@ -5,8 +5,8 @@ public enum StatSetups {
 
     public enum firstWave {
 
-        KBD(99, 99, 99, 99, 99, 990, 990),
-        EXAMPLE_NPC_1(99, 99, 99, 99, 99, 990, 990),
+        KBD(70, 70, 70, 1, 1, 990, 770),
+        BARRELCHEST(99, 99, 99, 99, 99, 990, 990),
         EXAMPLE_NPC_2(99, 99, 99, 99, 99, 990, 990);
 
         private final int attack;

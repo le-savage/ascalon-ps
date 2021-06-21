@@ -5,11 +5,11 @@ import com.janus.world.entity.impl.player.Player;
 
 public class RandomNPCData { //CHANGE NPC'S IN HERE.. THESE ARE NPC ID'S
 
-    public static final int[] firstWaveIDs = {3, 50, 0, 5666, 7286};
-    public static final int[] secondWaveIDs = {3, 50, 0, 5666, 7286};
-    public static final int[] thirdWaveIDs = {3, 50, 0, 5666, 7286};
-    public static final int[] fourthWaveIDs = {3, 50, 0, 5666, 7286};
-    public static final int[] fifthWaveIDs = {3, 50, 0, 5666, 7286};
+    public static final int[] firstWaveIDs = {51, 54, 50}; //dragon tier
+    public static final int[] secondWaveIDs = {8349, 3200, 2882}; //mage tier
+    public static final int[] thirdWaveIDs = {2881, 5666, 1999,}; //melee tier
+    public static final int[] fourthWaveIDs = {499, 50, 2883}; //mage tier
+    public static final int[] fifthWaveIDs = {3, 1158, 7134}; //boss tier
 
     public static int randomFirstWaveID(Player player) {
         System.out.println("RANDOM NPC 1 SELECTED");
