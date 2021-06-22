@@ -63,7 +63,7 @@ public class BossFunctions {
             return;
         }
 
-        if (player.shouldGiveBossReward()) {
+        if (player.isShouldGiveBossReward()) {
             player.forceChat("I need to claim my reward before starting the next tier!");
             return;
         }
@@ -102,13 +102,13 @@ public class BossFunctions {
             }
         });
 
-        if (!player.hasUsedBossTierTP()) {
+        if (!player.isUsedBossTeleport()) {
             TaskManager.submit(new Task(9) {
                 @Override
                 protected void execute() {
                     player.forceChat("I think I should walk a little further..");
                     player.getPacketSender().sendMessage("@red@Visit the wiki for the guide!");
-                    player.setHasUsedBossTierTP(true);
+                    player.setUsedBossTeleport(true);
                     stop();
                 }
             });
@@ -270,13 +270,13 @@ public class BossFunctions {
         if (BossRewardBoxes.hasExistingBox(player)) {
             String message = (player.getInventory().contains(BossRewardBoxes.rewardBox)) ? "inventory" : "bank";
             player.getPacketSender().sendMessage("You need to use up a reward chest in your "+message+" before looting again!");
-        } else if (!BossRewardBoxes.hasExistingBox(player) && player.shouldGiveBossReward()) {
+        } else if (!BossRewardBoxes.hasExistingBox(player) && player.isShouldGiveBossReward()) {
             BossRewardBoxes.addBossRewardBox(player);
             LootCrate.openChest(player);
             player.setShouldGiveBossReward(false);
         }
 
-        if (!player.shouldGiveBossReward() && !BossRewardBoxes.hasExistingBox(player)) {
+        if (!player.isShouldGiveBossReward() && !BossRewardBoxes.hasExistingBox(player)) {
             player.getPacketSender().sendMessage("Complete the minigame by entering the doors.. If you dare...");
             player.getPacketSender().sendInterfaceRemoval();
         }
@@ -286,7 +286,7 @@ public class BossFunctions {
 
     public static void resetProgress(Player player) {
         player.getPacketSender().sendMessage("Progress has been reset!");
-        player.setKbdTier(0);
+        player.setCurrentBossWave(0);
         player.setShouldGiveBossReward(false);
     }
 }

@@ -16,7 +16,7 @@ public class InventorySetups {
 
     public static void giveItems(Player player) {
         Inventory invent = player.getInventory();
-        switch (player.getKbdTier()) {
+        switch (player.getCurrentBossWave()) {
             case 0: // Wave One
                 invent.addItems(WAVE_ONE_ITEMS, true); // THIS ADDS EVERYTHING FROM THE LISTS ABOVE
                 invent.add(391, 5);// Manta

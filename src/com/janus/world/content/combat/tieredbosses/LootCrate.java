@@ -43,7 +43,7 @@ public class LootCrate {
 
     public static void giveReward(Player player) {
 
-        switch (player.getKbdTier()) {
+        switch (player.getCurrentBossWave()) {
             case 1:
                 int zeroLoot = getRandomItem(ZERO);
                 player.getInventory().add(zeroLoot, 1);

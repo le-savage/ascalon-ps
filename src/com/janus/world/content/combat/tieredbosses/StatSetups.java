@@ -1,13 +1,36 @@
 package com.janus.world.content.combat.tieredbosses;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum StatSetups {
-    ;
 
-    public enum firstWave {
+        //Default used in case of errors
+        DEFAULT(1, 1, 1, 1, 1, 10, 10),
 
-        KBD(70, 70, 70, 1, 1, 990, 770),
-        BARRELCHEST(99, 99, 99, 99, 99, 990, 990),
-        EXAMPLE_NPC_2(99, 99, 99, 99, 99, 990, 990);
+        //First
+        FROST_DRAGON(99, 99, 99, 99, 99, 990, 990),
+        BLACK_DRAGON(99, 99, 99, 99, 99, 990, 990),
+        KBD_WAVE_ONE(70, 70, 70, 1, 1, 990, 770),
+        //Second Wave
+        TORMENTED_DEMON(80, 80, 80, 80, 80, 880, 880),
+        CHAOS_ELEMENTAL(99, 99, 99, 99, 99, 990, 990),
+        DAGANNOTH_PRIME(99, 99, 99, 99, 99, 990, 990),
+        //Third
+        DAGANNOTH_SUPREME(80, 80, 80, 80, 80, 880, 880),
+        BARREL_CHEST(99, 99, 99, 99, 99, 990, 990),
+        CERBERUS(99, 99, 99, 99, 99, 990, 990),
+        //Fourth
+        THERMONUCLEAR_SMOKEDEVIL(80, 80, 80, 80, 80, 880, 880),
+        KBD_WAVE_TWO(99, 99, 99, 99, 99, 990, 990),
+        DAGANNOTH_REX(99, 99, 99, 99, 99, 990, 990),
+        //Fifth
+        CRAZY_LVL2_MAN(80, 80, 80, 80, 80, 880, 880),
+        KALPHITE_QUEEN(99, 99, 99, 99, 99, 990, 990),
+        BORK(99, 99, 99, 99, 99, 990, 990);
+
 
         private final int attack;
         private final int defence;
@@ -16,267 +39,5 @@ public enum StatSetups {
         private final int magic;
         private final int constitution;
         private final int prayer;
-
-        firstWave(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
-            this.attack = attack;
-            this.defence = defence;
-            this.strength = strength;
-            this.ranged = ranged;
-            this.magic = magic;
-            this.constitution = constitution;
-            this.prayer = prayer;
-        }
-
-        public int getAttack() {
-            return attack;
-        }
-
-        public int getDefence() {
-            return defence;
-        }
-
-        public int getStrength() {
-            return strength;
-        }
-
-        public int getRanged() {
-            return ranged;
-        }
-
-        public int getMagic() {
-            return magic;
-        }
-
-        public int getConstitution() {
-            return constitution;
-        }
-
-        public int getPrayer() {
-            return prayer;
-        }
-
-
-    }
-
-    public enum secondWave {
-
-        KBD(80, 80, 80, 80, 80, 880, 880),
-        EXAMPLE_NPC_1(99, 99, 99, 99, 99, 990, 990),
-        EXAMPLE_NPC_2(99, 99, 99, 99, 99, 990, 990);
-
-        private final int attack;
-        private final int defence;
-        private final int strength;
-        private final int ranged;
-        private final int magic;
-        private final int constitution;
-        private final int prayer;
-
-        secondWave(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
-            this.attack = attack;
-            this.defence = defence;
-            this.strength = strength;
-            this.ranged = ranged;
-            this.magic = magic;
-            this.constitution = constitution;
-            this.prayer = prayer;
-        }
-
-        public int getAttack() {
-            return attack;
-        }
-
-        public int getDefence() {
-            return defence;
-        }
-
-        public int getStrength() {
-            return strength;
-        }
-
-        public int getRanged() {
-            return ranged;
-        }
-
-        public int getMagic() {
-            return magic;
-        }
-
-        public int getConstitution() {
-            return constitution;
-        }
-
-        public int getPrayer() {
-            return prayer;
-        }
-
-
-    }
-
-    public enum thirdWave {
-
-        KBD(70, 70, 99, 70, 70, 770, 770),
-        EXAMPLE_NPC_1(99, 99, 99, 99, 99, 990, 990),
-        EXAMPLE_NPC_2(99, 99, 99, 99, 99, 990, 990);
-
-        private final int attack;
-        private final int defence;
-        private final int strength;
-        private final int ranged;
-        private final int magic;
-        private final int constitution;
-        private final int prayer;
-
-        thirdWave(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
-            this.attack = attack;
-            this.defence = defence;
-            this.strength = strength;
-            this.ranged = ranged;
-            this.magic = magic;
-            this.constitution = constitution;
-            this.prayer = prayer;
-        }
-
-        public int getAttack() {
-            return attack;
-        }
-
-        public int getDefence() {
-            return defence;
-        }
-
-        public int getStrength() {
-            return strength;
-        }
-
-        public int getRanged() {
-            return ranged;
-        }
-
-        public int getMagic() {
-            return magic;
-        }
-
-        public int getConstitution() {
-            return constitution;
-        }
-
-        public int getPrayer() {
-            return prayer;
-        }
-
-
-    }
-
-    public enum fourthWave {
-
-        KBD(1, 60, 1, 60, 1, 550, 660),
-        EXAMPLE_NPC_1(99, 99, 99, 99, 99, 990, 990),
-        EXAMPLE_NPC_2(99, 99, 99, 99, 99, 990, 990);
-
-        private final int attack;
-        private final int defence;
-        private final int strength;
-        private final int ranged;
-        private final int magic;
-        private final int constitution;
-        private final int prayer;
-
-        fourthWave(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
-            this.attack = attack;
-            this.defence = defence;
-            this.strength = strength;
-            this.ranged = ranged;
-            this.magic = magic;
-            this.constitution = constitution;
-            this.prayer = prayer;
-        }
-
-        public int getAttack() {
-            return attack;
-        }
-
-        public int getDefence() {
-            return defence;
-        }
-
-        public int getStrength() {
-            return strength;
-        }
-
-        public int getRanged() {
-            return ranged;
-        }
-
-        public int getMagic() {
-            return magic;
-        }
-
-        public int getConstitution() {
-            return constitution;
-        }
-
-        public int getPrayer() {
-            return prayer;
-        }
-
-
-    }
-
-    public enum fifthWave {
-
-        KBD(1, 30, 1, 1, 59, 500, 500),
-        EXAMPLE_NPC_1(99, 99, 99, 99, 99, 990, 990),
-        EXAMPLE_NPC_2(99, 99, 99, 99, 99, 990, 990);
-
-        private final int attack;
-        private final int defence;
-        private final int strength;
-        private final int ranged;
-        private final int magic;
-        private final int constitution;
-        private final int prayer;
-
-        fifthWave(int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {
-            this.attack = attack;
-            this.defence = defence;
-            this.strength = strength;
-            this.ranged = ranged;
-            this.magic = magic;
-            this.constitution = constitution;
-            this.prayer = prayer;
-        }
-
-        public int getAttack() {
-            return attack;
-        }
-
-        public int getDefence() {
-            return defence;
-        }
-
-        public int getStrength() {
-            return strength;
-        }
-
-        public int getRanged() {
-            return ranged;
-        }
-
-        public int getMagic() {
-            return magic;
-        }
-
-        public int getConstitution() {
-            return constitution;
-        }
-
-        public int getPrayer() {
-            return prayer;
-        }
-
-
-    }
-
 
 }

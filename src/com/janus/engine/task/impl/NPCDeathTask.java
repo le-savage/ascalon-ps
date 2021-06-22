@@ -283,21 +283,21 @@ public class NPCDeathTask extends Task {
         }
 
         if (npc.getLocation() == Location.BOSS_TIER_LOCATION) {
-                if (killer.kbdTier <= 4 && !killer.shouldGiveBossReward() && !BossRewardBoxes.hasExistingBox(killer)) {
-                    killer.kbdTier++;
+                if (killer.currentBossWave <= 4 && !killer.isShouldGiveBossReward() && !BossRewardBoxes.hasExistingBox(killer)) {
+                    killer.currentBossWave++;
                     killer.setShouldGiveBossReward(true);
                     killer.forceChat("I should leave now!");
                     BossFunctions.despawnNpcs(killer);
                 }
-                if (killer.kbdTier == 3 || killer.kbdTier == 4){ // Unfreeze the last two tiers
+                if (killer.currentBossWave == 3 || killer.currentBossWave == 4){ // Unfreeze the last two tiers
                     killer.setFreezeDelay(-1);
                     killer.setResetMovementQueue(true);
                 }
-                if (killer.kbdTier <= 4) {
-                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just completed tier " + (killer.getKbdTier() - 1) + " at ::boss!");
+                if (killer.currentBossWave <= 4) {
+                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just completed tier " + (killer.getCurrentBossWave() - 1) + " at ::boss!");
                 }
-                if (killer.kbdTier == 5) {
-                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just killed the final tier " + (killer.getKbdTier() - 1) + " at ::boss!");
+                if (killer.currentBossWave == 5) {
+                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just killed the final tier " + (killer.getCurrentBossWave() - 1) + " at ::boss!");
                 }
                 TaskManager.submit(new Task(2, killer, false) {
                     @Override

@@ -25,7 +25,7 @@ public class BossRewardBoxes {
     /** Checks if the player has actually completed a tier and earned a reward **/
 
     public static boolean hasEarnedReward(Player player) {
-        return player.getLocation() != Locations.Location.BOSS_TIER_LOCATION && player.getRegionInstance() == null && player.shouldGiveBossReward();
+        return player.getLocation() != Locations.Location.BOSS_TIER_LOCATION && player.getRegionInstance() == null && player.isShouldGiveBossReward();
     }
 
     /** Checks the bank and inventory for existing reward boxes **/
@@ -47,7 +47,7 @@ public class BossRewardBoxes {
     /** Adds the boss reward to the players inventory **/
 
     public static void addBossRewardBox(Player player) {
-        if (!hasExistingBox(player) && player.shouldGiveBossReward()) {
+        if (!hasExistingBox(player) && player.isShouldGiveBossReward()) {
             player.getInventory().add(rewardBox, 1);
             player.setShouldGiveBossReward(false);
         } else {
@@ -69,7 +69,7 @@ public class BossRewardBoxes {
 
     public static void setCostToOpen(Player player) {
         long cost = 0;
-        switch (player.getKbdTier()) {
+        switch (player.getCurrentBossWave()) {
             case 1:
                 cost = zeroCost;
                 break;
@@ -99,7 +99,7 @@ public class BossRewardBoxes {
 
     public static boolean canAffordToOpen(Player player) {
         int cash = player.getInventory().getAmount(995);
-        switch (player.getKbdTier()) {
+        switch (player.getCurrentBossWave()) {
             case 1:
                 if (cash >= zeroCost)
                     return true;
@@ -205,7 +205,7 @@ public class BossRewardBoxes {
             return;
         }
         Inventory inventory = player.getInventory();
-        switch (player.getKbdTier()) {
+        switch (player.getCurrentBossWave()) {
             case 1:
                 inventory.delete(995, zeroCost);
                 break;
@@ -231,7 +231,7 @@ public class BossRewardBoxes {
      **/
 
     public static void playerWinsRoll(Player player) {
-        switch (player.getKbdTier()) {
+        switch (player.getCurrentBossWave()) {
             case 1:
                 player.getInventory().add(ZERO[Misc.getRandom(ZERO.length - 1)], 1);
                 break;
@@ -249,7 +249,7 @@ public class BossRewardBoxes {
                 break;
             case 5:
                 player.getInventory().add(FOUR[Misc.getRandom(FOUR.length - 1)], 1);
-                player.setKbdTier(0);
+                player.setCurrentBossWave(0);
                 player.getPacketSender().sendMessage("Congratulations! We've reset your progress so you can do it all again ;)");
                 break;
         }
@@ -268,7 +268,7 @@ public class BossRewardBoxes {
         int tierFour = Misc.random(400000000, 1200000000);//400 - 1.2b
         int tierFive = Misc.random(600000000, 2000000000);//600 - 2b
         Inventory invent = player.getInventory();
-        switch (player.getKbdTier()) {
+        switch (player.getCurrentBossWave()) {
             case 1:
                 invent.add(995, tierOne);
                 player.getPacketSender().sendMessage("Better luck next time! Enjoy your courtesy prize of " + Misc.setupMoney(tierOne) + "!");

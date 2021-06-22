@@ -59,6 +59,8 @@ import com.janus.world.content.skill.impl.summoning.Pouch;
 import com.janus.world.content.skill.impl.summoning.Summoning;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
+import lombok.Getter;
+import lombok.Setter;
 import mysql.impl.FoxSystems.Hiscores;
 
 import java.awt.*;
@@ -950,48 +952,18 @@ public class Player extends Character {
     public int[] bossGameSkillXP = new int[25];
     public int[] bossGameMaxLevels = new int[25];
 
-    public int kbdTier = 0;
+    @Setter
+    @Getter
+    public int currentBossWave = 0;
+    @Setter
+    @Getter
     public int barrowsKC = 0;
-
-    public int getKbdTier() {
-        return kbdTier;
-    }
-
-    public void setKbdTier(int kbdTier) {
-        this.kbdTier = kbdTier;
-    }
-
-    public int getBarrowsKC() {
-        return barrowsKC;
-    }
-
-    public void setBarrowsKC(int barrowsKC) {
-        this.barrowsKC = barrowsKC;
-    }
-
+    @Setter
+    @Getter
     boolean playedNewBarrows = false;
-    boolean bossTierTP = false;
-
-    public boolean hasPlayedNewBarrows() {
-        return playedNewBarrows;
-    }
-
-    public void setHasPlayedNewBarrows(boolean playedNewBarrows) {
-        this.playedNewBarrows = playedNewBarrows;
-    }
-
-    public boolean hasUsedBossTierTP() {
-        return bossTierTP;
-    }
-
-    public void setHasUsedBossTierTP(boolean bossTierTP) {
-        this.bossTierTP = bossTierTP;
-    }
-
-    public void setShouldGiveBossReward(boolean shouldGiveBossReward) {
-        this.shouldGiveBossReward = shouldGiveBossReward;
-    }
-
+    @Setter
+    @Getter
+    boolean usedBossTeleport = false;
 
     public void incrementSpecialPercentage(int gainAmount) {
         this.specialPercentage += gainAmount;
@@ -1016,6 +988,8 @@ public class Player extends Character {
         return weapon;
     }
     private boolean areCloudsSpawned;
+    @Setter
+    @Getter
     private boolean shouldGiveBossReward;
     public Player(PlayerSession playerIO) {
         super(GameSettings.DEFAULT_POSITION.copy());
@@ -2230,10 +2204,6 @@ public class Player extends Character {
 
     public boolean cloudsSpawned() {
         return areCloudsSpawned;
-    }
-
-    public boolean shouldGiveBossReward() {
-        return shouldGiveBossReward;
     }
 
     public void setCloudsSpawned(boolean cloudsSpawned) {

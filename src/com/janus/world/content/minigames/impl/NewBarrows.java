@@ -34,7 +34,7 @@ public class NewBarrows {
 
     public static void spawnBrothers(Player player) {
 
-        player.setHasPlayedNewBarrows(true);
+        player.setPlayedNewBarrows(true);
 
         player.getMinigameAttributes().getBarrowsMinigameAttributes().setKillcount(0);//Reset the players KC each time the game starts
 
