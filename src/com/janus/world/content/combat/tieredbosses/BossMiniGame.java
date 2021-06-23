@@ -201,6 +201,10 @@ public class BossMiniGame {
                 Autocasting.handleAutocast(player, 1181);
                 break;
 
+            case 5:
+                player.setCurrentBossWave(0);
+                break;
+
         }
         if (player.getSummoning().getFamiliar() != null) // Get Rid Of Familiars
             player.getSummoning().unsummon(true, true);
