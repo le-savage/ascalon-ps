@@ -109,7 +109,7 @@ public class ItemMelting {
         player.getPacketSender().sendInterfaceRemoval();
         if (!ItemMeltData.canMelt(player, originalItem))
             return;
-        player.performAnimation(new Animation(896));
+        player.performAnimation(new Animation(883));
         player.setCurrentTask(new Task(2, player, false) {
             int amountMelted = 0;
 
@@ -119,7 +119,7 @@ public class ItemMelting {
                 player.getPacketSender().sendSmallImageKey("smithing");
                 player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.SMITHING));
                 if (ItemMeltData.canMelt(player, originalItem)) {
-                    player.performAnimation(new Animation(896));
+                    player.performAnimation(new Animation(883));
                     player.getInventory().delete(originalItem, 1);
                     player.getInventory().add(item.getMeltedBar(), item.getBarAmount());
                     /*player.getSkillManager().addExperience(Skill.SMITHING, (10000 * item.barAmount));*/

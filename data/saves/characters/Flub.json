@@ -1,5 +1,5 @@
 {
-  "total-play-time-ms": 16218691,
+  "total-play-time-ms": 16564618,
   "username": "Flub",
   "password": "HodgeTwins1",
   "email": "null",
@@ -10,8 +10,8 @@
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2399,
-    "y": 5177,
+    "x": 2737,
+    "y": 5352,
     "z": 0
   },
   "online-status": "ON",
@@ -28,13 +28,13 @@
   "claimed-todays-reward": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 2000,
-  "total-gained-exp": 15817518,
+  "total-gained-exp": 15851718,
   "prestige-points": 0,
   "achievement-points": 10,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 2758008,
-  "total-loyalty-points": 2758008.0,
+  "loyalty-points": 2854008,
+  "total-loyalty-points": 2854008.0,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -59,7 +59,7 @@
   "auto-retaliate": true,
   "xp-locked": false,
   "veng-cast": true,
-  "last-veng": 1624134506191,
+  "last-veng": 275725319,
   "fight-type": "UNARMED_KICK",
   "sol-effect": 0,
   "skull-timer": 0,
@@ -418,13 +418,13 @@
   ],
   "skills": {
     "level": [
-      14988,
-      14988,
-      14988,
-      149988,
-      14988,
+      14984,
+      14984,
+      14984,
+      149984,
+      14984,
       150000,
-      14988,
+      14984,
       120,
       120,
       120,
@@ -485,7 +485,7 @@
       104273167,
       104273167,
       104273167,
-      104273167,
+      104307367,
       104273167,
       104273167,
       104273167,
@@ -501,18 +501,18 @@
   },
   "inventory": [
     {
-      "id": 1462,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 1454,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 441,
-      "amount": 2,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
