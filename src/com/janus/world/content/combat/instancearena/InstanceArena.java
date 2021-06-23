@@ -797,7 +797,7 @@ public class InstanceArena {
             System.out.println("Destroying Arena for " + player.getUsername());
             player.getRegionInstance().getNpcsList().forEach(npc -> npc.removeInstancedNpcs(Locations.Location.INSTANCE_ARENA, player.getPosition().getZ()));
             player.getRegionInstance().getNpcsList().forEach(npc -> World.deregister(npc));
-            player.getRegionInstance().destruct(); //todo Maybe I doubled the destruct?
+            player.getRegionInstance().destruct();
             restore(player);
         }
     }

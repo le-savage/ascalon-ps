@@ -8,35 +8,22 @@ public class InventorySetups {
 
     /*** Contains the potions or items to give the players inventory ***/
 
-    private static final Item[] WAVE_ONE_ITEMS = new Item[]{};
-    private static final Item[] WAVE_TWO_ITEMS = new Item[]{};
-    private static final Item[] WAVE_THREE_ITEMS = new Item[]{};
-    private static final Item[] WAVE_FOUR_ITEMS = new Item[]{new Item(892, 100)}; //range mode
-    private static final Item[] WAVE_FIVE_ITEMS = new Item[]{new Item(556, 200), new Item(554, 300), new Item(560, 80)}; //magic mode
+    public static final Item[] DEFAULT = new Item[]{};
 
-    public static void giveItems(Player player) {
-        Inventory invent = player.getInventory();
-        switch (player.getCurrentBossWave()) {
-            case 0: // Wave One
-                invent.addItems(WAVE_ONE_ITEMS, true); // THIS ADDS EVERYTHING FROM THE LISTS ABOVE
-                invent.add(391, 5);// Manta
-                break;
-            case 1: // Wave Two
-                invent.addItems(WAVE_TWO_ITEMS, true);
-                invent.add(7946, 6);// Monk
-                break;
-            case 2: // Wave Three
-                invent.addItems(WAVE_THREE_ITEMS, true);
-                invent.add(385, 4);// Shark
-                break;
-            case 3://ranged
-                invent.addItems(WAVE_FOUR_ITEMS, true);
-                invent.add(379, 9);// Lobster
-                break;
-            case 4: // Magic
-                invent.addItems(WAVE_FIVE_ITEMS, true);
-                invent.add(315, 12);// Shrimp
-                break;
-        }
-    }
+    public static final Item[] FROST_DRAGON = new Item[]{};
+    public static final Item[] BLACK_DRAGON = new Item[]{};
+    public static final Item[] KBD_WAVE_ONE = new Item[]{};
+    public static final Item[] TORMENTED_DEMON = new Item[]{new Item(892, 100)};
+    public static final Item[] CHAOS_ELEMENTAL = new Item[]{new Item(556, 200), new Item(554, 300), new Item(560, 80)};
+    public static final Item[] DAGANNOTH_PRIME = new Item[]{};
+    public static final Item[] DAGANNOTH_SUPREME = new Item[]{};
+    public static final Item[] BARREL_CHEST = new Item[]{};
+    public static final Item[] CERBERUS = new Item[]{new Item(892, 100)};
+    public static final Item[] THERMONUCLEAR_SMOKEDEVIL = new Item[]{new Item(556, 200), new Item(554, 300), new Item(560, 80)};
+    public static final Item[] KBD_WAVE_TWO = new Item[]{};
+    public static final Item[] DAGANNOTH_REX = new Item[]{};
+    public static final Item[] CRAZY_LVL2_MAN = new Item[]{};
+    public static final Item[] KALPHITE_QUEEN = new Item[]{new Item(892, 100)};
+    public static final Item[] BORK = new Item[]{new Item(556, 200), new Item(554, 300), new Item(560, 80)};
+
 }

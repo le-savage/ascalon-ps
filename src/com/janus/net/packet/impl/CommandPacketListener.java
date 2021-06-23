@@ -29,7 +29,7 @@ import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.strategy.CombatStrategies;
-import com.janus.world.content.combat.tieredbosses.BossFunctions;
+import com.janus.world.content.combat.tieredbosses.BossMinigameFunctions;
 import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.grandexchange.GrandExchangeOffers;
@@ -62,12 +62,12 @@ public class CommandPacketListener implements PacketListener {
 
 
         if (command[0].startsWith("boss")) {
-            TeleportHandler.teleportPlayer(player, BossFunctions.DOOR, player.getSpellbook().getTeleportType());
+            TeleportHandler.teleportPlayer(player, BossMinigameFunctions.DOOR, player.getSpellbook().getTeleportType());
         }
 
 
         if (command[0].startsWith("resettier")) {
-            BossFunctions.resetProgress(player);
+            BossMinigameFunctions.resetProgress(player);
         }
 
 
@@ -565,7 +565,7 @@ public class CommandPacketListener implements PacketListener {
         }
 
         if (command[0].equalsIgnoreCase("destructinstance")) {
-            BossFunctions.despawnNpcs(player);
+            BossMinigameFunctions.despawnNpcs(player);
             player.getPacketSender().sendMessage("Instances destructed");
 
         }
@@ -579,7 +579,7 @@ public class CommandPacketListener implements PacketListener {
 
 
         if (command[0].equalsIgnoreCase("restorestats")) {
-            BossFunctions.restoreOldStats(player);
+            BossMinigameFunctions.restoreOldStats(player);
         }
 
         if (command[0].equalsIgnoreCase("location")) {
@@ -1616,7 +1616,7 @@ public class CommandPacketListener implements PacketListener {
         }
 
         if (command[0].equalsIgnoreCase("restorestats")) {
-            BossFunctions.restoreOldStats(player);
+            BossMinigameFunctions.restoreOldStats(player);
         }
 
         if (command[0].equalsIgnoreCase("panel")) { //COMMAND TO SHOW DIFFICULTY

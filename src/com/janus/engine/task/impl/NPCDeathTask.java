@@ -16,7 +16,7 @@ import com.janus.world.content.WildyWyrmEvent;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.strategy.impl.KalphiteQueen;
 import com.janus.world.content.combat.strategy.impl.Nex;
-import com.janus.world.content.combat.tieredbosses.BossFunctions;
+import com.janus.world.content.combat.tieredbosses.BossMinigameFunctions;
 import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -287,7 +287,7 @@ public class NPCDeathTask extends Task {
                     killer.currentBossWave++;
                     killer.setShouldGiveBossReward(true);
                     killer.forceChat("I should leave now!");
-                    BossFunctions.despawnNpcs(killer);
+                    BossMinigameFunctions.despawnNpcs(killer);
                 }
                 if (killer.currentBossWave == 3 || killer.currentBossWave == 4){ // Unfreeze the last two tiers
                     killer.setFreezeDelay(-1);
@@ -302,7 +302,7 @@ public class NPCDeathTask extends Task {
                 TaskManager.submit(new Task(2, killer, false) {
                     @Override
                     public void execute() {
-                        killer.moveTo(BossFunctions.ARENA_ENTRANCE);
+                        killer.moveTo(BossMinigameFunctions.ARENA_ENTRANCE);
                         stop();
                     }
                 });

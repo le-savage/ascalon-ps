@@ -1,25 +1,25 @@
 {
-  "total-play-time-ms": 14766749,
+  "total-play-time-ms": 16218691,
   "username": "Flub",
   "password": "HodgeTwins1",
   "email": "null",
   "staff-rights": "OWNER",
   "game-mode": "NORMAL",
   "difficulty": "Easy",
-  "boss-points": 8,
+  "boss-points": 9,
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2746,
-    "y": 5373,
+    "x": 2399,
+    "y": 5177,
     "z": 0
   },
   "online-status": "ON",
   "given-starter": true,
   "has-played-new-barrows": false,
   "has-used-boss-tier-tp": true,
-  "should-give-boss-reward": true,
-  "currentBossWave": 0,
+  "should-give-boss-reward": false,
+  "currentBossWave": 1,
   "barrows-kc": 0,
   "money-pouch": 0,
   "donated": 0,
@@ -27,14 +27,14 @@
   "reward-day": 2,
   "claimed-todays-reward": true,
   "minutes-bonus-exp": -1,
-  "pickupValue": 100000,
-  "total-gained-exp": 116731734,
+  "pickupValue": 2000,
+  "total-gained-exp": 15817518,
   "prestige-points": 0,
   "achievement-points": 10,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 2363008,
-  "total-loyalty-points": 2363008.0,
+  "loyalty-points": 2758008,
+  "total-loyalty-points": 2758008.0,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -56,10 +56,10 @@
   "run-energy": 100,
   "music": true,
   "sounds": false,
-  "auto-retaliate": false,
+  "auto-retaliate": true,
   "xp-locked": false,
   "veng-cast": true,
-  "last-veng": 1624133380648,
+  "last-veng": 1624134506191,
   "fight-type": "UNARMED_KICK",
   "sol-effect": 0,
   "skull-timer": 0,
@@ -71,7 +71,7 @@
   "fire-damage-mod": 0,
   "prayer-renewal-timer": 0,
   "teleblock-timer": 0,
-  "special-amount": 15000,
+  "special-amount": 100,
   "entered-gwd-room": false,
   "gwd-altar-delay": 0,
   "gwd-killcount": [
@@ -93,7 +93,7 @@
       "runningTotal": 1,
       "npcId": 50,
       "npcName": "King Black Dragon",
-      "amount": 2,
+      "amount": 3,
       "boss": true
     },
     {
@@ -109,22 +109,36 @@
       "npcName": "Barrelchest",
       "amount": 2,
       "boss": true
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 1592,
+      "npcName": "Steel dragon",
+      "amount": 2,
+      "boss": true
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 1265,
+      "npcName": "Rock Crab",
+      "amount": 10,
+      "boss": false
     }
   ],
   "drops": [
     {
       "item": 12159,
-      "amount": 19,
+      "amount": 24,
       "rareDrop": false
     },
     {
       "item": 995,
-      "amount": 180000,
+      "amount": 184170,
       "rareDrop": false
     },
     {
       "item": 536,
-      "amount": 2,
+      "amount": 4,
       "rareDrop": false
     },
     {
@@ -134,12 +148,12 @@
     },
     {
       "item": 12158,
-      "amount": 5,
+      "amount": 8,
       "rareDrop": false
     },
     {
       "item": 12163,
-      "amount": 13,
+      "amount": 15,
       "rareDrop": false
     },
     {
@@ -229,6 +243,61 @@
     },
     {
       "item": 203,
+      "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 2485,
+      "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 1317,
+      "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 1127,
+      "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 892,
+      "amount": 8,
+      "rareDrop": false
+    },
+    {
+      "item": 313,
+      "amount": 36,
+      "rareDrop": false
+    },
+    {
+      "item": 441,
+      "amount": 6,
+      "rareDrop": false
+    },
+    {
+      "item": 407,
+      "amount": 3,
+      "rareDrop": false
+    },
+    {
+      "item": 1625,
+      "amount": 2,
+      "rareDrop": false
+    },
+    {
+      "item": 403,
+      "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 805,
+      "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 45,
       "amount": 1,
       "rareDrop": false
     }
@@ -349,15 +418,13 @@
   ],
   "skills": {
     "level": [
-      120,
-      99,
-      120,
-      1145,
-      120,
-      1200,
-      120,
-      120,
-      120,
+      14988,
+      14988,
+      14988,
+      149988,
+      14988,
+      150000,
+      14988,
       120,
       120,
       120,
@@ -373,11 +440,13 @@
       120,
       120,
       120,
+      120,
+      15000,
       120
     ],
     "maxLevel": [
       120,
-      99,
+      120,
       120,
       1200,
       120,
@@ -404,9 +473,9 @@
     ],
     "experience": [
       104273167,
-      13985769,
       104273167,
-      104273167,
+      116834485,
+      107529367,
       104273167,
       104273167,
       104273167,
@@ -432,18 +501,18 @@
   },
   "inventory": [
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1462,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1454,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 441,
+      "amount": 2,
       "slot": 0
     },
     {
@@ -830,14 +899,14 @@
     0,
     0,
     0,
-    162372,
+    261912,
     24857,
     3044,
     0,
     1,
     0,
     0,
-    8,
+    11,
     0,
     2,
     0

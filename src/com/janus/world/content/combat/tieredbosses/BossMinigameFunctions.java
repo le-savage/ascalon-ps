@@ -4,6 +4,7 @@ import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.*;
 import com.janus.model.container.impl.Equipment;
+import com.janus.model.container.impl.Inventory;
 import com.janus.net.packet.impl.EquipPacketListener;
 import com.janus.world.World;
 import com.janus.world.content.BonusManager;
@@ -14,7 +15,7 @@ import com.janus.world.entity.impl.player.Player;
 import static com.janus.model.Locations.Location.BOSS_TIER_LOCATION;
 import static com.janus.model.RegionInstance.RegionInstanceType.BOSS_TIER_ARENA;
 
-public class BossFunctions {
+public class BossMinigameFunctions {
 
     public static final int ENTRY_DOOR_ID = 22945;
 
@@ -263,6 +264,11 @@ public class BossFunctions {
         player.getUpdateFlag().flag(Flag.APPEARANCE);
         EquipPacketListener.resetWeapon(player);
         BonusManager.update(player);
+    }
+
+    public static void setInventory(Player player, Item[] items) {
+        Inventory playersInventory = player.getInventory();
+        playersInventory.addItems(items, true);
     }
 
     public static void handleRewardChest(Player player) {

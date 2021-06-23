@@ -7,7 +7,7 @@ import com.janus.world.content.PlayerPunishment.Jail;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.pvp.BountyHunter;
-import com.janus.world.content.combat.tieredbosses.BossFunctions;
+import com.janus.world.content.combat.tieredbosses.BossMinigameFunctions;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.minigames.impl.*;
 import com.janus.world.content.skill.impl.dungeoneering.Dungeoneering;
@@ -289,7 +289,7 @@ public class Locations {
 
            @Override
             public void leave(Player player) {
-                BossFunctions.handleExit(player);
+                BossMinigameFunctions.handleExit(player);
             }
 
             @Override
@@ -302,17 +302,17 @@ public class Locations {
             public void logout(Player player) {
 
                 if (player.getRegionInstance() == null) {
-                    player.moveTo(BossFunctions.DOOR);
-                    BossFunctions.restoreOldStats(player);
+                    player.moveTo(BossMinigameFunctions.DOOR);
+                    BossMinigameFunctions.restoreOldStats(player);
                 } else {
-                    BossFunctions.handleExit(player);
+                    BossMinigameFunctions.handleExit(player);
                 }
             }
 
             @Override
             public void onDeath(Player player) {
-                BossFunctions.handleExit(player);
-                BossFunctions.resetProgress(player);
+                BossMinigameFunctions.handleExit(player);
+                BossMinigameFunctions.resetProgress(player);
             }
 
         },

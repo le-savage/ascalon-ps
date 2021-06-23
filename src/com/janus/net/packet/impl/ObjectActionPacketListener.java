@@ -24,7 +24,7 @@ import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.range.DwarfMultiCannon;
-import com.janus.world.content.combat.tieredbosses.BossFunctions;
+import com.janus.world.content.combat.tieredbosses.BossMinigameFunctions;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.FightStyle;
 import com.janus.world.content.dialogue.DialogueManager;
@@ -340,14 +340,14 @@ public class ObjectActionPacketListener implements PacketListener {
                 if (player.getLocation() == Location.WILDERNESS && WildernessObelisks.handleObelisk(gameObject.getId())) {
                     return;
                 }
-                if (id == BossFunctions.ENTRY_DOOR_ID) {
-                    BossFunctions.handleDoor(player);
+                if (id == BossMinigameFunctions.ENTRY_DOOR_ID) {
+                    BossMinigameFunctions.handleDoor(player);
                 }
-                if (id == BossFunctions.EXIT_CAVE_ID) {
-                    BossFunctions.handleExit(player);
+                if (id == BossMinigameFunctions.EXIT_CAVE_ID) {
+                    BossMinigameFunctions.handleExit(player);
                 }
-                if (id == BossFunctions.rewardChestID) {
-                    BossFunctions.handleRewardChest(player);
+                if (id == BossMinigameFunctions.rewardChestID) {
+                    BossMinigameFunctions.handleRewardChest(player);
                 }
                 switch (id) {
 

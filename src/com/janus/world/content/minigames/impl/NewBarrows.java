@@ -32,7 +32,7 @@ public class NewBarrows {
             4749, 4751, 4753, 4755, 4757, 4759};
 
 
-    public static void spawnBrothers(Player player) {
+    public static void spawnBrothers(Player player) { //TODO Check where to initialise this
 
         player.setPlayedNewBarrows(true);
 

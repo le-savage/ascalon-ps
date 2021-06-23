@@ -1,6 +1,7 @@
 package com.janus.world.content.combat.tieredbosses;
 
 import com.janus.GameSettings;
+import com.janus.model.Item;
 import com.janus.model.MagicSpellbook;
 import com.janus.model.Position;
 import com.janus.world.World;
@@ -13,8 +14,8 @@ public class BossMiniGame {
 
     public static void StartBossMinigame(Player player) {
 
-        int x = BossFunctions.ARENA_CENTRE.getX();
-        int y = BossFunctions.ARENA_CENTRE.getY();
+        int x = BossMinigameFunctions.ARENA_CENTRE.getX();
+        int y = BossMinigameFunctions.ARENA_CENTRE.getY();
         int z = player.getPosition().getZ();
 
         NPC firstWaveNPC = new NPC(RandomNPCData.randomFirstWaveID(player), new Position(x, y, z)).setSpawnedFor(player);
@@ -37,20 +38,30 @@ public class BossMiniGame {
         EquipmentSetups fourthWaveGear = EquipmentSetups.DEFAULT;
         EquipmentSetups fifthWaveGear = EquipmentSetups.DEFAULT;
 
+        Item[] firstWaveInventory = InventorySetups.DEFAULT;
+        Item[] secondWaveInventory = InventorySetups.DEFAULT;
+        Item[] thirdWaveInventory = InventorySetups.DEFAULT;
+        Item[] fourthWaveInventory = InventorySetups.DEFAULT;
+        Item[] fifthWaveInventory = InventorySetups.DEFAULT;
+
+
         /** SWITCHES TO MATCH STATS / INVENTORY WITH BOSS **/
 
         switch (firstWaveNPC.getId()) { // First Wave
             case 51:// Frost Dragon
                 firstWaveGear = EquipmentSetups.FROST_DRAGON;
                 firstWaveStats = StatSetups.FROST_DRAGON;
+                firstWaveInventory = InventorySetups.FROST_DRAGON;
                 break;
             case 54:// Black Dragon
                 firstWaveGear = EquipmentSetups.BLACK_DRAGON;
                 firstWaveStats = StatSetups.BLACK_DRAGON;
+                firstWaveInventory = InventorySetups.BLACK_DRAGON;
                 break;
             case 50:// King Black Dragon (KBD)
                 firstWaveGear = EquipmentSetups.KBD_WAVE_ONE;
                 firstWaveStats = StatSetups.KBD_WAVE_ONE;
+                firstWaveInventory = InventorySetups.KBD_WAVE_ONE;
                 break;
         }
 
@@ -58,59 +69,71 @@ public class BossMiniGame {
             case 8349:// Tormented Demon
                 secondWaveGear = EquipmentSetups.TORMENTED_DEMON;
                 secondWaveStats = StatSetups.TORMENTED_DEMON;
+                secondWaveInventory = InventorySetups.TORMENTED_DEMON;
                 break;
             case 3200:// Chaos Elemental
                 secondWaveGear = EquipmentSetups.CHAOS_ELEMENTAL;
                 secondWaveStats = StatSetups.CHAOS_ELEMENTAL;
+                secondWaveInventory = InventorySetups.CHAOS_ELEMENTAL;
                 break;
             case 2882:// Dagganoth Prime
                 secondWaveGear = EquipmentSetups.DAGANNOTH_PRIME;
                 secondWaveStats = StatSetups.DAGANNOTH_PRIME;
+                secondWaveInventory = InventorySetups.DAGANNOTH_PRIME;
                 break;
         }
 
         switch (thirdWaveNPC.getId()) {
             case 2881:// Dagannoth Supreme
-                secondWaveGear = EquipmentSetups.DAGANNOTH_SUPREME;
-                secondWaveStats = StatSetups.DAGANNOTH_SUPREME;
+                thirdWaveGear = EquipmentSetups.DAGANNOTH_SUPREME;
+                thirdWaveStats = StatSetups.DAGANNOTH_SUPREME;
+                thirdWaveInventory = InventorySetups.DAGANNOTH_SUPREME;
                 break;
             case 5666:// Barrelchest
-                secondWaveGear = EquipmentSetups.BARRELCHEST;
-                secondWaveStats = StatSetups.BARREL_CHEST;
+                thirdWaveGear = EquipmentSetups.BARRELCHEST;
+                thirdWaveStats = StatSetups.BARREL_CHEST;
+                thirdWaveInventory = InventorySetups.BARREL_CHEST;
                 break;
             case 1999:// Cerberus
-                secondWaveGear = EquipmentSetups.CERBERUS;
-                secondWaveStats = StatSetups.CERBERUS;
+                thirdWaveGear = EquipmentSetups.CERBERUS;
+                thirdWaveStats = StatSetups.CERBERUS;
+                thirdWaveInventory = InventorySetups.CERBERUS;
                 break;
         }
 
         switch (fourthWaveNPC.getId()) {
             case 499:// Thermonuclear Smoke Devil
-                secondWaveGear = EquipmentSetups.THERMONUCLEAR_SMOKEDEVIL;
-                secondWaveStats = StatSetups.THERMONUCLEAR_SMOKEDEVIL;
+                fourthWaveGear = EquipmentSetups.THERMONUCLEAR_SMOKEDEVIL;
+                fourthWaveStats = StatSetups.THERMONUCLEAR_SMOKEDEVIL;
+                fourthWaveInventory = InventorySetups.THERMONUCLEAR_SMOKEDEVIL;
                 break;
             case 50:// King Black Dragon (KBD)
-                secondWaveGear = EquipmentSetups.KBD_WAVE_TWO;
-                secondWaveStats = StatSetups.KBD_WAVE_TWO;
+                fourthWaveGear = EquipmentSetups.KBD_WAVE_TWO;
+                fourthWaveStats = StatSetups.KBD_WAVE_TWO;
+                fourthWaveInventory = InventorySetups.KBD_WAVE_TWO;
                 break;
             case 2883:// Dagannoth Rex
-                secondWaveGear = EquipmentSetups.DAGANNOTH_REX;
-                secondWaveStats = StatSetups.DAGANNOTH_REX;
+                fourthWaveGear = EquipmentSetups.DAGANNOTH_REX;
+                fourthWaveStats = StatSetups.DAGANNOTH_REX;
+                fourthWaveInventory = InventorySetups.DAGANNOTH_REX;
                 break;
         }
 
         switch (fifthWaveNPC.getId()) {
             case 3:// Crazy Level 2 Man
-                secondWaveGear = EquipmentSetups.CRAZY_LVL2_MAN;
-                secondWaveStats = StatSetups.CRAZY_LVL2_MAN;
+                fifthWaveGear = EquipmentSetups.CRAZY_LVL2_MAN;
+                fifthWaveStats = StatSetups.CRAZY_LVL2_MAN;
+                fifthWaveInventory = InventorySetups.CRAZY_LVL2_MAN;
                 break;
             case 1158:// Kalphite Queen
-                secondWaveGear = EquipmentSetups.KALPHITE_QUEEN;
-                secondWaveStats = StatSetups.KALPHITE_QUEEN;
+                fifthWaveGear = EquipmentSetups.KALPHITE_QUEEN;
+                fifthWaveStats = StatSetups.KALPHITE_QUEEN;
+                fifthWaveInventory = InventorySetups.KALPHITE_QUEEN;
                 break;
             case 7134:// Bork
-                secondWaveGear = EquipmentSetups.BORK;
-                secondWaveStats = StatSetups.BORK;
+                fifthWaveGear = EquipmentSetups.BORK;
+                fifthWaveStats = StatSetups.BORK;
+                fifthWaveInventory = InventorySetups.BORK;
                 break;
         }
 
@@ -129,56 +152,47 @@ public class BossMiniGame {
 
         switch (player.getCurrentBossWave()) {
             case 0:
-                BossFunctions.setNewStats(player, waveOneStats[0], waveOneStats[1], waveOneStats[2], waveOneStats[3], waveOneStats[4], waveOneStats[5], waveOneStats[6]);
                 player.getInventory().deleteAll();
-                if (player.getSummoning().getFamiliar() != null) {
-                    player.getSummoning().unsummon(true, true);
-                }
-                BossFunctions.setEquipment(player, waveOneGear[0], waveOneGear[1], waveOneGear[2], waveOneGear[3], waveOneGear[4], waveOneGear[5], waveOneGear[6], waveOneGear[7], waveOneGear[8]);
+                BossMinigameFunctions.setNewStats(player, waveOneStats[0], waveOneStats[1], waveOneStats[2], waveOneStats[3], waveOneStats[4], waveOneStats[5], waveOneStats[6]);
+                BossMinigameFunctions.setEquipment(player, waveOneGear[0], waveOneGear[1], waveOneGear[2], waveOneGear[3], waveOneGear[4], waveOneGear[5], waveOneGear[6], waveOneGear[7], waveOneGear[8]);
+                BossMinigameFunctions.setInventory(player, firstWaveInventory);
+
                 World.register(firstWaveNPC);
                 player.getRegionInstance().getNpcsList().addIfAbsent(firstWaveNPC);
                 break;
 
             case 1:
-                BossFunctions.setNewStats(player, waveTwoStats[0], waveTwoStats[1], waveTwoStats[2], waveTwoStats[3], waveTwoStats[4], waveTwoStats[5], waveTwoStats[6]);
                 player.getInventory().deleteAll();
-                if (player.getSummoning().getFamiliar() != null) {
-                    player.getSummoning().unsummon(true, true);
-                }
-                BossFunctions.setEquipment(player, waveTwoGear[0], waveTwoGear[1], waveTwoGear[2], waveTwoGear[3], waveTwoGear[4], waveTwoGear[5], waveTwoGear[6], waveTwoGear[7], waveTwoGear[8]);
+                BossMinigameFunctions.setNewStats(player, waveTwoStats[0], waveTwoStats[1], waveTwoStats[2], waveTwoStats[3], waveTwoStats[4], waveTwoStats[5], waveTwoStats[6]);
+                BossMinigameFunctions.setEquipment(player, waveTwoGear[0], waveTwoGear[1], waveTwoGear[2], waveTwoGear[3], waveTwoGear[4], waveTwoGear[5], waveTwoGear[6], waveTwoGear[7], waveTwoGear[8]);
+                BossMinigameFunctions.setInventory(player, secondWaveInventory);
                 World.register(secondWaveNPC);
                 player.getRegionInstance().getNpcsList().addIfAbsent(secondWaveNPC);
                 break;
 
             case 2:
-                BossFunctions.setNewStats(player, waveThreeStats[0], waveThreeStats[1], waveThreeStats[2], waveThreeStats[3], waveThreeStats[4], waveThreeStats[5], waveThreeStats[6]);
                 player.getInventory().deleteAll();
-                if (player.getSummoning().getFamiliar() != null) {
-                    player.getSummoning().unsummon(true, true);
-                }
-                BossFunctions.setEquipment(player, waveThreeGear[0], waveThreeGear[1], waveThreeGear[2], waveThreeGear[3], waveThreeGear[4], waveThreeGear[5], waveThreeGear[6], waveThreeGear[7], waveThreeGear[8]);
+                BossMinigameFunctions.setNewStats(player, waveThreeStats[0], waveThreeStats[1], waveThreeStats[2], waveThreeStats[3], waveThreeStats[4], waveThreeStats[5], waveThreeStats[6]);
+                BossMinigameFunctions.setEquipment(player, waveThreeGear[0], waveThreeGear[1], waveThreeGear[2], waveThreeGear[3], waveThreeGear[4], waveThreeGear[5], waveThreeGear[6], waveThreeGear[7], waveThreeGear[8]);
+                BossMinigameFunctions.setInventory(player, thirdWaveInventory);
                 World.register(thirdWaveNPC);
                 player.getRegionInstance().getNpcsList().addIfAbsent(thirdWaveNPC);
                 break;
 
             case 3:
-                BossFunctions.setNewStats(player, waveFourStats[0], waveFourStats[1], waveFourStats[2], waveFourStats[3], waveFourStats[4], waveFourStats[5], waveFourStats[6]);
                 player.getInventory().deleteAll();
-                if (player.getSummoning().getFamiliar() != null) {
-                    player.getSummoning().unsummon(true, true);
-                }
-                BossFunctions.setEquipment(player, waveFourGear[0], waveFourGear[1], waveFourGear[2], waveFourGear[3], waveFourGear[4], waveFourGear[5], waveFourGear[6], waveFourGear[7], waveFourGear[8]);
+                BossMinigameFunctions.setNewStats(player, waveFourStats[0], waveFourStats[1], waveFourStats[2], waveFourStats[3], waveFourStats[4], waveFourStats[5], waveFourStats[6]);
+                BossMinigameFunctions.setEquipment(player, waveFourGear[0], waveFourGear[1], waveFourGear[2], waveFourGear[3], waveFourGear[4], waveFourGear[5], waveFourGear[6], waveFourGear[7], waveFourGear[8]);
+                BossMinigameFunctions.setInventory(player, fourthWaveInventory);
                 World.register(fourthWaveNPC);
                 player.getRegionInstance().getNpcsList().addIfAbsent(fourthWaveNPC);
                 break;
 
             case 4:
-                BossFunctions.setNewStats(player, waveFiveStats[0], waveFiveStats[1], waveFiveStats[2], waveFiveStats[3], waveFiveStats[4], waveFiveStats[5], waveFiveStats[6]);
                 player.getInventory().deleteAll();
-                if (player.getSummoning().getFamiliar() != null) {
-                    player.getSummoning().unsummon(true, true);
-                }
-                BossFunctions.setEquipment(player, waveFiveGear[0], waveFiveGear[1], waveFiveGear[2], waveFiveGear[3], waveFiveGear[4], waveFiveGear[5], waveFiveGear[6], waveFiveGear[7], waveFiveGear[8]);
+                BossMinigameFunctions.setNewStats(player, waveFiveStats[0], waveFiveStats[1], waveFiveStats[2], waveFiveStats[3], waveFiveStats[4], waveFiveStats[5], waveFiveStats[6]);
+                BossMinigameFunctions.setEquipment(player, waveFiveGear[0], waveFiveGear[1], waveFiveGear[2], waveFiveGear[3], waveFiveGear[4], waveFiveGear[5], waveFiveGear[6], waveFiveGear[7], waveFiveGear[8]);
+                BossMinigameFunctions.setInventory(player, fifthWaveInventory);
                 World.register(fifthWaveNPC);
                 player.getRegionInstance().getNpcsList().addIfAbsent(fifthWaveNPC);
                 player.setSpellbook(MagicSpellbook.NORMAL);
@@ -187,20 +201,8 @@ public class BossMiniGame {
                 Autocasting.handleAutocast(player, 1181);
                 break;
 
-            case 5:
-            case 6:
-            case 7:
-                player.setCurrentBossWave(0);
-                BossFunctions.setNewStats(player, waveOneStats[0], waveOneStats[1], waveOneStats[2], waveOneStats[3], waveOneStats[4], waveOneStats[5], waveOneStats[6]);
-                player.getInventory().deleteAll();
-                if (player.getSummoning().getFamiliar() != null) {
-                    player.getSummoning().unsummon(true, true);
-                }
-                BossFunctions.setEquipment(player, waveOneGear[0], waveOneGear[1], waveOneGear[2], waveOneGear[3], waveOneGear[4], waveOneGear[5], waveOneGear[6], waveOneGear[7], waveOneGear[8]);
-                World.register(firstWaveNPC);
-                player.getRegionInstance().getNpcsList().addIfAbsent(firstWaveNPC);
-                break;
         }
-        InventorySetups.giveItems(player);
+        if (player.getSummoning().getFamiliar() != null) // Get Rid Of Familiars
+            player.getSummoning().unsummon(true, true);
     }
 }
