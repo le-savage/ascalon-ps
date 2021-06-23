@@ -107,10 +107,10 @@ public class BossMiniGame {
                 fourthWaveStats = StatSetups.THERMONUCLEAR_SMOKEDEVIL;
                 fourthWaveInventory = InventorySetups.THERMONUCLEAR_SMOKEDEVIL;
                 break;
-            case 50:// King Black Dragon (KBD)
-                fourthWaveGear = EquipmentSetups.KBD_WAVE_TWO;
-                fourthWaveStats = StatSetups.KBD_WAVE_TWO;
-                fourthWaveInventory = InventorySetups.KBD_WAVE_TWO;
+            case 2000:// King Black Dragon (KBD)
+                fourthWaveGear = EquipmentSetups.VENENATIS;
+                fourthWaveStats = StatSetups.VENENATIS;
+                fourthWaveInventory = InventorySetups.VENENATIS;
                 break;
             case 2883:// Dagannoth Rex
                 fourthWaveGear = EquipmentSetups.DAGANNOTH_REX;
