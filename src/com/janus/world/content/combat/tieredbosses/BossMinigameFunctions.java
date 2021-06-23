@@ -1,5 +1,6 @@
 package com.janus.world.content.combat.tieredbosses;
 
+import com.janus.GameSettings;
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.*;
@@ -10,6 +11,8 @@ import com.janus.world.World;
 import com.janus.world.content.BonusManager;
 import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.skill.SkillManager;
+import com.janus.world.content.skill.impl.prayer.Prayer;
+import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
 import static com.janus.model.Locations.Location.BOSS_TIER_LOCATION;
@@ -36,6 +39,9 @@ public class BossMinigameFunctions {
 
     public static int rewardChestID = 4126;
 
+    public static MagicSpellbook currentSpellBook = MagicSpellbook.NORMAL;
+    public static Prayerbook currentPrayerBook = Prayerbook.NORMAL;
+
 
 
     public static boolean checkItems(Player player) {
@@ -56,6 +62,8 @@ public class BossMinigameFunctions {
             return;
         }
 
+        currentSpellBook = player.getSpellbook();
+        currentPrayerBook = player.getPrayerbook();
         saveOldStats(player);
         player.getPacketSender().sendInterfaceRemoval();
 
@@ -154,6 +162,7 @@ public class BossMinigameFunctions {
         }
     }
 
+
     public static void handleExit(Player player) {
         if (player.getRegionInstance() != null) {
             destructBossTier(player);
@@ -168,6 +177,12 @@ public class BossMinigameFunctions {
         Autocasting.resetAutocast(player, true);
         player.setFreezeDelay(-1);
         player.setResetMovementQueue(true);
+        BossMiniGame.changePrayerBook = false;
+        BossMiniGame.changeSpellBook = false;
+        player.setSpellbook(currentSpellBook);
+        player.setPrayerbook(currentPrayerBook);
+        player.getPacketSender().sendTabInterface(GameSettings.PRAYER_TAB, player.getPrayerbook().getInterfaceId());
+        player.getPacketSender().sendTabInterface(GameSettings.MAGIC_TAB, player.getSpellbook().getInterfaceId());
     }
 
     public static boolean shouldDespawnNPCs(Player player) {
@@ -232,6 +247,35 @@ public class BossMinigameFunctions {
         player.getUpdateFlag().flag(Flag.ANIMATION);
         player.getEquipment().refreshItems();
         updateSkills(player);
+    }
+
+    public static NPC chosenBoss(Player player) {
+
+        int x = BossMinigameFunctions.ARENA_CENTRE.getX();
+        int y = BossMinigameFunctions.ARENA_CENTRE.getY();
+        int z = player.getPosition().getZ();
+
+        NPC chosenBoss = new NPC(0, new Position(x, y, z)).setSpawnedFor(player);
+
+
+        switch (player.getCurrentBossWave()) {
+            case 0:
+                chosenBoss = new NPC(RandomNPCData.randomFirstWaveID(player), new Position(x, y, z)).setSpawnedFor(player);
+                break;
+            case 1:
+                chosenBoss = new NPC(RandomNPCData.randomSecondWaveID(player), new Position(x, y, z)).setSpawnedFor(player);
+                break;
+            case 2:
+                chosenBoss = new NPC(RandomNPCData.randomThirdWaveID(player), new Position(x, y, z)).setSpawnedFor(player);
+                break;
+            case 3:
+                chosenBoss = new NPC(RandomNPCData.randomFourthWaveID(player), new Position(x, y, z)).setSpawnedFor(player);
+                break;
+            case 4:
+                chosenBoss = new NPC(RandomNPCData.randomFifthWaveID(player), new Position(x, y, z)).setSpawnedFor(player);
+                break;
+        }
+        return chosenBoss;
     }
 
     public static void setNewStats(Player player, int attack, int defence, int strength, int ranged, int magic, int constitution, int prayer) {

@@ -1,5 +1,5 @@
 {
-  "total-play-time-ms": 16564618,
+  "total-play-time-ms": 18535868,
   "username": "Flub",
   "password": "HodgeTwins1",
   "email": "null",
@@ -10,9 +10,9 @@
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2737,
-    "y": 5352,
-    "z": 0
+    "x": 2778,
+    "y": 10092,
+    "z": 4
   },
   "online-status": "ON",
   "given-starter": true,
@@ -23,8 +23,8 @@
   "barrows-kc": 0,
   "money-pouch": 0,
   "donated": 0,
-  "next-reward": 1624412206465,
-  "reward-day": 2,
+  "next-reward": 1624577438382,
+  "reward-day": 3,
   "claimed-todays-reward": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 2000,
@@ -33,8 +33,8 @@
   "achievement-points": 10,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 2854008,
-  "total-loyalty-points": 2854008.0,
+  "loyalty-points": 2948008,
+  "total-loyalty-points": 2948008.0,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -58,9 +58,9 @@
   "sounds": false,
   "auto-retaliate": true,
   "xp-locked": false,
-  "veng-cast": true,
-  "last-veng": 275725319,
-  "fight-type": "UNARMED_KICK",
+  "veng-cast": false,
+  "last-veng": 1624215341076,
+  "fight-type": "SHORTBOW_RAPID",
   "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
@@ -418,85 +418,85 @@
   ],
   "skills": {
     "level": [
-      14984,
-      14984,
-      14984,
-      149984,
-      14984,
-      150000,
-      14984,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      15000,
-      120
+      80,
+      80,
+      80,
+      577,
+      80,
+      969,
+      80,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
     ],
     "maxLevel": [
-      120,
-      120,
-      120,
-      1200,
-      120,
-      1200,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120,
-      120
+      80,
+      80,
+      80,
+      990,
+      80,
+      990,
+      80,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
     ],
     "experience": [
-      104273167,
-      104273167,
-      116834485,
-      107529367,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104307367,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104273167,
-      104273167
+      1986068,
+      1986068,
+      1986068,
+      536870911,
+      1986068,
+      536870911,
+      1986068,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ]
   },
   "inventory": [
@@ -506,8 +506,18 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 2434,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 2434,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 2434,
+      "amount": 1,
       "slot": 0
     },
     {
@@ -526,48 +536,38 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 379,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 379,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 379,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 379,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 379,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 379,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
+      "id": 379,
+      "amount": 1,
       "slot": 0
     },
     {
@@ -643,8 +643,58 @@
   ],
   "equipment": [
     {
+      "id": 10828,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 10498,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 15126,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 861,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 2503,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 1,
+      "slot": 0
+    },
+    {
       "id": -1,
       "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": 2497,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": 2491,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 2577,
+      "amount": 1,
       "slot": 0
     },
     {
@@ -658,58 +708,8 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
+      "id": 890,
+      "amount": 100,
       "slot": 0
     }
   ],
@@ -878,7 +878,7 @@
     0,
     0,
     99955,
-    24857,
+    25436,
     3044,
     0,
     0,
@@ -900,7 +900,7 @@
     0,
     0,
     261912,
-    24857,
+    25436,
     3044,
     0,
     1,
