@@ -125,10 +125,10 @@ public class BossMiniGame {
                 fifthWaveStats = StatSetups.CRAZY_LVL2_MAN;
                 fifthWaveInventory = InventorySetups.CRAZY_LVL2_MAN;
                 break;
-            case 1158:// Kalphite Queen
-                fifthWaveGear = EquipmentSetups.KALPHITE_QUEEN;
-                fifthWaveStats = StatSetups.KALPHITE_QUEEN;
-                fifthWaveInventory = InventorySetups.KALPHITE_QUEEN;
+            case 2001:// kalphite queen
+                fifthWaveGear = EquipmentSetups.SCORPIA;
+                fifthWaveStats = StatSetups.SCORPIA;
+                fifthWaveInventory = InventorySetups.SCORPIA;
                 break;
             case 7134:// Bork
                 fifthWaveGear = EquipmentSetups.BORK;
@@ -196,7 +196,7 @@ public class BossMiniGame {
                 World.register(fifthWaveNPC);
                 player.getRegionInstance().getNpcsList().addIfAbsent(fifthWaveNPC);
                 player.setSpellbook(MagicSpellbook.NORMAL);
-                Autocasting.resetAutocast(player, true);
+                Autocasting.resetAutocast(player, false);
                 player.getPacketSender().sendTabInterface(GameSettings.MAGIC_TAB, player.getSpellbook().getInterfaceId()).sendMessage("Your magic spellbook is changed..");
                 Autocasting.handleAutocast(player, 1181);
                 break;

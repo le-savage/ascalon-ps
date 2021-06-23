@@ -23,7 +23,7 @@ public class InventorySetups {
     public static final Item[] KBD_WAVE_TWO = new Item[]{};
     public static final Item[] DAGANNOTH_REX = new Item[]{};
     public static final Item[] CRAZY_LVL2_MAN = new Item[]{};
-    public static final Item[] KALPHITE_QUEEN = new Item[]{new Item(892, 100)};
+    public static final Item[] SCORPIA = new Item[]{new Item(892, 100)};
     public static final Item[] BORK = new Item[]{new Item(556, 200), new Item(554, 300), new Item(560, 80)};
 
 }
