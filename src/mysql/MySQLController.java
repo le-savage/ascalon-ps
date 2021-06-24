@@ -65,8 +65,6 @@ public class MySQLController {
 
         };
 
-	/*	VOTE = new Motivote(new Voting(), "http://runeunity.org/vote/", "0ae2dc6c");
-		VOTE.start();*/
 
         MySQLProcessor.process();
     }

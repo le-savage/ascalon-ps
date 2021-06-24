@@ -17,6 +17,7 @@ import com.janus.net.SessionState;
 import com.janus.net.packet.Packet;
 import com.janus.net.packet.PacketSender;
 import com.janus.util.FrameUpdater;
+import com.janus.util.Misc;
 import com.janus.util.Stopwatch;
 import com.janus.world.content.Achievements.AchievementAttributes;
 import com.janus.world.content.BankPin.BankPinAttributes;
@@ -1030,14 +1031,16 @@ public class Player extends Character {
     }
 
     public boolean logout() {
-        boolean debugMessage = false;
+        boolean debugMessage = true;
         int[] playerXP = new int[Skill.values().length];
         for (int i = 0; i < Skill.values().length; i++) {
             playerXP[i] = this.getSkillManager().getExperience(Skill.forId(i));
         }
-        String gameMode = this.getDifficulty().toString();
+        String difficulty = this.getDifficulty().toString();
+        String userWithDifficulty = ("[" + difficulty + "]" + " "+this.getUsername());
+        String gameMode = Misc.formatText(this.getGameMode().name());
 
-        com.everythingrs.hiscores.Hiscores.update("g8zvew8JyhebjWsePC1MFH6jSF3RqdC67YOUx76fmZkCJCWNhU0uijTJ8SDiP6tZwNYfg1p1", gameMode, this.getUsername(), this.getRights().ordinal(), playerXP, debugMessage);
+        com.everythingrs.hiscores.Hiscores.update("g8zvew8JyhebjWsePC1MFH6jSF3RqdC67YOUx76fmZkCJCWNhU0uijTJ8SDiP6tZwNYfg1p1", gameMode, userWithDifficulty, this.getRights().ordinal(), playerXP, debugMessage);
 
 
         //new Thread(new Hiscores(this)).start();

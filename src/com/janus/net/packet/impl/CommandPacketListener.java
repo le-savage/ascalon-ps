@@ -694,7 +694,7 @@ public class CommandPacketListener implements PacketListener {
 
         if (wholeCommand.equalsIgnoreCase("donate") || wholeCommand.equalsIgnoreCase("store")) {
             player.getPacketSender().sendRichPresenceState("Viewing Donation Page");
-            player.getPacketSender().sendString(1, "http://flub.link/donate");
+            player.getPacketSender().sendString(1, "https://janus.everythingrs.com/services/store");
             player.getPacketSender().sendMessage("@red@Make sure to enter your username in the box on the right<3");
         }
 
@@ -705,17 +705,17 @@ public class CommandPacketListener implements PacketListener {
         }
 
         if (command[0].equalsIgnoreCase("vote")) {
-            player.getPacketSender().sendString(1, "http://flub.link/vote");
+            player.getPacketSender().sendString(1, "http://janus.everythingrs.com/services/vote");
             player.getPacketSender().sendMessage("Attempting to open the vote panel! @red@Use ::voted to claim <3");
         }
 
         if (command[0].equalsIgnoreCase("hiscores")) {
-            player.getPacketSender().sendString(1, "http://flub.link/hiscores");
+            player.getPacketSender().sendString(1, "http://janus.everythingrs.com/services/hiscores");
             player.getPacketSender().sendMessage("Attempting to open the hiscores page!");
         }
 
         if (command[0].equalsIgnoreCase("disc") || command[0].equalsIgnoreCase("discord")) {
-            player.getPacketSender().sendString(1, "http://flub.link/discord");
+            player.getPacketSender().sendString(1, "http://discord.gg/CVN6jpy");
             player.getPacketSender().sendMessage("Attempting to open discord!");
         }
 
