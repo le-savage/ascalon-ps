@@ -24,7 +24,7 @@ public class EquipmentBonus {
 
     private static final int VOID_KNIGHT_DEFLECTOR = 19712;
 
-    public static boolean wearingVoid(Player player, CombatType attackType) {
+    /*public static boolean wearingVoid(Player player, CombatType attackType) {
         int correctEquipment = 0;
         int helmet = attackType == CombatType.MAGIC ? MAGE_VOID_HELM :
                 attackType == CombatType.RANGED ? RANGED_VOID_HELM : MELEE_VOID_HELM;
@@ -37,9 +37,9 @@ public class EquipmentBonus {
             correctEquipment++;
         }
         return correctEquipment >= 3 && player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == helmet;
-    }
+    }*/
 
-    public static boolean wearingEliteVoid(Player player, CombatType attackType) {
+    /*public static boolean wearingEliteVoid(Player player, CombatType attackType) {
         int correctEquipment = 0;
         int helmet = attackType == CombatType.MAGIC ? MAGE_VOID_HELM :
                 attackType == CombatType.RANGED ? RANGED_VOID_HELM : MELEE_VOID_HELM;
@@ -53,5 +53,5 @@ public class EquipmentBonus {
             correctEquipment++;
         }
         return correctEquipment >= 3 && player.getEquipment().getItems()[Equipment.HEAD_SLOT].getId() == helmet;
-    }
+    }*/
 }

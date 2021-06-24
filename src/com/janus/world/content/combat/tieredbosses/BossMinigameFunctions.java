@@ -45,7 +45,6 @@ public class BossMinigameFunctions {
     public static Prayerbook currentPrayerBook = Prayerbook.NORMAL;
 
 
-
     public static boolean checkItems(Player player) {
         if (player.getInventory().getFreeSlots() != 28) {
             return false;
@@ -298,7 +297,7 @@ public class BossMinigameFunctions {
         }
     }
 
-    public static void setEquipment(Player player, int weapon, int shield, int helm, int body, int legs, int neck, int cape, int hands, int feet) {
+    public static void setEquipment(Player player, int weapon, int shield, int helm, int body, int legs, int neck, int cape, int hands, int feet, int ring) {
         player.getEquipment().set(Equipment.WEAPON_SLOT, new Item(weapon, 1));
         player.getEquipment().set(Equipment.SHIELD_SLOT, new Item(shield, 1));
         player.getEquipment().set(Equipment.HEAD_SLOT, new Item(helm, 1));
@@ -308,6 +307,8 @@ public class BossMinigameFunctions {
         player.getEquipment().set(Equipment.CAPE_SLOT, new Item(cape, 1));
         player.getEquipment().set(Equipment.HANDS_SLOT, new Item(hands, 1));
         player.getEquipment().set(Equipment.FEET_SLOT, new Item(feet, 1));
+        player.getEquipment().set(Equipment.RING_SLOT, new Item(ring, 1));
+        player.getEquipment().set(Equipment.AMMUNITION_SLOT, new Item(-1, 1));
         player.getEquipment().refreshItems();
         player.getUpdateFlag().flag(Flag.APPEARANCE);
         EquipPacketListener.resetWeapon(player);

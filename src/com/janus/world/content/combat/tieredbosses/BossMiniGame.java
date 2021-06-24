@@ -6,10 +6,14 @@ import com.janus.model.MagicSpellbook;
 import com.janus.model.Position;
 import com.janus.model.Prayerbook;
 import com.janus.world.World;
+import com.janus.world.content.ToyHorses;
 import com.janus.world.content.combat.magic.Autocasting;
+import com.janus.world.content.combat.prayer.CurseHandler;
+import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.skill.impl.magic.Magic;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
+import lombok.ToString;
 
 public class BossMiniGame {
 
@@ -124,11 +128,11 @@ public class BossMiniGame {
 
         /** Storing values to assign **/
 
-        int[] gearID = {gear.getWeapon(), gear.getShield(), gear.getHelm(), gear.getBody(), gear.getLegs(), gear.getNeck(), gear.getCape(), gear.getHands(), gear.getFeet()};
+        int[] gearID = {gear.getWeapon(), gear.getShield(), gear.getHelm(), gear.getBody(), gear.getLegs(), gear.getNeck(), gear.getCape(), gear.getHands(), gear.getFeet(), gear.getRing()};
         int[] statID = {stats.getAttack(), stats.getDefence(), stats.getStrength(), stats.getRanged(), stats.getMagic(), stats.getConstitution(), stats.getPrayer()};
 
-
-        switch (player.getCurrentBossWave()) {
+        int wave = player.getCurrentBossWave();
+        switch (wave) {
             case 0:
             case 1:
             case 2:
@@ -137,10 +141,14 @@ public class BossMiniGame {
                 System.out.println("We're at the wave selection phase and booleans are spell book change :"+changeSpellBook + " prayer change: "+changePrayerBook);
                 player.getInventory().deleteAll();
                 BossMinigameFunctions.setNewStats(player, statID[0], statID[1], statID[2], statID[3], statID[4], statID[5], statID[6]);
-                BossMinigameFunctions.setEquipment(player, gearID[0], gearID[1], gearID[2], gearID[3], gearID[4], gearID[5], gearID[6], gearID[7], gearID[8]);
+                BossMinigameFunctions.setEquipment(player, gearID[0], gearID[1], gearID[2], gearID[3], gearID[4], gearID[5], gearID[6], gearID[7], gearID[8], gearID[9]);
                 BossMinigameFunctions.setInventory(player, inventory);
                 World.register(chosenBoss);
                 player.getRegionInstance().getNpcsList().addIfAbsent(chosenBoss);
+                player.forceChat("For wave "+ (wave+1) +" I'll be fighting " + chosenBoss.getDefinition().getName()+"!");
+
+                PrayerHandler.deactivateAll(player);
+                CurseHandler.deactivateAll(player);
 
                 if (changeSpellBook) {
                     player.setSpellbook(newSpellBook);

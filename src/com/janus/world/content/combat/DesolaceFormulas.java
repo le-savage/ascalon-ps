@@ -62,10 +62,10 @@ public class DesolaceFormulas {
                 base += ((plr.getSkillManager().getMaxLevel(Skill.CONSTITUTION) - plr.getConstitution()) * .045) + 1;
             if (specialBonus > 1)
                 base = (base * specialBonus);
-            if (hasObsidianEffect(plr) || EquipmentBonus.wearingVoid(plr, CombatType.MELEE))
+            if (hasObsidianEffect(plr)) /*|| EquipmentBonus.wearingVoid(plr, CombatType.MELEE))*/
                 base = (base * 1.2);
-            if (EquipmentBonus.wearingEliteVoid(plr, CombatType.MELEE))
-                base = (base * 1.4);
+            /*if (EquipmentBonus.wearingEliteVoid(plr, CombatType.MELEE))
+                base = (base * 1.4);*/
 
             if (victim.isNpc()) {
                 NPC npc = (NPC) victim;
@@ -113,8 +113,8 @@ public class DesolaceFormulas {
                 attackLevel += 1;
                 break;
         }
-        boolean hasVoid = EquipmentBonus.wearingVoid(plr, CombatType.MELEE);
-        boolean hasEliteVoid = EquipmentBonus.wearingEliteVoid(plr, CombatType.MELEE);
+        /*boolean hasVoid = EquipmentBonus.wearingVoid(plr, CombatType.MELEE);
+        boolean hasEliteVoid = EquipmentBonus.wearingEliteVoid(plr, CombatType.MELEE);*/
 
         if (PrayerHandler.isActivated(plr,
                 PrayerHandler.CLARITY_OF_THOUGHT)) {
@@ -137,19 +137,19 @@ public class DesolaceFormulas {
                     * 0.3 + plr.getLeechedBonuses()[2];
         }
 
-        if (hasVoid) {
+        /*if (hasVoid) {
             attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.1;
         }
         if (hasEliteVoid) {
             attackLevel += plr.getSkillManager().getMaxLevel(Skill.ATTACK) * 0.3;
-        }
+        }*/
         attackLevel *= plr.isSpecialActivated() ? plr.getCombatSpecial().getAccuracyBonus() : 1;
         int i = (int) plr.getBonusManager().getAttackBonus()[bestMeleeAtk(plr)];
 
-        if (hasObsidianEffect(plr) || hasVoid)
+        if (hasObsidianEffect(plr)/* || hasVoid*/)
             i *= 1.20;
-        if (hasEliteVoid)
-            i *= 1.40;
+        /*if (hasEliteVoid)
+            i *= 1.40;*/
         return (int) (attackLevel + (attackLevel * 0.15) + (i + i * 0.04));
     }
 
@@ -254,16 +254,16 @@ public class DesolaceFormulas {
      */
     public static int getRangedAttack(Player plr) {
         int rangeLevel = plr.getSkillManager().getCurrentLevel(Skill.RANGED);
-        boolean hasVoid = EquipmentBonus.wearingVoid(plr, CombatType.RANGED);
-        boolean hasEliteVoid = EquipmentBonus.wearingEliteVoid(plr, CombatType.RANGED);
+        /*boolean hasVoid = EquipmentBonus.wearingVoid(plr, CombatType.RANGED);
+        boolean hasEliteVoid = EquipmentBonus.wearingEliteVoid(plr, CombatType.RANGED);*/
         double accuracy = plr.isSpecialActivated() ? plr.getCombatSpecial().getAccuracyBonus() : 1;
         rangeLevel *= accuracy;
-        if (hasVoid) {
+        /*if (hasVoid) {
             rangeLevel += SkillManager.getLevelForExperience(plr.getSkillManager().getExperience(Skill.RANGED)) * 0.15;
         }
         if (hasEliteVoid) {
             rangeLevel += SkillManager.getLevelForExperience(plr.getSkillManager().getExperience(Skill.RANGED)) * 0.30;
-        }
+        }*/
         if (plr.getCurseActive()[PrayerHandler.SHARP_EYE] || plr.getCurseActive()[CurseHandler.SAP_RANGER]) {
             rangeLevel *= 1.05;
         }
@@ -280,10 +280,10 @@ public class DesolaceFormulas {
         } else if (plr.getCurseActive()[CurseHandler.LEECH_RANGED]) {
             rangeLevel *= 1.10;
         }
-        if (hasVoid && accuracy > 1.15)
+        /*if (hasVoid && accuracy > 1.15)
             rangeLevel *= 1.8;
         if (hasEliteVoid && accuracy > 1.40)
-            rangeLevel *= 2.0;
+            rangeLevel *= 2.0;*/
         return (int) (rangeLevel + (plr.getBonusManager().getAttackBonus()[4] * 2));
     }
 
@@ -316,12 +316,12 @@ public class DesolaceFormulas {
         return (int) (defenceLevel + plr.getBonusManager().getDefenceBonus()[4] + (plr.getBonusManager().getDefenceBonus()[4] / 2));
     }
 
-    public static int getMagicAttack(Player plr) {
-        boolean voidEquipment = EquipmentBonus.wearingVoid(plr, CombatType.MAGIC);
-        boolean voidEliteEquipment = EquipmentBonus.wearingEliteVoid(plr, CombatType.MAGIC);
+    public static int getMagicAttack(Player plr) { //TODO FIX THISSSSSSSS
+        /*boolean voidEquipment = EquipmentBonus.wearingVoid(plr, CombatType.MAGIC);
+        boolean voidEliteEquipment = EquipmentBonus.wearingEliteVoid(plr, CombatType.MAGIC);*/
         int attackLevel = plr.getSkillManager().getCurrentLevel(Skill.MAGIC);
-        if (voidEquipment)
-            attackLevel += plr.getSkillManager().getCurrentLevel(Skill.MAGIC) * 0.2;
+        /*if (voidEquipment)
+            attackLevel += plr.getSkillManager().getCurrentLevel(Skill.MAGIC) * 0.2;*/
         if (plr.getPrayerActive()[PrayerHandler.MYSTIC_WILL] || plr.getCurseActive()[CurseHandler.SAP_MAGE]) {
             attackLevel *= 1.05;
         } else if (plr.getPrayerActive()[PrayerHandler.MYSTIC_LORE]) {
@@ -332,7 +332,7 @@ public class DesolaceFormulas {
             attackLevel *= 1.22;
         } else if (plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21054 || plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21055 ||
                 plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21056 || plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21057) {
-            attackLevel *= 2.5; //BUFF TOP TIER MAGIC NIGHTMARE STAFF
+            attackLevel *= 2.5; //BUFF TOP TIER MAGIC NIGHTMARE STAFF TODO LOWER THIS SHIT
         } else if (plr.getCurseActive()[CurseHandler.LEECH_MAGIC]) {
             attackLevel *= 1.18;
         }

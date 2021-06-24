@@ -627,13 +627,13 @@ public final class CombatFactory {
                 break;
         }
 
-        if (EquipmentBonus.wearingVoid(player, CombatType.MELEE)) {
+     /*   if (EquipmentBonus.wearingVoid(player, CombatType.MELEE)) {
             otherBonusMultiplier = 1.1;
         }
 
         if (EquipmentBonus.wearingEliteVoid(player, CombatType.MELEE)) {
             otherBonusMultiplier = 1.3;
-        }
+        }*/
 
         if (strengthLevel <= 10 || attackLevel <= 10) {
             otherBonusMultiplier = 1.8;
@@ -721,13 +721,13 @@ public final class CombatFactory {
                 break;
         }
 
-        if (EquipmentBonus.wearingVoid(player, CombatType.RANGED)) {
+        /*if (EquipmentBonus.wearingVoid(player, CombatType.RANGED)) {
             otherBonusMultiplier = 1.1;
         }
 
         if (EquipmentBonus.wearingEliteVoid(player, CombatType.RANGED)) {
             otherBonusMultiplier = 1.3;
-        }
+        }*/
 
         if (player.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 20998) {
             otherBonusMultiplier = 1.7;
