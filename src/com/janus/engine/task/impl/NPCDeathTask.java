@@ -289,16 +289,14 @@ public class NPCDeathTask extends Task {
                     killer.forceChat("I should leave now!");
                     BossMinigameFunctions.despawnNpcs(killer);
                 }
-                if (killer.currentBossWave == 3 || killer.currentBossWave == 4){ // Unfreeze the last two tiers
-                    killer.setFreezeDelay(-1);
-                    killer.setResetMovementQueue(true);
-                }
+
                 if (killer.currentBossWave <= 4) {
-                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just completed tier " + (killer.getCurrentBossWave() - 1) + " at ::boss!");
+                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just completed wave " + (killer.getCurrentBossWave()) + " at ::boss!");
                 }
                 if (killer.currentBossWave == 5) {
-                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just killed the final tier " + (killer.getCurrentBossWave() - 1) + " at ::boss!");
+                    World.sendFilteredMessage("@bla@[@blu@" + killer.getUsername() + "@bla@]@red@ has just killed completed the final wave at ::boss!");
                 }
+
                 TaskManager.submit(new Task(2, killer, false) {
                     @Override
                     public void execute() {
@@ -309,13 +307,6 @@ public class NPCDeathTask extends Task {
             }
 
             if (killer.getRights() == PlayerRights.PLAYER) {
-                /*TaskManager.submit(new Task(15, killer, false) {
-                    @Override
-                    public void execute() {
-                        InstanceArena.destructArena(killer);
-                        this.stop();
-                    }
-                });*/
                 killer.getPacketSender().sendMessage("Nice job! Use the button or ::exit to leave!");
             }
 

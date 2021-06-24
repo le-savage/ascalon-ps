@@ -10,6 +10,8 @@ import com.janus.net.packet.impl.EquipPacketListener;
 import com.janus.world.World;
 import com.janus.world.content.BonusManager;
 import com.janus.world.content.combat.magic.Autocasting;
+import com.janus.world.content.combat.prayer.CurseHandler;
+import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.skill.SkillManager;
 import com.janus.world.content.skill.impl.prayer.Prayer;
 import com.janus.world.entity.impl.npc.NPC;
@@ -175,6 +177,8 @@ public class BossMinigameFunctions {
         player.moveTo(DOOR);
         player.getUpdateFlag().flag(Flag.ANIMATION);
         Autocasting.resetAutocast(player, true);
+        PrayerHandler.deactivateAll(player);
+        CurseHandler.deactivateAll(player);
         player.setFreezeDelay(-1);
         player.setResetMovementQueue(true);
         BossMiniGame.changePrayerBook = false;
