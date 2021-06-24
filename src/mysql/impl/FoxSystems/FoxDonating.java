@@ -1,14 +1,17 @@
+/*
 package mysql.impl.FoxSystems;
 
 import com.janus.world.entity.impl.player.Player;
 
 import java.sql.*;
 
+*/
 /**
  * Using this class:
  * To call this class, it's best to make a new thread. You can do it below like so:
  * new Thread(new Donation(player)).start();
- */
+ *//*
+
 public class FoxDonating implements Runnable {
 
     public static final String HOST = "199.192.31.129"; // website ip address
@@ -20,11 +23,13 @@ public class FoxDonating implements Runnable {
     private Connection conn;
     private Statement stmt;
 
-    /**
+    */
+/**
      * The constructor
      *
      * @param player
-     */
+     *//*
+
     public FoxDonating(Player player) {
         this.player = player;
     }
@@ -77,13 +82,15 @@ public class FoxDonating implements Runnable {
         }
     }
 
-    /**
+    */
+/**
      * @param host     the host ip address or url
      * @param database the name of the database
      * @param user     the user attached to the database
      * @param pass     the users password
      * @return true if connected
-     */
+     *//*
+
     public boolean connect(String host, String database, String user, String pass) {
         try {
             this.conn = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + database, user, pass);
@@ -94,10 +101,12 @@ public class FoxDonating implements Runnable {
         }
     }
 
-    /**
+    */
+/**
      * Disconnects from the MySQL server and destroy the connection
      * and statement instances
-     */
+     *//*
+
     public void destroy() {
         try {
             conn.close();
@@ -111,12 +120,14 @@ public class FoxDonating implements Runnable {
         }
     }
 
-    /**
+    */
+/**
      * Executes an update query on the database
      *
      * @param query
      * @see {@link Statement#executeUpdate}
-     */
+     *//*
+
     public int executeUpdate(String query) {
         try {
             this.stmt = this.conn.createStatement(1005, 1008);
@@ -128,13 +139,15 @@ public class FoxDonating implements Runnable {
         return -1;
     }
 
-    /**
+    */
+/**
      * Executres a query on the database
      *
      * @param query
      * @return the results, never null
      * @see {@link Statement#executeQuery(String)}
-     */
+     *//*
+
     public ResultSet executeQuery(String query) {
         try {
             this.stmt = this.conn.createStatement(1005, 1008);
@@ -146,3 +159,4 @@ public class FoxDonating implements Runnable {
         return null;
     }
 }
+*/

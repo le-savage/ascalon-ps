@@ -1,3 +1,4 @@
+/*
 package mysql.impl.FoxSystems;
 
 
@@ -13,11 +14,13 @@ import java.util.HashMap;
 
 public class Hiscores implements Runnable {
 
-    /**
+    */
+/**
      * Just for testing the code.
      *
      * @param args
-     */
+     *//*
+
     public static void main(String[] args) {
         Player player = World.getPlayerByName("Flub");
         new Thread(new Hiscores(player)).start();
@@ -28,10 +31,12 @@ public class Hiscores implements Runnable {
     public static final String PASS = "52tlfsX3eMknPlb";
     public static final String DATABASE = "janugswd_scores";
 
-    /**
+    */
+/**
      * Skills array, should be in order of their id.
      * If you have divination/invention just add it after dungeoneering
-     */
+     *//*
+
     public static final String[] SKILLS = {
             "Attack", "Defence", "Strength", "Constitution", "Ranged", "Prayer", "Magic", "Cooking",
             "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining",
@@ -45,10 +50,12 @@ public class Hiscores implements Runnable {
         this.player = player;
     }
 
-    /**
+    */
+/**
      * Runs on a new thread. to run this, use this code anywhere:
      * new Thread(new Highscores(player)).start();
-     */
+     *//*
+
     @Override
     public void run() {
         try {
@@ -126,12 +133,14 @@ public class Hiscores implements Runnable {
         }
     }
 
-    /**
+    */
+/**
      * Builds a query from a given HashMap. shouldn't be a need to alter this.
      *
      * @param map
      * @return
-     */
+     *//*
+
     private String buildQuery(String table, boolean updateDuplicate, HashMap<String, String> map) {
         String query = "INSERT INTO " + table + " (";
 
@@ -165,3 +174,4 @@ public class Hiscores implements Runnable {
 
 }
 
+*/

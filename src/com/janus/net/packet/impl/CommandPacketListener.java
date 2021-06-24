@@ -42,8 +42,6 @@ import com.janus.world.entity.impl.player.Player;
 import com.janus.world.entity.impl.player.PlayerHandler;
 import com.janus.world.entity.impl.player.PlayerSaving;
 import mysql.MySQLController;
-import mysql.impl.FoxSystems.FoxDonating;
-import mysql.impl.FoxSystems.FoxVoting;
 
 /**
  * This packet listener manages commands a player uses by using the command
@@ -312,21 +310,82 @@ public class CommandPacketListener implements PacketListener {
         }
 
 
-        if (command[0].startsWith("reward") || (command[0].equalsIgnoreCase("voted")) || (command[0].equalsIgnoreCase("claimvote"))) {
+        /*if (command[0].startsWith("reward") || (command[0].equalsIgnoreCase("voted")) || (command[0].equalsIgnoreCase("claimvote"))) {
             if (player.getInventory().getFreeSlots() < 1) {
                 player.getPacketSender().sendMessage("You need an inventory space free claim votes!");
             }
             new Thread(new FoxVoting.FoxVote(player)).start();
 
 
+        }*/
+
+        if (command[0].startsWith("reward")) {
+            if (command.length == 1) {
+                player.getPacketSender().sendMessage("Please use [::reward id], [::reward id amount], or [::reward id all].");
+                return;
+            }
+            final String playerName = player.getUsername();
+            final String id = command[1];
+            final String amount = command.length == 3 ? command[2] : "1";
+
+            com.everythingrs.vote.Vote.service.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        com.everythingrs.vote.Vote[] reward = com.everythingrs.vote.Vote.reward("g8zvew8JyhebjWsePC1MFH6jSF3RqdC67YOUx76fmZkCJCWNhU0uijTJ8SDiP6tZwNYfg1p1",
+                                playerName, id, amount);
+                        if (reward[0].message != null) {
+                            player.getPacketSender().sendMessage(reward[0].message);
+                            return;
+                        }
+                        player.getInventory().add(reward[0].reward_id, reward[0].give_amount);
+                        player.getPacketSender().sendMessage("Thank you for voting! You now have " + reward[0].vote_points + " vote points.");
+                    } catch (Exception e) {
+                        player.getPacketSender().sendMessage("Api Services are currently offline. Please check back shortly");
+                        e.printStackTrace();
+                    }
+                }
+
+            });
         }
-        if (command[0].startsWith("claim") || (command[0].equalsIgnoreCase("donated"))) {
+
+        if (command[0].startsWith("claim") || command[0].equalsIgnoreCase("donated")) {
+            new java.lang.Thread() {
+                public void run() {
+                    try {
+                        com.everythingrs.donate.Donation[] donations = com.everythingrs.donate.Donation.donations("g8zvew8JyhebjWsePC1MFH6jSF3RqdC67YOUx76fmZkCJCWNhU0uijTJ8SDiP6tZwNYfg1p1",
+                                player.getUsername());
+                        if (donations.length == 0) {
+                            player.getPacketSender().sendMessage("You currently don't have any items waiting. You must donate first!");
+                            return;
+                        }
+                        if (donations[0].message != null) {
+                            player.getPacketSender().sendMessage(donations[0].message);
+                            return;
+                        }
+                        if (player.getInventory().getFreeSlots() <= 3) {
+                            player.getPacketSender().sendMessage("Please try again when you have 3 slots free");
+                            return;
+                        }
+                        for (com.everythingrs.donate.Donation donate: donations) {
+                            player.getInventory().add(new Item(donate.product_id, donate.product_amount));
+                        }
+                        player.getPacketSender().sendMessage("Thank you for donating!");
+                    } catch (Exception e) {
+                        player.getPacketSender().sendMessage("Api Services are currently offline. Please check back shortly");
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }
+
+        /*if (command[0].startsWith("claim") || (command[0].equalsIgnoreCase("donated"))) {
             if (player.getInventory().getFreeSlots() < 3) {
                 player.getPacketSender().sendMessage("You need three inventory spaces to claim donations!");
             }
             new Thread(new FoxDonating(player)).start();
 
-        }
+        }*/
 
 
 
@@ -2136,6 +2195,39 @@ public class CommandPacketListener implements PacketListener {
     }
 
     private static void developerCommands(Player player, String command[], String wholeCommand) {
+
+        if (command[0].equalsIgnoreCase("sitem") || command[0].equalsIgnoreCase("snpc")
+                || command[0].equalsIgnoreCase("ositem") || command[0].equalsIgnoreCase("osnpc")
+                || command[0].equalsIgnoreCase("osobject")) {
+
+            new Thread() {
+                public void run() {
+                        try {
+
+                            String query = command[1];
+                            com.everythingrs.commands.Search[] searchResults = com.everythingrs.commands.Search
+                                    .searches("g8zvew8JyhebjWsePC1MFH6jSF3RqdC67YOUx76fmZkCJCWNhU0uijTJ8SDiP6tZwNYfg1p1", command[0], query);
+                            if (searchResults.length > 0)
+                                if (searchResults[0].message != null) {
+                                    player.getPacketSender().sendMessage(searchResults[0].message);
+                                    return;
+                                }
+                            player.getPacketSender().sendMessage("-------------------");
+                            for (com.everythingrs.commands.Search search : searchResults) {
+                                player.getPacketSender().sendMessage(search.name + ":" + search.id);
+                            }
+                            player.getPacketSender()
+                                    .sendMessage("Finished search with " + searchResults.length + " results");
+                            player.getPacketSender().sendMessage("-------------------");
+                        } catch (Exception e) {
+                            player.getPacketSender()
+                                    .sendMessage("Api Services are currently offline. Please check back shortly");
+                            e.printStackTrace();
+                        }
+                }
+            }.start();
+        }
+
         if (command[0].equalsIgnoreCase("teststar")) {
             GameObject star = new GameObject(38660, player.getPosition());
             CustomObjects.spawnGlobalObject(star);

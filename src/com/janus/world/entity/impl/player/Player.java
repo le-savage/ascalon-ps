@@ -61,7 +61,6 @@ import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 import lombok.Getter;
 import lombok.Setter;
-import mysql.impl.FoxSystems.Hiscores;
 
 import java.awt.*;
 import java.net.URI;
@@ -1036,9 +1035,12 @@ public class Player extends Character {
         for (int i = 0; i < Skill.values().length; i++) {
             playerXP[i] = this.getSkillManager().getExperience(Skill.forId(i));
         }
+        String gameMode = this.getDifficulty().toString();
+
+        com.everythingrs.hiscores.Hiscores.update("g8zvew8JyhebjWsePC1MFH6jSF3RqdC67YOUx76fmZkCJCWNhU0uijTJ8SDiP6tZwNYfg1p1", gameMode, this.getUsername(), this.getRights().ordinal(), playerXP, debugMessage);
 
 
-        new Thread(new Hiscores(this)).start();
+        //new Thread(new Hiscores(this)).start();
 
         if (getCombatBuilder().isBeingAttacked()) {
             getPacketSender().sendMessage("You must wait a few seconds after being out of combat before doing this.");
