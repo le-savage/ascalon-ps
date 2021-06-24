@@ -478,8 +478,16 @@ public class NPCDrops {
         int chance = (6 + (combat / 4));
         if (RandomUtility.getRandom(combat <= 80 ? 1300 : 1000) < chance) {
             int clueId = CLUESBOY[Misc.getRandom(CLUESBOY.length - 1)];
-            GroundItemManager.spawnGroundItem(player, new GroundItem(new Item(clueId), pos, player.getUsername(), false, 150, true, 200));
-            player.getPacketSender().sendMessage("@or2@You have received a clue scroll!");
+            ItemDefinition clueDefinition = ItemDefinition.forId(clueId);
+            int clueValue = clueDefinition.getValue();
+
+            if ((player.getPickupValue() >= clueValue) && player.getInventory().getFreeSlots() >= 1) {
+                player.getInventory().add(clueId, 1);
+                player.getPacketSender().sendMessage("We picked up a " + clueDefinition.getName() + "!");
+            } else {
+                GroundItemManager.spawnGroundItem(player, new GroundItem(new Item(clueId), pos, player.getUsername(), false, 150, true, 200));
+                player.getPacketSender().sendMessage("@or2@You have received a clue scroll!");
+            }
         }
     }
 
