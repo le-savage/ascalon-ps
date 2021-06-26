@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.janus.engine.task.TaskManager;
 import com.janus.engine.task.impl.ShopRestockTask;
-import com.janus.model.GameMode;
-import com.janus.model.Item;
-import com.janus.model.PlayerRights;
-import com.janus.model.Skill;
+import com.janus.model.*;
 import com.janus.model.container.ItemContainer;
 import com.janus.model.container.StackType;
 import com.janus.model.definitions.ItemDefinition;
@@ -167,7 +164,7 @@ public class Shop extends ItemContainer {
         if (getItems()[slot].getAmount() <= 1 && id != GENERAL_STORE) {
 
             player.getPacketSender()
-                    .sendMessage("The shop can't be 1 items and needs to regenerate some items first..");
+                    .sendMessage("The shop needs more than 1 in stock and needs to regenerate some items first..");
 
         }
 
@@ -266,14 +263,24 @@ public class Shop extends ItemContainer {
                     return this;
                 }
             }
-        } else if (id == GAMBLING_STORE) {
+        }
+
             if (item.getId() == 15084 || item.getId() == 299) {
                 if (player.getRights() == PlayerRights.PLAYER) {
                     player.getPacketSender().sendMessage("You need to be a member to use these items.");
                     return this;
                 }
             }
+
+
+        if (id == AFK_STORE) {
+            Difficulty difficulty = player.getDifficulty();
+            if (item.getId() == 18937 && difficulty.highDifficulty()) {
+                player.getPacketSender().sendMessage("You can't purchase this item on Hard, Insane or Zezima game modes.");
+                return this;
+            }
         }
+
 
         for (int i = amountBuying; i > 0; i--) {
             if (!shopSellsItem(item)) {
@@ -550,6 +557,7 @@ public class Shop extends ItemContainer {
      * @param sellingItem Is the player selling the item?
      */
     public void checkValue(Player player, int slot, boolean sellingItem) {
+
         this.setPlayer(player);
         Item shopItem = new Item(getItems()[slot].getId());
         if (!player.isShopping()) {
@@ -559,12 +567,20 @@ public class Shop extends ItemContainer {
         Item item = sellingItem ? player.getInventory().getItems()[slot] : getItems()[slot];
         if (item.getId() == 995)
             return;
+
+
         if (sellingItem) {
             if (!shopBuysItem(id, item)) {
                 player.getPacketSender().sendMessage("You cannot sell this item to this store.");
                 return;
             }
+            int salePriceCap = 10000000;
+            if (item.getDefinition().getValue() > salePriceCap) {
+                player.getPacketSender().sendMessage("The shop keeper cannot afford anything over 10m!");
+                return;
+            }
         }
+
         int finalValue = 0;
         String finalString = sellingItem ? "" + ItemDefinition.forId(item.getId()).getName() + ": shop will buy for "
                 : "" + ItemDefinition.forId(shopItem.getId()).getName() + " currently costs ";

@@ -1031,7 +1031,7 @@ public class Player extends Character {
     }
 
     public boolean logout() {
-        boolean debugMessage = true;
+        boolean debugMessage = false;
         int[] playerXP = new int[Skill.values().length];
         for (int i = 0; i < Skill.values().length; i++) {
             playerXP[i] = this.getSkillManager().getExperience(Skill.forId(i));

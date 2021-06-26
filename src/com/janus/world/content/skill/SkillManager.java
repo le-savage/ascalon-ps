@@ -525,9 +525,9 @@ public class SkillManager {
         if (this.skills.experience[skill.ordinal()] >= MAX_EXPERIENCE)
             return this;
 
+        experience *= player.getRights().getExperienceGainModifier();//DONATOR AND STAFF XP BUFFS
 
-        if ((player.getGameMode() == GameMode.NORMAL) && (player.getDifficulty().lowDifficulty())) {//Remove benefits for ironmen and hard+ difficulties
-            experience *= player.getRights().getExperienceGainModifier();//DONATOR AND STAFF XP BUFFS
+        if ((player.getDifficulty().lowDifficulty())) {//Remove benefits for ironmen and hard+ difficulties
 
             if (WellOfGoodwill.isActive())
                 experience *= 1.3;
@@ -554,7 +554,7 @@ public class SkillManager {
         }
 
 
-        if ((player.getMinutesBonusExp() != -1) && (player.getDifficulty().lowDifficulty()) && (player.getGameMode() == GameMode.NORMAL)) {
+        if ((player.getMinutesBonusExp() > 0) && (player.getDifficulty().lowDifficulty()) && (player.getGameMode() == GameMode.NORMAL)) {
             if (player.getGameMode() != GameMode.NORMAL) {
                 experience *= 1.30;
             }

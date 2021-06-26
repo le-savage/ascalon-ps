@@ -459,8 +459,6 @@ public class CommandPacketListener implements PacketListener {
             String triviaAnswer = wholeCommand.substring(7);
             if (TriviaBot.acceptingQuestion()) {
                 TriviaBot.attemptAnswer(player, triviaAnswer);
-            } else {
-
             }
         }
 
@@ -2756,18 +2754,6 @@ public class CommandPacketListener implements PacketListener {
                     administratorCommands(player, parts, command);
                     break;
                 case OWNER:
-                    playerCommands(player, parts, command);
-                    superDonator(player, parts, command);
-                    extremeDonator(player, parts, command);
-                    legendaryDonator(player, parts, command);
-                    uberDonator(player, parts, command);
-                    memberCommands(player, parts, command);
-                    helperCommands(player, parts, command);
-                    moderatorCommands(player, parts, command);
-                    administratorCommands(player, parts, command);
-                    ownerCommands(player, parts, command);
-                    developerCommands(player, parts, command);
-                    break;
                 case DEVELOPER:
                     playerCommands(player, parts, command);
                     superDonator(player, parts, command);
@@ -2790,10 +2776,6 @@ public class CommandPacketListener implements PacketListener {
                     memberCommands(player, parts, command);
                     helperCommands(player, parts, command);
                     break;
-			/*case YOUTUBER:
-				playerCommands(player, parts, command);
-				memberCommands(player, parts, command);
-				break;*/
                 case DONATOR:
                     playerCommands(player, parts, command);
                     memberCommands(player, parts, command);

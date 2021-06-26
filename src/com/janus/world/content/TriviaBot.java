@@ -69,7 +69,7 @@ public class TriviaBot {
 
     public static void attemptAnswer(Player p, String attempt) {
 
-        if (!currentQuestion.equals("") && attempt.replaceAll("_", " ").equalsIgnoreCase(currentAnswer)) {
+        if (!currentQuestion.equals("") && attempt.replaceAll("_", " ").contains(currentAnswer)) {
 
             if (answerCount == 0) {
                 answerCount++;
@@ -81,49 +81,15 @@ public class TriviaBot {
                 didSend = false;
                 botTimer = TIMER;
                 answerCount = 0;
-                return;
-
-			/*if (answerCount == 1) {
-				if (p.getUsername().equalsIgnoreCase(firstPlace)) {
-					p.getPacketSender().sendMessage("Already answered");
-					return;
-				}
-				answerCount++;
-				p.getPointsHandler().incrementTriviaPoints(6);
-				p.getPacketSender().sendMessage("You received 6 trivia points for @red@2nd Place.");
-				p.getPointsHandler().refreshPanel();
-				secondPlace = p.getUsername();
-				return;
-
-			}
-			/*if (answerCount == 2) {
-				if (p.getUsername().equalsIgnoreCase(firstPlace) || p.getUsername().equalsIgnoreCase(secondPlace)) {
-					p.getPacketSender().sendMessage("Already answered");
-					return;
-				}
-				p.getPointsHandler().incrementTriviaPoints(4);
-				p.getPacketSender().sendMessage("You received 4 trivia points for @red@3rd Place.");
-				p.getPointsHandler().refreshPanel();
-				thirdPlace = p.getUsername();
-				World.sendMessage("@blu@[Trivia] @bla@[1st:@blu@" +firstPlace+"@red@ (10 pts)@bla@] @bla@[2nd:@blu@" +secondPlace+"@red@ (6 pts)@bla@] [3rd:@blu@" +thirdPlace+"@red@  (4 pts)@bla@]");
-				//String[] s = Arrays.asList(attempts);
-				//World.sendMessage("@blu@[Trivia] @red@Failed attempts: "+s);
-				currentQuestion = "";
-				didSend = false;
-				botTimer = TIMER;
-				answerCount = 0;
-				return;*/
             }
         } else {
             if (attempt.contains("question") || attempt.contains("repeat")) {
                 p.getPacketSender().sendMessage("@bla@" + (currentQuestion));
                 return;
             }
-
-            //attempts.add(attempt); // need to add a filter for bad strings (advs, curses)
+            
             p.getPacketSender().sendMessage("<col=AD096E>[Trivia] </col>@bla@ Sorry! Wrong answer! The current question is:");
             p.getPacketSender().sendMessage("@bla@ " + (currentQuestion));
-            return;
         }
 
     }

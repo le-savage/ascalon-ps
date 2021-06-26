@@ -41,6 +41,7 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
      * @param player the player to decrement ammo for.
      */
     public static void decrementAmmo(Player player, Position pos) {
+
         if (player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12926) {
             if (!player.getBlowpipeLoading().getContents().isEmpty()) {
                 for (Entry<Integer> dart : player.getBlowpipeLoading().getContents().entrySet()) {
@@ -79,24 +80,13 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
         final boolean vet = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 14021;
         final boolean mast = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 21018;
 
-        if (avas && Misc.getRandom(2) <= 1)
-            if (mast && Misc.getRandom(2) <= 1) {
+        if (avas || comp || max || vet || mast && Misc.getRandom(2) <= 1)
                 return;
-            }
 
-        // Decrement the ammo in the selected slot.
-
-        if (!avas && player.getFireAmmo() != 15243) {
-            return;
-        }
-        if (!mast && player.getFireAmmo() != 15243) {
-            return;
-        }
-        player.getEquipment().get(slot).decrementAmount();
-        {
+        // Spawn the arrow on the floor
             GroundItemManager.spawnGroundItem(player,
-                    new GroundItem(new Item(player.getFireAmmo()), pos, player.getUsername(), false, 120, true, 120));
-        }
+                    new GroundItem(new Item(player.getFireAmmo()), pos, player.getUsername(),
+                            false, 120, true, 120));
 
         // If we are at 0 ammo remove the item from the equipment completely.
         if (player.getEquipment().get(slot).getAmount() == 0) {

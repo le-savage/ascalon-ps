@@ -13,14 +13,9 @@ public class BonusExperienceScroll {
     public static void handleScroll(Player player, int item) {
 
         if (item == scrollID) {
-            GameMode mode = player.getGameMode();
             Difficulty difficulty = player.getDifficulty();
             if (difficulty.highDifficulty()) {
                 player.getPacketSender().sendMessage("Unable to use bonus XP on " + player.getDifficulty().toString() + " difficulty");
-                return;
-            }
-            if (!mode.equals(GameMode.NORMAL)) {
-                player.getPacketSender().sendMessage("Unable to use bonus XP on " + mode.toString() + " game mode!");
                 return;
             }
             if (player.getRights().isMember() || player.getRights().isStaff()) {

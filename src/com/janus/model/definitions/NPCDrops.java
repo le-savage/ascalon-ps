@@ -119,15 +119,7 @@ public class NPCDrops {
         }
 
 
-        if (itemId == CharmingImp.GOLD_CHARM
-                || itemId == CharmingImp.GREEN_CHARM
-                || itemId == CharmingImp.CRIM_CHARM
-                || itemId == CharmingImp.BLUE_CHARM) {
-            if (player.getInventory().contains(6500)
-                    && CharmingImp.handleCharmDrop(player, itemId, amount)) {
-                return;
-            }
-        }
+
 
         Player toGive = player;
 
@@ -149,6 +141,20 @@ public class NPCDrops {
                     }
                     ccAnnounce = true;
                 }
+            }
+        }
+
+        if (itemId == CharmingImp.GOLD_CHARM
+                || itemId == CharmingImp.GREEN_CHARM
+                || itemId == CharmingImp.CRIM_CHARM
+                || itemId == CharmingImp.BLUE_CHARM) {
+
+
+            if (player.getInventory().contains(6500) && CharmingImp.handleCharmDrop(player, itemId, amount)) {
+                return;
+            } else {
+                GroundItemManager.spawnGroundItem(toGive, new GroundItem(item, pos, toGive.getUsername(), false, 150, goGlobal, 200));
+
             }
         }
 
@@ -370,8 +376,15 @@ public class NPCDrops {
 
     public static void casketDrop(Player player, int combat, Position pos) {
         int chance = (6 + (combat / 2));
+        int casketID = 7956;
         if (RandomUtility.getRandom(combat <= 50 ? 1300 : 1000) < chance) {
-            GroundItemManager.spawnGroundItem(player, new GroundItem(new Item(7956), pos, player.getUsername(), false, 150, true, 200));
+
+            if (player.getPickupValue() > ItemDefinition.forId(casketID).getValue()) {
+                player.getInventory().add(casketID, 1);
+            } else {
+                player.getPacketSender().sendMessage("A casket has been dropped!");
+                GroundItemManager.spawnGroundItem(player, new GroundItem(new Item(casketID), pos, player.getUsername(), false, 150, true, 200));
+            }
         }
     }
 
@@ -380,7 +393,7 @@ public class NPCDrops {
      */
     public static class NpcDropItem {
 
-        /**
+        /**::empty
          * The id.
          */
         private final int id;
