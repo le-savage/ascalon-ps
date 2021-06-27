@@ -33,6 +33,19 @@ public class CustomObjects {
     //Only adds clips to these objects, they are spawned clientsided
     //NOTE: You must add to the client's customobjects array to make them spawn, this is just clipping!
     private static final int[][] CLIENT_OBJECTS = {
+            // Landslide at Nex
+            {57225, 2908, 5202, 0, 0},
+
+            //Barbarian Course
+            {2294, 2550, 3546, 0, 0}, //Log
+            {2284, 2538, 3545, 0, 0}, //Net
+            {2302, 2535, 3547, 1, 0}, //Ledge
+            {3205, 2532, 3545, 1, 0}, //Ladder
+            {1948, 2536, 3553, 0, 0}, //Wall
+            {1948, 2539, 3553, 0, 0}, //Wall 2
+            {1948, 2542, 3553, 0, 0}, //Wall 3
+
+
             {6552, 3090, 3507, 0, 3},
             {13179, 3090, 3511, 0, 3},
             {409, 3085, 3508, 0, 1},

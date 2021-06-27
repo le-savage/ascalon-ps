@@ -41,15 +41,62 @@ public class PacketSender {
     }
 
 
-    /*public PacketSender trayMessage(int msgtype, String traymsg) {
-        PacketBuilder out = new PacketBuilder(181, PacketType.BYTE);
-        out.putShort(msgtype);
-        out.putString(traymsg);
+    /*public PacketSender xpPerHour(int attackXPPerHour,
+    int constitutionXPPerHour,
+    int miningXPPerHour,
+    int strengthXPPerHour,
+    int agilityXPPerHour,
+    int smithingXPPerHour,
+    int defenceXPPerHour,
+    int herbloreXPPerHour,
+    int fishingXPPerHour,
+    int rangedXPPerHour,
+    int thievingXPPerHour,
+    int cookingXPPerHour,
+    int prayerXPPerHour,
+    int craftingXPPerHour,
+    int firemakingXPPerHour,
+    int magicXPPerHour,
+    int fletchingXPPerHour,
+    int woodcuttingXPPerHour,
+    int runecraftingXPPerHour,
+    int slayerXPPerHour,
+    int farmingXPPerHour,
+    int constructionXPPerHour,
+    int hunterXPPerHour,
+    int summoningXPPerHour,
+    int dungeoneeringXPPerHour) {
+        PacketBuilder out = new PacketBuilder(181);
+        out.putShort(attackXPPerHour);
+        out.putShort(constitutionXPPerHour);
+        out.putShort(miningXPPerHour);
+        out.putShort(strengthXPPerHour);
+        out.putShort(agilityXPPerHour);
+        out.putShort(smithingXPPerHour);
+        out.putShort(defenceXPPerHour);
+        out.putShort(herbloreXPPerHour);
+        out.putShort(fishingXPPerHour);
+        out.putShort(rangedXPPerHour);
+        out.putShort(thievingXPPerHour);
+        out.putShort(cookingXPPerHour);
+        out.putShort(prayerXPPerHour);
+        out.putShort(craftingXPPerHour);
+        out.putShort(firemakingXPPerHour);
+        out.putShort(magicXPPerHour);
+        out.putShort(fletchingXPPerHour);
+        out.putShort(woodcuttingXPPerHour);
+        out.putShort(runecraftingXPPerHour);
+        out.putShort(slayerXPPerHour);
+        out.putShort(farmingXPPerHour);
+        out.putShort(constructionXPPerHour);
+        out.putShort(hunterXPPerHour);
+        out.putShort(summoningXPPerHour);
+        out.putShort(dungeoneeringXPPerHour);
         player.getSession().queueMessage(out);
         return this;
-    }
+    }*/
 
-    public PacketSender minimisedTrayMessage(int msgtype2, String minimisedMessage) {
+    /*public PacketSender currentXP(int msgtype2, String minimisedMessage) {
         PacketBuilder out = new PacketBuilder(182, PacketType.BYTE);
         out.putShort(msgtype2);
         out.putString(minimisedMessage);

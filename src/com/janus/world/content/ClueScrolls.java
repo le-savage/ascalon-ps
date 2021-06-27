@@ -13,7 +13,7 @@ public class ClueScrolls {
 
             {new Item(4587, 1)},//dragon scimitar
             {new Item(20072, 1)},//dragon defender
-            {new Item(4178, 1)},//abbysal whip
+            {new Item(4151, 1)},//abbysal whip
             {new Item(11335, 1)},//dragon full helm
             {new Item(6586, 1)},//amulet of fury
             {new Item(1514, 500)},//magic logs

@@ -146,6 +146,18 @@ public class NPCOptionPacketListener implements PacketListener {
                         ShopManager.getShops().get(7).open(player);
                         break;
 
+                    case 37:
+                        if (player.getGameMode() != GameMode.NORMAL || player.getRights() == PlayerRights.OWNER) {
+                            ShopManager.getShops().get(54).open(player);
+                            player.getPacketSender().sendRichPresenceState("Viewing Ironman Store!");
+                            player.getPacketSender().sendSmallImageKey("trade");
+                        } else {
+                            player.getPacketSender().sendMessage("Only Ironmen are worthy of shopping here!");
+                        }
+                        break;
+
+
+
 
                     case 278:
                         ShopManager.getShops().get(6).open(player);
@@ -683,6 +695,15 @@ public class NPCOptionPacketListener implements PacketListener {
                         break;
                     case 541://zeke shop 2
                         ShopManager.getShops().get(52).open(player);
+                        break;
+                    case 37:
+                        if (player.getGameMode() != GameMode.NORMAL || player.getRights() == PlayerRights.OWNER) {
+                            ShopManager.getShops().get(57).open(player);
+                            player.getPacketSender().sendRichPresenceState("Viewing Ironman Store!");
+                            player.getPacketSender().sendSmallImageKey("trade");
+                        } else {
+                            player.getPacketSender().sendMessage("Only Ironmen are worthy of shopping here!");
+                        }
                         break;
                     case 853:
                         player.getPacketSender().sendMessage("You're a freak..");

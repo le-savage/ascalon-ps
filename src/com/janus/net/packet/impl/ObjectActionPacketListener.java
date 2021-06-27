@@ -365,7 +365,7 @@ public class ObjectActionPacketListener implements PacketListener {
                         break;
 
                     case 13132:
-                        player.getRegionInstance().getNpcsList().forEach(n -> n.forceChat("Pussy! Stop trying to run!"));
+                        player.getPacketSender().sendMessage("There's no escape!");
                         break;
 
 
@@ -1271,7 +1271,7 @@ public class ObjectActionPacketListener implements PacketListener {
                         player.getPacketSender().sendString(18045, " " + player.getSkillManager().getCurrentLevel(Skill.SUMMONING) + "/" + player.getSkillManager().getMaxLevel(Skill.SUMMONING));
                         player.getPacketSender().sendMessage("You recharge your Summoning points.");
                         break;
-                    case 57225:
+                    case 57225: //check todo
                         if (!player.getMinigameAttributes().getGodwarsDungeonAttributes().hasEnteredRoom()) {
                             player.setDialogueActionId(44);
                             DialogueManager.start(player, 79);

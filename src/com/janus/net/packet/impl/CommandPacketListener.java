@@ -692,7 +692,7 @@ public class CommandPacketListener implements PacketListener {
 
         if (wholeCommand.equalsIgnoreCase("donate") || wholeCommand.equalsIgnoreCase("store")) {
             player.getPacketSender().sendRichPresenceState("Viewing Donation Page");
-            player.getPacketSender().sendString(1, "https://janus.everythingrs.com/services/store");
+            player.getPacketSender().sendString(1, "http://janus.everythingrs.com/services/store");
             player.getPacketSender().sendMessage("@red@Make sure to enter your username in the box on the right<3");
         }
 
@@ -1666,6 +1666,8 @@ public class CommandPacketListener implements PacketListener {
                 }
             }
         }
+
+
 
 
         if (command[0].equalsIgnoreCase("cluereward")) { //COMMAND TO SHOW DIFFICULTY

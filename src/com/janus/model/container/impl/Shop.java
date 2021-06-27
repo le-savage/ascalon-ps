@@ -574,9 +574,9 @@ public class Shop extends ItemContainer {
                 player.getPacketSender().sendMessage("You cannot sell this item to this store.");
                 return;
             }
-            int salePriceCap = 10000000;
+            int salePriceCap = 50000000;
             if (item.getDefinition().getValue() > salePriceCap) {
-                player.getPacketSender().sendMessage("The shop keeper cannot afford anything over 10m!");
+                player.getPacketSender().sendMessage("The shop keeper cannot afford anything over 50m!");
                 return;
             }
         }
@@ -646,6 +646,11 @@ public class Shop extends ItemContainer {
             return;
         if (this.full(itemToSell.getId()))
             return;
+        int salePriceCap = 50000000;
+        if (itemToSell.getDefinition().getValue() > salePriceCap) {
+            player.getPacketSender().sendMessage("The shop keeper cannot afford anything over 50m!");
+            return;
+        }
         if (player.getInventory().getAmount(itemToSell.getId()) < amountToSell)
             amountToSell = player.getInventory().getAmount(itemToSell.getId());
         if (amountToSell == 0)

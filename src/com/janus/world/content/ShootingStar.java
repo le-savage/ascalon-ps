@@ -11,7 +11,7 @@ import com.janus.world.entity.impl.player.Player;
 public class ShootingStar {
 
     private static final int TIME = 1800000;
-    public static final int MAXIMUM_MINING_AMOUNT = 400;
+    public static final int MAXIMUM_MINING_AMOUNT = Misc.random(50, 200);
 
     private static Stopwatch timer = new Stopwatch().reset();
     public static CrashedStar CRASHED_STAR = null;

@@ -2,6 +2,7 @@ package com.janus.world.content.dialogue.impl;
 
 import com.janus.model.Difficulty;
 import com.janus.model.input.impl.BuyAgilityExperience;
+import com.janus.util.Misc;
 import com.janus.world.content.dialogue.Dialogue;
 import com.janus.world.content.dialogue.DialogueExpression;
 import com.janus.world.content.dialogue.DialogueType;
@@ -31,7 +32,8 @@ public class AgilityTicketExchange {
                 break;
         }
 
-        int finalTokenXP = tokenXP;
+        String tokenXPString = (Misc.format(tokenXP));
+
         return new Dialogue() {
 
             @Override
@@ -52,7 +54,7 @@ public class AgilityTicketExchange {
 
             @Override
             public String[] dialogue() {
-                return new String[]{"@bla@How many tickets would you like to exchange", "for experience? One ticket currently grants", "@red@" + finalTokenXP + "@bla@ Agility experience."};
+                return new String[]{"@bla@How many tickets would you like to exchange", "for experience? One ticket currently grants", "@red@" + tokenXPString + "@bla@ Agility experience."};
             }
 
             public Dialogue nextDialogue() {
@@ -75,7 +77,7 @@ public class AgilityTicketExchange {
 
                     @Override
                     public String[] dialogue() {
-                        return new String[]{"@bla@How many tickets would you like to exchange", "for experience? One ticket currently grants", "@red@" + finalTokenXP + "@bla@ Agility experience."};
+                        return new String[]{"@bla@How many tickets would you like to exchange", "for experience? One ticket currently grants", "@red@" + tokenXPString + "@bla@ Agility experience."};
                     }
 
                     @Override

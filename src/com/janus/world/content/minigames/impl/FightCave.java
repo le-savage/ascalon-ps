@@ -17,6 +17,15 @@ public class FightCave {
 
     public static final int JAD_NPC_ID = 2745;
 
+    public static void clearJad(Player player) {
+            if (player.getRegionInstance() != null) {
+                player.getRegionInstance().getNpcsList().forEach(npc -> npc.removeInstancedNpcs(Location.FIGHT_CAVES, player.getPosition().getZ()));
+                player.getRegionInstance().getNpcsList().forEach(npc -> World.deregister(npc));
+                player.getRegionInstance().destruct();
+            }
+
+    }
+
     public static void enterCave(Player player) {
         player.getPacketSender().sendRichPresenceState("Fighting Jad!");
         player.getPacketSender().sendRichPresenceSmallPictureText("CB LVL: " + player.getSkillManager().getCombatLevel());
@@ -28,9 +37,6 @@ public class FightCave {
     }
 
     public static void leaveCave(Player player, boolean resetStats) {
-        player.getPacketSender().sendRichPresenceState("TzHaar Caves");
-        player.getPacketSender().sendRichPresenceSmallPictureText("CB LVL: " + player.getSkillManager().getCombatLevel());
-        player.getPacketSender().sendSmallImageKey("minigame");
         Locations.Location.FIGHT_CAVES.leave(player);
         if (resetStats)
             player.restart();
@@ -56,7 +62,7 @@ public class FightCave {
     public static void handleJadDeath(final Player player, NPC n) {
         if (n.getId() == JAD_NPC_ID) {
             if (player.getRegionInstance() != null)
-                player.getRegionInstance().getNpcsList().remove(n);
+            FightCave.clearJad(player);
             leaveCave(player, true);
             DialogueManager.start(player, 37);
             player.getInventory().add(6570, 1).add(6529, 1000 + Misc.getRandom(2000));

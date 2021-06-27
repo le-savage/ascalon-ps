@@ -995,16 +995,22 @@ public class Locations {
             }
 
             @Override
+            public void logout(Player player) {
+                FightCave.clearJad(player);
+            }
+
+            @Override
             public void leave(Player player) {
                 player.getCombatBuilder().reset(true);
                 if (player.getRegionInstance() != null) {
-                    player.getRegionInstance().destruct();
+                    FightCave.clearJad(player);
                 }
                 player.moveTo(new Position(2439, 5169));
             }
 
             @Override
             public void onDeath(Player player) {
+                FightCave.clearJad(player);
                 FightCave.leaveCave(player, true);
             }
 
