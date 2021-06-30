@@ -1,16 +1,16 @@
 {
-  "total-play-time-ms": 54406426,
+  "total-play-time-ms": 69149629,
   "username": "Flub",
   "password": "HodgeTwins1",
   "email": "null",
   "staff-rights": "OWNER",
   "game-mode": "NORMAL",
   "difficulty": "Zezima",
-  "boss-points": 18,
+  "boss-points": 19,
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2744,
+    "x": 2741,
     "y": 5373,
     "z": 0
   },
@@ -18,8 +18,8 @@
   "given-starter": true,
   "has-played-new-barrows": false,
   "has-used-boss-tier-tp": true,
-  "should-give-boss-reward": true,
-  "currentBossWave": 5,
+  "should-give-boss-reward": false,
+  "currentBossWave": 0,
   "barrows-kc": 0,
   "money-pouch": 351383,
   "donated": 0,
@@ -33,8 +33,8 @@
   "achievement-points": 15,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 8910008,
-  "total-loyalty-points": 8910008.0,
+  "loyalty-points": 10725008,
+  "total-loyalty-points": 1.0725008E7,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -59,7 +59,7 @@
   "auto-retaliate": true,
   "xp-locked": false,
   "veng-cast": true,
-  "last-veng": 529395722,
+  "last-veng": 1624544181606,
   "fight-type": "UNARMED_KICK",
   "sol-effect": -1,
   "skull-timer": 0,
@@ -67,8 +67,8 @@
   "poison-damage": 0,
   "poison-immunity": 0,
   "overload-timer": 0,
-  "fire-immunity": -1,
-  "fire-damage-mod": 0,
+  "fire-immunity": 360,
+  "fire-damage-mod": 50,
   "prayer-renewal-timer": 0,
   "teleblock-timer": 0,
   "special-amount": 15000,
@@ -93,7 +93,7 @@
       "runningTotal": 1,
       "npcId": 50,
       "npcName": "King Black Dragon",
-      "amount": 4,
+      "amount": 5,
       "boss": true
     },
     {
@@ -497,7 +497,7 @@
       28,
       28,
       28,
-      188,
+      250,
       1,
       10,
       1,
@@ -577,8 +577,8 @@
   },
   "inventory": [
     {
-      "id": 1234,
-      "amount": 41,
+      "id": 25,
+      "amount": 3,
       "slot": 0
     },
     {
@@ -811,16 +811,6 @@
       "slot": 0
     },
     {
-      "id": 25,
-      "amount": 2,
-      "slot": 0
-    },
-    {
-      "id": 6529,
-      "amount": 2155,
-      "slot": 0
-    },
-    {
       "id": 985,
       "amount": 1,
       "slot": 0
@@ -841,22 +831,32 @@
       "slot": 0
     }
   ],
-  "bank-1": [],
-  "bank-2": [],
-  "bank-3": [],
+  "bank-1": [
+    {
+      "id": 123,
+      "amount": 2,
+      "slot": 0
+    }
+  ],
+  "bank-2": [
+    {
+      "id": 25,
+      "amount": 3,
+      "slot": 0
+    }
+  ],
+  "bank-3": [
+    {
+      "id": 6529,
+      "amount": 2155,
+      "slot": 0
+    }
+  ],
   "bank-4": [],
   "bank-5": [],
   "bank-6": [],
   "bank-7": [],
   "bank-8": [],
-  "ge-slots": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
-  ],
   "charm-imp": [
     0,
     0,
@@ -1026,14 +1026,14 @@
     0,
     0,
     0,
-    458509,
+    491313,
     27349,
     13644,
     0,
     2,
     0,
     0,
-    22,
+    23,
     0,
     2,
     0

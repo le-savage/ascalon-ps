@@ -1,4 +1,4 @@
-package com.janus.world.content.combat.tieredbosses;
+package com.janus.world.content.combat.bossminigame;
 
 import com.janus.GameSettings;
 import com.janus.engine.task.Task;
@@ -247,19 +247,19 @@ public class BossMinigameFunctions {
 
         switch (player.getCurrentBossWave()) {
             case 0:
-                chosenBoss = new NPC(RandomNPCData.randomFirstWaveID(player), new Position(x, y, z)).setSpawnedFor(player);
+                chosenBoss = new NPC(RandomNPCData.randomFirstWaveID(), new Position(x, y, z)).setSpawnedFor(player);
                 break;
             case 1:
-                chosenBoss = new NPC(RandomNPCData.randomSecondWaveID(player), new Position(x, y, z)).setSpawnedFor(player);
+                chosenBoss = new NPC(RandomNPCData.randomSecondWaveID(), new Position(x, y, z)).setSpawnedFor(player);
                 break;
             case 2:
-                chosenBoss = new NPC(RandomNPCData.randomThirdWaveID(player), new Position(x, y, z)).setSpawnedFor(player);
+                chosenBoss = new NPC(RandomNPCData.randomThirdWaveID(), new Position(x, y, z)).setSpawnedFor(player);
                 break;
             case 3:
-                chosenBoss = new NPC(RandomNPCData.randomFourthWaveID(player), new Position(x, y, z)).setSpawnedFor(player);
+                chosenBoss = new NPC(RandomNPCData.randomFourthWaveID(), new Position(x, y, z)).setSpawnedFor(player);
                 break;
             case 4:
-                chosenBoss = new NPC(RandomNPCData.randomFifthWaveID(player), new Position(x, y, z)).setSpawnedFor(player);
+                chosenBoss = new NPC(RandomNPCData.randomFifthWaveID(), new Position(x, y, z)).setSpawnedFor(player);
                 break;
         }
         return chosenBoss;

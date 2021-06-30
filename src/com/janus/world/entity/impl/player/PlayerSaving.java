@@ -177,7 +177,10 @@ public class PlayerSaving {
             object.add("skills", builder.toJsonTree(player.getSkillManager().getSkills()));
             object.add("inventory", builder.toJsonTree(player.getInventory().getItems()));
             object.add("equipment", builder.toJsonTree(player.getEquipment().getItems()));
-            object.add("bank-0", builder.toJsonTree(player.getBank(0).getValidItems()));
+            for (int i = 0; i < 9; i++) {
+                object.add("bank-"+i, builder.toJsonTree(player.getBank(i).getValidItems()));
+            }
+            /*object.add("bank-0", builder.toJsonTree(player.getBank(0).getValidItems()));
             object.add("bank-1", builder.toJsonTree(player.getBank(1).getValidItems()));
             object.add("bank-2", builder.toJsonTree(player.getBank(2).getValidItems()));
             object.add("bank-3", builder.toJsonTree(player.getBank(3).getValidItems()));
@@ -185,9 +188,7 @@ public class PlayerSaving {
             object.add("bank-5", builder.toJsonTree(player.getBank(5).getValidItems()));
             object.add("bank-6", builder.toJsonTree(player.getBank(6).getValidItems()));
             object.add("bank-7", builder.toJsonTree(player.getBank(7).getValidItems()));
-            object.add("bank-8", builder.toJsonTree(player.getBank(8).getValidItems()));
-
-            object.add("ge-slots", builder.toJsonTree(player.getGrandExchangeSlots()));
+            object.add("bank-8", builder.toJsonTree(player.getBank(8).getValidItems()));*/
 
             /** STORE SUMMON **/
             if (player.getSummoning().getBeastOfBurden() != null) {

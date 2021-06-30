@@ -1,8 +1,6 @@
-package com.janus.world.content.combat.tieredbosses;
+package com.janus.world.content.combat.bossminigame;
 
 import com.janus.model.Item;
-import com.janus.model.container.impl.Inventory;
-import com.janus.world.entity.impl.player.Player;
 
 public class InventorySetups {
 

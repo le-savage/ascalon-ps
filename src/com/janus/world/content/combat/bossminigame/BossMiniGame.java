@@ -1,19 +1,14 @@
-package com.janus.world.content.combat.tieredbosses;
+package com.janus.world.content.combat.bossminigame;
 
 import com.janus.GameSettings;
 import com.janus.model.Item;
 import com.janus.model.MagicSpellbook;
-import com.janus.model.Position;
 import com.janus.model.Prayerbook;
 import com.janus.world.World;
-import com.janus.world.content.ToyHorses;
-import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
-import com.janus.world.content.skill.impl.magic.Magic;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
-import lombok.ToString;
 
 public class BossMiniGame {
 

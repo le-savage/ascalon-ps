@@ -18,11 +18,7 @@ import com.janus.world.entity.impl.player.Player;
 
 public class DesolaceFormulas {
 
-    /*==============================================================================*/
-    /*===================================MELEE=====================================*/
-
-
-    /**
+   /**
      * Obsidian items
      */
 
@@ -338,7 +334,7 @@ public class DesolaceFormulas {
         }
         attackLevel *= plr.isSpecialActivated() ? plr.getCombatSpecial().getAccuracyBonus() : 1;
 
-        return (int) (attackLevel + (plr.getBonusManager().getAttackBonus()[3] * 2));
+        return (int) (attackLevel + (plr.getBonusManager().getAttackBonus()[3] * 2)); //TODO Check if this is the correct bonus
     }
 
     /**
@@ -384,6 +380,7 @@ public class DesolaceFormulas {
         int damage = 0;
         CombatSpell spell = c.getCurrentlyCasting();
         if (spell != null) {
+            System.out.println("Spell chosen: "+spell + " Max hit: "+spell.maximumHit());
             if (spell.maximumHit() > 0)
                 damage += spell.maximumHit();
             else {
@@ -459,7 +456,7 @@ public class DesolaceFormulas {
             }
         }
 
-        return (int) damage;
+        return damage;
     }
 
 

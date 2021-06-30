@@ -12,8 +12,7 @@ import com.janus.world.content.Achievements.AchievementData;
 import com.janus.world.content.*;
 import com.janus.world.content.Gambling.FlowersData;
 import com.janus.world.content.clan.ClanChatManager;
-import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
-import com.janus.world.content.combat.tieredbosses.BossRewardChest;
+import com.janus.world.content.combat.bossminigame.BossRewardChest;
 import com.janus.world.content.dialogue.impl.AgilityTicketExchange;
 import com.janus.world.content.dialogue.impl.Mandrith;
 import com.janus.world.content.minigames.impl.Graveyard;
@@ -36,11 +35,7 @@ import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.npc.NpcAggression;
 import com.janus.world.entity.impl.player.Player;
 
-import static com.janus.world.content.combat.tieredbosses.BossRewardBoxes.hasEarnedReward;
-
 public class DialogueOptions {
-
-    //Last id used = 78
 
     public static int FIRST_OPTION_OF_FIVE = 2494;
     public static int SECOND_OPTION_OF_FIVE = 2495;

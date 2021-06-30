@@ -1,4 +1,4 @@
-package com.janus.world.content.combat.tieredbosses;
+package com.janus.world.content.combat.bossminigame;
 
 
 import com.janus.engine.task.Task;
@@ -7,6 +7,7 @@ import com.janus.model.Animation;
 import com.janus.model.Item;
 import com.janus.model.PlayerRights;
 import com.janus.util.Misc;
+import com.janus.world.World;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.entity.impl.player.Player;
 
@@ -24,9 +25,13 @@ public class BossRewardChest {
 
 
 
-    public static void getChances(Player player) {
 
-        System.out.println("Chances (Shit, Medium, Rare) after all modifiers: " + "("+chanceOfShitReward+","+chanceOfMediumReward+","+chanceOfRareReward+")");
+    /** Here we apply some modifiers to increase the chance of winning a rare **/
+
+    public static void getChances(Player player) {
+        chanceOfShitReward = 60;
+        chanceOfMediumReward = 35;
+        chanceOfRareReward = 5;
 
         PlayerRights rights = player.getRights();
         int currentBossWave = player.getCurrentBossWave();
@@ -80,7 +85,6 @@ public class BossRewardChest {
         chanceOfMediumReward += currentBossWave*2; //2% Increased chance of medium reward per wave
         chanceOfRareReward += currentBossWave;//1% Increased chance of rare reward per wave
 
-        System.out.println("Chances (Shit, Medium, Rare) after all modifiers: " + "("+chanceOfShitReward+","+chanceOfMediumReward+","+chanceOfRareReward+")");
     }
 
     /** This runs the code after the chest is clicked **/
@@ -135,8 +139,7 @@ public class BossRewardChest {
      */
     public static void pickReward(Player player) {
 
-                System.out.println("Getting Chance modifiers from getChances");
-
+        System.out.println("Getting Chance modifiers from getChances");
 
         int chance = Misc.random(0, 100);
         System.out.println("Chance to win was " + chance);
@@ -144,20 +147,27 @@ public class BossRewardChest {
         Item mediumReward = BossRewardChestData.MEDIUM_REWARDS[Misc.getRandom(BossRewardChestData.MEDIUM_REWARDS.length - 1)];
         Item rareReward = BossRewardChestData.RARE_REWARDS[Misc.getRandom(BossRewardChestData.RARE_REWARDS.length - 1)];
 
+        Item rewardGiven = null;
+
         if (chance <= chanceOfShitReward) {
             player.getInventory().add(shitReward);
+            rewardGiven = shitReward;
             System.out.println("Reward selected:  " + shitReward.getAmount() + " x " + shitReward.getDefinition().getName());
         }
 
         if (chance >= chanceOfShitReward && chance <= chanceOfRareReward) {
             player.getInventory().add(mediumReward);
+            rewardGiven = mediumReward;
             System.out.println("Reward selected:  " + mediumReward.getAmount() + " x " + mediumReward.getDefinition().getName());
         }
 
         if (chance >= chanceOfRareReward) {
             player.getInventory().add(rareReward);
+            rewardGiven = rareReward;
             System.out.println("Reward selected:  " + rareReward.getAmount() + " x " + rareReward.getDefinition().getName());
         }
+
+        World.sendMessage("@bla@[@blu@"+player.getUsername()+"@bla@] has won @blu@"+rewardGiven.getAmount()+" @bla@x @blu@"+rewardGiven.getDefinition().getName()+"@bla@ from @blu@wave "+player.getCurrentBossWave() + " at ::boss!");
 
         player.getPacketSender().sendInterfaceRemoval();
         BossMinigameFunctions.resetProgress(player);

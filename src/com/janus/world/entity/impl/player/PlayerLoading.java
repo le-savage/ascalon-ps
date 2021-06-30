@@ -512,48 +512,6 @@ public class PlayerLoading {
                             builder.fromJson(reader.get("bank-" + i + "").getAsJsonArray(), Item[].class), false);
             }
 
-            if (reader.has("bank-0")) {
-                player.setBank(0, new Bank(player)).getBank(0)
-                        .addItems(builder.fromJson(reader.get("bank-0").getAsJsonArray(), Item[].class), false);
-            }
-            if (reader.has("bank-1")) {
-                player.setBank(1, new Bank(player)).getBank(1)
-                        .addItems(builder.fromJson(reader.get("bank-1").getAsJsonArray(), Item[].class), false);
-            }
-            if (reader.has("bank-2")) {
-                player.setBank(2, new Bank(player)).getBank(2)
-                        .addItems(builder.fromJson(reader.get("bank-2").getAsJsonArray(), Item[].class), false);
-            }
-            if (reader.has("bank-3")) {
-                player.setBank(3, new Bank(player)).getBank(3)
-                        .addItems(builder.fromJson(reader.get("bank-3").getAsJsonArray(), Item[].class), false);
-            }
-            if (reader.has("bank-4")) {
-                player.setBank(4, new Bank(player)).getBank(4)
-                        .addItems(builder.fromJson(reader.get("bank-4").getAsJsonArray(), Item[].class), false);
-            }
-            if (reader.has("bank-5")) {
-                player.setBank(5, new Bank(player)).getBank(5)
-                        .addItems(builder.fromJson(reader.get("bank-5").getAsJsonArray(), Item[].class), false);
-            }
-            if (reader.has("bank-6")) {
-                player.setBank(6, new Bank(player)).getBank(6)
-                        .addItems(builder.fromJson(reader.get("bank-6").getAsJsonArray(), Item[].class), false);
-            }
-            if (reader.has("bank-7")) {
-                player.setBank(7, new Bank(player)).getBank(7)
-                        .addItems(builder.fromJson(reader.get("bank-7").getAsJsonArray(), Item[].class), false);
-            }
-            if (reader.has("bank-8")) {
-                player.setBank(8, new Bank(player)).getBank(8)
-                        .addItems(builder.fromJson(reader.get("bank-8").getAsJsonArray(), Item[].class), false);
-            }
-
-            if (reader.has("ge-slots")) {
-                GrandExchangeSlot[] slots = builder.fromJson(reader.get("ge-slots").getAsJsonArray(),
-                        GrandExchangeSlot[].class);
-                player.setGrandExchangeSlots(slots);
-            }
 
             if (reader.has("store")) {
                 Item[] validStoredItems = builder.fromJson(reader.get("store").getAsJsonArray(), Item[].class);

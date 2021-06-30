@@ -16,8 +16,7 @@ import com.janus.world.content.WildyWyrmEvent;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.strategy.impl.KalphiteQueen;
 import com.janus.world.content.combat.strategy.impl.Nex;
-import com.janus.world.content.combat.tieredbosses.BossMinigameFunctions;
-import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
+import com.janus.world.content.combat.bossminigame.BossMinigameFunctions;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
@@ -283,7 +282,7 @@ public class NPCDeathTask extends Task {
         }
 
         if (npc.getLocation() == Location.BOSS_TIER_LOCATION) {
-                if (killer.currentBossWave <= 4 && !killer.isShouldGiveBossReward() && !BossRewardBoxes.hasExistingBox(killer)) {
+                if (killer.currentBossWave <= 4 && !killer.isShouldGiveBossReward()) {
                     killer.currentBossWave++;
                     killer.setShouldGiveBossReward(true);
                     killer.forceChat("I should leave now!");

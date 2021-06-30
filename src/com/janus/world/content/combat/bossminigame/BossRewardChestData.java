@@ -1,4 +1,4 @@
-package com.janus.world.content.combat.tieredbosses;
+package com.janus.world.content.combat.bossminigame;
 
 import com.janus.model.Item;
 import lombok.Data;

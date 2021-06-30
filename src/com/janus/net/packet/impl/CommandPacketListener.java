@@ -29,9 +29,8 @@ import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.strategy.CombatStrategies;
-import com.janus.world.content.combat.tieredbosses.BossMinigameFunctions;
-import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
-import com.janus.world.content.combat.tieredbosses.BossRewardChest;
+import com.janus.world.content.combat.bossminigame.BossMinigameFunctions;
+import com.janus.world.content.combat.bossminigame.BossRewardChest;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.grandexchange.GrandExchangeOffers;
 import com.janus.world.content.minigames.impl.FreeForAll;
@@ -609,10 +608,6 @@ public class CommandPacketListener implements PacketListener {
 
         if (command[0].equalsIgnoreCase("countcash")) {
             player.getPacketSender().sendMessage(String.valueOf(player.getInventory().getAmount(995)));
-        }
-
-        if (command[0].equalsIgnoreCase("caniafford")) {
-            player.getPacketSender().sendMessage(String.valueOf(BossRewardBoxes.canAffordToOpen(player)));
         }
 
         if (command[0].equalsIgnoreCase("home")) {

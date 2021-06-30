@@ -11,7 +11,6 @@ import com.janus.util.RandomUtility;
 import com.janus.world.World;
 import com.janus.world.content.*;
 import com.janus.world.content.combat.range.DwarfMultiCannon;
-import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.skill.SkillManager;
 import com.janus.world.content.skill.impl.construction.Construction;
@@ -369,10 +368,6 @@ public class ItemActionPacketListener implements PacketListener {
         if (itemId == DungeoneeringLamp.lampID) {
             DungeoneeringLamp.handleLamp(player, itemId);
             return;
-        }
-
-        if (itemId == BossRewardBoxes.rewardBox) {
-            BossRewardBoxes.setCostToOpen(player);
         }
 
         switch (itemId) {

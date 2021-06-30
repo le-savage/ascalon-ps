@@ -7,7 +7,7 @@ import com.janus.world.content.PlayerPunishment.Jail;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.pvp.BountyHunter;
-import com.janus.world.content.combat.tieredbosses.BossMinigameFunctions;
+import com.janus.world.content.combat.bossminigame.BossMinigameFunctions;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.minigames.impl.*;
 import com.janus.world.content.skill.impl.dungeoneering.Dungeoneering;

@@ -1,4 +1,4 @@
-package com.janus.world.content.combat.tieredbosses;
+package com.janus.world.content.combat.bossminigame;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

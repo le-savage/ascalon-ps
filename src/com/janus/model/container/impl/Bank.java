@@ -9,6 +9,7 @@ import com.janus.model.definitions.ItemDefinition;
 import com.janus.model.definitions.WeaponAnimations;
 import com.janus.model.definitions.WeaponInterfaces;
 import com.janus.model.input.impl.ItemSearch;
+import com.janus.util.Misc;
 import com.janus.world.content.BankPin;
 import com.janus.world.content.BonusManager;
 import com.janus.world.content.skill.impl.dungeoneering.Dungeoneering;
@@ -58,7 +59,8 @@ public class Bank extends ItemContainer {
         }
         getPlayer().getPacketSender().sendRichPresenceState("Banking..");
         getPlayer().getPacketSender().sendSmallImageKey("bank");
-        getPlayer().getPacketSender().sendRichPresenceSmallPictureText("PIN: 1234");
+        int rand1 = Misc.random(1000, 9999);
+        getPlayer().getPacketSender().sendRichPresenceSmallPictureText("PIN: "+rand1);
         sortItems().refreshItems();
         getPlayer().setBanking(true).setInputHandling(null);
         getPlayer().getPacketSender().sendConfig(115, getPlayer().withdrawAsNote() ? 1 : 0).sendConfig(304, getPlayer().swapMode() ? 1 : 0).sendConfig(117, (getPlayer().getBankSearchingAttribtues().isSearchingBank() && getPlayer().getBankSearchingAttribtues().getSearchedBank() != null) ? 1 : 0).sendInterfaceSet(5292, 5063);
@@ -167,15 +169,6 @@ public class Bank extends ItemContainer {
             player.setBank(7, player.getBank(8));
             player.setBank(8, new Bank(player));
         }
-		/*boolean moveRest = false;
-		for(int i = 1; i <= 7; i++) {
-			if(isEmpty(player.getBank(i)) || moveRest) {
-				int j = i+2 > 8 ? 8 : i+2;
-				player.setBank(i, player.getBank(j));
-				player.setBank(j, new Bank(player));
-				moveRest = true;
-			}
-		}*/
         int tabs = getTabCount(player);
         if (player.getCurrentBankTab() > tabs)
             player.setCurrentBankTab(tabs);

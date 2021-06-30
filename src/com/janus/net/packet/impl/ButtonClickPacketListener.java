@@ -1460,6 +1460,7 @@ public class ButtonClickPacketListener implements PacketListener {
                     BankSearchAttributes.stopSearch(player, true);
                 int bankId = id - 27014;
                 boolean empty = bankId > 0 ? Bank.isEmpty(player.getBank(bankId)) : false;
+
                 if (!empty || bankId == 0) {
                     player.setCurrentBankTab(bankId);
                     player.getPacketSender().sendString(5385, "scrollreset");
