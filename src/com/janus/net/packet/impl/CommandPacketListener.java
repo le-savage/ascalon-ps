@@ -31,6 +31,7 @@ import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.strategy.CombatStrategies;
 import com.janus.world.content.combat.tieredbosses.BossMinigameFunctions;
 import com.janus.world.content.combat.tieredbosses.BossRewardBoxes;
+import com.janus.world.content.combat.tieredbosses.BossRewardChest;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.grandexchange.GrandExchangeOffers;
 import com.janus.world.content.minigames.impl.FreeForAll;
@@ -1648,24 +1649,37 @@ public class CommandPacketListener implements PacketListener {
     private static void ownerCommands(final Player player, String[] command, String wholeCommand) {
 
         if (command[0].equals("rights")) {
-            if (player.getUsername().equalsIgnoreCase("Flub") || player.getUsername().equalsIgnoreCase("Flub")
-                    || player.getUsername().equalsIgnoreCase("Martijn")) {
-                int rankId = Integer.parseInt(command[1]);
-                if (player.getUsername().equalsIgnoreCase("server") && rankId != 10) {
-                    player.getPacketSender().sendMessage("You cannot do that.");
-                    return;
-                }
-                Player target = World
-                        .getPlayerByName(wholeCommand.substring(rankId >= 10 ? 10 : 9, wholeCommand.length()));
-                if (target == null) {
-                    player.getPacketSender().sendConsoleMessage("Player must be online to give them rights!");
-                } else {
-                    target.setRights(PlayerRights.forId(rankId));
-                    target.getPacketSender().sendMessage("Your player rights have been changed.");
-                    target.getPacketSender().sendRights();
-                }
+            int rankId = Integer.parseInt(command[1]);
+            if (player.getUsername().equalsIgnoreCase("server") && rankId != 10) {
+                player.getPacketSender().sendMessage("You cannot do that.");
+                return;
+            }
+            Player target = World
+                    .getPlayerByName(wholeCommand.substring(rankId >= 10 ? 10 : 9, wholeCommand.length()));
+            if (target == null) {
+                player.getPacketSender().sendConsoleMessage("Player must be online to give them rights!");
+            } else {
+                target.setRights(PlayerRights.forId(rankId));
+                target.getPacketSender().sendMessage("Your player rights have been changed.");
+                target.getPacketSender().sendRights();
             }
         }
+
+        if (command[0].equalsIgnoreCase("getchances")) {
+            BossRewardChest.getChances(player);
+        }
+
+
+        if (command[0].equalsIgnoreCase("xptracker")) { //COMMAND TO SHOW DIFFICULTY
+            player.getPacketSender().sendInterface(23000);
+            player.getPacketSender().sendString(23004, "999m");
+            player.getPacketSender().sendString(23005, "40k");
+            player.getPacketSender().sendString(23007, "98");
+            player.getPacketSender().sendString(23008, "98%");
+            player.getPacketSender().sendString(23009, "99");
+        }
+
+
 
 
 

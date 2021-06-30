@@ -306,10 +306,6 @@ public class NPCDeathTask extends Task {
                 });
             }
 
-            if (killer.getRights() == PlayerRights.PLAYER) {
-                killer.getPacketSender().sendMessage("Nice job! Use the button or ::exit to leave!");
-            }
-
         if (npc.getId() == 1158 || npc.getId() == 1160) {
             KalphiteQueen.death(npc.getId(), npc.getPosition());
         }

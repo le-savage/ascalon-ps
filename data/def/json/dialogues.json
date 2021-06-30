@@ -1500,10 +1500,43 @@
   },
   {
     "id": 179,
+    "type": "PLAYER_STATEMENT",
+    "anim": "THINKING_STILL",
+    "lines": 4,
+    "line1": "Line 1 bla bla",
+    "line2": "Well done! You're now able to loot the chest!",
+    "line3": "Your chances for each reward tier are shown above.",
+    "line4": "You can receive a reward and reset your progress..",
+    "next": 180,
+    "npcId": -1
+  },
+  {
+    "id": 180,
+    "type": "PLAYER_STATEMENT",
+    "anim": "THINKING_STILL",
+    "lines": 4,
+    "line1": "Or sacrifice the current reward and move onto the",
+    "line2": "next wave. If you win, you'll have a better chance",
+    "line3": "to win a rare item! However, if you die, you will",
+    "line4": "lose all progress, and you won't get a reward!",
+    "next": 181,
+    "npcId": -1
+  },
+  {
+    "id": 181,
     "type": "OPTION",
     "lines": 2,
-    "line1": "Yes - Pay blabla to open the box",
-    "line2": "No - Screw that",
+    "line1": "I'm feeling lucky, open it!",
+    "line2": "No thanks - Onto the next wave!",
+    "next": -1,
+    "npcId": -1
+  },
+  {
+    "id": 182,
+    "type": "OPTION",
+    "lines": 2,
+    "line1": "I did it! Open the chest..",
+    "line2": "Cancel",
     "next": -1,
     "npcId": -1
   }

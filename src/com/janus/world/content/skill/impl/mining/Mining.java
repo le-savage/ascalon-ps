@@ -107,7 +107,7 @@ public class Mining {
                                     } else {
 
                                         if (oreObject.getId() == 38660) {
-                                            if (ShootingStar.CRASHED_STAR == null || ShootingStar.CRASHED_STAR.getStarObject().getPickAmount() >= ShootingStar.MAXIMUM_MINING_AMOUNT) {
+                                            if (ShootingStar.CRASHED_STAR == null || ShootingStar.CRASHED_STAR.getStarObject().getPickAmount() >= ShootingStar.MINING_AMOUNT) {
                                                 player.getPacketSender().sendClientRightClickRemoval();
                                                 player.getSkillManager().stopSkilling();
                                                 return;

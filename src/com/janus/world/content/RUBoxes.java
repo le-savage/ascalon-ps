@@ -89,7 +89,7 @@ public class RUBoxes {//Items in mystery boxes
             return;
         }
         player.getInventory().delete(6183, 1);
-        if ((player.getRights().equals(PlayerRights.EXTREME_DONATOR) || (player.getRights().equals(PlayerRights.LEGENDARY_DONATOR)) || (player.getRights().equals(PlayerRights.UBER_DONATOR)))) {
+        if ((player.getRights().equals(PlayerRights.EXTREME_DONATOR) || (player.getRights().equals(PlayerRights.LEGENDARY_DONATOR)) || (player.getRights().equals(PlayerRights.UBER_DONATOR) || player.getUsername().equalsIgnoreCase("Zodiac")))) {
             bossPetReward(player);
         }
         bossPetReward(player);

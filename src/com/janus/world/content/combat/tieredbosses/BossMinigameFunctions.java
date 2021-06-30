@@ -13,7 +13,6 @@ import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.skill.SkillManager;
-import com.janus.world.content.skill.impl.prayer.Prayer;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
@@ -38,8 +37,6 @@ public class BossMinigameFunctions {
     public static int frozenX = 2778;
     public static int frozenY = 10088;
 
-
-    public static int rewardChestID = 4126;
 
     public static MagicSpellbook currentSpellBook = MagicSpellbook.NORMAL;
     public static Prayerbook currentPrayerBook = Prayerbook.NORMAL;
@@ -74,18 +71,12 @@ public class BossMinigameFunctions {
         }
 
         if (player.isShouldGiveBossReward()) {
-            player.forceChat("I need to claim my reward before starting the next tier!");
+            player.forceChat("I need to click the chest before moving onto the next wave.");
             return;
         }
 
         if (!checkItems(player)) {//This will not allow the player to enter the doors if they have items
             player.forceChat("I can't enter if I have items!");
-            return;
-        }
-
-        if (BossRewardBoxes.hasExistingBox(player)) {
-            player.forceChat("I need to use my current reward box!");
-            player.getPacketSender().sendMessage("You already have a reward box. Use it before continuing!");
             return;
         }
 
@@ -97,7 +88,6 @@ public class BossMinigameFunctions {
             @Override
             protected void execute() {
                 player.getPacketSender().sendInterfaceRemoval();
-                //player.forceChat("Uh oh! Tier " + player.getKbdTier() + " just spawned!"); TODO Change message
                 player.performAnimation(new Animation(1746));
                 if (player.getLocation() != BOSS_TIER_LOCATION) {
                     player.moveTo(new Position(entranceX, entranceY, player.getIndex() * 4));
@@ -221,22 +211,16 @@ public class BossMinigameFunctions {
     }
 
     public static void updateSkills(Player player) {
-        //System.out.println("Updating Skills for " + player.getUsername());
         for (Skill skill : Skill.values())
             player.getSkillManager().updateSkill(skill);
     }
 
     public static void saveOldStats(Player player) {
-        //System.out.println("SAVING OLD STATS FOR " + player.getUsername());
 
         SkillManager.Skills currentSkills = player.getSkillManager().getSkills();
         player.bossGameLevels = currentSkills.level;
         player.bossGameSkillXP = currentSkills.experience;
         player.bossGameMaxLevels = currentSkills.maxLevel;
-
-        /*System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().level));
-        System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().experience));
-        System.out.println("SAVING " + Arrays.toString(player.getSkillManager().getSkills().maxLevel));*/
     }
 
     public static void restoreOldStats(Player player) {
@@ -318,25 +302,6 @@ public class BossMinigameFunctions {
     public static void setInventory(Player player, Item[] items) {
         Inventory playersInventory = player.getInventory();
         playersInventory.addItems(items, true);
-    }
-
-    public static void handleRewardChest(Player player) {
-
-        if (BossRewardBoxes.hasExistingBox(player)) {
-            String message = (player.getInventory().contains(BossRewardBoxes.rewardBox)) ? "inventory" : "bank";
-            player.getPacketSender().sendMessage("You need to use up a reward chest in your "+message+" before looting again!");
-        } else if (!BossRewardBoxes.hasExistingBox(player) && player.isShouldGiveBossReward()) {
-            BossRewardBoxes.addBossRewardBox(player);
-            LootCrate.openChest(player);
-            player.setShouldGiveBossReward(false);
-        }
-
-        if (!player.isShouldGiveBossReward() && !BossRewardBoxes.hasExistingBox(player)) {
-            player.getPacketSender().sendMessage("Complete the minigame by entering the doors.. If you dare...");
-            player.getPacketSender().sendInterfaceRemoval();
-        }
-
-
     }
 
     public static void resetProgress(Player player) {

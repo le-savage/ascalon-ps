@@ -293,7 +293,6 @@ public class DiscordMessenger extends JSONObject {
             DiscordMessage message = new DiscordMessage.Builder(Misc.stripIngameFormat(msg)) // The content of the message
                     //.withEmbed(embed) // Add our embed object
                     .withUsername("Announcement Bot") // Override the username of the bot
-                    .withAvatarURL("https://i.gyazo.com/44542621d905f66b478ac30bffd09479.png")
                     .build(); // Build the message
 
             client.sendPayload(message);
@@ -327,7 +326,7 @@ public class DiscordMessenger extends JSONObject {
             DiscordMessage message = new DiscordMessage.Builder(Misc.stripIngameFormat(msg)) // The content of the message
                     //.withEmbed(embed) // Add our embed object
                     .withUsername("New Player Bot!") // Override the username of the bot
-                    .withAvatarURL("https://i.gyazo.com/44542621d905f66b478ac30bffd09479.png")
+                    
                     .build(); // Build the message
 
             client.sendPayload(message);
@@ -360,7 +359,7 @@ public class DiscordMessenger extends JSONObject {
 
                     .withEmbed(embed) // Add our embed object
                     .withUsername("Dropped Item Tracker") // Override the username of the bot
-                    .withAvatarURL("https://i.gyazo.com/44542621d905f66b478ac30bffd09479.png")
+                    
                     .build(); // Build the message
 
             client.sendPayload(message);
@@ -392,7 +391,7 @@ public class DiscordMessenger extends JSONObject {
             DiscordMessage message = new DiscordMessage.Builder(Misc.stripIngameFormat(msg)) // The content of the message
                     //.withEmbed(embed) // Add our embed object
                     .withUsername("Staff Bot") // Override the username of the bot
-                    .withAvatarURL("https://i.gyazo.com/44542621d905f66b478ac30bffd09479.png")
+                    
                     .build(); // Build the message
 
             client.sendPayload(message);
@@ -426,7 +425,7 @@ public class DiscordMessenger extends JSONObject {
 
             DiscordMessage message = new DiscordMessage.Builder(msgToSend) // The content of the message
                     .withUsername("Chat Logger") // Override the username of the bot
-                    .withAvatarURL("https://i.gyazo.com/44542621d905f66b478ac30bffd09479.png")
+                    
                     .build(); // Build the message
 
             if (msgToSend.equalsIgnoreCase(":information_source:!")) {
@@ -465,7 +464,7 @@ public class DiscordMessenger extends JSONObject {
             DiscordMessage message = new DiscordMessage.Builder(msgToSend) // The content of the message
                     //.withEmbed(embed) // Add our embed object
                     .withUsername("CC Logger") // Override the username of the bot
-                    .withAvatarURL("https://i.gyazo.com/44542621d905f66b478ac30bffd09479.png")
+                    
                     .build(); // Build the message
 
             if (msgToSend.equalsIgnoreCase(":information_source:!")) {
@@ -504,7 +503,7 @@ public class DiscordMessenger extends JSONObject {
             DiscordMessage message = new DiscordMessage.Builder(msgToSend) // The content of the message
                     //.withEmbed(embed) // Add our embed object
                     .withUsername("PM Logger") // Override the username of the bot
-                    .withAvatarURL("https://i.gyazo.com/44542621d905f66b478ac30bffd09479.png")
+                    
                     .build(); // Build the message
 
             if (msgToSend.equalsIgnoreCase(":information_source:!")) {
@@ -543,7 +542,7 @@ public class DiscordMessenger extends JSONObject {
             DiscordMessage message = new DiscordMessage.Builder(msgToSend) // The content of the message
                     //.withEmbed(embed) // Add our embed object
                     .withUsername("In Game Message!") // Override the username of the bot
-                    .withAvatarURL("https://i.gyazo.com/44542621d905f66b478ac30bffd09479.png")
+                    
                     .build(); // Build the message
 
             if (msgToSend.equalsIgnoreCase(":support:")) {

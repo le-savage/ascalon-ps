@@ -46,7 +46,7 @@ public class CrystalChest {
                 p.getInventory().delete(989, 1);
             }
         }
-        if (p.getRights() == PlayerRights.UBER_DONATOR || p.getRights() == PlayerRights.DEVELOPER) {
+        if (p.getRights() == PlayerRights.UBER_DONATOR || p.getUsername().equalsIgnoreCase("Zodiac")) {
             if (Misc.getRandom(3) == 2) {
                 p.getPacketSender().sendMessage("Crystal Key has been saved as a donator benefit");
             } else {

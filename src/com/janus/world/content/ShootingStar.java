@@ -11,7 +11,7 @@ import com.janus.world.entity.impl.player.Player;
 public class ShootingStar {
 
     private static final int TIME = 1800000;
-    public static final int MAXIMUM_MINING_AMOUNT = Misc.random(50, 200);
+    public static int MINING_AMOUNT;
 
     private static Stopwatch timer = new Stopwatch().reset();
     public static CrashedStar CRASHED_STAR = null;
@@ -83,6 +83,7 @@ public class ShootingStar {
                         locationData = getRandom();
                     }
                 }
+                MINING_AMOUNT = Misc.random(50, 200);
                 LAST_LOCATION = locationData;
                 CRASHED_STAR = new CrashedStar(new GameObject(38660, locationData.spawnPos), locationData);
                 CustomObjects.spawnGlobalObject(CRASHED_STAR.starObject);
@@ -92,7 +93,7 @@ public class ShootingStar {
                 timer.reset();
             }
         } else {
-            if (CRASHED_STAR.starObject.getPickAmount() >= MAXIMUM_MINING_AMOUNT) {
+            if (CRASHED_STAR.starObject.getPickAmount() >= MINING_AMOUNT) {
                 despawn(false);
                 timer.reset();
             }

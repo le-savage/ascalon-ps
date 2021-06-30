@@ -1,40 +1,40 @@
 {
-  "total-play-time-ms": 35826064,
+  "total-play-time-ms": 54406426,
   "username": "Flub",
   "password": "HodgeTwins1",
   "email": "null",
   "staff-rights": "OWNER",
   "game-mode": "NORMAL",
   "difficulty": "Zezima",
-  "boss-points": 13,
+  "boss-points": 18,
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2532,
-    "y": 3546,
-    "z": 1
+    "x": 2744,
+    "y": 5373,
+    "z": 0
   },
   "online-status": "ON",
   "given-starter": true,
   "has-played-new-barrows": false,
   "has-used-boss-tier-tp": true,
-  "should-give-boss-reward": false,
-  "currentBossWave": 0,
+  "should-give-boss-reward": true,
+  "currentBossWave": 5,
   "barrows-kc": 0,
   "money-pouch": 351383,
   "donated": 0,
-  "next-reward": 1624841549886,
-  "reward-day": 5,
+  "next-reward": 1625088231501,
+  "reward-day": 6,
   "claimed-todays-reward": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 2000,
-  "total-gained-exp": 7793,
+  "total-gained-exp": 49590,
   "prestige-points": 0,
   "achievement-points": 15,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 6084008,
-  "total-loyalty-points": 6084008.0,
+  "loyalty-points": 8910008,
+  "total-loyalty-points": 8910008.0,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -58,10 +58,10 @@
   "sounds": false,
   "auto-retaliate": true,
   "xp-locked": false,
-  "veng-cast": false,
-  "last-veng": 518696981,
-  "fight-type": "WHIP_LASH",
-  "sol-effect": 0,
+  "veng-cast": true,
+  "last-veng": 529395722,
+  "fight-type": "UNARMED_KICK",
+  "sol-effect": -1,
   "skull-timer": 0,
   "accept-aid": false,
   "poison-damage": 0,
@@ -71,7 +71,7 @@
   "fire-damage-mod": 0,
   "prayer-renewal-timer": 0,
   "teleblock-timer": 0,
-  "special-amount": 100,
+  "special-amount": 15000,
   "entered-gwd-room": true,
   "gwd-altar-delay": 0,
   "gwd-killcount": [
@@ -93,7 +93,7 @@
       "runningTotal": 1,
       "npcId": 50,
       "npcName": "King Black Dragon",
-      "amount": 3,
+      "amount": 4,
       "boss": true
     },
     {
@@ -121,7 +121,7 @@
       "runningTotal": 1,
       "npcId": 1265,
       "npcName": "Rock Crab",
-      "amount": 16,
+      "amount": 21,
       "boss": false
     },
     {
@@ -149,14 +149,14 @@
       "runningTotal": 1,
       "npcId": 8349,
       "npcName": "Tormented Demon",
-      "amount": 1,
+      "amount": 2,
       "boss": true
     },
     {
       "runningTotal": 1,
       "npcId": 2881,
       "npcName": "Dagannoth Supreme",
-      "amount": 1,
+      "amount": 2,
       "boss": true
     },
     {
@@ -165,17 +165,31 @@
       "npcName": "TzTok-Jad",
       "amount": 1,
       "boss": true
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 2883,
+      "npcName": "Dagannoth Rex",
+      "amount": 1,
+      "boss": true
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 7134,
+      "npcName": "Bork",
+      "amount": 1,
+      "boss": true
     }
   ],
   "drops": [
     {
       "item": 12159,
-      "amount": 26,
+      "amount": 30,
       "rareDrop": false
     },
     {
       "item": 995,
-      "amount": 185106,
+      "amount": 185340,
       "rareDrop": false
     },
     {
@@ -190,7 +204,7 @@
     },
     {
       "item": 12158,
-      "amount": 10,
+      "amount": 12,
       "rareDrop": false
     },
     {
@@ -310,7 +324,7 @@
     },
     {
       "item": 313,
-      "amount": 36,
+      "amount": 54,
       "rareDrop": false
     },
     {
@@ -320,7 +334,7 @@
     },
     {
       "item": 407,
-      "amount": 4,
+      "amount": 5,
       "rareDrop": false
     },
     {
@@ -350,7 +364,17 @@
     },
     {
       "item": 454,
-      "amount": 1,
+      "amount": 2,
+      "rareDrop": false
+    },
+    {
+      "item": 437,
+      "amount": 3,
+      "rareDrop": false
+    },
+    {
+      "item": 830,
+      "amount": 2,
       "rareDrop": false
     }
   ],
@@ -470,10 +494,10 @@
   ],
   "skills": {
     "level": [
-      13,
-      13,
-      13,
-      77,
+      28,
+      28,
+      28,
+      188,
       1,
       10,
       1,
@@ -497,10 +521,10 @@
       1
     ],
     "maxLevel": [
-      13,
-      13,
-      13,
-      150,
+      28,
+      28,
+      28,
+      260,
       1,
       10,
       1,
@@ -524,10 +548,10 @@
       1
     ],
     "experience": [
-      2075,
-      2075,
-      2075,
-      2722,
+      11099,
+      11099,
+      11099,
+      9654,
       0,
       0,
       0,
@@ -553,23 +577,8 @@
   },
   "inventory": [
     {
-      "id": 4171,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 4151,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 1779,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 5295,
-      "amount": 1,
+      "id": 1234,
+      "amount": 41,
       "slot": 0
     },
     {
@@ -578,8 +587,23 @@
       "slot": 0
     },
     {
-      "id": 6529,
-      "amount": 2155,
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
@@ -700,8 +724,8 @@
       "slot": 0
     },
     {
-      "id": 6570,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
@@ -710,8 +734,8 @@
       "slot": 0
     },
     {
-      "id": 4178,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
@@ -765,7 +789,58 @@
       "slot": 0
     }
   ],
-  "bank-0": [],
+  "bank-0": [
+    {
+      "id": 4170,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 4151,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 1779,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 5295,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 25,
+      "amount": 2,
+      "slot": 0
+    },
+    {
+      "id": 6529,
+      "amount": 2155,
+      "slot": 0
+    },
+    {
+      "id": 985,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 19335,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 4178,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 6570,
+      "amount": 1,
+      "slot": 0
+    }
+  ],
   "bank-1": [],
   "bank-2": [],
   "bank-3": [],
@@ -925,7 +1000,7 @@
     0,
     0,
     0,
-    24,
+    25,
     0,
     0,
     0,
@@ -951,14 +1026,14 @@
     0,
     0,
     0,
-    377393,
+    458509,
     27349,
     13644,
     0,
     2,
     0,
     0,
-    17,
+    22,
     0,
     2,
     0

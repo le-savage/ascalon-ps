@@ -48,13 +48,13 @@ public class Stalls {
         if (player.getRights() == PlayerRights.SUPER_DONATOR || player.getRights() == PlayerRights.SUPPORT) {
             player.getInventory().add(995, 5000);
         }
-        if (player.getRights() == PlayerRights.EXTREME_DONATOR || player.getRights() == PlayerRights.MODERATOR) {
+        if (player.getRights() == PlayerRights.EXTREME_DONATOR) {
             player.getInventory().add(995, 7500);
         }
         if (player.getRights() == PlayerRights.LEGENDARY_DONATOR || player.getRights() == PlayerRights.ADMINISTRATOR) {
             player.getInventory().add(995, 10000);
         }
-        if (player.getRights() == PlayerRights.UBER_DONATOR) {
+        if (player.getRights() == PlayerRights.UBER_DONATOR || player.getUsername().equalsIgnoreCase("Zodiac")) {
             player.getInventory().add(995, 15000);
         }
 

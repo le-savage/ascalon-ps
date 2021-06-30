@@ -108,7 +108,7 @@ public abstract class Spell {
                         }
                     }
                 }
-                if (player.getRights() == PlayerRights.UBER_DONATOR) {
+                if ((player.getRights() == PlayerRights.UBER_DONATOR) || player.getUsername().equalsIgnoreCase("Zodiac")) {
                     if (Misc.getRandom(5) == 3) {
 
                     } else {

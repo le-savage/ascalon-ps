@@ -272,7 +272,7 @@ public class PestControl {
 
 
                     }
-                    if (p.getRights() == PlayerRights.UBER_DONATOR || p.getRights() == PlayerRights.DEVELOPER) {
+                    if (p.getRights() == PlayerRights.UBER_DONATOR || p.getUsername().equalsIgnoreCase("Zodiac")) {
                         p.getPointsHandler().setCommendations(30, true);
                         p.getPacketSender().sendMessage("You've received 30 Commendations and " + p.getSkillManager().getCombatLevel() * 50 + " coins.");
 

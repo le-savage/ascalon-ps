@@ -17,10 +17,10 @@ public class AfkSkilling {
 
     public static void afkSkilling(Player player, int req, int xp, int skillid, int anim) {
 
-       /* if (player.getSkillManager().getMaxLevel(Skill.forId(skillid)) < req) {
+       if (player.getSkillManager().getMaxLevel(Skill.forId(skillid)) < req) {
             player.getPacketSender().sendMessage("You need to be level " + req + " in " + Skill.forId(skillid).getName() + " to AFK here.");
             return;
-        }*/
+        }
         if (player.getCombatBuilder().isBeingAttacked()) {
             player.getPacketSender().sendMessage("You must wait a few seconds after being out of combat before doing this.");
             return;

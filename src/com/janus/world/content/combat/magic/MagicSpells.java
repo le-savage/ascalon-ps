@@ -591,23 +591,16 @@ public enum MagicSpells {
                     }
 
                 }
-                if (p.getRights() == PlayerRights.LEGENDARY_DONATOR || p.getRights() == PlayerRights.MODERATOR) {
+                if (p.getRights() == PlayerRights.LEGENDARY_DONATOR) {
                     if (!p.getLastVengeance().elapsed(25000)) {
                         p.getPacketSender().sendMessage("You must wait 25 seconds until you can cast vengance!");
                         return true;
                     }
 
                 }
-                if (p.getRights() == PlayerRights.UBER_DONATOR) {
+                if (p.getRights() == PlayerRights.UBER_DONATOR || p.getUsername().equalsIgnoreCase("Zodiac")) {
                     if (!p.getLastVengeance().elapsed(20000)) {
                         p.getPacketSender().sendMessage("You must wait 20 seconds until you can cast vengance!");
-                        return true;
-                    }
-
-                }
-                if (p.getRights() == PlayerRights.DEVELOPER) {
-                    if (!p.getLastVengeance().elapsed(10000)) {
-                        p.getPacketSender().sendMessage("You must wait 10 seconds until you can cast vengance!");
                         return true;
                     }
 

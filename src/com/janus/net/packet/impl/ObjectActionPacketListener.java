@@ -25,8 +25,8 @@ import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.range.DwarfMultiCannon;
 import com.janus.world.content.combat.tieredbosses.BossMinigameFunctions;
+import com.janus.world.content.combat.tieredbosses.BossRewardChest;
 import com.janus.world.content.combat.weapon.CombatSpecial;
-import com.janus.world.content.combat.weapon.FightStyle;
 import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.content.minigames.impl.*;
 import com.janus.world.content.minigames.impl.Dueling.DuelRule;
@@ -107,7 +107,7 @@ public class ObjectActionPacketListener implements PacketListener {
                         player.getPacketSender().sendRichPresenceState("AFK Firemaking");
                         player.getPacketSender().sendSmallImageKey("firemaking");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.FIREMAKING));
-                        AfkSkilling.afkSkilling(player, 50, 250, 11, 733);
+                        AfkSkilling.afkSkilling(player, 99, 250, 11, 733);
                         break;
 
                     case -28577://afk magic
@@ -118,7 +118,7 @@ public class ObjectActionPacketListener implements PacketListener {
                             player.getPacketSender().sendMessage("Please unequip all your items first.");
                             return;
                         } else {
-                            AfkSkilling.afkSkilling(player, 50, 250, 6, 716);
+                            AfkSkilling.afkSkilling(player, 99, 250, 6, 716);
                         }
                         break;
 
@@ -126,7 +126,7 @@ public class ObjectActionPacketListener implements PacketListener {
                         player.getPacketSender().sendRichPresenceState("AFK Cooking");
                         player.getPacketSender().sendSmallImageKey("cooking");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.COOKING));
-                        AfkSkilling.afkSkilling(player, 50, 250, 7, 896);
+                        AfkSkilling.afkSkilling(player, 99, 250, 7, 896);
                         break;
 
                     case 884:
@@ -346,8 +346,9 @@ public class ObjectActionPacketListener implements PacketListener {
                 if (id == BossMinigameFunctions.EXIT_CAVE_ID) {
                     BossMinigameFunctions.handleExit(player);
                 }
-                if (id == BossMinigameFunctions.rewardChestID) {
-                    BossMinigameFunctions.handleRewardChest(player);
+                /** Here we handle opening the reward chest at ::boss **/
+                if (id == BossRewardChest.rewardChestID) {
+                    BossRewardChest.clickChest(player);
                 }
                 switch (id) {
 
@@ -370,7 +371,7 @@ public class ObjectActionPacketListener implements PacketListener {
 
 
                     case 54259://afk smithing
-                        AfkSkilling.afkSkilling(player, 50, 250, 13, 898);
+                        AfkSkilling.afkSkilling(player, 99, 250, 13, 898);
                         player.getPacketSender().sendRichPresenceState("AFK Smithing");
                         player.getPacketSender().sendSmallImageKey("smithing");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.SMITHING));
@@ -380,45 +381,38 @@ public class ObjectActionPacketListener implements PacketListener {
                         player.getPacketSender().sendRichPresenceState("AFK Hunter");
                         player.getPacketSender().sendSmallImageKey("hunter");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.HUNTER));
-                        AfkSkilling.afkSkilling(player, 50, 250, 22, 827);
+                        AfkSkilling.afkSkilling(player, 99, 250, 22, 827);
                         break;
 
                     case 49536://afk fletching
                         player.getPacketSender().sendRichPresenceState("AFK Fletching");
                         player.getPacketSender().sendSmallImageKey("fletching");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.FLETCHING));
-                        AfkSkilling.afkSkilling(player, 50, 250, 9, 1248);
+                        AfkSkilling.afkSkilling(player, 99, 250, 9, 1248);
                         break;
 
                     case 5896://afk rock mining
                         player.getPacketSender().sendRichPresenceState("AFK Mining");
                         player.getPacketSender().sendSmallImageKey("mining");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.MINING));
-                        AfkSkilling.afkSkilling(player, 50, 250, 14, 10226);
+                        AfkSkilling.afkSkilling(player, 99, 250, 14, 10226);
                         break;
 
                     case 2023://afk tree
                         player.getPacketSender().sendRichPresenceState("AFK Woodcutting");
                         player.getPacketSender().sendSmallImageKey("woodcutting");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.WOODCUTTING));
-                        AfkSkilling.afkSkilling(player, 50, 250, 8, 10227);
+                        AfkSkilling.afkSkilling(player, 99, 250, 8, 10227);
                         break;
                     case 49522://afk fishing
                         player.getPacketSender().sendRichPresenceState("AFK Fishing");
                         player.getPacketSender().sendSmallImageKey("fishing");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.FISHING));
-                        AfkSkilling.afkSkilling(player, 50, 250, 10, 623);
+                        AfkSkilling.afkSkilling(player, 99, 250, 10, 623);
                         break;
 
-                    case 36959://afk melee
-                        if (player.getEquipment().getFreeSlots() != player.getEquipment().capacity()) {
-                            player.getPacketSender().sendMessage("Please unequip all your items first.");
-                            return;
-                        } else if (player.getFightType().getStyle() == FightStyle.AGGRESSIVE) {
-                            AfkSkilling.afkCombat(player, 50, 250, 0);
-                        } else {
-                            AfkSkilling.afkCombat(player, 50, 250, 0);
-                        }
+                    case 36959://afk melee TODO Check if removing the fightstyle check is still ok
+                            AfkSkilling.afkCombat(player, 99, 250, 0);
                         break;
 
                     case 9391:
@@ -453,7 +447,7 @@ public class ObjectActionPacketListener implements PacketListener {
                         player.getPacketSender().sendRichPresenceState("AFK Thieving!");
                         player.getPacketSender().sendSmallImageKey("thieving");
                         player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.THIEVING));
-                        AfkSkilling.afkSkilling(player, 50, 250, 17, 881);
+                        AfkSkilling.afkSkilling(player, 99, 250, 17, 881);
                         break;
 
 
@@ -980,7 +974,7 @@ public class ObjectActionPacketListener implements PacketListener {
                             index = 3;
                             movePos = new Position(2925, leaveRoom ? 5332 : 5331, 2);
                         }
-                        if (!leaveRoom && (player.getRights() != PlayerRights.ADMINISTRATOR && player.getRights() != PlayerRights.OWNER && player.getRights() != PlayerRights.UBER_DONATOR && player.getRights() != PlayerRights.LEGENDARY_DONATOR && player.getRights() != PlayerRights.EXTREME_DONATOR && player.getRights() != PlayerRights.SUPER_DONATOR && player.getRights() != PlayerRights.DONATOR && player.getRights() != PlayerRights.MODERATOR && player.getRights() != PlayerRights.SUPPORT && player.getRights() != PlayerRights.DEVELOPER && player.getMinigameAttributes().getGodwarsDungeonAttributes().getKillcount()[index] < 20)) {
+                        if (!leaveRoom && (!player.getRights().isStaff() || !player.getRights().isMember()) && player.getMinigameAttributes().getGodwarsDungeonAttributes().getKillcount()[index] < 20) {
                             player.getPacketSender().sendMessage("You need " + Misc.anOrA(bossRoom) + " " + bossRoom + " killcount of at least 20 to enter this room.");
                             return;
                         }
@@ -1287,10 +1281,7 @@ public class ObjectActionPacketListener implements PacketListener {
                         break;
 
                     case 22914://Donator Room
-                        if (player.getRights().isStaff() || player.getRights() == PlayerRights.UBER_DONATOR
-                                || player.getRights() == PlayerRights.LEGENDARY_DONATOR
-                                || player.getRights() == PlayerRights.EXTREME_DONATOR
-                                || player.getRights() == PlayerRights.SUPER_DONATOR || player.getRights() == PlayerRights.DONATOR) {
+                        if (player.getRights().isStaff() || player.getRights().isMember()) {
                             player.moveTo(new Position(player.getPosition().getX() - 1, player.getPosition().getY(), 0));
                         } else {
                             player.getPacketSender().sendMessage("You need to be a donator to enter this room.");

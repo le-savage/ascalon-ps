@@ -26,6 +26,7 @@ public class BossMiniGame {
         /** DECLARATIONS **/
 
         NPC chosenBoss = BossMinigameFunctions.chosenBoss(player);
+        System.out.println("Chosen boss from StartBossMinigame is "+chosenBoss.getId());
         StatSetups stats = StatSetups.DEFAULT;
         EquipmentSetups gear = EquipmentSetups.DEFAULT;
         Item[] inventory = InventorySetups.DEFAULT;
@@ -34,12 +35,6 @@ public class BossMiniGame {
 
         MagicSpellbook newSpellBook = MagicSpellbook.NORMAL;
         Prayerbook newPrayerBook = Prayerbook.NORMAL;
-
-
-        /*//Todo find a way to set a spell
-        Autocasting.resetAutocast(player, true);
-        player.getPacketSender().sendTabInterface(GameSettings.MAGIC_TAB, player.getSpellbook().getInterfaceId()).sendMessage("Your magic spellbook is changed..");
-        Autocasting.handleAutocast(player, 1181);*/
 
 
         /** SWITCHES TO MATCH STATS / INVENTORY WITH BOSS **/

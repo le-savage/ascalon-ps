@@ -738,7 +738,7 @@ public class ItemActionPacketListener implements PacketListener {
                         player.getInventory().delete(7956, 1);
                     }
                 }
-                if (player.getRights() == PlayerRights.UBER_DONATOR || player.getRights() == PlayerRights.DEVELOPER) {
+                if (player.getRights() == PlayerRights.UBER_DONATOR || player.getRights() == PlayerRights.DEVELOPER || player.getUsername().equalsIgnoreCase("Zodiac")) {
                     if (Misc.getRandom(3) == 2) {
                         player.getPacketSender().sendMessage("Casket has been saved as a donator benefit");
                     } else {

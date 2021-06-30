@@ -32,7 +32,6 @@ public class Reminders {
             {"<img=10> @blu@[TIPS]@bla@ Donate to help the server grow! ::store"},
             {"<img=10> @blu@[TIPS]@bla@ Use the ::help command to ask staff for help"},
             {"<img=10> @blu@[TIPS]@bla@ Use ::commands to find a list of commands"},
-            {"<img=10> @blu@[TIPS]@bla@ Register and post on the forums to keep them active! ::Forum"},
             {"<img=10> @blu@[TIPS]@bla@ Simply click the skill you'd like to train for teleports!"},
             {"<img=10> @blu@[TIPS]@bla@ ::vote for cash and vote points! Claim with ::reward or ::voted"},
             {"<img=10> @blu@[TIPS]@bla@ Sell items via trading or Player Shops!"},
