@@ -1270,7 +1270,7 @@ public class ObjectActionPacketListener implements PacketListener {
                             player.setDialogueActionId(44);
                             DialogueManager.start(player, 79);
                         } else {
-                            player.moveTo(new Position(2906, 5204));
+                            player.moveTo(new Position(2912, 5204));
                             player.getMinigameAttributes().getGodwarsDungeonAttributes().setHasEnteredRoom(false);
                         }
                         break;
