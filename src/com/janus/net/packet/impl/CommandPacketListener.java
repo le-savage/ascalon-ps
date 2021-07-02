@@ -6,6 +6,7 @@ import com.janus.GameSettings;
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.engine.task.impl.PlayerDeathTask;
+import com.janus.engine.task.impl.PoisonImmunityTask;
 import com.janus.model.*;
 import com.janus.model.Locations.Location;
 import com.janus.model.container.impl.Bank;
@@ -25,6 +26,7 @@ import com.janus.world.content.PlayerPunishment.Jail;
 import com.janus.world.content.clan.ClanChatManager;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.CombatFormulas;
+import com.janus.world.content.combat.effect.CombatPoisonEffect;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
@@ -73,6 +75,7 @@ public class CommandPacketListener implements PacketListener {
         if (command[0].equalsIgnoreCase("index")) {
             player.forceChat("My index number is: " + player.getIndex());
         }
+
 
 
         if (command[0].equalsIgnoreCase("notifications")) {
@@ -1659,6 +1662,22 @@ public class CommandPacketListener implements PacketListener {
                 target.getPacketSender().sendRights();
             }
         }
+
+        if (command[0].equals("poison")) {
+            Player target = World.getPlayerByName(wholeCommand.substring(command[0].length() + 1));
+            target.setPoisonDamage(200);
+            TaskManager.submit(new CombatPoisonEffect(target));
+            target.getPacketSender().sendMessage("Flub has poisoned you lol");
+        }
+
+        if (command[0].equals("cure")) {
+            Player target = World.getPlayerByName(wholeCommand.substring(command[0].length() + 1));
+            PoisonImmunityTask.makeImmune(target, 0);
+            target.getPacketSender().sendMessage("Flub has cured you :)");
+        }
+
+
+
 
         if (command[0].equalsIgnoreCase("toggledeveloper")) {
             GameSettings.DEVELOPERSERVER = false;
