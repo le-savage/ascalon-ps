@@ -2,7 +2,6 @@ package com.janus.model;
 
 import com.janus.world.World;
 import com.janus.world.content.combat.instancearena.InstanceArena;
-import com.janus.world.content.minigames.impl.Barrows;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -36,7 +35,7 @@ public class RegionInstance {
                     owner.getMinigameAttributes().getWarriorsGuildAttributes().setSpawnedArmour(false);
                 }
                 if (n.getId() >= 2024 && n.getId() <= 2034) {
-                    Barrows.killBarrowsNpc(owner, n, false);
+                    //Barrows.killBarrowsNpc(owner, n, false);
                     World.deregister(n);
                 }
                 if (type == RegionInstanceType.INSTANCE_ARENA) {

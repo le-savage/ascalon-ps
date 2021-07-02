@@ -4,8 +4,11 @@ import com.janus.GameSettings;
 import com.janus.model.*;
 import com.janus.net.packet.Packet;
 import com.janus.net.packet.PacketListener;
+import com.janus.util.Misc;
 import com.janus.world.content.combat.magic.MagicSpells;
 import com.janus.world.content.combat.magic.Spell;
+import com.janus.world.content.dialogue.DialogueManager;
+import com.janus.world.content.dialogue.DialogueOptions;
 import com.janus.world.content.skill.impl.magic.Magic;
 import com.janus.world.entity.impl.player.Player;
 
@@ -60,9 +63,19 @@ public class MagicOnItemsPacketListener implements PacketListener {
                         player.getPacketSender().sendMessage("This spell can not be cast on this item.");
                         return;
                     }
+                    if ((item.getDefinition().getValue() >= 50000000)) {
+                        DialogueOptions.setAlchItemID(item); //Sends the item ID over to dialogue options
+                        DialogueOptions.setSpellBeingUsed(spell);
+                        DialogueManager.start(player, 183);
+                        player.getPacketSender().sendString(2460, "WARNING!");
+                        player.getPacketSender().sendString(2461, "Alch for a loss of @red@"+ Misc.currency(item.getDefinition().getValue() - 50000000)+"?");
+                        player.getPacketSender().sendString(2462, "Hell no! I love my "+item.getDefinition().getName() +" way too much!");
+                        player.setDialogueActionId(87);
+                        return;
+                    }
                     if (spell == null || !spell.canCast(player, true))
                         return;
-                    player.getInventory().delete(itemId, 1).add(995, (int) (item.getDefinition().getValue() * (magicSpell == MagicSpells.HIGH_ALCHEMY ? 1 : 0.5)));
+                    player.getInventory().delete(itemId, 1).add(995, (int) (item.getDefinition().getValue() * (magicSpell == MagicSpells.HIGH_ALCHEMY ? 0.85 : 0.5)));
                     player.performAnimation(new Animation(712));
                     player.performGraphic(new Graphic(magicSpell == MagicSpells.HIGH_ALCHEMY ? 113 : 112, GraphicHeight.LOW));
                     player.getSkillManager().addExperience(Skill.MAGIC, spell.baseExperience());

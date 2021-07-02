@@ -18,7 +18,6 @@ import com.janus.world.content.ItemDegrading.DegradingItem;
 import com.janus.world.content.Kraken;
 import com.janus.world.content.combat.effect.CombatPoisonEffect;
 import com.janus.world.content.combat.effect.CombatPoisonEffect.PoisonType;
-import com.janus.world.content.combat.effect.EquipmentBonus;
 import com.janus.world.content.combat.magic.CombatAncientSpell;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
@@ -345,11 +344,11 @@ public final class CombatFactory {
     public static Hit getHit(Character entity, Character victim, CombatType type) {
         switch (type) {
             case MELEE:
-                return new Hit(RandomUtility.inclusiveRandom(1, /*CombatFactory.calculateMaxMeleeHit(entity, victim)*/ DesolaceFormulas.calculateMaxMeleeHit(entity, victim)), Hitmask.RED, CombatIcon.MELEE);
+                return new Hit(RandomUtility.inclusiveRandom(1, /*CombatFactory.calculateMaxMeleeHit(entity, victim)*/ CombatFormulas.calculateMaxMeleeHit(entity, victim)), Hitmask.RED, CombatIcon.MELEE);
             case RANGED:
                 return new Hit(RandomUtility.inclusiveRandom(1, CombatFactory.calculateMaxRangedHit(entity, victim)), Hitmask.RED, CombatIcon.RANGED);
             case MAGIC:
-                return new Hit(RandomUtility.inclusiveRandom(1, DesolaceFormulas.getMagicMaxhit(entity)), Hitmask.RED, CombatIcon.MAGIC);
+                return new Hit(RandomUtility.inclusiveRandom(1, CombatFormulas.getMagicMaxhit(entity)), Hitmask.RED, CombatIcon.MAGIC);
             case DRAGON_FIRE:
                 return new Hit(RandomUtility.inclusiveRandom(0, CombatFactory.calculateMaxDragonFireHit(entity, victim)), Hitmask.RED, CombatIcon.MAGIC);
             default:
@@ -374,13 +373,13 @@ public final class CombatFactory {
             Player p2 = (Player) victim;
             switch (type) {
                 case MAGIC:
-                    int mageAttk = DesolaceFormulas.getMagicAttack(p1);
-                    return Misc.getRandom(DesolaceFormulas.getMagicDefence(p2)) < Misc.getRandom((mageAttk / 2)) + Misc.getRandom((int) (mageAttk / 2.1));
+                    int mageAttk = CombatFormulas.getMagicAttack(p1);
+                    return Misc.getRandom(CombatFormulas.getMagicDefence(p2)) < Misc.getRandom((mageAttk / 2)) + Misc.getRandom((int) (mageAttk / 2.1));
                 case MELEE:
-                    int def = 1 + DesolaceFormulas.getMeleeDefence(p2);
-                    return Misc.getRandom(def) < Misc.getRandom(1 + DesolaceFormulas.getMeleeAttack(p1)) + (def / 4.5);
+                    int def = 1 + CombatFormulas.getMeleeDefence(p2);
+                    return Misc.getRandom(def) < Misc.getRandom(1 + CombatFormulas.getMeleeAttack(p1)) + (def / 4.5);
                 case RANGED:
-                    return Misc.getRandom(10 + DesolaceFormulas.getRangedDefence(p2)) < Misc.getRandom(15 + DesolaceFormulas.getRangedAttack(p1));
+                    return Misc.getRandom(10 + CombatFormulas.getRangedDefence(p2)) < Misc.getRandom(15 + CombatFormulas.getRangedAttack(p1));
             }
         } else if (attacker.isPlayer() && victim.isNpc() && type != CombatType.MAGIC) {
             Player p1 = (Player) attacker;
@@ -388,14 +387,14 @@ public final class CombatFactory {
             switch (type) {
 			/*	case MAGIC:
 			case KORASI:
-				int mageAttk = DesolaceFormulas.getMagicAttack(p1);
+				int mageAttk = CombatFormulas.getMagicAttack(p1);
 				return Misc.getRandom(n.getDefinition().getDefenceMage()) < Misc.getRandom((mageAttk / 2)) + Misc.getRandom((int) (mageAttk/2.1));
 			 */
                 case MELEE:
                     int def = 1 + n.getDefinition().getDefenceMelee();
-                    return Misc.getRandom(def) < Misc.getRandom(5 + DesolaceFormulas.getMeleeAttack(p1)) + (def / 4);
+                    return Misc.getRandom(def) < Misc.getRandom(5 + CombatFormulas.getMeleeAttack(p1)) + (def / 4);
                 case RANGED:
-                    return Misc.getRandom(5 + n.getDefinition().getDefenceRange()) < Misc.getRandom(5 + DesolaceFormulas.getRangedAttack(p1));
+                    return Misc.getRandom(5 + n.getDefinition().getDefenceRange()) < Misc.getRandom(5 + CombatFormulas.getRangedAttack(p1));
             }
         }
 

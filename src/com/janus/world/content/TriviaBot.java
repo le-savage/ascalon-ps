@@ -40,7 +40,7 @@ public class TriviaBot {
             {"<col=AD096E>[Trivia] </col>@bla@ What enemy drops dragon claws?", "Tormented Demon"},//
             {"<col=AD096E>[Trivia] </col>@bla@ What attack style is missing? Accurate, Longrange, ", "Rapid"},//
             {"<col=AD096E>[Trivia] </col>@bla@ Will you lose items if you die whilst bossing?", "No"},//
-            {"<col=AD096E>[Trivia] </col>@bla@ What is the highest level of HP obtainable?", "99"},//
+            {"<col=AD096E>[Trivia] </col>@bla@ What is the highest level of HP obtainable?", "120"},//
             {"<col=AD096E>[Trivia] </col>@bla@ What is our website address?", "www.janus.rip"},//
             {"<col=AD096E>[Trivia] </col>@bla@ What NPC sells food at home?", "Healer"},//
             {"<col=AD096E>[Trivia] </col>@bla@ True or False - Janus has summoning familiars", "True"},//

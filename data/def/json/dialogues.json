@@ -1539,5 +1539,14 @@
     "line2": "Cancel",
     "next": -1,
     "npcId": -1
+  },
+  {
+    "id": 183,
+    "type": "OPTION",
+    "lines": 2,
+    "line1": "",
+    "line2": "",
+    "next": -1,
+    "npcId": -1
   }
 ]

@@ -4,6 +4,7 @@ import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.model.Animation;
 import com.janus.model.Position;
+import com.janus.world.content.minigames.impl.NewBarrows;
 import com.janus.world.content.treasuretrails.CoordinateScrolls;
 import com.janus.world.content.treasuretrails.DiggingScrolls;
 import com.janus.world.content.treasuretrails.MapScrolls;
@@ -29,9 +30,17 @@ public class Digging {
                 }
                 Position targetPosition = null;
 
+
                 /**
                  * Barrows
                  */
+                if (inArea(player.getPosition(), 3562, 3294, 3569, 3284)) {
+                    NewBarrows.spawnBrothers(player);
+                }
+
+
+
+
                 if (inArea(player.getPosition(), 3553, 3301, 3561, 3294))
                     targetPosition = new Position(3578, 9706, -1);
                 /** clue scrolls** x,y**/
@@ -125,7 +134,7 @@ public class Digging {
                     } else {
 
                     }
-                else if (inArea(player.getPosition(), 3550, 3287, 3557, 3278))
+                /*else if (inArea(player.getPosition(), 3550, 3287, 3557, 3278))
                     targetPosition = new Position(3568, 9683, -1);
                 else if (inArea(player.getPosition(), 3561, 3292, 3568, 3285))
                     targetPosition = new Position(3557, 9703, -1);
@@ -136,7 +145,7 @@ public class Digging {
                 else if (inArea(player.getPosition(), 3562, 3279, 3569, 3273))
                     targetPosition = new Position(3546, 9684, -1);
                 else if (inArea(player.getPosition(), 2986, 3370, 3013, 3388))
-                    targetPosition = new Position(3546, 9684, -1);
+                    targetPosition = new Position(3546, 9684, -1);*/
                 if (targetPosition != null)
                     player.moveTo(targetPosition);
                 else

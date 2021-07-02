@@ -288,9 +288,12 @@ public class NPCDrops {
     public static void dropItems(Player p, NPC npc) {
         if (npc.getLocation() == Location.WARRIORS_GUILD)
             WarriorsGuild.handleDrop(p, npc);
+
         NPCDrops drops = NPCDrops.forId(npc.getId());
+
         if (drops == null)
             return;
+
         final boolean goGlobal = p.getPosition().getZ() >= 0 && p.getPosition().getZ() < 4;
         Position npcPos = npc.getPosition().copy();
         if (npc.getId() == 2044 || npc.getId() == 2043 || npc.getId() == 2042 || npc.getId() == 2005)
@@ -302,6 +305,7 @@ public class NPCDrops {
 
             casketDrop(p, npc.getDefinition().getCombatLevel(), npcPos);
         }
+
         if (drops.getDropList().length > 0 && p.getPosition().getZ() >= 0 && p.getPosition().getZ() < 4) {
             clueDrop(p, npc.getDefinition().getCombatLevel(), npcPos);
 
@@ -318,6 +322,7 @@ public class NPCDrops {
             if (dropChance == DropChance.ALWAYS) {
                 drop(p, drops.getDropList()[i].getItem(), npc, npcPos, goGlobal);
             } else {
+                //System.out.println("Should drop? "+shouldDrop(dropsReceived, p, dropChance));
                 if (shouldDrop(dropsReceived, p, dropChance)) {
                     drop(p, drops.getDropList()[i].getItem(), npc, npcPos, goGlobal);
                     dropsReceived[dropChance.ordinal()] = true;
@@ -330,22 +335,23 @@ public class NPCDrops {
 
     public static boolean shouldDrop(boolean[] b, Player player, DropChance chance) {
         int random = chance.getRandom();
+        System.out.println("Random: "+random);
         double drBoost = NPCDrops.getDroprate(player);
-        double variable = ((drBoost));
         double percentage = random / 100;
-        random = (int) (chance.getRandom() - (percentage * variable));
-        if (Math.toIntExact(Math.round(random)) <= 1)
+        random = (int) (chance.getRandom() - (percentage * drBoost));
+        if (Math.toIntExact(Math.round(random)) <= 1) {
+            System.out.println(Math.toIntExact(Math.round(random)));
             return true;
+        }
         return Rand.hit(Math.toIntExact(Math.round(random)));
     }
 
     public static double getDroprate(Player p) {
         double drBoost = 0;
-        drBoost += 5; // this is 5%
         drBoost += p.getGameMode().getDropRateModifier();
         drBoost += p.getDifficulty().getDropRateModifier();
-        if (ringOfWealth(p)) drBoost += 2;
-        if (ringOfCoins(p)) drBoost += 2;
+        if (ringOfWealth(p)) drBoost += 1;
+        if (ringOfCoins(p)) drBoost += 1;
         return drBoost;
     }
 
@@ -359,8 +365,8 @@ public class NPCDrops {
 
 
     public enum DropChance {
-        ALWAYS(0), ALMOST_ALWAYS(2), VERY_COMMON(5), COMMON(15), UNCOMMON(40), NOTTHATRARE(
-                100), RARE(260), LEGENDARY(400), LEGENDARY_2(550), LEGENDARY_3(700), LEGENDARY_4(830), LEGENDARY_5(950);
+        ALWAYS(0), ALMOST_ALWAYS(3), VERY_COMMON(7), COMMON(20), UNCOMMON(60), NOTTHATRARE(
+                120), RARE(360), LEGENDARY(550), LEGENDARY_2(770), LEGENDARY_3(990), LEGENDARY_4(1400), LEGENDARY_5(1900);
 
 
         private int random;
@@ -504,30 +510,6 @@ public class NPCDrops {
         }
     }
 
-    /*public static class ItemDropAnnouncer {
-
-        private static List<Integer> ITEM_LIST;
-
-        private static final int[] TO_ANNOUNCE = new int[]{21051, 18899, 4453, 21026, 962, 21000, 20999, 13274, 13275, 13276, 13279, 1543, 6829, 13047, 4453, 13015, 19780, 20555, 12926, 12284, 14018, 17291, 18896, 18898, 18895, 14008, 14009, 14010, 14011, 14012, 14013, 14014, 14015, 14016, 10887, 19780, 2581, 2577, 14472, 14474, 14476,
-                6571, 11286, 11732, 4087, 4585, 11335, 3140, 15501, 15259, 12282, 6573, 17291, 12601, 13748, 13750, 13752, 13746,
-                20555, 12926, 11235, 13045, 13047, 13239, 12708, 13235, 20057, 20058, 20059, 15126, 19335, 15241, 18337,
-                11730, 20000, 20001, 20002, 18778, 15486, 11924, 6889, 11926, 6914, 11724, 11726, 11728, 11718, 11720, 11722, 11710, 11712, 11714,
-                11702, 11704, 11706, 4706, 12284, 13051, 11708, 11716, 6739, 2570, 6562, 15220, 15018, 15020, 15019, 6731, 6733, 6735, 6737,
-                11981, 11982, 11983, 11984, 11985, 11986, 11987, 11988, 11989, 11990, 11991, 11992, 11993, 11994, 11995, 11996, 11997, 18896, 18898, 20998, 13045};//All Rare Boss Drops};
-
-
-        private static void init() {
-            ITEM_LIST = new ArrayList<Integer>();
-            for (int i : TO_ANNOUNCE) {
-                ITEM_LIST.add(i);
-            }
-        }
-
-        public static boolean announce(int item) {
-
-            return ITEM_LIST.contains(item);
-        }
-    }*/
 
     public static class ItemDropAnnouncer {
 

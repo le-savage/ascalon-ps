@@ -54,6 +54,10 @@ public class CustomObjects {
             {172, 3090, 3499, 0, 3},
             {1815, 3153, 3923, 0, 0},//wilderness lever lvl 51
 
+            //Pest Control Gangplank
+            {14315, 2658, 2639, 0, 3},
+            {14314, 2660, 2639, 0, 3},
+
 
             /*** New Home - Flub ***/
 

@@ -1,6 +1,7 @@
 package com.janus.world.content.dailyreward;
 
 import com.janus.model.Item;
+import com.janus.model.Locations;
 import com.janus.world.World;
 import com.janus.world.content.PlayerPunishment;
 import com.janus.world.entity.impl.player.Player;
@@ -19,6 +20,11 @@ public class DailyReward {
     }
 
     public void openInterface() {
+        if (player.getLocation() == Locations.Location.WILDERNESS) {
+            player.getPacketSender().sendMessage("You can't claim your rewards in the wilderness.");
+            return;
+        }
+
         String message = "The 31 Days of Rewards contains a bunch of rewards \\n" + "for you to claim! Login every day to claim your reward. \\n \\n \\n" +
                 "Note that this is limited to one per user, which means, \\n" + "do not make multiple accounts to claim rewards. \\n \\n \\n" +
                 "Every month has a new reward list, so make sure to \\n" + "stick around!";
@@ -69,6 +75,10 @@ public class DailyReward {
     }
 
     public void claimReward() {
+        if (player.getLocation() == Locations.Location.WILDERNESS) {
+            player.getPacketSender().sendMessage("You can't claim your rewards in the wilderness.");
+            return;
+        }
         if (!(System.currentTimeMillis() >= nextRewardTime)) {
             player.sendMessage("You have already claimed your reward for today! Please wait @red@" + timeLeft() + "@bla@.");
             player.getPA().closeAllWindows();
@@ -85,12 +95,11 @@ public class DailyReward {
 
         PlayerPunishment.addIpToDailyRewardList(player.getUsername(), player.getHostAddress(), player.getUUID(), player.getMac());
 
-        if (todaysItem.getDefinition().isNoted()) {
-            if (player.getInventory().getFreeSlots() >= 1) {
+        if (todaysItem.getDefinition().isNoted() || todaysItem.getDefinition().isStackable()) {
+            if (player.getInventory().getFreeSlots() >= 1)
                 player.getInventory().add(todaysItem.getId(), todaysItem.getAmount());
-            } else {
+             else
                 player.getPacketSender().sendMessage("You need at least 1 inventory slot to claim today's reward!");
-            }
         }
 
         if (!todaysItem.getDefinition().isNoted()) {

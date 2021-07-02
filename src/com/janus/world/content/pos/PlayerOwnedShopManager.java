@@ -304,6 +304,10 @@ public class PlayerOwnedShopManager {
             return;
         }
 
+        if (item.getDefinition().getName().contains("brawling")) {
+            return;
+        }
+
         /*
          * if(ClueDifficulty.isClue(id)) {
          * player.sendMessage("You cannot purchase clue scrolls!"); return; }

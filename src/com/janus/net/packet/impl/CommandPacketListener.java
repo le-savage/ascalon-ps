@@ -1,5 +1,6 @@
 package com.janus.net.packet.impl;
 
+import com.janus.GameLoader;
 import com.janus.GameServer;
 import com.janus.GameSettings;
 import com.janus.engine.task.Task;
@@ -23,15 +24,15 @@ import com.janus.world.content.*;
 import com.janus.world.content.PlayerPunishment.Jail;
 import com.janus.world.content.clan.ClanChatManager;
 import com.janus.world.content.combat.CombatFactory;
-import com.janus.world.content.combat.DesolaceFormulas;
+import com.janus.world.content.combat.CombatFormulas;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
 import com.janus.world.content.combat.strategy.CombatStrategies;
 import com.janus.world.content.combat.bossminigame.BossMinigameFunctions;
-import com.janus.world.content.combat.bossminigame.BossRewardChest;
 import com.janus.world.content.combat.weapon.CombatSpecial;
+import com.janus.world.content.discord.DiscordMessenger;
 import com.janus.world.content.grandexchange.GrandExchangeOffers;
 import com.janus.world.content.minigames.impl.FreeForAll;
 import com.janus.world.content.skill.SkillManager;
@@ -319,9 +320,9 @@ public class CommandPacketListener implements PacketListener {
 
         }*/
 
-        if (command[0].startsWith("reward")) {
+        if (command[0].startsWith("reward") || command[0].startsWith("voted")) {
             if (command.length == 1) {
-                player.getPacketSender().sendMessage("Please use [::reward id], [::reward id amount], or [::reward id all].");
+                player.getPacketSender().sendMessage("Please use [::reward], or [::voted].");
                 return;
             }
             final String playerName = player.getUsername();
@@ -333,13 +334,16 @@ public class CommandPacketListener implements PacketListener {
                 public void run() {
                     try {
                         com.everythingrs.vote.Vote[] reward = com.everythingrs.vote.Vote.reward("g8zvew8JyhebjWsePC1MFH6jSF3RqdC67YOUx76fmZkCJCWNhU0uijTJ8SDiP6tZwNYfg1p1",
-                                playerName, id, amount);
+                                playerName, id, "all"); //Used to say amount but now we only have 1 reward
                         if (reward[0].message != null) {
                             player.getPacketSender().sendMessage(reward[0].message);
                             return;
                         }
                         player.getInventory().add(reward[0].reward_id, reward[0].give_amount);
-                        player.getPacketSender().sendMessage("Thank you for voting! You now have " + reward[0].vote_points + " vote points.");
+                        if (GameLoader.getDay() == GameLoader.MONDAY){
+
+                        }
+                        player.getPacketSender().sendMessage("Thank you for voting!");
                     } catch (Exception e) {
                         player.getPacketSender().sendMessage("Api Services are currently offline. Please check back shortly");
                         e.printStackTrace();
@@ -527,11 +531,7 @@ public class CommandPacketListener implements PacketListener {
 			player.getPacketSender().sendMessage("Attempting to open: Janus Rules");
 			//Achievements.finishAchievement(player, AchievementData.OPEN_UP_THE_FORUMS);
 		}*/
-		/*if (wholeCommand.equalsIgnoreCase("bug") || wholeCommand.equalsIgnoreCase("bugs")) {
-			player.getPacketSender().sendString(1, "www.janus.rip/index.php?/forum/31-bug-reports/");
-			player.getPacketSender().sendMessage("Attempting to open: Janus Forums");
-			//Achievements.finishAchievement(player, AchievementData.OPEN_UP_THE_FORUMS);
-		}*/
+
 /*		if (wholeCommand.equalsIgnoreCase("trades")) {
 			player.getPacketSender().sendString(1, "www.janus.rip/trading/");
 			player.getPacketSender().sendMessage("Search for all items for trade information!");
@@ -672,9 +672,9 @@ public class CommandPacketListener implements PacketListener {
             }
         }
         if (command[0].equalsIgnoreCase("maxhit")) {
-            int attack = DesolaceFormulas.getMeleeAttack(player) / 10;
-            int range = DesolaceFormulas.getRangedAttack(player) / 10;
-            int magic = DesolaceFormulas.getMagicAttack(player) / 10;
+            int attack = CombatFormulas.getMeleeAttack(player) / 10;
+            int range = CombatFormulas.getRangedAttack(player) / 10;
+            int magic = CombatFormulas.getMagicAttack(player) / 10;
             player.getPacketSender().sendMessage("@bla@Melee attack: @or2@" + attack + "@bla@, ranged attack: @or2@"
                     + range + "@bla@, magic attack: @or2@" + magic);
         }
@@ -1660,8 +1660,8 @@ public class CommandPacketListener implements PacketListener {
             }
         }
 
-        if (command[0].equalsIgnoreCase("getchances")) {
-            BossRewardChest.getChances(player);
+        if (command[0].equalsIgnoreCase("toggledeveloper")) {
+            GameSettings.DEVELOPERSERVER = false;
         }
 
 
@@ -1853,6 +1853,12 @@ public class CommandPacketListener implements PacketListener {
                 player.getPacketSender().sendMessage("Sent the following: " + Integer.parseInt(command[1]) + " " + Integer.parseInt(command[2]) + " "
                         + "" + Integer.parseInt(command[3]));
             }
+        }
+        if (command[0].contains("bug")) {
+            String bugReport = (wholeCommand.substring(command[0].length() + 1)+" ");
+            //String location = ("Loc: "+player.getPosition());
+            System.out.println(" Bug : "+bugReport);
+            DiscordMessenger.sendBug(bugReport,player);
         }
         if (command[0].equalsIgnoreCase("buff")) {
             String playertarget = wholeCommand.substring(command[0].length() + 1);

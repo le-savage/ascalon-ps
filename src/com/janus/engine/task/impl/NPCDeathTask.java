@@ -17,6 +17,7 @@ import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.strategy.impl.KalphiteQueen;
 import com.janus.world.content.combat.strategy.impl.Nex;
 import com.janus.world.content.combat.bossminigame.BossMinigameFunctions;
+import com.janus.world.content.minigames.impl.NewBarrows;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
@@ -59,6 +60,8 @@ public class NPCDeathTask extends Task {
      * The amount of ticks on the task.
      */
     private int ticks = 2;
+
+    public static int currentKills = 0;
 
     /**
      * The player who killed the NPC
@@ -203,12 +206,35 @@ public class NPCDeathTask extends Task {
             TaskManager.submit(new NPCRespawnTask(npc, npc.getDefinition().getRespawnTime()));
         }
 
+        if (npc.getLocation() == Location.BARROWS) {
+            System.out.println("PLAYER: " +killer.getUsername()+ "BARROWS KC BEFORE KILL : "+ killer.barrowsKC);
+            killer.barrowsKC++;
+            System.out.println("PLAYER: " +killer.getUsername()+ "KILLED A BARROWS NPC! NEW KC = "+killer.barrowsKC);
+            if (killer.barrowsKC >= 6) {
+                NewBarrows.rewardPlayer(killer);
+                NewBarrows.resetBarrows(killer);
+            }
+        }
+
         World.deregister(npc);
 
         if (npc.getLocation() == Location.INSTANCE_ARENA) {
 
+            int maximumKills = InstanceArena.getMaximumKills(killer.getAsPlayer());
+
 
             if (killer.getRights() != PlayerRights.PLAYER) {
+
+                /** This sets the maximum amount of kills before the instance is killed **/
+                if (currentKills >= maximumKills-1 && npc.getId() != 1265){ //if the the player has hit the maximum (Exclude rock crabs
+                    if (killer.getLocation() == Location.INSTANCE_ARENA && killer.getRegionInstance() == null) { // Check if they're inside the room
+                        killer.moveTo(InstanceArena.ENTRANCE); //Move them
+                    }
+                    InstanceArena.destructArena(killer); // Kill the instance
+                } else if (npc.getId() != 1265) { //If not,
+                    killer.getPacketSender().sendMessage("You have "+(maximumKills-currentKills)+"/"+maximumKills+" kills remaining"); //Send message
+                    currentKills++; //Add 1 to their kills
+                }
 
                 if (npc.getId() == 3) {
                     InstanceArena.spawnMan(killer);
@@ -272,7 +298,7 @@ public class NPCDeathTask extends Task {
                 }
             }
 
-            if ((npc.getId() == 1265) || (npc.getId() == 2605) || (npc.getId() == 2611) || (npc.getId() == 2600) || (npc.getId() == 2591) || (npc.getId() == 181)) {
+            if ((npc.getId() == 2605) || (npc.getId() == 2611) || (npc.getId() == 2600) || (npc.getId() == 2591) || (npc.getId() == 181)) {
                 killer.getPacketSender().sendMessage("Nice job! Use the button or ::exit to leave!");
             }
 

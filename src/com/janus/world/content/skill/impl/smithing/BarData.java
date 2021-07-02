@@ -4,18 +4,18 @@ public class BarData {
 
     public static enum Bars {
 
-        Bronze(130, 2349),
-        Iron(250, 2351),
-        Steel(380, 2353),
-        Mithril(500, 2359),
-        Adamant(630, 2361),
-        Rune(750, 2363),
-        Dragon(1000, 21061),
-        Barrows(3000, 21062),
-        Armadyl(3000, 21063),
-        Bandos(3000, 21064),
-        Third_Age(5000, 21065),
-        Torva(5000, 21066);
+        Bronze(300, 2349),
+        Iron(400, 2351),
+        Steel(500, 2353),
+        Mithril(1000, 2359),
+        Adamant(1300, 2361),
+        Rune(1700, 2363),
+        Dragon(2000, 21061),
+        Barrows(5000, 21062),
+        Armadyl(5000, 21063),
+        Bandos(5000, 21064),
+        Third_Age(9000, 21065),
+        Torva(9000, 21066);
 
         Bars(int exp, int itemId) {
             this.exp = exp;

@@ -1,7 +1,0 @@
-StartNot A Robot	107.126.57.169	af8232eb-f88a-41e5-aa8e-6f5192a1d735	70-85-C2-50-C7-B7	EndNot A Robot	
-StartPickle Rick	58.96.14.151	398d7e79-1e25-465e-a642-fff9e55ce0a4	02-39-7D-7E-0E-72	EndPickle Rick	
-StartClips	194.35.233.73	bbeaef90-6cd2-43bb-8d7a-0cd1e84e87a3	00-FF-B0-83-98-5A	EndClips	
-StartKurt	90.254.65.237	cb2eb14b-81cf-458e-96bd-4bdfce3fe58e	1C-87-2C-B9-22-9F	EndKurt	
-StartFlub	194.35.233.73	bbeaef90-6cd2-43bb-8d7a-0cd1e84e87a3	00-FF-B0-83-98-5A	EndFlub	
-StartArtae	74.76.223.192	e467c993-a15d-4a58-a397-10ccd7d0d6b5	70-85-C2-70-19-AC	EndArtae	
-StartMartijn	31.21.67.71	bbd3e0e7-4dc4-4246-81aa-745a91cfeb9e	40-F0-2F-74-89-9F	EndMartijn	

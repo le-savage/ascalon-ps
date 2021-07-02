@@ -22,7 +22,7 @@ import com.janus.world.entity.impl.player.Player;
 public class EvilTrees {
 
 
-    private static final int TIME = 4000000; //40 minutes? not sure lol
+    private static final int TIME = 1200000; //12 minutes? not sure lol
     public static final int MAX_CUT_AMOUNT = 500;//Amount of logs the tree will give before
     //despawning
 

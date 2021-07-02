@@ -1,3 +1,4 @@
+/*
 package com.janus.world.content.minigames.impl;
 
 import com.janus.engine.task.TaskManager;
@@ -12,23 +13,27 @@ import com.janus.world.content.dialogue.DialogueManager;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
+*/
 /**
  * Handles the Barrows minigame and it's objects, npcs, etc.
  *
  * @editor Gabbe
- */
+ *//*
+
 public class Barrows {
 
     public static void handleLogin(Player player) {
         updateInterface(player);
     }
 
-    /**
+    */
+/**
      * Handles all objects in the Barrows minigame: Coffins, doors, etc.
      *
      * @param player The player calling this method
      * @param object The object the player is requesting
-     */
+     *//*
+
     public static boolean handleObject(final Player player, GameObject object) {
         switch (object.getId()) {
             case 6771:
@@ -286,7 +291,8 @@ public class Barrows {
             {"Ahrim The Blighted", 37204}
     };
 
-    /**
+    */
+/**
      * Handles coffin searching
      *
      * @param player                                 Player searching a coffin
@@ -302,7 +308,8 @@ public class Barrows {
      * @param absorbMagic                            NPC stat
      * @param getCombatAttributes().getAttackDelay() NPC attackspeed
      * @param maxhit                                 NPC Maxhit
-     */
+     *//*
+
     public static void searchCoffin(final Player player, final int obj, final int coffinId, int npcId, Position spawnPos) {
         player.getPacketSender().sendInterfaceRemoval();
         if (player.getPosition().getZ() == -1) {
@@ -341,13 +348,15 @@ public class Barrows {
             {4747, 4926}, {4749, 4968}, {4751, 4994}, {4753, 4980},
             {4755, 4986}, {4757, 4992}, {4759, 4998}};
 
-    /**
+    */
+/**
      * Deregisters an NPC located in the Barrows minigame
      *
      * @param player        The player that's the reason for deregister
      * @param barrowBrother The NPC to deregister
      * @param killed        Did player kill the NPC?
-     */
+     *//*
+
     public static void killBarrowsNpc(Player player, NPC n, boolean killed) {
         if (player == null || n == null)
             return;
@@ -368,10 +377,12 @@ public class Barrows {
         updateInterface(player);
     }
 
-    /**
+    */
+/**
      * Selects the coffin and shows the interface if coffin id matches random
      * coffin
-     **/
+     **//*
+
     public static boolean selectCoffin(Player player, int coffinId) {
         if (player.getMinigameAttributes().getBarrowsMinigameAttributes().getRandomCoffin() == 0)
             player.getMinigameAttributes().getBarrowsMinigameAttributes().setRandomCoffin(getRandomCoffin());
@@ -472,3 +483,4 @@ public class Barrows {
     }
 
 }
+*/

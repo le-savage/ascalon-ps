@@ -22,7 +22,7 @@ public class Rewards {
             new Item(18902, 1),//17
             new Item(20057, 1),//18
             new Item(2364, 1000),//19
-            new Item(18830, 250),//20
+            new Item(18831, 250),//20
             new Item(14484, 1),//21
             new Item(10551, 1),//22
             new Item(6529, 50000),//23

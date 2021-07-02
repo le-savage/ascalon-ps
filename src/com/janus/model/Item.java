@@ -124,6 +124,10 @@ public class Item {
             if (id == i)
                 return false;
         }
+        for (int i : GameSettings.UNTRADEABLE_ITEMS) {
+            if (id == i)
+                return false;
+        }
         if (Effigies.isEffigy(id))
             return false;
         return true;

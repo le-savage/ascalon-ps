@@ -4,7 +4,7 @@ public class TeleportMinigames extends Teleporting {
     public static enum Minigames {
         TELEPORT_1(new String[]{"Barrows", "Minigame"}, new int[]{3565, 3313, 0}),
         TELEPORT_2(new String[]{"Fight", "Caves"}, new int[]{2445, 5177, 0}),
-        TELEPORT_3(new String[]{"Fight", "Pits"}, new int[]{2399, 5177, 0}),
+        TELEPORT_3(new String[]{"Boss", "Minigame"}, new int[]{2747, 5374, 0}),
         TELEPORT_4(new String[]{"Pest", "Control"}, new int[]{2663, 2654, 0}),
         TELEPORT_5(new String[]{"Duel", "Arena"}, new int[]{3364, 3267, 0}),
         TELEPORT_6(new String[]{"Warrior's", "Guild"}, new int[]{2855, 3543, 0}),

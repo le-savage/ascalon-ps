@@ -1,6 +1,0 @@
-StartAngel Ghoul	188.82.173.210	7cbbaa9d-e003-406e-bf12-3bd4dc14870b	F0-76-1C-2B-B5-3D	EndAngel Ghoul	
-StartArtae	74.76.223.192	e467c993-a15d-4a58-a397-10ccd7d0d6b5	70-85-C2-70-19-AC	EndArtae	
-StartAnti Social	67.181.105.194	16bf304b-a95d-4464-bd9c-d17b2c459778	C8-D9-D2-90-69-A6	EndAnti Social	
-StartMitcho	86.21.167.163	d951271c-08f0-4b87-97ac-ad13c1173bbd	F0-03-8C-A1-7E-1F	EndMitcho	
-StartS7even	213.118.131.116	669b67dc-d1c2-434c-ba8f-032ce196d490	F8-B4-6A-C0-8A-E5	EndS7even	
-StartKatrina Law	86.3.49.95	a8a26e70-0d24-48be-93b8-99af5d66c635	1C-BF-CE-D7-CB-91	EndKatrina Law	

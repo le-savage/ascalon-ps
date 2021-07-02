@@ -78,20 +78,20 @@ public class Smelting {
     public static int getExperience(int barId) {
         switch (barId) {
             case 2349: // Bronze bar
-                return 50;
+                return 300;
             case 2351: // Iron bar
-                return 180;
+                return 400;
             case 2353: // Steel bar
-                return 250;
+                return 500;
             case 2355: // Silver bar
             case 2357: // Gold bar
                 return 350;
             case 2359: // Mithril bar
-                return 500;
-            case 2361: // Adamant bar
-                return 700;
-            case 2363: // Runite bar
                 return 1000;
+            case 2361: // Adamant bar
+                return 1300;
+            case 2363: // Runite bar
+                return 1700;
         }
         return 0;
     }

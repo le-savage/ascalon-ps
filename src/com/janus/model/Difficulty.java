@@ -7,10 +7,10 @@ public enum Difficulty {
 
     Default(0, 0, ""),
     Easy(3, 0, "<col=00e62b>"),
-    Medium(0, 2, "<col=ad820a>"),
-    Hard(0.5, 5, "<col=f76472>"),
-    Insane(0.25, 10, "<col=d81124>"),
-    Zezima(0.1, 20, "<col=ff031b>"); //TODO change DR
+    Medium(0, 1, "<col=ad820a>"),
+    Hard(0.5, 2, "<col=f76472>"),
+    Insane(0.25, 3, "<col=d81124>"),
+    Zezima(0.1, 5, "<col=ff031b>"); //TODO change DR
 
     private double xpRate;
     private int drBoost;

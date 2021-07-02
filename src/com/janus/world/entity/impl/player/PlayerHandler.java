@@ -25,7 +25,6 @@ import com.janus.world.content.combat.pvp.BountyHunter;
 import com.janus.world.content.combat.range.DwarfMultiCannon;
 import com.janus.world.content.combat.weapon.CombatSpecial;
 import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
-import com.janus.world.content.minigames.impl.Barrows;
 import com.janus.world.content.skill.impl.hunter.Hunter;
 import com.janus.world.content.skill.impl.slayer.Slayer;
 
@@ -123,7 +122,7 @@ public class PlayerHandler {
         CurseHandler.deactivateAll(player);
         BonusManager.sendCurseBonuses(player);
         Achievements.updateInterface(player);
-        Barrows.updateInterface(player);
+        //Barrows.updateInterface(player);
 
         TaskManager.submit(new PlayerSkillsTask(player));
         if (player.isPoisoned()) {
@@ -190,6 +189,14 @@ public class PlayerHandler {
         if (player.newPlayer()) {
             StartScreen.open(player);
             player.setPlayerLocked(true);
+        }
+
+        if (!player.isUsedBossTeleport()){
+            player.getPacketSender().sendMessage("@red@Try out our brand new minigame at ::boss - Insane loot up for grabs!");
+        }
+
+        if (!player.isPlayedNewBarrows()) {
+            player.getPacketSender().sendMessage("@red@Check out the new version of barrows! It's 100x more enjoyable <3");
         }
 
         player.getPacketSender().updateSpecialAttackOrb().sendIronmanMode(player.getGameMode().ordinal());

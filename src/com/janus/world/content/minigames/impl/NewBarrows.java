@@ -52,34 +52,34 @@ public class NewBarrows {
                 player.setRegionInstance(new RegionInstance(player, RegionInstanceType.BARROWS));
                 
                 ahrim.setSpawnedFor(player);
-                ahrim.getCombatBuilder().attack(player);
                 World.register(ahrim);
                 player.getRegionInstance().getNpcsList().add(ahrim);
+                ahrim.getCombatBuilder().attack(player);
 
                 dharok.setSpawnedFor(player);
-                dharok.getCombatBuilder().attack(player);
                 World.register(dharok);
                 player.getRegionInstance().getNpcsList().add(dharok);
+                dharok.getCombatBuilder().attack(player);
 
                 guthan.setSpawnedFor(player);
-                guthan.getCombatBuilder().attack(player);
                 World.register(guthan);
                 player.getRegionInstance().getNpcsList().add(guthan);
+                guthan.getCombatBuilder().attack(player);
 
                 karil.setSpawnedFor(player);
-                karil.getCombatBuilder().attack(player);
                 World.register(karil);
                 player.getRegionInstance().getNpcsList().add(karil);
+                karil.getCombatBuilder().attack(player);
 
                 torag.setSpawnedFor(player);
-                torag.getCombatBuilder().attack(player);
                 World.register(torag);
                 player.getRegionInstance().getNpcsList().add(torag);
+                torag.getCombatBuilder().attack(player);
 
                 verac.setSpawnedFor(player);
-                verac.getCombatBuilder().attack(player);
                 World.register(verac);
                 player.getRegionInstance().getNpcsList().add(verac);
+                verac.getCombatBuilder().attack(player);
             }
     }
 

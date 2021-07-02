@@ -19,9 +19,9 @@ public class BossRewardChest {
 
     /** Default Chance Of Each Reward (Out of 100) **/
 
-    public static int chanceOfShitReward = 60;
-    public static int chanceOfMediumReward = 35;
-    public static int chanceOfRareReward = 5;
+    public static int chanceOfShitReward = 70;
+    public static int chanceOfMediumReward = 29;
+    public static int chanceOfRareReward = 1;
 
 
 

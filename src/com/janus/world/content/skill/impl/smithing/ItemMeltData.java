@@ -264,7 +264,7 @@ public enum ItemMeltData {
         this.barAmount = barAmount;
     }
 
-    public static final int levelReq = 50;
+    public static final int levelReq = 30;
     public static final int[] furnaceIDs = {6096};
 
     public int getOriginalItem() {

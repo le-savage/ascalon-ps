@@ -125,6 +125,20 @@ public class SkillManager {
         }
         if (prestige) {
             int pts = getPrestigePoints(player, skill);
+            switch (player.getDifficulty()) {
+                case Medium:
+                    pts *= 1.2;
+                    break;
+                case Hard:
+                    pts *= 1.7;
+                    break;
+                case Insane:
+                    pts *= 2.3;
+                    break;
+                case Zezima:
+                    pts *= 3;
+                    break;
+            }
             player.getPointsHandler().setPrestigePoints(pts, true);
             player.getPacketSender().sendMessage("You've received " + pts + " Prestige points!");
             player.getPointsHandler().refreshPanel();

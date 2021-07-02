@@ -1,6 +1,7 @@
 package com.janus.net.packet.impl;
 
 import com.janus.GameSettings;
+import com.janus.engine.task.impl.NPCDeathTask;
 import com.janus.model.Difficulty;
 import com.janus.model.Locations.Location;
 import com.janus.model.PlayerRights;
@@ -201,6 +202,7 @@ public class ButtonClickPacketListener implements PacketListener {
                         return;
                     }
                 }
+
 
                 InstanceArena.spawnMan(player);
                 break;

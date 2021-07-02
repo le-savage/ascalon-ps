@@ -47,6 +47,8 @@ import com.janus.world.content.grandexchange.GrandExchangeSlot;
 import com.janus.world.content.minigames.Minigame;
 import com.janus.world.content.minigames.MinigameAttributes;
 import com.janus.world.content.minigames.impl.Dueling;
+import com.janus.world.content.newquesttab.QuestTab;
+import com.janus.world.content.newteleport.TeleportInterface;
 import com.janus.world.content.pos.PlayerOwnedShopManager;
 import com.janus.world.content.skill.SkillManager;
 import com.janus.world.content.skill.impl.construction.ConstructionData.HouseLocation;
@@ -71,6 +73,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class Player extends Character {
+    @Getter
+    private TeleportInterface teleportInterface = new TeleportInterface(this);
+    @Getter
+    private QuestTab questTab = new QuestTab(this);
+
     public List<ItemEffect> currentEffects = new ArrayList<>();
     private String mac;
     private String uuid;
@@ -293,7 +300,7 @@ public class Player extends Character {
             speed -= 2;
         }
         return speed;
-        //	return DesolaceFormulas.getAttackDelay(this);
+        //	return CombatFormulas.getAttackDelay(this);
     }
     private final BankPinAttributes bankPinAttributes = new BankPinAttributes();
     private final BankSearchAttributes bankSearchAttributes = new BankSearchAttributes();

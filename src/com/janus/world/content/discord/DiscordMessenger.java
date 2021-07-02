@@ -6,6 +6,7 @@ import ca.momoperes.canarywebhooks.WebhookClientBuilder;
 import ca.momoperes.canarywebhooks.embed.DiscordEmbed;
 import com.janus.GameSettings;
 import com.janus.util.Misc;
+import com.janus.world.entity.impl.player.Player;
 import org.json.simple.JSONObject;
 
 import java.awt.*;
@@ -35,6 +36,7 @@ public class DiscordMessenger extends JSONObject {
     private static String chatLog = "https://discordapp.com/api/webhooks/718193019299430590/ScDvUR9kvO02IAbWD-NxjY7OycS59Oj5vVGVvwWzezJEuDejKmw1CBAu4BlfhHIjpmte";
     private static String dailyLoginLog = "https://discordapp.com/api/webhooks/721862498789228694/_NOpxSUPoxNFGer_RGIxrFRb6IkxEbKgpy1xfhRz2f5EuijJZCdW70wLLxWA5rRr5K_S";
     private static String errorlog = "https://discordapp.com/api/webhooks/731625796149444619/iDv5ed6au_wsQX8BlAM48agBcNIU6VRemateHth_FVM_LAVr56KgNneNXhRXiLfmmlC3";
+    private static String bugChannel = "https://discord.com/api/webhooks/859897654090924042/T6xEmh260p-LAmJv5k2avldyYWPRn5m6nBzOcfO4hNpU2PqZ1KQekoC9n29jSrEy7ksE";
 
 
     public static void sendDailyLoginLog(String msg) {
@@ -360,6 +362,38 @@ public class DiscordMessenger extends JSONObject {
                     .withEmbed(embed) // Add our embed object
                     .withUsername("Dropped Item Tracker") // Override the username of the bot
                     
+                    .build(); // Build the message
+
+            client.sendPayload(message);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void sendBug(String bug, Player player) {
+        /*if (GameSettings.DEVELOPERSERVER) {
+            return;
+        }*/
+        try {
+
+            String webhook = bugChannel;
+
+            WebhookClient client = new WebhookClientBuilder()
+                    .withURI(new URI(webhook))
+                    .build(); // Create the webhook client
+
+            DiscordEmbed embed = new DiscordEmbed.Builder()
+                    .withTitle("STAFF MESSAGE") // The title of the embed element
+                    .withURL("https://janusps.com/") // The URL of the embed element
+                    .withColor(Color.RED) // The color of the embed. You can leave this at null for no color
+                    .withDescription(Misc.stripIngameFormat(bug)) // The description of the embed object
+                    .build(); // Build the embed element
+
+            DiscordMessage message = new DiscordMessage.Builder(Misc.stripIngameFormat(bug)) // The content of the message
+                    //.withEmbed(embed) // Add our embed object
+                    .withUsername("["+player.getUsername()+"] "+player.getPosition()) // Override the username of the bot
+
                     .build(); // Build the message
 
             client.sendPayload(message);

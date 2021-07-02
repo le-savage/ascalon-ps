@@ -9,7 +9,7 @@ import com.janus.world.World;
 import com.janus.world.content.combat.CombatContainer;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.CombatType;
-import com.janus.world.content.combat.DesolaceFormulas;
+import com.janus.world.content.combat.CombatFormulas;
 import com.janus.world.entity.impl.Character;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
@@ -47,7 +47,7 @@ public class ScytheOfVitur extends ItemEffect {
     public void handleAttack(Character attacker, Character victim) {
         AtomicInteger attacked = new AtomicInteger();
         if (hitAmount(attacker, victim) > 1) {
-            victim.dealDamage(attacker.getAsPlayer(), new Hit(Misc.random(DesolaceFormulas.calculateMaxMeleeHit(attacker, victim)), Hitmask.RED, CombatIcon.MELEE));
+            victim.dealDamage(attacker.getAsPlayer(), new Hit(Misc.random(CombatFormulas.calculateMaxMeleeHit(attacker, victim)), Hitmask.RED, CombatIcon.MELEE));
         }
         targets(attacker, victim).forEach(target -> {
             attacked.getAndIncrement();
@@ -58,7 +58,7 @@ public class ScytheOfVitur extends ItemEffect {
             target.getCombatBuilder().attack(attacker);
             for (int i = 1; i <= hitAmount(attacker, victim); i++) {
                 if (CombatFactory.rollAccuracy(attacker, target, CombatType.MELEE)) {
-                    target.dealDamage(attacker.getAsPlayer(), new Hit(Misc.random(DesolaceFormulas.calculateMaxMeleeHit(attacker, target)), Hitmask.RED, CombatIcon.MELEE));
+                    target.dealDamage(attacker.getAsPlayer(), new Hit(Misc.random(CombatFormulas.calculateMaxMeleeHit(attacker, target)), Hitmask.RED, CombatIcon.MELEE));
                 } else {
                     target.dealDamage(attacker.getAsPlayer(), new Hit(0, Hitmask.RED, CombatIcon.BLOCK));
                 }

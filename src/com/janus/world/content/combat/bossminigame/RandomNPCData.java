@@ -4,11 +4,12 @@ import com.janus.util.Misc;
 import com.janus.world.entity.impl.player.Player;
 
 public class RandomNPCData { //CHANGE NPC'S IN HERE.. THESE ARE NPC ID'S
+    //TODO Change type to Npc[]
 
     public static final int[] firstWaveIDs = {51, 54, 50}; //dragon tier
-    public static final int[] secondWaveIDs = {8349, 3200, 2882}; //mage tier
-    public static final int[] thirdWaveIDs = {2881, 5666, 1999,}; //melee tier
-    public static final int[] fourthWaveIDs = {499, 50, 2883}; //mage tier
+    public static final int[] secondWaveIDs = {3200, 2882}; //mage tier (I have removed 8349)
+    public static final int[] thirdWaveIDs = {2881, 1999}; //melee tier (I have removed 5666)
+    public static final int[] fourthWaveIDs = {499, 50}; //mage tier (I have removed 2883)
     public static final int[] fifthWaveIDs = {3, 2001, 7134}; //boss tier
 
     public static int randomFirstWaveID() {

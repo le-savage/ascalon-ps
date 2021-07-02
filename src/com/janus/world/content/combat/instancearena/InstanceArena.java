@@ -2,6 +2,7 @@ package com.janus.world.content.combat.instancearena;
 
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
+import com.janus.engine.task.impl.NPCDeathTask;
 import com.janus.model.*;
 import com.janus.world.World;
 import com.janus.world.content.combat.weapon.CombatSpecial;
@@ -25,6 +26,35 @@ public class InstanceArena {
     public static final int crabY = 5317;
 
 
+
+
+    public static int getMaximumKills(Player player) {
+        int maximumKills = 0;
+        switch (player.getRights()) {
+            case DONATOR:
+                maximumKills = 10;
+                break;
+            case SUPER_DONATOR:
+                maximumKills = 15;
+                break;
+            case EXTREME_DONATOR:
+                maximumKills = 20;
+                break;
+            case LEGENDARY_DONATOR:
+                maximumKills = 25;
+                break;
+            case UBER_DONATOR:
+            case SUPPORT:
+            case MODERATOR:
+            case ADMINISTRATOR:
+            case OWNER:
+                maximumKills = 30;
+                break;
+        }
+        return maximumKills;
+    }
+
+
     public static void handleInstance(Player player, GameObject object) {
         if (object.getId() == barrierID) {
             if (player.getLocation() == Locations.Location.INSTANCE_ARENA || player.getRegionInstance() != null) {
@@ -33,6 +63,7 @@ public class InstanceArena {
 
             if (!player.getLocation().equals(Locations.Location.INSTANCE_ARENA) && player.getRegionInstance() == null) { //Outside the area
                 player.getPacketSender().sendInterface(npcListInterface);
+                NPCDeathTask.currentKills = 0;
             } else {
                 player.getPacketSender().sendMessage("@red@ Exit using the button or ::exit");//Inside the area
             }
@@ -78,6 +109,7 @@ public class InstanceArena {
         restoreHP(player);
         restoreSpec(player);
         restoreStats(player);
+        player.setPoisonImmunity(1);
     }
 
 

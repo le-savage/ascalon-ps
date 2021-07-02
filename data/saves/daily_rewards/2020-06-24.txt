@@ -1,9 +1,0 @@
-StartSenpai	50.80.5.58	37c5614f-84a2-40d1-8a80-e1f4b4d1f05a	04-D9-F5-1C-31-60	EndSenpai	
-StartFlub	86.139.62.108	bbeaef90-6cd2-43bb-8d7a-0cd1e84e87a3	16-4F-8A-35-06-92	EndFlub	
-StartAnti Social	67.181.105.194	16bf304b-a95d-4464-bd9c-d17b2c459778	C8-D9-D2-90-69-A6	EndAnti Social	
-StartKurt	90.252.179.244	cb2eb14b-81cf-458e-96bd-4bdfce3fe58e	1C-87-2C-B9-22-9F	EndKurt	
-StartE	195.55.241.155	6391224b-be0e-4057-817b-eab0a09aacb0	E4-AA-EA-A4-8A-5F	EndE	
-StartArtae	74.76.223.192	e467c993-a15d-4a58-a397-10ccd7d0d6b5	70-85-C2-70-19-AC	EndArtae	
-StartKingduffy 1	90.195.69.66	198a52fc-f39b-4cbd-a525-6cf6a47146b9	1C-87-2C-5D-D2-38	EndKingduffy 1	
-StartIjskonijn	77.248.211.221	9c5c7536-3210-46f2-bb68-1154813b6e87	1C-1B-0D-13-E7-01	EndIjskonijn	
-StartBaldgod	77.248.211.221	fe8bf176-ff21-4c5a-8669-4c89bce429a4	C0-21-0D-4F-64-10	EndBaldgod	

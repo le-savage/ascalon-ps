@@ -1,5 +1,6 @@
 package com.janus.world.content.dialogue;
 
+import com.janus.GameSettings;
 import com.janus.engine.task.impl.BonusExperienceTask;
 import com.janus.model.*;
 import com.janus.model.Locations.Location;
@@ -13,6 +14,8 @@ import com.janus.world.content.*;
 import com.janus.world.content.Gambling.FlowersData;
 import com.janus.world.content.clan.ClanChatManager;
 import com.janus.world.content.combat.bossminigame.BossRewardChest;
+import com.janus.world.content.combat.magic.MagicSpells;
+import com.janus.world.content.combat.magic.Spell;
 import com.janus.world.content.dialogue.impl.AgilityTicketExchange;
 import com.janus.world.content.dialogue.impl.Mandrith;
 import com.janus.world.content.minigames.impl.Graveyard;
@@ -51,6 +54,17 @@ public class DialogueOptions {
     public static int THIRD_OPTION_OF_THREE = 2473;
     public static int FIRST_OPTION_OF_TWO = 2461;
     public static int SECOND_OPTION_OF_TWO = 2462;
+
+    private static Item itemInfo = null;
+    private static Spell magicSpell = null;
+
+    public static void setAlchItemID(Item itemInfoFromSpell) {
+     itemInfo = itemInfoFromSpell;
+    }
+
+    public static void setSpellBeingUsed(Spell spellBeingUsed) {
+        magicSpell = spellBeingUsed;
+    }
 
     public static void handle(Player player, int id) {
         if (player.getRights() == PlayerRights.OWNER) {
@@ -1220,6 +1234,17 @@ public class DialogueOptions {
                 case 86:
                     BossRewardChest.pickReward(player);
                     break;
+                case 87:
+                    if (!player.getInventory().contains(itemInfo.getId())) {
+                        return;
+                    }
+                    player.getInventory().delete(itemInfo.getId(), 1).add(995, 50000000); //Cap at 50m
+                    player.performAnimation(new Animation(712));
+                    player.performGraphic(new Graphic(MagicSpells.forSpellId(magicSpell.spellId()) == MagicSpells.HIGH_ALCHEMY ? 113 : 112, GraphicHeight.LOW));
+                    player.getSkillManager().addExperience(Skill.MAGIC, magicSpell.baseExperience());
+                    player.getPacketSender().sendInterfaceRemoval();
+                    player.getPacketSender().sendTab(GameSettings.MAGIC_TAB);
+                    break;
             }
         } else if (id == SECOND_OPTION_OF_TWO) {
             switch (player.getDialogueActionId()) {
@@ -1273,6 +1298,10 @@ public class DialogueOptions {
                     player.getPacketSender().sendMessage("Okay.. onto the next wave! Good luck!");
                     player.getPacketSender().sendInterfaceRemoval();
                     player.setShouldGiveBossReward(false);
+                    break;
+                case 87:
+                    player.forceChat("Phew! What was I thinking?");
+                    player.getPacketSender().sendInterfaceRemoval();
                     break;
 
             }

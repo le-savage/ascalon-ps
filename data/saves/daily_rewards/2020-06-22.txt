@@ -1,9 +1,0 @@
-StartVoid Serpent	24.165.141.104	b91720df-da75-4e1a-a30b-3e70e8c7a78e	E8-6A-64-63-50-1F	EndVoid Serpent	
-StartZeu12	83.233.138.172	9f1f5060-1149-4ef3-aaba-ed5f72019d1d	98-EE-CB-67-0D-0B	EndZeu12	
-StartMetasploit	196.52.2.42	dafd4442-7fa9-42b0-8176-b82fb677f350	00-FF-BB-0F-D7-14	EndMetasploit	
-StartPickle Rick	58.96.14.151	398d7e79-1e25-465e-a642-fff9e55ce0a4	02-39-7D-7E-0E-72	EndPickle Rick	
-Start2 Fast 4 U	86.3.49.95	a8a26e70-0d24-48be-93b8-99af5d66c635	1C-BF-CE-D7-CB-91	End2 Fast 4 U	
-StartKurt	90.252.179.244	cb2eb14b-81cf-458e-96bd-4bdfce3fe58e	1C-87-2C-B9-22-9F	EndKurt	
-StartMartijn	31.21.67.71	bbd3e0e7-4dc4-4246-81aa-745a91cfeb9e	40-F0-2F-74-89-9F	EndMartijn	
-StartFlub	86.139.62.108	bbeaef90-6cd2-43bb-8d7a-0cd1e84e87a3	16-4F-8A-35-06-92	EndFlub	
-StartDfs	68.191.178.165	2b8c5c30-be52-4ddb-b952-df4c16eaeb17	28-39-26-19-CE-4B	EndDfs	

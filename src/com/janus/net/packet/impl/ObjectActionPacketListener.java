@@ -334,9 +334,9 @@ public class ObjectActionPacketListener implements PacketListener {
                 if (Agility.handleObject(player, gameObject)) {
                     return;
                 }
-                if (Barrows.handleObject(player, gameObject)) {
+                /*if (Barrows.handleObject(player, gameObject)) {
                     return;
-                }
+                }*/
                 if (player.getLocation() == Location.WILDERNESS && WildernessObelisks.handleObelisk(gameObject.getId())) {
                     return;
                 }
