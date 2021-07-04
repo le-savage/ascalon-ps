@@ -26,6 +26,8 @@ import com.janus.world.content.PlayerPunishment.Jail;
 import com.janus.world.content.clan.ClanChatManager;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.CombatFormulas;
+import com.janus.world.content.combat.DailyNPCTask;
+import com.janus.world.content.combat.effect.CombatPoisonEffect;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
