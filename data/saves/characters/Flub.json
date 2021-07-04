@@ -1,17 +1,17 @@
 {
-  "total-play-time-ms": 105733918,
+  "total-play-time-ms": 112727843,
   "username": "Flub",
   "password": "HodgeTwins1",
   "email": "null",
   "staff-rights": "OWNER",
   "game-mode": "NORMAL",
   "difficulty": "Zezima",
-  "boss-points": 34,
+  "boss-points": 39,
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 3565,
-    "y": 3313,
+    "x": 2720,
+    "y": 5325,
     "z": 0
   },
   "online-status": "ON",
@@ -28,13 +28,13 @@
   "claimed-todays-reward": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 2000,
-  "total-gained-exp": 15109705,
+  "total-gained-exp": 18251492,
   "prestige-points": 0,
   "achievement-points": 15,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 12390008,
-  "total-loyalty-points": 1.2390008E7,
+  "loyalty-points": 13125008,
+  "total-loyalty-points": 1.3125008E7,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -56,19 +56,19 @@
   "run-energy": 100,
   "music": true,
   "sounds": false,
-  "auto-retaliate": true,
+  "auto-retaliate": false,
   "xp-locked": false,
   "veng-cast": false,
-  "last-veng": 1624570051122,
-  "fight-type": "SCIMITAR_SLASH",
-  "sol-effect": -1,
+  "last-veng": 1624573478498,
+  "fight-type": "UNARMED_KICK",
+  "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
   "poison-damage": 0,
-  "poison-immunity": 0,
+  "poison-immunity": 5,
   "overload-timer": 0,
-  "fire-immunity": 360,
-  "fire-damage-mod": 50,
+  "fire-immunity": -1,
+  "fire-damage-mod": 0,
   "prayer-renewal-timer": 0,
   "teleblock-timer": 0,
   "special-amount": 100,
@@ -93,14 +93,14 @@
       "runningTotal": 1,
       "npcId": 50,
       "npcName": "King Black Dragon",
-      "amount": 20,
+      "amount": 21,
       "boss": true
     },
     {
       "runningTotal": 1,
       "npcId": 3,
       "npcName": "Crazy lvl 2 Man",
-      "amount": 5,
+      "amount": 9,
       "boss": true
     },
     {
@@ -121,7 +121,7 @@
       "runningTotal": 1,
       "npcId": 1265,
       "npcName": "Rock Crab",
-      "amount": 54,
+      "amount": 80,
       "boss": false
     },
     {
@@ -135,7 +135,7 @@
       "runningTotal": 1,
       "npcId": 51,
       "npcName": "Frost dragon",
-      "amount": 1,
+      "amount": 5,
       "boss": true
     },
     {
@@ -233,12 +233,12 @@
   "drops": [
     {
       "item": 12159,
-      "amount": 100,
+      "amount": 133,
       "rareDrop": false
     },
     {
       "item": 995,
-      "amount": 969552,
+      "amount": 1153092,
       "rareDrop": false
     },
     {
@@ -248,17 +248,17 @@
     },
     {
       "item": 1747,
-      "amount": 17,
+      "amount": 18,
       "rareDrop": false
     },
     {
       "item": 12158,
-      "amount": 116,
+      "amount": 128,
       "rareDrop": false
     },
     {
       "item": 12163,
-      "amount": 35,
+      "amount": 47,
       "rareDrop": false
     },
     {
@@ -273,7 +273,7 @@
     },
     {
       "item": 1621,
-      "amount": 7,
+      "amount": 9,
       "rareDrop": false
     },
     {
@@ -298,7 +298,7 @@
     },
     {
       "item": 1622,
-      "amount": 100,
+      "amount": 200,
       "rareDrop": false
     },
     {
@@ -318,7 +318,7 @@
     },
     {
       "item": 563,
-      "amount": 1523,
+      "amount": 1823,
       "rareDrop": false
     },
     {
@@ -328,7 +328,7 @@
     },
     {
       "item": 8781,
-      "amount": 1200,
+      "amount": 1300,
       "rareDrop": false
     },
     {
@@ -338,7 +338,7 @@
     },
     {
       "item": 7937,
-      "amount": 2500,
+      "amount": 4500,
       "rareDrop": false
     },
     {
@@ -373,7 +373,7 @@
     },
     {
       "item": 313,
-      "amount": 135,
+      "amount": 171,
       "rareDrop": false
     },
     {
@@ -383,17 +383,17 @@
     },
     {
       "item": 407,
-      "amount": 9,
+      "amount": 11,
       "rareDrop": false
     },
     {
       "item": 1625,
-      "amount": 8,
+      "amount": 11,
       "rareDrop": false
     },
     {
       "item": 403,
-      "amount": 17,
+      "amount": 25,
       "rareDrop": false
     },
     {
@@ -403,12 +403,12 @@
     },
     {
       "item": 45,
-      "amount": 10,
+      "amount": 12,
       "rareDrop": false
     },
     {
       "item": 12160,
-      "amount": 82,
+      "amount": 142,
       "rareDrop": false
     },
     {
@@ -418,12 +418,12 @@
     },
     {
       "item": 437,
-      "amount": 8,
+      "amount": 14,
       "rareDrop": false
     },
     {
       "item": 830,
-      "amount": 5,
+      "amount": 109,
       "rareDrop": false
     },
     {
@@ -588,7 +588,7 @@
     },
     {
       "item": 15188,
-      "amount": 1,
+      "amount": 2,
       "rareDrop": false
     },
     {
@@ -649,6 +649,11 @@
     {
       "item": 1897,
       "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 1624,
+      "amount": 150,
       "rareDrop": false
     }
   ],
@@ -768,13 +773,13 @@
   ],
   "skills": {
     "level": [
-      14807,
-      14807,
-      14807,
-      149676,
-      14807,
-      149777,
-      14807,
+      14984,
+      14984,
+      14984,
+      149189,
+      14984,
+      150000,
+      14984,
       120,
       120,
       120,
@@ -822,10 +827,10 @@
       120
     ],
     "experience": [
-      104273167,
-      104273167,
-      115831986,
-      107269783,
+      104528618,
+      104528618,
+      117816083,
+      107916571,
       104273167,
       104273167,
       104273167,
@@ -851,88 +856,88 @@
   },
   "inventory": [
     {
-      "id": 952,
+      "id": 9342,
+      "amount": 200,
+      "slot": 0
+    },
+    {
+      "id": 2362,
+      "amount": 50,
+      "slot": 0
+    },
+    {
+      "id": 1215,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 4716,
+      "id": 2364,
+      "amount": 300,
+      "slot": 0
+    },
+    {
+      "id": 1249,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 4720,
+      "id": 384,
+      "amount": 700,
+      "slot": 0
+    },
+    {
+      "id": 1462,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 4722,
+      "id": 985,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 4718,
+      "id": 1215,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 995,
-      "amount": 7262445,
+      "id": 1249,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1618,
+      "amount": 40,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 270,
+      "amount": 270,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 2368,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1617,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1249,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 3001,
+      "amount": 100,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
+      "id": 536,
+      "amount": 1,
       "slot": 0
     },
     {
@@ -993,33 +998,8 @@
   ],
   "equipment": [
     {
-      "id": 1153,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 10499,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 1725,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 4587,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 1129,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 1540,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
@@ -1028,8 +1008,8 @@
       "slot": 0
     },
     {
-      "id": 2497,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
@@ -1038,13 +1018,8 @@
       "slot": 0
     },
     {
-      "id": 7459,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 3105,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
@@ -1053,13 +1028,43 @@
       "slot": 0
     },
     {
-      "id": 2550,
-      "amount": 1,
+      "id": -1,
+      "amount": 0,
       "slot": 0
     },
     {
-      "id": 9244,
-      "amount": 500,
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
       "slot": 0
     }
   ],
@@ -1101,6 +1106,11 @@
     },
     {
       "id": 6570,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 18899,
       "amount": 1,
       "slot": 0
     }
@@ -1300,14 +1310,14 @@
     0,
     0,
     0,
-    2705017,
+    2970560,
     27349,
     13644,
     0,
     2,
     0,
     0,
-    38,
+    47,
     0,
     2,
     0

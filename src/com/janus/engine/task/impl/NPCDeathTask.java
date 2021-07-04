@@ -13,6 +13,7 @@ import com.janus.world.content.KillsTracker;
 import com.janus.world.content.KillsTracker.KillsEntry;
 import com.janus.world.content.TrioBosses;
 import com.janus.world.content.WildyWyrmEvent;
+import com.janus.world.content.combat.DailyNPCTask;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.strategy.impl.KalphiteQueen;
 import com.janus.world.content.combat.strategy.impl.Nex;
@@ -204,6 +205,10 @@ public class NPCDeathTask extends Task {
         //respawn
         if (npc.getDefinition().getRespawnTime() > 0 && npc.getLocation() != Location.GRAVEYARD && npc.getLocation() != Location.DUNGEONEERING && npc.getLocation() != Location.INSTANCE_ARENA && npc.getLocation() != Location.BOSS_TIER_LOCATION && npc.getLocation() != Location.BARROWS) {
             TaskManager.submit(new NPCRespawnTask(npc, npc.getDefinition().getRespawnTime()));
+        }
+
+        if (npc.getId() == DailyNPCTask.CHOSEN_NPC_ID) {
+            DailyNPCTask.countPlayerKill(killer);
         }
 
         if (npc.getLocation() == Location.BARROWS) {

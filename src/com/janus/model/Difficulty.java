@@ -7,7 +7,7 @@ public enum Difficulty {
 
     Default(0, 0, ""),
     Easy(3, 0, "<col=00e62b>"),
-    Medium(0, 1, "<col=ad820a>"),
+    Medium(1, 1, "<col=ad820a>"),
     Hard(0.5, 2, "<col=f76472>"),
     Insane(0.25, 3, "<col=d81124>"),
     Zezima(0.1, 5, "<col=ff031b>"); //TODO change DR

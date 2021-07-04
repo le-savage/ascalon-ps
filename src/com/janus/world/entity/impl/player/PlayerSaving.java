@@ -56,6 +56,8 @@ public class PlayerSaving {
             object.add("position", builder.toJsonTree(player.getPosition()));
             object.addProperty("online-status", player.getRelations().getStatus().name());
             object.addProperty("given-starter", new Boolean(player.didReceiveStarter()));
+            object.addProperty("last-known-daily-task-npc", player.getCurrentDailyNPC());
+            object.addProperty("daily-NPC-task-kc", player.getCurrentDailyNPCKills());
             object.addProperty("has-played-new-barrows", new Boolean(player.isPlayedNewBarrows()));
             object.addProperty("has-used-boss-tier-tp", new Boolean(player.isUsedBossTeleport()));
             object.addProperty("should-give-boss-reward", new Boolean(player.isShouldGiveBossReward()));

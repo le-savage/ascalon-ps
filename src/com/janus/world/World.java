@@ -7,6 +7,7 @@ import com.janus.engine.task.TaskManager;
 import com.janus.model.PlayerRights;
 import com.janus.util.Misc;
 import com.janus.world.content.*;
+import com.janus.world.content.combat.DailyNPCTask;
 import com.janus.world.content.discord.DiscordMessenger;
 import com.janus.world.content.minigames.impl.FreeForAll;
 import com.janus.world.content.minigames.impl.PestControl;
@@ -201,6 +202,7 @@ public class World {
         // Then we execute post-updating code.
         players.forEach(playerUpdate::executePostUpdate);
         npcs.forEach(npcUpdate::executePostUpdate);
+        DailyNPCTask.dailyResetTask();
     }
 
     public static Queue<Player> getLoginQueue() {

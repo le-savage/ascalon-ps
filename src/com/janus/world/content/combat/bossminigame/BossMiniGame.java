@@ -7,6 +7,7 @@ import com.janus.model.Prayerbook;
 import com.janus.world.World;
 import com.janus.world.content.combat.prayer.CurseHandler;
 import com.janus.world.content.combat.prayer.PrayerHandler;
+import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.entity.impl.npc.NPC;
 import com.janus.world.entity.impl.player.Player;
 
@@ -133,6 +134,7 @@ public class BossMiniGame {
                 BossMinigameFunctions.setNewStats(player, statID[0], statID[1], statID[2], statID[3], statID[4], statID[5], statID[6]);
                 BossMinigameFunctions.setEquipment(player, gearID[0], gearID[1], gearID[2], gearID[3], gearID[4], gearID[5], gearID[6], gearID[7], gearID[8], gearID[9]);
                 BossMinigameFunctions.setInventory(player, inventory);
+                //ItemEffect.refreshEffects(player);
                 World.register(chosenBoss);
                 player.getRegionInstance().getNpcsList().addIfAbsent(chosenBoss);
                 player.forceChat("For wave "+ (wave+1) +" I'll be fighting " + chosenBoss.getDefinition().getName()+"!");

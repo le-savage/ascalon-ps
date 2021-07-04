@@ -42,7 +42,7 @@ public class ClanChatManager {
         return null;
     }
 
-    public static ClanChat getClanChatChannel(Player player) {
+    public static ClanChat getClanChatChannel(Player player) { //TODO FIX THE CRASH ERROR
         for (ClanChat clan : clans) {
             if (clan == null || clan.getOwnerName() == null)
                 continue;

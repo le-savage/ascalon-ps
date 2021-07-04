@@ -19,9 +19,9 @@ public class BossRewardChest {
 
     /** Default Chance Of Each Reward (Out of 100) **/
 
-    public static int chanceOfShitReward = 70;
-    public static int chanceOfMediumReward = 29;
-    public static int chanceOfRareReward = 1;
+    public static int chanceOfShitReward = 30;
+    public static int chanceOfMediumReward = 71;
+    public static int chanceOfRareReward = 99;
 
 
 
@@ -29,9 +29,9 @@ public class BossRewardChest {
     /** Here we apply some modifiers to increase the chance of winning a rare **/
 
     public static void getChances(Player player) {
-        chanceOfShitReward = 60;
-        chanceOfMediumReward = 35;
-        chanceOfRareReward = 5;
+        chanceOfShitReward = 30;//Needs to be over 30 to win (30%)
+        chanceOfMediumReward = 71;//Needs to be over 71 to win (29%)
+        chanceOfRareReward = 99;//Needs to be over 99 to win (1%)
 
         PlayerRights rights = player.getRights();
         int currentBossWave = player.getCurrentBossWave();
@@ -44,24 +44,24 @@ public class BossRewardChest {
             case PLAYER: //No change
                 break;
             case DONATOR:
-                chanceOfShitReward -= 2; //2% Decreased change of a shit reward
-                chanceOfMediumReward += 1; //1% Increased chance of medium reward
-                chanceOfRareReward += 1;//1% Increased chance of rare reward
+                chanceOfShitReward += 2; //2% Decreased change of a shit reward
+                chanceOfMediumReward -= 1; //1% Increased chance of medium reward
+                chanceOfRareReward -= 1;//1% Increased chance of rare reward
                 break;
             case SUPER_DONATOR:
-                chanceOfShitReward -= 3; //3% Decreased change of a shit reward
-                chanceOfMediumReward += 2; //2% Increased chance of medium reward
-                chanceOfRareReward += 2;//2% Increased chance of rare reward
+                chanceOfShitReward += 3; //3% Decreased change of a shit reward
+                chanceOfMediumReward -= 2; //2% Increased chance of medium reward
+                chanceOfRareReward -= 2;//2% Increased chance of rare reward
                 break;
             case EXTREME_DONATOR:
-                chanceOfShitReward -= 4; //4% Decreased change of a shit reward
-                chanceOfMediumReward += 3; //3% Increased chance of medium reward
-                chanceOfRareReward += 3;//3% Increased chance of rare reward
+                chanceOfShitReward += 4; //4% Decreased change of a shit reward
+                chanceOfMediumReward -= 3; //3% Increased chance of medium reward
+                chanceOfRareReward -= 3;//3% Increased chance of rare reward
                 break;
             case LEGENDARY_DONATOR:
-                chanceOfShitReward -= 5; //5% Decreased change of a shit reward
-                chanceOfMediumReward += 4; //4% Increased chance of medium reward
-                chanceOfRareReward += 4;//4% Increased chance of rare reward
+                chanceOfShitReward += 5; //5% Decreased change of a shit reward
+                chanceOfMediumReward -= 4; //4% Increased chance of medium reward
+                chanceOfRareReward -= 4;//4% Increased chance of rare reward
                 break;
             case UBER_DONATOR:
             case SUPPORT:
@@ -70,9 +70,9 @@ public class BossRewardChest {
             case DEVELOPER:
             case COMMUNITYMANAGER:
             case OWNER:
-                chanceOfShitReward -= 6; //6% Decreased change of a shit reward
-                chanceOfMediumReward += 5; //5% Increased chance of medium reward
-                chanceOfRareReward += 5;//5% Increased chance of rare reward
+                chanceOfShitReward += 6; //6% Decreased change of a shit reward
+                chanceOfMediumReward -= 5; //5% Increased chance of medium reward
+                chanceOfRareReward -= 5;//5% Increased chance of rare reward
                 break;
         }
 
@@ -81,10 +81,10 @@ public class BossRewardChest {
           also decreasing the chance to win a shit reward
          */
 
-        chanceOfShitReward -= currentBossWave*3; //3% Decreased change of a shit reward per wave
-        chanceOfMediumReward += currentBossWave*2; //2% Increased chance of medium reward per wave
-        chanceOfRareReward += currentBossWave;//1% Increased chance of rare reward per wave
-
+        chanceOfShitReward += currentBossWave*3; //3% Decreased change of a shit reward per wave
+        chanceOfMediumReward -= currentBossWave*2; //2% Increased chance of medium reward per wave
+        chanceOfRareReward -= currentBossWave;//1% Increased chance of rare reward per wave
+        System.out.println(player.getUsername() + " Shit Reward Chance:"+(100-chanceOfShitReward) +" Medium:"+(100-chanceOfMediumReward)+" Rare:"+(100-chanceOfRareReward));
     }
 
     /** This runs the code after the chest is clicked **/
@@ -120,13 +120,13 @@ public class BossRewardChest {
         if (player.getCurrentBossWave() <= 4) {
             DialogueManager.start(player, 179);
             player.getPacketSender().sendString(988, "It's time to decide!");
-            player.getPacketSender().sendString(989, "Chance this wave: Rare:@blu@" + chanceOfRareReward + "@bla@%, Medium:@blu@" + chanceOfMediumReward + "@bla@%, Crap:@blu@" + chanceOfShitReward + "@bla@%");
+            player.getPacketSender().sendString(989, "Chance this wave: Rare:@blu@" + (100-chanceOfRareReward) + "@bla@%, Medium:@blu@" + (100-chanceOfMediumReward) + "@bla@%, Crap:@blu@" + (100-chanceOfShitReward) + "@bla@%");
             player.setDialogueActionId(85);
         } else {
             DialogueManager.start(player, 182);
             player.getPacketSender().sendString(2460, "Good Job!");
             player.getPacketSender().sendString(2461, "Lets open this chest! My chances are below..");
-            player.getPacketSender().sendString(2462, "Chance this wave: Rare:@blu@" + chanceOfRareReward + "@bla@%, Medium:@blu@" + chanceOfMediumReward + "@bla@%, Crap:@blu@" + chanceOfShitReward + "@bla@%");
+            player.getPacketSender().sendString(2462, "Chance this wave: Rare:@blu@" + (100-chanceOfRareReward) + "@bla@%, Medium:@blu@" + (100-chanceOfMediumReward) + "@bla@%, Crap:@blu@" + (100-chanceOfShitReward) + "@bla@%");
             player.setDialogueActionId(86);
         }
     }

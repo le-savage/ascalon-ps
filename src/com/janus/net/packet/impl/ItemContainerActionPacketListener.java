@@ -40,6 +40,9 @@ public class ItemContainerActionPacketListener implements PacketListener {
         int interfaceId = packet.readShortA();
         int slot = packet.readShortA();
         int id = packet.readShortA();
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("First Action Interface used: " + interfaceId + " Slot: " + slot +" Item ID: "+id);
+        }
         Item item = new Item(id);
         switch (interfaceId) {
             case 32621:
@@ -198,6 +201,9 @@ public class ItemContainerActionPacketListener implements PacketListener {
         int interfaceId = packet.readLEShortA();
         int id = packet.readLEShortA();
         int slot = packet.readLEShort();
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("Second Action Interface used: " + interfaceId + " Slot: " + slot +" Item ID: "+id);
+        }
         Item item = new Item(id);
         switch (interfaceId) {
             case -31915:
@@ -315,6 +321,9 @@ public class ItemContainerActionPacketListener implements PacketListener {
         int interfaceId = packet.readLEShort();
         int id = packet.readShortA();
         int slot = packet.readShortA();
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("3rd Action Interface used: " + interfaceId + " Slot: " + slot +" Item ID: "+id);
+        }
         Item item1 = new Item(id);
         switch (interfaceId) {
             case 32621:
@@ -460,6 +469,9 @@ public class ItemContainerActionPacketListener implements PacketListener {
         int slot = packet.readShortA();
         int interfaceId = packet.readShort();
         int id = packet.readShortA();
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("4th Action Interface used: " + interfaceId + " Slot: " + slot +" Item ID: "+id);
+        }
         switch (interfaceId) {
             case 32621:
                 player.setInputHandling(new Input() {
@@ -579,6 +591,9 @@ public class ItemContainerActionPacketListener implements PacketListener {
         int slot = packet.readLEShort();
         int interfaceId = packet.readShortA();
         int id = packet.readLEShort();
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("5th Action Interface used: " + interfaceId + " Slot: " + slot +" Item ID: "+id);
+        }
         switch (interfaceId) {
             case Trading.INTERFACE_ID:
                 if (player.getTrading().inTrade()) {
@@ -673,6 +688,9 @@ public class ItemContainerActionPacketListener implements PacketListener {
         int interfaceId = packet.readShortA();
         int slot = packet.readShortA();
         int id = packet.readShortA();
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("6th Action Interface used: " + interfaceId + " Slot: " + slot +" Item ID: "+id);
+        }
         switch (interfaceId) {
             case Shop.INVENTORY_INTERFACE_ID:
                 if (player.isShopping()) {

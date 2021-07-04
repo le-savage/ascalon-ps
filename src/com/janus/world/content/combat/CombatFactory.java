@@ -129,7 +129,7 @@ public final class CombatFactory {
      * @param entity the entity to determine this for.
      * @return true if the player is wearing full karils.
      */
-    public static boolean fullKarils(Character entity) {
+    public static boolean fullKarils(Character entity) {//TODO Add buff
         return entity.isNpc() ? ((NPC) entity).getDefinition().getName().equals(
                 "Karil the Tainted")
                 : ((Player) entity).getEquipment().containsAll(4732, 4736, 4738,
@@ -142,7 +142,7 @@ public final class CombatFactory {
      * @param entity the entity to determine this for.
      * @return true if the player is wearing full ahrims.
      */
-    public static boolean fullAhrims(Character entity) {
+    public static boolean fullAhrims(Character entity) {//TODO Add buff
         return entity.isNpc() ? ((NPC) entity).getDefinition().getName().equals(
                 "Ahrim the Blighted")
                 : ((Player) entity).getEquipment().containsAll(4708, 4712, 4714,
@@ -155,7 +155,7 @@ public final class CombatFactory {
      * @param entity the entity to determine this for.
      * @return true if the player is wearing full torags.
      */
-    public static boolean fullTorags(Character entity) {
+    public static boolean fullTorags(Character entity) {//TODO Add buff
         return entity.isNpc() ? ((NPC) entity).getDefinition().getName().equals(
                 "Torag the Corrupted")
                 : ((Player) entity).getEquipment().containsAll(4745, 4749, 4751,
@@ -217,7 +217,7 @@ public final class CombatFactory {
      * @param player the player to determine for.
      * @return true if the player has arrows equipped.
      */
-    public static boolean arrowsEquipped(Player player) {
+    public static boolean arrowsEquipped(Player player) {//TODO Add buff
         Item item;
         if ((item = player.getEquipment().get(Equipment.AMMUNITION_SLOT)) == null) {
             return false;
@@ -235,7 +235,7 @@ public final class CombatFactory {
      * @param player the player to determine for.
      * @return true if the player has bolts equipped.
      */
-    public static boolean boltsEquipped(Player player) {
+    public static boolean boltsEquipped(Player player) {//TODO Add buff
         Item item;
         if ((item = player.getEquipment().get(Equipment.AMMUNITION_SLOT)) == null) {
             return false;

@@ -377,11 +377,11 @@ public class CombatFormulas {
      * @param player The player to calculate magic max hit for
      * @return The player's magic max hit damage
      */
-    public static int getMagicMaxhit(Character c) {
+    public static int getMagicMaxhit(Character c) { //TODO FIx magic
         int damage = 0;
         CombatSpell spell = c.getCurrentlyCasting();
         if (spell != null) {
-            System.out.println("Spell chosen: "+spell.toString() + " Max hit: "+spell.maximumHit());
+            //System.out.println("Spell chosen: "+spell.toString() + " Max hit: "+spell.maximumHit());
             if (spell.maximumHit() > 0)
                 damage += spell.maximumHit();
             else {

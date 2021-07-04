@@ -3,6 +3,7 @@ package com.janus.world.content.combat.bossminigame;
 import com.janus.GameSettings;
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
+import com.janus.engine.task.impl.PoisonImmunityTask;
 import com.janus.model.*;
 import com.janus.model.container.impl.Equipment;
 import com.janus.model.container.impl.Inventory;
@@ -147,7 +148,7 @@ public class BossMinigameFunctions {
 
     public static void despawnNpcs(Player player) {
         if (player.getLocation() == BOSS_TIER_LOCATION && !player.getRegionInstance().getNpcsList().isEmpty() && player.getRegionInstance() != null) {
-            System.out.println("DESPAWNING NPC'S FOR " + player.getUsername());
+            //System.out.println("DESPAWNING NPC'S FOR " + player.getUsername());
             player.getRegionInstance().getNpcsList().forEach(npc -> npc.removeInstancedNpcs(BOSS_TIER_LOCATION, player.getPosition().getZ()));
             player.getRegionInstance().getNpcsList().forEach(npc -> World.deregister(npc));
         }
@@ -176,6 +177,7 @@ public class BossMinigameFunctions {
         player.setPrayerbook(currentPrayerBook);
         player.getPacketSender().sendTabInterface(GameSettings.PRAYER_TAB, player.getPrayerbook().getInterfaceId());
         player.getPacketSender().sendTabInterface(GameSettings.MAGIC_TAB, player.getSpellbook().getInterfaceId());
+        PoisonImmunityTask.makeImmune(player, 0);
     }
 
     public static boolean shouldDespawnNPCs(Player player) {
@@ -189,12 +191,12 @@ public class BossMinigameFunctions {
     public static void destructBossTier(final Player player) {
 
         if (shouldDestroy(player)) {
-            System.out.println("DESTROYING INSTANCE FOR " + player.getUsername());
+           // System.out.println("DESTROYING INSTANCE FOR " + player.getUsername());
 
             int z = 0;
             Position nonInstance = new Position(doorX, doorY, z);
             player.moveTo(nonInstance);//Moves player to height 0
-            System.out.println("Sending " + player.getUsername() + " to height 0");
+            //System.out.println("Sending " + player.getUsername() + " to height 0");
         } else {
             int z = 0;
             Position nonInstance = new Position(doorX, doorY, z);
@@ -203,7 +205,7 @@ public class BossMinigameFunctions {
 
 
         if (shouldDespawnNPCs(player)) {
-            System.out.println("DESPAWNING NPC'S FOR " + player.getUsername());
+            //System.out.println("DESPAWNING NPC'S FOR " + player.getUsername());
             player.getRegionInstance().getNpcsList().forEach(npc -> npc.removeInstancedNpcs(BOSS_TIER_LOCATION, player.getPosition().getZ()));
             player.getRegionInstance().getNpcsList().forEach(npc -> World.deregister(npc));
         }

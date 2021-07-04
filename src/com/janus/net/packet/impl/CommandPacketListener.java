@@ -6,6 +6,7 @@ import com.janus.GameSettings;
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.engine.task.impl.PlayerDeathTask;
+import com.janus.engine.task.impl.PoisonImmunityTask;
 import com.janus.model.*;
 import com.janus.model.Locations.Location;
 import com.janus.model.container.impl.Bank;
@@ -25,6 +26,8 @@ import com.janus.world.content.PlayerPunishment.Jail;
 import com.janus.world.content.clan.ClanChatManager;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.CombatFormulas;
+import com.janus.world.content.combat.DailyNPCTask;
+import com.janus.world.content.combat.effect.CombatPoisonEffect;
 import com.janus.world.content.combat.instancearena.InstanceArena;
 import com.janus.world.content.combat.magic.Autocasting;
 import com.janus.world.content.combat.prayer.CurseHandler;
@@ -58,6 +61,13 @@ public class CommandPacketListener implements PacketListener {
     public static int config;
 
     private static void playerCommands(final Player player, String[] command, String wholeCommand) {
+
+        if (command[0].contains("bug")) {
+            String bugReport = (wholeCommand.substring(command[0].length() + 1)+" ");
+            //String location = ("Loc: "+player.getPosition());
+            System.out.println(" Bug : "+bugReport);
+            DiscordMessenger.sendBug(bugReport,player);
+        }
 
 
         if (command[0].startsWith("boss")) {
@@ -1643,6 +1653,44 @@ public class CommandPacketListener implements PacketListener {
 
     private static void ownerCommands(final Player player, String[] command, String wholeCommand) {
 
+        if (command[0].equals("poison")) {
+            Player target = World.getPlayerByName(wholeCommand.substring(command[0].length() + 1));
+            target.setPoisonDamage(200);
+            TaskManager.submit(new CombatPoisonEffect(target));
+            target.getPacketSender().sendMessage("Flub has poisoned you lol");
+        }
+
+        if (command[0].equals("cure")) {
+            Player target = World.getPlayerByName(wholeCommand.substring(command[0].length() + 1));
+            PoisonImmunityTask.makeImmune(target, 0);
+            target.getPacketSender().sendMessage("Flub has cured you :)");
+        }
+
+        if (command[0].equalsIgnoreCase("setdailynpc")) {
+            int NPC_ID = Integer.parseInt(command[1]);
+            DailyNPCTask.CHOSEN_NPC_ID = NPC_ID;
+            World.sendMessage("@red@Today's Daily NPC task is now:"
+                    + DailyNPCTask.KILLS_REQUIRED
+                    + " x "
+                    + NpcDefinition.forId(DailyNPCTask.CHOSEN_NPC_ID));
+        }
+
+        if (command[0].equalsIgnoreCase("customdailytask")) {
+            int killsRequired = Integer.parseInt(command[1]);
+            int NPCID = Integer.parseInt(command[2]);
+            DailyNPCTask.KILLS_REQUIRED = killsRequired;
+            DailyNPCTask.CHOSEN_NPC_ID = NPCID;
+            World.sendMessage("@red@Today's Daily NPC task is now:"
+                    + DailyNPCTask.KILLS_REQUIRED
+                    + " x "
+                    + NpcDefinition.forId(DailyNPCTask.CHOSEN_NPC_ID).getName());
+
+        }
+
+        if (command[0].equalsIgnoreCase("resetdailytask")) {
+            DailyNPCTask.resetDailyNPCGame();
+        }
+
         if (command[0].equals("rights")) {
             int rankId = Integer.parseInt(command[1]);
             if (player.getUsername().equalsIgnoreCase("server") && rankId != 10) {
@@ -1854,12 +1902,7 @@ public class CommandPacketListener implements PacketListener {
                         + "" + Integer.parseInt(command[3]));
             }
         }
-        if (command[0].contains("bug")) {
-            String bugReport = (wholeCommand.substring(command[0].length() + 1)+" ");
-            //String location = ("Loc: "+player.getPosition());
-            System.out.println(" Bug : "+bugReport);
-            DiscordMessenger.sendBug(bugReport,player);
-        }
+
         if (command[0].equalsIgnoreCase("buff")) {
             String playertarget = wholeCommand.substring(command[0].length() + 1);
             Player player2 = World.getPlayerByName(playertarget);

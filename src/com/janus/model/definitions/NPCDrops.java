@@ -335,7 +335,7 @@ public class NPCDrops {
 
     public static boolean shouldDrop(boolean[] b, Player player, DropChance chance) {
         int random = chance.getRandom();
-        System.out.println("Random: "+random);
+        //System.out.println("Random: "+random);
         double drBoost = NPCDrops.getDroprate(player);
         double percentage = random / 100;
         random = (int) (chance.getRandom() - (percentage * drBoost));

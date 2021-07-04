@@ -16,6 +16,7 @@ import com.janus.util.Misc;
 import com.janus.world.World;
 import com.janus.world.content.*;
 import com.janus.world.content.clan.ClanChatManager;
+import com.janus.world.content.combat.DailyNPCTask;
 import com.janus.world.content.combat.effect.CombatPoisonEffect;
 import com.janus.world.content.combat.effect.CombatTeleblockEffect;
 import com.janus.world.content.combat.magic.Autocasting;
@@ -243,6 +244,13 @@ public class PlayerHandler {
         }
 
         PlayerLogs.log(player.getUsername(), "Login from IP: " + player.getHostAddress() + ", Mac: " + player.getMac() + ", UUID: " + player.getUUID());
+
+        if (DailyNPCTask.CHOSEN_NPC_ID != 0) {
+            player.getPacketSender().sendMessage("@red@Today's Daily NPC task is :"
+                    + DailyNPCTask.KILLS_REQUIRED
+                    + " x "
+                    + NpcDefinition.forId(DailyNPCTask.CHOSEN_NPC_ID).getName());
+        }
     }
 
     public static boolean handleLogout(Player player) {

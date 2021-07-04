@@ -4,6 +4,7 @@ import com.janus.model.Item;
 import com.janus.model.container.ItemContainer;
 import com.janus.model.container.StackType;
 import com.janus.model.definitions.ItemDefinition;
+import com.janus.world.content.combat.weapon.effects.impl.weapon.ItemEffect;
 import com.janus.world.entity.impl.player.Player;
 
 /**
@@ -36,6 +37,7 @@ public class Equipment extends ItemContainer {
     @Override
     public ItemContainer refreshItems() {
         getPlayer().getPacketSender().sendItemContainer(this, INVENTORY_INTERFACE_ID);
+        ItemEffect.refreshEffects(getPlayer());
         return this;
     }
 

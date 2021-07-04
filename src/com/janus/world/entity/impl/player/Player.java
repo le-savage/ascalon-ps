@@ -1338,6 +1338,14 @@ public class Player extends Character {
         return moneyInPouch > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) moneyInPouch;
     }
 
+    /** Daily NPC Task Game **/
+    @Getter
+    @Setter
+    public int currentDailyNPC = 0;//Used to save the last task the player participated in. If it doesn't match the current server task, reset KC.
+    @Getter
+    @Setter
+    public int currentDailyNPCKills = 0;//Counts the current Kills.
+
     public boolean experienceLocked() {
         return experienceLocked;
     }

@@ -3,6 +3,7 @@ package com.janus.world.content.combat.instancearena;
 import com.janus.engine.task.Task;
 import com.janus.engine.task.TaskManager;
 import com.janus.engine.task.impl.NPCDeathTask;
+import com.janus.engine.task.impl.PoisonImmunityTask;
 import com.janus.model.*;
 import com.janus.world.World;
 import com.janus.world.content.combat.weapon.CombatSpecial;
@@ -109,7 +110,6 @@ public class InstanceArena {
         restoreHP(player);
         restoreSpec(player);
         restoreStats(player);
-        player.setPoisonImmunity(1);
     }
 
 
@@ -831,6 +831,7 @@ public class InstanceArena {
             player.getRegionInstance().getNpcsList().forEach(npc -> World.deregister(npc));
             player.getRegionInstance().destruct();
             restore(player);
+            PoisonImmunityTask.makeImmune(player, 0);
         }
     }
 }

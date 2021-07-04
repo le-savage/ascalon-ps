@@ -77,6 +77,9 @@ public class ItemActionPacketListener implements PacketListener {
             return;
         if (SummoningData.isPouch(player, itemId, 2))
             return;
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("Second Action Item used: " + itemId + " Slot: " + slot);
+        }
         switch (itemId) {
             case 6500:
                 if (player.getCombatBuilder().isAttacking() || player.getCombatBuilder().isBeingAttacked()) {
@@ -215,6 +218,9 @@ public class ItemActionPacketListener implements PacketListener {
         int itemId = packet.readShortA();
         int slot = packet.readLEShortA();
         int interfaceId = packet.readLEShortA();
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("Third Click Item used: " + itemId + " Slot: " + slot);
+        }
         if (slot < 0 || slot > player.getInventory().capacity())
             return;
         if (player.getInventory().getItems()[slot].getId() != itemId)
@@ -319,6 +325,9 @@ public class ItemActionPacketListener implements PacketListener {
         int interfaceId = packet.readUnsignedShort();
         int slot = packet.readShort();
         int itemId = packet.readShort();
+        if (player.getRights() == PlayerRights.OWNER) {
+            player.getPacketSender().sendMessage("First Action Item used: " + itemId + " Slot: " + slot + " Interface "+interfaceId);
+        }
 
         Location targetLocation = player.getLocation();
 

@@ -110,6 +110,13 @@ public class PlayerLoading {
             if (reader.has("given-starter")) {
                 player.setReceivedStarter(reader.get("given-starter").getAsBoolean());
             }
+            if (reader.has("last-known-daily-task-npc")) {
+                player.setCurrentDailyNPC(reader.get("last-known-daily-task-npc").getAsInt());
+            }
+
+            if (reader.has("daily-NPC-task-kc")) {
+                player.setCurrentDailyNPCKills(reader.get("daily-NPC-task-kc").getAsInt());
+            }
             if (reader.has("has-played-new-barrows")) {
                 player.setPlayedNewBarrows(reader.get("has-played-new-barrows").getAsBoolean());
             }

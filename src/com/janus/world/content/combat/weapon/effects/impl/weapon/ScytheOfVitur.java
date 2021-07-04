@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ScytheOfVitur extends ItemEffect {
+public class ScytheOfVitur extends ItemEffect { //TODO rewrite this and remove item effects
     @Override
     public int itemId() {
         return 18899;
@@ -45,8 +45,10 @@ public class ScytheOfVitur extends ItemEffect {
 
     @Override
     public void handleAttack(Character attacker, Character victim) {
+
         AtomicInteger attacked = new AtomicInteger();
-        if (hitAmount(attacker, victim) > 1) {
+        System.out.println(hitAmount(attacker,victim));
+        if (hitAmount(attacker, victim) > 2) {
             victim.dealDamage(attacker.getAsPlayer(), new Hit(Misc.random(CombatFormulas.calculateMaxMeleeHit(attacker, victim)), Hitmask.RED, CombatIcon.MELEE));
         }
         targets(attacker, victim).forEach(target -> {
