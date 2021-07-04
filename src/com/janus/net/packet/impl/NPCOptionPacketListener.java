@@ -147,17 +147,8 @@ public class NPCOptionPacketListener implements PacketListener {
                         break;
 
                     case 37:
-                        if (player.getGameMode() != GameMode.NORMAL || player.getRights() == PlayerRights.OWNER) {
-                            ShopManager.getShops().get(54).open(player);
-                            player.getPacketSender().sendRichPresenceState("Viewing Ironman Store!");
-                            player.getPacketSender().sendSmallImageKey("trade");
-                        } else {
-                            player.getPacketSender().sendMessage("Only Ironmen are worthy of shopping here!");
-                        }
+                        ShopManager.getShops().get(54).open(player);
                         break;
-
-
-
 
                     case 278:
                         ShopManager.getShops().get(6).open(player);
@@ -287,6 +278,7 @@ public class NPCOptionPacketListener implements PacketListener {
                     case 650:
                         ShopManager.getShops().get(35).open(player);
                         break;
+
                     case 6055:
                     case 6056:
                     case 6057:
@@ -455,6 +447,10 @@ public class NPCOptionPacketListener implements PacketListener {
             @Override
             public void execute() {
                 switch (npc.getId()) {
+
+                    case 4905:
+                        ShopManager.getShops().get(80).open(player);
+                        break;
 
                     case 212:
                         player.getPacketSender().sendRichPresenceState("Viewing Donator Store!");
@@ -697,13 +693,7 @@ public class NPCOptionPacketListener implements PacketListener {
                         ShopManager.getShops().get(52).open(player);
                         break;
                     case 37:
-                        if (player.getGameMode() != GameMode.NORMAL || player.getRights() == PlayerRights.OWNER) {
                             ShopManager.getShops().get(57).open(player);
-                            player.getPacketSender().sendRichPresenceState("Viewing Ironman Store!");
-                            player.getPacketSender().sendSmallImageKey("trade");
-                        } else {
-                            player.getPacketSender().sendMessage("Only Ironmen are worthy of shopping here!");
-                        }
                         break;
                     case 853:
                         player.getPacketSender().sendMessage("You're a freak..");

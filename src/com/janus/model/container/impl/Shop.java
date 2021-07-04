@@ -194,7 +194,13 @@ public class Shop extends ItemContainer {
         boolean customShop = getCurrency().getId() == -1;
         boolean usePouch = false;
         int playerCurrencyAmount = 0;
-        int value = ItemDefinition.forId(item.getId()).getValue();
+        int value = ItemDefinition.forId(item.getId()).getValue(); //Value!!!!!
+
+        if (id == SMITHING_SUPPLIES_STORE) {
+            value *= 100;
+            System.out.println("Value was:" + value/100+ "New Value x10 = "+value);
+        }
+
         String currencyName = "";
         if (getCurrency().getId() != -1) {
             playerCurrencyAmount = player.getInventory().getAmount(currency.getId());
@@ -500,6 +506,7 @@ public class Shop extends ItemContainer {
     private static final int GAMBLING_STORE = 41;
     private static final int DUNGEONEERING_STORE = 44;
     private static final int SLAYER_STORE = 47;
+    private static final int SMITHING_SUPPLIES_STORE = 80;
     private final int id;
     private String name;
     private Item currency;
@@ -582,10 +589,15 @@ public class Shop extends ItemContainer {
         }
 
         int finalValue = 0;
+
         String finalString = sellingItem ? "" + ItemDefinition.forId(item.getId()).getName() + ": shop will buy for "
                 : "" + ItemDefinition.forId(shopItem.getId()).getName() + " currently costs ";
         if (getCurrency().getId() != -1) {
             finalValue = ItemDefinition.forId(item.getId()).getValue();
+            if (id == SMITHING_SUPPLIES_STORE) {
+                finalValue *= 100;
+                System.out.println("Value x10");
+            }
             String s = currency.getDefinition().getName().toLowerCase().endsWith("s")
                     ? currency.getDefinition().getName().toLowerCase()
                     : currency.getDefinition().getName().toLowerCase() + "s";
@@ -598,13 +610,13 @@ public class Shop extends ItemContainer {
                 finalValue = (int) obj[0];
                 s = (String) obj[1];
             }
-            if (sellingItem) {
+            if (sellingItem) { //This is if player is selling item
                 if (finalValue != 1) {
                     finalValue = (int) (finalValue * 0.85);
                 }
             }
             finalString += "" + (int) finalValue + " " + s + "" + shopPriceEx((int) finalValue) + ".";
-        } else {
+        } else { // This is if the player is buying the item
             Object[] obj = ShopManager.getCustomShopData(id, item.getId());
             if (obj == null)
                 return;

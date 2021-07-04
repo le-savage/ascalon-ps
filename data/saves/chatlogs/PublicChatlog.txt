@@ -32,3 +32,10 @@
 [6/30/21 08:34AM]	[PUBLIC]: Flub:  tbb2 a	
 [6/30/21 08:34AM]	[PUBLIC]: Flub:  tbb1 a	
 [6/30/21 08:34AM]	[PUBLIC]: Flub:  tbsm a 	
+[7/3/21 12:26AM]	[PUBLIC]: Marty:  ))item 995 10k	
+[7/3/21 12:26AM]	[PUBLIC]: Marty: its working	
+[7/3/21 12:26AM]	[PUBLIC]: Marty: but value in stirng is wrong 	
+[7/3/21 12:28AM]	[PUBLIC]: Marty: fuck yae	
+[7/3/21 12:28AM]	[PUBLIC]: Marty: lololo	
+[7/3/21 12:28AM]	[PUBLIC]: Marty: works 	
+[7/3/21 12:29AM]	[PUBLIC]: Marty: niceee 	
