@@ -100,30 +100,21 @@ public class CombatHookTask extends Task {
                             Sounds.specialSounds(player.getEquipment().get(Equipment.WEAPON_SLOT).getId()));
 
                     if (player.getCombatSpecial().getCombatType() == CombatType.RANGED) {
+
                         if (player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12926) {
                             if (player.getBlowpipeLoading().getContents().isEmpty()) {
                                 return;
                             }
                         }
-                        DefaultRangedCombatStrategy.decrementAmmo(player, builder.getVictim().getPosition());
-                        if (CombatFactory.darkBow(player)
-                                || player.getRangedWeaponData() == RangedWeaponData.MAGIC_SHORTBOW
-                                && magicShortbowSpec) {
-                            DefaultRangedCombatStrategy.decrementAmmo(player, builder.getVictim().getPosition());
-                        }
-                    }
-                    if (player.getCombatSpecial().getCombatType() == CombatType.RANGED) {
+
                         if (player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12927) {
                             if (player.getBlowpipeLoading().getContents().isEmpty()) {
                                 return;
                             }
                         }
+
                         DefaultRangedCombatStrategy.decrementAmmo(player, builder.getVictim().getPosition());
-                        if (CombatFactory.darkBow(player)
-                                || player.getRangedWeaponData() == RangedWeaponData.MAGIC_SHORTBOW
-                                && magicShortbowSpec) {
-                            DefaultRangedCombatStrategy.decrementAmmo(player, builder.getVictim().getPosition());
-                        }
+
                     }
                 }
             }

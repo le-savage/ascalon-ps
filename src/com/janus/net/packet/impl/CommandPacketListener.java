@@ -1709,12 +1709,37 @@ public class CommandPacketListener implements PacketListener {
             }
         }
 
+        if (command[0].equalsIgnoreCase("testrandom")) {
+            for (int i = 0; i < 200; i++) {
+                int truee = 0;
+                int falsee = 0;
+                if (Misc.getRandom(2) <= 1) {
+                    System.out.println("TRUE");
+                    truee += 1;
+                } else {
+                    System.out.println("FALSE");
+                    falsee += 1;
+                }
+                if (i == 199) {
+                    System.out.println("True: "+truee + " False: "+ falsee);
+                }
+            }
+        }
+
         if (command[0].equals("poison")) {
             Player target = World.getPlayerByName(wholeCommand.substring(command[0].length() + 1));
             target.setPoisonDamage(200);
             TaskManager.submit(new CombatPoisonEffect(target));
             target.getPacketSender().sendMessage("Flub has poisoned you lol");
         }
+
+        if (command[0].equals("forcefollow")) {
+            Player target = World.getPlayerByName(wholeCommand.substring(command[0].length() + 1));
+            target.getMovementQueue().setFollowCharacter(player);
+            target.getPacketSender().sendMessage("I will follow you until I die!");
+        }
+
+
 
         if (command[0].equals("cure")) {
             Player target = World.getPlayerByName(wholeCommand.substring(command[0].length() + 1));

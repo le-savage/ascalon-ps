@@ -1,5 +1,5 @@
 {
-  "total-play-time-ms": 112727843,
+  "total-play-time-ms": 114799575,
   "username": "Flub",
   "password": "HodgeTwins1",
   "email": "null",
@@ -10,12 +10,14 @@
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2720,
-    "y": 5325,
+    "x": 2727,
+    "y": 5343,
     "z": 0
   },
   "online-status": "ON",
   "given-starter": true,
+  "last-known-daily-task-npc": 2,
+  "daily-NPC-task-kc": 1,
   "has-played-new-barrows": true,
   "has-used-boss-tier-tp": true,
   "should-give-boss-reward": false,
@@ -23,18 +25,18 @@
   "barrows-kc": 0,
   "money-pouch": 1900351383,
   "donated": 10,
-  "next-reward": 1625265000913,
-  "reward-day": 2,
+  "next-reward": 1625666341006,
+  "reward-day": 3,
   "claimed-todays-reward": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 2000,
-  "total-gained-exp": 18251492,
+  "total-gained-exp": 24683118,
   "prestige-points": 0,
-  "achievement-points": 15,
+  "achievement-points": 16,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 13125008,
-  "total-loyalty-points": 1.3125008E7,
+  "loyalty-points": 13534008,
+  "total-loyalty-points": 1.3534008E7,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -59,8 +61,8 @@
   "auto-retaliate": false,
   "xp-locked": false,
   "veng-cast": false,
-  "last-veng": 1624573478498,
-  "fight-type": "UNARMED_KICK",
+  "last-veng": 1624576648827,
+  "fight-type": "SHORTBOW_RAPID",
   "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
@@ -71,7 +73,7 @@
   "fire-damage-mod": 0,
   "prayer-renewal-timer": 0,
   "teleblock-timer": 0,
-  "special-amount": 100,
+  "special-amount": 560,
   "entered-gwd-room": true,
   "gwd-altar-delay": 0,
   "gwd-killcount": [
@@ -228,6 +230,13 @@
       "npcName": "Torag the Corrupted",
       "amount": 2,
       "boss": false
+    },
+    {
+      "runningTotal": 1,
+      "npcId": 2,
+      "npcName": "Man",
+      "amount": 6,
+      "boss": true
     }
   ],
   "drops": [
@@ -655,6 +664,16 @@
       "item": 1624,
       "amount": 150,
       "rareDrop": false
+    },
+    {
+      "item": 526,
+      "amount": 6,
+      "rareDrop": false
+    },
+    {
+      "item": 882,
+      "amount": 7,
+      "rareDrop": false
     }
   ],
   "coins-gambled": 0,
@@ -773,13 +792,13 @@
   ],
   "skills": {
     "level": [
-      14984,
-      14984,
-      14984,
-      149189,
-      14984,
+      14945,
+      14945,
+      14945,
+      149149,
+      14945,
       150000,
-      14984,
+      14945,
       120,
       120,
       120,
@@ -830,8 +849,8 @@
       104528618,
       104528618,
       117816083,
-      107916571,
-      104273167,
+      109240697,
+      109380667,
       104273167,
       104273167,
       104273167,
@@ -941,43 +960,43 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 11850,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 12926,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 11212,
+      "amount": 100,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 881,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 438,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 892,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 11235,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1440,
+      "amount": 1,
       "slot": 0
     },
     {
@@ -1013,8 +1032,8 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 861,
+      "amount": 1,
       "slot": 0
     },
     {
@@ -1063,8 +1082,8 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 892,
+      "amount": 38,
       "slot": 0
     }
   ],
@@ -1215,7 +1234,7 @@
     false,
     false,
     true,
-    false,
+    true,
     false,
     true,
     false,
@@ -1289,7 +1308,7 @@
     0,
     0,
     99955,
-    27349,
+    98118,
     13644,
     0,
     0,
@@ -1311,13 +1330,13 @@
     0,
     0,
     2970560,
-    27349,
+    973186,
     13644,
     0,
     2,
     0,
     0,
-    47,
+    53,
     0,
     2,
     0

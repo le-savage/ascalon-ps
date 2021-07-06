@@ -41,31 +41,13 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
      * @param player the player to decrement ammo for.
      */
     public static void decrementAmmo(Player player, Position pos) {
-
-        if (player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12926) {
-            if (!player.getBlowpipeLoading().getContents().isEmpty()) {
-                for (Entry<Integer> dart : player.getBlowpipeLoading().getContents().entrySet()) {
-                    player.getBlowpipeLoading().getContents().remove(dart.getElement());
-                    return;
-                }
-            } else {
-                player.getPacketSender().sendMessage("You have run out of ammunition!");
-                player.getCombatBuilder().reset(true);
-                return;
-            }
-        }
-        if (player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12927) {
-            if (!player.getBlowpipeLoading().getContents().isEmpty()) {
-                for (Entry<Integer> dart : player.getBlowpipeLoading().getContents().entrySet()) {
-                    player.getBlowpipeLoading().getContents().remove(dart.getElement());
-                    return;
-                }
-            } else {
-                player.getPacketSender().sendMessage("You have run out of ammunition!");
-                player.getCombatBuilder().reset(true);
-                return;
-            }
-        }
+        /** Bools to store equipment values **/
+        final boolean avas = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 10499;
+        final boolean comp = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 14022;
+        final boolean max = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 14019;
+        final boolean vet = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 14021;
+        final boolean mast = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 21018;
+        final boolean dBow = CombatFactory.darkBow(player);
 
         // Determine which slot we are decrementing ammo from.
         int slot = player.getWeapon() == WeaponInterface.SHORTBOW || player.getWeapon() == WeaponInterface.LONGBOW
@@ -74,30 +56,64 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
         // Set the ammo we are currently using.
         player.setFireAmmo(player.getEquipment().get(slot).getId());
 
-        final boolean avas = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 10499;
-        final boolean comp = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 14022;
-        final boolean max = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 14019;
-        final boolean vet = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 14021;
-        final boolean mast = player.getEquipment().get(Equipment.CAPE_SLOT).getId() == 21018;
-
-        if (avas || comp || max || vet || mast && Misc.getRandom(2) <= 1)
+        if (player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12926) { //Blowpipe
+            if (!player.getBlowpipeLoading().getContents().isEmpty()) {
+                for (Entry<Integer> dart : player.getBlowpipeLoading().getContents().entrySet()) {
+                    player.getBlowpipeLoading().getContents().remove(dart.getElement());
+                    return;
+                }
+            } else {
+                player.getPacketSender().sendMessage("You have run out of ammunition!");
+                player.getCombatBuilder().reset(true);
                 return;
+            }
+        }
 
-        // Spawn the arrow on the floor
-            GroundItemManager.spawnGroundItem(player,
-                    new GroundItem(new Item(player.getFireAmmo()), pos, player.getUsername(),
-                            false, 120, true, 120));
+        if (player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12927) { //Blowpipe
+            if (!player.getBlowpipeLoading().getContents().isEmpty()) {
+                for (Entry<Integer> dart : player.getBlowpipeLoading().getContents().entrySet()) {
+                    player.getBlowpipeLoading().getContents().remove(dart.getElement());
+                    return;
+                }
+            } else {
+                player.getPacketSender().sendMessage("You have run out of ammunition!");
+                player.getCombatBuilder().reset(true);
+                return;
+            }
+        }
+
+        if ((avas || comp || max || vet || mast) && Misc.getRandom(2) <= 1) { //Save arrow method
+            System.out.println("Arrow saved");
+            return;
+        }
 
         // If we are at 0 ammo remove the item from the equipment completely.
         if (player.getEquipment().get(slot).getAmount() == 0) {
             player.getPacketSender().sendMessage("You have run out of ammunition!");
             player.getEquipment().set(slot, new Item(-1));
+            player.getCombatBuilder().reset(true);
 
             if (slot == Equipment.WEAPON_SLOT) {
                 WeaponInterfaces.assign(player, new Item(-1));
             }
             player.getUpdateFlag().flag(Flag.APPEARANCE);
         }
+
+
+        if (dBow || player.isSpecialActivated() && player.getCombatSpecial() != null
+                && player.getCombatSpecial() == CombatSpecial.MAGIC_SHORTBOW || player.getCombatSpecial() == CombatSpecial.MAGIC_LONGBOW) {
+            player.getEquipment().set(slot, new Item(player.getFireAmmo(), player.getEquipment().get(slot).getAmount()-2)); //Removes the ammo
+            GroundItemManager.spawnGroundItem(player,
+                    new GroundItem(new Item(player.getFireAmmo(), 2), pos, player.getUsername(),
+                            false, 120, true, 120));
+
+        } else {
+            player.getEquipment().set(slot, new Item(player.getFireAmmo(), player.getEquipment().get(slot).getAmount()-1)); //Removes the ammo
+            GroundItemManager.spawnGroundItem(player,
+                    new GroundItem(new Item(player.getFireAmmo()), pos, player.getUsername(),
+                            false, 120, true, 120));
+        }
+
 
         // Refresh the equipment interface.
         player.getEquipment().refreshItems();
@@ -211,22 +227,18 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
 
         AmmunitionData ammo = RangedWeaponData.getAmmunitionData(player);
 
-        if (!player.isSpecialActivated()) {
-            if (!CombatFactory.crystalBow(player)) {
-                decrementAmmo(player, victim.getPosition());
-                if (dBow || player.getRangedWeaponData() == RangedWeaponData.MAGIC_SHORTBOW
-                        && player.isSpecialActivated() && player.getCombatSpecial() != null
-                        && player.getCombatSpecial() == CombatSpecial.MAGIC_SHORTBOW) {
-                    decrementAmmo(player, victim.getPosition());
-                }
-            }
-            if ((player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12926) || (player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12927))
-                ;
+        if (!player.isSpecialActivated() && !CombatFactory.crystalBow(player)) {
+
+            fireProjectile(player, victim, ammo, dBow);
+            decrementAmmo(player, victim.getPosition());
+
+
+            if ((player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12926) || (player.getEquipment().get(Equipment.WEAPON_SLOT).getId() == 12927));
             new Graphic(ammo.getStartGfxId(), GraphicHeight.LOW);
             player.performGraphic(new Graphic(ammo.getStartGfxId(), ammo.getStartGfxId() == 2138 ? GraphicHeight.LOW
                     : ammo.getStartHeight() >= 43 ? GraphicHeight.HIGH : GraphicHeight.MIDDLE));
 
-            fireProjectile(player, victim, ammo, dBow);
+
         }
 
         CombatContainer container = new CombatContainer(entity, victim, dBow ? 2 : 1, CombatType.RANGED, true);
