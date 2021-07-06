@@ -82,7 +82,7 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
             }
         }
 
-        if ((avas || comp || max || vet || mast) && Misc.getRandom(2) <= 1) { //Save arrow method
+        if ((avas || comp || max || vet || mast) && Misc.getRandom(2) <= 1) { //Save arrow method 75%
             System.out.println("Arrow saved");
             return;
         }
@@ -99,19 +99,42 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
             player.getUpdateFlag().flag(Flag.APPEARANCE);
         }
 
+        int distance = player.getPosition().getDistance(pos); //Work out how long the item should take to show up on the ground
+        if (distance > 2) //If we're further than 2 spaces, set a cap at 2
+            distance = 2;
+
 
         if (dBow || player.isSpecialActivated() && player.getCombatSpecial() != null
                 && player.getCombatSpecial() == CombatSpecial.MAGIC_SHORTBOW || player.getCombatSpecial() == CombatSpecial.MAGIC_LONGBOW) {
+
             player.getEquipment().set(slot, new Item(player.getFireAmmo(), player.getEquipment().get(slot).getAmount()-2)); //Removes the ammo
-            GroundItemManager.spawnGroundItem(player,
-                    new GroundItem(new Item(player.getFireAmmo(), 2), pos, player.getUsername(),
-                            false, 120, true, 120));
+
+            TaskManager.submit(new Task(distance, player, false) {
+
+                @Override
+                protected void execute() {
+                    GroundItemManager.spawnGroundItem(player,
+                            new GroundItem(new Item(player.getFireAmmo(), 2), pos, player.getUsername(),
+                                    false, 120, true, 120));
+
+                    stop();
+                }
+            });
 
         } else {
             player.getEquipment().set(slot, new Item(player.getFireAmmo(), player.getEquipment().get(slot).getAmount()-1)); //Removes the ammo
-            GroundItemManager.spawnGroundItem(player,
-                    new GroundItem(new Item(player.getFireAmmo()), pos, player.getUsername(),
-                            false, 120, true, 120));
+            TaskManager.submit(new Task(distance, player, false) {
+
+                @Override
+                protected void execute() {
+                    GroundItemManager.spawnGroundItem(player,
+                            new GroundItem(new Item(player.getFireAmmo(), 1), pos, player.getUsername(),
+                                    false, 120, true, 120));
+
+                    stop();
+                }
+            });
+
         }
 
 

@@ -68,64 +68,10 @@ public abstract class Spell {
             // We've made it through the checks, so we have the items and can
             // remove them now.
             if (delete) {
-                if (player.getRights() == PlayerRights.DONATOR) {
-                    if (Misc.getRandom(25) == 5) {
-
-                    } else {
-                        for (Item it : Arrays.asList(items)) {
-                            if (it != null)
-                                player.getInventory().delete(it);
-                        }
-                    }
-                }
-                if (player.getRights() == PlayerRights.SUPER_DONATOR || player.getRights() == PlayerRights.SUPPORT) {
-                    if (Misc.getRandom(20) == 5) {
-
-                    } else {
-                        for (Item it : Arrays.asList(items)) {
-                            if (it != null)
-                                player.getInventory().delete(it);
-                        }
-                    }
-                }
-                if (player.getRights() == PlayerRights.EXTREME_DONATOR || player.getRights() == PlayerRights.MODERATOR) {
-                    if (Misc.getRandom(15) == 5) {
-
-                    } else {
-                        for (Item it : Arrays.asList(items)) {
-                            if (it != null)
-                                player.getInventory().delete(it);
-                        }
-                    }
-                }
-                if (player.getRights() == PlayerRights.LEGENDARY_DONATOR || player.getRights() == PlayerRights.ADMINISTRATOR) {
-                    if (Misc.getRandom(10) == 5) {
-
-                    } else {
-                        for (Item it : Arrays.asList(items)) {
-                            if (it != null)
-                                player.getInventory().delete(it);
-                        }
-                    }
-                }
-                if ((player.getRights() == PlayerRights.UBER_DONATOR) || player.getUsername().equalsIgnoreCase("Zodiac")) {
-                    if (Misc.getRandom(5) == 3) {
-
-                    } else {
-                        for (Item it : Arrays.asList(items)) {
-                            if (it != null)
-                                player.getInventory().delete(it);
-                        }
-                    }
-                }
-                if (player.getRights() == PlayerRights.PLAYER) {
                     for (Item it : Arrays.asList(items)) {
-                        if (it != null)
-                            player.getInventory().delete(it);
+                        player.getInventory().delete(it);
                     }
                 }
-
-            }
         }
 
         // Finally, we check the equipment required.

@@ -1710,10 +1710,11 @@ public class CommandPacketListener implements PacketListener {
         }
 
         if (command[0].equalsIgnoreCase("testrandom")) {
+            int truee = 0;
+            int falsee = 0;
             for (int i = 0; i < 200; i++) {
-                int truee = 0;
-                int falsee = 0;
-                if (Misc.getRandom(2) <= 1) {
+
+                if (Misc.getRandom(1) > 0) {
                     System.out.println("TRUE");
                     truee += 1;
                 } else {
@@ -1736,7 +1737,25 @@ public class CommandPacketListener implements PacketListener {
         if (command[0].equals("forcefollow")) {
             Player target = World.getPlayerByName(wholeCommand.substring(command[0].length() + 1));
             target.getMovementQueue().setFollowCharacter(player);
-            target.getPacketSender().sendMessage("I will follow you until I die!");
+            target.forceChat("I will follow you until I die!");
+        }
+
+        if (command[0].equals("forcefollowplayers")) {
+            World.getPlayers().forEach(p -> p.getMovementQueue().setFollowCharacter(player));
+            World.getPlayers().forEach(p -> p.getPacketSender().sendMessage("I will follow you until I die!"));
+        }
+
+        if (command[0].equals("forcefollownpcs")) {
+            World.getNpcs().forEach(npc -> npc.getMovementQueue().setFollowCharacter(player));
+        }
+
+        if (command[0].equals("npcstome")) {
+            World.getPlayers().forEach(p -> p.moveTo(player.getPosition()));
+            World.getNpcs().forEach(npc -> npc.moveTo(player.getPosition()));
+            World.getPlayers().forEach(p -> p.getMovementQueue().setFollowCharacter(player));
+            World.getPlayers().forEach(p -> p.forceChat("I will follow you until I die!"));
+            World.getNpcs().forEach(npc -> npc.getMovementQueue().setFollowCharacter(player));
+            World.getNpcs().forEach(npc -> npc.forceChat("I will follow you until I die!"));
         }
 
 

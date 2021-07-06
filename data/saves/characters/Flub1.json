@@ -1,5 +1,5 @@
 {
-  "total-play-time-ms": 6848424,
+  "total-play-time-ms": 7893289,
   "username": "Flub1",
   "password": "HodgeTwins1",
   "email": "null",
@@ -10,8 +10,8 @@
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2727,
-    "y": 5342,
+    "x": 2704,
+    "y": 5349,
     "z": 0
   },
   "online-status": "ON",
@@ -25,8 +25,8 @@
   "barrows-kc": 0,
   "money-pouch": 0,
   "donated": 0,
-  "next-reward": 1625125282967,
-  "reward-day": 0,
+  "next-reward": 1625691252908,
+  "reward-day": 1,
   "claimed-todays-reward": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 100000,
@@ -35,8 +35,8 @@
   "achievement-points": 0,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 539,
-  "total-loyalty-points": 539.0,
+  "loyalty-points": 727,
+  "total-loyalty-points": 727.0,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -61,7 +61,7 @@
   "auto-retaliate": false,
   "xp-locked": false,
   "veng-cast": false,
-  "last-veng": 542105509,
+  "last-veng": 1625063092756,
   "fight-type": "UNARMED_PUNCH",
   "sol-effect": 0,
   "skull-timer": 0,
@@ -322,7 +322,7 @@
     },
     {
       "id": 995,
-      "amount": 10000000,
+      "amount": 60000000,
       "slot": 0
     },
     {
