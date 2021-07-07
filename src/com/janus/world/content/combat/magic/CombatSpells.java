@@ -2,6 +2,7 @@ package com.janus.world.content.combat.magic;
 
 import com.janus.engine.task.TaskManager;
 import com.janus.model.*;
+import com.janus.util.Misc;
 import com.janus.world.content.combat.CombatFactory;
 import com.janus.world.content.combat.effect.CombatPoisonEffect.PoisonType;
 import com.janus.world.content.combat.effect.CombatTeleblockEffect;
@@ -40,7 +41,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 29;
+            return 20;
         }
 
         @Override
@@ -168,7 +169,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 49;
+            return 40;
         }
 
         @Override
@@ -221,7 +222,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 69;
+            return 60;
         }
 
         @Override
@@ -350,7 +351,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 89;
+            return 80;
         }
 
         @Override
@@ -403,7 +404,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 99;
+            return 90;
         }
 
         @Override
@@ -588,7 +589,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 109;
+            return 100;
         }
 
         @Override
@@ -641,7 +642,7 @@ public enum CombatSpells {
 
         @Override
         public int maximumHit() {
-            return 119;
+            return 110;
         }
 
         @Override

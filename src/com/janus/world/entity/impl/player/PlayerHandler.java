@@ -249,7 +249,8 @@ public class PlayerHandler {
             player.getPacketSender().sendMessage("@red@Today's Daily NPC task is :"
                     + DailyNPCTask.KILLS_REQUIRED
                     + " x "
-                    + NpcDefinition.forId(DailyNPCTask.CHOSEN_NPC_ID).getName());
+                    + NpcDefinition.forId(DailyNPCTask.CHOSEN_NPC_ID).getName()
+                    + ".. Complete it first to be rewarded!");
         }
     }
 

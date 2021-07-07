@@ -200,6 +200,10 @@ public class NPCDeathTask extends Task {
     public void stop() {
         setEventRunning(false);
 
+        if (npc.getId() == DailyNPCTask.CHOSEN_NPC_ID) {
+            DailyNPCTask.countPlayerKill(killer);
+        }
+
         npc.setDying(false);
 
         //respawn
@@ -207,9 +211,7 @@ public class NPCDeathTask extends Task {
             TaskManager.submit(new NPCRespawnTask(npc, npc.getDefinition().getRespawnTime()));
         }
 
-        if (npc.getId() == DailyNPCTask.CHOSEN_NPC_ID) {
-            DailyNPCTask.countPlayerKill(killer);
-        }
+
 
         if (npc.getLocation() == Location.BARROWS) {
             System.out.println("PLAYER: " +killer.getUsername()+ "BARROWS KC BEFORE KILL : "+ killer.barrowsKC);

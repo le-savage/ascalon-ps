@@ -313,12 +313,10 @@ public class CombatFormulas {
         return (int) (defenceLevel + plr.getBonusManager().getDefenceBonus()[4] + (plr.getBonusManager().getDefenceBonus()[4] / 2));
     }
 
-    public static int getMagicAttack(Player plr) { //TODO FIX THISSSSSSSS
-        /*boolean voidEquipment = EquipmentBonus.wearingVoid(plr, CombatType.MAGIC);
-        boolean voidEliteEquipment = EquipmentBonus.wearingEliteVoid(plr, CombatType.MAGIC);*/
+    public static int getMagicAttack(Player plr) {
+
         int attackLevel = plr.getSkillManager().getCurrentLevel(Skill.MAGIC);
-        /*if (voidEquipment)
-            attackLevel += plr.getSkillManager().getCurrentLevel(Skill.MAGIC) * 0.2;*/
+
         if (plr.getPrayerActive()[PrayerHandler.MYSTIC_WILL] || plr.getCurseActive()[CurseHandler.SAP_MAGE]) {
             attackLevel *= 1.05;
         } else if (plr.getPrayerActive()[PrayerHandler.MYSTIC_LORE]) {
@@ -327,13 +325,11 @@ public class CombatFormulas {
             attackLevel *= 1.15;
         } else if (plr.getPrayerActive()[PrayerHandler.AUGURY]) {
             attackLevel *= 1.22;
-        } else if (plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21054 || plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21055 ||
-                plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21056 || plr.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21057) {
-            attackLevel *= 2.5; //BUFF TOP TIER MAGIC NIGHTMARE STAFF TODO LOWER THIS SHIT
         } else if (plr.getCurseActive()[CurseHandler.LEECH_MAGIC]) {
             attackLevel *= 1.18;
         }
-        attackLevel *= plr.isSpecialActivated() ? plr.getCombatSpecial().getAccuracyBonus() : 1;
+        attackLevel += 8; //Added this hmmm
+        attackLevel *= plr.isSpecialActivated() ? plr.getCombatSpecial().getAccuracyBonus() : 1; // Check if the attack is a spec
 
         return (int) (attackLevel + (plr.getBonusManager().getAttackBonus()[3] * 2)); //TODO Check if this is the correct bonus
     }
@@ -348,6 +344,8 @@ public class CombatFormulas {
 
 
         int defenceLevel = plr.getSkillManager().getCurrentLevel(Skill.DEFENCE) / 2 + plr.getSkillManager().getCurrentLevel(Skill.MAGIC) / 2;
+
+        double defenceLevel2 = ((plr.getSkillManager().getCurrentLevel(Skill.MAGIC) * 0.7) + (plr.getSkillManager().getCurrentLevel(Skill.DEFENCE) * 0.3)) + 8; //Got this from WIki
 
         if (plr.getPrayerActive()[PrayerHandler.THICK_SKIN]) {
             defenceLevel += plr.getSkillManager().getMaxLevel(Skill.DEFENCE) * 0.05;
@@ -368,7 +366,7 @@ public class CombatFormulas {
                     * 0.20 + plr.getLeechedBonuses()[0];
         }
 
-        return (int) (defenceLevel + plr.getBonusManager().getDefenceBonus()[3] + (plr.getBonusManager().getDefenceBonus()[3] / 3));
+        return (int) (defenceLevel + plr.getBonusManager().getDefenceBonus()[3]);
     }
 
     /**
@@ -403,6 +401,21 @@ public class CombatFormulas {
         Player p = (Player) c;
         double damageMultiplier = 1;
 
+        // Ahrim's gear
+        if (p.getEquipment().contains(4708))
+            damageMultiplier += .10;
+        if (p.getEquipment().contains(4710))
+            damageMultiplier += .10;
+        if (p.getEquipment().contains(4712))
+            damageMultiplier += .10;
+        if (p.getEquipment().contains(4714))
+            damageMultiplier += .10;
+        if (p.getEquipment().contains(9762)) //Mage Cape
+            damageMultiplier += .10;
+        if (p.getEquipment().contains(21014)) //Master Mage Cape
+            damageMultiplier += .30;
+
+
         switch (p.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId()) {
             case 4675:
             case 6914:
@@ -419,7 +432,7 @@ public class CombatFormulas {
             case 21055:
             case 21056:
             case 21057:
-                damageMultiplier += 2.2;
+                damageMultiplier += 1.3;
                 break;
 
 

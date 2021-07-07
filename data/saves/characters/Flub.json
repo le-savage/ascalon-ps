@@ -1,42 +1,42 @@
 {
-  "total-play-time-ms": 122266859,
+  "total-play-time-ms": 140726255,
   "username": "Flub",
   "password": "HodgeTwins1",
   "email": "null",
   "staff-rights": "OWNER",
   "game-mode": "NORMAL",
-  "difficulty": "Zezima",
+  "difficulty": "Easy",
   "boss-points": 39,
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 3418,
-    "y": 3508,
+    "x": 3503,
+    "y": 3564,
     "z": 0
   },
   "online-status": "ON",
   "given-starter": true,
-  "last-known-daily-task-npc": 2,
-  "daily-NPC-task-kc": 1,
+  "last-known-daily-task-npc": 1265,
+  "daily-NPC-task-kc": 20,
   "has-played-new-barrows": true,
   "has-used-boss-tier-tp": true,
   "should-give-boss-reward": false,
   "currentBossWave": 0,
   "barrows-kc": 0,
-  "money-pouch": 1900351383,
+  "money-pouch": 86134322,
   "donated": 10,
-  "next-reward": 1625666341006,
-  "reward-day": 3,
+  "next-reward": 1625783281469,
+  "reward-day": 4,
   "claimed-todays-reward": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 2000,
-  "total-gained-exp": 27224493,
-  "prestige-points": 0,
+  "total-gained-exp": 364288611,
+  "prestige-points": 3,
   "achievement-points": 16,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 14262008,
-  "total-loyalty-points": 1.4262008E7,
+  "loyalty-points": 15820008,
+  "total-loyalty-points": 1.5820008E7,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -58,11 +58,11 @@
   "run-energy": 100,
   "music": true,
   "sounds": false,
-  "auto-retaliate": true,
+  "auto-retaliate": false,
   "xp-locked": false,
   "veng-cast": false,
-  "last-veng": 1624579783162,
-  "fight-type": "SHORTBOW_LONGRANGE",
+  "last-veng": 1113174507,
+  "fight-type": "UNARMED_KICK",
   "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
@@ -73,7 +73,7 @@
   "fire-damage-mod": 0,
   "prayer-renewal-timer": 0,
   "teleblock-timer": 0,
-  "special-amount": 560,
+  "special-amount": 100,
   "entered-gwd-room": true,
   "gwd-altar-delay": 0,
   "gwd-killcount": [
@@ -123,7 +123,7 @@
       "runningTotal": 1,
       "npcId": 1265,
       "npcName": "Rock Crab",
-      "amount": 80,
+      "amount": 212,
       "boss": false
     },
     {
@@ -235,7 +235,7 @@
       "runningTotal": 1,
       "npcId": 2,
       "npcName": "Man",
-      "amount": 6,
+      "amount": 9,
       "boss": true
     },
     {
@@ -249,12 +249,12 @@
   "drops": [
     {
       "item": 12159,
-      "amount": 141,
+      "amount": 186,
       "rareDrop": false
     },
     {
       "item": 995,
-      "amount": 1153092,
+      "amount": 1164090,
       "rareDrop": false
     },
     {
@@ -269,12 +269,12 @@
     },
     {
       "item": 12158,
-      "amount": 136,
+      "amount": 198,
       "rareDrop": false
     },
     {
       "item": 12163,
-      "amount": 49,
+      "amount": 61,
       "rareDrop": false
     },
     {
@@ -289,7 +289,7 @@
     },
     {
       "item": 1621,
-      "amount": 9,
+      "amount": 11,
       "rareDrop": false
     },
     {
@@ -349,7 +349,7 @@
     },
     {
       "item": 1623,
-      "amount": 4,
+      "amount": 8,
       "rareDrop": false
     },
     {
@@ -389,52 +389,52 @@
     },
     {
       "item": 313,
-      "amount": 171,
+      "amount": 360,
       "rareDrop": false
     },
     {
       "item": 441,
-      "amount": 11,
+      "amount": 24,
       "rareDrop": false
     },
     {
       "item": 407,
-      "amount": 11,
+      "amount": 30,
       "rareDrop": false
     },
     {
       "item": 1625,
-      "amount": 11,
+      "amount": 24,
       "rareDrop": false
     },
     {
       "item": 403,
-      "amount": 25,
+      "amount": 57,
       "rareDrop": false
     },
     {
       "item": 805,
-      "amount": 2,
+      "amount": 3,
       "rareDrop": false
     },
     {
       "item": 45,
-      "amount": 12,
+      "amount": 33,
       "rareDrop": false
     },
     {
       "item": 12160,
-      "amount": 144,
+      "amount": 164,
       "rareDrop": false
     },
     {
       "item": 454,
-      "amount": 6,
+      "amount": 9,
       "rareDrop": false
     },
     {
       "item": 437,
-      "amount": 14,
+      "amount": 18,
       "rareDrop": false
     },
     {
@@ -444,7 +444,7 @@
     },
     {
       "item": 554,
-      "amount": 900,
+      "amount": 904,
       "rareDrop": false
     },
     {
@@ -469,7 +469,7 @@
     },
     {
       "item": 987,
-      "amount": 1,
+      "amount": 3,
       "rareDrop": false
     },
     {
@@ -479,7 +479,7 @@
     },
     {
       "item": 985,
-      "amount": 2,
+      "amount": 3,
       "rareDrop": false
     },
     {
@@ -494,7 +494,7 @@
     },
     {
       "item": 18778,
-      "amount": 2,
+      "amount": 3,
       "rareDrop": false
     },
     {
@@ -539,7 +539,7 @@
     },
     {
       "item": 1619,
-      "amount": 1,
+      "amount": 4,
       "rareDrop": false
     },
     {
@@ -604,22 +604,22 @@
     },
     {
       "item": 15188,
-      "amount": 2,
-      "rareDrop": false
-    },
-    {
-      "item": 5295,
-      "amount": 1,
-      "rareDrop": false
-    },
-    {
-      "item": 1454,
       "amount": 3,
       "rareDrop": false
     },
     {
+      "item": 5295,
+      "amount": 2,
+      "rareDrop": false
+    },
+    {
+      "item": 1454,
+      "amount": 5,
+      "rareDrop": false
+    },
+    {
       "item": 439,
-      "amount": 1,
+      "amount": 5,
       "rareDrop": false
     },
     {
@@ -674,7 +674,7 @@
     },
     {
       "item": 526,
-      "amount": 30,
+      "amount": 33,
       "rareDrop": false
     },
     {
@@ -685,6 +685,21 @@
     {
       "item": 7881,
       "amount": 1,
+      "rareDrop": false
+    },
+    {
+      "item": 561,
+      "amount": 2,
+      "rareDrop": false
+    },
+    {
+      "item": 25,
+      "amount": 4,
+      "rareDrop": false
+    },
+    {
+      "item": 558,
+      "amount": 3,
       "rareDrop": false
     }
   ],
@@ -804,13 +819,12 @@
   ],
   "skills": {
     "level": [
-      14898,
-      14898,
-      14898,
-      149102,
-      14898,
-      150000,
-      14898,
+      120,
+      120,
+      120,
+      1200,
+      120,
+      1200,
       120,
       120,
       120,
@@ -827,7 +841,8 @@
       120,
       120,
       120,
-      15000,
+      120,
+      120,
       120
     ],
     "maxLevel": [
@@ -858,13 +873,13 @@
       120
     ],
     "experience": [
-      104528618,
-      104806750,
-      117816083,
-      109763907,
-      111120697,
       104273167,
-      104273170,
+      104273167,
+      137687449,
+      113040727,
+      104273167,
+      104273167,
+      104748055,
       104273167,
       104273167,
       104273167,
@@ -887,143 +902,143 @@
   },
   "inventory": [
     {
-      "id": 556,
-      "amount": 200000,
-      "slot": 0
-    },
-    {
-      "id": 558,
-      "amount": 200000,
-      "slot": 0
-    },
-    {
-      "id": 555,
-      "amount": 199997,
-      "slot": 0
-    },
-    {
-      "id": 554,
-      "amount": 200000,
-      "slot": 0
-    },
-    {
-      "id": 557,
-      "amount": 199998,
-      "slot": 0
-    },
-    {
-      "id": 559,
-      "amount": 199999,
-      "slot": 0
-    },
-    {
-      "id": 564,
-      "amount": 200000,
-      "slot": 0
-    },
-    {
-      "id": 562,
-      "amount": 200000,
-      "slot": 0
-    },
-    {
-      "id": 566,
-      "amount": 200000,
-      "slot": 0
-    },
-    {
-      "id": 9075,
-      "amount": 200000,
-      "slot": 0
-    },
-    {
-      "id": 563,
-      "amount": 200000,
-      "slot": 0
-    },
-    {
-      "id": 565,
-      "amount": 200000,
-      "slot": 0
-    },
-    {
-      "id": 560,
-      "amount": 200000,
-      "slot": 0
-    },
-    {
-      "id": 21018,
+      "id": 4430,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1223,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1187,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 7352,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 9485,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 8428,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 7759,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 9942,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1529,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 2840,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 5553,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 3047,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1682,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 7364,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 8377,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 9110,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 8132,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 6807,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 6842,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 2393,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 8231,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 8461,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 4475,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 8203,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 4171,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 5258,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 2252,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 9383,
+      "amount": 1,
       "slot": 0
     }
   ],
@@ -1044,11 +1059,6 @@
       "slot": 0
     },
     {
-      "id": 861,
-      "amount": 1,
-      "slot": 0
-    },
-    {
       "id": -1,
       "amount": 0,
       "slot": 0
@@ -1094,8 +1104,13 @@
       "slot": 0
     },
     {
-      "id": 892,
-      "amount": 17,
+      "id": -1,
+      "amount": 0,
+      "slot": 0
+    },
+    {
+      "id": -1,
+      "amount": 0,
       "slot": 0
     }
   ],
@@ -1321,7 +1336,7 @@
     0,
     99955,
     98118,
-    13644,
+    19421,
     0,
     0,
     0,
@@ -1341,14 +1356,14 @@
     0,
     0,
     0,
-    2970560,
+    4616725,
     1346922,
-    13644,
+    19421,
     0,
     2,
     0,
     0,
-    53,
+    56,
     0,
     2,
     0

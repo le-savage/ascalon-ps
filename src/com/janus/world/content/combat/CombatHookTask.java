@@ -73,7 +73,7 @@ public class CombatHookTask extends Task {
 
             // Check if the attack can be made on this hook
             if (!builder.getStrategy().canAttack(builder.getCharacter(), builder.getVictim())) {
-                builder.getCharacter().getCombatBuilder().reset(builder.getCharacter().isNpc() ? true : false);
+                builder.getCharacter().getCombatBuilder().reset(builder.getCharacter().isNpc());
                 return;
             }
 
@@ -92,8 +92,7 @@ public class CombatHookTask extends Task {
 
                 if (player.isSpecialActivated() && player.getCastSpell() == null) {
                     container = player.getCombatSpecial().container(player, builder.getVictim());
-                    boolean magicShortbowSpec = player.getCombatSpecial() != null
-                            && player.getCombatSpecial() == CombatSpecial.MAGIC_SHORTBOW;
+
                     CombatSpecial.drain(player, player.getCombatSpecial().getDrainAmount());
 
                     Sounds.sendSound(player,

@@ -100,9 +100,7 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
         }
 
         int distance = player.getPosition().getDistance(pos);
-        int tickDelay = 0;//Work out how long the item should take to show up on the ground
 
-        if () //Todo Work out proper tick delay for distances based on combattype
 
         if (distance > 2) //If we're further than 2 spaces, set a cap at 2
             distance = 2;

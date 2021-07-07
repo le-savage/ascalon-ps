@@ -381,15 +381,14 @@ public final class CombatFactory {
                 case RANGED:
                     return Misc.getRandom(10 + CombatFormulas.getRangedDefence(p2)) < Misc.getRandom(15 + CombatFormulas.getRangedAttack(p1));
             }
-        } else if (attacker.isPlayer() && victim.isNpc() && type != CombatType.MAGIC) {
+        } else if (attacker.isPlayer() && victim.isNpc()) {
             Player p1 = (Player) attacker;
             NPC n = (NPC) victim;
             switch (type) {
-			/*	case MAGIC:
-			case KORASI:
+			case MAGIC:
 				int mageAttk = CombatFormulas.getMagicAttack(p1);
 				return Misc.getRandom(n.getDefinition().getDefenceMage()) < Misc.getRandom((mageAttk / 2)) + Misc.getRandom((int) (mageAttk/2.1));
-			 */
+
                 case MELEE:
                     int def = 1 + n.getDefinition().getDefenceMelee();
                     return Misc.getRandom(def) < Misc.getRandom(5 + CombatFormulas.getMeleeAttack(p1)) + (def / 4);
@@ -946,8 +945,14 @@ public final class CombatFactory {
             }
         }
 
+       // System.out.println("VICTIM HP:" + victim.getConstitution());
+        /*System.out.println("Last Attacker:" + entity.getCombatBuilder().getLastAttacker());
+        System.out.println("Is Being Attacked :" + entity.getCombatBuilder().isBeingAttacked());
+        System.out.println("Current Attack is same as previous attacker :" + victim.equals(entity.getCombatBuilder().getLastAttacker()));
+        System.out.println("Is victim registerd: "+victim);*/
+
         // Here we check if we are already in combat with another entity.
-        if (entity.getCombatBuilder().getLastAttacker() != null && !Location.inMulti(entity) && entity.getCombatBuilder().isBeingAttacked() && !victim.equals(entity.getCombatBuilder().getLastAttacker())) {
+        if ((entity.getCombatBuilder().getLastAttacker() != null && !Location.inMulti(entity) && entity.getCombatBuilder().isBeingAttacked() && !victim.equals(entity.getCombatBuilder().getLastAttacker())) && victim.getConstitution() >= 1) {
             if (entity.isPlayer())
                 ((Player) entity).getPacketSender().sendMessage("You are already under attack!");
             entity.getCombatBuilder().reset(true);
@@ -1274,39 +1279,39 @@ public final class CombatFactory {
 
         if (attacker.getConstitution() > 0 && damage > 0) {
             if (target != null && target.isPlayer()) {
-                Player t2 = (Player) target;
+                Player target2 = (Player) target;
                 /** RECOIL **/
-                if (t2.getEquipment().getItems()[Equipment.RING_SLOT].getId() == 2550) {
+                if (target2.getEquipment().getItems()[Equipment.RING_SLOT].getId() == 2550) {
                     int recDamage = (int) (damage * 0.10);
                     if (recDamage <= 0)
                         return;
-                    if (recDamage > t2.getConstitution())
-                        recDamage = t2.getConstitution();
+                    if (recDamage > target2.getConstitution())
+                        recDamage = target2.getConstitution();
                     attacker.dealDamage(new Hit(recDamage, Hitmask.RED, CombatIcon.DEFLECT));
-                    ItemDegrading.handleItemDegrading(t2, DegradingItem.RING_OF_RECOIL);
+                    ItemDegrading.handleItemDegrading(target2, DegradingItem.RING_OF_RECOIL);
                 }
 
                 /** PHOENIX NECK **/
-                else if (t2.getEquipment().getItems()[Equipment.AMULET_SLOT].getId() == 11090 && t2.getLocation() != Location.DUEL_ARENA) {
-                    int restore = (int) (t2.getSkillManager().getMaxLevel(Skill.CONSTITUTION) * .3);
-                    if (t2.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) <= t2.getSkillManager().getMaxLevel(Skill.CONSTITUTION) * .2) {
-                        t2.performGraphic(new Graphic(1690));
-                        t2.getEquipment().delete(t2.getEquipment().getItems()[Equipment.AMULET_SLOT]);
-                        t2.getSkillManager().setCurrentLevel(Skill.CONSTITUTION, t2.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) + restore);
-                        t2.getPacketSender().sendMessage("Your Phoenix Necklace restored your Constitution, but was destroyed in the process.");
-                        t2.getUpdateFlag().flag(Flag.APPEARANCE);
+                else if (target2.getEquipment().getItems()[Equipment.AMULET_SLOT].getId() == 11090 && target2.getLocation() != Location.DUEL_ARENA) {
+                    int restore = (int) (target2.getSkillManager().getMaxLevel(Skill.CONSTITUTION) * .3);
+                    if (target2.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) <= target2.getSkillManager().getMaxLevel(Skill.CONSTITUTION) * .2) {
+                        target2.performGraphic(new Graphic(1690));
+                        target2.getEquipment().delete(target2.getEquipment().getItems()[Equipment.AMULET_SLOT]);
+                        target2.getSkillManager().setCurrentLevel(Skill.CONSTITUTION, target2.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) + restore);
+                        target2.getPacketSender().sendMessage("Your Phoenix Necklace restored your Constitution, but was destroyed in the process.");
+                        target2.getUpdateFlag().flag(Flag.APPEARANCE);
                     }
                 }
 
                 /** RING OF LIFE **/
-                else if (t2.getEquipment().getItems()[Equipment.RING_SLOT].getId() == 2570 && t2.getLocation() != Location.DUEL_ARENA && t2.getLocation() != Location.WILDERNESS) {
-                    if (t2.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) <= t2.getSkillManager().getMaxLevel(Skill.CONSTITUTION) * .1) {
-                        t2.getEquipment().delete(t2.getEquipment().getItems()[Equipment.RING_SLOT]);
-                        TeleportHandler.teleportPlayer(t2, GameSettings.DEFAULT_POSITION.copy(), TeleportType.RING_TELE);
-                        t2.getPacketSender().sendMessage("Your Ring of Life tried to teleport you away, but was destroyed in the process.");
+                else if (target2.getEquipment().getItems()[Equipment.RING_SLOT].getId() == 2570 && target2.getLocation() != Location.DUEL_ARENA && target2.getLocation() != Location.WILDERNESS) {
+                    if (target2.getSkillManager().getCurrentLevel(Skill.CONSTITUTION) <= target2.getSkillManager().getMaxLevel(Skill.CONSTITUTION) * .1) {
+                        target2.getEquipment().delete(target2.getEquipment().getItems()[Equipment.RING_SLOT]);
+                        TeleportHandler.teleportPlayer(target2, GameSettings.DEFAULT_POSITION.copy(), TeleportType.RING_TELE);
+                        target2.getPacketSender().sendMessage("Your Ring of Life tried to teleport you away, but was destroyed in the process.");
                     }
                 }
-                //WeaponPoison.handleWeaponPoison(((Player)attacker), t2);
+                //WeaponPoison.handleWeaponPoison(((Player)attacker), t2); //Todo, can I enable this?
             }
         }
 
@@ -1425,7 +1430,7 @@ public final class CombatFactory {
             }
             if (CurseHandler.isActivated(p, CurseHandler.SOUL_SPLIT) && damage > 0) {
                 final int form = (int) (damage / 10);
-                new Projectile(attacker, target, 2263, 44, 3, 43, 31, 0).sendProjectile();
+                new Projectile(attacker, target, 2263, 44, 3, 43, 31, 0).sendProjectile(); //TODO Check this can be used for range?
                 TaskManager.submit(new Task(1, p, false) {
                     @Override
                     public void execute() {
