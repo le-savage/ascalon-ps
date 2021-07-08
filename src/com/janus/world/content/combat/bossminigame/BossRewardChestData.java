@@ -85,6 +85,16 @@ public class BossRewardChestData {
             new Item(4113, 1), //Mystic White
             new Item(4115, 1), //Mystic White
             new Item(4117, 1), //Mystic White
+            new Item(995, Misc.random(1, 1000000)),
+            new Item(995, Misc.random(1, 1000000)),
+            new Item(995, Misc.random(1, 1000000)),
+            new Item(995, Misc.random(1, 1000000)),
+            new Item(995, Misc.random(1, 1000000)),
+            new Item(995, Misc.random(1, 1000000)),
+            new Item(995, Misc.random(1, 1000000)),
+            new Item(995, Misc.random(1, 1000000)),
+            new Item(995, Misc.random(1, 1000000)),
+            new Item(995, Misc.random(1, 1000000)),
 
 
     };
@@ -115,6 +125,27 @@ public class BossRewardChestData {
             new Item(1624, 500),
             new Item(890, 700),
             new Item(10025, 3),
+            new Item(19336, 1),
+            new Item(19337, 1),
+            new Item(19338, 1),
+            new Item(19339, 1),
+            new Item(19340, 1),
+            new Item(2581, 1),
+            new Item(6585, 1),
+            new Item(6585, 1),
+            new Item(537, Misc.random(500,2500)),
+            new Item(386, Misc.random(250,750)),
+            new Item(3041, Misc.random(150,300)),
+            new Item(995, Misc.random(100000, 10000000)),
+            new Item(995, Misc.random(100000, 10000000)),
+            new Item(995, Misc.random(100000, 10000000)),
+            new Item(995, Misc.random(100000, 10000000)),
+            new Item(995, Misc.random(100000, 10000000)),
+            new Item(995, Misc.random(100000, 10000000)),
+            new Item(995, Misc.random(100000, 10000000)),
+            new Item(995, Misc.random(100000, 10000000)),
+            new Item(995, Misc.random(100000, 10000000)),
+            new Item(995, Misc.random(100000, 10000000)),
             new Item(11212, Misc.random(500,2500))
 
     };
@@ -145,6 +176,16 @@ public class BossRewardChestData {
             new Item(10348, 1),
             new Item(10346, 1),
             new Item(10352, 1),
+            new Item(995, Misc.random(100000000, 700000000)),
+            new Item(995, Misc.random(100000000, 700000000)),
+            new Item(995, Misc.random(100000000, 700000000)),
+            new Item(995, Misc.random(100000000, 700000000)),
+            new Item(995, Misc.random(100000000, 700000000)),
+            new Item(995, Misc.random(100000000, 700000000)),
+            new Item(995, Misc.random(100000000, 700000000)),
+            new Item(995, Misc.random(100000000, 700000000)),
+            new Item(995, Misc.random(100000000, 700000000)),
+            new Item(995, Misc.random(100000000, 700000000)),
             new Item(14009, 1)};
 
 }
