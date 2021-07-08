@@ -46,10 +46,12 @@ public class NPCDeathTask extends Task {
      * @param npc The npc being killed.
      */
     public NPCDeathTask(NPC npc) {
-        super(2);
+        super(1); //Changed to 1
         this.npc = npc;
         this.ticks = 2;
     }
+
+
     /*
      * The array which handles what bosses will give a player points
      * after death
@@ -62,12 +64,12 @@ public class NPCDeathTask extends Task {
      */
     private int ticks = 2;
 
-    public static int currentKills = 0;
 
     /**
      * The player who killed the NPC
      */
     private Player killer = null;
+
 
     @SuppressWarnings("incomplete-switch")
     @Override
@@ -196,8 +198,12 @@ public class NPCDeathTask extends Task {
         }
     }
 
+
+
+
     @Override
     public void stop() {
+
         setEventRunning(false);
 
         if (npc.getId() == DailyNPCTask.CHOSEN_NPC_ID) {
@@ -225,22 +231,22 @@ public class NPCDeathTask extends Task {
 
         World.deregister(npc);
 
-        if (npc.getLocation() == Location.INSTANCE_ARENA) {
 
-            int maximumKills = InstanceArena.getMaximumKills(killer.getAsPlayer());
+
+        if (npc.getLocation() == Location.INSTANCE_ARENA) {
 
 
             if (killer.getRights() != PlayerRights.PLAYER) {
 
                 /** This sets the maximum amount of kills before the instance is killed **/
-                if (currentKills >= maximumKills-1 && npc.getId() != 1265){ //if the the player has hit the maximum (Exclude rock crabs
+                if (killer.getCurrentInstanceArenaKC() >= InstanceArena.getMaximumKills(killer)-1 && npc.getId() != 1265){ //if the the player has hit the maximum (Exclude rock crabs
                     if (killer.getLocation() == Location.INSTANCE_ARENA && killer.getRegionInstance() == null) { // Check if they're inside the room
                         killer.moveTo(InstanceArena.ENTRANCE); //Move them
                     }
-                    InstanceArena.destructArena(killer); // Kill the instance
+                    InstanceArena.destructArena(killer); // Kill the instance (Includes method to set current KC to 0
                 } else if (npc.getId() != 1265) { //If not,
-                    killer.getPacketSender().sendMessage("You have "+(maximumKills-currentKills)+"/"+maximumKills+" kills remaining"); //Send message
-                    currentKills++; //Add 1 to their kills
+                    killer.currentInstanceArenaKC++; //Add 1 to their kills
+                    killer.getPacketSender().sendMessage("You have "+(InstanceArena.getMaximumKills(killer)-killer.getCurrentInstanceArenaKC())+"/"+InstanceArena.getMaximumKills(killer)+" kills remaining"); //Send message
                 }
 
                 if (npc.getId() == 3) {

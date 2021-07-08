@@ -64,7 +64,7 @@ public class InstanceArena {
 
             if (!player.getLocation().equals(Locations.Location.INSTANCE_ARENA) && player.getRegionInstance() == null) { //Outside the area
                 player.getPacketSender().sendInterface(npcListInterface);
-                NPCDeathTask.currentKills = 0;
+                player.setCurrentInstanceArenaKC(0);
             } else {
                 player.getPacketSender().sendMessage("@red@ Exit using the button or ::exit");//Inside the area
             }
@@ -832,6 +832,7 @@ public class InstanceArena {
             player.getRegionInstance().destruct();
             restore(player);
             PoisonImmunityTask.makeImmune(player, 0);
+            player.setCurrentInstanceArenaKC(0);
         }
     }
 }

@@ -11,6 +11,7 @@ import com.janus.model.movement.MovementQueue;
 import com.janus.model.movement.PathFinder;
 import com.janus.util.Misc;
 import com.janus.util.RandomUtility;
+import com.janus.util.Stopwatch;
 import com.janus.world.clip.region.RegionClipping;
 import com.janus.world.content.BonusManager;
 import com.janus.world.content.ItemDegrading;
@@ -790,67 +791,37 @@ public final class CombatFactory {
             Player victim = (Player) v;
             NPC npc = (NPC) e;
             baseMax = (int) (npc.getDefinition().getMaxHit() * 2.5);
-            if (victim.getFireImmunity() > 0 || victim.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 1540 || victim.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 11613 || victim.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 11283 || victim.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 4453 || victim.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21051) {
 
-                if (victim.getFireDamageModifier() == 100) {
-                    return 0;
-                } else if (victim.getFireDamageModifier() == 50) {
-                    baseMax /= 2;
-                } else {
-                    baseMax /= 3; //Shields
-                }
+            /*if (victim.getFireImmunity() > 0) {
+                victim
+            }*/
 
+            boolean antiDragShield = victim.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 1540;
+            boolean dragonKiteShield = victim.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 11613;
+            boolean dragonFireShield = victim.getEquipment().getItems()[Equipment.SHIELD_SLOT].getId() == 11283;
+            boolean dragonHunterCrossbow = victim.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 4453;
+            boolean dragonHunterLance = victim.getEquipment().getItems()[Equipment.WEAPON_SLOT].getId() == 21051;
+
+
+            if (victim.getFireDamageModifier() == 100 || (victim.getFireImmunity() > 1 && antiDragShield || dragonFireShield || dragonKiteShield || dragonHunterCrossbow || dragonHunterLance)) {
+                victim.getPacketSender().sendMessage("You were completely protected from the dragons fiery breath!");
+                return 0;
+            } else if (victim.getFireDamageModifier() == 50 || antiDragShield || dragonFireShield || dragonKiteShield || dragonHunterCrossbow || dragonHunterLance) {
+                victim.getPacketSender().sendMessage("You were partially protected from the dragons fiery breath!");
+                baseMax /= 2;
+            } else {
+                victim.getPacketSender().sendMessage("You're badly burnt from the fire!");
             }
-        }
-        if (baseMax > 450) {
-            baseMax = 450 + Misc.getRandom(9);
-        }
-        return baseMax;
-    }
 
-    // /**
-    // * The percentage of the hit reducted by antifire.
-    // */
-    // protected static double dragonfireReduction(Mob mob) {
-    // boolean dragonfireShield = mob.getEquipment() != null
-    // && (mob.getEquipment().contains(1540)
-    // || mob.getEquipment().contains(11283)
-    // || mob.getEquipment().contains(11284) || mob
-    // .getEquipment().contains(11285));
-    // boolean dragonfirePotion = false;
-    // boolean protectPrayer = mob.getCombatState().getPrayer(
-    // CombatPrayer.PROTECT_FROM_MAGIC);
-    // if (dragonfireShield && dragonfirePotion) {
-    // if (mob.getActionSender() != null) {
-    // mob.getActionSender().sendMessage(
-    // "You shield absorbs most of the dragon fire!");
-    // mob.getActionSender()
-    // .sendMessage(
-    // "Your potion protects you from the heat of the dragon's breath!");
-    // }
-    // return 1;
-    // } else if (dragonfireShield) {
-    // if (mob.getActionSender() != null) {
-    // mob.getActionSender().sendMessage(
-    // "You shield absorbs most of the dragon fire!");
-    // }
-    // return 0.8; // 80%
-    // } else if (dragonfirePotion) {
-    // if (mob.getActionSender() != null) {
-    // mob.getActionSender()
-    // .sendMessage(
-    // "Your potion protects you from the heat of the dragon's breath!");
-    // }
-    // return 0.8; // 80%
-    // } else if (protectPrayer) {
-    // if (mob.getActionSender() != null) {
-    // mob.getActionSender().sendMessage(
-    // "Your prayers resist some of the dragon fire.");
-    // }
-    // return 0.6; // 60%
-    // }
-    // return /* mob.getEquipment() != null */0;
-    // }s
+            if (baseMax > 450) {
+                baseMax = 450 + Misc.getRandom(9);
+            }
+            System.out.println("BaseMax :" + baseMax);
+        }
+            return baseMax;
+        }
+
+
 
     /**
      * A series of checks performed before the entity attacks the victim.

@@ -24,7 +24,6 @@ public class EvilTrees {
 
     private static final int TIME = 1200000; //12 minutes? not sure lol
     public static final int MAX_CUT_AMOUNT = 500;//Amount of logs the tree will give before
-    //despawning
 
     public static Stopwatch timer = new Stopwatch().reset();
     public static EvilTree SPAWNED_TREE = null;

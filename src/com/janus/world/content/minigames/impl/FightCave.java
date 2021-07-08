@@ -65,6 +65,7 @@ public class FightCave {
             FightCave.clearJad(player);
             leaveCave(player, true);
             DialogueManager.start(player, 37);
+            player.getSlayer().killedNpc(n);
             player.getInventory().add(6570, 1).add(6529, 1000 + Misc.getRandom(2000));
         }
     }

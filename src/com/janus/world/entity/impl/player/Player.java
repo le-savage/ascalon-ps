@@ -1433,6 +1433,10 @@ public class Player extends Character {
         return this;
     }
 
+    @Getter
+    @Setter
+    public int currentInstanceArenaKC;
+
     public boolean isBanking() {
         return isBanking;
     }
