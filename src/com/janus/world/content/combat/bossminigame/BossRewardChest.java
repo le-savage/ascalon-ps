@@ -17,76 +17,6 @@ public class BossRewardChest {
     /** ID of the reward chest **/
     public static int rewardChestID = 4126;
 
-    /** Default Chance Of Each Reward (Out of 100) **/
-
-    public static int chanceOfShitReward = 30;
-    public static int chanceOfMediumReward = 71;
-    public static int chanceOfRareReward = 99;
-
-
-
-
-    /** Here we apply some modifiers to increase the chance of winning a rare **/
-
-    public static void getChances(Player player) {
-        chanceOfShitReward = 30;//Needs to be over 30 to win (30%)
-        chanceOfMediumReward = 71;//Needs to be over 71 to win (29%)
-        chanceOfRareReward = 99;//Needs to be over 99 to win (1%)
-
-        PlayerRights rights = player.getRights();
-        int currentBossWave = player.getCurrentBossWave();
-        System.out.println("Player "+player.getUsername() + " is a " + rights + " on wave: " + currentBossWave);
-
-
-        /* This should be obvious. It will change chances based on the players rights **/
-
-        switch (rights) {
-            case PLAYER: //No change
-                break;
-            case DONATOR:
-                chanceOfShitReward += 2; //2% Decreased change of a shit reward
-                chanceOfMediumReward -= 1; //1% Increased chance of medium reward
-                chanceOfRareReward -= 1;//1% Increased chance of rare reward
-                break;
-            case SUPER_DONATOR:
-                chanceOfShitReward += 3; //3% Decreased change of a shit reward
-                chanceOfMediumReward -= 2; //2% Increased chance of medium reward
-                chanceOfRareReward -= 2;//2% Increased chance of rare reward
-                break;
-            case EXTREME_DONATOR:
-                chanceOfShitReward += 4; //4% Decreased change of a shit reward
-                chanceOfMediumReward -= 3; //3% Increased chance of medium reward
-                chanceOfRareReward -= 3;//3% Increased chance of rare reward
-                break;
-            case LEGENDARY_DONATOR:
-                chanceOfShitReward += 5; //5% Decreased change of a shit reward
-                chanceOfMediumReward -= 4; //4% Increased chance of medium reward
-                chanceOfRareReward -= 4;//4% Increased chance of rare reward
-                break;
-            case UBER_DONATOR:
-            case SUPPORT:
-            case MODERATOR:
-            case ADMINISTRATOR:
-            case DEVELOPER:
-            case COMMUNITYMANAGER:
-            case OWNER:
-                chanceOfShitReward += 6; //6% Decreased change of a shit reward
-                chanceOfMediumReward -= 5; //5% Increased chance of medium reward
-                chanceOfRareReward -= 5;//5% Increased chance of rare reward
-                break;
-        }
-
-        /* This will check the current player wave. For every wave,
-          it will increase the chance to win a rare and medium reward whilst
-          also decreasing the chance to win a shit reward
-         */
-
-        chanceOfShitReward += currentBossWave*3; //3% Decreased change of a shit reward per wave
-        chanceOfMediumReward -= currentBossWave*2; //2% Increased chance of medium reward per wave
-        chanceOfRareReward -= currentBossWave;//1% Increased chance of rare reward per wave
-        System.out.println(player.getUsername() + " Shit Reward Chance:"+(100-chanceOfShitReward) +" Medium:"+(100-chanceOfMediumReward)+" Rare:"+(100-chanceOfRareReward));
-    }
-
     /** This runs the code after the chest is clicked **/
 
     public static void clickChest(Player player) {
@@ -119,16 +49,66 @@ public class BossRewardChest {
     public static void chestDialogue(Player player) {
         if (player.getCurrentBossWave() <= 4) {
             DialogueManager.start(player, 179);
-            player.getPacketSender().sendString(988, "It's time to decide!");
-            player.getPacketSender().sendString(989, "Chance this wave: Rare:@blu@" + (100-chanceOfRareReward) + "@bla@%, Medium:@blu@" + (100-chanceOfMediumReward) + "@bla@%, Crap:@blu@" + (100-chanceOfShitReward) + "@bla@%");
+            player.getPacketSender().sendString(988, "It's time to roll a random number!");
+            player.getPacketSender().sendString(990, "Number needed: Crap: @blu@" + (chanceOfShitReward + "+") + "@bla@, Medium: @blu@" + (chanceOfMediumReward + "+") + (player.currentBossWave > 1 ? ("@bla@, Rare: @blu@" + (chanceOfRareReward + "+") + "@bla@") : ""));
             player.setDialogueActionId(85);
         } else {
             DialogueManager.start(player, 182);
             player.getPacketSender().sendString(2460, "Good Job!");
             player.getPacketSender().sendString(2461, "Lets open this chest! My chances are below..");
-            player.getPacketSender().sendString(2462, "Chance this wave: Rare:@blu@" + (100-chanceOfRareReward) + "@bla@%, Medium:@blu@" + (100-chanceOfMediumReward) + "@bla@%, Crap:@blu@" + (100-chanceOfShitReward) + "@bla@%");
+            player.getPacketSender().sendString(2462, "Number needed: Crap: @blu@" + (chanceOfShitReward + "+") + "@bla@, Medium: @blu@" + (chanceOfMediumReward + "+") + (player.currentBossWave > 1 ? ("@bla@, Rare: @blu@" + (chanceOfRareReward + "+") + "@bla@") : ""));
             player.setDialogueActionId(86);
         }
+    }
+
+
+    /** Default Chance Of Each Reward (Out of 1000) **/
+
+    public static int chanceOfShitReward = 233;
+    public static int chanceOfMediumReward = 900;
+    public static int chanceOfRareReward = 1000;
+
+    /** Here we apply some modifiers to increase the chance of winning a rare **/
+
+    public static void getChances(Player player) {
+
+        PlayerRights rights = player.getRights();
+        int currentBossWave = player.getCurrentBossWave();
+        System.out.println("Player "+player.getUsername() + " is a " + rights + " on wave: " + currentBossWave);
+
+        /* This should be obvious. It will change chances based on the players rights **/
+
+        switch (rights) {
+            case LEGENDARY_DONATOR:
+                chanceOfShitReward -= 8; //2% Decreased change of a shit reward
+                chanceOfMediumReward -= 5; //4% Increased chance of medium reward
+                chanceOfRareReward -= 1;//4% Increased chance of rare reward
+                break;
+            case UBER_DONATOR:
+            case SUPPORT:
+            case MODERATOR:
+            case ADMINISTRATOR:
+            case DEVELOPER:
+            case COMMUNITYMANAGER:
+            case OWNER:
+                chanceOfShitReward -= 10; //2% Decreased change of a shit reward
+                chanceOfMediumReward -= 7; //5% Increased chance of medium reward
+                chanceOfRareReward -= 2;//5% Increased chance of rare reward
+                break;
+        }
+
+        /* This will check the current player wave. For every wave,
+          it will increase the chance to win a rare and medium reward whilst
+          also decreasing the chance to win a shit reward
+         */
+
+        chanceOfShitReward -= currentBossWave*4; //3% Decreased change of a shit reward per wave
+        chanceOfMediumReward -= Math.floor((currentBossWave*2)/0.3); //2% Increased chance of medium reward per wave
+        if (currentBossWave >= 1)
+        chanceOfRareReward -= currentBossWave;//0.1% Increased chance of rare reward per wave after wave 1
+
+        //Work Out Percentage Chance
+        System.out.println(player.getUsername() + " Shit Reward Chance:"+((1000-chanceOfShitReward)/10) +"% Medium:"+((1000-chanceOfMediumReward)/10)+"% Rare:"+((1000-chanceOfRareReward)/10)+"%");
     }
 
     /** This code runs if the player decides to open the chest.
@@ -139,29 +119,38 @@ public class BossRewardChest {
      */
     public static void pickReward(Player player) {
 
+
+
         System.out.println("Getting Chance modifiers from getChances");
 
-        int chance = Misc.random(0, 100);
-        System.out.println("Chance to win was " + chance);
-        Item shitReward = BossRewardChestData.SHIT_REWARDS[Misc.getRandom(BossRewardChestData.SHIT_REWARDS.length - 1)];
-        Item mediumReward = BossRewardChestData.MEDIUM_REWARDS[Misc.getRandom(BossRewardChestData.MEDIUM_REWARDS.length - 1)];
-        Item rareReward = BossRewardChestData.RARE_REWARDS[Misc.getRandom(BossRewardChestData.RARE_REWARDS.length - 1)];
+        int chance = Misc.random(0, 1000); //Pick the number
+
+        player.forceChat("I rolled " + chance+"!");
+
+        System.out.println("Boss Game Roll for "+ player.getUsername() + " was " + chance);
 
         Item rewardGiven = null;
 
-        if (chance <= chanceOfShitReward) {
+        if (chance < chanceOfShitReward) { //No Reward for you Mr
+            player.getPacketSender().sendMessage("Sorry! Better luck next time..");
+        }
+
+        if (chance >= chanceOfShitReward && chance < chanceOfMediumReward) { //Player deserves a shit reward for this roll
+            Item shitReward = BossRewardChestData.SHIT_REWARDS[Misc.getRandom(BossRewardChestData.SHIT_REWARDS.length - 1)];
             player.getInventory().add(shitReward);
             rewardGiven = shitReward;
             System.out.println("Reward selected:  " + shitReward.getAmount() + " x " + shitReward.getDefinition().getName());
         }
 
-        if (chance >= chanceOfShitReward && chance <= chanceOfRareReward) {
+        if (chance >= chanceOfMediumReward && chance < chanceOfRareReward) {
+            Item mediumReward = BossRewardChestData.MEDIUM_REWARDS[Misc.getRandom(BossRewardChestData.MEDIUM_REWARDS.length - 1)];
             player.getInventory().add(mediumReward);
             rewardGiven = mediumReward;
             System.out.println("Reward selected:  " + mediumReward.getAmount() + " x " + mediumReward.getDefinition().getName());
         }
 
         if (chance >= chanceOfRareReward) {
+            Item rareReward = BossRewardChestData.RARE_REWARDS[Misc.getRandom(BossRewardChestData.RARE_REWARDS.length - 1)];
             player.getInventory().add(rareReward);
             rewardGiven = rareReward;
             System.out.println("Reward selected:  " + rareReward.getAmount() + " x " + rareReward.getDefinition().getName());

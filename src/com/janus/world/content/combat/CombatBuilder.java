@@ -177,7 +177,6 @@ public class CombatBuilder {
      * Starts the cooldown sequence.
      */
     public void cooldown(boolean resetAttack) {
-        System.out.println("Cooldown.. reset att? "+resetAttack);
 
         // Check if we're even actively in combat.
         if (strategy == null)
