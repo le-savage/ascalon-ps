@@ -69,7 +69,7 @@ public class TriviaBot {
 
     public static void attemptAnswer(Player p, String attempt) {
 
-        if (!currentQuestion.equals("") && attempt.replaceAll("_", " ").contains(currentAnswer)) {
+        if (!currentQuestion.equals("") && attempt.replaceAll("_", " ").equalsIgnoreCase(currentAnswer)) {
 
             if (answerCount == 0) {
                 answerCount++;
