@@ -5211,10 +5211,6 @@
     "name": "Skilling store",
     "items": [
       {
-        "id": 2572,
-        "amount": 1000
-      },
-      {
         "id": 440,
         "amount": 1000
       },
