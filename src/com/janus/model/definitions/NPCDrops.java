@@ -338,7 +338,7 @@ public class NPCDrops {
         //System.out.println("Random: "+random);
         double drBoost = NPCDrops.getDroprate(player);
         double percentage = random / 100;
-        random = (int) (chance.getRandom() - (percentage * drBoost));
+        random = (int) (chance.getRandom() - (percentage * drBoost)); //TODO UPDATE THIS TO CHECK FOR EACH DROP NOT JUST ONE
         if (Math.toIntExact(Math.round(random)) <= 1) {
             System.out.println(Math.toIntExact(Math.round(random)));
             return true;
