@@ -5,7 +5,7 @@ import com.janus.model.Item;
 public class Rewards {
 
     protected static Item[] loot = {
-            new Item(19335, 1),//1
+            new Item(6585, 1),//1
             new Item(995, 5000000),//2
             new Item(11928, 1),//3
             new Item(11930, 1),//4
