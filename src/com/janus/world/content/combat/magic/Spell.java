@@ -68,10 +68,13 @@ public abstract class Spell {
             // We've made it through the checks, so we have the items and can
             // remove them now.
             if (delete) {
+                if (player.getRights().ordinal() >= 0) { //I know this is not needed, but it bugs without it..?
                     for (Item it : Arrays.asList(items)) {
-                        player.getInventory().delete(it);
+                        if (it != null)
+                            player.getInventory().delete(it);
                     }
                 }
+            }
         }
 
         // Finally, we check the equipment required.
