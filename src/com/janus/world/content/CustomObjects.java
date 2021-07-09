@@ -33,6 +33,10 @@ public class CustomObjects {
     //Only adds clips to these objects, they are spawned clientsided
     //NOTE: You must add to the client's customobjects array to make them spawn, this is just clipping!
     private static final int[][] CLIENT_OBJECTS = {
+
+            // Wildy Agility
+            {2309, 2998, 3917, 0, 0},
+
             // Landslide at Nex
             {57225, 2908, 5202, 0, 0},
 

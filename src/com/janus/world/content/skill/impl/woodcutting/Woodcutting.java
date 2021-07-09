@@ -30,23 +30,23 @@ public class Woodcutting {
         }
         player.setPositionToFace(object.getPosition());
         final int objId = object.getId();
-        final Hatchet h = Hatchet.forId(WoodcuttingData.getHatchet(player));
+        final Hatchet hatchet = Hatchet.forId(WoodcuttingData.getHatchet(player));
 
 
-        if (h != null) {
-            if (player.getSkillManager().getCurrentLevel(Skill.WOODCUTTING) >= h.getRequiredLevel()) {
-                final WoodcuttingData.Trees t = WoodcuttingData.Trees.forId(objId);
-                if (t != null) {
+        if (hatchet != null) {
+            if (player.getSkillManager().getCurrentLevel(Skill.WOODCUTTING) >= hatchet.getRequiredLevel()) {
+                final WoodcuttingData.Trees tree = WoodcuttingData.Trees.forId(objId);
+                if (tree != null) {
                     player.setEntityInteraction(object);
-                    if (player.getSkillManager().getCurrentLevel(Skill.WOODCUTTING) >= t.getReq()) {
-                        player.performAnimation(new Animation(h.getAnim()));
-                        int delay = Misc.getRandom(t.getTicks() - WoodcuttingData.getChopTimer(player, h)) + 1;
+                    if (player.getSkillManager().getCurrentLevel(Skill.WOODCUTTING) >= tree.getReq()) {
+                        player.performAnimation(new Animation(hatchet.getAnim()));
+                        int delay = Misc.getRandom(tree.getTicks() - WoodcuttingData.getChopTimer(player, hatchet)) + 1;
                         player.setCurrentTask(new Task(1, player, false) {
                             int cycle = 0, reqCycle = delay >= 2 ? delay : Misc.getRandom(1) + 1;
 
                             @Override
                             public void execute() {
-                                player.getPacketSender().sendRichPresenceState("AFK Woodcutting");
+                                player.getPacketSender().sendRichPresenceState("Woodcutting");
                                 player.getPacketSender().sendSmallImageKey("woodcutting");
                                 player.getPacketSender().sendRichPresenceSmallPictureText("Lvl: " + player.getSkillManager().getCurrentLevel(Skill.WOODCUTTING));
                                 if (player.getInventory().getFreeSlots() == 0) {
@@ -57,9 +57,9 @@ public class Woodcutting {
                                 }
                                 if (cycle != reqCycle) {
                                     cycle++;
-                                    player.performAnimation(new Animation(h.getAnim()));
-                                } else if (cycle >= reqCycle) {
-                                    int xp = t.getXp();
+                                    player.performAnimation(new Animation(hatchet.getAnim()));
+                                } else {
+                                    int xp = tree.getXp();
                                     if (lumberJack(player))
                                         xp *= 1.5;
                                     player.getSkillManager().addExperience(Skill.WOODCUTTING, xp);
@@ -74,20 +74,19 @@ public class Woodcutting {
                                         } else {
                                             EvilTrees.SPAWNED_TREE.getTreeObject().incrementCutAmount();
                                         }
-                                        //} else {
-                                        //player.performAnimation(new Animation(65535));
                                     }
 
-                                    if (!t.isMulti() || Misc.getRandom(10) == 4) {
+                                    if (!tree.isMulti() || !tree.equals(Trees.EVIL_TREE) && Misc.getRandom(10) == 4) {
                                         //player.performAnimation(new Animation(65535));
-                                        if ((object.getId() == 11434)) {
-                                            return;
-                                        }
-                                        treeRespawn(player, object);
-                                        player.getPacketSender().sendMessage("You've chopped the tree down.");
+
+
+                                            treeRespawn(player, object);
+                                            player.getPacketSender().sendMessage("You've chopped the tree down.");
+
+
                                     } else {
                                         cutWood(player, object, true);
-                                        if (t == Trees.EVIL_TREE) {
+                                        if (tree == Trees.EVIL_TREE) {
                                             player.getPacketSender().sendMessage("You cut the Evil Tree...");
                                         } else {
                                             player.getPacketSender().sendMessage("You get some logs..");
@@ -95,23 +94,23 @@ public class Woodcutting {
                                     }
                                     Sounds.sendSound(player, Sound.WOODCUT);
                                     if (!(infernoAdze(player) && Misc.getRandom(5) <= 2)) {
-                                        player.getInventory().add(t.getReward(), 1);
+                                        player.getInventory().add(tree.getReward(), 1);
                                     } else if (Misc.getRandom(5) <= 2) {
-                                        logData fmLog = Logdata.getLogData(player, t.getReward());
+                                        logData fmLog = Logdata.getLogData(player, tree.getReward());
                                         if (fmLog != null) {
                                             player.getSkillManager().addExperience(Skill.FIREMAKING, fmLog.getXp());
                                             player.getPacketSender().sendMessage("Your Inferno Adze burns the log, granting you Firemaking experience.");
-                                            if (fmLog == Logdata.logData.OAK) {
+                                            if (fmLog == logData.OAK) {
                                                 Achievements.finishAchievement(player, AchievementData.BURN_AN_OAK_LOG);
-                                            } else if (fmLog == Logdata.logData.MAGIC) {
+                                            } else if (fmLog == logData.MAGIC) {
                                                 Achievements.doProgress(player, AchievementData.BURN_100_MAGIC_LOGS);
                                                 Achievements.doProgress(player, AchievementData.BURN_2500_MAGIC_LOGS);
                                             }
                                         }
                                     }
-                                    if (t == Trees.OAK) {
+                                    if (tree == Trees.OAK) {
                                         Achievements.finishAchievement(player, AchievementData.CUT_AN_OAK_TREE);
-                                    } else if (t == Trees.MAGIC) {
+                                    } else if (tree == Trees.MAGIC) {
                                         Achievements.doProgress(player, AchievementData.CUT_100_MAGIC_LOGS);
                                         Achievements.doProgress(player, AchievementData.CUT_5000_MAGIC_LOGS);
                                     }
@@ -120,7 +119,7 @@ public class Woodcutting {
                         });
                         TaskManager.submit(player.getCurrentTask());
                     } else {
-                        player.getPacketSender().sendMessage("You need a Woodcutting level of at least " + t.getReq() + " to cut this tree.");
+                        player.getPacketSender().sendMessage("You need a Woodcutting level of at least " + tree.getReq() + " to cut this tree.");
                     }
                 }
             } else {
@@ -140,7 +139,7 @@ public class Woodcutting {
     }
 
     public static void treeRespawn(final Player player, final GameObject oldTree) {
-        if (oldTree == null || oldTree.getPickAmount() >= 1)
+        if (oldTree == null || oldTree.getPickAmount() >= 1 || oldTree.getId() == 11434)
             return;
         oldTree.setPickAmount(1);
         for (Player players : player.getLocalPlayers()) {
