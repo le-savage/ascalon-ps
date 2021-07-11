@@ -101,7 +101,7 @@ public class GameSettings {
     /**
      * The maximum amount of messages that can be decoded in one sequence.
      */
-    public static final int DECODE_LIMIT = 30;
+    public static final int DECODE_LIMIT = 60;
 
     /** GAME **/
 
@@ -109,7 +109,7 @@ public class GameSettings {
      * Processing the engine
      */
     public static final int ENGINE_PROCESSING_CYCLE_RATE = 600;
-    public static final int GAME_PROCESSING_CYCLE_RATE = 600;
+
     /**
      * Dzone activation
      */

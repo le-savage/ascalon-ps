@@ -120,7 +120,7 @@ public final class GameLoader {
         serviceLoader.execute(() -> RegionClipping.init());
         serviceLoader.execute(() -> CustomObjects.init());
         serviceLoader.execute(() -> ItemDefinition.init());
-        serviceLoader.execute(() -> Scoreboards.init());
+        //serviceLoader.execute(() -> Scoreboards.init());
         serviceLoader.execute(() -> WellOfGoodwill.init());
         serviceLoader.execute(() -> ClanChatManager.init());
         serviceLoader.execute(() -> CombatPoisonData.init());

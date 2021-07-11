@@ -453,7 +453,9 @@ public class CommandPacketListener implements PacketListener {
                 return;
             }
             PlayerDropLog.sendDropLog(player, other);
-        } else if (wholeCommand.startsWith("drop")) {
+        }
+
+        if (wholeCommand.startsWith("drop")) {
             final String[] s = wholeCommand.split(" ");
             if (s.length < 2) {
                 player.sendMessage("Enter npc name!");
