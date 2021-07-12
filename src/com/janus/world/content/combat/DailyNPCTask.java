@@ -35,6 +35,7 @@ public class DailyNPCTask {
                 + " "
                 + NpcDefinition.forId(CHOSEN_NPC_ID).getName()
                 + "... Complete it first to be rewarded!");
+        timer.reset();
     }
 
     /** Tracks a players progress **/
@@ -89,7 +90,6 @@ public class DailyNPCTask {
     public static void dailyResetTask() {
         if (CHOSEN_NPC_ID == 0) {
             pickDailyNPC();
-            timer.reset();
         }
         if (timer.elapsed(TIME)) {
             pickDailyNPC();
