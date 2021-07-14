@@ -126,6 +126,12 @@ public class PlayerLoading {
             if (reader.has("should-give-boss-reward")) {
                 player.setShouldGiveBossReward(reader.get("should-give-boss-reward").getAsBoolean());
             }
+            if (reader.has("withdraw-as-note")) {
+                player.setNoteWithdrawal(reader.get("withdraw-as-note").getAsBoolean());
+            }
+            if (reader.has("placeholders")) {
+                player.setPlaceholders(reader.get("placeholders").getAsBoolean());
+            }
             if (reader.has("currentBossWave")) {
                 player.setCurrentBossWave(reader.get("currentBossWave").getAsInt());
             }

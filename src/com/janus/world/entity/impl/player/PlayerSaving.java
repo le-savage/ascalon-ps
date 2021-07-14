@@ -61,6 +61,8 @@ public class PlayerSaving {
             object.addProperty("has-played-new-barrows", new Boolean(player.isPlayedNewBarrows()));
             object.addProperty("has-used-boss-tier-tp", new Boolean(player.isUsedBossTeleport()));
             object.addProperty("should-give-boss-reward", new Boolean(player.isShouldGiveBossReward()));
+            object.addProperty("withdraw-as-note", new Boolean(player.isNoteWithdrawal()));
+            object.addProperty("placeholders", new Boolean(player.placeholdersEnabled()));
             object.addProperty("currentBossWave", new Integer(player.getCurrentBossWave()));
             object.addProperty("barrows-kc", new Integer(player.getBarrowsKC()));
             object.addProperty("money-pouch", new Long(player.getMoneyInPouch()));

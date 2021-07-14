@@ -98,6 +98,13 @@ public class ObjectActionPacketListener implements PacketListener {
                     return;
                 switch (gameObject.getId()) {
 
+                    case 22819:
+                        player.getPacketSender().sendClientRightClickRemoval().sendInterfaceRemoval();
+                        player.setDialogueActionId(player.getBankPinAttributes().hasBankPin() ? 8 : 7);
+                        DialogueManager.start(player,
+                                DialogueManager.getDialogues().get(player.getBankPinAttributes().hasBankPin() ? 12 : 9));
+                        break;
+
                     case 6189:
                         Smelting.openInterface(player);
                         break;

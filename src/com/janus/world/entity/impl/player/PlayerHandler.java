@@ -108,6 +108,9 @@ public class PlayerHandler {
 
         player.getRelations().setPrivateMessageId(1).onLogin(player).updateLists(true);
 
+
+
+
         player.getPacketSender().sendConfig(172, player.isAutoRetaliate() ? 1 : 0)
                 .sendTotalXp(player.getSkillManager().getTotalGainedExp())
                 .sendConfig(player.getFightType().getParentId(), player.getFightType().getChildId())
@@ -252,6 +255,10 @@ public class PlayerHandler {
                     + NpcDefinition.forId(DailyNPCTask.CHOSEN_NPC_ID).getName()
                     + ".. Complete it first to be rewarded!");
         }
+
+        System.out.println("Player "+player.getUsername() + " Placeholders : " + player.placeholdersEnabled());
+        player.getPacketSender().sendToggle(115, player.withdrawAsNote() ? 1 : 0).sendToggle(116, player.placeholdersEnabled() ? 1 : 0).sendToggle(304, player.swapMode() ? 1 : 0);
+
     }
 
     public static boolean handleLogout(Player player) {

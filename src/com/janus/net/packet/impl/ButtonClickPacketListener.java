@@ -1328,12 +1328,12 @@ public class ButtonClickPacketListener implements PacketListener {
             case 14921:
                 player.getPacketSender().sendMessage("Please visit the forums and ask for help in the support section.");
                 break;
-            case 5294:
+            /*case 5294:
                 player.getPacketSender().sendClientRightClickRemoval().sendInterfaceRemoval();
                 player.setDialogueActionId(player.getBankPinAttributes().hasBankPin() ? 8 : 7);
                 DialogueManager.start(player,
                         DialogueManager.getDialogues().get(player.getBankPinAttributes().hasBankPin() ? 12 : 9));
-                break;
+                break;*/
             case 27653:
                 if (!player.busy() && !player.getCombatBuilder().isBeingAttacked()
                         && !Dungeoneering.doingDungeoneering(player)) {
@@ -1432,17 +1432,26 @@ public class ButtonClickPacketListener implements PacketListener {
                 }
                 Bank.depositItems(player, player.getSummoning().getBeastOfBurden(), false);
                 break;
+            case 5294:
+                if (!player.isBanking() || player.getInterfaceId() != 5292)
+                    return;
+                player.setPlaceholders(!player.placeholdersEnabled());
+                player.getPacketSender().sendToggle(116, player.placeholdersEnabled() ? 1 : 0);
+                System.out.println("Pressed button. Updated status. Placeholders now "+player.placeholdersEnabled());
+                break;
             case 22008:
                 if (!player.isBanking() || player.getInterfaceId() != 5292)
                     return;
-                player.setNoteWithdrawal(!player.withdrawAsNote());
+                player.setNoteWithdrawal(!player.isNoteWithdrawal());
+                player.getPacketSender().sendToggle(115, player.isNoteWithdrawal() ? 1 : 0);
+                System.out.println("Pressed button. Updated status. Note withdraw now "+player.isNoteWithdrawal());
                 break;
             case 21000:
                 if (!player.isBanking() || player.getInterfaceId() != 5292)
                     return;
                 player.setSwapMode(false);
                 player.getPacketSender().sendConfig(304, 0).sendMessage("This feature is coming soon!");
-                // player.setSwapMode(!player.swapMode());
+                // player.setSwapMode(!player.swapMode()); //TODO REMOVE THE COMMENT
                 break;
             case 27009:
                 MoneyPouch.toBank(player);

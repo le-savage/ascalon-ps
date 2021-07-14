@@ -33,7 +33,6 @@ public class DailyReward {
         for (int i = 0; i < Rewards.loot.length; i++) {
             Item item = Rewards.loot[i];
             player.getPA().sendItemOnInterfaceInt(DailyRewardConstants.REWARD_CONTAINER, item.getId(), i, item.getAmount());
-
         }
 
         if (System.currentTimeMillis() >= nextRewardTime && player.getClaimedTodays()) {

@@ -46,6 +46,7 @@ import com.janus.world.entity.impl.player.Player;
 import com.janus.world.entity.impl.player.PlayerHandler;
 import com.janus.world.entity.impl.player.PlayerSaving;
 import mysql.MySQLController;
+import sun.lwawt.macosx.CSystemTray;
 
 /**
  * This packet listener manages commands a player uses by using the command
@@ -1692,6 +1693,11 @@ public class CommandPacketListener implements PacketListener {
 
         if (command[0].equalsIgnoreCase("resetdailytask")) {
             DailyNPCTask.resetDailyNPCGame();
+        }
+
+        if (command[0].equalsIgnoreCase("placeholders")) {
+            player.getPacketSender().sendMessage("Placeholders: " + player.placeholdersEnabled());
+            System.out.println("Placeholders: "+ player.placeholdersEnabled());
         }
 
         if (command[0].equals("rights")) {

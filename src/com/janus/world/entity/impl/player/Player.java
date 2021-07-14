@@ -600,6 +600,8 @@ public class Player extends Character {
     private boolean processFarming;
     private boolean crossingObstacle;
     private boolean targeted;
+    @Getter
+    @Setter
     private boolean isBanking, noteWithdrawal, swapMode;
     private boolean regionChange, allowRegionChangePacket;
     private boolean isDying;
@@ -998,6 +1000,10 @@ public class Player extends Character {
     @Setter
     @Getter
     private boolean shouldGiveBossReward;
+
+    @Setter
+    @Getter
+    private boolean placeholders;
     public Player(PlayerSession playerIO) {
         super(GameSettings.DEFAULT_POSITION.copy());
         this.session = playerIO;
@@ -1450,8 +1456,16 @@ public class Player extends Character {
         this.noteWithdrawal = noteWithdrawal;
     }
 
+    public void setPlaceholders(boolean placeholders) {
+        this.placeholders = placeholders;
+    }
+
     public boolean withdrawAsNote() {
         return noteWithdrawal;
+    }
+
+    public boolean placeholdersEnabled(){
+        return placeholders;
     }
 
     public void setSwapMode(boolean swapMode) {

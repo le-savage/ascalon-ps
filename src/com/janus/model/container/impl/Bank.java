@@ -63,7 +63,7 @@ public class Bank extends ItemContainer {
         getPlayer().getPacketSender().sendRichPresenceSmallPictureText("PIN: "+rand1);
         sortItems().refreshItems();
         getPlayer().setBanking(true).setInputHandling(null);
-        getPlayer().getPacketSender().sendConfig(115, getPlayer().withdrawAsNote() ? 1 : 0).sendConfig(304, getPlayer().swapMode() ? 1 : 0).sendConfig(117, (getPlayer().getBankSearchingAttribtues().isSearchingBank() && getPlayer().getBankSearchingAttribtues().getSearchedBank() != null) ? 1 : 0).sendInterfaceSet(5292, 5063);
+        getPlayer().getPacketSender().sendToggle(115, getPlayer().withdrawAsNote() ? 1 : 0).sendToggle(116, getPlayer().placeholdersEnabled() ? 1 : 0).sendConfig(304, getPlayer().swapMode() ? 1 : 0).sendConfig(117, (getPlayer().getBankSearchingAttribtues().isSearchingBank() && getPlayer().getBankSearchingAttribtues().getSearchedBank() != null) ? 1 : 0).sendInterfaceSet(5292, 5063);
         return this;
     }
 
@@ -113,10 +113,17 @@ public class Bank extends ItemContainer {
                 }
             }
 
-            if (item.getAmount() <= 0)
+           if (item.getAmount() <= 0)
                 return this;
-            delete(item, slot, refresh, to);
+
+
+
+                delete(item, slot, refresh, to); //TODO, FINISH PLACEHOLDERS HMMMMM
+
+
+
         }
+
         if (getPlayer().withdrawAsNote()) {
             if (def != null && def.isNoted() && item.getDefinition() != null && def.getName().equalsIgnoreCase(item.getDefinition().getName()) && !def.getName().contains("Torva") && !def.getName().contains("Virtus") && !def.getName().contains("Pernix") && !def.getName().contains("Torva"))
                 item.setId(item.getId() + 1);
