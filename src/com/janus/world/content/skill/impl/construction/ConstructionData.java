@@ -187,6 +187,7 @@ public class ConstructionData {
             this.npcId = npcId;
         }
     }
+
     public static final int LIT_CANDLE = 34, PLANK = 960, OAK_PLANK = 8778,
             TEAK_PLANK = 8780, MAHOGANY_PLANK = 8782, GOLD_LEAF = 8784,
             MARBLE_BLOCK = 8786, MAGIC_STONE = 8788, CLOTH = 8790,
@@ -214,7 +215,7 @@ public class ConstructionData {
         if (hs == null)
             return 0;
         GameObjectDefinition objectDef = GameObjectDefinition.forId(objectId);
-        int finalXTile = 0 + getRotatedLandscapeChunkX(rotation,
+        int finalXTile = getRotatedLandscapeChunkX(rotation,
                 objectDef.getSizeY(), hs.xOffset, hs.yOffset,
                 objectDef.getSizeX(), hs.getRotation(0));
         return finalXTile;
@@ -234,7 +235,7 @@ public class ConstructionData {
     public static int getYOffsetForObjectId(int objectId, int offsetX,
                                             int offsetY, int rotation, int objectRot) {
         GameObjectDefinition objectDef = GameObjectDefinition.forId(objectId);
-        int finalYTile = 0 + getRotatedLandscapeChunkY(offsetY,
+        int finalYTile = getRotatedLandscapeChunkY(offsetY,
                 objectDef.getSizeY(), rotation, objectDef.getSizeX(), offsetX,
                 objectRot);
         return finalYTile;
@@ -243,7 +244,7 @@ public class ConstructionData {
     public static int getXOffsetForObjectId(int objectId, int offsetX,
                                             int offsetY, int rotation, int objectRot) {
         GameObjectDefinition objectDef = GameObjectDefinition.forId(objectId);
-        int finalXTile = 0 + getRotatedLandscapeChunkX(rotation,
+        int finalXTile = getRotatedLandscapeChunkX(rotation,
                 objectDef.getSizeY(), offsetX, offsetY, objectDef.getSizeX(),
                 objectRot);
         return finalXTile;
@@ -252,7 +253,7 @@ public class ConstructionData {
     public static int getXOffsetForObjectId(int objectId, HotSpots hs,
                                             int rotation) {
         GameObjectDefinition objectDef = GameObjectDefinition.forId(objectId);
-        int finalXTile = 0 + getRotatedLandscapeChunkX(rotation,
+        int finalXTile = getRotatedLandscapeChunkX(rotation,
                 objectDef.getSizeY(), hs.getXOffset(), hs.getYOffset(),
                 objectDef.getSizeX(), hs.getRotation(0));
         return finalXTile;
@@ -261,7 +262,7 @@ public class ConstructionData {
     public static int getYOffsetForObjectId(int objectId, HotSpots hs,
                                             int rotation) {
         GameObjectDefinition objectDef = GameObjectDefinition.forId(objectId);
-        int finalYTile = 0 + getRotatedLandscapeChunkY(hs.getYOffset(),
+        int finalYTile = getRotatedLandscapeChunkY(hs.getYOffset(),
                 objectDef.getSizeY(), rotation, objectDef.getSizeX(),
                 hs.getXOffset(), hs.getRotation(0));
         return finalYTile;
@@ -367,10 +368,13 @@ public class ConstructionData {
                 7, 13588, 30, 2, 8316, new int[][]{{CLOTH, 2}}), RUG(7,
                 13591, 60, 13, 8317, new int[][]{{CLOTH, 4}}), OPULENT_RUG(
                 7, 13594, 360, 65, 8318, new int[][]{{CLOTH, 4},
-                {GOLD_LEAF, 1}}), WOODEN_BOOKCASE(8, 13597, 115, 4,
-                8319, new int[][]{{PLANK, 4}, {NAILS, 4}}), OAK_BOOKCASE(
-                8, 13598, 180, 29, 8320, new int[][]{{OAK_PLANK, 3}}), MAHOGANY_BOOKCASE(
-                8, 13599, 420, 40, 8321, new int[][]{{MAHOGANY_PLANK, 3}}), CLAY_FIREPLACE(
+                {GOLD_LEAF, 1}}),
+
+        WOODEN_BOOKCASE(8, 13597, 115, 4,8319, new int[][]{{PLANK, 4}, {NAILS, 4}}),
+        OAK_BOOKCASE(8, 13598, 180, 29, 8320, new int[][]{{OAK_PLANK, 3}}),
+        MAHOGANY_BOOKCASE(8, 13599, 420, 40, 8321, new int[][]{{MAHOGANY_PLANK, 3}}),
+
+        CLAY_FIREPLACE(
                 9, 13609, 30, 3, 8325, new int[][]{{SOFT_CLAY, 3}}), STONE_FIREPLACE(
                 9, 13611, 40, 33, 8326, new int[][]{{LIMESTONE_BRICK, 2}}), MARBLE_FIREPLACE(
                 9, 13613, 500, 63, 8327, new int[][]{{MARBLE_BLOCK, 1}}), TORN_CURTAINS(
@@ -1557,17 +1561,16 @@ public class ConstructionData {
         /**
          * Parlour
          */
-        PARLOUR_CHAIR_1(6, 15410, 2, 4, 2, ConstructionData.PARLOUR, 11), PARLOUR_CHAIR_2(
-                6, 15412, 4, 3, 2, ConstructionData.PARLOUR), PARLOUR_CHAIR_3(
-                6, 15411, 5, 4, 1, ConstructionData.PARLOUR, 11), PARLOUR_RUG_1(
-                7, 15414, 2, 2, 0, ConstructionData.PARLOUR, 22, new Dimension(
-                5, 5)), PARLOUR_RUG_2(7, 15415, 2, 2, 0,
-                ConstructionData.PARLOUR, 22, new Dimension(5, 5)), PARLOUR_RUG_3(
-                7, 15413, 2, 2, 0, ConstructionData.PARLOUR, 22, new Dimension(
-                5, 5)), PARLOUR_BOOKCASE_1(8, 15416, 0, 1, 0,
-                ConstructionData.PARLOUR), PARLOUR_BOOKCASE_2(8, 15416, 7, 1,
-                2, ConstructionData.PARLOUR), PARLOUR_FIREPLACE(9, 15418, 3, 7,
-                1, ConstructionData.PARLOUR), PARLOUR_CURTAIN_1(10, 15419, 0,
+        PARLOUR_CHAIR_1(6, 15410, 2, 4, 2, ConstructionData.PARLOUR, 11),
+        PARLOUR_CHAIR_2(6, 15412, 4, 3, 2, ConstructionData.PARLOUR),
+        PARLOUR_CHAIR_3(6, 15411, 5, 4, 1, ConstructionData.PARLOUR, 11),
+        PARLOUR_RUG_1(7, 15414, 2, 2, 0, ConstructionData.PARLOUR, 22, new Dimension(5, 5)),
+        PARLOUR_RUG_2(7, 15415, 2, 2, 0, ConstructionData.PARLOUR, 22, new Dimension(5, 5)),
+        PARLOUR_RUG_3(7, 15413, 2, 2, 0, ConstructionData.PARLOUR, 22, new Dimension(5, 5)),
+
+        PARLOUR_BOOKCASE_1(8, 15416, 0, 1, 0,ConstructionData.PARLOUR),
+        PARLOUR_BOOKCASE_2(8, 15416, 7, 1,2, ConstructionData.PARLOUR),
+        PARLOUR_FIREPLACE(9, 15418, 3, 7,1, ConstructionData.PARLOUR), PARLOUR_CURTAIN_1(10, 15419, 0,
                 2, 0, ConstructionData.PARLOUR, 5, true), PARLOUR_CURTAIN_2(10,
                 15419, 0, 5, 0, ConstructionData.PARLOUR, 5, true), PARLOUR_CURTAIN_3(
                 10, 15419, 2, 7, 1, ConstructionData.PARLOUR, 5, true), PARLOUR_CURTAIN_4(

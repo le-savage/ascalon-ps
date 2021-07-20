@@ -125,7 +125,9 @@ public class ItemContainerActionPacketListener implements PacketListener {
             case Bank.INTERFACE_ID:
                 if (!player.isBanking() || player.getInterfaceId() != 5292)
                     break;
-                player.getBank(player.getCurrentBankTab()).switchItem(player.getInventory(), item, slot, true, true);
+                int amount = player.getAmountToWithdraw();
+                Item modifiedItem = new Item(id, amount);
+                player.getBank(player.getCurrentBankTab()).switchItem(player.getInventory(), modifiedItem, slot, true, true);
                 player.getBank(player.getCurrentBankTab()).open();
                 break;
             case Bank.INVENTORY_INTERFACE_ID:

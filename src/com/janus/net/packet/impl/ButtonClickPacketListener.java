@@ -10,9 +10,7 @@ import com.janus.model.Skill;
 import com.janus.model.container.impl.Bank;
 import com.janus.model.container.impl.Bank.BankSearchAttributes;
 import com.janus.model.definitions.WeaponInterfaces.WeaponInterface;
-import com.janus.model.input.impl.EnterClanChatToJoin;
-import com.janus.model.input.impl.EnterSyntaxToBankSearchFor;
-import com.janus.model.input.impl.PosInput;
+import com.janus.model.input.impl.*;
 import com.janus.net.packet.Packet;
 import com.janus.net.packet.PacketListener;
 import com.janus.util.Misc;
@@ -185,6 +183,66 @@ public class ButtonClickPacketListener implements PacketListener {
         }
 
         switch (id) {
+
+            case 22051:
+                player.getPacketSender().sendString(22046, "1");
+                player.setAmountToWithdraw(1);
+                break;
+
+            case 22050:
+                player.getPacketSender().sendString(22046, "5");
+                player.setAmountToWithdraw(5);
+                break;
+
+            case 22045:
+                player.getPacketSender().sendString(22046, "10");
+                player.setAmountToWithdraw(10);
+                break;
+
+            case 22044:
+                player.setInputHandling(new EnterAmountToWithdraw());
+                player.getPacketSender().sendEnterAmountPrompt("How many would you like to withdraw?");
+                break;
+
+            case 22043:
+                player.getPacketSender().sendString(22046, "All");
+                player.setAmountToWithdraw(Integer.MAX_VALUE);
+                break;
+
+
+
+
+            case 22052:
+                int quantity = player.getAmountToWithdraw();
+                int presses = player.getWithdrawButtonPresses();
+                presses ++;
+                player.setWithdrawButtonPresses(presses);
+
+                if (quantity == 1) {
+                    quantity = 5;
+                    player.getPacketSender().sendString(22046, ""+quantity);
+                    player.setAmountToWithdraw(quantity);
+                }
+                if (quantity == 5) {
+                    quantity = 10;
+                    player.getPacketSender().sendString(22046, ""+quantity);
+                    player.setAmountToWithdraw(quantity);
+                }
+                if (quantity == 10) {
+                    player.setInputHandling(new EnterAmountToWithdraw());
+                    player.getPacketSender().sendEnterAmountPrompt("How many would you like to withdraw?");
+                }
+                if (quantity > 10 && quantity < Integer.MAX_VALUE) {
+                    player.getPacketSender().sendString(22046, "All");
+                    player.setAmountToWithdraw(Integer.MAX_VALUE);
+                }
+                if (quantity == Integer.MAX_VALUE) {
+                    quantity = 1;
+                    player.getPacketSender().sendString(22046, ""+quantity);
+                    player.setAmountToWithdraw(quantity);
+                }
+
+               break;
 
             case 6033:
                 if (!player.getClickDelay().elapsed(30000) || player.getLocation() == Location.INSTANCE_ARENA) {

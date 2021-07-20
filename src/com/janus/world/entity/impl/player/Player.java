@@ -569,6 +569,12 @@ public class Player extends Character {
     private int poisonImmunity;
     private int shadowState;
     private int effigy;
+    @Setter
+    @Getter
+    private int withdrawButtonPresses = 0;
+    @Setter
+    @Getter
+    private int amountToWithdraw = 1;
     private int dfsCharges;
     private int playerViewingIndex;
     private int staffOfLightEffect;

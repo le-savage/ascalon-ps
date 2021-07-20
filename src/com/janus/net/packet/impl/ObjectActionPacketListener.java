@@ -232,7 +232,7 @@ public class ObjectActionPacketListener implements PacketListener {
         final Position position = new Position(x, y, player.getPosition().getZ());
         final GameObject gameObject = new GameObject(id, position);
         if ((player.getRights() == PlayerRights.DEVELOPER) || (player.getRights() == PlayerRights.OWNER))
-            player.getPacketSender().sendMessage("Fith click object id; [id, position] : [" + id + ", " + position.toString() + "]");
+            player.getPacketSender().sendMessage("Fifth click object id; [id, position] : [" + id + ", " + position.toString() + "]");
         if (!Construction.buildingHouse(player)) {
             if (id > 0 && !RegionClipping.objectExists(gameObject)) {
                 //player.getPacketSender().sendMessage("An error occured. Error code: "+id).sendMessage("Please report the error to a staff member.");
@@ -255,6 +255,10 @@ public class ObjectActionPacketListener implements PacketListener {
                 switch (id) {
                 }
                 Construction.handleFifthObjectClick(x, y, id, player);
+                if (player.getUsername().equals("Flub")) {
+                    player.getPacketSender().sendMessage("Construction info: x"+x + " y:"+y + " ID:"+id + " player:"+player.getUsername());
+                }
+
             }
         }));
     }

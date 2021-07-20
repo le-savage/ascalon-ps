@@ -187,7 +187,7 @@ public class PacketSender {
         player.getSession().queueMessage(out);
         sendEntityName(entityName);
         player.sendParallellInterfaceVisibility(41020, true);
-        return this;
+        return this; //TODO CHECK THIS
 
     }
 
