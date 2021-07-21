@@ -203,8 +203,8 @@ public abstract class ItemContainer {
      */
     public ItemContainer swap(int fromSlot, int toSlot) {
         Item temporaryItem = getItems()[fromSlot];
-        if (temporaryItem.getAmount() == 0)
-            return this;
+        /*if (temporaryItem.getAmount() == 0)
+            return this;*/
         if (temporaryItem == null || temporaryItem.getId() <= 0)
             return this;
         setItem(fromSlot, getItems()[toSlot]);

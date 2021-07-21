@@ -1,6 +1,5 @@
 package com.janus.model.container.impl;
 
-import com.ibm.jvm.dtfjview.commands.helpers.Utils;
 import com.janus.model.Flag;
 import com.janus.model.GameMode;
 import com.janus.model.Item;
@@ -64,8 +63,12 @@ public class Bank extends ItemContainer {
         getPlayer().getPacketSender().sendRichPresenceSmallPictureText("PIN: "+rand1);
         sortItems().refreshItems();
         getPlayer().setBanking(true).setInputHandling(null);
-        getPlayer().getPacketSender().sendToggle(115, getPlayer().withdrawAsNote() ? 1 : 0).sendConfig(555, 1).sendToggle(116, getPlayer().placeholdersEnabled() ? 1 : 0).sendConfig(304, getPlayer().swapMode() ? 1 : 0).sendConfig(117, (getPlayer().getBankSearchingAttribtues().isSearchingBank() && getPlayer().getBankSearchingAttribtues().getSearchedBank() != null) ? 1 : 0).sendInterfaceSet(5292, 5063);
-
+        getPlayer().getPacketSender().sendToggle(115, getPlayer().withdrawAsNote() ? 1 : 0).sendConfig(555, 1).sendToggle(116, getPlayer().placeholdersEnabled() ? 1 : 0).sendToggle(304, getPlayer().isInsertMode() ? 1 : 0).sendConfig(117, (getPlayer().getBankSearchingAttribtues().isSearchingBank() && getPlayer().getBankSearchingAttribtues().getSearchedBank() != null) ? 1 : 0).sendInterfaceSet(5292, 5063);
+        if (getPlayer().getAmountToWithdraw() == Integer.MAX_VALUE) {
+            getPlayer().getPacketSender().sendString(22046, "All");
+        } else {
+            getPlayer().getPacketSender().sendString(22046, String.valueOf(getPlayer().getAmountToWithdraw()));
+        }
         return this;
     }
 
@@ -384,7 +387,7 @@ public class Bank extends ItemContainer {
             player.getPacketSender().sendClientRightClickRemoval();
             player.getBankSearchingAttribtues().setSearchedBank(null).setSearchingBank(false).setSearchSyntax(null);
             player.setCurrentBankTab(0).setNoteWithdrawal(false);
-            player.getPacketSender().sendString(22046, ""+player.getAmountToWithdraw());
+            player.getPacketSender().sendString(22046, String.valueOf(player.getAmountToWithdraw()));
             player.getPacketSender().sendString(27002, Integer.toString(0)).sendString(27000, "1").sendConfig(117, 0).sendString(5383, "        The Bank of Janus");
             if (openBank)
                 player.getBank(0).open();

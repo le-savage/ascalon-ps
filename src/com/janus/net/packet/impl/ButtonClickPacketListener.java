@@ -1,7 +1,6 @@
 package com.janus.net.packet.impl;
 
 import com.janus.GameSettings;
-import com.janus.engine.task.impl.NPCDeathTask;
 import com.janus.model.Difficulty;
 import com.janus.model.Locations.Location;
 import com.janus.model.PlayerRights;
@@ -220,12 +219,12 @@ public class ButtonClickPacketListener implements PacketListener {
 
                 if (quantity == 1) {
                     quantity = 5;
-                    player.getPacketSender().sendString(22046, ""+quantity);
+                    player.getPacketSender().sendString(22046, String.valueOf(quantity));
                     player.setAmountToWithdraw(quantity);
                 }
                 if (quantity == 5) {
                     quantity = 10;
-                    player.getPacketSender().sendString(22046, ""+quantity);
+                    player.getPacketSender().sendString(22046, String.valueOf(quantity));
                     player.setAmountToWithdraw(quantity);
                 }
                 if (quantity == 10) {
@@ -238,7 +237,7 @@ public class ButtonClickPacketListener implements PacketListener {
                 }
                 if (quantity == Integer.MAX_VALUE) {
                     quantity = 1;
-                    player.getPacketSender().sendString(22046, ""+quantity);
+                    player.getPacketSender().sendString(22046, String.valueOf(quantity));
                     player.setAmountToWithdraw(quantity);
                 }
 
@@ -1493,24 +1492,36 @@ public class ButtonClickPacketListener implements PacketListener {
             case 5294:
                 if (!player.isBanking() || player.getInterfaceId() != 5292)
                     return;
+                if (!player.getRights().isStaff()){
+                    player.getPacketSender().sendMessage("This feature is being tested and will be enabled shortly!");
+                    return;
+                }
+
                 player.setPlaceholders(!player.placeholdersEnabled());
                 player.getPacketSender().sendToggle(116, player.placeholdersEnabled() ? 1 : 0);
-                System.out.println("Pressed button. Updated status. Placeholders now "+player.placeholdersEnabled());
+                //System.out.println("Pressed button. Updated status. Placeholders now "+player.placeholdersEnabled());
                 break;
             case 22008:
                 if (!player.isBanking() || player.getInterfaceId() != 5292)
                     return;
                 player.setNoteWithdrawal(!player.isNoteWithdrawal());
                 player.getPacketSender().sendToggle(115, player.isNoteWithdrawal() ? 1 : 0);
-                System.out.println("Pressed button. Updated status. Note withdraw now "+player.isNoteWithdrawal());
+                //System.out.println("Pressed button. Updated status. Note withdraw now "+player.isNoteWithdrawal());
                 break;
-            case 21000:
+            case 22053:
                 if (!player.isBanking() || player.getInterfaceId() != 5292)
                     return;
-                player.setSwapMode(false);
-                player.getPacketSender().sendConfig(304, 0).sendMessage("This feature is coming soon!");
-                // player.setSwapMode(!player.swapMode()); //TODO REMOVE THE COMMENT
+                player.setInsertMode(!player.isInsertMode());
+                player.getPacketSender().sendToggle(304, player.isInsertMode() ? 1 : 0);
                 break;
+
+            case 22047:
+                if (!player.isBanking() || player.getInterfaceId() != 5292)
+                    return;
+
+                    player.getPacketSender().sendMessage("This feature is being tested and will be enabled shortly!"); //TODO Finish view equipment
+                break;
+
             case 27009:
                 MoneyPouch.toBank(player);
                 break;

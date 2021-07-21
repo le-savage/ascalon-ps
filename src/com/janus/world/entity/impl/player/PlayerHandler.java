@@ -257,7 +257,7 @@ public class PlayerHandler {
         }
 
         System.out.println("Player "+player.getUsername() + " Placeholders : " + player.placeholdersEnabled());
-        player.getPacketSender().sendToggle(115, player.withdrawAsNote() ? 1 : 0).sendToggle(116, player.placeholdersEnabled() ? 1 : 0).sendToggle(304, player.swapMode() ? 1 : 0);
+        player.getPacketSender().sendToggle(115, player.withdrawAsNote() ? 1 : 0).sendToggle(116, player.placeholdersEnabled() ? 1 : 0).sendToggle(304, player.isInsertMode() ? 1 : 0);
 
     }
 

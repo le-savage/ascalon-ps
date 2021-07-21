@@ -1,6 +1,6 @@
 {
-  "total-play-time-ms": 120786,
-  "username": "Flubtest",
+  "total-play-time-ms": 51787,
+  "username": "Flubtest1",
   "password": "HodgeTwins1",
   "email": "null",
   "staff-rights": "PLAYER",
@@ -11,7 +11,7 @@
   "loyalty-title": "NONE",
   "position": {
     "x": 2701,
-    "y": 5352,
+    "y": 5351,
     "z": 0
   },
   "online-status": "ON",
@@ -23,13 +23,14 @@
   "should-give-boss-reward": false,
   "withdraw-as-note": false,
   "placeholders": false,
+  "swapmode": false,
   "currentBossWave": 0,
   "barrows-kc": 0,
   "money-pouch": 0,
   "donated": 0,
-  "next-reward": 1626910081065,
+  "next-reward": 0,
   "reward-day": 0,
-  "claimed-todays-reward": true,
+  "claimed-todays-reward": false,
   "minutes-bonus-exp": -1,
   "pickupValue": 100000,
   "total-gained-exp": 0,
@@ -37,8 +38,8 @@
   "achievement-points": 0,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 32,
-  "total-loyalty-points": 32.0,
+  "loyalty-points": 13,
+  "total-loyalty-points": 13.0,
   "voting-points": 0,
   "slayer-points": 0,
   "pk-points": 0,
@@ -63,9 +64,9 @@
   "auto-retaliate": false,
   "xp-locked": false,
   "veng-cast": false,
-  "last-veng": 695128849,
+  "last-veng": 18590,
   "fight-type": "UNARMED_PUNCH",
-  "sol-effect": -1,
+  "sol-effect": 0,
   "skull-timer": 0,
   "accept-aid": false,
   "poison-damage": 0,
@@ -293,22 +294,67 @@
   },
   "inventory": [
     {
-      "id": 6585,
+      "id": 2441,
+      "amount": 50,
+      "slot": 0
+    },
+    {
+      "id": 2437,
+      "amount": 50,
+      "slot": 0
+    },
+    {
+      "id": 2443,
+      "amount": 50,
+      "slot": 0
+    },
+    {
+      "id": 3025,
+      "amount": 50,
+      "slot": 0
+    },
+    {
+      "id": 2435,
+      "amount": 30,
+      "slot": 0
+    },
+    {
+      "id": 392,
+      "amount": 300,
+      "slot": 0
+    },
+    {
+      "id": 995,
+      "amount": 10000000,
+      "slot": 0
+    },
+    {
+      "id": 1323,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 18768,
+      "id": 1333,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 558,
+      "id": 11818,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 1381,
+      "id": 11838,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 6568,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 841,
       "amount": 1,
       "slot": 0
     },
@@ -318,88 +364,43 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 882,
+      "amount": 500,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 892,
+      "amount": 500,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 18768,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 1381,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 558,
+      "amount": 1000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 557,
+      "amount": 1000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
+      "id": 555,
+      "amount": 1000,
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
+      "id": 554,
+      "amount": 1000,
       "slot": 0
     },
     {
@@ -505,103 +506,7 @@
       "slot": 0
     }
   ],
-  "bank-0": [
-    {
-      "id": 2440,
-      "amount": 50,
-      "slot": 0
-    },
-    {
-      "id": 2436,
-      "amount": 50,
-      "slot": 0
-    },
-    {
-      "id": 2442,
-      "amount": 50,
-      "slot": 0
-    },
-    {
-      "id": 3024,
-      "amount": 50,
-      "slot": 0
-    },
-    {
-      "id": 2434,
-      "amount": 30,
-      "slot": 0
-    },
-    {
-      "id": 391,
-      "amount": 300,
-      "slot": 0
-    },
-    {
-      "id": 995,
-      "amount": 10000000,
-      "slot": 0
-    },
-    {
-      "id": 1323,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 1333,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 11818,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 11838,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 6568,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 841,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 882,
-      "amount": 500,
-      "slot": 0
-    },
-    {
-      "id": 892,
-      "amount": 500,
-      "slot": 0
-    },
-    {
-      "id": 558,
-      "amount": 999,
-      "slot": 0
-    },
-    {
-      "id": 557,
-      "amount": 1000,
-      "slot": 0
-    },
-    {
-      "id": 555,
-      "amount": 1000,
-      "slot": 0
-    },
-    {
-      "id": 554,
-      "amount": 1000,
-      "slot": 0
-    }
-  ],
+  "bank-0": [],
   "bank-1": [],
   "bank-2": [],
   "bank-3": [],

@@ -35,14 +35,14 @@ public class SwitchItemSlotPacketListener implements PacketListener {
                     if (fromSlot == toSlot)
                         return;
                     if (player.getBankSearchingAttribtues().isSearchingBank()) {
-                        if (player.swapMode()) {
+                        if (player.insertMode()) {
                             player.getBankSearchingAttribtues().getSearchedBank().shiftSwap(fromSlot, toSlot);
                         } else {
                             player.getBankSearchingAttribtues().getSearchedBank().swap(fromSlot, toSlot).sortItems();
                         }
                         player.getBankSearchingAttribtues().getSearchedBank().open();
                     } else {
-                        if (player.swapMode()) {
+                        if (player.insertMode()) {
                             player.getBank(player.getCurrentBankTab()).shiftSwap(fromSlot, toSlot);
                         } else {
                             player.getBank(player.getCurrentBankTab()).swap(fromSlot, toSlot);

@@ -608,7 +608,7 @@ public class Player extends Character {
     private boolean targeted;
     @Getter
     @Setter
-    private boolean isBanking, noteWithdrawal, swapMode;
+    private boolean isBanking, noteWithdrawal, insertMode;
     private boolean regionChange, allowRegionChangePacket;
     private boolean isDying;
     private boolean isRunning = true, isResting;
@@ -1474,12 +1474,12 @@ public class Player extends Character {
         return placeholders;
     }
 
-    public void setSwapMode(boolean swapMode) {
-        this.swapMode = swapMode;
+    public void setInsertMode(boolean insertMode) {
+        this.insertMode = insertMode;
     }
 
-    public boolean swapMode() {
-        return swapMode;
+    public boolean insertMode() {
+        return insertMode;
     }
 
     public boolean isShopping() {

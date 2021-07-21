@@ -17,7 +17,6 @@ import com.janus.world.content.KillsTracker.KillsEntry;
 import com.janus.world.content.LoyaltyProgramme.LoyaltyTitles;
 import com.janus.world.content.combat.magic.CombatSpells;
 import com.janus.world.content.combat.weapon.FightType;
-import com.janus.world.content.grandexchange.GrandExchangeSlot;
 import com.janus.world.content.skill.SkillManager.Skills;
 import com.janus.world.content.skill.impl.construction.ConstructionSave;
 import com.janus.world.content.skill.impl.slayer.SlayerMaster;
@@ -131,6 +130,9 @@ public class PlayerLoading {
             }
             if (reader.has("placeholders")) {
                 player.setPlaceholders(reader.get("placeholders").getAsBoolean());
+            }
+            if (reader.has("insertmode")) {
+                player.setInsertMode(reader.get("insertmode").getAsBoolean());
             }
             if (reader.has("currentBossWave")) {
                 player.setCurrentBossWave(reader.get("currentBossWave").getAsInt());

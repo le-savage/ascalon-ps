@@ -1,5 +1,5 @@
 {
-  "total-play-time-ms": 241212024,
+  "total-play-time-ms": 261880847,
   "username": "Flub",
   "password": "HodgeTwins1",
   "email": "null",
@@ -10,8 +10,8 @@
   "janus-points": 0,
   "loyalty-title": "NONE",
   "position": {
-    "x": 2704,
-    "y": 5349,
+    "x": 2701,
+    "y": 5351,
     "z": 0
   },
   "online-status": "ON",
@@ -23,12 +23,13 @@
   "should-give-boss-reward": true,
   "withdraw-as-note": false,
   "placeholders": false,
+  "insertmode": true,
   "currentBossWave": 1,
   "barrows-kc": 0,
   "money-pouch": 85537341,
   "donated": 10,
-  "next-reward": 1626900908455,
-  "reward-day": 13,
+  "next-reward": 1626994856963,
+  "reward-day": 14,
   "claimed-todays-reward": true,
   "minutes-bonus-exp": -1,
   "pickupValue": 2000,
@@ -37,8 +38,8 @@
   "achievement-points": 21,
   "dung-tokens": 0,
   "commendations": 0,
-  "loyalty-points": 29104008,
-  "total-loyalty-points": 2.9104008E7,
+  "loyalty-points": 30173008,
+  "total-loyalty-points": 3.0173008E7,
   "voting-points": 342222165,
   "slayer-points": 4,
   "pk-points": 0,
@@ -63,7 +64,7 @@
   "auto-retaliate": false,
   "xp-locked": false,
   "veng-cast": true,
-  "last-veng": 1624857008973,
+  "last-veng": 2044636385,
   "fight-type": "UNARMED_KICK",
   "sol-effect": 0,
   "skull-timer": 0,
@@ -958,23 +959,23 @@
       "slot": 0
     },
     {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": -1,
-      "amount": 0,
-      "slot": 0
-    },
-    {
-      "id": 8778,
+      "id": 564,
       "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 562,
+      "amount": 3,
+      "slot": 0
+    },
+    {
+      "id": 9075,
+      "amount": 2,
+      "slot": 0
+    },
+    {
+      "id": 565,
+      "amount": 5000,
       "slot": 0
     },
     {
@@ -1187,11 +1188,6 @@
       "slot": 0
     },
     {
-      "id": 1631,
-      "amount": 298,
-      "slot": 0
-    },
-    {
       "id": 8130,
       "amount": 0,
       "slot": 0
@@ -1202,22 +1198,17 @@
       "slot": 0
     },
     {
-      "id": 4151,
-      "amount": 1,
-      "slot": 0
-    },
-    {
-      "id": 11732,
-      "amount": 1,
-      "slot": 0
-    },
-    {
       "id": 4917,
       "amount": 1,
       "slot": 0
     },
     {
-      "id": 6476,
+      "id": 555,
+      "amount": 200000,
+      "slot": 0
+    },
+    {
+      "id": 8778,
       "amount": 1,
       "slot": 0
     },
@@ -1227,13 +1218,13 @@
       "slot": 0
     },
     {
-      "id": 555,
-      "amount": 200000,
+      "id": 9075,
+      "amount": 199998,
       "slot": 0
     },
     {
-      "id": 554,
-      "amount": 200000,
+      "id": 564,
+      "amount": 199999,
       "slot": 0
     },
     {
@@ -1242,27 +1233,32 @@
       "slot": 0
     },
     {
-      "id": 564,
-      "amount": 200000,
-      "slot": 0
-    },
-    {
-      "id": 562,
-      "amount": 200000,
-      "slot": 0
-    },
-    {
       "id": 566,
       "amount": 200000,
       "slot": 0
     },
     {
-      "id": 9075,
-      "amount": 200000,
+      "id": 11732,
+      "amount": 1,
       "slot": 0
     },
     {
-      "id": 563,
+      "id": 1631,
+      "amount": 298,
+      "slot": 0
+    },
+    {
+      "id": 6476,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 4151,
+      "amount": 1,
+      "slot": 0
+    },
+    {
+      "id": 554,
       "amount": 200000,
       "slot": 0
     },
@@ -1273,6 +1269,16 @@
     },
     {
       "id": 560,
+      "amount": 200000,
+      "slot": 0
+    },
+    {
+      "id": 562,
+      "amount": 199997,
+      "slot": 0
+    },
+    {
+      "id": 563,
       "amount": 200000,
       "slot": 0
     }
