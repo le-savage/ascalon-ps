@@ -294,7 +294,7 @@ public class PlayerHandler {
                 }
 
 
-                if (player.getRights() == PlayerRights.MODERATOR || player.getRights() == PlayerRights.ADMINISTRATOR || player.getRights() == PlayerRights.SUPPORT || player.getRights() == PlayerRights.DEVELOPER || player.getRights() == PlayerRights.OWNER || player.getRights() == PlayerRights.COMMUNITYMANAGER) {
+                if (player.getRights().isStaff()) {
                     StaffList.logout(player);
                 }
                 Hunter.handleLogout(player);
